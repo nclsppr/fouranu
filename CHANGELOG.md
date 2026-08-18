@@ -1,0 +1,11 @@
+# Changelog
+
+Ce fichier trace chaque changement livré avec son impact observable. Git reste
+la source du diff technique exhaustif et les ADR expliquent les décisions
+importantes.
+
+## Non publié
+
+- Initialisation locale de Jupiter comme exploration depuis Project Foundation `v0.5.2`.
+- Ajout d'une étude de faisabilité datée sur le référencement, l'affiliation, X et la niche pizza.
+- Définition d'une expérience de 90 jours avec budget, métriques et conditions d'arrêt.

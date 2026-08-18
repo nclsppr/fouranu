@@ -9,10 +9,14 @@ Le modèle est possible, mais pas sous sa forme la plus agressive.
 - Un seul site expert est le bon point de départ. Une ferme de micro-sites disperse l'autorité, le budget de tests et la maintenance, tout en augmentant les risques de pages satellites, d'affiliation pauvre et de contenu produit à grande échelle.
 - Un bot X qui cherche des questions par mots-clés puis répond spontanément avec un lien doit être exclu. X interdit précisément cette automatisation non sollicitée.
 - Amazon peut monétiser les petits accessoires, mais ses taux ne suffisent probablement pas à porter seul une forte ambition économique.
-- La meilleure forme de Jupiter est un laboratoire de décision : données structurées, mesures originales, sélecteur, comparaisons explicables et, plus tard, demandes de devis qualifiées.
+- La meilleure forme de Jupiter est un produit en deux temps : une Saison 0 —
+  Observatoire avec données structurées et sources tierces traçables, puis un
+  laboratoire avec mesures originales dès que le matériel est disponible.
 - La pizza napolitaine est une bonne première niche à tester, pas encore une décision de marque. Elle combine produits visuels, achats de 300 à 1 500 euros pour l'amateur, matériel professionnel beaucoup plus cher et plusieurs programmes directs. Son principal défaut est le coût d'accès à des produits réellement testables.
 
-La décision recommandée est donc de financer une preuve limitée, pas de construire immédiatement un réseau de sites.
+La décision recommandée est donc de lancer immédiatement une offensive
+documentaire limitée, pas d'attendre passivement le matériel ni de construire
+un réseau de sites.
 
 ## Ce que le produit doit apporter
 
@@ -21,13 +25,19 @@ Le produit ne vend pas des articles. Il réduit le risque d'un achat.
 Pour la première tranche, l'utilisateur est un amateur francophone exigeant qui hésite entre plusieurs fours et doit arbitrer budget, intérieur ou extérieur, énergie, place, température, débit et entretien. La réponse utile combine :
 
 1. un sélecteur par contraintes ;
-2. un protocole de test public ;
-3. des mesures de sole et de voûte, temps de chauffe et de récupération, consommation et débit ;
-4. des photos et vidéos originales ;
+2. une méthode publique qui distingue fabricants, tiers, synthèse Jupiter et
+   futurs tests physiques ;
+3. d'abord des mesures tierces attribuées et contextualisées, puis des mesures
+   Jupiter de sole, voûte, chauffe, récupération, consommation et débit ;
+4. des lecteurs source, des visuels autorisés ou originaux, et des illustrations
+   IA clairement séparées de la preuve ;
 5. les limites, pièces, garantie et coût total ;
 6. plusieurs options marchandes, identifiées comme rémunérées lorsqu'elles le sont.
 
-Les spécifications constructeur peuvent alimenter une fiche clairement étiquetée comme telle. Elles ne deviennent jamais un test indépendant. Une note ou un classement exige une méthode et une preuve conservées.
+Les spécifications constructeur peuvent alimenter une fiche clairement
+étiquetée comme telle. Elles ne deviennent jamais un test indépendant. Une
+mesure tierce reste attribuée à son auteur. Une note, un superlatif ou un
+classement attend des preuves de première main conservées.
 
 ## Options comparées
 
@@ -35,6 +45,7 @@ Les spécifications constructeur peuvent alimenter une fiche clairement étiquet
 | --- | --- | --- | --- |
 | Plusieurs micro-sites SEO affiliés | Beaucoup de surfaces théoriques | Chaque domaine repart de zéro et pousse vers des gabarits pauvres ou du contenu à grande échelle | Rejetée au lancement |
 | Un magazine de guides d'achat | Simple à publier | Facilement remplaçable par un marchand, un grand média ou une réponse IA | Insuffisante seule |
+| Un observatoire documentaire traçable | Démarrage immédiat, corpus, outil et validation de la demande | Plafond de confiance et de différenciation sans prise en main | Recommandé comme Saison 0 |
 | Un laboratoire de décision avec données originales | Utilité, citations, conversion et actif propriétaire | Accès aux produits et production plus lente | Recommandée |
 | Un bot X de prospection | Distribution automatique apparente | Non conforme s'il répond à des recherches ou posts non sollicités | Rejetée |
 | Un assistant X invoqué par mention | Intention explicite et réponse ciblée | Coût, approbations et audience encore inconnus | À tester plus tard, avec validation humaine |
@@ -50,6 +61,14 @@ L'affiliation n'est pas interdite. Les [politiques antispam de Google](https://d
 
 Google autorise l'assistance par IA, mais sa [documentation sur le contenu génératif](https://developers.google.com/search/docs/fundamentals/using-gen-ai-content) demande exactitude, pertinence et valeur. Son [guide pour les fonctions de recherche générative](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) privilégie le contenu non interchangeable et l'expérience directe. Pour les avis, Google recommande des mesures, preuves visuelles, avantages, défauts et comparaisons dans son [guide des avis de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews).
 
+Une analyse documentaire peut être utile si elle normalise les conditions,
+montre les contradictions, réalise des calculs reproductibles et aide à une
+décision que chaque vidéo ne résout pas seule. La
+[documentation Google sur le contenu utile](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+met cependant en garde contre la simple reformulation de sources. Jupiter ne
+présentera donc pas la Saison 0 comme une série de tests et n'emploiera ni notes,
+ni étoiles, ni données structurées `Review` avant une expérience directe.
+
 Les liens rémunérés doivent porter `rel="sponsored"` selon la [documentation des liens sortants](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links).
 
 Le SEO reste lent et non garanti. Il subit aussi une pression de clic : une [étude Pew sur des utilisateurs américains en mars 2025](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/) a observé un clic vers un résultat dans 8 % des visites avec résumé IA contre 15 % sans résumé. Cette étude ne mesure ni la France ni la niche pizza, mais elle renforce le besoin d'outils, de données et d'une audience directe.
@@ -59,6 +78,51 @@ Le SEO reste lent et non garanti. Il subit aussi une pression de clic : une [ét
 Les [règles d'automatisation X](https://help.x.com/en/rules-and-policies/x-automation?lang=browser) interdisent une réponse automatique fondée sur une simple recherche de mots-clés. Suivre le compte ou utiliser un hashtag ne vaut pas consentement. Une réponse unique peut être possible après mention explicite du compte, avec possibilité d'arrêt. Les [directives développeur X](https://docs.x.com/developer-guidelines) donnent comme cas acceptable une recommandation de produit demandée, et comme spam une réponse non sollicitée contenant des liens affiliés.
 
 Une réponse entièrement générée par IA ou une campagne commerciale automatisée nécessite les approbations prévues par X. Au lancement, Jupiter utilisera donc des réponses humaines. Un futur assistant devra être invoqué explicitement, répondre une seule fois, déclarer son automatisation et l'affiliation, employer l'API officielle et obtenir les accords écrits applicables.
+
+### Sources YouTube, photogrammes et IA
+
+Les vidéos de test peuvent accélérer la recherche sans remplacer l'expérience
+directe. Chaque mesure reste attribuée au testeur, avec modèle, conditions,
+timecode, conflit connu et niveau de confiance. Les affirmations comparatives
+sont corroborées par une deuxième source indépendante ou signalées comme
+dépendantes d'une seule source.
+
+Les [conditions YouTube](https://www.youtube.com/t/terms?gl=FR) autorisent le
+lecteur embarqué, mais ne donnent pas par défaut le droit d'extraire, reproduire
+ou modifier un photogramme hors des fonctions du service. Le chemin prudent est
+donc de noter d'abord l'URL et le timecode, puis de demander au producteur ou
+créateur de fournir directement le fichier source avec une autorisation écrite.
+Sans accord, Jupiter utilise le lecteur officiel, un lien au timecode, du texte
+ou un schéma intégralement original.
+
+Le principe français interdit la reproduction et la transformation sans
+consentement, sous réserve d'exceptions étroites, selon les articles
+[L122-4](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278911)
+et
+[L122-5](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000048603495)
+du Code de la propriété intellectuelle. Jupiter ne construit pas son modèle sur
+l'exception de courte citation : une image décorative, un hero ou un croquis
+dérivé n'est pas nécessairement justifié par la critique du passage précis.
+
+L'autorisation doit couvrir séparément la reproduction, l'usage commercial et
+affilié, la retouche, le traitement par le prestataire IA, les dérivés, les
+supports, le territoire, la durée, le crédit et la rémunération. L'accord de la
+chaîne peut ne pas couvrir le producteur, le cadreur, les personnes visibles, la
+musique ou les œuvres présentes dans le décor. La chaîne de droits est donc
+enregistrée avant traitement, pas seulement avant publication.
+
+Une image générativement améliorée ou un croquis dérivé est une illustration,
+jamais une preuve de cuisson, de flamme, de température ou de défaut. L'original
+autorisé et son SHA-256 sont conservés séparément. Depuis le 2026-08-02,
+l'[article 50 du règlement européen sur l'IA](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
+et les
+[lignes directrices de la Commission](https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations)
+renforcent la transparence applicable à certains contenus générés ou manipulés.
+Jupiter déclare systématiquement les visuels assistés par IA.
+
+Le protocole opérationnel, ses registres vérifiés et le modèle de demande vivent dans
+[`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) et
+[`PERMISSION-TEMPLATE.md`](PERMISSION-TEMPLATE.md).
 
 ### Amazon France
 
@@ -133,7 +197,7 @@ La métrique centrale de Jupiter sera donc le revenu par visite qualifiée, acco
 ### Signaux défavorables
 
 - Un échantillon de résultats français contient déjà un [comparateur interactif](https://pizzasquare.fr/outils/comparateur-fours), des guides spécialisés et de grands médias. Un nouvel article « meilleurs fours 2026 » n'est pas différenciant.
-- Les tests de qualité exigent plusieurs fours, du temps, un protocole stable et un lieu adapté.
+- Les tests physiques de qualité exigent plusieurs fours, du temps, un protocole stable et un lieu adapté ; la Saison 0 peut toutefois mesurer l'utilité et la demande avant cet accès.
 - L'extérieur est saisonnier et les produits professionnels nécessitent une expertise électrique, gaz, ventilation, installation et maintenance.
 - Le volume de recherche français et le coût d'acquisition n'ont pas encore été mesurés avec une source payante ou propriétaire.
 - L'intérêt d'une audience pizza sur X n'est pas démontré. La vidéo, la recherche et les communautés spécialisées semblent plus naturelles, ce qui reste à mesurer.
@@ -142,7 +206,14 @@ La métrique centrale de Jupiter sera donc le revenu par visite qualifiée, acco
 
 Jupiter commence par le problème « choisir un four pour pizza napolitaine à domicile entre 300 et 1 500 euros ». Il n'élargit ni aux recettes généralistes ni au matériel professionnel avant d'avoir prouvé l'utilité et la conversion. Le professionnel reste une extension commerciale possible, pas une promesse du premier produit.
 
-Si l'accès à trois modèles au minimum ne peut pas être obtenu sans dépense disproportionnée, la pizza échoue à la première porte. Jupiter devra alors comparer une autre niche avec le même score : valeur du panier, programme direct, intention d'achat, accès aux preuves, concurrence, risque réglementaire et potentiel de revenu récurrent.
+Si l'accès à trois modèles au minimum ne peut pas être obtenu sans dépense
+disproportionnée, Jupiter peut encore conclure sur l'utilité et l'économie de
+l'observatoire. Il ne peut pas se promouvoir comme laboratoire, attribuer des
+mesures à Jupiter ou publier un classement de produits testés. Si la synthèse
+documentaire elle-même n'apporte pas de valeur ou si la preuve physique reste
+indispensable à toute conversion, Jupiter devra comparer une autre niche avec
+le même score : valeur du panier, programme direct, intention d'achat, accès aux
+preuves, concurrence, risque réglementaire et potentiel de revenu récurrent.
 
 ## Décision
 
@@ -151,6 +222,9 @@ Lancer l'expérience décrite dans [`EXPERIMENT.md`](EXPERIMENT.md), avec ces in
 - un domaine au maximum ;
 - aucune production massive de pages ;
 - aucun avis sans preuve originale ;
+- toute page de Saison 0 annoncée comme analyse documentaire et non comme test ;
+- aucune capture ou transformation IA avant autorisation couvrant cet usage ;
+- aucune illustration IA utilisée comme preuve ;
 - aucun bot de prospection ;
 - Amazon comme complément, pas comme dépendance unique ;
 - un partenaire direct avant mise à l'échelle ;

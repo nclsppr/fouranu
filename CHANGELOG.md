@@ -9,3 +9,11 @@ importantes.
 - Initialisation locale de Jupiter comme exploration depuis Project Foundation `v0.5.2`.
 - Ajout d'une étude de faisabilité datée sur le référencement, l'affiliation, X et la niche pizza.
 - Définition d'une expérience de 90 jours avec budget, métriques et conditions d'arrêt.
+- Pivot vers une Saison 0 — Observatoire qui démarre sans attendre les fours,
+  tout en réservant les formulations de test aux futures mesures physiques.
+- Ajout d'une taxonomie de preuve, de registres vérifiés et d'une barrière de
+  droits avant extraction, traitement IA ou publication d'un visuel tiers.
+- Ajout d'un modèle de demande d'autorisation couvrant l'usage commercial,
+  l'IA, les dérivés, les supports, la durée et l'attribution.
+- Ajout d'une vérification locale des preuves privées, d'une garde contre leur
+  commit et de tests adversariaux sur les registres de preuve et de droits.

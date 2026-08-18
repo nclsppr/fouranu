@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Hypothèse | Un sélecteur de fours fondé sur des preuves originales convertit une audience francophone à forte intention mieux qu'un guide générique |
+| Hypothèse | Un sélecteur fondé sur une synthèse documentaire traçable, puis renforcé par des essais physiques, convertit une audience francophone à forte intention mieux qu'un guide générique |
 | Propriétaire | nclsppr |
 | Début | 2026-08-18 |
 | Réévaluation | 2026-11-16 |
@@ -13,13 +13,20 @@
 | Plafond proposé | 500 euros après validation explicite, hors achat de matériel réutilisable décidé séparément |
 | Données | Publiques, synthétiques ou retours anonymisés ; aucune donnée de production |
 | Surface actuelle | Dépôt local uniquement |
-| Surface future | Prototype isolé et `noindex`, puis un seul site public uniquement après les portes 1 et 2 |
+| Surface future | Saison 0 isolée et `noindex`, puis un pilote documentaire public uniquement après les portes de preuve et d'utilité |
 
 Une visite qualifiée désigne une visite humaine sur le sélecteur ou un comparatif, issue d'une question, d'une requête ou d'une campagne qui exprime un achat de four. Le trafic interne, les robots, les visites de recette et les impressions sans intention d'achat sont exclus.
 
 Le revenu par visite qualifiée additionne les commissions confirmées et les prospects acceptés, puis les divise par ces visites. La marge contributive retire les coûts directs de plateforme, d'acquisition, d'hébergement, de contenu externe et de matériel amorti. Le temps du propriétaire est suivi séparément jusqu'à ce qu'un coût horaire soit décidé.
 
-## Porte 1 : accès et demande
+Une preuve documentaire et une preuve physique sont deux états différents. Les
+classes `FAB`, `T-MES`, `T-OBS`, `J-SYN`, `J-INF` et `J-TEST`, le traitement des
+captures et la barrière de publication sont définis dans
+[`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md). La Saison 0 peut être utile et
+publique sans matériel ; elle ne peut pas employer `J-TEST`, une note, des
+étoiles ou un classement présenté comme testé.
+
+## Porte 1 : demande et corpus traçable
 
 Échéance : 2026-09-01.
 
@@ -27,16 +34,33 @@ Le revenu par visite qualifiée additionne les commissions confirmées et les pr
 
 - Recueillir au moins 50 questions d'achat distinctes dans des sources publiques, avec URL et date, ou conduire 15 échanges avec des acheteurs potentiels en anonymisant les notes.
 - Regrouper les décisions par budget, lieu, énergie, diamètre, nombre de pizzas, temps de chauffe, débit et entretien.
+- Cartographier au moins 16 vidéos de huit créateurs couvrant six fours, puis
+  enregistrer 50 observations ou mesures horodatées dans le registre de preuve.
+- Pour chaque comparaison de performance, obtenir deux sources indépendantes ou
+  afficher explicitement la dépendance à une source unique.
+- Relever les conditions de mesure, conflits et divergences sans moyenner des
+  protocoles incompatibles.
+- Préparer les storyboards à partir des timecodes, puis demander les fichiers
+  sources et les droits avant toute capture ou transformation IA.
 - Confirmer les règles et le barème effectif d'au moins un partenaire direct pertinent.
-- Documenter un chemin réaliste vers au moins trois fours : propriété, prêt, location ou accord marchand.
-- Définir un protocole reproductible et le coût réel de chaque test.
+- Continuer à documenter un chemin réaliste vers trois fours : propriété, prêt,
+  location ou accord marchand. Ce travail prépare la phase physique mais ne
+  bloque plus la Saison 0.
+- Définir le protocole reproductible et le coût réel des futurs tests.
 - Relever la concurrence sur dix requêtes commerciales sans confondre présence dans les résultats et volume de recherche.
 
 ### Passage
 
-La porte passe si les questions révèlent au moins trois décisions mal résolues, si un partenaire direct est accessible et si trois produits peuvent être mesurés sans dépasser la limite autorisée.
+La porte passe si les questions révèlent au moins trois décisions mal résolues,
+si le corpus permet de séparer les sources et si un partenaire direct est
+accessible. Chaque affirmation de performance doit avoir un identifiant, une
+source et ses limites. L'absence de trois fours bloque le label de laboratoire,
+pas la poursuite documentaire.
 
-La niche pizza s'arrête immédiatement si l'accès aux preuves est irréaliste ou si le seul contenu possible consiste à reformuler des fiches marchands.
+La niche pizza s'arrête immédiatement si le corpus ne produit aucune valeur
+propre au-delà des sources, si les droits nécessaires sont structurellement
+inaccessibles ou si le seul contenu possible consiste à reformuler des fiches
+marchands.
 
 ## Porte 2 : utilité sans indexation
 
@@ -45,15 +69,21 @@ La niche pizza s'arrête immédiatement si l'accès aux preuves est irréaliste 
 ### Prototype
 
 - Un sélecteur avec au moins dix modèles et la provenance de chaque donnée.
-- Une séparation visible entre spécifications constructeur et résultats mesurés.
-- Un protocole de test publié avec photos, instruments, incertitudes et date.
-- Une première mesure complète sur au moins un four.
+- Une séparation visible entre données fabricant, observations tierces, analyse
+  Jupiter et futures mesures Jupiter.
+- Une méthode publique avec sources, timecodes, conflits, incertitudes et date.
+- Deux analyses fortes : choix par contraintes, puis gaz ou électrique.
+- Six fiches produit `noindex`, sans avis ni note de Jupiter.
 - Cinq sessions d'utilisation observées avec des personnes ayant un projet d'achat.
 - Aucun lien affilié, prix copié, compte marchand requis ou indexation publique.
 
 ### Passage
 
-Au moins quatre utilisateurs sur cinq doivent atteindre une sélection et expliquer le compromis obtenu. Les erreurs de données critiques sont nulles après correction. Les participants doivent identifier au moins une information utile qu'ils n'avaient pas trouvée dans un guide générique.
+Au moins quatre utilisateurs sur cinq doivent atteindre une sélection, expliquer
+le compromis obtenu, distinguer une observation tierce d'une synthèse Jupiter et
+comprendre qu'aucune mesure Jupiter n'est encore disponible. Au moins trois sur
+cinq doivent identifier une incertitude résolue. Les erreurs de données
+critiques sont nulles après correction.
 
 Si le prototype n'apporte pas cette utilité, une seule itération est permise avant arrêt ou reformulation de la niche.
 
@@ -65,7 +95,8 @@ Période maximale : du 2026-09-23 au 2026-11-16, uniquement si les deux premièr
 
 - le sélecteur ;
 - la méthode et les conflits d'intérêts ;
-- deux comparaisons comportant des preuves directes ;
+- deux analyses documentaires avec provenance complète et bandeau « produit non
+  testé par Jupiter » ;
 - un guide de décision fondé sur les questions de la porte 1 ;
 - une page auteur et une politique de correction ;
 - les mentions légales, la confidentialité, le consentement aux traceurs et les déclarations commerciales ;
@@ -77,7 +108,10 @@ Chaque lien rémunéré est déclaré auprès du lien et porte `rel="sponsored"`
 ### Distribution
 
 - Réponses humaines et utiles dans les espaces où la participation commerciale est permise.
-- Contenu visuel dérivé des tests, avec retour vers la preuve complète.
+- Lecteurs YouTube officiels, visuels Jupiter originaux ou dérivés expressément
+  autorisés, avec retour vers la preuve complète.
+- Toute illustration IA est déclarée et reste décorative ; elle ne documente
+  jamais une performance.
 - Aucun message direct non sollicité, aucune réponse automatique issue d'une recherche, aucun faux compte et aucun achat de lien.
 - X reste un canal expérimental manuel. Un assistant invoqué par mention est hors périmètre de cette expérience.
 
@@ -93,6 +127,8 @@ Chaque lien rémunéré est déclaré auprès du lien et porte `rel="sponsored"`
 - au moins 0,15 euro de revenu par visite qualifiée ;
 - dépenses directes dans la limite autorisée ;
 - aucune violation connue des politiques, aucune preuve produit inventée et aucune donnée personnelle inutile.
+- aucun média tiers publié sans chaîne de droits enregistrée et aucune
+  formulation attribuant un test tiers à Jupiter.
 
 Ces volumes fournissent un signal, pas une estimation statistique précise. La conclusion conserve les intervalles d'incertitude et les délais de retour ou d'attribution.
 
@@ -103,6 +139,8 @@ Ces volumes fournissent un signal, pas une estimation statistique précise. La c
 - moins de 0,05 euro de revenu par visite après 1 000 visites qualifiées ;
 - coût d'une preuve originale incompatible avec l'économie mesurée ;
 - dépendance à des réponses automatiques non sollicitées ou à du contenu sans valeur originale.
+- dépendance à des captures, transformations ou droits que Jupiter ne peut pas
+  obtenir proprement.
 
 Si l'échéance arrive avant un échantillon exploitable alors que les indicateurs avancés sont bons, une seule prolongation de 30 jours peut être proposée avec un nouveau plafond explicite. Elle n'est jamais automatique.
 
@@ -110,7 +148,13 @@ Si l'échéance arrive avant un échantillon exploitable alors que les indicateu
 
 ### Promouvoir
 
-Promouvoir Jupiter vers un pack standard si les trois portes passent et si les données observées permettent d'expliquer un chemin crédible vers le seuil économique. La promotion ajoute le contrat produit, la roadmap, le statut vérifié et une ADR sur le modèle économique. Elle ne crée pas encore un second site.
+Promouvoir la Saison 0 vers un produit documentaire si les trois portes passent
+et si les données observées permettent d'expliquer un chemin crédible vers le
+seuil économique. Promouvoir Jupiter comme **laboratoire de tests** exige en
+plus une mesure physique complète sur au moins un four et un chemin crédible
+vers trois modèles. La promotion ajoute le contrat produit, la roadmap, le
+statut vérifié et une ADR sur le modèle économique. Elle ne crée pas encore un
+second site.
 
 ### Arrêter la niche
 

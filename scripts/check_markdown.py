@@ -45,6 +45,8 @@ REQUIRED_PATHS = (
     "docs/foundation/DEFAULTS.md",
     "docs/foundation/DEFINITION-OF-DONE.md",
     "scripts/check_markdown.py",
+    "scripts/check_editorial_ledgers.py",
+    "scripts/test_check_editorial_ledgers.py",
     "scripts/check_compose.py",
     "scripts/documentation_catalog.py",
     "scripts/verify.sh",

@@ -75,6 +75,8 @@ Les règles locales vivent dans leur document naturel. Cette table les référen
 | Question, périmètre et conclusion | `BRIEF.md` |
 | Faisabilité et décision stratégique | `FEASIBILITY.md` |
 | Expérience et critères de sortie | `EXPERIMENT.md` |
+| Sources, droits, IA et publication | `EDITORIAL-PROTOCOL.md` |
+| Demande d'autorisation visuelle | `PERMISSION-TEMPLATE.md` |
 
 ## Adaptateurs locaux initialisés
 

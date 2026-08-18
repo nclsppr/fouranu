@@ -25,6 +25,9 @@ Une commande absente est indiquée comme non applicable. Une commande future n'e
 - [`BRIEF.md`](BRIEF.md) : question, périmètre, faits, hypothèses et conclusion datée.
 - [`FEASIBILITY.md`](FEASIBILITY.md) : verdict stratégique, contraintes, économie et choix de niche.
 - [`EXPERIMENT.md`](EXPERIMENT.md) : expérience de 90 jours, mesures et critères de décision.
+- [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) : Saison 0, taxonomie de preuve, droits, visuels IA et barrière de publication.
+- [`PERMISSION-TEMPLATE.md`](PERMISSION-TEMPLATE.md) : demande précise d'un fichier source et des droits nécessaires.
+- `research/evidence.csv` et `research/assets.csv` : registres versionnés des affirmations et médias, sans données de contact ni fichiers tiers.
 - [`CHANGELOG.md`](CHANGELOG.md) : changements livrés et impact observable.
 - [`FOUNDATION.md`](FOUNDATION.md) : version du socle, profils activés et dérogations locales.
 - [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) : navigation exhaustive des Markdown et de leurs audiences.

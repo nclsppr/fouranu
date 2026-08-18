@@ -11,6 +11,7 @@ Lire [`BRIEF.md`](BRIEF.md), puis [`README.md`](README.md) et les profils vendor
 | Quelle intervention est autorisée maintenant ? | Demande explicite du propriétaire, dans les limites de sécurité et de confidentialité du socle |
 | Quel résultat cherche l'exploration ? | `BRIEF.md` |
 | Qu'est-ce qui existe et fonctionne réellement ? | Dépôt, configuration, commandes et processus observés maintenant |
+| Quelle source ou quel visuel peut entrer dans un contenu ? | `EDITORIAL-PROTOCOL.md`, puis les registres sous `research/` |
 | Pourquoi un choix passé a-t-il été fait ? | Historique Git ou décision datée, non normatifs pour l'état courant |
 
 Une intention n'est pas une preuve d'état. Signaler tout écart sans choisir silencieusement une couche.
@@ -25,6 +26,7 @@ Une intention n'est pas une preuve d'état. Signaler tout écart sans choisir si
 - Conserver `compose.yaml` et sa gate. Si l'exploration lance un processus ou
   une dépendance locale, le déclarer dans Compose avant de documenter son usage.
 - Ajouter chaque changement livré à `CHANGELOG.md` ; consigner une décision importante dans le brief ou une ADR si l'exploration devient durable.
+- Ne jamais committer un média tiers, une preuve d'autorisation ou des coordonnées ; seuls le statut et le périmètre minimal entrent dans les registres versionnés.
 - Appliquer `P18` dès que la tâche autorise des modifications : après validation, committer chaque tranche cohérente puis la pousser immédiatement sur la branche canonique si l'écriture directe est autorisée, sinon sur une branche dédiée.
 - Ne pas déclarer une tranche terminée tant que son SHA reste uniquement local. Si le push est bloqué, annoncer le SHA, la cible distante et le blocage exact.
 - Exécuter `python3 scripts/check_compose.py` avec la commande `verify`.

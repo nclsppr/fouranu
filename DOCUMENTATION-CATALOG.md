@@ -8,7 +8,7 @@ Moteur déclaré : `nimbus`.
 
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
-| Documentation du projet | `internal` | 9 |
+| Documentation du projet | `internal` | 11 |
 | Décisions | `internal` | 0 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
@@ -20,9 +20,11 @@ Moteur déclaré : `nimbus`.
 - [CHANGELOG.md](CHANGELOG.md)
 - [DOCUMENTATION-CATALOG.md](DOCUMENTATION-CATALOG.md)
 - [DOCUMENTATION.md](DOCUMENTATION.md)
+- [EDITORIAL-PROTOCOL.md](EDITORIAL-PROTOCOL.md)
 - [EXPERIMENT.md](EXPERIMENT.md)
 - [FEASIBILITY.md](FEASIBILITY.md)
 - [FOUNDATION.md](FOUNDATION.md)
+- [PERMISSION-TEMPLATE.md](PERMISSION-TEMPLATE.md)
 - [README.md](README.md)
 
 ## Décisions

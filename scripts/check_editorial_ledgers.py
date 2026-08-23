@@ -25,6 +25,7 @@ if sys.version_info < (3, 9):
 ROOT = Path(__file__).resolve().parent.parent
 EVIDENCE_PATH = ROOT / "research/evidence.csv"
 ASSET_PATH = ROOT / "research/assets.csv"
+QUESTION_PATH = ROOT / "research/questions.csv"
 
 EVIDENCE_FIELDS = (
     "evidence_id",
@@ -76,6 +77,18 @@ ASSET_FIELDS = (
     "publication_url",
     "checked_on",
 )
+QUESTION_FIELDS = (
+    "question_id",
+    "source_type",
+    "source_url",
+    "published_on",
+    "checked_on",
+    "question",
+    "categories",
+    "product_scope",
+    "purchase_stage",
+    "article_ids",
+)
 
 SOURCE_TYPES = {
     "manufacturer",
@@ -115,10 +128,42 @@ IDENTIFIABLE_PEOPLE_VALUES = {"yes", "no", "unknown", "not-applicable"}
 PEOPLE_CLEARANCE_VALUES = {"granted", "missing", "unknown", "not-applicable"}
 PROVIDER_TRAINING_VALUES = {"disabled", "explicitly-authorized"}
 HUMAN_VALIDATION_VALUES = {"pending", "approved", "rejected", "not-applicable"}
+QUESTION_SOURCE_TYPES = {
+    "forum",
+    "youtube",
+    "manufacturer-faq",
+    "merchant-faq",
+    "search",
+    "interview",
+    "other",
+}
+QUESTION_CATEGORIES = {
+    "accessories",
+    "budget",
+    "durability",
+    "energy",
+    "gas-compatibility",
+    "heat-up",
+    "indoor-outdoor",
+    "maintenance",
+    "portability",
+    "price-value",
+    "recovery",
+    "safety",
+    "size",
+    "space",
+    "throughput",
+    "versatility",
+    "warranty",
+    "weather",
+}
+PURCHASE_STAGES = {"discover", "compare", "validate", "operate"}
 TIMECODE_PATTERN = re.compile(r"^(?:[0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$")
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 EVIDENCE_ID_PATTERN = re.compile(r"^EV-[0-9]{4}$")
 ASSET_ID_PATTERN = re.compile(r"^AS-[0-9]{4}$")
+QUESTION_ID_PATTERN = re.compile(r"^Q-[0-9]{4}$")
+ARTICLE_ID_PATTERN = re.compile(r"^[A-Z][A-Z0-9-]*-[0-9]{3,4}$")
 ALLOW_J_TEST = False
 
 
@@ -320,6 +365,59 @@ def check_evidence(rows: list[dict[str, str]], errors: list[str]) -> set[str]:
 
     if any(visit(identifier) for identifier in identifiers):
         errors.append("research/evidence.csv : cycle détecté dans les corroborations")
+    return identifiers
+
+
+def check_questions(rows: list[dict[str, str]], errors: list[str]) -> set[str]:
+    identifiers: set[str] = set()
+    normalized_questions: set[str] = set()
+    for number, row in enumerate(rows, start=2):
+        prefix = f"research/questions.csv:{number}"
+        identifier = row["question_id"]
+        if not QUESTION_ID_PATTERN.fullmatch(identifier):
+            errors.append(f"{prefix} : question_id invalide")
+        elif identifier in identifiers:
+            errors.append(f"{prefix} : question_id dupliqué : {identifier}")
+        identifiers.add(identifier)
+
+        if row["source_type"] not in QUESTION_SOURCE_TYPES:
+            errors.append(f"{prefix} : source_type inconnu")
+        if row["source_url"] and not valid_url(row["source_url"]):
+            errors.append(f"{prefix} : source_url doit être une URL HTTPS")
+        if row["source_type"] != "interview" and not row["source_url"]:
+            errors.append(f"{prefix} : une question publique exige source_url")
+        for field in ("published_on", "checked_on"):
+            if not valid_date(row[field]):
+                errors.append(f"{prefix} : {field} doit être au format YYYY-MM-DD")
+        if not row["published_on"]:
+            errors.append(f"{prefix} : published_on est requis")
+        if not row["checked_on"]:
+            errors.append(f"{prefix} : checked_on est requis")
+        if len(row["question"]) < 15:
+            errors.append(f"{prefix} : question paraphrasée trop courte")
+        normalized = " ".join(row["question"].casefold().split())
+        if normalized in normalized_questions:
+            errors.append(f"{prefix} : question paraphrasée dupliquée")
+        normalized_questions.add(normalized)
+
+        categories = split_ids(row["categories"])
+        if not categories:
+            errors.append(f"{prefix} : au moins une catégorie est requise")
+        for category in categories:
+            if category not in QUESTION_CATEGORIES:
+                errors.append(f"{prefix} : catégorie inconnue : {category}")
+        if not row["product_scope"]:
+            errors.append(f"{prefix} : product_scope est requis")
+        if row["purchase_stage"] not in PURCHASE_STAGES:
+            errors.append(
+                f"{prefix} : purchase_stage doit valoir discover, compare, validate ou operate"
+            )
+        article_ids = split_ids(row["article_ids"])
+        if not article_ids:
+            errors.append(f"{prefix} : au moins un article_id est requis")
+        for article_id in article_ids:
+            if not ARTICLE_ID_PATTERN.fullmatch(article_id):
+                errors.append(f"{prefix} : article_id invalide : {article_id}")
     return identifiers
 
 
@@ -528,7 +626,9 @@ def main() -> int:
     errors: list[str] = []
     evidence_rows = load_csv(EVIDENCE_PATH, EVIDENCE_FIELDS, errors)
     asset_rows = load_csv(ASSET_PATH, ASSET_FIELDS, errors)
+    question_rows = load_csv(QUESTION_PATH, QUESTION_FIELDS, errors)
     evidence_ids = check_evidence(evidence_rows, errors)
+    check_questions(question_rows, errors)
     check_assets(
         asset_rows,
         evidence_ids,
@@ -548,7 +648,8 @@ def main() -> int:
     )
     print(
         "Métadonnées éditoriales valides "
-        f"({len(evidence_rows)} preuves, {len(asset_rows)} médias ; {proof_status})."
+        f"({len(evidence_rows)} preuves, {len(asset_rows)} médias, "
+        f"{len(question_rows)} questions ; {proof_status})."
     )
     return 0
 

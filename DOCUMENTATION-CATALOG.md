@@ -8,7 +8,7 @@ Moteur déclaré : `nimbus`.
 
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
-| Documentation du projet | `internal` | 11 |
+| Documentation du projet | `internal` | 12 |
 | Décisions | `internal` | 0 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
@@ -24,6 +24,7 @@ Moteur déclaré : `nimbus`.
 - [EXPERIMENT.md](EXPERIMENT.md)
 - [FEASIBILITY.md](FEASIBILITY.md)
 - [FOUNDATION.md](FOUNDATION.md)
+- [OONI-CONTENT-MAP.md](OONI-CONTENT-MAP.md)
 - [PERMISSION-TEMPLATE.md](PERMISSION-TEMPLATE.md)
 - [README.md](README.md)
 

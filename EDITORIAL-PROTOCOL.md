@@ -1,6 +1,6 @@
 # Protocole éditorial, sources et visuels
 
-État du cadre vérifié le 2026-08-18. Ce protocole est une barrière
+État du cadre vérifié le 2026-08-23. Ce protocole est une barrière
 opérationnelle, pas un avis juridique. Une validation professionnelle sera
 nécessaire avant une exploitation répétée ou contractuellement complexe.
 
@@ -39,6 +39,12 @@ ou affiche clairement qu'elle dépend d'une source unique. Deux mesures issues d
 protocoles incompatibles ne sont jamais moyennées. Le sponsoring, le prêt de
 matériel et les liens marchands connus sont enregistrés comme conflits
 potentiels, sans déduire automatiquement que la source est fausse.
+
+Les questions d'acheteurs vivent séparément dans
+`research/questions.csv`. Elles justifient une intention éditoriale et aident à
+regrouper les décisions ; elles ne prouvent ni une performance produit, ni un
+volume de recherche, ni la représentativité du marché. Chaque question publique
+est paraphrasée, datée et reliée à sa source sans conserver de pseudonyme.
 
 ## Types de visuels
 
@@ -84,9 +90,10 @@ illustrer une question. Elle ne fournit pas une mesure comparable.
 
 ### 2. Enregistrer avant d'illustrer
 
-Les affirmations vont dans `research/evidence.csv`. Les visuels envisagés vont
-dans `research/assets.csv`. Les coordonnées, messages d'autorisation et fichiers
-sources restent sous `research/private/`, ignoré par Git.
+Les affirmations vont dans `research/evidence.csv`, les questions d'achat dans
+`research/questions.csv` et les visuels envisagés dans `research/assets.csv`.
+Les coordonnées, messages d'autorisation et fichiers sources restent sous
+`research/private/`, ignoré par Git.
 
 Le statut de droit d'un média vaut `not-requested`, `requested`, `granted`,
 `denied`, `expired`, `service-permitted` pour un lecteur officiel, ou `original`
@@ -263,7 +270,7 @@ Le backlog répond à des décisions, pas à des mots-clés :
 
 1. choisir selon l'espace, l'énergie, le débit et le budget ;
 2. arbitrer gaz et électrique ;
-3. comprendre les diamètres 12, 14 et 16 pouces ;
+3. comprendre les formats nominaux et le diamètre de pizza réellement annoncé ;
 4. calculer le coût complet du four et des accessoires réellement nécessaires.
 
 Le sprint garantit les deux premières analyses. Les deux suivantes ne sont

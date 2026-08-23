@@ -12,10 +12,10 @@ Tous les Markdown maintenus par ce projet appartiennent à une collection de
 - vérifier navigation, liens, recherche et audience sur la surface finale.
 
 Les registres éditoriaux versionnent uniquement les identifiants de preuve, les
-URLs publiques, les statuts et le périmètre utile. Les coordonnées, échanges
-d'autorisation, fichiers sources et dérivés privés restent sous
-`research/private/`, ignoré par Git. Une visibilité `internal` ne protège pas un
-secret dans un dépôt public.
+questions paraphrasées, les URLs publiques, les statuts et le périmètre utile.
+Les coordonnées, pseudonymes, échanges d'autorisation, fichiers sources et
+dérivés privés restent sous `research/private/`, ignoré par Git. Une visibilité
+`internal` ne protège pas un secret dans un dépôt public.
 
 Les visibilités pilotent le rendu, pas les permissions Git. Dans un dépôt
 public, un fichier `internal` reste accessible depuis Git ; aucun secret ou

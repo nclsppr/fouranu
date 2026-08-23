@@ -92,17 +92,30 @@ avec leurs incertitudes.
 
 ## État vérifié et conclusion
 
-- Vérifié le : 2026-08-18.
-- Environnement ou artefact : étude documentaire, protocole de sources et registres vides dans le dépôt local ; aucune surface publique et aucun média tiers acquis.
-- Observations : l'affiliation et un site expert sont permis sous conditions ; une ferme de sites et un bot X de prospection augmentent fortement le risque ; une offensive documentaire peut commencer sans matériel si elle sépare preuves tierces, synthèse Jupiter et futurs essais physiques.
-- Conclusion : la Saison 0 — Observatoire mérite une expérience limitée ; la rentabilité de la niche pizza, la valeur du corpus secondaire et la trajectoire vers le seuil économique ne sont pas encore prouvées.
-- Limites de la preuve : aucun volume de recherche payant vérifié, aucun compte marchand accepté, aucun entretien, aucun produit testé, aucun trafic et aucun revenu observé.
+- Vérifié le : 2026-08-23.
+- Environnement ou artefact : dépôt local avec carte de 35 contenus Ooni, 50
+  questions publiques, 107 entrées du registre de preuve et 16 références pour
+  lecteur YouTube officiel non publiées ; aucune surface publique et aucun
+  fichier média tiers acquis.
+- Observations : les neuf fours du catalogue France sont inventoriés ; 16 vidéos
+  de 9 créateurs fournissent 72 passages horodatés ; le corpus fait émerger des
+  décisions répétées autour du rapport taille/prix/débit, de l'énergie et du
+  coût de possession. Quatre incohérences de données fabricant ont été isolées
+  sans correction silencieuse.
+- Conclusion : l'offensive Ooni est lancée et la matière suffit pour rédiger les
+  deux premières synthèses documentaires en `noindex`. La porte 1, la
+  rentabilité de la niche et la trajectoire vers le seuil économique ne sont pas
+  encore prouvées.
+- Limites de la preuve : questions issues d'un seul forum, aucun volume de
+  recherche vérifié, aucun compte marchand accepté, aucun entretien, aucun
+  produit testé par Jupiter, aucun trafic et aucun revenu observé.
 
 ## Décision suivante
 
-Exécuter le sprint documentaire de 30 jours défini dans
-[`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md), puis les portes de
-[`EXPERIMENT.md`](EXPERIMENT.md). Promouvoir Jupiter vers un bootstrap standard
-uniquement si l'expérience atteint les critères de succès et si une preuve
-physique permet réellement de revendiquer le statut de laboratoire. Sinon,
-arrêter ou tester une autre niche dans une nouvelle expérience limitée.
+Produire d'abord `OONI-001` et `OONI-004` selon
+[`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md), tout en complétant les contrôles
+restants de la porte 1 dans [`EXPERIMENT.md`](EXPERIMENT.md). Promouvoir Jupiter
+vers un bootstrap standard uniquement si l'expérience atteint les critères de
+succès et si une preuve physique permet réellement de revendiquer le statut de
+laboratoire. Sinon, arrêter ou tester une autre niche dans une nouvelle
+expérience limitée.

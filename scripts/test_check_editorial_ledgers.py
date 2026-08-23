@@ -10,6 +10,24 @@ import check_editorial_ledgers as ledger
 
 
 class EditorialLedgerTests(unittest.TestCase):
+    def buyer_question(self, identifier: str = "Q-0001") -> dict[str, str]:
+        row = {field: "" for field in ledger.QUESTION_FIELDS}
+        row.update(
+            {
+                "question_id": identifier,
+                "source_type": "forum",
+                "source_url": "https://example.test/thread",
+                "published_on": "2026-08-01",
+                "checked_on": date.today().isoformat(),
+                "question": "Quel four Ooni convient à un petit balcon ?",
+                "categories": "space;indoor-outdoor",
+                "product_scope": "Ooni range",
+                "purchase_stage": "discover",
+                "article_ids": "OONI-001",
+            }
+        )
+        return row
+
     def external_evidence(self, identifier: str = "EV-0001") -> dict[str, str]:
         row = {field: "" for field in ledger.EVIDENCE_FIELDS}
         row.update(
@@ -56,6 +74,37 @@ class EditorialLedgerTests(unittest.TestCase):
         identifiers = ledger.check_evidence([self.external_evidence()], errors)
         ledger.check_assets([self.embed_asset()], identifiers, errors)
         self.assertEqual([], errors)
+
+    def test_valid_buyer_question(self) -> None:
+        errors: list[str] = []
+        identifiers = ledger.check_questions([self.buyer_question()], errors)
+        self.assertEqual({"Q-0001"}, identifiers)
+        self.assertEqual([], errors)
+
+    def test_buyer_question_rejects_duplicates_and_unknown_values(self) -> None:
+        first = self.buyer_question()
+        second = self.buyer_question("Q-0002")
+        second.update(
+            {
+                "source_url": "https://",
+                "question": first["question"].upper(),
+                "categories": "space;unknown",
+                "product_scope": "",
+                "purchase_stage": "buy-now",
+                "published_on": "",
+                "article_ids": "bad-id",
+            }
+        )
+        errors: list[str] = []
+        ledger.check_questions([first, second], errors)
+        joined = "\n".join(errors)
+        self.assertIn("source_url doit être une URL HTTPS", joined)
+        self.assertIn("question paraphrasée dupliquée", joined)
+        self.assertIn("catégorie inconnue : unknown", joined)
+        self.assertIn("product_scope est requis", joined)
+        self.assertIn("purchase_stage doit valoir", joined)
+        self.assertIn("published_on est requis", joined)
+        self.assertIn("article_id invalide : bad-id", joined)
 
     def test_j_test_is_locked_during_season_zero(self) -> None:
         row = self.external_evidence()

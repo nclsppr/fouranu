@@ -30,6 +30,29 @@ publique sans matériel ; elle ne peut pas employer `J-TEST`, une note, des
 
 Échéance : 2026-09-01.
 
+### État au 2026-08-23
+
+- seuil de questions atteint : 50 questions paraphrasées issues de 22
+  discussions publiques de `r/ooni`, avec URL, date, catégories et article
+  cible dans `research/questions.csv` ; cet échantillon anglophone et
+  auto-sélectionné reste un signal qualitatif ;
+- seuil vidéo atteint : 16 vidéos de 9 créateurs, moitié francophones et moitié
+  anglophones, donnent 72 passages horodatés dans `research/evidence.csv` —
+  37 mesures tierces et 35 observations tierces ;
+- les six fours de deuxième génération et le Koda 16 ont au moins une source
+  vidéo ; Koda 12 et Karu 12 attendent encore des essais tiers qualifiés ;
+- 16 références destinées au lecteur YouTube officiel sont enregistrées dans
+  `research/assets.csv`, sans URL de publication ; leur intégration devra être
+  revérifiée avant usage. Aucun photogramme n'a été extrait, aucun média n'a été
+  transmis à une IA et aucune autorisation n'a encore été sollicitée ;
+- trois familles de décision émergent : valeur liée à la taille et au débit,
+  choix de l'énergie et de la polyvalence, puis coût et risque de possession.
+
+La porte n'est pas encore passée. Il reste notamment à démontrer la valeur
+propre des synthèses, qualifier dix requêtes commerciales, vérifier le barème
+effectif d'un partenaire direct et documenter l'accès aux futurs essais
+physiques.
+
 ### Travail
 
 - Recueillir au moins 50 questions d'achat distinctes dans des sources publiques, avec URL et date, ou conduire 15 échanges avec des acheteurs potentiels en anonymisant les notes.

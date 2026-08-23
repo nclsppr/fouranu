@@ -17,3 +17,9 @@ importantes.
   l'IA, les dérivés, les supports, la durée et l'attribution.
 - Ajout d'une vérification locale des preuves privées, d'une garde contre leur
   commit et de tests adversariaux sur les registres de preuve et de droits.
+- Priorisation d'Ooni avec un inventaire daté des neuf fours France et une carte
+  de 35 contenus couvrant chaque modèle et les décisions d'achat distinctes.
+- Constitution du premier corpus : 50 questions publiques, 16 vidéos de 9
+  créateurs, 72 passages horodatés et 16 références d'intégration non publiées.
+- Extension du contrôle éditorial au registre des questions et conservation de
+  quatre incohérences fabricant sans normalisation silencieuse.

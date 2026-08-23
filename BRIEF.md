@@ -6,7 +6,7 @@ Contrat léger d'une exploration. Les règles communes restent dans le snapshot 
 
 | Champ | Valeur |
 | --- | --- |
-| Nom | Jupiter, nom de code ; `Four à Nu` est la piste directrice non adoptée |
+| Nom | `Four à Nu`, marque retenue ; Jupiter reste le nom de code du dépôt |
 | Propriétaire | nclsppr |
 | Classe | Exploration |
 | Statut | En cours |
@@ -38,7 +38,7 @@ avec leurs incertitudes.
 
 - comparer un site expert unique, une ferme de micro-sites et un produit d'aide à la décision ;
 - vérifier les règles actuelles de Google, X, Amazon, Awin et les obligations françaises principales ;
-- tester la pizza napolitaine comme première niche, sans en faire encore la marque définitive ;
+- tester la pizza napolitaine comme première niche, sans limiter la marque à ce seul style ;
 - lancer une Saison 0 documentaire à partir de sources vidéo qualifiées et
   horodatées, sans attribuer leurs essais à Jupiter ;
 - demander et enregistrer les droits avant toute extraction ou transformation
@@ -101,15 +101,19 @@ avec leurs incertitudes.
   de 9 créateurs fournissent 72 passages horodatés ; le corpus fait émerger des
   décisions répétées autour du rapport taille/prix/débit, de l'énergie et du
   coût de possession. Quatre incohérences de données fabricant ont été isolées
-  sans correction silencieuse. L'exploration de marque orientée SEO retient
-  `Four à Nu` devant deux autres finalistes ; les huit `.com` documentés dans
+  sans correction silencieuse. Le propriétaire a retenu `Four à Nu` comme
+  marque éditoriale le 2026-08-23. Le nom arrivait devant deux autres finalistes
+  dans la comparaison orientée SEO ; les huit `.com` documentés dans
   `BRAND-SEO.md` ne présentaient aucun enregistrement détecté le 2026-08-23 à
-  15:04 CEST. Des estimations tierces de demande France confirment des bassins
-  importants autour de `four a pizza`, Ooni et `pizza napolitaine`, sans fournir
-  de courbe Google Trends officielle.
+  15:04 CEST. Un dernier contrôle de `fouranu.com` à 15:40 CEST a encore retourné
+  RDAP `404`, WHOIS `No match` et aucun serveur de noms. Des estimations tierces
+  de demande France confirment des bassins importants autour de `four a pizza`,
+  Ooni et `pizza napolitaine`, sans fournir de courbe Google Trends officielle.
 - Conclusion : l'offensive Ooni est lancée et la matière suffit pour rédiger les
-  deux premières synthèses documentaires en `noindex`. Le nom de code reste en
-  place jusqu'au contrôle juridique et à une décision explicite. La porte 1, la
+  deux premières synthèses documentaires en `noindex`. `Four à Nu` est adopté
+  comme marque de travail. Le nom de code reste en place jusqu'à la confirmation
+  d'acquisition du domaine et à la décision de transformer l'exploration en
+  produit. La porte 1, la
   rentabilité de la niche et la trajectoire vers le seuil économique ne sont pas
   encore prouvées.
 - Limites de la preuve : questions issues d'un seul forum, aucun volume de
@@ -123,9 +127,10 @@ avec leurs incertitudes.
 
 Produire d'abord `OONI-001` et `OONI-004` selon
 [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md), tout en complétant les contrôles
-restants de la porte 1 dans [`EXPERIMENT.md`](EXPERIMENT.md). Contrôler aussi la
-piste `Four à Nu` selon la porte définie dans [`BRAND-SEO.md`](BRAND-SEO.md), sans
-acheter le domaine avant validation explicite. Promouvoir Jupiter
+restants de la porte 1 dans [`EXPERIMENT.md`](EXPERIMENT.md). Le propriétaire
+achète lui-même `fouranu.com`, sans transmettre d'identifiant ni de secret. Une
+fois l'acquisition confirmée, terminer la porte de marque définie dans
+[`BRAND-SEO.md`](BRAND-SEO.md). Promouvoir Jupiter
 vers un bootstrap standard uniquement si l'expérience atteint les critères de
 succès et si une preuve physique permet réellement de revendiquer le statut de
 laboratoire. Sinon, arrêter ou tester une autre niche dans une nouvelle

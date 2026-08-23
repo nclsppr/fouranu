@@ -6,6 +6,17 @@ importantes.
 
 ## Non publié
 
+- Adoption de `Four à Nu` comme marque éditoriale par le propriétaire le
+  2026-08-23 ; `Jupiter` reste le nom de code jusqu'à l'acquisition du domaine et
+  au passage éventuel de l'exploration à un produit.
+- Dernier contrôle de `fouranu.com` à 15:40 CEST : RDAP `404`, WHOIS `No match`
+  et aucun serveur de noms, sans achat ni création de compte par le projet.
+- Contrôle des variantes défensives et des identifiants publics ; `@fouranu` est
+  pris sur TikTok et bloqué sur X, tandis que `@fouranu_media` ne présente aucun
+  profil public détecté sur les plateformes principales.
+- Recherche élargie sans collision exacte sur `Four à Nu` et ses variantes ; le
+  risque reste faible à modéré en raison de `MISE A NU` en classe 41 et de
+  l'emploi technique descriptif de `four nu`.
 - Initialisation locale de Jupiter comme exploration depuis Project Foundation `v0.5.2`.
 - Ajout d'une étude de faisabilité datée sur le référencement, l'affiliation, X et la niche pizza.
 - Définition d'une expérience de 90 jours avec budget, métriques et conditions d'arrêt.
@@ -24,8 +35,8 @@ importantes.
 - Extension du contrôle éditorial au registre des questions et conservation de
   quatre incohérences fabricant sans normalisation silencieuse.
 - Classement de huit noms selon la clarté thématique, la distinction d'entité,
-  la mémorisation et la portée éditoriale, avec `Four à Nu` comme piste
-  directrice non adoptée.
+  la mémorisation et la portée éditoriale, avec `Four à Nu` en tête avant son
+  adoption par le propriétaire.
 - Double contrôle RDAP, WHOIS et DNS des huit `.com`, tous sans enregistrement
   détecté le 2026-08-23 à 15:04 CEST, sans achat ni réservation.
 - Pré-contrôle exact dans DATA INPI, TMview et les entreprises françaises ;

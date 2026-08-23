@@ -1,6 +1,10 @@
-# Jupiter
+# Four à Nu
 
 Exploration d'un laboratoire de décision francophone monétisé par affiliation et prospects qualifiés, avec la pizza napolitaine comme première niche à valider.
+
+`Jupiter` reste le nom de code du dépôt. Le propriétaire a retenu `Four à Nu`
+comme marque éditoriale le 2026-08-23. L'acquisition de `fouranu.com` reste à
+confirmer avant tout renommage ou publication.
 
 > Exploration limitée. Le périmètre, les hypothèses, l'état vérifié et la conclusion vivent dans [`BRIEF.md`](BRIEF.md).
 

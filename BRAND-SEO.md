@@ -1,11 +1,13 @@
 # Nom, identité et découvrabilité
 
-Exploration datée du 2026-08-23. `Jupiter` reste le nom de code tant qu'un nom
-n'a pas passé la vérification juridique et qu'aucun domaine n'a été acheté.
+Exploration datée du 2026-08-23. Le propriétaire a retenu `Four à Nu` comme
+marque éditoriale le même jour. `Jupiter` reste le nom de code du dépôt jusqu'à
+la confirmation d'acquisition du domaine et à la décision de passer du dossier
+d'exploration à un produit.
 
 ## Décision de travail
 
-`Four à Nu` est la piste directrice.
+`Four à Nu` est la marque de travail retenue.
 
 Le nom associe un signal de catégorie immédiat, `four`, à une promesse éditoriale
 distincte : retirer le discours commercial pour montrer les caractéristiques, les
@@ -14,9 +16,13 @@ preuves et leurs limites. Il est court, prononçable, compatible avec le domaine
 toujours l'accompagner d'un descripteur explicite sur sa page d'accueil :
 
 - nom de site : `Four à Nu` ;
-- titre d'accueil proposé : `Four à Nu | Bien choisir son four à pizza` ;
-- H1 proposé : `Choisir un four à pizza avec des preuves` ;
-- descripteur éditorial : `Guides indépendants sur les fours à pizza et leur équipement`.
+- titre d'accueil proposé : `Four à Nu | Le guide des fours à pizza` ;
+- H1 proposé : `Choisir son four à pizza, sources à l'appui` ;
+- descripteur éditorial : `Fours à pizza, sources à l'appui` ;
+- nom alternatif sans accent : `Four a Nu` ;
+- meta description proposée : `Comparatifs documentés, guides d'achat et
+  dossiers Ooni pour choisir un four à pizza, ses accessoires et réussir ses
+  cuissons napolitaines.`
 
 Cette décision ne prétend pas qu'un mot dans le domaine produit un classement.
 Google recommande un nom de site unique et non générique. Son système de domaine
@@ -25,6 +31,8 @@ reproduire une requête. La marque sert donc l'identification et la mémorisatio
 les pages, les titres, les liens, les preuves et la structure portent les requêtes.
 
 Sources : [noms de site Google](https://developers.google.com/search/docs/appearance/site-names),
+[liens de titre Google](https://developers.google.com/search/docs/appearance/title-link),
+[extraits Google](https://developers.google.com/search/docs/appearance/snippet),
 [systèmes de classement Google](https://developers.google.com/search/docs/appearance/ranking-systems-guide).
 
 ## Demande actuelle et effet napolitain
@@ -113,7 +121,17 @@ Les trois pistes utiles ne sont pas obligées de se concurrencer :
 | Formats courts | `Faits de Four` | Vérification d'une affirmation, d'une fiche ou d'une idée reçue |
 
 La signature SEO proposée pour le lancement est :
-`Four à Nu | Fours à pizza, Ooni et matériel napolitain`.
+`Four à Nu | Le guide des fours à pizza`.
+
+Les premiers silos restent explicites dans la navigation et les URL :
+
+| Silo | URL de départ | Périmètre |
+| --- | --- | --- |
+| Fours à pizza | `/fours-a-pizza/` | Bois, gaz, électrique, pellets et contraintes d'usage |
+| Ooni | `/ooni/` | Modèles, comparaisons, accessoires, entretien et décisions d'achat |
+| Comparatifs | `/comparatifs/` | Face-à-face et dossiers longs `Dossier 430` |
+| Accessoires pizza | `/accessoires-pizza/` | Pelles, thermomètres, tables, housses, pierres et consommables |
+| Pizza napolitaine | `/pizza-napolitaine/` | Pâte, farine, fermentation, température, cuisson et matériel |
 
 Les territoires `meilleur`, `comparatif`, `guide`, `lab`, `passion`, `atelier`,
 `Napoli`, `France` et les domaines exacts du type `meilleur-four-a-pizza` sont
@@ -138,6 +156,34 @@ tard.
 Source : [outil de recherche ICANN](https://lookup.icann.org/),
 [présentation RDAP par l'ICANN](https://www.icann.org/rdap/).
 
+Un nouveau contrôle ciblé de `fouranu.com` effectué à 15:40 CEST a encore
+retourné RDAP Verisign `404`, WHOIS Verisign `No match for domain` et aucun
+serveur de noms. Le propriétaire a annoncé qu'il effectuerait lui-même l'achat.
+Le projet n'a ouvert aucun compte et n'a réalisé aucune transaction.
+
+Les variantes défensives `fouranu.fr`, `four-a-nu.fr` et `four-a-nu.com` ne
+présentaient pas non plus d'enregistrement à 15:47 CEST. Elles restent
+facultatives. Le domaine court sans tiret garde la priorité.
+
+## Identifiants publics
+
+Contrôle public effectué le 2026-08-23, sans tentative d'inscription :
+
+- `@fouranu` appartient déjà à un petit compte TikTok et correspond à un compte
+  suspendu sur X ; il ne peut pas servir d'identifiant commun ;
+- aucun profil public `@fouranu_media` n'a été détecté sur X, Instagram, TikTok,
+  YouTube, LinkedIn, Bluesky, Pinterest, Twitch ou GitHub ;
+- l'absence de profil public ne prouve pas que la plateforme acceptera
+  l'identifiant au moment de l'inscription ;
+- `@fouranu_media` est la variante recommandée, tandis que le nom affiché reste
+  toujours `Four à Nu`.
+
+Sources observées : [TikTok `@fouranu`](https://www.tiktok.com/@fouranu),
+[X `@fouranu`](https://x.com/fouranu),
+[Instagram `@fouranu_media`](https://www.instagram.com/fouranu_media/),
+[YouTube `@fouranu_media`](https://www.youtube.com/@fouranu_media),
+[GitHub `fouranu_media`](https://github.com/fouranu_media).
+
 ## Pré-contrôle juridique
 
 Pré-contrôle effectué le 2026-08-23 à 15:15 CEST dans DATA INPI, TMview et
@@ -160,9 +206,35 @@ Sources de contrôle : [recherche Marques INPI](https://data.inpi.fr/recherche_a
 [API Recherche d'entreprises](https://recherche-entreprises.api.gouv.fr/docs/).
 
 Ce contrôle exact ne constitue pas une recherche d'antériorité phonétique,
-orthographique et conceptuelle. Avant d'adopter un nom, il faut faire cette
-recherche dans les classes pertinentes et contrôler les principaux comptes
-sociaux. Aucun domaine, marque ou compte n'a été réservé.
+orthographique et conceptuelle. La sélection éditoriale du nom ne remplace pas
+cette recherche dans les classes pertinentes ni le contrôle des principaux
+comptes sociaux. Aucun domaine, marque ou compte n'était réservé lors du dernier
+contrôle du projet.
+
+Un second contrôle, mené entre 15:45 et 15:57 CEST, a recherché `FOUR À NU`,
+`FOUR A NU`, `FOURANU`, `FOUR NU` et l'homophone `FOUR À NOUS`. Aucun signe
+exact ni société française exacte n'a été trouvé. La recherche floue de
+`FOURANU` dans les classes 35 et 41 a retourné cinq signes étrangers éloignés,
+sans droit français ou de l'Union européenne proche détecté.
+
+Deux réserves empêchent néanmoins de parler de validation juridique :
+
+- la marque française active [`MISE A NU` n° 4298580](https://www.tmdn.org/tmview/#/tmview/detail/FR500000004298580)
+  couvre notamment la publication électronique en classe 41 ; le signe complet
+  diffère, mais le chevauchement conceptuel doit être qualifié ;
+- `four nu` désigne aussi, dans certains catalogues professionnels, un four sans
+  isolation ou habillage. Cet emploi peut réduire la force exclusive du nom
+  pour la vente directe de fours et produire un peu de bruit sur une recherche
+  sans accent.
+
+Le risque résiduel reste faible à modéré pour un domaine et une identité de
+travail. Avant un dépôt ou une campagne importante, un conseil en propriété
+industrielle doit contrôler les variantes phonétiques en France, dans l'Union
+européenne et à l'OMPI, puis analyser `MISE A NU` en classe 41. Les classes 35 et
+41 suffisent au périmètre actuel ; les classes 9 et 16 ne seront ajoutées que si
+le projet crée des produits téléchargeables ou imprimés.
+
+Source méthodologique : [recherche de marque INPI](https://www.inpi.fr/ressources/propriete-intellectuelle/rechercher-une-marque-base-marques).
 
 ## Contrat SEO et visibilité IA
 
@@ -173,7 +245,7 @@ séparation entre synthèse tierce et expérience Jupiter.
 
 - utiliser `Four à Nu` de façon identique dans le H1 d'accueil, le logo, les
   métadonnées et le futur balisage `WebSite` ;
-- fournir `alternateName: Fouranu` seulement comme variante sans accent ;
+- fournir `alternateName: Four a Nu` comme variante sans accent ;
 - définir une seule entité éditeur avec `Organization`, auteur réel, page À
   propos, méthode, politique de correction et coordonnées publiques minimales ;
 - lancer un seul domaine, une seule langue canonique par URL et une seule
@@ -266,12 +338,16 @@ constitue pas encore le logo adopté.
 
 ## Prochaine porte
 
-Avant de renommer Jupiter :
+Le propriétaire a franchi la porte de sélection du nom. La suite est ordonnée :
 
-1. contrôler `Four à Nu` auprès de l'INPI, de l'EUIPO et des sociétés ;
-2. valider le nom avec le propriétaire ;
-3. acheter `fouranu.com` seulement après autorisation explicite ;
+1. confirmer l'acquisition de `fouranu.com`, sans verser d'identifiant, de code
+   à usage unique ni de secret dans le dépôt ou la conversation ;
+2. terminer la recherche de similarités orthographiques, phonétiques et
+   conceptuelles dans les classes pertinentes ;
+3. réserver `@fouranu_media` sur les plateformes réellement utiles ;
 4. redessiner le signe retenu en SVG et tester favicon, mobile, impression et
    contraste ;
 5. figer l'architecture des vingt premières URL à partir des questions et du
-   corpus Ooni existants.
+   corpus Ooni existants ;
+6. décider du bootstrap produit avant de renommer le dépôt ou de publier une
+   surface.

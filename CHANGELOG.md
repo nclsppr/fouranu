@@ -27,6 +27,8 @@ importantes.
   mesure 98 en performance, 100 en accessibilité et 100 en bonnes pratiques sur
   l'accueil et l'analyse Koda 2 ; le score SEO de 66 vient uniquement du
   `noindex` volontaire de la preview.
+- Connexion du dépôt canonique `nclsppr/fouranu`, conservation du commit GitHub
+  initial dans l'historique et première CI `Verify` verte sur `main`.
 - Contrôle des variantes défensives et des identifiants publics ; `@fouranu` est
   pris sur TikTok et bloqué sur X, tandis que `@fouranu_media` ne présente aucun
   profil public détecté sur les plateformes principales.

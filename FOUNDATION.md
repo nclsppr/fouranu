@@ -48,6 +48,8 @@ Une dérogation à un invariant exige une portée limitée, un contrôle compens
 `P18` ne peut pas être désactivé par une dérogation locale : la politique du
 projet choisit entre push direct sur la branche canonique et branche dédiée,
 mais ne conserve pas une tranche terminée uniquement en local.
+Le remote `origin` pointe vers `nclsppr/fouranu`; la tranche F01 est poussée sur
+`main` et sa première CI distante est verte.
 
 `P19` ne peut pas être désactivé par une dérogation locale : `compose.yaml` et
 sa gate restent obligatoires. Le pack `full` exige un service réel. La tranche

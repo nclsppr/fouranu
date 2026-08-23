@@ -11,8 +11,8 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Par | Codex, inspection locale |
 | Branche | `main` |
 | Base de la tranche | `51525432e445a407eef500e49388df5e91af50e4` |
-| Environnement | Dépôt et navigateur locaux |
-| Version livrée | Candidat local non publié, SHA final au handoff Git |
+| Environnement | Dépôt local et GitHub `nclsppr/fouranu` |
+| Version livrée | F01 poussée sur `origin/main`, site toujours non publié |
 
 ## Résumé
 
@@ -29,9 +29,9 @@ Les huit analyses Ooni restent hors index dans les deux modes.
 Le service Compose a répondu sainement en local. Le build du site a produit 15
 pages et les sept tests de contrat ont réussi. Les vues à 1440, 1024, 390 et 320
 pixels n'ont montré ni débordement horizontal, ni erreur ou avertissement dans
-la console. La gate complète du dépôt a réussi sur la tranche finale. F01 est
-fermée localement ; F02 reste active tant que les cinq sessions utilisateurs
-n'ont pas été menées.
+la console. La gate complète du dépôt a réussi localement puis dans GitHub
+Actions. F01 est fermée ; F02 reste active tant que les cinq sessions
+utilisateurs n'ont pas été menées.
 
 ## Phases actives
 
@@ -52,7 +52,7 @@ n'ont pas été menées.
 | Barrière SEO | Checklist bloquante propre à chaque article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Validation humaine requise avant toute indexation |
 | Parcours local | Service `site` construit par Compose avec healthcheck | `compose.yaml` et contrôle local du 2026-08-23 | Aucun preview partagé |
 | Documentation interne | Nimbus, adaptateur, recherche et catalogue | `docs-nimbus/` et [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) | Aucune publication autorisée de cette documentation interne |
-| Socle Foundation | Snapshot `v0.5.2`, pack `full`, profils actuels conformes au tag adopté | SHA `708d7374f87060809a805c57abc2cf7e7b66c182` | `P18` reste incomplet sans remote autorisé |
+| Socle Foundation | Snapshot `v0.5.2`, pack `full`, profils actuels conformes au tag adopté | SHA `708d7374f87060809a805c57abc2cf7e7b66c182` | Aucune dérive connue du snapshot |
 
 ## État opérationnel
 
@@ -60,7 +60,7 @@ n'ont pas été menées.
 | --- | --- | --- | --- | --- |
 | Site Four à Nu | `http://127.0.0.1:4321`, uniquement pendant le lancement local | `site/dist/`, dérivé non suivi | Service Compose sain au dernier contrôle | 2026-08-23 |
 | Documentation Nimbus | Build local uniquement | `docs-nimbus/dist/`, dérivé non suivi | Contrôles locaux disponibles | 2026-08-23 |
-| CI | Aucun remote Jupiter | Workflow versionné | Non exécutée à distance | 2026-08-23 |
+| CI | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` | Run `32649184182` réussi sur `main` | 2026-08-23 |
 | Production | `fouranu.com`, non sondé comme surface du projet | Aucun | Non activée | 2026-08-23 |
 
 ## Validations récentes
@@ -69,6 +69,7 @@ n'ont pas été menées.
 | --- | --- | --- | --- |
 | 2026-08-23 | `npm run check --prefix site` | Typecheck sans erreur, build de 15 pages, sept tests sur sept | Site local et contrats automatisés |
 | 2026-08-23 | `./scripts/verify.sh` | Gate complète verte, dont registres, Compose, Astro et 43 pages Nimbus | Diff final local, sans CI distante |
+| 2026-08-23 | GitHub Actions `Verify` | Run `32649184182` vert, y compris build Compose et sondes HTTP | SHA `10efc99a53db1cbbac6c79d898dc001105ecb12a` sur `main` |
 | 2026-08-23 | Indexation conditionnelle | Mode par défaut entièrement `noindex`; mode opt-in limité à l'accueil et la méthode | Configuration construite, pas comportement d'un moteur réel |
 | 2026-08-23 | Docker Compose | Build autonome, healthcheck sain, routes et statuts HTTP contrôlés | Machine locale, aucune preuve d'hébergement |
 | 2026-08-23 | Revue navigateur | 1440, 1024, 390 et 320 pixels sans débordement horizontal ni log console | Chrome local, pas données utilisateurs réelles |
@@ -79,7 +80,6 @@ n'ont pas été menées.
 
 | Blocage | Impact | Propriétaire | Condition de reprise |
 | --- | --- | --- | --- |
-| Aucun remote Jupiter | Aucun push, aucune CI distante et aucune livraison conforme à `P18` | nclsppr | Configurer une cible distante avec autorisation explicite |
 | Hébergement et DNS non autorisés | Aucun preview partagé ni production | nclsppr | Choisir la plateforme puis autoriser sa préparation et son activation |
 | Identité auteur et mentions légales incomplètes | Les pages restent impropres à l'indexation | nclsppr | Fournir les informations exactes et passer la barrière de publication |
 | Comptes marchands absents | Aucun lien rémunéré ou revenu attribuable | nclsppr | Admission confirmée et règles effectives enregistrées |

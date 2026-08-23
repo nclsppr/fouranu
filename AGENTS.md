@@ -80,6 +80,8 @@ arbitrée silencieusement.
 ## Politique Git et publication
 
 - Branche canonique : `main`.
-- Remote : aucun actuellement.
-- Publication directe : non autorisée tant que le remote, l'hébergement, le DNS
-  et le paquet public n'ont pas reçu leurs autorisations respectives.
+- Remote canonique : `origin`, dépôt GitHub `nclsppr/fouranu`.
+- Livraison Git : pousser sur `main` après les gates locales et vérifier la CI
+  du SHA livré.
+- Publication web : non autorisée tant que l'hébergement, le DNS et le paquet
+  public n'ont pas reçu leurs autorisations respectives.

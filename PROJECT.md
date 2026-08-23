@@ -139,7 +139,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Environnement | Configuration canonique | Accès | État vérifié |
 | --- | --- | --- | --- |
 | Développement | `compose.yaml` | `http://127.0.0.1:4321` | Build et healthcheck vérifiés localement |
-| CI | `.github/workflows/verify.yml` | Aucune exécution distante possible sans remote | Workflow présent, aucune exécution distante observée |
+| CI | `.github/workflows/verify.yml` | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` exécuté avec succès sur `main` |
 | Preview | Configuration à définir avec l'hébergement | Aucun | Non activé |
 | Production | Configuration à définir après autorisation | `fouranu.com` | Domaine acquis selon le propriétaire, aucune surface activée ou sondée |
 
@@ -154,7 +154,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 15 pages HTML et exécute sept tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
-| Déployer | Aucune commande autorisée | La plateforme, le remote et le feu vert de publication manquent |
+| Déployer | Aucune commande autorisée | La plateforme, l'hébergement et le feu vert de publication manquent |
 
 ## Données, sécurité et confidentialité
 
@@ -182,9 +182,10 @@ l'expérience en faits et n'autorise pas sa publication.
 ## Livraison
 
 - Branche canonique : `main`.
-- Politique actuelle : aucun remote n'est configuré. Une tranche peut recevoir
-  un commit local, mais ne satisfait pas entièrement `P18` tant qu'elle n'est
-  pas poussée vers une cible autorisée.
+- Remote canonique : `origin`, dépôt GitHub public
+  [`nclsppr/fouranu`](https://github.com/nclsppr/fouranu).
+- Politique actuelle : chaque tranche cohérente passe les gates locales, est
+  poussée sur `main`, puis sa CI distante est vérifiée conformément à `P18`.
 - Artefact cible : sortie statique générée par `site/`.
 - Déploiement : non décidé et non autorisé.
 - Rollback cible : dernier artefact et dernier SHA publiés et vérifiés.

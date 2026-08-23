@@ -71,7 +71,8 @@ arbitrée silencieusement.
   Versionner seulement le contrat et les métadonnées, jamais la valeur, un
   condensat dérivé de la valeur, un fichier déchiffré ou un chemin source privé.
   Si la tâche n'autorise pas la modification de `vps-infra`, signaler le blocage
-  et ne pas déclarer le travail terminé.
+  et ne pas déclarer le travail terminé. L'[ADR-0003](docs/decisions/0003-coordination-secrets-atlas.md)
+  définit ce contrat de coordination.
 - Une vidéo tierce reste une source. Elle ne devient ni une expérience Four à
   Nu, ni une source d'image transformable sans autorisation adéquate.
 - Les statuts `FAB`, `T-MES`, `T-OBS`, `FAN-SYN` et `FAN-INF` gardent le sens

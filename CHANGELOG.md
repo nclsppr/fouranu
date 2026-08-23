@@ -23,3 +23,23 @@ importantes.
   créateurs, 72 passages horodatés et 16 références d'intégration non publiées.
 - Extension du contrôle éditorial au registre des questions et conservation de
   quatre incohérences fabricant sans normalisation silencieuse.
+- Classement de huit noms selon la clarté thématique, la distinction d'entité,
+  la mémorisation et la portée éditoriale, avec `Four à Nu` comme piste
+  directrice non adoptée.
+- Double contrôle RDAP, WHOIS et DNS des huit `.com`, tous sans enregistrement
+  détecté le 2026-08-23 à 15:04 CEST, sans achat ni réservation.
+- Pré-contrôle exact dans DATA INPI, TMview et les entreprises françaises ;
+  maintien de `Four à Nu` et `Faits de Four`, réserve sur `Dossier 430` et rejet
+  de `Focale Pizza` en raison de l'encombrement de `Focale`.
+- Ajout d'un relevé de demande France qui confirme l'intérêt pour les fours à
+  pizza, Ooni et la napolitaine tout en signalant le blocage Google Trends et la
+  nature estimative des volumes Semrush.
+- Proposition d'une architecture unique : `Four à Nu` comme marque,
+  `Dossier 430` pour les formats longs et `Faits de Four` pour les vérifications
+  courtes.
+- Ajout d'un contrat de découvrabilité Google, Bing et ChatGPT qui sépare le nom
+  de marque des requêtes portées par les pages et conserve les limites de preuve
+  de la Saison 0.
+- Rejet des premières palettes ivoire et terracotta ; conservation d'une seule
+  feuille noir et blanc non canonique pour comparer les finalistes avant un
+  futur redessin vectoriel.

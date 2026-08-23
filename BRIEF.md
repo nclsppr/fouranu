@@ -6,7 +6,7 @@ Contrat léger d'une exploration. Les règles communes restent dans le snapshot 
 
 | Champ | Valeur |
 | --- | --- |
-| Nom | Jupiter, nom de code |
+| Nom | Jupiter, nom de code ; `Four à Nu` est la piste directrice non adoptée |
 | Propriétaire | nclsppr |
 | Classe | Exploration |
 | Statut | En cours |
@@ -101,20 +101,31 @@ avec leurs incertitudes.
   de 9 créateurs fournissent 72 passages horodatés ; le corpus fait émerger des
   décisions répétées autour du rapport taille/prix/débit, de l'énergie et du
   coût de possession. Quatre incohérences de données fabricant ont été isolées
-  sans correction silencieuse.
+  sans correction silencieuse. L'exploration de marque orientée SEO retient
+  `Four à Nu` devant deux autres finalistes ; les huit `.com` documentés dans
+  `BRAND-SEO.md` ne présentaient aucun enregistrement détecté le 2026-08-23 à
+  15:04 CEST. Des estimations tierces de demande France confirment des bassins
+  importants autour de `four a pizza`, Ooni et `pizza napolitaine`, sans fournir
+  de courbe Google Trends officielle.
 - Conclusion : l'offensive Ooni est lancée et la matière suffit pour rédiger les
-  deux premières synthèses documentaires en `noindex`. La porte 1, la
+  deux premières synthèses documentaires en `noindex`. Le nom de code reste en
+  place jusqu'au contrôle juridique et à une décision explicite. La porte 1, la
   rentabilité de la niche et la trajectoire vers le seuil économique ne sont pas
   encore prouvées.
 - Limites de la preuve : questions issues d'un seul forum, aucun volume de
   recherche vérifié, aucun compte marchand accepté, aucun entretien, aucun
-  produit testé par Jupiter, aucun trafic et aucun revenu observé.
+  produit testé par Jupiter, aucun trafic et aucun revenu observé. Aucun domaine
+  n'est réservé et aucune recherche d'antériorité complète INPI ou EUIPO n'est
+  achevée. Les volumes de requêtes restent des estimations Semrush et non des
+  données Google officielles.
 
 ## Décision suivante
 
 Produire d'abord `OONI-001` et `OONI-004` selon
 [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md), tout en complétant les contrôles
-restants de la porte 1 dans [`EXPERIMENT.md`](EXPERIMENT.md). Promouvoir Jupiter
+restants de la porte 1 dans [`EXPERIMENT.md`](EXPERIMENT.md). Contrôler aussi la
+piste `Four à Nu` selon la porte définie dans [`BRAND-SEO.md`](BRAND-SEO.md), sans
+acheter le domaine avant validation explicite. Promouvoir Jupiter
 vers un bootstrap standard uniquement si l'expérience atteint les critères de
 succès et si une preuve physique permet réellement de revendiquer le statut de
 laboratoire. Sinon, arrêter ou tester une autre niche dans une nouvelle

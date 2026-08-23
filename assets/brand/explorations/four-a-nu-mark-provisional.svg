@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Signe provisoire Four à Nu</title>
+  <desc id="desc">Une ouverture de four inscrite dans une porte dont un angle est dégagé.</desc>
+  <g fill="none" stroke="#000" stroke-width="20" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M36 220V36H220V180" />
+    <path d="M76 220V177C76 145.52 101.52 120 133 120C164.48 120 190 145.52 190 177V220" />
+    <path d="M212 220H228" />
+  </g>
+</svg>

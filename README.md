@@ -26,6 +26,7 @@ Une commande absente est indiquée comme non applicable. Une commande future n'e
 - [`FEASIBILITY.md`](FEASIBILITY.md) : verdict stratégique, contraintes, économie et choix de niche.
 - [`EXPERIMENT.md`](EXPERIMENT.md) : expérience de 90 jours, mesures et critères de décision.
 - [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) : couverture des neuf fours actuels, backlog de 35 contenus et ordre de production.
+- [`BRAND-SEO.md`](BRAND-SEO.md) : noms, disponibilité `.com`, piste visuelle et contrat de découvrabilité Google, Bing et ChatGPT.
 - [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) : Saison 0, taxonomie de preuve, droits, visuels IA et barrière de publication.
 - [`PERMISSION-TEMPLATE.md`](PERMISSION-TEMPLATE.md) : demande précise d'un fichier source et des droits nécessaires.
 - `research/evidence.csv`, `research/questions.csv` et `research/assets.csv` : registres versionnés des affirmations, questions d'achat et médias, sans données de contact ni fichiers tiers.

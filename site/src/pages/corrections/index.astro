@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 <BaseLayout
   title="Politique de correction | Four à Nu"
   description="Comment Four à Nu corrige une donnée, une attribution ou une conclusion et conserve la trace des changements importants."
-  indexable={false}
+  indexable={true}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Corrections" }]} />
@@ -16,13 +16,30 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
         <h1>Corriger sans effacer ce qui a changé.</h1>
         <p class="page-intro__lede">Une correction importante indique la date, le motif et l'effet sur la conclusion. Une simple faute de frappe peut être corrigée sans journal public.</p>
       </div>
-      <p class="page-intro__aside">Aucune correction publique n'existe encore, car le site n'est pas publié.</p>
+      <p class="page-intro__aside">Une faute mineure est corrigée directement. Un changement qui modifie une conclusion d'achat rejoint le journal public ci-dessous.</p>
     </header>
 
     <section class="correction-steps">
       <article><span>01</span><h2>Vérifier</h2><p>Retrouver la source, le modèle, la date et la portée exacte de l'erreur signalée.</p></article>
       <article><span>02</span><h2>Corriger</h2><p>Modifier la phrase, le tableau ou la conclusion dans la source canonique de l'article.</p></article>
       <article><span>03</span><h2>Tracer</h2><p>Ajouter une note datée lorsque le changement modifie une décision d'achat ou le niveau de confiance.</p></article>
+    </section>
+
+    <section class="correction-contact">
+      <div>
+        <p class="eyebrow">Signaler une erreur</p>
+        <h2>Donnez-nous la phrase, l'URL et la source concernée.</h2>
+      </div>
+      <div>
+        <p>Le dépôt public permet de documenter un signalement sans formulaire de suivi ni collecte publicitaire. N'incluez aucune donnée personnelle dans le ticket.</p>
+        <a class="button-link" href="https://github.com/nclsppr/fouranu/issues/new" rel="external">Ouvrir un signalement sur GitHub</a>
+      </div>
+    </section>
+
+    <section class="correction-log" aria-labelledby="correction-log-title">
+      <p class="eyebrow">Journal des corrections de fond</p>
+      <h2 id="correction-log-title">Aucune correction de fond consignée à ce jour.</h2>
+      <p>Ce journal commencera avec le premier changement qui modifie une donnée importante, une limite ou une conclusion.</p>
     </section>
   </div>
 </BaseLayout>
@@ -32,6 +49,57 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     border-top: 1px solid var(--color-carbon);
+  }
+
+  .correction-contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding: clamp(2rem, 5vw, 4rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .correction-contact .eyebrow {
+    color: var(--color-reading);
+  }
+
+  .correction-contact h2 {
+    margin: 0;
+    font-size: clamp(2.6rem, 4.8vw, 4.5rem);
+    line-height: 0.96;
+  }
+
+  .correction-contact > div:last-child {
+    align-self: end;
+  }
+
+  .correction-contact > div:last-child p {
+    color: var(--color-carbon-muted);
+    line-height: 1.65;
+  }
+
+  .correction-contact .button-link {
+    color: var(--color-carbon);
+    border-color: var(--color-reading);
+    background: var(--color-reading);
+  }
+
+  .correction-log {
+    max-width: 52rem;
+    padding-block: clamp(4rem, 8vw, 7rem) 0;
+  }
+
+  .correction-log h2 {
+    margin-bottom: 1rem;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    line-height: 1;
+  }
+
+  .correction-log > p:last-child {
+    color: var(--color-graphite);
+    line-height: 1.65;
   }
 
   .correction-steps article {
@@ -62,7 +130,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   @media (max-width: 48rem) {
-    .correction-steps {
+    .correction-steps,
+    .correction-contact {
       grid-template-columns: 1fr;
     }
 

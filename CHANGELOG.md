@@ -6,23 +6,45 @@ importantes.
 
 ## Non publié
 
+- Adoption du modèle documentaire permanent par l'ADR-0002. Le site attribue
+  les expériences tierces, refuse notes et balisage d'avis, et emploie les
+  classes `FAB`, `T-MES`, `T-OBS`, `FAN-SYN` et `FAN-INF`.
+- Refonte du site public en média éditorial : accueil hiérarchisé, gabarit
+  d'article avec signature, dates, sommaire, rail de preuve, limites,
+  bibliographie et accès direct à chaque preuve.
+- Passage à 21 pages HTML et onze analyses Ooni, dont les neuf modèles de la
+  gamme France, avec neuf tests de contrat et 107 preuves croisées.
+- Ajout des pages auteur, À propos, méthode, corrections, transparence
+  commerciale et confidentialité, sans analytics, publicité ou lien rémunéré
+  actif.
+- Extension du contrat SEO : 20 URL explicitement éligibles au build de
+  production, 404 seule hors index, RSS, `llms.txt`, canonicals, dates,
+  données structurées `Article`, `Organization`, `ProfilePage` et fils d'Ariane.
+- Ajout d'une illustration d'accueil originale assistée par IA, en esquisse
+  d'atelier, avec deux WebP responsive, mention visible et enregistrement de
+  provenance. Aucun média tiers n'a servi d'entrée.
+- Extension du registre aux photogrammes autorisés, dérivés IA et originaux IA.
+  Un dérivé de vidéo reste une illustration déclarée et ne devient jamais une
+  preuve.
+- Ajout d'un producteur Atlas reproductible : archive statique et inventaire de
+  routes déterministes, validations adversariales, publication OCI immuable et
+  attestations GitHub. L'admission et l'activation restent séparées.
 - Promotion de Jupiter en produit web sous la marque `Four à Nu`. `Jupiter`
   reste le nom de code du dépôt.
 - Acquisition de `fouranu.com` confirmée par le propriétaire le 2026-08-23,
   sans activation DNS, hébergement ou autre surface publique par le projet.
-- Création du site Astro local. Le build produit 15 pages HTML, dont deux guides
-  Ooni et six fiches modèle, avec sept tests de contrat.
+- Création du site Astro local, depuis consolidé dans le média documentaire de
+  21 pages décrit ci-dessus.
 - Ajout d'une indexation conditionnelle. Le mode par défaut place toutes les
-  pages en `noindex` et garde le sitemap vide. Le mode opt-in limite
-  l'indexation à l'accueil et la méthode, sans ouvrir les huit analyses Ooni.
+  pages en `noindex` et garde le sitemap vide ; le mode de production n'ouvre
+  que les 20 URL explicitement éligibles.
 - Ajout des métadonnées, canonicals, aperçus sociaux, données structurées
   honnêtes, bibliographies horodatées et contrôles croisés avec le registre de
   preuves.
 - Ajout d'une barrière SEO normative propre à chaque article. Elle contrôle
   l'intention, la cannibalisation, la provenance, le rendu, les médias, les
   relations commerciales et l'autorisation finale avant indexation.
-- Ajout du service Compose local avec healthcheck. Les vues à 1440, 1024, 390
-  et 320 pixels ont été contrôlées sans débordement horizontal ni log console.
+- Ajout du service Compose local avec healthcheck.
 - Fermeture locale de F01 après une gate complète verte. Lighthouse 13.4.1
   mesure 98 en performance, 100 en accessibilité et 100 en bonnes pratiques sur
   l'accueil et l'analyse Koda 2 ; le score SEO de 66 vient uniquement du
@@ -38,8 +60,8 @@ importantes.
 - Initialisation locale de Jupiter comme exploration depuis Project Foundation `v0.5.2`.
 - Ajout d'une étude de faisabilité datée sur le référencement, l'affiliation, X et la niche pizza.
 - Définition d'une expérience de 90 jours avec budget, métriques et conditions d'arrêt.
-- Pivot vers une Saison 0 — Observatoire qui démarre sans attendre les fours,
-  tout en réservant les formulations de test aux futures mesures physiques.
+- Adoption historique d'une Saison 0 documentaire, désormais remplacée comme
+  autorité courante par le modèle permanent de l'ADR-0002.
 - Ajout d'une taxonomie de preuve, de registres vérifiés et d'une barrière de
   droits avant extraction, traitement IA ou publication d'un visuel tiers.
 - Ajout d'un modèle de demande d'autorisation couvrant l'usage commercial,
@@ -67,8 +89,8 @@ importantes.
   `Dossier 430` pour les formats longs et `Faits de Four` pour les vérifications
   courtes.
 - Ajout d'un contrat de découvrabilité Google, Bing et ChatGPT qui sépare le nom
-  de marque des requêtes portées par les pages et conserve les limites de preuve
-  de la Saison 0.
+  de marque des requêtes portées par les pages et conserve les limites du
+  corpus documentaire.
 - Remplacement des premières palettes ivoire et terracotta par la direction
   « Ligne de sole », en blanc, carbone, acier et bleu de mesure. Le logo, les
   favicons et la carte sociale locale suivent cette direction.

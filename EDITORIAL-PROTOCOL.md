@@ -6,18 +6,14 @@ nécessaire avant une exploitation répétée ou contractuellement complexe.
 
 ## Décision
 
-Jupiter lance une **Saison 0 — Observatoire** sans attendre la réception des
-fours. Cette phase produit des analyses documentaires, un jeu de données et un
-sélecteur. Elle ne produit ni « test Jupiter », ni note, ni classement présenté
-comme le résultat d'une prise en main.
+Four à Nu est un média documentaire permanent. Il produit des analyses, un jeu
+de données et un parcours de décision à partir de sources attribuées. Une
+analyse peut rapprocher, normaliser ou contredire ces sources, mais elle ne
+transforme jamais une expérience tierce en expérience de Four à Nu.
 
-L'absence de matériel ne bloque donc plus la recherche, les brouillons, les
-tests utilisateurs ou un pilote documentaire. Elle continue de bloquer le label
-`J-TEST`, les formulations de première main et la promotion de Jupiter comme
-laboratoire de tests physiques.
-
-Une vidéo tierce peut être une source. Elle ne devient jamais une expérience de
-Jupiter. Une image transformée par IA peut être un habillage autorisé. Elle ne
+Le produit ne publie ni note, ni étoile, ni classement pseudo-scientifique, ni
+donnée structurée `Review` ou `AggregateRating`. Une vidéo tierce peut être une
+source. Une image transformée par IA peut être un habillage autorisé. Elle ne
 devient jamais une preuve.
 
 ## Taxonomie de preuve
@@ -30,9 +26,8 @@ Chaque affirmation importante porte un identifiant du registre
 | `FAB` | Donnée du fabricant | « Le fabricant annonce… » |
 | `T-MES` | Mesure réalisée par un tiers | « Dans les conditions décrites, X mesure… » avec source et timecode |
 | `T-OBS` | Observation visible chez un tiers | « La séquence montre… » sans extrapoler au-delà de l'image |
-| `J-SYN` | Calcul ou synthèse de plusieurs sources | « Notre analyse documentaire suggère… » avec méthode et incertitude |
-| `J-INF` | Inférence éditoriale | « Nous estimons… » avec raisons et niveau de confiance |
-| `J-TEST` | Mesure de première main | Réservé à un essai physique documenté par Jupiter |
+| `FAN-SYN` | Calcul ou synthèse de plusieurs sources | « L'analyse documentaire indique… » avec méthode et incertitude |
+| `FAN-INF` | Inférence éditoriale | « Four à Nu estime… » avec raisons et niveau de confiance |
 
 Une comparaison de performance repose sur au moins deux sources indépendantes
 ou affiche clairement qu'elle dépend d'une source unique. Deux mesures issues de
@@ -53,7 +48,8 @@ est paraphrasée, datée et reliée à sa source sans conserver de pseudonyme.
 | `embed` | Lecteur YouTube officiel, source consultable dans son contexte |
 | `licensed-frame` | Fichier fourni par un ayant droit et autorisé pour le périmètre enregistré |
 | `ai-illustration` | Dérivé autorisé et déclaré comme illustration, jamais comme preuve |
-| `jupiter-original` | Visuel créé intégralement par Jupiter sans reprendre une composition tierce |
+| `fouranu-original` | Visuel créé intégralement par Four à Nu sans reprendre une composition tierce |
+| `ai-original` | Illustration générée à partir d'un prompt original, sans image tierce en entrée |
 | `quarantine` | Référence non autorisée, interdite de publication et de transmission à une IA |
 
 Les couples autorisés sont explicites :
@@ -63,7 +59,8 @@ Les couples autorisés sont explicites :
 | `embed` | `youtube-embed` | `service-permitted` |
 | `licensed-frame` | `rights-holder-file` | `granted` |
 | `ai-illustration` | `rights-holder-file` | `granted` |
-| `jupiter-original` | `jupiter-original` | `original` |
+| `fouranu-original` | `fouranu-original` | `original` |
+| `ai-original` | `ai-generated` | `original` |
 | `quarantine` | `not-acquired` | Aucun |
 
 La preuve reste la vidéo consultable, son timecode, son protocole déclaré et,
@@ -97,7 +94,7 @@ Les coordonnées, messages d'autorisation et fichiers sources restent sous
 
 Le statut de droit d'un média vaut `not-requested`, `requested`, `granted`,
 `denied`, `expired`, `service-permitted` pour un lecteur officiel, ou `original`
-pour un visuel intégralement créé par Jupiter. Aucun statut générique
+pour un visuel intégralement créé par Four à Nu. Aucun statut générique
 « libre de droits » n'est utilisé.
 
 `web_scope` contient les origines HTTPS autorisées, séparées par des
@@ -131,7 +128,7 @@ production, le cadreur, une personne reconnaissable, une musique, une œuvre dan
 le décor ou un autre élément tiers. Le droit à l'image demande notamment un
 accord écrit adapté au support et à l'objectif pour une personne reconnaissable,
 selon [Service-Public](https://www.service-public.fr/particuliers/vosdroits/F32103).
-Jupiter ne traite jamais le silence comme une autorisation.
+Four à Nu ne traite jamais le silence comme une autorisation.
 
 ### 4. Transformer après accord
 
@@ -153,9 +150,9 @@ ne sont pas davantage modifiés d'une manière susceptible de tromper l'acheteur
 Un croquis qui reprend la composition reconnaissable d'un photogramme reste un
 dérivé et suit la même chaîne d'autorisation.
 
-La Saison 0 interdit toute personne identifiable dans une entrée envoyée à un
+Le protocole interdit toute personne identifiable dans une entrée envoyée à un
 prestataire IA. Le fichier est recadré localement, après autorisation, ou n'est
-pas traité. Toute exception future exigera une décision distincte couvrant la
+pas traité. Toute exception exigera une décision distincte couvrant la
 base légale, l'information des personnes, le rôle et le contrat du fournisseur,
 la région de traitement, les transferts, la rétention et la suppression. Les
 [questions-réponses de la CNIL sur l'IA générative](https://www.cnil.fr/fr/les-questions-reponses-de-la-cnil-sur-lutilisation-dun-systeme-dia-generative)
@@ -164,14 +161,14 @@ seront alors revérifiées.
 Mention minimale :
 
 > Illustration assistée par IA d'après une image de [créateur], utilisée avec
-> autorisation. Elle ne représente pas un test réalisé par Jupiter. Source :
-> [vidéo et timecode].
+> autorisation. Cette illustration ne constitue pas une preuve de performance.
+> Source : [vidéo et timecode].
 
 L'[article 50 du règlement européen sur l'IA](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
 s'applique depuis le 2026-08-02. Les
 [lignes directrices de la Commission](https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations)
 prévoient des obligations de marquage ou d'information pour certains contenus
-générés ou manipulés. Jupiter déclare donc tout visuel IA, y compris lorsqu'une
+générés ou manipulés. Four à Nu déclare donc tout visuel IA, y compris lorsqu'une
 exception artistique pourrait permettre une présentation plus discrète.
 
 ### 5. Publier ou revenir au repli sûr
@@ -196,17 +193,17 @@ de l'attribution et de la capacité réelle du déposant à licencier tous les
 Une page documentaire ne passe en public que si toutes les conditions suivantes
 sont vraies :
 
-- le bandeau « Analyse documentaire — produit non testé par Jupiter » est
-  visible avant la première recommandation ;
+- le bandeau documentaire positif est visible avant la première recommandation ;
 - chaque affirmation de performance a un identifiant, une source, une date et,
   pour une vidéo, un timecode et les conditions connues ;
 - la page apporte une valeur propre : normalisation, calcul explicable,
   divergences, cas d'usage, limites ou outil de décision ;
 - les désaccords et protocoles incompatibles restent visibles ;
-- aucun titre ou texte ne dit « notre test », « nous avons mesuré » ou « meilleur
-  four » sans preuve `J-TEST` suffisante ;
+- aucun titre ou texte ne raconte une expérience tierce à la première personne
+  ou n'emploie « notre test », « nous avons mesuré », « notre avis » ou
+  « meilleur four » ;
 - aucun balisage `Review`, note, étoile ou classement pseudo-scientifique n'est
-  publié durant la Saison 0 ;
+  publié ;
 - chaque média de l'arbre public a un statut de droit `service-permitted`,
   `granted` ou `original`, cohérent avec son type, son acquisition, son périmètre
   et sa provenance ;
@@ -220,14 +217,14 @@ sont vraies :
 
 Bandeau minimal :
 
-> **Analyse documentaire — produit non testé par Jupiter.** Cette page s'appuie
-> sur des essais publiés par des tiers et sur des données fabricants. Les
-> mesures citées sont celles de leurs auteurs et n'ont pas encore été reproduites
-> par Jupiter.
+> **Analyse documentaire.** Ce dossier confronte des données fabricant, des
+> mesures publiées et des observations attribuées. Les protocoles et relations
+> commerciales connus sont indiqués avec les sources.
 
 Les [recommandations Google sur les avis](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews)
-demandent une preuve de première main lorsqu'une page recommande un produit
-comme meilleur choix global ou pour un usage. Les
+demandent une preuve d'expérience propre lorsqu'une page revendique une
+évaluation. Four à Nu reste dans le format `Article`, décrit les critères et les
+limites de son corpus, et n'emploie pas les signaux d'un avis produit. Les
 [recommandations sur le contenu utile](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 demandent qu'une synthèse ajoute une valeur substantielle au lieu de reformuler
 ses sources.
@@ -237,11 +234,10 @@ affirmations qui en dépendent repassent en brouillon jusqu'à nouvelle preuve.
 Une expiration ou un retrait de droit retire le média concerné de la prochaine
 publication sans effacer l'historique minimal du registre.
 
-Le contrôle actuel valide les métadonnées des registres ; il ne parcourt pas
-encore une application publique inexistante. Avant le pilote, une gate de build
-devra rapprocher pages, affirmations, médias et registres pour détecter un média
-non déclaré, l'absence de bandeau, un balisage `Review` ou un lien rémunéré mal
-qualifié. La vérification locale des accords privés s'exécute avec :
+La gate de build rapproche pages, affirmations, médias et registres pour
+détecter un média non déclaré, l'absence de bandeau, un balisage `Review` ou un
+lien rémunéré mal qualifié. La vérification locale des accords privés s'exécute
+avec :
 
 ```bash
 python3 scripts/check_editorial_ledgers.py --require-private-proofs
@@ -254,13 +250,14 @@ CI ordinaire ne peut pas lire ces fichiers ignorés.
 
 Le sprint consomme au maximum 40 des 60 heures autorisées et 0 euro. Les 20
 heures restantes sont réparties entre le pilote manuel et sa mesure (6 heures),
-un premier essai physique (8 heures), puis l'analyse et la conclusion (6 heures).
+la relecture documentaire et les pages de confiance (8 heures), puis l'analyse
+et la conclusion (6 heures).
 
 | Période | Heures | Résultat vérifiable |
 | --- | ---: | --- |
 | J1 à J2 | 3 | Protocole, taxonomie et registres prêts |
 | J3 à J9 | 12 | 16 vidéos, 8 créateurs, 6 fours, 50 observations horodatées et 50 questions d'achat |
-| J10 à J16 | 12 | Matrice, sélecteur, méthode, deux analyses fortes et six fiches `noindex` |
+| J10 à J16 | 12 | Matrice, sélecteur, méthode, deux analyses de décision et neuf fiches modèle en preview `noindex` |
 | J17 à J20 | 3 | Storyboard privé et demandes de droits, sans extraction préalable |
 | J21 à J24 | 4 | Cinq sessions utilisateur |
 | J25 à J27 | 4 | Audit des preuves, droits, médias, confidentialité et build |

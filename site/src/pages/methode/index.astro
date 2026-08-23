@@ -6,7 +6,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
 
 <BaseLayout
   title="Notre méthode : sources, preuves et corrections | Four à Nu"
-  description="Comment Four à Nu distingue les données fabricant, mesures tierces, observations, synthèses et futurs essais physiques."
+  description="Comment Four à Nu attribue les données fabricant, mesures tierces, observations, synthèses et inférences de ses dossiers."
   indexable={true}
 >
   <div class="page-shell">
@@ -17,21 +17,22 @@ import ProofLabel from "@/components/ProofLabel.astro";
         <p class="eyebrow">Protocole éditorial</p>
         <h1>Montrer d'où vient chaque conclusion.</h1>
         <p class="page-intro__lede">
-          Four à Nu ne mélange pas une fiche constructeur, une vidéo tierce et
-          une mesure réalisée par nos soins. Chaque niveau de preuve a son code,
-          ses formulations permises et ses limites.
+          Four à Nu ne mélange pas une fiche constructeur, une mesure publiée,
+          une observation vidéo et une conclusion éditoriale. Chaque niveau de
+          preuve a son code, ses formulations permises et ses limites.
         </p>
       </div>
       <p class="page-intro__aside">
-        La Saison 0 reste documentaire. Le niveau J-TEST n'ouvrira qu'après la
-        réception du matériel et l'exécution d'un protocole physique publié.
+        La méthode est permanente : une expérience tierce reste attribuée à son
+        auteur et une inconnue reste une inconnue, même si une réponse plus
+        spectaculaire serait plus facile à vendre.
       </p>
     </header>
 
     <section class="method-grid" aria-labelledby="levels-title">
       <header>
         <p class="eyebrow">Niveaux de preuve</p>
-        <h2 id="levels-title">Cinq niveaux ouverts. Un niveau verrouillé.</h2>
+        <h2 id="levels-title">Cinq niveaux pour ne pas confondre une source et une conclusion.</h2>
       </header>
 
       <div class="method-grid__levels">
@@ -51,19 +52,14 @@ import ProofLabel from "@/components/ProofLabel.astro";
           <p>Nous décrivons ce qui est visible sans transformer une séquence en règle générale.</p>
         </article>
         <article>
-          <ProofLabel code="J-SYN" />
+          <ProofLabel code="FAN-SYN" />
           <h3>Synthèse Four à Nu</h3>
           <p>Un rapprochement entre plusieurs sources, avec méthode et incertitude explicites.</p>
         </article>
         <article>
-          <ProofLabel code="J-INF" />
+          <ProofLabel code="FAN-INF" />
           <h3>Inférence éditoriale</h3>
           <p>Une estimation motivée, signalée comme telle et accompagnée d'un niveau de confiance.</p>
-        </article>
-        <article class="method-grid__locked">
-          <ProofLabel code="J-TEST" state="locked" />
-          <h3>Essai physique Four à Nu</h3>
-          <p>Verrouillé. Il exigera une unité identifiée, des instruments, des répétitions et des données originales.</p>
         </article>
       </div>
     </section>
@@ -82,7 +78,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
       <article>
         <span>03</span>
         <h2>Une illustration ne devient jamais une preuve.</h2>
-        <p>Un lecteur vidéo officiel, un fichier autorisé ou un croquis original peuvent illustrer une page. Une transformation IA reste déclarée et ne modifie aucun élément probant.</p>
+        <p>Un lecteur vidéo officiel, un photogramme autorisé ou un croquis peuvent illustrer une page. Une transformation IA reste déclarée, créditée et séparée des éléments probants.</p>
       </article>
       <article>
         <span>04</span>
@@ -147,10 +143,6 @@ import ProofLabel from "@/components/ProofLabel.astro";
     color: var(--color-graphite);
     font-size: 0.9rem;
     line-height: 1.6;
-  }
-
-  .method-grid__locked {
-    background: var(--color-steel-soft);
   }
 
   .principles {

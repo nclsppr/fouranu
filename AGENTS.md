@@ -66,13 +66,16 @@ arbitrée silencieusement.
   périmètre minimal entrent dans les registres versionnés.
 - Une vidéo tierce reste une source. Elle ne devient ni une expérience Four à
   Nu, ni une source d'image transformable sans autorisation adéquate.
-- Les statuts `FAB`, `T-MES`, `T-OBS`, `J-SYN`, `J-INF` et `J-TEST` gardent le
-  sens défini dans `EDITORIAL-PROTOCOL.md`.
+- Les statuts `FAB`, `T-MES`, `T-OBS`, `FAN-SYN` et `FAN-INF` gardent le sens
+  défini dans `EDITORIAL-PROTOCOL.md`. Aucune classe de test propre au média
+  n'est admise.
 - Avant toute publication, appliquer la barrière éditoriale, contrôler les
   droits, les bandeaux, les données structurées et les liens rémunérés. Le
   propriétaire donne un feu vert explicite sur le paquet exact.
 - L'achat du domaine n'autorise pas le DNS, l'hébergement, les comptes
   marchands, l'analytics, les réseaux sociaux ou un déploiement public.
+- Atlas est la cible de publication. Préparer son contrat de release n'autorise
+  ni l'admission dans `vps-infra`, ni la publication, ni l'activation publique.
 - Appliquer `P18` après validation. Committer chaque tranche cohérente puis la
   pousser sur la branche autorisée. Sans remote, conserver le SHA local et
   annoncer le blocage au lieu de déclarer la livraison complète.

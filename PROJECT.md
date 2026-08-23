@@ -14,7 +14,7 @@ reste consignée dans [`BRIEF.md`](BRIEF.md).
 | Classe | Produit |
 | Langue initiale | Français |
 | Domaine | `fouranu.com`, acquisition confirmée par le propriétaire le 2026-08-23 |
-| Surface de production | Aucune surface activée ou vérifiée |
+| Surface de production | Cible Atlas préparée pour admission, aucune surface activée ou vérifiée |
 | Socle adopté | [`FOUNDATION.md`](FOUNDATION.md) |
 
 ## Problème
@@ -28,7 +28,7 @@ décision difficile à vérifier.
 
 | Utilisateur | Situation | Besoin | Risque principal |
 | --- | --- | --- | --- |
-| Amateur francophone déjà en intention d'achat | Il choisit un four domestique entre 300 et 1 500 euros, avec des contraintes de place, d'énergie, de débit et de budget | Comparer les compromis et retrouver la provenance de chaque affirmation | Confondre une donnée fabricant, une observation tierce et un essai réalisé par Four à Nu |
+| Amateur francophone déjà en intention d'achat | Il choisit un four domestique entre 300 et 1 500 euros, avec des contraintes de place, d'énergie, de débit et de budget | Comparer les compromis et retrouver la provenance de chaque affirmation | Confondre une donnée fabricant, une observation tierce et une conclusion éditoriale de Four à Nu |
 
 Le matériel professionnel reste une extension possible. Il n'entre pas dans la
 promesse du premier produit.
@@ -36,10 +36,11 @@ promesse du premier produit.
 ## Résultat attendu
 
 Four à Nu doit permettre à cet acheteur de réduire sa liste de choix, de
-comprendre les compromis restants et de vérifier les sources utilisées. La
-Saison 0 peut publier des analyses documentaires clairement étiquetées. Elle ne
-revendique aucun test physique réalisé par Four à Nu tant que la preuve
-`J-TEST` reste verrouillée.
+comprendre les compromis restants et de vérifier les sources utilisées. Le
+produit est un média documentaire permanent. Il confronte les données
+fabricant, les mesures et observations publiées par des tiers, puis produit des
+synthèses et inférences Four à Nu dont les prémisses et les limites restent
+visibles.
 
 ### Preuves de succès
 
@@ -61,21 +62,25 @@ qui est réellement vérifié.
 - un parcours de choix par contraintes ;
 - une méthode publique, une politique de correction et une page auteur ;
 - des analyses documentaires Ooni dont la provenance est visible ;
-- des fiches produit en `noindex` tant que leur barrière éditoriale n'est pas passée ;
-- un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires.
+- une preview en `noindex` par défaut et des pages indexables uniquement après
+  passage de leur barrière éditoriale et autorisation de publication ;
+- un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires ;
+- un artefact statique préparé pour une admission sur Atlas, sans activation de
+  l'hébergement ni du DNS dans cette tranche.
 
 ### Non-objectifs
 
 - créer une ferme de sites ou des pages satellites ;
 - répondre automatiquement sur X à partir de recherches de mots-clés ;
 - présenter une source tierce comme une expérience de Four à Nu ;
-- publier une note, des étoiles ou un balisage `Review` sans essai physique suffisant ;
+- publier une note, des étoiles, un classement pseudo-scientifique ou un
+  balisage `Review` ou `AggregateRating` ;
 - ouvrir une offre professionnelle avant validation de l'utilité domestique ;
 - activer DNS, hébergement, analytics, affiliation ou comptes sociaux sans autorisation distincte.
 
 ### Conditions d'arrêt ou de réévaluation
 
-Les seuils, dates et conditions d'arrêt de la Saison 0 restent dans
+Les seuils, dates et conditions d'arrêt de l'expérience documentaire restent dans
 [`EXPERIMENT.md`](EXPERIMENT.md). La classe Produit signifie que le dépôt porte
 désormais une application durable. Elle ne transforme pas les hypothèses de
 l'expérience en faits et n'autorise pas sa publication.
@@ -93,6 +98,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Contenus prioritaires | [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) | Actuel |
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
+| Modèle documentaire et cible Atlas | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
 | Design system | [`DESIGN.md`](DESIGN.md) | Actuel |
 | Code du site | `site/` | Actuel, local et non publié |
@@ -107,19 +113,20 @@ l'expérience en faits et n'autorise pas sa publication.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Actuel, non publié | Build et service local | `site/`, 15 pages HTML au dernier build local |
+| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Actuel, non publié | Build et service local | `site/`, 21 pages HTML au dernier build local |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
 | Docker Compose | Lancer le parcours local intégré | Actuel | Développement local | `compose.yaml`, service `site` sain lors du dernier contrôle local |
-| Hébergement | Servir l'artefact statique sur `fouranu.com` | Non activé | Production | Plateforme et configuration non décidées |
+| Hébergement Atlas | Servir l'artefact statique immuable sur `fouranu.com` via le contrôle central `vps-infra` | Cible préparée, non activée | Production | Admission, publication et activation restent des décisions séparées |
 
 ### Flux éditorial cible
 
 1. L'auteur part d'une question d'achat et des registres versionnés.
 2. La page référence les identifiants de preuve et de média nécessaires.
-3. La gate refuse une provenance absente, un média non publiable, une fausse
-   revendication de test ou un lien rémunéré mal déclaré.
+3. La gate refuse une provenance absente, un média non publiable, une
+   expérience tierce racontée à la première personne, une note, un balisage
+   d'avis ou un lien rémunéré mal déclaré.
 4. Astro génère un artefact statique avec métadonnées, canonical, sitemap et
    directives d'indexation cohérentes.
 5. Le paquet reste en preview jusqu'aux contrôles éditoriaux, visuels et
@@ -132,7 +139,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
 | Programmes marchands | Liens rémunérés et attribution | Navigation vers le marchand, puis traceurs uniquement selon consentement et contrat | Aucun compte actif ; le contenu reste accessible sans lien suivi |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
-| Hébergeur et DNS | Publication de l'artefact statique | Fichiers publics et données techniques minimales | Fournisseur et configuration non décidés |
+| Atlas et DNS | Publication de l'artefact statique après admission par `vps-infra` | Fichiers publics et données techniques minimales | Cible préparée ; aucune release admise, aucun déploiement ni DNS activé dans cette tranche |
 
 ## Environnements
 
@@ -140,8 +147,8 @@ l'expérience en faits et n'autorise pas sa publication.
 | --- | --- | --- | --- |
 | Développement | `compose.yaml` | `http://127.0.0.1:4321` | Build et healthcheck vérifiés localement |
 | CI | `.github/workflows/verify.yml` | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` exécuté avec succès sur `main` |
-| Preview | Configuration à définir avec l'hébergement | Aucun | Non activé |
-| Production | Configuration à définir après autorisation | `fouranu.com` | Domaine acquis selon le propriétaire, aucune surface activée ou sondée |
+| Preview | Artefact statique avec `noindex`, accès à définir dans Atlas | Aucun | Cible préparée, non activée |
+| Production | Release statique admise par le contrôle central `vps-infra` après autorisation | `fouranu.com` | Domaine acquis selon le propriétaire, aucune surface activée ou sondée |
 
 ## Commandes canoniques
 
@@ -151,10 +158,11 @@ l'expérience en faits et n'autorise pas sa publication.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 15 pages HTML et exécute sept tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 21 pages HTML et exécute neuf tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
-| Déployer | Aucune commande autorisée | La plateforme, l'hébergement et le feu vert de publication manquent |
+| Préparer le candidat Atlas | `npm run build --prefix site` | Produit l'artefact statique à remettre au contrôle central ; ne publie et n'active rien |
+| Déployer | Aucune commande locale autorisée | L'admission Atlas, la publication de la release et l'activation publique appartiennent à `vps-infra` et exigent leurs autorisations propres |
 
 ## Données, sécurité et confidentialité
 
@@ -174,7 +182,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Risque | Contrôle automatisé attendu | Contrôle manuel attendu |
 | --- | --- | --- |
 | Contenu sans provenance | Registres, références croisées et tests de contrat | Lecture des sources et limites avec la barrière SEO par article |
-| Confusion entre analyse et test | Refus des formulations et schémas interdits | Vérification du bandeau avant la première recommandation |
+| Confusion entre source et conclusion | Refus de la première personne pour une expérience tierce, des notes et des schémas d'avis | Vérification du bandeau documentaire et des attributions avant la première recommandation |
 | Régression SEO | Build, liens, canonical, sitemap, robots et données structurées | Inspection de l'HTML et des aperçus sociaux |
 | Interface inaccessible | Typecheck, tests et contrôles statiques applicables | Mobile, bureau, clavier, focus, contraste et mouvement réduit |
 | Publication interne accidentelle | Séparation entre `site/` et `docs-nimbus/` | Inspection de l'artefact public |
@@ -187,7 +195,8 @@ l'expérience en faits et n'autorise pas sa publication.
 - Politique actuelle : chaque tranche cohérente passe les gates locales, est
   poussée sur `main`, puis sa CI distante est vérifiée conformément à `P18`.
 - Artefact cible : sortie statique générée par `site/`.
-- Déploiement : non décidé et non autorisé.
+- Déploiement cible : Atlas via le contrôle central `vps-infra`, préparé mais non
+  admis, non publié et non activé.
 - Rollback cible : dernier artefact et dernier SHA publiés et vérifiés.
 - Vérification finale d'une publication : checks CI, contrôle HTTP, rendu
   mobile et bureau, console, routes, robots, sitemap et empreinte de l'artefact.

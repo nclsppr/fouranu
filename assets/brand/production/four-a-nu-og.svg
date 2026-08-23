@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Four à Nu</title>
-  <desc id="desc">Carte sociale blanche, noire et bleue pour le guide des fours à pizza.</desc>
+  <desc id="desc">Carte sociale blanche, noire et bleue du média indépendant Four à Nu.</desc>
   <rect width="1200" height="630" fill="#FFFFFF"/>
   <path d="M0 0H1200V18H0Z" fill="#0D1214"/>
   <g transform="translate(72 76) scale(.55)" fill="none" stroke="#0D1214" stroke-width="20" stroke-linecap="square" stroke-linejoin="miter">
@@ -17,9 +17,5 @@
     <text x="540" y="525">OONI · FOURS · ACCESSOIRES</text>
     <text x="957" y="525">FOURANU.COM</text>
   </g>
-  <g transform="translate(72 566)">
-    <rect width="78" height="32" fill="#0D1214"/>
-    <text x="39" y="22" text-anchor="middle" fill="#5DD7E7" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700">J-TEST</text>
-    <text x="96" y="22" fill="#536168" font-family="Menlo, Consolas, monospace" font-size="14">VERROUILLÉ PENDANT LA SAISON 0</text>
-  </g>
+  <text x="72" y="592" fill="#536168" font-family="Menlo, Consolas, monospace" font-size="15" letter-spacing="1">SOURCES ATTRIBUÉES · MÉTHODE PUBLIÉE · CORRECTIONS TRACÉES</text>
 </svg>

@@ -3,17 +3,18 @@ articleId: OONI-011
 title: "Ooni Koda 2 Pro : format 45 cm et commandes"
 description: Le Koda 2 Pro est annoncé pour 45 cm et pèse 30 kg. Sa commande unique, son brûleur en U et les mesures tierces sont documentés.
 summary: Le Koda 2 Pro est annoncé pour 45 cm et pèse 30 kg. Une seule molette commande son brûleur en U, et aucun débit répété n'est encore établi.
-status: researching
+status: publishable
 type: model
 model: Ooni Koda 2 Pro
+publishedAt: 2026-08-23
 updatedAt: 2026-08-23
-indexable: false
+indexable: true
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
 limitations:
-  - Four à Nu n'a pas testé ce modèle.
+  - Les protocoles disponibles ne permettent pas de calculer un temps de chauffe de référence.
   - Les essais tiers n'utilisent pas un protocole commun.
   - Une mesure de chauffe a un délai interrompu et ne permet pas de calculer un temps fiable.
   - Le débit et la récupération entre pizzas ne sont pas mesurés en série.

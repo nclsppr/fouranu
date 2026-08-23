@@ -19,19 +19,30 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
-const statusLabels = {
-  researching: "Recherche en cours",
-  inventory: "Inventaire",
-  "ready-noindex": "Prêt en noindex",
-};
-const updatedAt = new Intl.DateTimeFormat("fr-FR", {
+const { Content, headings } = await render(entry);
+const articleHeadings = headings.filter((heading) => heading.depth === 2);
+const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
   month: "long",
   year: "numeric",
-}).format(entry.data.updatedAt);
+  timeZone: "UTC",
+});
+const publishedAt = dateFormatter.format(entry.data.publishedAt);
+const updatedAt = dateFormatter.format(entry.data.updatedAt);
 const canonical = new URL(`/ooni/${entry.id}/`, SITE.url).toString();
 const evidenceIds = [...new Set((entry.body ?? "").match(/\bEV-\d{4}\b/g) ?? [])];
+const words = (entry.body ?? "")
+  .replace(/```[\s\S]*?```/g, " ")
+  .replace(/[#*_[\]()`>|-]/g, " ")
+  .split(/\s+/)
+  .filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.ceil(words / 220));
+const typeLabels = {
+  guide: "Guide d'achat",
+  decision: "Comparatif par usage",
+  model: "Analyse de modèle",
+};
+const canonicalAuthor = new URL(SITE.editorialAuthor.url, SITE.url).toString();
 const schema = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -39,6 +50,8 @@ const schema = {
   url: canonical,
   headline: entry.data.title,
   description: entry.data.description,
+  image: new URL(SITE.socialImage, SITE.url).toString(),
+  datePublished: entry.data.publishedAt.toISOString(),
   dateModified: entry.data.updatedAt.toISOString(),
   inLanguage: SITE.language,
   mainEntityOfPage: {
@@ -47,8 +60,8 @@ const schema = {
   },
   author: {
     "@type": "Organization",
-    name: SITE.name,
-    url: `${SITE.url}/`,
+    name: SITE.editorialAuthor.name,
+    url: canonicalAuthor,
   },
   publisher: {
     "@type": "Organization",
@@ -60,6 +73,7 @@ const schema = {
     "@type": "WebSite",
     "@id": `${SITE.url}/#website`,
   },
+  publishingPrinciples: `${SITE.url}/methode/`,
 };
 ---
 
@@ -68,6 +82,7 @@ const schema = {
   description={entry.data.description}
   indexable={entry.data.indexable}
   pageType="article"
+  publishedAt={entry.data.publishedAt}
   modifiedAt={entry.data.updatedAt}
   schema={schema}
 >
@@ -82,110 +97,435 @@ const schema = {
 
     <article class="article-shell">
       <header class="article-header">
-        <p class="eyebrow">{entry.data.articleId} · Analyse documentaire</p>
+        <p class="eyebrow">{typeLabels[entry.data.type]} · Analyse documentaire</p>
         <h1>{entry.data.title}</h1>
         <p class="article-header__summary">{entry.data.summary}</p>
+
+        <div class="article-byline">
+          <p>
+            Par <a rel="author" href={SITE.editorialAuthor.url}>{SITE.editorialAuthor.name}</a>
+          </p>
+          <p>
+            Publié le <time datetime={entry.data.publishedAt.toISOString()}>{publishedAt}</time>
+          </p>
+          <p>
+            Mis à jour le <time datetime={entry.data.updatedAt.toISOString()}>{updatedAt}</time>
+          </p>
+          <p>{readingMinutes} min de lecture</p>
+        </div>
       </header>
 
-      <aside class="article-rail" aria-label="État de l'analyse">
+      <aside class="article-facts" aria-label="Repères éditoriaux">
         <dl>
-          <div><dt>Statut</dt><dd>{statusLabels[entry.data.status]}</dd></div>
-          <div><dt>Vérifié</dt><dd>{updatedAt}</dd></div>
-          <div><dt>Essai Four à Nu</dt><dd>Non</dd></div>
+          <div><dt>Nature</dt><dd>Analyse documentaire</dd></div>
+          <div><dt>Sources citées</dt><dd><a href="#cited-sources-title">{evidenceIds.length}</a></dd></div>
           {entry.data.model && <div><dt>Produit</dt><dd>{entry.data.model}</dd></div>}
+          <div><dt>Dossier</dt><dd>{entry.data.articleId}</dd></div>
         </dl>
-        <div class="article-rail__proofs">
+        <div class="article-facts__proofs">
           {entry.data.evidenceTypes.map((code) => <ProofLabel code={code} />)}
-          <ProofLabel code="J-TEST" state="locked" />
         </div>
-        <nav class="article-rail__evidence" aria-label="Accès aux preuves citées">
-          <p>Registre cité</p>
-          <ul>
+        <details class="article-facts__sources">
+          <summary>Accès direct aux preuves</summary>
+          <ol>
             {evidenceIds.map((evidenceId) => (
               <li><a href={`#preuve-${evidenceId}`}>{evidenceId}</a></li>
             ))}
-          </ul>
-        </nav>
+          </ol>
+        </details>
       </aside>
 
-      <div class="article-body">
-        <div class="documentary-notice">
-          <strong>Ce dossier n'est pas un test.</strong>
-          <span>Il rassemble des données fabricant et des sources tierces attribuées.</span>
-          <a href="#cited-sources-title">Décoder les références EV dans le registre des sources.</a>
+      <div class="article-reading-grid">
+        <aside class="article-toc" aria-labelledby="article-toc-title">
+          <p id="article-toc-title">Dans ce dossier</p>
+          <ol>
+            {articleHeadings.map((heading) => (
+              <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+            ))}
+          </ol>
+          <a class="article-toc__method" href="/methode/">Comment nous travaillons</a>
+        </aside>
+
+        <div class="article-body">
+          <div class="documentary-notice">
+            <strong>Analyse documentaire</strong>
+            <span>
+              Ce dossier confronte des données fabricant, des mesures publiées
+              et des observations attribuées. Les protocoles et relations
+              commerciales connus sont indiqués avec les sources.
+            </span>
+            <a href="#cited-sources-title">Consulter la bibliographie complète</a>
+          </div>
+          <Content />
+
+          <aside class="article-limitations" aria-labelledby="limitations-title">
+            <h2 id="limitations-title">Ce que le corpus ne permet pas de trancher</h2>
+            <ul>
+              {entry.data.limitations.map((limitation) => <li>{limitation}</li>)}
+            </ul>
+          </aside>
         </div>
-        <Content />
       </div>
 
-      <aside class="article-limitations">
-        <h2>Limites actuelles</h2>
-        <ul>
-          {entry.data.limitations.map((limitation) => <li>{limitation}</li>)}
-        </ul>
-      </aside>
-
       <CitedSources evidenceIds={evidenceIds} />
+
+      <footer class="article-author">
+        <div>
+          <p class="eyebrow">Responsabilité éditoriale</p>
+          <h2>{SITE.editorialAuthor.name}</h2>
+        </div>
+        <div>
+          <p>
+            La signature collective couvre la sélection des sources, leur
+            attribution, la comparaison des protocoles et la formulation des
+            limites. Une correction importante reste datée et expliquée.
+          </p>
+          <a href={SITE.editorialAuthor.url}>Voir la page de la rédaction</a>
+          <a href="/corrections/">Consulter la politique de correction</a>
+        </div>
+      </footer>
     </article>
   </div>
 </BaseLayout>
 
 <style>
-  .article-rail__proofs {
+  .article-shell {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .article-header {
+    grid-column: 1 / span 8;
+  }
+
+  .article-header h1 {
+    max-width: 15ch;
+    margin-bottom: 1.5rem;
+    font-size: clamp(3.4rem, 6.4vw, 6.4rem);
+    line-height: 0.94;
+  }
+
+  .article-header__summary {
+    max-width: 46rem;
+    color: var(--color-graphite);
+    font-size: clamp(1.12rem, 2vw, 1.35rem);
+    line-height: 1.6;
+  }
+
+  .article-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1.25rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .article-byline p {
+    margin: 0;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.66rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .article-byline a {
+    color: var(--color-probe);
+    font-weight: 500;
+  }
+
+  .article-facts {
+    grid-column: 10 / -1;
+    align-self: end;
+    border-top: 2px solid var(--color-probe);
+  }
+
+  .article-facts dl {
+    margin: 0;
+  }
+
+  .article-facts dl > div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .article-facts dt,
+  .article-facts dd {
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .article-facts dt {
+    color: var(--color-graphite);
+  }
+
+  .article-facts dd {
+    max-width: 11rem;
+    margin: 0;
+    text-align: right;
+  }
+
+  .article-facts__proofs {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     padding-top: 1rem;
   }
 
-  .article-rail__evidence {
-    padding-top: 1rem;
-  }
-
-  .article-rail__evidence p {
-    margin-bottom: 0.55rem;
+  .article-facts__sources {
+    margin-top: 1rem;
+    border-top: 1px solid var(--color-line);
     color: var(--color-graphite);
     font-family: var(--font-data);
-    font-size: 0.65rem;
+    font-size: 0.64rem;
+    line-height: 1.45;
     text-transform: uppercase;
   }
 
-  .article-rail__evidence ul {
+  .article-facts__sources summary {
+    min-height: 2.75rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.55rem;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .article-facts__sources ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 0.75rem;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0.75rem;
     list-style: none;
   }
 
-  .article-rail__evidence a {
+  .article-facts__sources a {
     color: var(--color-probe);
+  }
+
+  .article-reading-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-top: clamp(2rem, 5vw, 4rem);
+    padding-top: clamp(2rem, 5vw, 4rem);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .article-toc {
+    grid-column: 1 / span 3;
+    align-self: start;
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .article-toc > p {
+    margin-bottom: 0.75rem;
+    color: var(--color-graphite);
     font-family: var(--font-data);
     font-size: 0.68rem;
+    text-transform: uppercase;
+  }
+
+  .article-toc ol {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+    list-style: none;
+    counter-reset: toc;
+  }
+
+  .article-toc li {
+    counter-increment: toc;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .article-toc li a {
+    display: grid;
+    grid-template-columns: 1.8rem 1fr;
+    gap: 0.5rem;
+    padding-block: 0.75rem;
+    color: var(--color-graphite);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    text-decoration: none;
+  }
+
+  .article-toc li a::before {
+    content: counter(toc, decimal-leading-zero);
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.62rem;
+  }
+
+  .article-toc li a:hover {
+    color: var(--color-probe);
+  }
+
+  .article-toc__method {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-probe);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .article-body {
+    grid-column: 4 / span 7;
+    min-width: 0;
+    font-size: 1.08rem;
+    line-height: 1.74;
+  }
+
+  .article-body > :global(*) {
+    max-width: var(--reading-width);
+  }
+
+  .article-body :global(h2) {
+    scroll-margin-top: 2rem;
   }
 
   .documentary-notice {
     display: grid;
-    gap: 0.25rem;
-    margin-bottom: 2.5rem;
-    padding: 1rem 1.2rem;
+    gap: 0.4rem;
+    margin-bottom: 3rem;
+    padding: 1.25rem 1.4rem;
     border-left: 3px solid var(--color-probe);
     background: var(--color-steel-soft);
   }
 
   .documentary-notice strong {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
 
   .documentary-notice span {
     color: var(--color-graphite);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 
   .documentary-notice a {
     justify-self: start;
     color: var(--color-probe);
     font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .article-limitations {
+    margin-top: 4rem;
+    padding: 2rem;
+    border-top: 2px solid var(--color-carbon);
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-steel-soft);
+  }
+
+  .article-limitations h2 {
+    margin: 0 0 1rem;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+  }
+
+  .article-limitations ul {
+    margin-bottom: 0;
+    color: var(--color-graphite);
+  }
+
+  .article-author {
+    grid-column: 2 / span 10;
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    gap: 3rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding: clamp(2rem, 5vw, 4rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .article-author .eyebrow {
+    color: var(--color-reading);
+  }
+
+  .article-author h2 {
+    margin: 0;
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    line-height: 0.96;
+  }
+
+  .article-author > div:last-child {
+    align-self: end;
+  }
+
+  .article-author > div:last-child p {
+    color: var(--color-carbon-muted);
+    line-height: 1.65;
+  }
+
+  .article-author a {
+    display: inline-block;
+    margin: 0.5rem 1.2rem 0 0;
+    color: var(--color-reading);
+  }
+
+  @media (max-width: 64rem) {
+    .article-header {
+      grid-column: 1 / span 8;
+    }
+
+    .article-facts {
+      grid-column: 9 / -1;
+    }
+
+    .article-toc {
+      grid-column: 1 / span 4;
+    }
+
+    .article-body {
+      grid-column: 5 / -1;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .article-shell,
+    .article-reading-grid,
+    .article-author {
+      grid-template-columns: 1fr;
+    }
+
+    .article-header,
+    .article-facts,
+    .article-reading-grid,
+    .article-toc,
+    .article-body,
+    .article-author {
+      grid-column: 1;
+    }
+
+    .article-header h1 {
+      font-size: clamp(3rem, 15vw, 4.6rem);
+    }
+
+    .article-facts {
+      margin-top: 1rem;
+    }
+
+    .article-reading-grid {
+      gap: 2.5rem;
+    }
+
+    .article-toc {
+      position: static;
+    }
+
+    .article-author {
+      gap: 1.5rem;
+    }
   }
 </style>

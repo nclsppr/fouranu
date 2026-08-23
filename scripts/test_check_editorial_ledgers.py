@@ -3,8 +3,12 @@
 
 from __future__ import annotations
 
+import hashlib
+import tempfile
 import unittest
 from datetime import date, timedelta
+from pathlib import Path
+from unittest.mock import patch
 
 import check_editorial_ledgers as ledger
 
@@ -69,6 +73,72 @@ class EditorialLedgerTests(unittest.TestCase):
         )
         return row
 
+    def granted_frame_asset(self) -> dict[str, str]:
+        row = self.embed_asset()
+        row.update(
+            {
+                "asset_type": "licensed-frame",
+                "acquisition_mode": "rights-holder-file",
+                "rights_status": "granted",
+                "commercial_use": "yes",
+                "ai_transform": "no",
+                "rights_holder_label": "Example Studio",
+                "web_scope": "https://example.test",
+                "territory": "world",
+                "valid_from": date.today().isoformat(),
+                "valid_until": "",
+                "attribution": "Example Studio",
+                "identifiable_people": "no",
+                "people_clearance": "not-applicable",
+                "third_party_elements": "none-identified",
+                "raw_sha256": "a" * 64,
+                "publication_url": "https://example.test/article",
+                "permission_proof": "",
+                "permission_proof_sha256": "",
+            }
+        )
+        return row
+
+    def derived_ai_asset(
+        self,
+        acquisition_mode: str = "rights-holder-file",
+    ) -> dict[str, str]:
+        row = self.granted_frame_asset()
+        row.update(
+            {
+                "asset_type": "ai-illustration",
+                "acquisition_mode": acquisition_mode,
+                "ai_transform": "yes",
+                "ai_provider": "Example AI",
+                "provider_training": "disabled",
+                "provider_retention": "zero days",
+                "derived_sha256": "b" * 64,
+                "human_validation": "approved",
+            }
+        )
+        return row
+
+    def original_ai_asset(self) -> dict[str, str]:
+        row = {field: "" for field in ledger.ASSET_FIELDS}
+        row.update(
+            {
+                "asset_id": "AS-0001",
+                "acquisition_mode": "ai-generated",
+                "asset_type": "ai-original",
+                "rights_status": "original",
+                "commercial_use": "yes",
+                "ai_transform": "not-applicable",
+                "ai_provider": "Example AI",
+                "provider_training": "disabled",
+                "provider_retention": "zero days",
+                "derived_sha256": "b" * 64,
+                "human_validation": "approved",
+                "publication_url": "https://example.test/article",
+                "checked_on": date.today().isoformat(),
+            }
+        )
+        return row
+
     def test_valid_external_evidence_and_embed(self) -> None:
         errors: list[str] = []
         identifiers = ledger.check_evidence([self.external_evidence()], errors)
@@ -106,11 +176,11 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertIn("published_on est requis", joined)
         self.assertIn("article_id invalide : bad-id", joined)
 
-    def test_j_test_is_locked_during_season_zero(self) -> None:
+    def test_removed_j_test_class_is_unknown(self) -> None:
         row = self.external_evidence()
         row.update(
             {
-                "source_type": "jupiter",
+                "source_type": "fouranu",
                 "source_url": "",
                 "evidence_class": "J-TEST",
                 "published_on": "",
@@ -119,7 +189,25 @@ class EditorialLedgerTests(unittest.TestCase):
         )
         errors: list[str] = []
         ledger.check_evidence([row], errors)
-        self.assertTrue(any("J-TEST reste verrouillé" in item for item in errors))
+        joined = "\n".join(errors)
+        self.assertIn("evidence_class inconnue", joined)
+        self.assertNotIn("verrouillé", joined)
+
+    def test_legacy_jupiter_source_and_classes_are_unknown(self) -> None:
+        for evidence_class in ("J-SYN", "J-INF"):
+            with self.subTest(evidence_class=evidence_class):
+                row = self.external_evidence()
+                row.update(
+                    {
+                        "source_type": "jupiter",
+                        "evidence_class": evidence_class,
+                    }
+                )
+                errors: list[str] = []
+                ledger.check_evidence([row], errors)
+                joined = "\n".join(errors)
+                self.assertIn("source_type inconnu", joined)
+                self.assertIn("evidence_class inconnue", joined)
 
     def test_third_party_measurement_requires_metadata_and_conditions(self) -> None:
         row = self.external_evidence()
@@ -153,9 +241,9 @@ class EditorialLedgerTests(unittest.TestCase):
         synthesis.update(
             {
                 "evidence_id": "EV-0002",
-                "source_type": "jupiter",
+                "source_type": "fouranu",
                 "checked_on": date.today().isoformat(),
-                "evidence_class": "J-SYN",
+                "evidence_class": "FAN-SYN",
                 "observation": "Synthèse.",
                 "corroborating_ids": "EV-0002",
                 "confidence": "low",
@@ -176,9 +264,9 @@ class EditorialLedgerTests(unittest.TestCase):
         synthesis.update(
             {
                 "evidence_id": "EV-0003",
-                "source_type": "jupiter",
+                "source_type": "fouranu",
                 "checked_on": date.today().isoformat(),
-                "evidence_class": "J-SYN",
+                "evidence_class": "FAN-SYN",
                 "observation": "Synthèse.",
                 "corroborating_ids": "EV-0001;EV-0002",
                 "confidence": "medium",
@@ -199,6 +287,72 @@ class EditorialLedgerTests(unittest.TestCase):
         errors: list[str] = []
         ledger.check_evidence([row], errors)
         self.assertTrue(any("timecode_end précède" in item for item in errors))
+
+    def test_fouranu_inference_uses_the_renamed_contract(self) -> None:
+        source = self.external_evidence()
+        inference = {field: "" for field in ledger.EVIDENCE_FIELDS}
+        inference.update(
+            {
+                "evidence_id": "EV-0002",
+                "source_type": "fouranu",
+                "checked_on": date.today().isoformat(),
+                "evidence_class": "FAN-INF",
+                "observation": "Inférence éditoriale.",
+                "corroborating_ids": "EV-0001",
+                "confidence": "medium",
+            }
+        )
+        errors: list[str] = []
+        ledger.check_evidence([source, inference], errors)
+        self.assertEqual([], errors)
+
+    def test_ai_illustration_accepts_both_authorized_acquisition_modes(self) -> None:
+        for acquisition_mode in (
+            "rights-holder-file",
+            "authorized-frame-capture",
+        ):
+            with self.subTest(acquisition_mode=acquisition_mode):
+                errors: list[str] = []
+                ledger.check_assets(
+                    [self.derived_ai_asset(acquisition_mode)],
+                    {"EV-0001"},
+                    errors,
+                )
+                self.assertEqual([], errors)
+
+    def test_ai_original_is_valid_without_raw_file_or_third_party_right(self) -> None:
+        row = self.original_ai_asset()
+        errors: list[str] = []
+        ledger.check_assets([row], set(), errors)
+        self.assertEqual("", row["raw_sha256"])
+        self.assertEqual("original", row["rights_status"])
+        self.assertEqual([], errors)
+
+    def test_incomplete_ai_original_is_rejected(self) -> None:
+        row = self.original_ai_asset()
+        row.update(
+            {
+                "acquisition_mode": "not-acquired",
+                "rights_status": "granted",
+                "ai_provider": "",
+                "provider_training": "",
+                "provider_retention": "",
+                "raw_sha256": "a" * 64,
+                "derived_sha256": "",
+                "human_validation": "pending",
+            }
+        )
+        errors: list[str] = []
+        ledger.check_assets([row], set(), errors)
+        joined = "\n".join(errors)
+        self.assertIn("acquisition_mode ai-generated", joined)
+        self.assertIn("rights_status original", joined)
+        self.assertIn("ai_provider requis", joined)
+        self.assertIn("provider_training requis", joined)
+        self.assertIn("provider_retention requis", joined)
+        self.assertIn("ne doit pas déclarer raw_sha256", joined)
+        self.assertIn("derived_sha256 requis", joined)
+        self.assertIn("human_validation approved", joined)
 
     def test_incomplete_public_ai_asset_is_rejected(self) -> None:
         row = self.embed_asset()
@@ -234,7 +388,10 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertIn("n'est pas encore actif", joined)
         self.assertIn("web_scope doit contenir des origines HTTPS", joined)
         self.assertIn("publication_url n'est pas autorisée", joined)
-        self.assertIn("fichier fourni par l'ayant droit", joined)
+        self.assertIn(
+            "rights-holder-file ou authorized-frame-capture",
+            joined,
+        )
         self.assertIn("présence de personnes doit être résolue", joined)
         self.assertIn("interdit les personnes identifiables", joined)
         self.assertIn("human_validation approved", joined)
@@ -288,25 +445,79 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertIn("source_url doit être une URL HTTPS", joined)
         self.assertIn("source fabricant exige evidence_class FAB", joined)
 
+    def test_granted_right_allows_no_expiry_or_permission_proof(self) -> None:
+        row = self.granted_frame_asset()
+        errors: list[str] = []
+        ledger.check_assets(
+            [row],
+            {"EV-0001"},
+            errors,
+            require_private_proofs=True,
+        )
+        self.assertEqual("", row["valid_until"])
+        self.assertEqual("", row["permission_proof"])
+        self.assertEqual([], errors)
+
+    def test_declared_permission_proof_requires_a_sha_and_private_path(self) -> None:
+        row = self.granted_frame_asset()
+        row["permission_proof"] = "proof.txt"
+        errors: list[str] = []
+        ledger.check_assets([row], {"EV-0001"}, errors)
+        joined = "\n".join(errors)
+        self.assertIn("permission_proof_sha256 requis", joined)
+        self.assertIn("doit rester sous research/private/permissions/", joined)
+
+    def test_permission_proof_sha_requires_a_path(self) -> None:
+        row = self.granted_frame_asset()
+        row["permission_proof_sha256"] = "c" * 64
+        errors: list[str] = []
+        ledger.check_assets([row], {"EV-0001"}, errors)
+        self.assertTrue(
+            any("permission_proof requis" in item for item in errors)
+        )
+
+    def test_strict_mode_verifies_a_declared_permission_proof(self) -> None:
+        payload = b"permission fixture"
+        with tempfile.TemporaryDirectory() as temporary_root:
+            root = Path(temporary_root)
+            proof_path = root / "research/private/permissions/AS-0001.txt"
+            proof_path.parent.mkdir(parents=True)
+            proof_path.write_bytes(payload)
+
+            row = self.granted_frame_asset()
+            row.update(
+                {
+                    "permission_proof": "research/private/permissions/AS-0001.txt",
+                    "permission_proof_sha256": hashlib.sha256(payload).hexdigest(),
+                }
+            )
+            errors: list[str] = []
+            with patch.object(ledger, "ROOT", root):
+                ledger.check_assets(
+                    [row],
+                    {"EV-0001"},
+                    errors,
+                    require_private_proofs=True,
+                )
+            self.assertEqual([], errors)
+
+            row["permission_proof_sha256"] = "c" * 64
+            errors = []
+            with patch.object(ledger, "ROOT", root):
+                ledger.check_assets(
+                    [row],
+                    {"EV-0001"},
+                    errors,
+                    require_private_proofs=True,
+                )
+            self.assertTrue(
+                any("SHA-256 de la preuve privée différent" in item for item in errors)
+            )
+
     def test_strict_mode_requires_private_permission_file(self) -> None:
-        row = self.embed_asset()
+        row = self.granted_frame_asset()
         row.update(
             {
-                "asset_type": "licensed-frame",
-                "acquisition_mode": "rights-holder-file",
-                "rights_status": "granted",
-                "commercial_use": "yes",
-                "ai_transform": "no",
-                "rights_holder_label": "Example Studio",
-                "web_scope": "https://example.test",
-                "territory": "world",
-                "valid_from": date.today().isoformat(),
-                "valid_until": (date.today() + timedelta(days=365)).isoformat(),
-                "attribution": "Example Studio",
-                "identifiable_people": "no",
-                "people_clearance": "not-applicable",
-                "third_party_elements": "none-identified",
-                "raw_sha256": "a" * 64,
                 "permission_proof": "research/private/permissions/does-not-exist.txt",
                 "permission_proof_sha256": "c" * 64,
             }

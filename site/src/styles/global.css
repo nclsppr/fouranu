@@ -288,11 +288,6 @@ li {
   letter-spacing: 0.04em;
 }
 
-.proof-label--locked {
-  color: var(--color-graphite);
-  border-style: dashed;
-}
-
 .breadcrumbs {
   padding-top: 1.25rem;
   color: var(--color-graphite);

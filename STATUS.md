@@ -8,97 +8,112 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Champ | Valeur |
 | --- | --- |
 | Vérifié le | 2026-08-23 |
-| Par | Codex, inspection locale |
+| Par | Codex, inspection locale et distante en lecture seule |
 | Branche | `main` |
-| Base de la tranche | `51525432e445a407eef500e49388df5e91af50e4` |
-| Environnement | Dépôt local et GitHub `nclsppr/fouranu` |
-| Version livrée | F01 poussée sur `origin/main`, site toujours non publié |
+| Base de la tranche | `e422d5461a6f64b67e6f1f3364d134f44297f70b` |
+| Environnement | Dépôt local, GitHub `nclsppr/fouranu` et audit du contrôle Atlas |
+| Version livrée | F01 sur `origin/main` ; tranche documentaire et Atlas en cours de vérification avant push |
 
 ## Résumé
 
-Four à Nu possède maintenant un premier produit web local. L'application Astro
-génère 15 pages HTML, dont huit analyses documentaires Ooni. Les analyses
-restent en `noindex`, sans note, étoiles, balisage `Review` ou revendication de
-test physique Four à Nu.
+Four à Nu est désormais construit comme un média documentaire permanent. Le
+site Astro génère 21 pages HTML sans JavaScript client nécessaire au contenu,
+dont onze analyses Ooni : deux dossiers de décision et une fiche pour chacun
+des neuf fours de la gamme France enregistrée.
 
-Le SEO technique réagit à une activation explicite. Par défaut, toutes les
-pages restent hors index et le sitemap ne contient aucune URL. Le build de
-contrôle avec `PUBLIC_SITE_INDEXABLE=true` n'ouvre que l'accueil et la méthode.
-Les huit analyses Ooni restent hors index dans les deux modes.
+Le build de preview garde toutes les pages en `noindex` et son sitemap vide. Le
+build explicite `PUBLIC_SITE_INDEXABLE=true` rend 20 URL éligibles : neuf pages
+fixes et onze analyses. La 404 reste hors index. Les tests contrôlent titres,
+descriptions, canonicals, dates, auteur, RSS, `llms.txt`, données structurées,
+liens internes, bibliographies, médias, robots et sitemap.
 
-Le service Compose a répondu sainement en local. Le build du site a produit 15
-pages et les sept tests de contrat ont réussi. Les vues à 1440, 1024, 390 et 320
-pixels n'ont montré ni débordement horizontal, ni erreur ou avertissement dans
-la console. La gate complète du dépôt a réussi localement puis dans GitHub
-Actions. F01 est fermée ; F02 reste active tant que les cinq sessions
-utilisateurs n'ont pas été menées.
+L'interface suit la direction `Ligne de sole` en blanc, carbone, acier froid et
+bleu de sonde. L'accueil utilise une illustration originale assistée par IA,
+déclarée comme telle et sans image tierce en entrée. Le nouveau gabarit article
+rend visibles l'auteur, les dates, le sommaire, la nature documentaire, les
+limites, la bibliographie et l'accès direct à chaque preuve.
+
+Le service Compose est sain. Le producteur Atlas génère une archive et un
+inventaire de routes déterministes, avec publication OCI immuable et
+attestations prévues dans GitHub Actions. Il ne constitue pas une admission
+dans `vps-infra` et n'active ni domaine ni hébergement.
 
 ## Phases actives
 
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
-| F01, socle produit local | `done` | Build Astro, sept tests, Compose sain, revue navigateur locale et `./scripts/verify.sh` vert | Aucune dans le périmètre local | nclsppr |
-| F02, pilote éditorial `noindex` | `in_progress` | Huit analyses Ooni présentes et reliées aux preuves | Cinq sessions utilisateurs et corrections associées | nclsppr |
+| F01, socle produit local | `done` | Build, Compose, tests et première CI | Aucune dans son périmètre historique | nclsppr |
+| F02, corpus documentaire publiable | `in_progress` | Onze analyses, pages de confiance, provenance et politique de correction | Identité légale exacte, cinq sessions et revue visuelle de la tranche | nclsppr |
+| F03, candidat Atlas | `in_progress` | Producteur, paquet déterministe et gate complète locale | Preuves médias par actif et admission centrale désactivée | nclsppr |
+| F04, lancement public | `planned` | Domaine acquis selon le propriétaire | Autorisations de publication, admission, DNS et contrôles publics | nclsppr |
 
 ## Livré et vérifié localement
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Marque et identité | Four à Nu, direction « Ligne de sole », domaine acheté selon le propriétaire | [`BRAND-SEO.md`](BRAND-SEO.md), [`DESIGN.md`](DESIGN.md) et assets sous `site/public/` | Recherche de similarités approfondie non terminée |
-| Application Astro | 15 pages HTML statiques, sans JavaScript client nécessaire au contenu | `site/` et dernier `npm run check --prefix site` | Aucun artefact public |
-| Corpus pilote Ooni | Deux guides et six fiches modèle, soit huit analyses documentaires | `site/src/content/analyses/` et tests de contrat | Aucun essai physique Four à Nu, aucune session utilisateur |
-| Provenance | Sources citées, passages horodatés, conditions, confiance et relations connues | `research/evidence.csv`, copie de build contrôlée et bibliographies rendues | Les retraits ou corrections des sources tierces restent possibles |
-| SEO conditionnel | Titres, descriptions, canonicals, Open Graph, données structurées honnêtes, robots et sitemap contrôlés | Build normal et build opt-in temporaire couverts par les tests | Aucune indexation, soumission moteur ou performance réelle observée |
-| Barrière SEO | Checklist bloquante propre à chaque article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Validation humaine requise avant toute indexation |
-| Parcours local | Service `site` construit par Compose avec healthcheck | `compose.yaml` et contrôle local du 2026-08-23 | Aucun preview partagé |
-| Documentation interne | Nimbus, adaptateur, recherche et catalogue | `docs-nimbus/` et [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) | Aucune publication autorisée de cette documentation interne |
-| Socle Foundation | Snapshot `v0.5.2`, pack `full`, profils actuels conformes au tag adopté | SHA `708d7374f87060809a805c57abc2cf7e7b66c182` | Aucune dérive connue du snapshot |
+| Application Astro | 21 pages HTML statiques et zéro fichier JavaScript client | `site/` et neuf tests de contrat | Aucun artefact public |
+| Corpus Ooni | Deux dossiers de décision et neuf fiches modèle | `site/src/content/analyses/` | Aucune utilité utilisateur encore mesurée |
+| Provenance | 107 preuves, 50 questions et 18 entrées média | `research/` et 21 tests de registre | Une source tierce peut être retirée ou corrigée |
+| Confiance éditoriale | Auteur, méthode, À propos, corrections, transparence et confidentialité | Routes et données structurées contrôlées | Identité légale et canal de contact exacts absents |
+| SEO conditionnel | 20 URL éligibles, RSS, `llms.txt`, robots, sitemap et canonical | Build normal et build opt-in couverts par les tests | Aucun classement, crawl ou citation réelle observé |
+| Design | Système froid sans ivoire, illustration responsive et gabarit média | `DESIGN.md`, CSS et contrôles statiques | Revue visuelle actuelle bloquée par le navigateur intégré |
+| Parcours local | Service `site` en lecture seule avec healthcheck | `compose.yaml` et Compose sain | Aucun preview partagé |
+| Candidat Atlas | Archive et inventaire reproductibles, tags par SHA et attestations prévues | Workflow `VPS release` et tests adversariaux | Non admis par le contrôle central |
+| Documentation interne | Nimbus et catalogue de 38 Markdown | `docs-nimbus/` et `DOCUMENTATION-CATALOG.md` | Nimbus reste exclu du site public |
+
+## Médias et autorisations
+
+Le propriétaire a déclaré le 2026-08-23 avoir obtenu l'accord de tous les
+créateurs du corpus courant pour réutiliser leurs contenus et produire des
+images dérivées par IA. Cette déclaration autorise la préparation du flux, mais
+chaque photogramme public doit encore recevoir sa ligne exacte dans
+`research/assets.csv` : source, timecode, titulaire, périmètre, crédit,
+personnes visibles, éléments tiers, empreinte et preuve privée.
+
+Aucun photogramme ni dérivé de vidéo n'entre dans l'arbre public actuel. Les
+seuls fichiers nouveaux sont deux variantes WebP d'une création IA originale,
+sans marque, personne ou média tiers. Elles portent une mention visible et leur
+provenance est enregistrée.
 
 ## État opérationnel
 
 | Surface | Accès | Artefact | Santé | Dernière observation |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | `http://127.0.0.1:4321`, uniquement pendant le lancement local | `site/dist/`, dérivé non suivi | Service Compose sain au dernier contrôle | 2026-08-23 |
-| Documentation Nimbus | Build local uniquement | `docs-nimbus/dist/`, dérivé non suivi | Contrôles locaux disponibles | 2026-08-23 |
-| CI | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` | Run `32649184182` réussi sur `main` | 2026-08-23 |
-| Production | `fouranu.com`, non sondé comme surface du projet | Aucun | Non activée | 2026-08-23 |
+| Site local | `http://127.0.0.1:4321` pendant Compose | `site/dist/`, dérivé non suivi | Sain | 2026-08-23 |
+| Documentation Nimbus | Build local uniquement | `docs-nimbus/dist/`, dérivé non suivi | Contrôles disponibles | 2026-08-23 |
+| CI existante | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` | Dernier run livré vert, nouvelle tranche non poussée | 2026-08-23 |
+| Producteur Atlas | GitHub Actions après push sur `main` | OCI `site` et `routes` par SHA | Préparé, non exécuté sur cette tranche | 2026-08-23 |
+| Contrôle Atlas | Dépôt séparé `vps-infra` | Aucun profil Four à Nu | Non admis ; réconciliation centrale observée en échec | 2026-08-23 |
+| Domaine | `fouranu.com` et `www.fouranu.com` | Aucun service Four à Nu | DNS observé sans résolution | 2026-08-23 |
 
 ## Validations récentes
 
 | Date | Contrôle | Résultat | Portée de la preuve |
 | --- | --- | --- | --- |
-| 2026-08-23 | `npm run check --prefix site` | Typecheck sans erreur, build de 15 pages, sept tests sur sept | Site local et contrats automatisés |
-| 2026-08-23 | `./scripts/verify.sh` | Gate complète verte, dont registres, Compose, Astro et 43 pages Nimbus | Diff final local, sans CI distante |
-| 2026-08-23 | GitHub Actions `Verify` | Run `32649184182` vert, y compris build Compose et sondes HTTP | SHA `10efc99a53db1cbbac6c79d898dc001105ecb12a` sur `main` |
-| 2026-08-23 | Indexation conditionnelle | Mode par défaut entièrement `noindex`; mode opt-in limité à l'accueil et la méthode | Configuration construite, pas comportement d'un moteur réel |
-| 2026-08-23 | Docker Compose | Build autonome, healthcheck sain, routes et statuts HTTP contrôlés | Machine locale, aucune preuve d'hébergement |
-| 2026-08-23 | Revue navigateur | 1440, 1024, 390 et 320 pixels sans débordement horizontal ni log console | Chrome local, pas données utilisateurs réelles |
-| 2026-08-23 | Lighthouse 13.4.1 | Accueil et Koda 2 : performance 98, accessibilité 100, bonnes pratiques 100, SEO 66 | Le seul échec SEO est le `noindex` volontaire de preview |
-| 2026-08-23 | Comparaison Foundation `v0.5.2` | Noyau et trois profils identiques au tag | Provenance du socle |
+| 2026-08-23 | `npm run check --prefix site` | Typecheck sans erreur, 21 pages, neuf tests sur neuf | Site local et contrats automatisés |
+| 2026-08-23 | Registres éditoriaux | 107 preuves, 18 médias, 50 questions et 21 tests sur 21 | Métadonnées versionnées ; preuves privées non lues |
+| 2026-08-23 | Docker Compose | Image construite et healthcheck sain | Machine locale uniquement |
+| 2026-08-23 | `./scripts/verify.sh` | Gate complète verte, deux paquets Atlas identiques et 47 pages Nimbus générées | Diff local avant livraison Git |
+| 2026-08-23 | Revue navigateur de la tranche | Bloquée avant ouverture par une vérification de sécurité administrateur indisponible | Aucune affirmation visuelle sur la nouvelle interface |
+| 2026-08-23 | Audit Atlas en lecture seule | Aucun profil Four à Nu ; dernier contrôleur central observé en échec avant admission | Aucun changement dans `vps-infra` |
 
-## Blocages externes
+## Blocages avant publication
 
-| Blocage | Impact | Propriétaire | Condition de reprise |
+| Blocage | Impact | Condition de reprise |
+| --- | --- | --- |
+| Identité de l'éditeur, responsable de publication, adresse et contact exacts absents | Mentions légales incomplètes | Fournir ces informations par un canal approprié, sans secret dans Git |
+| Autorisations non rapprochées des actifs exacts | Aucun dérivé vidéo ne peut entrer dans le paquet public | Enregistrer chaque actif et vérifier sa preuve privée |
+| Revue visuelle actuelle non acquise | Le changement d'interface ne satisfait pas encore la gate manuelle | Refaire mobile, bureau, clavier, focus, mouvement réduit, console et réseau lorsque le navigateur est disponible |
+| Four à Nu absent de `vps-infra` | Aucun déploiement Atlas possible | Réparer la gate centrale puis préparer une admission désactivée dans une tranche séparée |
+| DNS et publication non autorisés | Aucun site public ni indexation réelle | Feu vert explicite sur le paquet exact, puis activation séparée |
+| Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
+
+## Risques et prochaines preuves
+
+| Sujet | Type | Prochaine preuve | Phase |
 | --- | --- | --- | --- |
-| Hébergement et DNS non autorisés | Aucun preview partagé ni production | nclsppr | Choisir la plateforme puis autoriser sa préparation et son activation |
-| Identité auteur et mentions légales incomplètes | Les pages restent impropres à l'indexation | nclsppr | Fournir les informations exactes et passer la barrière de publication |
-| Comptes marchands absents | Aucun lien rémunéré ou revenu attribuable | nclsppr | Admission confirmée et règles effectives enregistrées |
-| Droits médias non obtenus | Aucun photogramme tiers publiable ou transmissible à une IA | nclsppr | Autorisation adéquate et preuve privée vérifiée |
-
-## Dérives connues
-
-| Intention | Réalité observée | Risque | Action ordonnée |
-| --- | --- | --- | --- |
-| Domaine de marque | Achat confirmé par le propriétaire | Confondre possession et surface active | Ne consigner une URL publique qu'après sonde du déploiement |
-| Pilote documentaire | Huit analyses existent, aucune session utilisateur n'a eu lieu | Confondre production de contenu et utilité prouvée | Mener les cinq sessions prévues en F02 |
-| SEO prêt techniquement | Les pages restent volontairement hors index | Activer un corpus encore sans auteur, mentions ou validation humaine | Appliquer la barrière SEO à chaque URL avant toute activation |
-
-## Risques et hypothèses
-
-| Sujet | Type | Impact | Prochaine preuve | Réévaluation |
-| --- | --- | --- | --- | --- |
-| Valeur du parcours de choix | Hypothèse | Le produit peut ne pas réduire l'incertitude d'achat | Cinq sessions décrites dans l'expérience | F02 |
-| Valeur originale des synthèses | Hypothèse | Faible potentiel SEO et éditorial | Audit humain des huit articles avec la barrière SEO | F02 |
-| Publication de documentation interne | Risque | Exposition de stratégie et de règles internes | Inspection du futur artefact public, séparé de Nimbus | F03 |
-| Dépendance à des sources tierces | Risque | Retrait ou contradiction d'une preuve | Politique de correction et nouvelle vérification avant indexation | F02 et F03 |
-| Économie du modèle | Hypothèse | Trafic ou revenu par visite insuffisant | Mesures du pilote public autorisé | F05 |
+| Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
+| Valeur propre des analyses | Hypothèse | Relecture des onze URL avec la barrière SEO | F02 |
+| Droits des dérivés | Risque | Validation d'un premier actif complet, de la source au rendu public | F03 |
+| Publication interne accidentelle | Risque | Inspection de l'archive Atlas, distincte de Nimbus | F03 |
+| Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |

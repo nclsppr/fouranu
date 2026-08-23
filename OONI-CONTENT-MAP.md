@@ -38,7 +38,8 @@ vérification.
 Les vidéos couvrent les six modèles de deuxième génération, le Koda 16 de
 première génération, deux anciens modèles utiles et deux concurrents. Les Koda
 12 et Karu 12 actuels n'ont encore que des sources fabricant dans le registre :
-leurs fiches restent donc au statut `inventory`.
+leurs fiches sont publiables comme inventaires documentaires, sans conclusion
+de performance.
 
 Chaque vidéo comporte au moins un conflit potentiel enregistré : affiliation,
 prêt, collaboration, lien marchand ou origine de l'unité non établie. Une
@@ -52,8 +53,8 @@ corriger silencieusement : équivalences métriques et impériales incompatibles
 sur le Koda 2 (`EV-0100`), unité métrique incohérente sur le Koda 16
 (`EV-0101`), libellé de dimension dupliqué sur le Karu 2 (`EV-0102`) et
 présentation 30 cm contre surface de 33 cm sur le Volt 2 (`EV-0103`). Ce contrôle
-de cohérence est déjà une valeur propre du corpus, sans devenir un test produit.
-Aucune synthèse `J-SYN` n'est encore enregistrée : ce lot autorise le début de
+de cohérence est déjà une valeur propre du corpus, sans devenir un avis produit.
+Aucune synthèse `FAN-SYN` n'est encore enregistrée : ce lot autorise le début de
 la rédaction, pas un classement, une note ou un verdict de performance.
 
 ## Règle de couverture
@@ -65,21 +66,23 @@ et leur compromis sont identiques.
 
 Une fiche produit documentaire exige au minimum la page et le manuel fabricant,
 deux essais tiers indépendants lorsque la performance est comparée, les conflits
-connus et une section « ce que Jupiter n'a pas encore testé ». Une page de duel
-exige une décision réellement différente ; sinon elle redirige vers le guide de
-gamme ou le sélecteur.
+connus et une section « ce que les sources disponibles ne permettent pas de
+trancher ». Une page de duel exige une décision réellement différente ; sinon
+elle redirige vers le guide de gamme ou le sélecteur.
 
-Statuts possibles : `inventory`, `researching`, `ready-noindex`,
-`blocked-physical-test`, `published`, `merged`.
+La carte utilise `inventory`, `researching` et `merged`. Lorsqu'une page entre
+dans `site/`, son cycle exécutable devient `draft`, `review`, puis `publishable`.
+L'état réellement publié appartient à la release Atlas et ne se déduit pas du
+frontmatter.
 
 ## Lot 1 — socle de décision
 
 | ID | Article | Décision principale | Priorité | Statut |
 | --- | --- | --- | --- | --- |
-| `OONI-001` | Quel four Ooni choisir en 2026 ? | Choisir parmi les neuf modèles actuels | P0 | `researching` |
+| `OONI-001` | Quel four Ooni choisir en 2026 ? | Choisir parmi les neuf modèles actuels | P0 | `publishable` |
 | `OONI-002` | Gamme Ooni Koda : 12, 16, 2, 2 Pro ou 2 Max | Choisir un four à gaz et une taille | P0 | `researching` |
 | `OONI-003` | Gamme Ooni Karu : 12, 2 ou 2 Pro | Choisir le multi-combustible adapté | P0 | `researching` |
-| `OONI-004` | Ooni gaz, électrique ou multi-combustible | Arbitrer simplicité, lieu, combustible et apprentissage | P0 | `researching` |
+| `OONI-004` | Ooni gaz, électrique ou multi-combustible | Arbitrer simplicité, lieu, combustible et apprentissage | P0 | `publishable` |
 | `OONI-005` | Formats Ooni 12, 14, 16, 18 ou 24 pouces : quelle pizza rentre vraiment ? | Relier format nominal, ouverture, pizza maximale, espace, poids et débit | P0 | `inventory` |
 | `OONI-006` | Prix complet d'un Ooni et accessoires nécessaires | Distinguer four nu, indispensables et options | P0 | `inventory` |
 
@@ -87,18 +90,19 @@ Statuts possibles : `inventory`, `researching`, `ready-noindex`,
 
 | ID | Article documentaire | Angle propre | Priorité | Statut |
 | --- | --- | --- | --- | --- |
-| `OONI-010` | Ooni Koda 2 : analyse documentaire | Gaz 14 pouces portable de deuxième génération | P0 | `researching` |
-| `OONI-011` | Ooni Koda 2 Pro : analyse documentaire | Gaz 18 pouces et compromis encombrement/capacité | P0 | `researching` |
-| `OONI-012` | Ooni Koda 2 Max : analyse documentaire | Double zone 24 pouces et cuisson en série | P0 | `researching` |
-| `OONI-013` | Ooni Koda 12 : analyse documentaire | Entrée de gamme gaz de première génération | P1 | `inventory` |
-| `OONI-014` | Ooni Koda 16 : analyse documentaire | Gaz 16 pouces de première génération | P1 | `inventory` |
-| `OONI-015` | Ooni Karu 2 : analyse documentaire | Multi-combustible 12 pouces de deuxième génération | P0 | `researching` |
-| `OONI-016` | Ooni Karu 2 Pro : analyse documentaire | Multi-combustible 16 pouces et grand volume | P0 | `researching` |
-| `OONI-017` | Ooni Karu 12 : analyse documentaire | Entrée de gamme multi-combustible | P1 | `inventory` |
-| `OONI-018` | Ooni Volt 2 : analyse documentaire | Cuisson électrique intérieure | P0 | `researching` |
+| `OONI-010` | Ooni Koda 2 : analyse documentaire | Gaz 14 pouces portable de deuxième génération | P0 | `publishable` |
+| `OONI-011` | Ooni Koda 2 Pro : analyse documentaire | Gaz 18 pouces et compromis encombrement/capacité | P0 | `publishable` |
+| `OONI-012` | Ooni Koda 2 Max : analyse documentaire | Double zone 24 pouces et cuisson en série | P0 | `publishable` |
+| `OONI-013` | Ooni Koda 12 : analyse documentaire | Entrée de gamme gaz de première génération | P1 | `publishable` |
+| `OONI-014` | Ooni Koda 16 : analyse documentaire | Gaz 16 pouces de première génération | P1 | `publishable` |
+| `OONI-015` | Ooni Karu 2 : analyse documentaire | Multi-combustible 12 pouces de deuxième génération | P0 | `publishable` |
+| `OONI-016` | Ooni Karu 2 Pro : analyse documentaire | Multi-combustible 16 pouces et grand volume | P0 | `publishable` |
+| `OONI-017` | Ooni Karu 12 : analyse documentaire | Entrée de gamme multi-combustible | P1 | `publishable` |
+| `OONI-018` | Ooni Volt 2 : analyse documentaire | Cuisson électrique intérieure | P0 | `publishable` |
 
-Ces pages restent des analyses documentaires tant que `J-TEST` est verrouillé.
-Elles ne portent ni note ni verdict « testé par Jupiter ».
+Ces pages sont des analyses documentaires permanentes. Elles attribuent les
+mesures et observations à leurs sources et ne portent ni note, ni étoile, ni
+balisage d'avis.
 
 ## Lot 3 — comparaisons à intention distincte
 
@@ -142,11 +146,13 @@ déduites d'un seul créateur vidéo.
 
 1. remplir le corpus Ooni et le registre des questions ;
 2. produire `OONI-001` et `OONI-004`, qui servent de colonne vertébrale ;
-3. produire les six fiches P0 `OONI-010`, `011`, `012`, `015`, `016` et `018`
-   en `noindex` ;
-4. ouvrir uniquement les comparaisons soutenues par les questions observées ;
-5. traiter les trois fours de première génération et les pages de possession ;
-6. consolider ou supprimer tout article qui ne résout pas une décision propre.
+3. maintenir les neuf fiches modèle déjà passées à `publishable`, sans élargir
+   leur conclusion au-delà de leur corpus ;
+4. produire les pages de famille `OONI-002` et `OONI-003`, puis les décisions de
+   format et de coût complet `OONI-005` et `OONI-006` ;
+5. ouvrir uniquement les comparaisons soutenues par les questions observées ;
+6. traiter les pages de possession et consolider tout contenu qui ne résout pas
+   une décision propre.
 
 Cette carte est révisée dès qu'Ooni ajoute, renomme ou retire un produit de la
 navigation France. Le catalogue fabricant prouve l'offre ; il ne prouve pas les

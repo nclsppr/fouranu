@@ -6,29 +6,44 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 <BaseLayout
   title="À propos de Four à Nu"
   description="Four à Nu est un projet éditorial francophone consacré au choix des fours à pizza et de leur équipement."
-  indexable={false}
+  indexable={true}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "À propos" }]} />
     <header class="page-intro">
       <div class="page-intro__copy">
         <p class="eyebrow">Le projet</p>
-        <h1>Un média de décision, avant d'être un comparateur.</h1>
+        <h1>Un média de choix, pas une machine à classer.</h1>
         <p class="page-intro__lede">
           Four à Nu documente les contraintes qui changent réellement l'achat
-          d'un four à pizza. La première saison couvre la gamme Ooni et prépare
-          des essais physiques reproductibles.
+          d'un four à pizza : lieu, énergie, format, cadence, équipement et
+          coût complet.
         </p>
       </div>
-      <p class="page-intro__aside">Cette page sera complétée avec l'auteur, les coordonnées publiques et les mentions légales avant le pilote.</p>
+      <p class="page-intro__aside">La première collection couvre toute la gamme Ooni France avec deux guides transversaux et une fiche par modèle.</p>
     </header>
 
     <section class="about-copy">
       <h2>Pourquoi ce site existe</h2>
       <div>
-        <p>Les fiches techniques disent ce qu'un produit annonce. Les essais vidéo montrent des usages, mais leurs protocoles et leurs relations commerciales varient. Les comparatifs classiques mélangent souvent ces deux couches.</p>
-        <p>Four à Nu conserve la provenance de chaque affirmation. La Saison 0 peut déjà clarifier une gamme, signaler une incohérence et réunir plusieurs observations. Elle ne prétend pas remplacer un test physique.</p>
+        <p>Les fiches techniques disent ce qu'un produit annonce. Les vidéos montrent des usages, mais leurs protocoles et leurs relations commerciales varient. Les comparatifs classiques mélangent souvent ces deux couches.</p>
+        <p>Four à Nu conserve la provenance de chaque affirmation. Le site rapproche les sources compatibles, signale les incohérences et dit clairement ce que le corpus ne permet pas de conclure.</p>
         <a href="/methode/">Comprendre les niveaux de preuve <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="about-values" aria-label="Engagements éditoriaux">
+      <article><span>01</span><h2>Répondre avant de monétiser.</h2><p>La réponse courte et ses limites précèdent tout éventuel lien marchand. L'affiliation ne décide ni des sources ni de la conclusion.</p></article>
+      <article><span>02</span><h2>Attribuer plutôt que s'approprier.</h2><p>Une mesure publiée reste celle de son auteur, dans les conditions de sa session. Le timecode et les relations commerciales connues restent visibles.</p></article>
+      <article><span>03</span><h2>Corriger sans faire disparaître.</h2><p>Une modification qui change une décision d'achat est datée et expliquée. Les données de catalogue sont revérifiées à chaque mise à jour.</p></article>
+    </section>
+
+    <section class="about-links">
+      <div><p class="eyebrow">Qui signe</p><h2>Une responsabilité éditoriale explicite.</h2></div>
+      <div>
+        <p>Les dossiers sont signés par la Rédaction Four à Nu. Sa page décrit son rôle, sa méthode et les contrôles appliqués avant publication.</p>
+        <a href="/auteurs/redaction-four-a-nu/">Découvrir la rédaction</a>
+        <a href="/transparence/">Lire la politique de transparence</a>
       </div>
     </section>
   </div>
@@ -60,9 +75,85 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     font-weight: 600;
   }
 
+  .about-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .about-values article {
+    min-height: 21rem;
+    padding: 2rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .about-values article:last-child {
+    border-right: 0;
+  }
+
+  .about-values span {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+  }
+
+  .about-values h2 {
+    margin: 5rem 0 1rem;
+    font-size: 2.2rem;
+    line-height: 1.02;
+  }
+
+  .about-values p,
+  .about-links p {
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .about-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding: clamp(2rem, 5vw, 4rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .about-links .eyebrow,
+  .about-links a {
+    color: var(--color-reading);
+  }
+
+  .about-links h2 {
+    margin: 0;
+    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    line-height: 0.95;
+  }
+
+  .about-links p {
+    color: var(--color-carbon-muted);
+  }
+
+  .about-links a {
+    display: inline-block;
+    margin: 0.5rem 1.2rem 0 0;
+  }
+
   @media (max-width: 48rem) {
-    .about-copy {
+    .about-copy,
+    .about-values,
+    .about-links {
       grid-template-columns: 1fr;
+    }
+
+    .about-values article {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .about-values h2 {
+      margin-top: 2.5rem;
     }
   }
 </style>

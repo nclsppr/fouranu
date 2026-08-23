@@ -6,24 +6,24 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 <BaseLayout
   title="Choisir un four à pizza selon son usage | Four à Nu"
   description="Commencez par le lieu, l'énergie, le débit et le coût complet avant de comparer les marques de fours à pizza."
-  indexable={false}
+  indexable={true}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Fours à pizza" }]} />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Sélecteur · version documentaire</p>
+        <p class="eyebrow">Guide de choix</p>
         <h1>Commencer par l'usage, pas par la marque.</h1>
         <p class="page-intro__lede">
           Quatre contraintes éliminent plus de mauvais choix qu'un classement
-          général. Cette première version organise les questions. Elle ne donne
-          pas encore de verdict personnalisé.
+          général. Elles permettent de réduire la gamme avant de comparer les
+          caractéristiques et les observations publiées.
         </p>
       </div>
       <p class="page-intro__aside">
-        Prototype non indexé. Les recommandations finales attendent des tests
-        utilisateurs et, pour la performance, des mesures physiques Four à Nu.
+        Ce guide ne remplace pas les consignes du fabricant, du logement ou du
+        raccordement. La sécurité locale passe avant toute préférence d'énergie.
       </p>
     </header>
 
@@ -61,8 +61,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
           <h2>Une grande ouverture ne raconte pas toute la cadence.</h2>
           <p>
             Le diamètre de la pizza, la marge pour la tourner et la récupération
-            de la sole entre deux cuissons doivent être séparés. La reprise de
-            température reste bloquée comme verdict Four à Nu avant nos mesures.
+            de la sole entre deux cuissons doivent être séparés. Les sources
+            disponibles ne suivent pas encore un protocole commun sur une série.
           </p>
         </div>
         <p class="constraint-list__check">À relever : diamètre habituel, nombre de convives, séries fréquentes ou occasionnelles.</p>
@@ -85,7 +85,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     <aside class="next-step">
       <p class="eyebrow">Première gamme documentée</p>
       <h2>Ooni sert de terrain de départ.</h2>
-      <p>Les neuf fours du catalogue France sont inventoriés. Deux guides et six fiches modèles composent déjà le dossier documentaire.</p>
+      <p>Les neuf fours du catalogue France ont chacun leur fiche. Deux guides transversaux traitent le choix du modèle et celui de l'énergie.</p>
       <a class="button-link" href="/ooni/">Explorer la gamme Ooni</a>
     </aside>
   </div>

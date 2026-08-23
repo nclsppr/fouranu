@@ -3,18 +3,19 @@ articleId: OONI-018
 title: "Ooni Volt 2 : four électrique intérieur"
 description: Le Volt 2 est le four Ooni intérieur de 1 600 W. Ses commandes et mesures tierces sont documentées, pas sa fiabilité ni sa consommation.
 summary: Le Volt 2 est le four intérieur de la gamme actuelle. Ses commandes sont documentées, mais pas son uniformité, sa fiabilité ni son coût d'usage.
-status: researching
+status: publishable
 type: model
 model: Ooni Volt 2
+publishedAt: 2026-08-23
 updatedAt: 2026-08-23
-indexable: false
+indexable: true
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
-  - J-INF
+  - FAN-INF
 limitations:
-  - Four à Nu n'a pas testé ce modèle.
+  - Les cuissons publiées utilisent des pâtes et des réglages différents.
   - La présentation 30 cm et la surface de 33 cm ne sont pas normalisées.
   - Les cuissons tierces utilisent des pâtes et des réglages différents.
   - La fiabilité, la réparabilité et la consommation ne sont pas mesurées.
@@ -53,7 +54,7 @@ mentionne aussi une surface de cuisson de 33 cm (`EV-0090`).
 Le fabricant affiche une plage de 20 à 450 °C, une alimentation de 220 à 240 V,
 une puissance de 1 600 W, un poids de 17,6 kg et une pierre de 10 mm (`EV-0091`).
 Il annonce un état prêt à cuire en 12 minutes et une pizza napolitaine en
-90 secondes (`EV-0092`). Four à Nu n'a pas reproduit ces annonces.
+90 secondes (`EV-0092`). Ces valeurs restent des annonces fabricant.
 
 `EV-0103` considère que 30 cm et 33 cm décrivent probablement deux notions
 différentes, mais la page ne permet pas de les normaliser sans clarification.
@@ -110,5 +111,4 @@ vidéo est réalisée en collaboration avec Ooni et comporte des liens marchands
 
 Les sources montrent l'interface et plusieurs cuissons, mais elles ne suivent
 pas un protocole commun. Les réglages préférés par leurs auteurs ne deviennent
-pas des recommandations Four à Nu. La page reste documentaire jusqu'à la
-réalisation de mesures `J-TEST` sur un Volt 2 identifié.
+pas des recommandations générales.

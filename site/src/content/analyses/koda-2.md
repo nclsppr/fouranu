@@ -3,18 +3,19 @@ articleId: OONI-010
 title: "Ooni Koda 2 : dimensions et mesures tierces"
 description: Le Koda 2 est annoncé pour 35 cm et pèse 16 kg. Trois protocoles tiers de chauffe et une incohérence de dimensions sont documentés.
 summary: Le Koda 2 est annoncé pour 35 cm et pèse 16 kg. Les trois temps de chauffe tiers ne sont pas comparables, donc aucun temps de référence n'est retenu.
-status: researching
+status: publishable
 type: model
 model: Ooni Koda 2
+publishedAt: 2026-08-23
 updatedAt: 2026-08-23
-indexable: false
+indexable: true
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
-  - J-INF
+  - FAN-INF
 limitations:
-  - Four à Nu n'a pas testé ce modèle.
+  - Les trois protocoles de chauffe publiés ne sont pas directement comparables.
   - Les trois protocoles de chauffe cités ne sont pas directement comparables.
   - Les dimensions impériales et métriques de la page fabricant sont incohérentes.
   - La consommation ne repose que sur une pesée tierce peu précise.
@@ -32,7 +33,7 @@ Cette fiche répond uniquement aux questions propres au Koda 2. Pour choisir
 dans toute la gamme, voir [quel four Ooni choisir](/ooni/quel-four-ooni-choisir/).
 Pour arbitrer le combustible, voir
 [Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/).
-Les codes `FAB`, `T-MES`, `T-OBS` et `J-INF` sont définis dans
+Les codes `FAB`, `T-MES`, `T-OBS` et `FAN-INF` sont définis dans
 [la méthode Four à Nu](/methode/).
 
 ## Ce qui est établi par le fabricant
@@ -47,8 +48,8 @@ ne sont pas toutes équivalentes. `EV-0100` conserve cette anomalie et interdit
 de corriger silencieusement l'une des valeurs. Les dimensions doivent être
 confirmées avant de choisir une table ou un emplacement.
 
-Ooni annonce 500 °C et une pizza napolitaine en 60 secondes (`EV-0012`). Four à
-Nu n'a pas reproduit ces affirmations.
+Ooni annonce 500 °C et une pizza napolitaine en 60 secondes (`EV-0012`). Ces
+valeurs restent des annonces fabricant.
 
 ## Mesures tierces de chauffe
 
@@ -99,8 +100,7 @@ source.
 
 Le corpus autorise une description des spécifications et de plusieurs sessions
 tierces. Il ne permet pas de convertir ces sessions en temps de chauffe de
-référence, en note ou en recommandation générale. Toute future formulation de
-première main exigera un protocole `J-TEST` sur ce modèle exact.
+référence, en note ou en recommandation générale.
 
 Si 35 cm ne répondent pas au besoin annoncé, les fiches du
 [Koda 2 Pro de 45 cm](/ooni/koda-2-pro/) et du

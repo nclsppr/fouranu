@@ -115,7 +115,8 @@ const classLabels: Record<string, string> = {
   FAB: "Donnée fabricant",
   "T-MES": "Mesure tierce",
   "T-OBS": "Observation tierce",
-  "J-INF": "Inférence éditoriale",
+  "FAN-SYN": "Synthèse Four à Nu",
+  "FAN-INF": "Inférence éditoriale",
 };
 const confidenceLabels: Record<string, string> = {
   high: "confiance haute",
@@ -174,7 +175,7 @@ function sourceHref(record: Evidence) {
 
 function sourceTitle(record: Evidence) {
   if (record.source_title) return record.source_title;
-  if (record.source_type === "jupiter") {
+  if (record.source_type === "fouranu") {
     return `Inférence éditoriale sur ${record.product_version}`;
   }
   return record.product_version;
@@ -182,7 +183,7 @@ function sourceTitle(record: Evidence) {
 
 function sourcePublisher(record: Evidence) {
   if (record.publisher) return record.publisher;
-  if (record.source_type === "jupiter") return "Four à Nu";
+  if (record.source_type === "fouranu") return "Four à Nu";
   return undefined;
 }
 

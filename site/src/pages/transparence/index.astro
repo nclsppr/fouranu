@@ -1,0 +1,121 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Transparence commerciale et affiliation | Four à Nu"
+  description="Comment Four à Nu sépare ses choix éditoriaux, les relations commerciales des sources et ses éventuels liens affiliés."
+  indexable={true}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Transparence" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Indépendance éditoriale</p>
+        <h1>Le commerce ne réécrit pas la preuve.</h1>
+        <p class="page-intro__lede">Four à Nu peut être rémunéré lorsqu'un lecteur suit un lien marchand. Le prix affiché reste celui du marchand ; cette rémunération ne change ni la sélection des sources, ni l'ordre des conclusions.</p>
+      </div>
+      <p class="page-intro__aside">À la date du 23 août 2026, aucun lien affilié n'est actif sur le site et aucun emplacement publicitaire n'est vendu.</p>
+    </header>
+
+    <section class="transparency-rules" aria-label="Règles de transparence commerciale">
+      <article><span>01</span><h2>Déclarer avant le clic.</h2><p>Un lien rémunéré sera nommé comme tel à proximité, avec l'attribut <code>rel="sponsored"</code>. Il ne se confondra pas avec une source.</p></article>
+      <article><span>02</span><h2>Répondre avant l'offre.</h2><p>La réponse courte, les limites et les critères de choix précèdent tout bloc marchand. Une promotion ne devient jamais un motif de recommandation.</p></article>
+      <article><span>03</span><h2>Garder les conflits visibles.</h2><p>Prêt, don, collaboration, code promotionnel et affiliation signalés par une source restent attachés à l'observation concernée.</p></article>
+      <article><span>04</span><h2>Ne pas vendre le classement.</h2><p>Aucune marque ne peut acheter une note, une place, une conclusion ou la disparition d'une limite dans un dossier.</p></article>
+    </section>
+
+    <section class="transparency-status">
+      <div><p class="eyebrow">État actuel</p><h2>Un site sans publicité ni prix automatisés.</h2></div>
+      <div><p>Le site statique ne charge ni régie publicitaire, ni comparateur de prix, ni script marchand. Toute activation future sera documentée avant le premier lien concerné.</p><a href="/methode/">Voir comment les relations des sources sont enregistrées</a></div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .transparency-rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .transparency-rules article {
+    min-height: 19rem;
+    padding: 2rem;
+    border-top: 1px solid var(--color-line);
+    border-right: 1px solid var(--color-line);
+  }
+
+  .transparency-rules article:nth-child(even) {
+    border-right: 0;
+  }
+
+  .transparency-rules span {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+  }
+
+  .transparency-rules h2 {
+    margin: 4rem 0 1rem;
+    font-size: clamp(2rem, 3.3vw, 3rem);
+    line-height: 1;
+  }
+
+  .transparency-rules p {
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .transparency-rules code {
+    font-family: var(--font-data);
+    font-size: 0.82em;
+  }
+
+  .transparency-status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: clamp(2rem, 5vw, 4rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .transparency-status .eyebrow,
+  .transparency-status a {
+    color: var(--color-reading);
+  }
+
+  .transparency-status h2 {
+    margin: 0;
+    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    line-height: 0.95;
+  }
+
+  .transparency-status > div:last-child {
+    align-self: end;
+  }
+
+  .transparency-status p {
+    color: var(--color-carbon-muted);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 48rem) {
+    .transparency-rules,
+    .transparency-status {
+      grid-template-columns: 1fr;
+    }
+
+    .transparency-rules article {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .transparency-rules h2 {
+      margin-top: 2.5rem;
+    }
+  }
+</style>

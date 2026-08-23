@@ -3,17 +3,18 @@ articleId: OONI-016
 title: "Ooni Karu 2 Pro : format 40 cm et combustibles"
 description: Le Karu 2 Pro est annoncé pour 40 cm avec bois, charbon ou brûleur propane séparé. Une seule session tierce documente son usage.
 summary: Le Karu 2 Pro est annoncé pour 40 cm, avec bois, charbon ou brûleur propane séparé. Une seule session tierce interdit toute conclusion de performance.
-status: researching
+status: publishable
 type: model
 model: Ooni Karu 2 Pro
+publishedAt: 2026-08-23
 updatedAt: 2026-08-23
-indexable: false
+indexable: true
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
 limitations:
-  - Four à Nu n'a pas testé ce modèle.
+  - Une seule session tierce exploitable limite la portée des conclusions d'usage.
   - Une seule source tierce exploitable documente actuellement la performance.
   - Le préchauffage au bois n'est pas mesuré dans cette source.
   - Le brûleur au propane est un accessoire séparé.
@@ -44,7 +45,7 @@ une pierre de 15 mm et des dimensions de 50 × 83 × 83 cm (`EV-0071`). Il inclu
 une porte ClearView et un hub Ooni Connect avec sonde alimentaire (`EV-0072`).
 
 Ooni annonce 500 °C en 15 minutes et une pizza au feu de bois en 60 secondes
-(`EV-0073`). Ces affirmations ne sont pas reproduites par Four à Nu.
+(`EV-0073`). Ces valeurs restent des annonces fabricant.
 
 Le pack associant le Karu 2 Pro à son brûleur est enregistré comme un bundle,
 pas comme un modèle autonome différent (`EV-0002`).
@@ -66,9 +67,9 @@ comparés.
 Dans la session au gaz, le créateur annonce environ 30 à 40 minutes pour
 atteindre la pleine température. La sole part de 44 °F, le gaz reste à pleine
 puissance et une seule session est documentée
-([EV-0252, à 1:32](https://www.youtube.com/watch?v=fxkTzr8GYwE&t=92s)). Le bois
-n'est pas testé dans ce passage. Cette mesure ne réfute pas seule l'annonce
-fabricant, car le protocole et la cible exacte diffèrent.
+([EV-0252, à 1:32](https://www.youtube.com/watch?v=fxkTzr8GYwE&t=92s)). Le passage
+ne documente pas le préchauffage au bois. Cette mesure ne réfute pas seule
+l'annonce fabricant, car le protocole et la cible exacte diffèrent.
 
 La source montre enfin une réduction de flamme après le lancement puis une
 remontée pour colorer le dessus, avec plusieurs rotations sur des pizzas

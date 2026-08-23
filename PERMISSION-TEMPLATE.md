@@ -23,18 +23,18 @@ le justifie.
 
 ## Message
 
-Objet : autorisation limitée pour illustrer une analyse Jupiter
+Objet : autorisation limitée pour illustrer une analyse Four à Nu
 
 Bonjour `[nom]`,
 
-Je prépare pour Jupiter une analyse documentaire en français sur le choix d'un
+Je prépare pour Four à Nu une analyse documentaire en français sur le choix d'un
 four à pizza. Votre vidéo `[titre]` publiée à `[URL]` documente utilement
 `[observation]` au passage `[timecode]`.
 
-Le produit n'a pas été testé par Jupiter : la page identifiera clairement votre
-vidéo comme source, renverra vers elle et attribuera à votre équipe toutes les
-mesures ou observations qui en proviennent. La page pourra contenir des liens
-affiliés ; l'usage est donc éditorial et commercial.
+La page identifiera clairement votre vidéo comme source, renverra vers elle et
+attribuera à votre équipe toutes les mesures ou observations qui en proviennent.
+La page pourra contenir des liens affiliés ; l'usage est donc éditorial et
+commercial.
 
 Pour éviter d'extraire une image depuis YouTube, pourriez-vous nous fournir le
 photogramme ou une photographie source correspondant à ce passage ? Si vous
@@ -53,7 +53,7 @@ exclusive limitée aux usages cochés ci-dessous :
 Périmètre proposé : `[territoire]`, en `[langues]`, du `[début]` au `[fin]`,
 `[gratuitement/contre rémunération précisée]`. Crédit affiché : `[crédit exact]`.
 Les visuels assistés par IA seront signalés comme tels et ne seront jamais
-présentés comme la preuve d'un test réalisé par Jupiter. `[Vous pourrez/devrez]`
+présentés comme la preuve d'une expérience réalisée par Four à Nu. `[Vous pourrez/devrez]`
 valider le rendu final avant publication.
 
 Pouvez-vous également confirmer :
@@ -68,7 +68,7 @@ Pouvez-vous également confirmer :
 4. les contraintes à respecter pour le produit, les marques, le cadrage ou la
    transformation.
 
-Jupiter n'enverra aucune personne identifiable à un prestataire IA durant cette
+Four à Nu n'enverra aucune personne identifiable à un prestataire IA durant cette
 phase. Si le fichier en contient, merci de confirmer si un recadrage local est
 autorisé ; à défaut, le fichier restera exclu du traitement IA.
 

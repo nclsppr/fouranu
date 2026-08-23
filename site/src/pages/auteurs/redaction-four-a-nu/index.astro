@@ -1,0 +1,158 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/config/site";
+
+const canonical = new URL(SITE.editorialAuthor.url, SITE.url).toString();
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${canonical}#profile`,
+  url: canonical,
+  name: SITE.editorialAuthor.name,
+  mainEntity: {
+    "@type": "Organization",
+    "@id": `${canonical}#author`,
+    name: SITE.editorialAuthor.name,
+    url: canonical,
+    description:
+      "Signature collective responsable de la recherche, de l'attribution et de la mise à jour des dossiers Four à Nu.",
+    publishingPrinciples: `${SITE.url}/methode/`,
+  },
+};
+---
+
+<BaseLayout
+  title="Rédaction Four à Nu : rôle et méthode"
+  description="Qui signe les dossiers Four à Nu, comment les sources sont sélectionnées et quels contrôles encadrent chaque mise à jour."
+  indexable={true}
+  schema={schema}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "À propos", href: "/a-propos/" }, { label: "Rédaction Four à Nu" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Signature éditoriale</p>
+        <h1>Rédaction Four à Nu</h1>
+        <p class="page-intro__lede">
+          Cette signature collective désigne le travail de recherche,
+          d'attribution, de synthèse et de mise à jour réalisé pour les dossiers
+          Four à Nu.
+        </p>
+      </div>
+      <p class="page-intro__aside">Chaque article renvoie ici, affiche sa date de publication, sa mise à jour, son temps de lecture et sa bibliographie.</p>
+    </header>
+
+    <section class="author-scope" aria-labelledby="author-scope-title">
+      <div>
+        <p class="eyebrow">Responsabilité</p>
+        <h2 id="author-scope-title">Ce que couvre cette signature.</h2>
+      </div>
+      <div>
+        <p>La rédaction choisit une question d'achat précise, collecte les sources accessibles, conserve les passages utiles et distingue l'annonce fabricant de l'observation tierce.</p>
+        <p>Elle compare uniquement des protocoles compatibles, signale les relations commerciales connues et formule les inconnues sans les remplacer par une note ou une impression générale.</p>
+        <p>La signature n'efface pas l'auteur d'une source : les créateurs, fabricants et publications restent nommés au plus près de ce qui leur est attribué.</p>
+      </div>
+    </section>
+
+    <section class="author-controls" aria-label="Contrôles éditoriaux">
+      <article><span>01</span><h2>Avant publication</h2><p>Intention distincte, sources accessibles, affirmations reliées au registre, liens internes, métadonnées et limites explicites.</p></article>
+      <article><span>02</span><h2>À la mise à jour</h2><p>Catalogue, génération du produit, liens externes, relations commerciales et conclusion sont relus ensemble.</p></article>
+      <article><span>03</span><h2>Après un signalement</h2><p>La source et la portée de l'erreur sont vérifiées. Une correction de fond indique sa date, son motif et son effet.</p></article>
+    </section>
+
+    <nav class="author-links" aria-label="Politiques éditoriales associées">
+      <a href="/methode/">Méthode et niveaux de preuve</a>
+      <a href="/transparence/">Transparence commerciale</a>
+      <a href="/corrections/">Politique de correction</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .author-scope {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: 3rem;
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .author-scope h2 {
+    max-width: 11ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    line-height: 0.96;
+  }
+
+  .author-scope > div:last-child {
+    max-width: 44rem;
+    color: var(--color-graphite);
+    font-size: 1.04rem;
+    line-height: 1.7;
+  }
+
+  .author-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .author-controls article {
+    min-height: 20rem;
+    padding: 2rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .author-controls article:last-child {
+    border-right: 0;
+  }
+
+  .author-controls span {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+  }
+
+  .author-controls h2 {
+    margin: 5rem 0 1rem;
+    font-size: 2rem;
+  }
+
+  .author-controls p {
+    color: var(--color-graphite);
+    line-height: 1.6;
+  }
+
+  .author-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding: 2rem;
+    border-top: 2px solid var(--color-probe);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .author-links a {
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  @media (max-width: 48rem) {
+    .author-scope,
+    .author-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .author-controls article {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .author-controls h2 {
+      margin-top: 2.5rem;
+    }
+  }
+</style>

@@ -9,9 +9,9 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 1 |
+| Décisions | `internal` | 2 |
 | Barrières de publication | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 8 |
+| Brouillons éditoriaux du site | `internal` | 11 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -38,6 +38,7 @@ Moteur déclaré : `nimbus`.
 ## Décisions
 
 - [docs/decisions/0001-promotion-produit-et-site-astro.md](docs/decisions/0001-promotion-produit-et-site-astro.md)
+- [docs/decisions/0002-media-documentaire-permanent.md](docs/decisions/0002-media-documentaire-permanent.md)
 
 ## Barrières de publication
 
@@ -46,8 +47,11 @@ Moteur déclaré : `nimbus`.
 ## Brouillons éditoriaux du site
 
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
+- [site/src/content/analyses/karu-12.md](site/src/content/analyses/karu-12.md)
 - [site/src/content/analyses/karu-2-pro.md](site/src/content/analyses/karu-2-pro.md)
 - [site/src/content/analyses/karu-2.md](site/src/content/analyses/karu-2.md)
+- [site/src/content/analyses/koda-12.md](site/src/content/analyses/koda-12.md)
+- [site/src/content/analyses/koda-16.md](site/src/content/analyses/koda-16.md)
 - [site/src/content/analyses/koda-2-max.md](site/src/content/analyses/koda-2-max.md)
 - [site/src/content/analyses/koda-2-pro.md](site/src/content/analyses/koda-2-pro.md)
 - [site/src/content/analyses/koda-2.md](site/src/content/analyses/koda-2.md)

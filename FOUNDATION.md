@@ -85,6 +85,7 @@ Les règles locales vivent dans leur document naturel. Cette table les référen
 | Sources, droits, IA et publication | `EDITORIAL-PROTOCOL.md` |
 | Contrôle SEO bloquant avant indexation | `docs/SEO-PUBLICATION-GATE.md` |
 | Demande d'autorisation visuelle | `PERMISSION-TEMPLATE.md` |
+| Modèle documentaire permanent et cible Atlas | `docs/decisions/0002-media-documentaire-permanent.md` |
 
 ## Reclassification du 2026-08-23
 
@@ -95,9 +96,11 @@ limites et la conclusion de l'exploration. `PROJECT.md` devient le contrat
 stable, `STATUS.md` la preuve courante et `ROADMAP.md` l'ordre de livraison.
 
 Cette reclassification autorise la construction locale du site. Elle ne prouve
-ni l'utilité, ni la rentabilité, ni l'accès à des essais physiques. Elle
-n'autorise pas non plus le DNS, l'hébergement, l'indexation, les liens affiliés
-ou une autre activation externe.
+ni l'utilité ni la rentabilité. Elle n'autorise pas non plus le DNS,
+l'hébergement, l'indexation, les liens affiliés ou une autre activation
+externe. La décision
+[`ADR-0002`](docs/decisions/0002-media-documentaire-permanent.md) fixe ensuite
+le modèle documentaire permanent et prépare Atlas comme cible, sans activation.
 
 ## Adaptateurs locaux initialisés
 

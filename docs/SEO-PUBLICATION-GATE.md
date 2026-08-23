@@ -1,9 +1,9 @@
 # Barrière SEO avant publication
 
 Cette checklist s'applique à chaque article de Four à Nu. Elle protège la
-qualité éditoriale, la séparation entre recherche documentaire et test physique,
-ainsi que la lisibilité du site pour Google, Bing et les assistants qui citent
-des pages publiques.
+qualité éditoriale, la séparation entre sources, synthèses et inférences, ainsi
+que la lisibilité du site pour Google, Bing et les assistants qui citent des
+pages publiques.
 
 Une case non cochée bloque l'indexation. La mention « sans objet » doit être
 justifiée dans le dossier de l'article. La validation éditoriale n'autorise ni
@@ -20,7 +20,7 @@ tranches séparées.
 - Intention principale, en une phrase :
 - Intentions secondaires :
 - URL existante la plus proche :
-- Statut éditorial : `researching`, `ready-noindex` ou `published`
+- Statut éditorial : `draft`, `review` ou `publishable`
 - Décision d'indexation : bloquée ou autorisée
 - Motif et éléments restant à produire :
 
@@ -95,31 +95,26 @@ tranches séparées.
   limite est visible au même endroit.
 - [ ] Des températures, durées ou consommations issues de protocoles
   incompatibles ne sont ni moyennées ni transformées en valeur de référence.
-- [ ] Toute synthèse `J-SYN` ou inférence `J-INF` est enregistrée avec ses
+- [ ] Toute synthèse `FAN-SYN` ou inférence `FAN-INF` est enregistrée avec ses
   prémisses et sa règle de calcul.
 - [ ] Les désaccords, anomalies de fiche et valeurs non normalisées restent
   visibles. Aucun écart n'est corrigé silencieusement.
 - [ ] Le catalogue, la génération du produit et les liens externes ont été
   revérifiés à la date inscrite dans l'article.
 
-## 5. Frontière Saison 0 et test physique
+## 5. Frontière documentaire permanente
 
-- [ ] Le stade de preuve est déclaré : Saison 0 documentaire ou test physique
-  Four à Nu.
-- [ ] En Saison 0, le contenu ne dit jamais « nous avons testé », « notre
-  mesure », « notre avis », « le meilleur » ou une formulation équivalente.
-- [ ] En Saison 0, aucune note, étoile, recommandation globale, donnée
-  `Review`, donnée `AggregateRating` ou apparence de verdict de première main
-  n'est utilisée.
-- [ ] En Saison 0, `indexable: false` reste présent et le statut ne dépasse pas
-  `ready-noindex`.
-- [ ] Une observation tierce reste attribuée à son auteur et à une session
-  précise. Elle ne devient pas une expérience Four à Nu.
-- [ ] Un futur test physique identifie le modèle, l'exemplaire, le matériel, la
-  date, l'environnement, la pâte, les réglages, le protocole et les limites dans
-  une entrée `J-TEST`.
-- [ ] Le passage à un test physique enrichit la même URL lorsqu'elle répond à la
-  même intention. Il ne crée pas une page concurrente par défaut.
+- [ ] Le contenu se présente comme une analyse documentaire et précise les
+  catégories de sources utilisées.
+- [ ] Le contenu ne dit jamais « nous avons testé », « notre mesure », « notre
+  avis », « le meilleur » ou une formulation équivalente.
+- [ ] Aucune note, étoile, recommandation globale, donnée `Review`, donnée
+  `AggregateRating` ou apparence de verdict issu d'une prise en main n'est
+  utilisée.
+- [ ] Une observation ou mesure tierce reste attribuée à son auteur et à une
+  session précise. Elle ne devient pas une expérience Four à Nu.
+- [ ] Une limite est formulée comme une limite du corpus, du protocole publié ou
+  de la comparabilité. Elle ne promet pas une vérification future par Four à Nu.
 - [ ] Les photos, captures et illustrations disposent d'une autorisation ou
   d'une licence vérifiable avant toute publication. Une transformation par IA
   ne remplace pas cette autorisation.
@@ -128,7 +123,7 @@ tranches séparées.
 
 - [ ] L'article apporte plus qu'une réécriture des pages fabricant et des
   vidéos : normalisation prudente, comparaison de protocoles, détection d'une
-  anomalie, matrice de décision ou question de test explicite.
+  anomalie, matrice de décision ou question de vérification explicite.
 - [ ] La conclusion découle des preuves présentées et aide le lecteur à décider
   ou à comprendre ce qui manque encore.
 - [ ] Le texte n'est pas produit en série en changeant seulement le nom du
@@ -156,8 +151,9 @@ tranches séparées.
 - [ ] Les noms du fabricant, de la gamme, du modèle, de la génération, des
   combustibles et des instruments restent cohérents dans le titre, le texte et
   les métadonnées.
-- [ ] Les pages auteur, méthode, politique de correction et transparence
-  commerciale sont accessibles depuis le parcours public avant indexation.
+- [ ] Les pages auteur, À propos, méthode, politique de correction, mentions
+  légales, confidentialité, contact et transparence commerciale sont accessibles
+  depuis le parcours public avant indexation.
 
 ## 8. Contrôle du rendu et des métadonnées
 
@@ -169,8 +165,8 @@ tranches séparées.
   dépendent pas d'une interaction ou d'un script fragile.
 - [ ] Les liens internes répondent, les sources externes décisives sont encore
   accessibles et la page finale répond en HTTP 200.
-- [ ] Les données structurées décrivent uniquement le contenu visible. En
-  Saison 0, aucun balisage `Review` ou `AggregateRating` n'est présent.
+- [ ] Les données structurées décrivent uniquement le contenu visible. Aucun
+  balisage `Review` ou `AggregateRating` n'est présent.
 - [ ] Les commandes de contrôle Astro et de construction terminent sans erreur.
 - [ ] Le rendu mobile, le clavier, le contraste et l'absence de débordement ont
   été vérifiés si le contenu introduit un nouveau type de bloc.
@@ -196,9 +192,12 @@ tranches séparées.
 - [ ] Les sources, affirmations, titres, descriptions et liens ont été relus
   après la dernière modification.
 - [ ] Le propriétaire du projet a autorisé explicitement le passage de cette URL
-  à l'indexation.
-- [ ] Le changement de `indexable: false` et l'ajout au sitemap appartiennent à
-  une tranche de publication distincte, avec vérification du site public.
+  au statut `publishable` et son inclusion dans le candidat Atlas.
+- [ ] `indexable: true` n'apparaît que sur une page `publishable`. Le mode preview
+  continue de produire `noindex` et de l'exclure du sitemap.
+- [ ] Le candidat Atlas, son identifiant d'artefact et la liste exacte des URL
+  autorisées sont consignés. Leur admission, leur publication et leur activation
+  restent trois décisions séparées.
 - [ ] Après publication, le canonique, les robots, le sitemap, le statut HTTP et
   le contenu public ont été contrôlés sur l'URL réelle.
 - [ ] Toute soumission à Google, Bing ou IndexNow intervient seulement après ces
@@ -210,11 +209,11 @@ tranches séparées.
 | --- | --- |
 | Une affirmation importante n'a ni preuve enregistrée ni attribution | Bloqué |
 | Une page existante répond déjà à la même intention avec les mêmes preuves | Fusion ou justification avant rédaction |
-| Le titre promet un test, un avis, un classement ou un verdict absent | Bloqué |
+| Le titre promet un test Four à Nu, un avis, une note ou un classement | Bloqué |
 | Une expérience tierce est racontée à la première personne | Bloqué |
 | Une mesure incompatible est moyennée avec une autre | Bloqué |
-| Une Saison 0 contient une note, `Review` ou `AggregateRating` | Bloqué |
-| `indexable: true` apparaît avant l'autorisation finale | Bloqué |
+| Une page contient une note, `Review` ou `AggregateRating` | Bloqué |
+| `indexable: true` apparaît sur une page qui n'est pas `publishable` | Bloqué |
 | Une source décisive, un lien interne ou le canonique est cassé | Bloqué |
 | Un média tiers n'a pas d'autorisation ou de licence vérifiable | Bloqué |
 | Une donnée structurée ne correspond pas au contenu visible | Bloqué |

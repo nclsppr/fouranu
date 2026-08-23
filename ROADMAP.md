@@ -7,7 +7,8 @@ réel de la phase active.
 
 Servir sur un domaine unique un outil francophone qui aide à choisir un four à
 pizza, sépare clairement les types de preuve et mesure son utilité puis son
-économie sans contenu de masse ni revendication de test inventée.
+économie sans contenu de masse, note, balisage d'avis ou expérience tierce
+racontée à la première personne.
 
 ## Principes de séquencement
 
@@ -22,8 +23,8 @@ pizza, sépare clairement les types de preuve et mesure son utilité puis son
 | Ordre | ID | Phase | Résultat observable | État | Critère de sortie |
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
-| 2 | F02 | Pilote éditorial `noindex` | Un acheteur peut parcourir le parcours de choix et huit analyses documentaires | `in_progress` | Cinq sessions, provenance comprise et aucune erreur critique |
-| 3 | F03 | Paquet publiable | Le propriétaire peut examiner une version juridiquement et éditorialement prête | `planned` | Barrière de publication, mentions, consentement et audit média passés |
+| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et onze analyses documentaires | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
+| 3 | F03 | Candidat Atlas et paquet publiable | Le propriétaire peut examiner l'artefact exact et son contrat de release sans l'activer | `in_progress` | Barrières de publication, identité légale, audit média par actif et admission Atlas préparée |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `planned` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 
@@ -78,20 +79,24 @@ contenu n'est accessible sur Internet.
 Revenir au dernier commit local vérifié. Ne pas supprimer le corpus, les
 conclusions de l'exploration ni le snapshot Foundation.
 
-## Phase F02 : pilote éditorial `noindex`
+## Phase F02 : corpus documentaire publiable
 
 ### Objectif
 
-Vérifier que le produit résout une décision d'achat sans faire passer des
-sources tierces pour des essais Four à Nu.
+Vérifier que le produit résout une décision d'achat par une analyse
+documentaire originale, sans faire passer une source tierce pour une expérience
+de Four à Nu.
 
 ### Inclus
 
 - sélecteur par contraintes ;
 - méthode et conflits d'intérêts ;
 - `OONI-001` et `OONI-004` ;
-- jusqu'à six fiches P0 si leur couverture atteint le statut `ready-noindex` ;
+- les neuf fiches de la gamme France lorsque leur portée documentaire est
+  explicite, y compris celles dont le corpus se limite au fabricant ;
 - bandeaux de provenance, sources, dates, limites et politique de correction ;
+- page auteur, À propos, mentions légales, confidentialité, contact et
+  transparence commerciale avec des informations exactes ;
 - cinq sessions avec des personnes ayant un projet d'achat.
 
 ### Exclu
@@ -100,7 +105,8 @@ sources tierces pour des essais Four à Nu.
 - liens affiliés ;
 - prix non datés ;
 - photogrammes sans droits ;
-- revendications `J-TEST`.
+- note, étoiles, classement pseudo-scientifique, `Review` ou `AggregateRating` ;
+- expérience tierce racontée à la première personne.
 
 ### Risques
 
@@ -120,12 +126,13 @@ factuelle critique ne subsiste après correction.
 Une seule itération du parcours est permise. En cas d'échec, conserver les
 preuves et retirer les pages du build du pilote.
 
-## Phase F03 : paquet publiable
+## Phase F03 : candidat Atlas et paquet publiable
 
 ### Objectif
 
 Préparer une version que le propriétaire peut autoriser sans devoir corriger
-après coup les droits, la transparence commerciale ou la confidentialité.
+après coup les droits, la transparence commerciale ou la confidentialité, puis
+décrire le candidat statique exact attendu par le contrôle central Atlas.
 
 ### Inclus
 
@@ -135,11 +142,14 @@ après coup les droits, la transparence commerciale ou la confidentialité.
 - mécanisme d'acceptation, refus et retrait si des traceurs sont nécessaires ;
 - déclaration commerciale et traitement `rel="sponsored"` ;
 - audit des médias, preuves, schémas structurés et URL indexables ;
-- preview privée ou non indexée sur une plateforme choisie.
+- preview privée ou non indexée sur Atlas après autorisation séparée ;
+- artefact statique immuable, identifiant de version, sonde de santé, procédure
+  de retour arrière et contrat d'admission pour `vps-infra`.
 
 ### Exclu
 
 - activation du domaine public ;
+- admission ou publication d'une release dans `vps-infra` ;
 - candidature à un programme marchand sans accord du propriétaire ;
 - ajout d'un média dont la chaîne de droits reste incomplète.
 
@@ -157,7 +167,8 @@ et la barrière SEO de
 [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) passent. Les
 preuves privées sont validées localement, le paquet ne contient aucun document
 interne et le propriétaire reçoit une liste exacte des URL, tiers, traceurs et
-liens rémunérés proposés.
+liens rémunérés proposés. Le candidat Atlas est reproductible et son contrat de
+release est vérifié sans admission, publication ni activation.
 
 ### Retour arrière
 
@@ -173,12 +184,13 @@ Publier uniquement les URL approuvées et établir leur disponibilité réelle.
 ### Dépendances
 
 - F03 terminée ;
-- remote, hébergement et DNS autorisés ;
+- remote, admission Atlas, publication de release et DNS autorisés ;
 - feu vert explicite du propriétaire sur le paquet de publication.
 
 ### Inclus
 
 - artefact immuable et procédure de retour arrière ;
+- admission et publication de la release statique par `vps-infra` ;
 - activation de `fouranu.com` ;
 - contrôles HTTP, visuels, console et réseau ;
 - `robots.txt`, sitemap, canonical et données structurées ;

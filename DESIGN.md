@@ -72,20 +72,26 @@ rounded:
 
 ## Overview
 
-`Ligne de sole` donne à Four à Nu l'apparence d'un banc d'essai thermique
-publié sur le web. L'interface montre les fours comme des objets mesurables et
-réparables. Elle donne la priorité aux conditions, aux sources, aux écarts et
-aux limites avant toute recommandation ou action marchande.
+`Ligne de sole` donne à Four à Nu l'apparence d'un poste de lecture technique
+publié sur le web. L'interface compare les dimensions, contraintes et mesures
+publiées sans suggérer que le média les a produites. Elle donne la priorité aux
+conditions, aux sources, aux écarts et aux limites avant toute recommandation ou
+action marchande.
+
+La hiérarchie peut s'inspirer de médias technologiques professionnels comme
+Numerama ou Frandroid : accueil éditorial dense mais lisible, rubriques nettes,
+signature auteur, dates, sources et navigation vers les dossiers. Four à Nu ne
+copie ni leur identité, ni leur densité publicitaire, ni leurs gabarits.
 
 Le système reprend des éléments matériels réels du sujet : acier thermolaqué,
 inox, cordiérite, sondes, afficheurs, thermomètres infrarouges, cotes et plaques
 signalétiques. Il ne met pas en scène un imaginaire de pizzeria. Il ne copie pas
 non plus la photographie héroïque et le discours de vente des fabricants.
 
-Ce document fixe les valeurs et les règles. Leur traduction exécutable vivra
-uniquement dans `site/src/styles/global.css` lorsque l'application publique sera
-créée. Les composants devront référencer ces propriétés CSS. Aucun composant,
-module ou style local ne doit ouvrir un second système de tokens.
+Ce document fixe les valeurs et les règles. Leur traduction exécutable vit dans
+`site/src/styles/global.css`. Les composants référencent ces propriétés CSS.
+Aucun composant, module ou style local ne doit ouvrir un second système de
+tokens.
 
 ## Colors
 
@@ -219,9 +225,10 @@ les états importants.
 
 ### En-tête et navigation
 
-L'en-tête contient le logo monochrome, les entrées éditoriales nécessaires et
-une recherche textuelle. Il n'intègre ni bande promotionnelle, ni carrousel, ni
-compte à rebours. La navigation active combine texte, épaisseur et règle basse.
+L'en-tête contient le logo monochrome et les entrées éditoriales nécessaires.
+Une recherche textuelle n'apparaît que lorsqu'un index local fonctionnel existe.
+Il n'intègre ni bande promotionnelle, ni carrousel, ni compte à rebours. La
+navigation active combine texte, épaisseur et règle basse.
 
 ### Actions et liens marchands
 
@@ -240,10 +247,10 @@ Le rail affiche la nature de la preuve, la source, la date de vérification, les
 conditions connues, le niveau de confiance et les conflits déclarés. Il ne
 réduit jamais ces données à une note, une étoile ou un badge coloré.
 
-En Saison 0, le bandeau `Analyse documentaire - produit non testé par Four à
-Nu` précède la première recommandation. Le terme `J-TEST`, une note ou un
-classement issu d'un essai reste absent tant que le protocole éditorial ne les
-autorise pas.
+Le bandeau `Analyse documentaire - sources et protocoles attribués` précède la
+première recommandation. Une note, une étoile, un classement
+pseudo-scientifique ou un composant visuel qui imite un verdict d'essai reste
+interdit.
 
 ### Ligne de sole
 
@@ -268,8 +275,8 @@ zéro. L'ordre d'affichage ne suggère pas un classement non autorisé.
 ### Médias
 
 Chaque média public utilise un type prévu par le protocole éditorial : `embed`,
-`licensed-frame`, `ai-illustration` ou `jupiter-original`. Le type
-`quarantine` n'entre jamais dans le site public.
+`licensed-frame`, `ai-illustration`, `fouranu-original` ou `ai-original`. Le
+type `quarantine` n'entre jamais dans le site public.
 
 Une figure contient un texte alternatif adapté, une légende visible, la source,
 la date, le statut d'illustration ou de preuve et l'identifiant associé. Une
@@ -279,7 +286,7 @@ jamais une affirmation factuelle.
 La direction visuelle s'applique autour d'une preuve avec cadre, légende,
 annotations et mise en page. Elle ne modifie pas les pixels qui montrent une
 flamme, une cuisson, un affichage, un défaut, une géométrie ou une mesure. Les
-personnes identifiables restent exclues des entrées IA pendant la Saison 0.
+personnes identifiables restent exclues des entrées IA.
 
 Les images utilisent `srcset`, `sizes`, une largeur et une hauteur explicites,
 AVIF ou WebP avec repli adapté. L'image principale n'est pas chargée à la
@@ -342,12 +349,11 @@ validation, jamais des résultats déclarés avant mesure.
 - Aucun dégradé thermique décoratif, halo, néon, pseudo-terminal ou grille
   futuriste.
 - Aucun bento, carte imbriquée, pilule, grande ombre molle ou verre dépoli.
-- Aucune étoile, note, badge `testé` ou chiffre scientifique sans preuve
-  autorisée.
+- Aucune étoile, note, badge `testé` ou chiffre scientifique inventé.
 - Aucune donnée, courbe, thermographie ou lecture d'instrument inventée pour
   remplir une composition.
-- Aucune image de fabricant ou de vidéo tierce présentée comme observation de
-  première main.
+- Aucune image de fabricant ou de vidéo tierce présentée comme une observation
+  propre à Four à Nu.
 - Aucun appel marchand plus saillant que le verdict, la méthode ou la limite
   qui l'encadre.
 
@@ -364,7 +370,8 @@ propriétaire du projet avant implémentation :
 6. la ligne de sole conditionnée à une mesure ou une cote réellement sourcée ;
 7. la provenance visible des médias et l'interdiction de transformer une
    preuve ;
-8. l'absence de note, étoile ou `J-TEST` non autorisé ;
+8. l'absence de note, étoile, classement pseudo-scientifique ou apparence de
+   verdict d'essai ;
 9. `site/src/styles/global.css` comme unique emplacement des tokens CSS
    exécutables ;
 10. les exclusions anti-slop de la section précédente.

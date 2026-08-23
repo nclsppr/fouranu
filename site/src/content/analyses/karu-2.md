@@ -3,18 +3,19 @@ articleId: OONI-015
 title: "Ooni Karu 2 : bois, charbon ou gaz"
 description: Le Karu 2, anciennement Karu 12G, accepte bois, charbon et un brûleur gaz séparé. Format 30 cm, poids et mesures tierces sont documentés.
 summary: Le Karu 2 accepte le bois et le charbon, avec un brûleur propane séparé. Les deux sessions tierces ne permettent pas de fixer un temps de chauffe.
-status: researching
+status: publishable
 type: model
 model: Ooni Karu 2
+publishedAt: 2026-08-23
 updatedAt: 2026-08-23
-indexable: false
+indexable: true
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
-  - J-INF
+  - FAN-INF
 limitations:
-  - Four à Nu n'a pas testé ce modèle.
+  - Les sessions disponibles ne suivent pas un protocole commun.
   - Une source vidéo utilise encore le nom Karu 12G.
   - Les sessions tierces diffèrent par l'air, le combustible, la pâte et les instruments.
   - Le tableau fabricant duplique un libellé de dimension.
@@ -46,7 +47,7 @@ annonce des pizzas de 30 cm et plus, un poids de 15,3 kg et une pierre de 15 mm
 (`EV-0061`).
 
 Le fabricant annonce 450 °C en 15 minutes, 500 °C au maximum et une pizza en
-60 secondes (`EV-0062`). Four à Nu n'a pas reproduit ces annonces.
+60 secondes (`EV-0062`). Ces valeurs restent des annonces fabricant.
 
 Le tableau métrique de la page utilise deux fois le libellé largeur pour des
 axes distincts (`EV-0063`). `EV-0102` conserve l'anomalie sans attribuer un axe

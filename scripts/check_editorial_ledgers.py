@@ -96,22 +96,25 @@ SOURCE_TYPES = {
     "merchant",
     "forum",
     "interview",
-    "jupiter",
+    "fouranu",
     "other",
 }
-EVIDENCE_CLASSES = {"FAB", "T-MES", "T-OBS", "J-SYN", "J-INF", "J-TEST"}
+EVIDENCE_CLASSES = {"FAB", "T-MES", "T-OBS", "FAN-SYN", "FAN-INF"}
 CONFIDENCE_VALUES = {"low", "medium", "high"}
 ACQUISITION_MODES = {
     "rights-holder-file",
+    "authorized-frame-capture",
     "youtube-embed",
-    "jupiter-original",
+    "fouranu-original",
+    "ai-generated",
     "not-acquired",
 }
 ASSET_TYPES = {
     "embed",
     "licensed-frame",
     "ai-illustration",
-    "jupiter-original",
+    "ai-original",
+    "fouranu-original",
     "quarantine",
 }
 RIGHTS_STATUSES = {
@@ -164,7 +167,6 @@ EVIDENCE_ID_PATTERN = re.compile(r"^EV-[0-9]{4}$")
 ASSET_ID_PATTERN = re.compile(r"^AS-[0-9]{4}$")
 QUESTION_ID_PATTERN = re.compile(r"^Q-[0-9]{4}$")
 ARTICLE_ID_PATTERN = re.compile(r"^[A-Z][A-Z0-9-]*-[0-9]{3,4}$")
-ALLOW_J_TEST = False
 
 
 def load_csv(path: Path, expected_fields: tuple[str, ...], errors: list[str]) -> list[dict[str, str]]:
@@ -264,9 +266,9 @@ def check_evidence(rows: list[dict[str, str]], errors: list[str]) -> set[str]:
             errors.append(f"{prefix} : confidence doit valoir low, medium ou high")
         if row["source_url"] and not valid_url(row["source_url"]):
             errors.append(f"{prefix} : source_url doit être une URL HTTPS")
-        if row["source_type"] != "jupiter" and not row["source_url"]:
+        if row["source_type"] != "fouranu" and not row["source_url"]:
             errors.append(f"{prefix} : une source tierce exige source_url")
-        if row["source_type"] != "jupiter":
+        if row["source_type"] != "fouranu":
             for field in ("product_version", "source_title", "publisher"):
                 if not row[field]:
                     errors.append(f"{prefix} : {field} est requis pour une source tierce")
@@ -296,21 +298,27 @@ def check_evidence(rows: list[dict[str, str]], errors: list[str]) -> set[str]:
             errors.append(f"{prefix} : FAB exige source_type manufacturer")
         if row["source_type"] == "manufacturer" and row["evidence_class"] != "FAB":
             errors.append(f"{prefix} : une source fabricant exige evidence_class FAB")
-        if row["evidence_class"] in {"T-MES", "T-OBS"} and row["source_type"] == "jupiter":
-            errors.append(f"{prefix} : une preuve tierce ne peut pas avoir source_type jupiter")
-        if row["evidence_class"] in {"J-SYN", "J-INF", "J-TEST"} and row["source_type"] != "jupiter":
-            errors.append(f"{prefix} : une classe Jupiter exige source_type jupiter")
-        if row["evidence_class"] == "J-TEST" and not ALLOW_J_TEST:
+        if (
+            row["evidence_class"] in {"T-MES", "T-OBS"}
+            and row["source_type"] == "fouranu"
+        ):
             errors.append(
-                f"{prefix} : J-TEST reste verrouillé jusqu'à l'activation explicite des essais physiques"
+                f"{prefix} : une preuve tierce ne peut pas avoir source_type fouranu"
+            )
+        if (
+            row["evidence_class"] in {"FAN-SYN", "FAN-INF"}
+            and row["source_type"] != "fouranu"
+        ):
+            errors.append(
+                f"{prefix} : une classe Four à Nu exige source_type fouranu"
             )
 
         linked_ids = split_ids(row["corroborating_ids"])
         if identifier in linked_ids:
             errors.append(f"{prefix} : une preuve ne peut pas se corroborer elle-même")
-        if row["evidence_class"] == "J-SYN" and len(linked_ids) < 2:
+        if row["evidence_class"] == "FAN-SYN" and len(linked_ids) < 2:
             errors.append(f"{prefix} : une synthèse exige au moins deux preuves liées")
-        if row["evidence_class"] == "J-INF" and not linked_ids:
+        if row["evidence_class"] == "FAN-INF" and not linked_ids:
             errors.append(f"{prefix} : une inférence exige au moins une preuve liée")
 
         if row["timecode_end"] and not row["timecode_start"]:
@@ -332,13 +340,13 @@ def check_evidence(rows: list[dict[str, str]], errors: list[str]) -> set[str]:
                 errors.append(
                     f"research/evidence.csv:{number} : corroboration inconnue : {linked}"
                 )
-        if row["evidence_class"] == "J-SYN":
+        if row["evidence_class"] == "FAN-SYN":
             independent_sources = {
                 rows_by_id[linked]["publisher"].casefold()
                 or rows_by_id[linked]["source_url"]
                 for linked in linked_ids
                 if linked in rows_by_id
-                and rows_by_id[linked]["source_type"] != "jupiter"
+                and rows_by_id[linked]["source_type"] != "fouranu"
             }
             if len(independent_sources) < 2:
                 errors.append(
@@ -486,11 +494,17 @@ def check_assets(
             errors.append(
                 f"{prefix} : service-permitted est réservé au lecteur officiel"
             )
-        if row["rights_status"] == "original" and row["asset_type"] != "jupiter-original":
-            errors.append(f"{prefix} : original est réservé aux médias Jupiter")
+        if row["rights_status"] == "original" and row["asset_type"] not in {
+            "fouranu-original",
+            "ai-original",
+        }:
+            errors.append(f"{prefix} : original est réservé aux médias Four à Nu")
 
         linked_evidence = split_ids(row["evidence_ids"])
-        if row["asset_type"] != "jupiter-original" and not linked_evidence:
+        if (
+            row["asset_type"] not in {"fouranu-original", "ai-original"}
+            and not linked_evidence
+        ):
             errors.append(f"{prefix} : un média tiers exige au moins un evidence_id")
         if public and row["asset_type"] != "embed" and not (
             row["raw_sha256"] or row["derived_sha256"]
@@ -504,20 +518,21 @@ def check_assets(
                 "web_scope",
                 "territory",
                 "valid_from",
-                "valid_until",
                 "attribution",
                 "identifiable_people",
                 "people_clearance",
                 "third_party_elements",
-                "permission_proof",
-                "permission_proof_sha256",
             )
             for field in required:
                 if not row[field]:
                     errors.append(f"{prefix} : {field} requis pour un droit accordé")
             if row["commercial_use"] != "yes":
-                errors.append(f"{prefix} : l'usage public Jupiter exige commercial_use=yes")
+                errors.append(f"{prefix} : l'usage public Four à Nu exige commercial_use=yes")
             if row["permission_proof"]:
+                if not row["permission_proof_sha256"]:
+                    errors.append(
+                        f"{prefix} : permission_proof_sha256 requis lorsqu'un chemin de preuve est déclaré"
+                    )
                 private_root = (ROOT / "research/private/permissions").resolve()
                 proof_path = (ROOT / row["permission_proof"]).resolve()
                 try:
@@ -528,11 +543,17 @@ def check_assets(
                     )
                 else:
                     if require_private_proofs and not proof_path.is_file():
-                        errors.append(f"{prefix} : preuve privée absente : {row['permission_proof']}")
+                        errors.append(
+                            f"{prefix} : preuve privée absente : {row['permission_proof']}"
+                        )
                     elif require_private_proofs and row["permission_proof_sha256"]:
                         digest = hashlib.sha256(proof_path.read_bytes()).hexdigest()
                         if digest != row["permission_proof_sha256"]:
                             errors.append(f"{prefix} : SHA-256 de la preuve privée différent")
+            elif row["permission_proof_sha256"]:
+                errors.append(
+                    f"{prefix} : permission_proof requis lorsqu'un SHA-256 de preuve est déclaré"
+                )
             if (
                 row["valid_until"]
                 and valid_date(row["valid_until"])
@@ -573,9 +594,12 @@ def check_assets(
                     errors.append(f"{prefix} : {field} requis pour une illustration IA")
             if not row["raw_sha256"] or not row["derived_sha256"]:
                 errors.append(f"{prefix} : les SHA-256 source et dérivé sont requis")
-            if row["acquisition_mode"] != "rights-holder-file":
+            if row["acquisition_mode"] not in {
+                "rights-holder-file",
+                "authorized-frame-capture",
+            }:
                 errors.append(
-                    f"{prefix} : une illustration IA dérivée exige un fichier fourni par l'ayant droit"
+                    f"{prefix} : une illustration IA dérivée exige rights-holder-file ou authorized-frame-capture"
                 )
             if row["provider_training"] not in PROVIDER_TRAINING_VALUES:
                 errors.append(
@@ -583,10 +607,39 @@ def check_assets(
                 )
             if row["identifiable_people"] != "no":
                 errors.append(
-                    f"{prefix} : la Saison 0 interdit les personnes identifiables dans une entrée IA"
+                    f"{prefix} : Four à Nu interdit les personnes identifiables dans une entrée IA dérivée"
                 )
             if row["human_validation"] != "approved":
                 errors.append(f"{prefix} : une illustration IA exige human_validation approved")
+
+        if row["asset_type"] == "ai-original":
+            if row["acquisition_mode"] != "ai-generated":
+                errors.append(
+                    f"{prefix} : un original IA exige acquisition_mode ai-generated"
+                )
+            if row["rights_status"] != "original":
+                errors.append(f"{prefix} : un original IA exige rights_status original")
+            for field in ("ai_provider", "provider_training", "provider_retention"):
+                if not row[field]:
+                    errors.append(f"{prefix} : {field} requis pour un original IA")
+            if row["provider_training"] not in PROVIDER_TRAINING_VALUES:
+                errors.append(
+                    f"{prefix} : provider_training doit valoir disabled ou explicitly-authorized"
+                )
+            if row["raw_sha256"]:
+                errors.append(f"{prefix} : un original IA ne doit pas déclarer raw_sha256")
+            if not row["derived_sha256"]:
+                errors.append(f"{prefix} : derived_sha256 requis pour un original IA")
+            if row["human_validation"] != "approved":
+                errors.append(f"{prefix} : un original IA exige human_validation approved")
+
+        if (
+            row["acquisition_mode"] == "ai-generated"
+            and row["asset_type"] != "ai-original"
+        ):
+            errors.append(
+                f"{prefix} : acquisition_mode ai-generated est réservé aux originaux IA"
+            )
 
         if row["asset_type"] == "embed" and row["acquisition_mode"] != "youtube-embed":
             errors.append(f"{prefix} : un embed exige acquisition_mode youtube-embed")
@@ -607,10 +660,15 @@ def check_assets(
             for field in ("source_url", "timecode", "raw_sha256"):
                 if not row[field]:
                     errors.append(f"{prefix} : {field} requis pour un photogramme licencié")
-        if row["asset_type"] == "jupiter-original" and row["acquisition_mode"] != "jupiter-original":
-            errors.append(f"{prefix} : un original exige acquisition_mode jupiter-original")
-        if row["asset_type"] == "jupiter-original" and row["rights_status"] != "original":
-            errors.append(f"{prefix} : un original exige rights_status original")
+        if (
+            row["asset_type"] == "fouranu-original"
+            and row["acquisition_mode"] != "fouranu-original"
+        ):
+            errors.append(
+                f"{prefix} : un original Four à Nu exige acquisition_mode fouranu-original"
+            )
+        if row["asset_type"] == "fouranu-original" and row["rights_status"] != "original":
+            errors.append(f"{prefix} : un original Four à Nu exige rights_status original")
         if row["asset_type"] == "quarantine" and row["acquisition_mode"] != "not-acquired":
             errors.append(f"{prefix} : une référence en quarantaine ne doit pas être acquise")
 

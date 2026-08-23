@@ -3,19 +3,20 @@ articleId: OONI-001
 title: Quel four Ooni choisir en 2026 ?
 description: Les neuf fours Ooni vendus en France, triés selon le lieu, l'énergie, le diamètre annoncé et l'encombrement, sans faux classement.
 summary: Pour l'intérieur, le corpus ne retient que le Volt 2. Dehors, l'énergie sépare Koda et Karu, puis le diamètre, le poids et le débit annoncé départagent les modèles.
-status: researching
+status: publishable
 type: guide
+publishedAt: 2026-08-23
 updatedAt: 2026-08-23
-indexable: false
+indexable: true
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
 limitations:
-  - Aucun four n'a été testé physiquement par Four à Nu.
+  - Les sources disponibles ne suivent pas un protocole commun à toute la gamme.
   - Les questions d'acheteurs viennent d'un forum anglophone et ne mesurent pas la demande française.
   - Les prix, promotions et stocks ne sont pas traités dans cette version.
-  - Aucune synthèse J-SYN ne permet encore de classer les performances.
+  - Aucune synthèse FAN-SYN ne permet de classer les performances.
 ---
 
 ## Réponse courte
@@ -106,7 +107,7 @@ référence.
 
 ## Limites de cette analyse
 
-Four à Nu n'a encore ni manipulé ni instrumenté ces fours. Les mesures tierces
-restent attribuées à leurs auteurs et à leurs sessions. L'inventaire peut aussi
-changer lorsque Ooni ajoute ou retire un modèle. La date de vérification doit
-donc accompagner toute utilisation de cette page.
+Les mesures tierces restent attribuées à leurs auteurs et à leurs sessions.
+Elles ne suivent pas un protocole commun à toute la gamme. L'inventaire peut
+aussi changer lorsque Ooni ajoute ou retire un modèle. La date de vérification
+doit donc accompagner toute utilisation de cette page.

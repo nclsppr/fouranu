@@ -1,9 +1,8 @@
 # Nom, identité et découvrabilité
 
 Exploration datée du 2026-08-23. Le propriétaire a retenu `Four à Nu` comme
-marque éditoriale le même jour. `Jupiter` reste le nom de code du dépôt jusqu'à
-la confirmation d'acquisition du domaine et à la décision de passer du dossier
-d'exploration à un produit.
+marque éditoriale, confirmé l'acquisition de `fouranu.com` et promu le dépôt en
+produit le même jour. `Jupiter` reste uniquement le nom de code historique.
 
 ## Décision de travail
 
@@ -238,8 +237,9 @@ Source méthodologique : [recherche de marque INPI](https://www.inpi.fr/ressourc
 
 ## Contrat SEO et visibilité IA
 
-Le nom ne compensera jamais une preuve faible. La Saison 0 doit conserver la
-séparation entre synthèse tierce et expérience Jupiter.
+Le nom ne compensera jamais une preuve faible. Four à Nu conserve une séparation
+permanente entre donnée fabricant, mesure ou observation tierce, synthèse
+`FAN-SYN` et inférence `FAN-INF`.
 
 ### Identité et structure
 
@@ -262,15 +262,16 @@ séparation entre synthèse tierce et expérience Jupiter.
 - afficher auteur, date de publication, date de vérification et historique des
   corrections ;
 - utiliser les passages tiers comme sources attribuées, jamais comme expérience
-  de première main ;
-- en Saison 0, utiliser un balisage éditorial de type `Article`, sans note,
-  étoiles, verdict de test ni balisage `Review` laissant croire à un essai ;
-- ouvrir le balisage d'avis produit seulement après un protocole physique et des
-  preuves originales conformes à `EDITORIAL-PROTOCOL.md`.
+  propre à Four à Nu ;
+- utiliser un balisage éditorial de type `Article`, sans note, étoiles, verdict
+  de prise en main, `Review` ou `AggregateRating` ;
+- exprimer chaque manque comme une limite du corpus ou de la comparabilité, sans
+  promettre une mesure future par Four à Nu.
 
 Google demande du contenu original, utile, attribué et transparent sur sa
-méthode. Ses recommandations d'avis produit demandent notamment des mesures et
-des preuves de l'expérience propre lorsqu'un contenu revendique une évaluation.
+méthode. Ses recommandations d'avis produit demandent notamment des preuves de
+l'expérience propre lorsqu'un contenu revendique une évaluation. Four à Nu ne
+présente donc pas ses analyses documentaires comme des avis produits.
 
 Sources : [contenu utile Google](https://developers.google.com/search/docs/fundamentals/creating-helpful-content),
 [avis produit de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews).
@@ -279,6 +280,8 @@ Sources : [contenu utile Google](https://developers.google.com/search/docs/funda
 
 - produire HTML, titres et informations essentielles sans dépendre d'une
   exécution JavaScript fragile ;
+- maintenir les previews en `noindex` et ne rendre indexables que les pages au
+  statut `publishable` incluses dans un paquet autorisé ;
 - publier un sitemap XML contenant uniquement les URL canoniques et des dates
   `lastmod` exactes ;
 - relier le sitemap depuis `robots.txt` ;
@@ -302,6 +305,10 @@ Sources : [robots OpenAI](https://developers.openai.com/api/docs/bots),
 Ces mesures rendent les pages explorables et éligibles. Elles ne garantissent ni
 classement, ni citation, ni trafic.
 
+L'artefact public vise Atlas via le contrôle central `vps-infra`. La préparation
+du candidat, son admission, la publication de sa release, l'activation DNS et la
+soumission aux moteurs restent des étapes distinctes.
+
 ## Direction visuelle
 
 Les premières planches couleur sont rejetées. L'ivoire, la terracotta, le grain
@@ -319,7 +326,7 @@ réelles et de tests de contraste. Les règles actuelles sont :
 - un signe lisible en 16 pixels et reproductible en une couleur ;
 - une interface qui ressemble à un instrument de décision, pas à une marque de
   café ou à un portfolio d'agence ;
-- une photographie future traitée comme preuve ou illustration clairement
+- une photographie traitée comme preuve ou illustration clairement
   identifiée, jamais comme remplissage d'ambiance.
 
 | Artefact | Valeur |
@@ -338,16 +345,13 @@ constitue pas encore le logo adopté.
 
 ## Prochaine porte
 
-Le propriétaire a franchi la porte de sélection du nom. La suite est ordonnée :
+Le nom, le domaine et le socle produit sont retenus. La suite est ordonnée :
 
-1. confirmer l'acquisition de `fouranu.com`, sans verser d'identifiant, de code
-   à usage unique ni de secret dans le dépôt ou la conversation ;
-2. terminer la recherche de similarités orthographiques, phonétiques et
-   conceptuelles dans les classes pertinentes ;
-3. réserver `@fouranu_media` sur les plateformes réellement utiles ;
-4. redessiner le signe retenu en SVG et tester favicon, mobile, impression et
-   contraste ;
-5. figer l'architecture des vingt premières URL à partir des questions et du
-   corpus Ooni existants ;
-6. décider du bootstrap produit avant de renommer le dépôt ou de publier une
-   surface.
+1. compléter l'identité auteur, les mentions légales, la confidentialité, le
+   contact et la transparence commerciale avec des informations exactes ;
+2. faire passer chaque URL destinée au lancement par la barrière SEO et la
+   relecture documentaire ;
+3. construire l'artefact statique exact et son contrat de release Atlas ;
+4. autoriser séparément l'admission dans `vps-infra`, la publication de la
+   release et l'activation de `fouranu.com` ;
+5. contrôler le site public avant toute soumission à Google, Bing ou IndexNow.

@@ -8,11 +8,11 @@ const ranges = [
     name: "Koda",
     energy: "Gaz",
     models: [
-      { name: "Koda 2", href: "/ooni/koda-2/", state: "Recherche en cours" },
-      { name: "Koda 2 Pro", href: "/ooni/koda-2-pro/", state: "Recherche en cours" },
-      { name: "Koda 2 Max", href: "/ooni/koda-2-max/", state: "Recherche en cours" },
-      { name: "Koda 12", state: "Inventaire fabricant" },
-      { name: "Koda 16", state: "Inventaire fabricant" },
+      { name: "Koda 2", href: "/ooni/koda-2/", state: "Dossier documenté" },
+      { name: "Koda 2 Pro", href: "/ooni/koda-2-pro/", state: "Dossier documenté" },
+      { name: "Koda 2 Max", href: "/ooni/koda-2-max/", state: "Dossier documenté" },
+      { name: "Koda 12", href: "/ooni/koda-12/", state: "Dossier documenté" },
+      { name: "Koda 16", href: "/ooni/koda-16/", state: "Dossier documenté" },
     ],
   },
   {
@@ -20,9 +20,9 @@ const ranges = [
     name: "Karu",
     energy: "Multi-combustible",
     models: [
-      { name: "Karu 2", href: "/ooni/karu-2/", state: "Recherche en cours" },
-      { name: "Karu 2 Pro", href: "/ooni/karu-2-pro/", state: "Recherche en cours" },
-      { name: "Karu 12", state: "Inventaire fabricant" },
+      { name: "Karu 2", href: "/ooni/karu-2/", state: "Dossier documenté" },
+      { name: "Karu 2 Pro", href: "/ooni/karu-2-pro/", state: "Dossier documenté" },
+      { name: "Karu 12", href: "/ooni/karu-12/", state: "Dossier documenté" },
     ],
   },
   {
@@ -30,7 +30,7 @@ const ranges = [
     name: "Volt",
     energy: "Électrique",
     models: [
-      { name: "Volt 2", href: "/ooni/volt-2/", state: "Recherche en cours" },
+      { name: "Volt 2", href: "/ooni/volt-2/", state: "Dossier documenté" },
     ],
   },
 ];
@@ -39,7 +39,7 @@ const ranges = [
 <BaseLayout
   title="Fours Ooni : gamme, modèles et comparatifs | Four à Nu"
   description="Les neuf fours Ooni du catalogue France, classés par énergie, génération et état de notre analyse documentaire."
-  indexable={false}
+  indexable={true}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Ooni" }]} />
@@ -55,8 +55,8 @@ const ranges = [
         </p>
       </div>
       <p class="page-intro__aside">
-        Les fiches ouvertes restent des analyses documentaires non indexées.
-        Elles ne contiennent ni note ni verdict d'essai Four à Nu.
+        Chaque fiche ouvre par une réponse courte, puis distingue les annonces
+        fabricant, les mesures publiées, les observations et les inconnues.
       </p>
     </header>
 
@@ -81,7 +81,7 @@ const ranges = [
       <div class="ranges__head">
         <p class="eyebrow">Catalogue actuel</p>
         <h2 id="ranges-title">Trois familles</h2>
-        <p>Une ligne n'est cliquable que lorsqu'un vrai dossier de travail existe.</p>
+        <p>Chaque modèle renvoie vers un dossier sourcé et daté, sans classement artificiel.</p>
       </div>
 
       {ranges.map((range) => (

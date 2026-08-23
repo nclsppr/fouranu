@@ -19,7 +19,7 @@ le contrat central. Atlas deviendrait alors impossible à reconstruire avec la
 seule configuration versionnée.
 
 Le contrat central est défini par
-[l'ADR-0017 de `vps-infra`](https://github.com/nclsppr/vps-infra/blob/codex/atlas-secret-registry/docs/decisions/0017-versioned-atlas-secret-registry.md).
+[l'ADR-0017 de `vps-infra`](https://github.com/nclsppr/vps-infra/blob/d0561f2323e7c430ef0bddcdf723b5575f5a5920/docs/decisions/0017-versioned-atlas-secret-registry.md).
 Sa première livraison est suivie par la
 [PR `vps-infra` #99](https://github.com/nclsppr/vps-infra/pull/99).
 

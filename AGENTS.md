@@ -64,6 +64,14 @@ arbitrée silencieusement.
 - Ne jamais committer un média tiers, une preuve d'autorisation, des
   coordonnées, un secret ou un export de compte. Seuls le statut et le
   périmètre minimal entrent dans les registres versionnés.
+- Toute tâche qui prévoit ou exige le déploiement, la rotation ou la révocation
+  d'un secret sur Atlas doit aussi mettre à jour `nclsppr/vps-infra` avant sa
+  clôture. Ajouter ou mettre à jour ce secret dans `secrets/registry.json`, le
+  registre canonique requis pour reconstruire Atlas depuis un hôte vierge.
+  Versionner seulement le contrat et les métadonnées, jamais la valeur, un
+  condensat dérivé de la valeur, un fichier déchiffré ou un chemin source privé.
+  Si la tâche n'autorise pas la modification de `vps-infra`, signaler le blocage
+  et ne pas déclarer le travail terminé.
 - Une vidéo tierce reste une source. Elle ne devient ni une expérience Four à
   Nu, ni une source d'image transformable sans autorisation adéquate.
 - Les statuts `FAB`, `T-MES`, `T-OBS`, `FAN-SYN` et `FAN-INF` gardent le sens

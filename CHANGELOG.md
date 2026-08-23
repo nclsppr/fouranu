@@ -29,6 +29,9 @@ importantes.
 - Ajout d'un producteur Atlas reproductible : archive statique et inventaire de
   routes déterministes, validations adversariales, publication OCI immuable et
   attestations GitHub. L'admission et l'activation restent séparées.
+- Ajout d'une règle de livraison qui impose la mise à jour du registre canonique
+  des secrets Atlas dans `nclsppr/vps-infra` pour chaque déploiement, rotation
+  ou révocation de secret.
 - Promotion de Jupiter en produit web sous la marque `Four à Nu`. `Jupiter`
   reste le nom de code du dépôt.
 - Acquisition de `fouranu.com` confirmée par le propriétaire le 2026-08-23,

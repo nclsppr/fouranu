@@ -94,6 +94,7 @@ REQUIRED_COMPOSE_WIRING = (
         re.compile(r"(?m)^\s*python3 scripts/check_compose\.py\s*$"),
     ),
 )
+PUBLIC_CONTENT_PREFIX = ("site", "src", "content")
 
 
 def line_number(text: str, offset: int) -> int:
@@ -338,7 +339,14 @@ def check_file(path: Path, errors: list[str]) -> None:
             continue
         target, anchor = split_target(raw)
         target_path = Path(target) if target else Path(".")
-        if target_path.is_absolute() or raw.startswith("//"):
+        if raw.startswith("//"):
+            errors.append(f"{location} : lien local absolu interdit : {raw}")
+            continue
+        if target_path.is_absolute():
+            if relative.parts[:3] == PUBLIC_CONTENT_PREFIX and raw.startswith("/"):
+                # Astro rend ces liens depuis la racine publique. Leur existence
+                # est contrôlée sur le HTML construit par le contrat du site.
+                continue
             errors.append(f"{location} : lien local absolu interdit : {raw}")
             continue
         resolved = (path.parent / target_path).resolve()

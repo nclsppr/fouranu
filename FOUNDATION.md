@@ -9,7 +9,7 @@ Contrat d'adoption du socle commun par ce projet.
 | Source | `https://github.com/nclsppr/project-foundation.git` |
 | Version lisible | `v0.5.2` |
 | Commit immuable | `708d7374f87060809a805c57abc2cf7e7b66c182` |
-| Pack adopté | `minimal` |
+| Pack adopté | `full` |
 | Adoptée le | 2026-08-18 |
 | Adoptée par | nclsppr |
 
@@ -50,8 +50,9 @@ projet choisit entre push direct sur la branche canonique et branche dédiée,
 mais ne conserve pas une tranche terminée uniquement en local.
 
 `P19` ne peut pas être désactivé par une dérogation locale : `compose.yaml` et
-sa gate restent obligatoires. Seul un pack Minimal sans processus local peut
-conserver une table `services` vide.
+sa gate restent obligatoires. Le pack `full` exige un service réel. La tranche
+F01 contient le service `site` et son healthcheck. La gate complète
+`./scripts/verify.sh` est verte sur la tranche finale vérifiée localement.
 
 ## Challenger le socle
 
@@ -72,11 +73,29 @@ Les règles locales vivent dans leur document naturel. Cette table les référen
 
 | Sujet | Source locale |
 | --- | --- |
-| Question, périmètre et conclusion | `BRIEF.md` |
+| Contrat produit et architecture | `PROJECT.md` |
+| État réellement vérifié | `STATUS.md` |
+| Ordre de livraison | `ROADMAP.md` |
+| Design system | `DESIGN.md` |
+| Question et conclusion de l'exploration d'origine | `BRIEF.md`, historique |
 | Faisabilité et décision stratégique | `FEASIBILITY.md` |
 | Expérience et critères de sortie | `EXPERIMENT.md` |
 | Sources, droits, IA et publication | `EDITORIAL-PROTOCOL.md` |
+| Contrôle SEO bloquant avant indexation | `docs/SEO-PUBLICATION-GATE.md` |
 | Demande d'autorisation visuelle | `PERMISSION-TEMPLATE.md` |
+
+## Reclassification du 2026-08-23
+
+Le propriétaire a confirmé l'acquisition de `fouranu.com` et le démarrage du
+produit Four à Nu. Le dépôt passe du pack `minimal` au pack `full` sans changer
+de release Foundation ni de profils. `BRIEF.md` conserve la question, les
+limites et la conclusion de l'exploration. `PROJECT.md` devient le contrat
+stable, `STATUS.md` la preuve courante et `ROADMAP.md` l'ordre de livraison.
+
+Cette reclassification autorise la construction locale du site. Elle ne prouve
+ni l'utilité, ni la rentabilité, ni l'accès à des essais physiques. Elle
+n'autorise pas non plus le DNS, l'hébergement, l'indexation, les liens affiliés
+ou une autre activation externe.
 
 ## Adaptateurs locaux initialisés
 

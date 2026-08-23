@@ -1,0 +1,28 @@
+{
+  "name": "four-a-nu-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 4321",
+    "build": "astro build",
+    "preview": "node scripts/serve.mjs",
+    "typecheck": "astro check",
+    "test": "node --test scripts/*.test.mjs",
+    "check": "npm run typecheck && npm run build && npm run test"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "7.2.4",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@fontsource/ibm-plex-sans": "5.3.0",
+    "@fontsource/ibm-plex-sans-condensed": "5.3.0",
+    "astro": "7.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "typescript": "5.9.3"
+  }
+}

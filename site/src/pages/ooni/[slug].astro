@@ -1,0 +1,191 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import CitedSources from "@/components/CitedSources.astro";
+import ProofLabel from "@/components/ProofLabel.astro";
+import { SITE } from "@/config/site";
+
+export async function getStaticPaths() {
+  const analyses = await getCollection("analyses");
+  return analyses.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"analyses">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const statusLabels = {
+  researching: "Recherche en cours",
+  inventory: "Inventaire",
+  "ready-noindex": "Prêt en noindex",
+};
+const updatedAt = new Intl.DateTimeFormat("fr-FR", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+}).format(entry.data.updatedAt);
+const canonical = new URL(`/ooni/${entry.id}/`, SITE.url).toString();
+const evidenceIds = [...new Set((entry.body ?? "").match(/\bEV-\d{4}\b/g) ?? [])];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": `${canonical}#article`,
+  url: canonical,
+  headline: entry.data.title,
+  description: entry.data.description,
+  dateModified: entry.data.updatedAt.toISOString(),
+  inLanguage: SITE.language,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonical,
+  },
+  author: {
+    "@type": "Organization",
+    name: SITE.name,
+    url: `${SITE.url}/`,
+  },
+  publisher: {
+    "@type": "Organization",
+    "@id": `${SITE.url}/#organization`,
+    name: SITE.name,
+    url: `${SITE.url}/`,
+  },
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
+  },
+};
+---
+
+<BaseLayout
+  title={`${entry.data.title} | Four à Nu`}
+  description={entry.data.description}
+  indexable={entry.data.indexable}
+  pageType="article"
+  modifiedAt={entry.data.updatedAt}
+  schema={schema}
+>
+  <div class="page-shell">
+    <Breadcrumbs
+      items={[
+        { label: "Accueil", href: "/" },
+        { label: "Ooni", href: "/ooni/" },
+        { label: entry.data.title },
+      ]}
+    />
+
+    <article class="article-shell">
+      <header class="article-header">
+        <p class="eyebrow">{entry.data.articleId} · Analyse documentaire</p>
+        <h1>{entry.data.title}</h1>
+        <p class="article-header__summary">{entry.data.summary}</p>
+      </header>
+
+      <aside class="article-rail" aria-label="État de l'analyse">
+        <dl>
+          <div><dt>Statut</dt><dd>{statusLabels[entry.data.status]}</dd></div>
+          <div><dt>Vérifié</dt><dd>{updatedAt}</dd></div>
+          <div><dt>Essai Four à Nu</dt><dd>Non</dd></div>
+          {entry.data.model && <div><dt>Produit</dt><dd>{entry.data.model}</dd></div>}
+        </dl>
+        <div class="article-rail__proofs">
+          {entry.data.evidenceTypes.map((code) => <ProofLabel code={code} />)}
+          <ProofLabel code="J-TEST" state="locked" />
+        </div>
+        <nav class="article-rail__evidence" aria-label="Accès aux preuves citées">
+          <p>Registre cité</p>
+          <ul>
+            {evidenceIds.map((evidenceId) => (
+              <li><a href={`#preuve-${evidenceId}`}>{evidenceId}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="article-body">
+        <div class="documentary-notice">
+          <strong>Ce dossier n'est pas un test.</strong>
+          <span>Il rassemble des données fabricant et des sources tierces attribuées.</span>
+          <a href="#cited-sources-title">Décoder les références EV dans le registre des sources.</a>
+        </div>
+        <Content />
+      </div>
+
+      <aside class="article-limitations">
+        <h2>Limites actuelles</h2>
+        <ul>
+          {entry.data.limitations.map((limitation) => <li>{limitation}</li>)}
+        </ul>
+      </aside>
+
+      <CitedSources evidenceIds={evidenceIds} />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .article-rail__proofs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 1rem;
+  }
+
+  .article-rail__evidence {
+    padding-top: 1rem;
+  }
+
+  .article-rail__evidence p {
+    margin-bottom: 0.55rem;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+  }
+
+  .article-rail__evidence ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-rail__evidence a {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+  }
+
+  .documentary-notice {
+    display: grid;
+    gap: 0.25rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid var(--color-probe);
+    background: var(--color-steel-soft);
+  }
+
+  .documentary-notice strong {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+  }
+
+  .documentary-notice span {
+    color: var(--color-graphite);
+    font-size: 0.88rem;
+  }
+
+  .documentary-notice a {
+    justify-self: start;
+    color: var(--color-probe);
+    font-size: 0.78rem;
+  }
+</style>

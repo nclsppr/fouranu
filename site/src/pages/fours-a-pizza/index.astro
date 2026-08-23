@@ -1,0 +1,185 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Choisir un four à pizza selon son usage | Four à Nu"
+  description="Commencez par le lieu, l'énergie, le débit et le coût complet avant de comparer les marques de fours à pizza."
+  indexable={false}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Fours à pizza" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Sélecteur · version documentaire</p>
+        <h1>Commencer par l'usage, pas par la marque.</h1>
+        <p class="page-intro__lede">
+          Quatre contraintes éliminent plus de mauvais choix qu'un classement
+          général. Cette première version organise les questions. Elle ne donne
+          pas encore de verdict personnalisé.
+        </p>
+      </div>
+      <p class="page-intro__aside">
+        Prototype non indexé. Les recommandations finales attendent des tests
+        utilisateurs et, pour la performance, des mesures physiques Four à Nu.
+      </p>
+    </header>
+
+    <div class="constraint-list">
+      <section id="lieu">
+        <span>01 · Lieu</span>
+        <div>
+          <h2>Où le four peut-il fonctionner&nbsp;?</h2>
+          <p>
+            L'intérieur, le balcon, la terrasse et le jardin n'ouvrent pas les
+            mêmes options. Les règles du logement et les consignes du fabricant
+            passent avant le goût pour un combustible.
+          </p>
+        </div>
+        <p class="constraint-list__check">À relever : intérieur ou extérieur, ventilation, prise, gaz autorisé, stockage.</p>
+      </section>
+
+      <section id="energie">
+        <span>02 · Énergie</span>
+        <div>
+          <h2>Combien d'attention voulez-vous donner au feu&nbsp;?</h2>
+          <p>
+            Le gaz simplifie le réglage. L'électrique répond à certains usages
+            intérieurs. Le multi-combustible ajoute des choix, mais aussi des
+            gestes et de l'entretien. Ce sont des différences d'usage, pas un
+            classement de goût.
+          </p>
+        </div>
+        <a href="/ooni/gaz-electrique-ou-multicombustible/">Voir l'analyse Ooni <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section id="debit">
+        <span>03 · Débit</span>
+        <div>
+          <h2>Une grande ouverture ne raconte pas toute la cadence.</h2>
+          <p>
+            Le diamètre de la pizza, la marge pour la tourner et la récupération
+            de la sole entre deux cuissons doivent être séparés. La reprise de
+            température reste bloquée comme verdict Four à Nu avant nos mesures.
+          </p>
+        </div>
+        <p class="constraint-list__check">À relever : diamètre habituel, nombre de convives, séries fréquentes ou occasionnelles.</p>
+      </section>
+
+      <section id="cout">
+        <span>04 · Coût</span>
+        <div>
+          <h2>Le prix du four n'est pas le prix de l'installation.</h2>
+          <p>
+            Une pelle, une table stable, une housse, un détendeur ou un brûleur
+            additionnel peuvent changer l'écart entre deux modèles. Les prix et
+            promotions seront datés au lieu d'être figés dans une fausse bonne affaire.
+          </p>
+        </div>
+        <p class="constraint-list__check">À relever : équipement déjà possédé, rangement, combustible et pièces nécessaires.</p>
+      </section>
+    </div>
+
+    <aside class="next-step">
+      <p class="eyebrow">Première gamme documentée</p>
+      <h2>Ooni sert de terrain de départ.</h2>
+      <p>Les neuf fours du catalogue France sont inventoriés. Deux guides et six fiches modèles composent déjà le dossier documentaire.</p>
+      <a class="button-link" href="/ooni/">Explorer la gamme Ooni</a>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .constraint-list {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .constraint-list section {
+    display: grid;
+    grid-template-columns: 1fr 5fr 3fr;
+    gap: 1.5rem;
+    padding-block: 2.5rem;
+    border-bottom: 1px solid var(--color-line);
+    scroll-margin-top: 2rem;
+  }
+
+  .constraint-list section > span,
+  .constraint-list__check {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.7rem;
+    line-height: 1.55;
+    text-transform: uppercase;
+  }
+
+  .constraint-list h2 {
+    max-width: 19ch;
+    margin-bottom: 0.8rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .constraint-list section > div p {
+    max-width: 48rem;
+    margin-bottom: 0;
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .constraint-list section > a {
+    align-self: end;
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  .next-step {
+    display: grid;
+    grid-template-columns: 4fr 4fr 3fr;
+    gap: 1.5rem;
+    align-items: end;
+    margin-top: clamp(5rem, 9vw, 8rem);
+    padding: clamp(2rem, 5vw, 4rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .next-step .eyebrow {
+    grid-column: 1 / -1;
+    color: var(--color-reading);
+  }
+
+  .next-step h2 {
+    margin: 0;
+    font-size: clamp(2.6rem, 5vw, 4.5rem);
+    line-height: 0.95;
+  }
+
+  .next-step > p:not(.eyebrow) {
+    margin: 0;
+    color: var(--color-carbon-muted);
+    line-height: 1.6;
+  }
+
+  .next-step .button-link {
+    color: var(--color-carbon);
+    border-color: var(--color-reading);
+    background: var(--color-reading);
+  }
+
+  @media (max-width: 48rem) {
+    .constraint-list section,
+    .next-step {
+      grid-template-columns: 1fr;
+    }
+
+    .constraint-list section {
+      gap: 1rem;
+    }
+
+    .next-step .eyebrow {
+      grid-column: 1;
+    }
+  }
+</style>

@@ -1,0 +1,249 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import ProofLabel from "@/components/ProofLabel.astro";
+---
+
+<BaseLayout
+  title="Notre méthode : sources, preuves et corrections | Four à Nu"
+  description="Comment Four à Nu distingue les données fabricant, mesures tierces, observations, synthèses et futurs essais physiques."
+  indexable={true}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Méthode" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Protocole éditorial</p>
+        <h1>Montrer d'où vient chaque conclusion.</h1>
+        <p class="page-intro__lede">
+          Four à Nu ne mélange pas une fiche constructeur, une vidéo tierce et
+          une mesure réalisée par nos soins. Chaque niveau de preuve a son code,
+          ses formulations permises et ses limites.
+        </p>
+      </div>
+      <p class="page-intro__aside">
+        La Saison 0 reste documentaire. Le niveau J-TEST n'ouvrira qu'après la
+        réception du matériel et l'exécution d'un protocole physique publié.
+      </p>
+    </header>
+
+    <section class="method-grid" aria-labelledby="levels-title">
+      <header>
+        <p class="eyebrow">Niveaux de preuve</p>
+        <h2 id="levels-title">Cinq niveaux ouverts. Un niveau verrouillé.</h2>
+      </header>
+
+      <div class="method-grid__levels">
+        <article>
+          <ProofLabel code="FAB" />
+          <h3>Donnée fabricant</h3>
+          <p>Nous l'attribuons au fabricant. Elle décrit une annonce, pas une performance vérifiée.</p>
+        </article>
+        <article>
+          <ProofLabel code="T-MES" />
+          <h3>Mesure tierce</h3>
+          <p>La source, le timecode, les conditions annoncées et les conflits connus accompagnent la valeur.</p>
+        </article>
+        <article>
+          <ProofLabel code="T-OBS" />
+          <h3>Observation tierce</h3>
+          <p>Nous décrivons ce qui est visible sans transformer une séquence en règle générale.</p>
+        </article>
+        <article>
+          <ProofLabel code="J-SYN" />
+          <h3>Synthèse Four à Nu</h3>
+          <p>Un rapprochement entre plusieurs sources, avec méthode et incertitude explicites.</p>
+        </article>
+        <article>
+          <ProofLabel code="J-INF" />
+          <h3>Inférence éditoriale</h3>
+          <p>Une estimation motivée, signalée comme telle et accompagnée d'un niveau de confiance.</p>
+        </article>
+        <article class="method-grid__locked">
+          <ProofLabel code="J-TEST" state="locked" />
+          <h3>Essai physique Four à Nu</h3>
+          <p>Verrouillé. Il exigera une unité identifiée, des instruments, des répétitions et des données originales.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="principles" aria-label="Règles éditoriales">
+      <article>
+        <span>01</span>
+        <h2>Deux sources avant une comparaison de performance.</h2>
+        <p>Si une seule source exploitable existe, la dépendance reste visible. Des protocoles incompatibles ne sont pas moyennés.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h2>Les conflits sont déclarés, pas devinés.</h2>
+        <p>Prêt, sponsoring, affiliation et lien marchand sont enregistrés lorsqu'ils sont connus. Aucun de ces liens ne prouve à lui seul qu'une source est fausse.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h2>Une illustration ne devient jamais une preuve.</h2>
+        <p>Un lecteur vidéo officiel, un fichier autorisé ou un croquis original peuvent illustrer une page. Une transformation IA reste déclarée et ne modifie aucun élément probant.</p>
+      </article>
+      <article>
+        <span>04</span>
+        <h2>L'affiliation vient après la réponse.</h2>
+        <p>Un lien rémunéré portera la mention adaptée et l'attribut <code>rel="sponsored"</code>. Il ne décidera ni de la sélection des sources ni du verdict.</p>
+      </article>
+    </section>
+
+    <section class="correction-link">
+      <div>
+        <p class="eyebrow">Une donnée change ou une erreur apparaît</p>
+        <h2>La correction reste visible.</h2>
+      </div>
+      <div>
+        <p>Chaque article portera une date de vérification. Une correction importante conservera son motif et son impact.</p>
+        <a href="/corrections/">Lire la politique de correction <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .method-grid {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 1.5rem;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .method-grid header h2 {
+    max-width: 11ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 0.98;
+  }
+
+  .method-grid__levels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .method-grid__levels article {
+    min-height: 15rem;
+    padding: 1.5rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .method-grid__levels article:nth-child(even) {
+    border-right: 0;
+  }
+
+  .method-grid__levels h3 {
+    margin: 2.5rem 0 0.7rem;
+    font-size: 1.65rem;
+  }
+
+  .method-grid__levels p {
+    margin: 0;
+    color: var(--color-graphite);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .method-grid__locked {
+    background: var(--color-steel-soft);
+  }
+
+  .principles {
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .principles article {
+    display: grid;
+    grid-template-columns: 3rem minmax(18rem, 5fr) minmax(14rem, 3fr);
+    gap: 1.5rem;
+    padding-block: 2rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .principles article:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .principles span {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.72rem;
+  }
+
+  .principles h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    line-height: 1.04;
+  }
+
+  .principles p {
+    margin: 0;
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .principles code {
+    font-family: var(--font-data);
+    font-size: 0.86em;
+  }
+
+  .correction-link {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: clamp(2rem, 5vw, 4rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .correction-link .eyebrow {
+    color: var(--color-reading);
+  }
+
+  .correction-link h2 {
+    margin: 0;
+    font-size: clamp(2.7rem, 5vw, 4.5rem);
+    line-height: 0.95;
+  }
+
+  .correction-link > div:last-child {
+    align-self: end;
+  }
+
+  .correction-link > div:last-child p {
+    color: var(--color-carbon-muted);
+    line-height: 1.65;
+  }
+
+  .correction-link a {
+    color: var(--color-reading);
+  }
+
+  @media (max-width: 48rem) {
+    .method-grid,
+    .method-grid__levels,
+    .principles article,
+    .correction-link {
+      grid-template-columns: 1fr;
+    }
+
+    .method-grid {
+      gap: 3rem;
+    }
+
+    .method-grid__levels article,
+    .method-grid__levels article:nth-child(even) {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .principles article {
+      gap: 0.8rem;
+    }
+  }
+</style>

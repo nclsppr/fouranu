@@ -6,11 +6,27 @@ importantes.
 
 ## Non publié
 
-- Adoption de `Four à Nu` comme marque éditoriale par le propriétaire le
-  2026-08-23 ; `Jupiter` reste le nom de code jusqu'à l'acquisition du domaine et
-  au passage éventuel de l'exploration à un produit.
-- Dernier contrôle de `fouranu.com` à 15:40 CEST : RDAP `404`, WHOIS `No match`
-  et aucun serveur de noms, sans achat ni création de compte par le projet.
+- Promotion de Jupiter en produit web sous la marque `Four à Nu`. `Jupiter`
+  reste le nom de code du dépôt.
+- Acquisition de `fouranu.com` confirmée par le propriétaire le 2026-08-23,
+  sans activation DNS, hébergement ou autre surface publique par le projet.
+- Création du site Astro local. Le build produit 15 pages HTML, dont deux guides
+  Ooni et six fiches modèle, avec sept tests de contrat.
+- Ajout d'une indexation conditionnelle. Le mode par défaut place toutes les
+  pages en `noindex` et garde le sitemap vide. Le mode opt-in limite
+  l'indexation à l'accueil et la méthode, sans ouvrir les huit analyses Ooni.
+- Ajout des métadonnées, canonicals, aperçus sociaux, données structurées
+  honnêtes, bibliographies horodatées et contrôles croisés avec le registre de
+  preuves.
+- Ajout d'une barrière SEO normative propre à chaque article. Elle contrôle
+  l'intention, la cannibalisation, la provenance, le rendu, les médias, les
+  relations commerciales et l'autorisation finale avant indexation.
+- Ajout du service Compose local avec healthcheck. Les vues à 1440, 1024, 390
+  et 320 pixels ont été contrôlées sans débordement horizontal ni log console.
+- Fermeture locale de F01 après une gate complète verte. Lighthouse 13.4.1
+  mesure 98 en performance, 100 en accessibilité et 100 en bonnes pratiques sur
+  l'accueil et l'analyse Koda 2 ; le score SEO de 66 vient uniquement du
+  `noindex` volontaire de la preview.
 - Contrôle des variantes défensives et des identifiants publics ; `@fouranu` est
   pris sur TikTok et bloqué sur X, tandis que `@fouranu_media` ne présente aucun
   profil public détecté sur les plateformes principales.
@@ -51,6 +67,6 @@ importantes.
 - Ajout d'un contrat de découvrabilité Google, Bing et ChatGPT qui sépare le nom
   de marque des requêtes portées par les pages et conserve les limites de preuve
   de la Saison 0.
-- Rejet des premières palettes ivoire et terracotta ; conservation d'une seule
-  feuille noir et blanc non canonique pour comparer les finalistes avant un
-  futur redessin vectoriel.
+- Remplacement des premières palettes ivoire et terracotta par la direction
+  « Ligne de sole », en blanc, carbone, acier et bleu de mesure. Le logo, les
+  favicons et la carte sociale locale suivent cette direction.

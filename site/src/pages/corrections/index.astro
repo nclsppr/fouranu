@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Politique de correction | Four à Nu"
+  description="Comment Four à Nu corrige une donnée, une attribution ou une conclusion et conserve la trace des changements importants."
+  indexable={false}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Corrections" }]} />
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Politique éditoriale</p>
+        <h1>Corriger sans effacer ce qui a changé.</h1>
+        <p class="page-intro__lede">Une correction importante indique la date, le motif et l'effet sur la conclusion. Une simple faute de frappe peut être corrigée sans journal public.</p>
+      </div>
+      <p class="page-intro__aside">Aucune correction publique n'existe encore, car le site n'est pas publié.</p>
+    </header>
+
+    <section class="correction-steps">
+      <article><span>01</span><h2>Vérifier</h2><p>Retrouver la source, le modèle, la date et la portée exacte de l'erreur signalée.</p></article>
+      <article><span>02</span><h2>Corriger</h2><p>Modifier la phrase, le tableau ou la conclusion dans la source canonique de l'article.</p></article>
+      <article><span>03</span><h2>Tracer</h2><p>Ajouter une note datée lorsque le changement modifie une décision d'achat ou le niveau de confiance.</p></article>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .correction-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .correction-steps article {
+    min-height: 19rem;
+    padding: 2rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .correction-steps article:last-child {
+    border-right: 0;
+  }
+
+  .correction-steps span {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.72rem;
+  }
+
+  .correction-steps h2 {
+    margin: 5rem 0 0.8rem;
+    font-size: 2.4rem;
+  }
+
+  .correction-steps p {
+    color: var(--color-graphite);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 48rem) {
+    .correction-steps {
+      grid-template-columns: 1fr;
+    }
+
+    .correction-steps article {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .correction-steps h2 {
+      margin-top: 2rem;
+    }
+  }
+</style>

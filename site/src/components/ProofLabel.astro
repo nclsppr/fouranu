@@ -1,0 +1,27 @@
+---
+interface Props {
+  code: "FAB" | "T-MES" | "T-OBS" | "J-SYN" | "J-INF" | "J-TEST";
+  state?: "available" | "locked";
+}
+
+const { code, state = "available" } = Astro.props;
+const names = {
+  FAB: "Donnée fabricant",
+  "T-MES": "Mesure tierce",
+  "T-OBS": "Observation tierce",
+  "J-SYN": "Synthèse Four à Nu",
+  "J-INF": "Inférence éditoriale Four à Nu",
+  "J-TEST": "Essai physique Four à Nu",
+} as const;
+const accessibleLabel = state === "locked"
+  ? `${names[code]}, niveau verrouillé`
+  : names[code];
+---
+
+<span
+  class:list={["proof-label", { "proof-label--locked": state === "locked" }]}
+  aria-label={accessibleLabel}
+  title={accessibleLabel}
+>
+  {code}
+</span>

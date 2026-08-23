@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page introuvable | Four à Nu"
+  description="Cette page n'existe pas ou a changé d'adresse."
+  canonical={false}
+  indexable={false}
+>
+  <section class="not-found page-shell">
+    <p class="eyebrow">Erreur 404</p>
+    <h1>Cette page n'est pas sur l'établi.</h1>
+    <p>Son adresse est peut-être incorrecte, ou le dossier n'a pas encore été ouvert.</p>
+    <nav class="not-found__links" aria-label="Raccourcis après l'erreur">
+      <a class="button-link" href="/">Revenir à l'accueil</a>
+      <a class="button-link button-link--quiet" href="/ooni/">Explorer les dossiers Ooni</a>
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 60vh;
+    padding-block: clamp(5rem, 12vw, 10rem);
+  }
+
+  .not-found h1 {
+    max-width: 12ch;
+    margin-bottom: 1.5rem;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.9;
+  }
+
+  .not-found p:not(.eyebrow) {
+    max-width: 36rem;
+    margin-bottom: 2rem;
+    color: var(--color-graphite);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .not-found__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

@@ -1,5 +1,27 @@
-# P19 impose ce fichier. Un pack Standard, Full ou Critical doit remplacer la
-# table vide par ses services réels avant que scripts/check_compose.py réussisse.
-name: jupiter
+name: four-a-nu
 
-services: {}
+services:
+  site:
+    build:
+      context: ./site
+      dockerfile: Dockerfile
+    init: true
+    read_only: true
+    ports:
+      - "127.0.0.1:4321:4321"
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      foundation.lifecycle: service
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://127.0.0.1:4321/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s

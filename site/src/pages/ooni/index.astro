@@ -1,0 +1,252 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+
+const ranges = [
+  {
+    id: "koda",
+    name: "Koda",
+    energy: "Gaz",
+    models: [
+      { name: "Koda 2", href: "/ooni/koda-2/", state: "Recherche en cours" },
+      { name: "Koda 2 Pro", href: "/ooni/koda-2-pro/", state: "Recherche en cours" },
+      { name: "Koda 2 Max", href: "/ooni/koda-2-max/", state: "Recherche en cours" },
+      { name: "Koda 12", state: "Inventaire fabricant" },
+      { name: "Koda 16", state: "Inventaire fabricant" },
+    ],
+  },
+  {
+    id: "karu",
+    name: "Karu",
+    energy: "Multi-combustible",
+    models: [
+      { name: "Karu 2", href: "/ooni/karu-2/", state: "Recherche en cours" },
+      { name: "Karu 2 Pro", href: "/ooni/karu-2-pro/", state: "Recherche en cours" },
+      { name: "Karu 12", state: "Inventaire fabricant" },
+    ],
+  },
+  {
+    id: "volt",
+    name: "Volt",
+    energy: "Électrique",
+    models: [
+      { name: "Volt 2", href: "/ooni/volt-2/", state: "Recherche en cours" },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Fours Ooni : gamme, modèles et comparatifs | Four à Nu"
+  description="Les neuf fours Ooni du catalogue France, classés par énergie, génération et état de notre analyse documentaire."
+  indexable={false}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Ooni" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Catalogue France · vérifié le 23.08.2026</p>
+        <h1>Comprendre la gamme Ooni avant de choisir un modèle.</h1>
+        <p class="page-intro__lede">
+          Neuf fours autonomes sont actuellement présentés en France. Nous les
+          séparons par énergie, génération et contrainte d'usage. Les bundles ne
+          deviennent pas de faux modèles supplémentaires.
+        </p>
+      </div>
+      <p class="page-intro__aside">
+        Les fiches ouvertes restent des analyses documentaires non indexées.
+        Elles ne contiennent ni note ni verdict d'essai Four à Nu.
+      </p>
+    </header>
+
+    <section class="lead-analysis" aria-labelledby="lead-analysis-title">
+      <p class="eyebrow">Deux guides d'abord</p>
+      <h2 id="lead-analysis-title">Les décisions transversales avant les fiches produit.</h2>
+      <div>
+        <a class="link-row" href="/ooni/quel-four-ooni-choisir/">
+          <span class="link-row__title">Quel four Ooni choisir en 2026&nbsp;?</span>
+          <span class="link-row__meta">OONI-001 · Guide de gamme</span>
+          <span class="link-row__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="link-row" href="/ooni/gaz-electrique-ou-multicombustible/">
+          <span class="link-row__title">Gaz, électrique ou multi-combustible&nbsp;?</span>
+          <span class="link-row__meta">OONI-004 · Choix de l'énergie</span>
+          <span class="link-row__arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="ranges" aria-labelledby="ranges-title">
+      <div class="ranges__head">
+        <p class="eyebrow">Catalogue actuel</p>
+        <h2 id="ranges-title">Trois familles</h2>
+        <p>Une ligne n'est cliquable que lorsqu'un vrai dossier de travail existe.</p>
+      </div>
+
+      {ranges.map((range) => (
+        <article class="range" id={range.id}>
+          <header>
+            <span>{String(range.models.length).padStart(2, "0")}</span>
+            <h3>{range.name}</h3>
+            <p>{range.energy}</p>
+          </header>
+          <div class="range__models">
+            {range.models.map((model) =>
+              model.href ? (
+                <a href={model.href}>
+                  <strong>{model.name}</strong>
+                  <span>{model.state}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <div>
+                  <strong>{model.name}</strong>
+                  <span>{model.state}</span>
+                  <span>—</span>
+                </div>
+              ),
+            )}
+          </div>
+        </article>
+      ))}
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .lead-analysis {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .lead-analysis h2 {
+    max-width: 18ch;
+    margin-bottom: 3rem;
+    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    line-height: 0.98;
+  }
+
+  .ranges {
+    padding-top: clamp(4rem, 8vw, 7rem);
+  }
+
+  .ranges__head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .ranges__head .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .ranges__head h2 {
+    grid-column: 1 / span 7;
+    margin: 0;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95;
+  }
+
+  .ranges__head > p:last-child {
+    grid-column: 9 / -1;
+    align-self: end;
+    margin: 0;
+    color: var(--color-graphite);
+  }
+
+  .range {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 1.5rem;
+    padding-block: 3rem;
+    border-top: 1px solid var(--color-carbon);
+    scroll-margin-top: 2rem;
+  }
+
+  .range header {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    align-content: start;
+    gap: 0.2rem 1rem;
+  }
+
+  .range header > span,
+  .range header p,
+  .range__models span {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+  }
+
+  .range header h3 {
+    margin: 0;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.9;
+  }
+
+  .range header p {
+    grid-column: 2;
+    margin: 0;
+  }
+
+  .range__models {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .range__models a,
+  .range__models > div {
+    display: grid;
+    grid-template-columns: 1fr minmax(10rem, auto) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 4.8rem;
+    border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
+  }
+
+  .range__models strong {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+  }
+
+  .range__models a:hover strong,
+  .range__models a:hover > span:last-child {
+    color: var(--color-probe);
+  }
+
+  @media (max-width: 48rem) {
+    .ranges__head,
+    .range {
+      grid-template-columns: 1fr;
+    }
+
+    .ranges__head .eyebrow,
+    .ranges__head h2,
+    .ranges__head > p:last-child {
+      grid-column: 1;
+    }
+
+    .range {
+      gap: 2rem;
+    }
+
+    .range__models a,
+    .range__models > div {
+      grid-template-columns: 1fr auto;
+      padding-block: 0.7rem;
+    }
+
+    .range__models span:nth-child(2) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .range__models span:last-child {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+</style>

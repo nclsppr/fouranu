@@ -1,0 +1,683 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BrandMark from "@/components/BrandMark.astro";
+import ProofLabel from "@/components/ProofLabel.astro";
+import { SITE } from "@/config/site";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE.url}/#website`,
+      url: `${SITE.url}/`,
+      name: SITE.name,
+      alternateName: SITE.alternateName,
+      inLanguage: SITE.language,
+      description: SITE.description,
+      publisher: { "@id": `${SITE.url}/#organization` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE.url}/#organization`,
+      name: SITE.name,
+      alternateName: SITE.alternateName,
+      url: `${SITE.url}/`,
+      description:
+        "Média francophone d'aide au choix consacré aux fours à pizza et à leur équipement.",
+    },
+  ],
+};
+---
+
+<BaseLayout indexable={true} schema={schema}>
+  <section class="hero page-shell">
+    <div class="hero__copy">
+      <p class="eyebrow">Fours à pizza · analyses documentaires</p>
+      <h1>Choisir son four à pizza, <span>sources à l'appui.</span></h1>
+      <p class="hero__lede">
+        Four à Nu relie chaque conseil à sa provenance. Nous séparons les fiches
+        fabricants, les mesures tierces et nos futurs essais physiques pour vous
+        aider à choisir sans transformer une publicité en preuve.
+      </p>
+      <div class="hero__actions">
+        <a class="button-link" href="/fours-a-pizza/">Partir de mes contraintes</a>
+        <a class="button-link button-link--quiet" href="/methode/">Lire la méthode</a>
+      </div>
+    </div>
+
+    <aside class="instrument" aria-label="État vérifié du corpus">
+      <div class="instrument__head">
+        <BrandMark size={58} />
+        <span>Relevé éditorial</span>
+      </div>
+      <dl>
+        <div>
+          <dt>Fours Ooni actuels</dt>
+          <dd>09</dd>
+        </div>
+        <div>
+          <dt>Preuves enregistrées</dt>
+          <dd>107</dd>
+        </div>
+        <div>
+          <dt>Passages horodatés</dt>
+          <dd>72</dd>
+        </div>
+        <div>
+          <dt>Questions d'acheteurs</dt>
+          <dd>50</dd>
+        </div>
+      </dl>
+      <div class="instrument__lock">
+        <ProofLabel code="J-TEST" state="locked" />
+        <span>Essais physiques non ouverts</span>
+      </div>
+    </aside>
+
+    <div class="sole-line" aria-label="État de la preuve au 23 août 2026">
+      <span>ÉTAT 23.08.2026</span>
+      <span>107 PREUVES</span>
+      <span>72 PASSAGES</span>
+      <span>J-TEST VERROUILLÉ</span>
+    </div>
+  </section>
+
+  <section class="decision page-shell" aria-labelledby="decision-title">
+    <header class="decision__header">
+      <p class="eyebrow">Le point de départ</p>
+      <h2 id="decision-title">Le meilleur four n'existe pas hors contexte.</h2>
+      <p>
+        Votre lieu, le combustible accepté et le nombre de pizzas changent le
+        choix avant même de comparer deux modèles.
+      </p>
+    </header>
+
+    <div class="decision-table">
+      <a href="/fours-a-pizza/#lieu">
+        <span class="decision-table__index">A</span>
+        <strong>Où allez-vous cuisiner&nbsp;?</strong>
+        <span>Intérieur, terrasse, jardin ou espace partagé</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a href="/fours-a-pizza/#energie">
+        <span class="decision-table__index">B</span>
+        <strong>Quel niveau de surveillance acceptez-vous&nbsp;?</strong>
+        <span>Électrique, gaz ou multi-combustible</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a href="/fours-a-pizza/#debit">
+        <span class="decision-table__index">C</span>
+        <strong>Combien de pizzas doivent s'enchaîner&nbsp;?</strong>
+        <span>Diamètre utile, marge de rotation et reprise de sole</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a href="/fours-a-pizza/#cout">
+        <span class="decision-table__index">D</span>
+        <strong>Quel est le coût complet acceptable&nbsp;?</strong>
+        <span>Four, pelle, table, housse, énergie et entretien</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="ooni-focus">
+    <div class="page-shell ooni-focus__grid">
+      <div class="ooni-focus__title">
+        <p class="eyebrow">Priorité éditoriale</p>
+        <h2>Neuf Ooni.<br />Trois familles.<br />Aucun raccourci.</h2>
+      </div>
+
+      <div class="range-list">
+        <a href="/ooni/#koda">
+          <span class="range-list__count">05</span>
+          <span>
+            <strong>Koda</strong>
+            <small>Gaz · deux générations au catalogue France</small>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="/ooni/#karu">
+          <span class="range-list__count">03</span>
+          <span>
+            <strong>Karu</strong>
+            <small>Multi-combustible · brûleur gaz selon modèle</small>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="/ooni/#volt">
+          <span class="range-list__count">01</span>
+          <span>
+            <strong>Volt</strong>
+            <small>Électrique · usage intérieur annoncé</small>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a class="range-list__all" href="/ooni/">
+          Voir la gamme et l'état de chaque analyse <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-system" aria-labelledby="proof-title">
+    <div class="page-shell proof-system__grid">
+      <div>
+        <p class="eyebrow">Ce que signifie “sources à l'appui”</p>
+        <h2 id="proof-title">Une conclusion ne vaut que par sa provenance.</h2>
+      </div>
+
+      <div class="proof-system__list">
+        <div>
+          <ProofLabel code="FAB" />
+          <p><strong>Fabricant</strong> · caractéristique ou promesse attribuée à sa source.</p>
+        </div>
+        <div>
+          <ProofLabel code="T-MES" />
+          <p><strong>Mesure tierce</strong> · protocole, conditions et timecode visibles.</p>
+        </div>
+        <div>
+          <ProofLabel code="T-OBS" />
+          <p><strong>Observation tierce</strong> · description limitée à ce que montre la source.</p>
+        </div>
+        <div>
+          <ProofLabel code="J-SYN" />
+          <p><strong>Synthèse Four à Nu</strong> · calcul ou rapprochement dont la méthode est publiée.</p>
+        </div>
+        <div>
+          <ProofLabel code="J-TEST" state="locked" />
+          <p><strong>Essai Four à Nu</strong> · réservé à nos futures mesures physiques documentées.</p>
+        </div>
+      </div>
+
+      <a class="proof-system__link" href="/methode/">Voir le protocole complet <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="limits page-shell" aria-labelledby="limits-title">
+    <p class="eyebrow">La limite actuelle</p>
+    <div class="limits__grid">
+      <h2 id="limits-title">Nous n'avons pas encore reçu les fours.</h2>
+      <div>
+        <p>
+          Les premières pages sont des analyses documentaires. Elles peuvent
+          comparer les formats, les fonctions annoncées et des observations
+          tierces. Elles ne contiennent ni note, ni podium, ni formulation
+          laissant croire que nous avons utilisé le matériel.
+        </p>
+        <p>
+          Cette limite disparaîtra article par article, après un protocole
+          physique et des preuves originales. Les URL resteront les mêmes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="workbench page-shell" aria-labelledby="workbench-title">
+    <header class="content-section__header">
+      <h2 id="workbench-title">Sur l'établi</h2>
+      <p>Les deux décisions qui structurent tout le dossier Ooni.</p>
+    </header>
+
+    <div>
+      <a class="link-row" href="/ooni/quel-four-ooni-choisir/">
+        <span class="link-row__title">Quel four Ooni choisir en 2026&nbsp;?</span>
+        <span class="link-row__meta">OONI-001 · Recherche en cours</span>
+        <span class="link-row__arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link-row" href="/ooni/gaz-electrique-ou-multicombustible/">
+        <span class="link-row__title">Gaz, électrique ou multi-combustible&nbsp;?</span>
+        <span class="link-row__meta">OONI-004 · Recherche en cours</span>
+        <span class="link-row__arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    padding-top: clamp(4rem, 8vw, 7.5rem);
+  }
+
+  .hero__copy {
+    grid-column: 1 / span 8;
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  .hero h1 {
+    max-width: 11ch;
+    margin-bottom: 2rem;
+    font-size: clamp(4rem, 8.2vw, 7.4rem);
+    line-height: 0.86;
+    letter-spacing: -0.04em;
+  }
+
+  .hero h1 span {
+    color: var(--color-probe);
+  }
+
+  .hero__lede {
+    max-width: 45rem;
+    margin-bottom: 2rem;
+    color: var(--color-graphite);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.6;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .instrument {
+    grid-column: 10 / -1;
+    align-self: start;
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .instrument__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 6.5rem;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--color-carbon-line);
+  }
+
+  .instrument__head svg {
+    color: var(--color-reading);
+  }
+
+  .instrument__head span,
+  .instrument dt,
+  .instrument dd,
+  .instrument__lock {
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+
+  .instrument dl {
+    margin: 0;
+  }
+
+  .instrument dl div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-carbon-line);
+  }
+
+  .instrument dt {
+    color: var(--color-carbon-muted);
+  }
+
+  .instrument dd {
+    margin: 0;
+    color: var(--color-reading);
+    font-size: 1.6rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .instrument__lock {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    color: var(--color-carbon-muted);
+  }
+
+  .instrument__lock :global(.proof-label) {
+    color: var(--color-reading);
+  }
+
+  .sole-line {
+    grid-column: 1 / -1;
+    position: relative;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+    border-top: 2px solid var(--color-probe);
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.66rem;
+    letter-spacing: 0.035em;
+    white-space: nowrap;
+  }
+
+  .decision {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .decision__header {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .decision__header .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .decision__header h2 {
+    grid-column: 1 / span 7;
+    margin: 0;
+    font-size: clamp(3rem, 6.5vw, 6rem);
+    line-height: 0.94;
+  }
+
+  .decision__header > p:last-child {
+    grid-column: 9 / -1;
+    align-self: end;
+    margin: 0;
+    color: var(--color-graphite);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .decision-table {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .decision-table a {
+    display: grid;
+    grid-template-columns: 3rem minmax(15rem, 1.5fr) minmax(14rem, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 6rem;
+    border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
+  }
+
+  .decision-table a:hover strong,
+  .decision-table a:hover > span:last-child {
+    color: var(--color-probe);
+  }
+
+  .decision-table__index,
+  .decision-table a > span:nth-child(3) {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .decision-table strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+    line-height: 1.05;
+  }
+
+  .decision-table a > span:last-child {
+    font-size: 1.2rem;
+  }
+
+  .ooni-focus {
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .ooni-focus__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .ooni-focus__title {
+    grid-column: 1 / span 5;
+  }
+
+  .ooni-focus__title .eyebrow {
+    color: var(--color-reading);
+  }
+
+  .ooni-focus h2 {
+    margin: 0;
+    font-size: clamp(3.3rem, 6.5vw, 6.5rem);
+    line-height: 0.9;
+  }
+
+  .range-list {
+    grid-column: 7 / -1;
+    align-self: start;
+    border-top: 1px solid var(--color-graphite);
+  }
+
+  .range-list a {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 6.5rem;
+    border-bottom: 1px solid var(--color-graphite);
+    text-decoration: none;
+  }
+
+  .range-list a:hover strong,
+  .range-list a:hover > span:last-child {
+    color: var(--color-reading);
+  }
+
+  .range-list__count {
+    color: var(--color-reading);
+    font-family: var(--font-data);
+    font-size: 0.78rem;
+  }
+
+  .range-list strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+  }
+
+  .range-list small {
+    color: var(--color-carbon-muted);
+    font-size: 0.8rem;
+  }
+
+  .range-list__all {
+    min-height: 4.5rem !important;
+    grid-template-columns: 1fr auto !important;
+    color: var(--color-reading);
+    font-size: 0.88rem;
+  }
+
+  .proof-system {
+    background: var(--color-steel-soft);
+  }
+
+  .proof-system__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .proof-system__grid > div:first-child {
+    grid-column: 1 / span 5;
+  }
+
+  .proof-system h2 {
+    margin: 0;
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .proof-system__list {
+    grid-column: 7 / -1;
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .proof-system__list > div {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding-block: 1.2rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .proof-system__list p {
+    margin: 0;
+    color: var(--color-graphite);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .proof-system__list strong {
+    color: var(--color-carbon);
+  }
+
+  .proof-system__link {
+    grid-column: 7 / -1;
+    justify-self: start;
+    margin-top: 1rem;
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  .limits {
+    padding-block: clamp(5rem, 10vw, 9rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .limits__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+
+  .limits h2 {
+    grid-column: 1 / span 7;
+    max-width: 11ch;
+    margin: 0;
+    font-size: clamp(3.5rem, 7vw, 6.7rem);
+    line-height: 0.9;
+  }
+
+  .limits__grid > div {
+    grid-column: 9 / -1;
+    align-self: end;
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .limits__grid p:last-child {
+    margin-bottom: 0;
+  }
+
+  .workbench {
+    padding-block: clamp(5rem, 10vw, 9rem) 0;
+  }
+
+  @media (max-width: 75rem) {
+    .hero__copy {
+      grid-column: 1 / span 8;
+    }
+
+    .instrument {
+      grid-column: 9 / -1;
+    }
+
+    .decision__header h2,
+    .limits h2 {
+      grid-column: 1 / span 8;
+    }
+
+    .decision__header > p:last-child,
+    .limits__grid > div {
+      grid-column: 9 / -1;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .hero,
+    .decision__header,
+    .ooni-focus__grid,
+    .proof-system__grid,
+    .limits__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__copy,
+    .instrument,
+    .sole-line,
+    .decision__header .eyebrow,
+    .decision__header h2,
+    .decision__header > p:last-child,
+    .ooni-focus__title,
+    .range-list,
+    .proof-system__grid > div:first-child,
+    .proof-system__list,
+    .proof-system__link,
+    .limits h2,
+    .limits__grid > div {
+      grid-column: 1;
+    }
+
+    .hero {
+      padding-top: 3.5rem;
+    }
+
+    .hero__copy {
+      padding-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.6rem, 19vw, 5.4rem);
+    }
+
+    .instrument {
+      margin-bottom: 1rem;
+    }
+
+    .sole-line {
+      overflow-x: auto;
+      justify-content: start;
+      padding-bottom: 0.85rem;
+    }
+
+    .decision-table a {
+      grid-template-columns: 2rem 1fr auto;
+      gap: 0.65rem;
+      padding-block: 1.2rem;
+    }
+
+    .decision-table a > span:nth-child(3) {
+      grid-column: 2 / -1;
+    }
+
+    .decision-table a > span:last-child {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .ooni-focus__title {
+      margin-bottom: 3rem;
+    }
+
+    .range-list a {
+      min-height: 6rem;
+    }
+
+    .proof-system__grid > div:first-child {
+      margin-bottom: 2rem;
+    }
+
+    .limits h2 {
+      margin-bottom: 2rem;
+    }
+  }
+</style>

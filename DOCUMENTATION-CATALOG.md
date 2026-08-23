@@ -8,8 +8,10 @@ Moteur déclaré : `nimbus`.
 
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
-| Documentation du projet | `internal` | 13 |
-| Décisions | `internal` | 0 |
+| Documentation du projet | `internal` | 17 |
+| Décisions | `internal` | 1 |
+| Barrières de publication | `internal` | 1 |
+| Brouillons éditoriaux du site | `internal` | 8 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -19,6 +21,7 @@ Moteur déclaré : `nimbus`.
 - [BRAND-SEO.md](BRAND-SEO.md)
 - [BRIEF.md](BRIEF.md)
 - [CHANGELOG.md](CHANGELOG.md)
+- [DESIGN.md](DESIGN.md)
 - [DOCUMENTATION-CATALOG.md](DOCUMENTATION-CATALOG.md)
 - [DOCUMENTATION.md](DOCUMENTATION.md)
 - [EDITORIAL-PROTOCOL.md](EDITORIAL-PROTOCOL.md)
@@ -27,11 +30,29 @@ Moteur déclaré : `nimbus`.
 - [FOUNDATION.md](FOUNDATION.md)
 - [OONI-CONTENT-MAP.md](OONI-CONTENT-MAP.md)
 - [PERMISSION-TEMPLATE.md](PERMISSION-TEMPLATE.md)
+- [PROJECT.md](PROJECT.md)
 - [README.md](README.md)
+- [ROADMAP.md](ROADMAP.md)
+- [STATUS.md](STATUS.md)
 
 ## Décisions
 
-- Aucun fichier actuellement.
+- [docs/decisions/0001-promotion-produit-et-site-astro.md](docs/decisions/0001-promotion-produit-et-site-astro.md)
+
+## Barrières de publication
+
+- [docs/SEO-PUBLICATION-GATE.md](docs/SEO-PUBLICATION-GATE.md)
+
+## Brouillons éditoriaux du site
+
+- [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
+- [site/src/content/analyses/karu-2-pro.md](site/src/content/analyses/karu-2-pro.md)
+- [site/src/content/analyses/karu-2.md](site/src/content/analyses/karu-2.md)
+- [site/src/content/analyses/koda-2-max.md](site/src/content/analyses/koda-2-max.md)
+- [site/src/content/analyses/koda-2-pro.md](site/src/content/analyses/koda-2-pro.md)
+- [site/src/content/analyses/koda-2.md](site/src/content/analyses/koda-2.md)
+- [site/src/content/analyses/quel-four-ooni-choisir.md](site/src/content/analyses/quel-four-ooni-choisir.md)
+- [site/src/content/analyses/volt-2.md](site/src/content/analyses/volt-2.md)
 
 ## Socle vendorisé
 
@@ -59,3 +80,6 @@ Ces chemins contiennent des dépendances ou sorties dérivées, pas des sources 
 | Collection Nimbus générée depuis les sources classées | `docs-nimbus/src/content/docs/**/*.md` |
 | Dépendances Nimbus tierces | `docs-nimbus/node_modules/**/*.md` |
 | Site Nimbus généré | `docs-nimbus/dist/**/*.md` |
+| Dépendances tierces du site | `site/node_modules/**/*.md` |
+| Site public généré | `site/dist/**/*.md` |
+| Artefacts Astro générés | `site/.astro/**/*.md` |

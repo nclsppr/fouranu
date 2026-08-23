@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Four à Nu</title>
+  <desc id="desc">Carte sociale blanche, noire et bleue pour le guide des fours à pizza.</desc>
+  <rect width="1200" height="630" fill="#FFFFFF"/>
+  <path d="M0 0H1200V18H0Z" fill="#0D1214"/>
+  <g transform="translate(72 76) scale(.55)" fill="none" stroke="#0D1214" stroke-width="20" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M36 220V36H220V180"/>
+    <path d="M76 220V177C76 145.52 101.52 120 133 120C164.48 120 190 145.52 190 177V220"/>
+    <path d="M212 220H228"/>
+  </g>
+  <text x="244" y="144" fill="#0D1214" font-family="Arial Narrow, Helvetica, sans-serif" font-size="66" font-weight="700" letter-spacing="-2">Four à Nu</text>
+  <text x="72" y="335" fill="#0D1214" font-family="Arial Narrow, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-2">CHOISIR SON FOUR À PIZZA</text>
+  <text x="72" y="403" fill="#006B8F" font-family="Arial Narrow, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-2">SOURCES À L'APPUI.</text>
+  <path d="M72 485H1128" stroke="#006B8F" stroke-width="4"/>
+  <g fill="#536168" font-family="Menlo, Consolas, monospace" font-size="18" letter-spacing="1">
+    <text x="72" y="525">ANALYSES DOCUMENTAIRES</text>
+    <text x="540" y="525">OONI · FOURS · ACCESSOIRES</text>
+    <text x="957" y="525">FOURANU.COM</text>
+  </g>
+  <g transform="translate(72 566)">
+    <rect width="78" height="32" fill="#0D1214"/>
+    <text x="39" y="22" text-anchor="middle" fill="#5DD7E7" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700">J-TEST</text>
+    <text x="96" y="22" fill="#536168" font-family="Menlo, Consolas, monospace" font-size="14">VERROUILLÉ PENDANT LA SAISON 0</text>
+  </g>
+</svg>

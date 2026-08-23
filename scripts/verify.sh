@@ -59,6 +59,8 @@ if [[ -n "$(git -C "${PROJECT_ROOT}" ls-files -- research/private)" ]]; then
   echo "research/private contient un fichier suivi par Git ; retirer ce fichier de l'index." >&2
   exit 1
 fi
+npm ci --prefix "${PROJECT_ROOT}/site" --ignore-scripts --no-audit --no-fund
+npm run check --prefix "${PROJECT_ROOT}/site"
 npm ci --prefix "${PROJECT_ROOT}/docs-nimbus" --ignore-scripts --no-audit --no-fund
 npm run check --prefix "${PROJECT_ROOT}/docs-nimbus"
 if [[ -n "$(git -C "${PROJECT_ROOT}" ls-files -- docs-nimbus/src/content/docs)" ]]; then

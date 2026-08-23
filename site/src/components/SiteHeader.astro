@@ -1,0 +1,41 @@
+---
+import BrandMark from "./BrandMark.astro";
+import { PRIMARY_NAV } from "@/config/site";
+
+const currentPath = Astro.url.pathname;
+const currentState = (href: string) => {
+  if (currentPath === href) return "page";
+  if (href !== "/" && currentPath.startsWith(href)) return "location";
+  return undefined;
+};
+---
+
+<header class="site-header">
+  <div class="site-header__inner page-shell">
+    <a
+      class="brand-lockup"
+      href="/"
+      aria-label="Four à Nu, accueil"
+      aria-current={currentPath === "/" ? "page" : undefined}
+    >
+      <BrandMark size={34} />
+      <span class="brand-lockup__name">Four à Nu</span>
+    </a>
+
+    <p class="site-header__status">
+      <span aria-hidden="true"></span>
+      Saison 0 · analyse documentaire
+    </p>
+
+    <nav class="site-nav" aria-label="Navigation principale">
+      {PRIMARY_NAV.map((item) => (
+        <a
+          href={item.href}
+          aria-current={currentState(item.href)}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,382 @@
+---
+import evidenceCsv from "@/data/evidence.csv?raw";
+
+interface Props {
+  evidenceIds: string[];
+}
+
+const headers = [
+  "evidence_id",
+  "product_version",
+  "source_type",
+  "source_title",
+  "publisher",
+  "source_url",
+  "published_on",
+  "checked_on",
+  "timecode_start",
+  "timecode_end",
+  "evidence_class",
+  "observation",
+  "conditions",
+  "sponsorship",
+  "corroborating_ids",
+  "confidence",
+  "article_ids",
+] as const;
+
+type Header = (typeof headers)[number];
+type Evidence = Record<Header, string>;
+
+function parseCsv(input: string): string[][] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = "";
+  let quoted = false;
+
+  const finishRow = () => {
+    row.push(field);
+    if (row.some((value) => value.length > 0)) rows.push(row);
+    row = [];
+    field = "";
+  };
+
+  for (let index = 0; index < input.length; index += 1) {
+    const character = input[index];
+
+    if (quoted) {
+      if (character === '"' && input[index + 1] === '"') {
+        field += '"';
+        index += 1;
+      } else if (character === '"') {
+        quoted = false;
+      } else {
+        field += character;
+      }
+      continue;
+    }
+
+    if (character === '"') {
+      if (field.length > 0) throw new Error("Guillemet CSV inattendu dans evidence.csv.");
+      quoted = true;
+    } else if (character === ",") {
+      row.push(field);
+      field = "";
+    } else if (character === "\n") {
+      finishRow();
+    } else if (character === "\r") {
+      if (input[index + 1] === "\n") index += 1;
+      finishRow();
+    } else {
+      field += character;
+    }
+  }
+
+  if (quoted) throw new Error("Champ CSV non fermé dans evidence.csv.");
+  if (field.length > 0 || row.length > 0) finishRow();
+  return rows;
+}
+
+const rows = parseCsv(evidenceCsv);
+const csvHeaders = rows.shift();
+if (!csvHeaders || csvHeaders.join(",") !== headers.join(",")) {
+  throw new Error("Schéma inattendu pour evidence.csv.");
+}
+
+const evidenceById = new Map<string, Evidence>();
+for (const [index, values] of rows.entries()) {
+  if (values.length !== headers.length) {
+    throw new Error(`Ligne ${index + 2} invalide dans evidence.csv : ${values.length} colonnes.`);
+  }
+  const record = Object.fromEntries(
+    headers.map((header, column) => [header, values[column]]),
+  ) as Evidence;
+  if (evidenceById.has(record.evidence_id)) {
+    throw new Error(`Preuve dupliquée dans evidence.csv : ${record.evidence_id}.`);
+  }
+  evidenceById.set(record.evidence_id, record);
+}
+
+const { evidenceIds } = Astro.props;
+const uniqueIds = [...new Set(evidenceIds)];
+for (const evidenceId of uniqueIds) {
+  if (!/^EV-\d{4}$/.test(evidenceId)) {
+    throw new Error(`Identifiant de preuve invalide : ${evidenceId}.`);
+  }
+}
+
+const citedEvidence = uniqueIds.map((evidenceId) => {
+  const record = evidenceById.get(evidenceId);
+  if (!record) throw new Error(`Preuve citée mais absente du registre : ${evidenceId}.`);
+  return record;
+});
+
+const classLabels: Record<string, string> = {
+  FAB: "Donnée fabricant",
+  "T-MES": "Mesure tierce",
+  "T-OBS": "Observation tierce",
+  "J-INF": "Inférence éditoriale",
+};
+const confidenceLabels: Record<string, string> = {
+  high: "confiance haute",
+  medium: "confiance moyenne",
+  low: "confiance faible",
+};
+const relationshipLabels: Record<string, string> = {
+  affiliate: "liens affiliés",
+  "loaned-by-ooni": "unité prêtée par Ooni",
+  "loan-or-sponsorship-not-detected": "aucun prêt ou sponsoring repéré",
+  "loan-or-sponsorship-not-disclosed": "prêt ou sponsoring non précisé",
+  "merchant-links": "liens marchands",
+  merchant: "activité marchande",
+  "no-loan-or-sponsorship-detected": "aucun prêt ou sponsoring repéré",
+  "ooni-ambassador": "ambassadeur Ooni",
+  "ooni-collaboration": "collaboration Ooni",
+  "paid-promotion": "promotion rémunérée",
+  "promo-code": "code promotionnel",
+  "review-unit-free": "unité fournie gratuitement",
+  "self-purchased": "unité achetée par la source",
+  "tracked-merchant-link": "lien marchand suivi",
+  "unit-origin-not-disclosed": "origine de l'unité non précisée",
+};
+const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+function formatDate(value: string) {
+  return dateFormatter.format(new Date(`${value}T00:00:00Z`));
+}
+
+function timecodeInSeconds(value: string) {
+  const parts = value.split(":").map(Number);
+  if (parts.some((part) => !Number.isInteger(part) || part < 0) || parts.length > 3) {
+    throw new Error(`Timecode invalide dans evidence.csv : ${value}.`);
+  }
+  return parts.reduce((total, part) => total * 60 + part, 0);
+}
+
+function sourceHref(record: Evidence) {
+  if (!record.source_url) return undefined;
+  const url = new URL(record.source_url);
+  if (
+    record.timecode_start &&
+    (url.hostname === "youtube.com" ||
+      url.hostname === "www.youtube.com" ||
+      url.hostname === "youtu.be")
+  ) {
+    url.searchParams.set("t", `${timecodeInSeconds(record.timecode_start)}s`);
+  }
+  return url.toString();
+}
+
+function sourceTitle(record: Evidence) {
+  if (record.source_title) return record.source_title;
+  if (record.source_type === "jupiter") {
+    return `Inférence éditoriale sur ${record.product_version}`;
+  }
+  return record.product_version;
+}
+
+function sourcePublisher(record: Evidence) {
+  if (record.publisher) return record.publisher;
+  if (record.source_type === "jupiter") return "Four à Nu";
+  return undefined;
+}
+
+function relationships(record: Evidence) {
+  return record.sponsorship
+    .split(";")
+    .filter(Boolean)
+    .map((value) => relationshipLabels[value] ?? value.replaceAll("-", " "));
+}
+---
+
+{citedEvidence.length > 0 && (
+  <section class="cited-sources" aria-labelledby="cited-sources-title">
+    <header class="cited-sources__header">
+      <div>
+        <p class="eyebrow">Traçabilité</p>
+        <h2 id="cited-sources-title">Sources citées</h2>
+      </div>
+      <p>
+        Chaque code EV renvoie à une entrée du registre. Les liens vidéo ouvrent
+        au début du passage relevé ; les limites et relations commerciales
+        connues restent visibles.
+      </p>
+    </header>
+
+    <ol class="cited-sources__list">
+      {citedEvidence.map((record) => {
+        const href = sourceHref(record);
+        const publisher = sourcePublisher(record);
+        const relationshipNotes = relationships(record);
+        return (
+          <li id={`preuve-${record.evidence_id}`} data-evidence-id={record.evidence_id}>
+            <div class="cited-source__meta">
+              <code>{record.evidence_id}</code>
+              <span>{classLabels[record.evidence_class] ?? record.evidence_class}</span>
+              <span>{confidenceLabels[record.confidence] ?? record.confidence}</span>
+            </div>
+            <h3>
+              {href ? (
+                <a href={href} rel="external">{sourceTitle(record)}</a>
+              ) : (
+                sourceTitle(record)
+              )}
+            </h3>
+            <p class="cited-source__byline">
+              {publisher && <span>{publisher}</span>}
+              {record.timecode_start && (
+                <span>
+                  Passage {record.timecode_start}
+                  {record.timecode_end && `–${record.timecode_end}`}
+                </span>
+              )}
+              <span>
+                Vérifié le <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
+              </span>
+            </p>
+            <p class="cited-source__observation">{record.observation}</p>
+            {record.conditions && (
+              <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
+            )}
+            {relationshipNotes.length > 0 && (
+              <p class="cited-source__relationships">
+                <strong>Relations signalées :</strong> {relationshipNotes.join(" · ")}
+              </p>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+)}
+
+<style>
+  .cited-sources {
+    grid-column: 2 / span 10;
+    margin-top: 3rem;
+    padding-top: clamp(3rem, 7vw, 6rem);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .cited-sources__header {
+    display: grid;
+    grid-template-columns: minmax(16rem, 4fr) minmax(18rem, 6fr);
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2.5rem;
+  }
+
+  .cited-sources__header h2 {
+    margin: 0;
+    font-size: clamp(2.6rem, 5vw, 4.8rem);
+    line-height: 0.96;
+  }
+
+  .cited-sources__header > p {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .cited-sources__list {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+    list-style: none;
+  }
+
+  .cited-sources__list > li {
+    display: grid;
+    grid-template-columns: minmax(10rem, 2fr) minmax(18rem, 5fr) minmax(14rem, 3fr);
+    gap: 0.65rem 1.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-line);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .cited-source__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    gap: 0.4rem 0.7rem;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .cited-source__meta code {
+    color: var(--color-probe);
+    font: inherit;
+    font-weight: 500;
+  }
+
+  .cited-sources h3 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .cited-sources h3 a:hover {
+    color: var(--color-probe);
+  }
+
+  .cited-source__byline {
+    display: grid;
+    align-content: start;
+    gap: 0.25rem;
+    margin: 0;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .cited-source__observation,
+  .cited-source__conditions,
+  .cited-source__relationships {
+    grid-column: 2 / -1;
+    max-width: 62rem;
+    margin: 0;
+    color: var(--color-graphite);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .cited-source__conditions,
+  .cited-source__relationships {
+    font-size: 0.78rem;
+  }
+
+  .cited-source__conditions strong,
+  .cited-source__relationships strong {
+    color: var(--color-carbon);
+  }
+
+  @media (max-width: 75rem) {
+    .cited-sources {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .cited-sources__header,
+    .cited-sources__list > li {
+      grid-template-columns: 1fr;
+    }
+
+    .cited-source__observation,
+    .cited-source__conditions,
+    .cited-source__relationships {
+      grid-column: 1;
+    }
+  }
+</style>

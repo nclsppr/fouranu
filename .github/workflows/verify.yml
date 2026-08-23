@@ -28,7 +28,9 @@ jobs:
         with:
           node-version: "24"
           cache: npm
-          cache-dependency-path: docs-nimbus/package-lock.json
+          cache-dependency-path: |
+            docs-nimbus/package-lock.json
+            site/package-lock.json
 
       - name: Check Docker Compose
         run: |
@@ -37,3 +39,13 @@ jobs:
 
       - name: Verify project
         run: ./scripts/verify.sh
+
+      - name: Verify integrated site
+        run: |
+          docker compose up --build --wait
+          curl --fail --silent --show-error http://127.0.0.1:4321/health
+          curl --fail --silent --show-error http://127.0.0.1:4321/robots.txt
+
+      - name: Stop integrated site
+        if: always()
+        run: docker compose down

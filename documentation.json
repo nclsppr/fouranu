@@ -18,6 +18,18 @@
       "include": ["docs/decisions/**/*.md"]
     },
     {
+      "id": "publication-gates",
+      "title": "Barrières de publication",
+      "visibility": "internal",
+      "include": ["docs/SEO-PUBLICATION-GATE.md"]
+    },
+    {
+      "id": "site-content",
+      "title": "Brouillons éditoriaux du site",
+      "visibility": "internal",
+      "include": ["site/src/content/**/*.md"]
+    },
+    {
       "id": "foundation",
       "title": "Socle vendorisé",
       "visibility": "reference",
@@ -58,6 +70,18 @@
     {
       "pattern": "docs-nimbus/dist/**/*.md",
       "reason": "Site Nimbus généré"
+    },
+    {
+      "pattern": "site/node_modules/**/*.md",
+      "reason": "Dépendances tierces du site"
+    },
+    {
+      "pattern": "site/dist/**/*.md",
+      "reason": "Site public généré"
+    },
+    {
+      "pattern": "site/.astro/**/*.md",
+      "reason": "Artefacts Astro générés"
     }
   ]
 }

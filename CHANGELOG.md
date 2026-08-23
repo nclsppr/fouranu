@@ -6,6 +6,13 @@ importantes.
 
 ## Non publié
 
+- Ajout du premier dossier illustré : un photogramme couleur du Koda 2 et une
+  esquisse dérivée, tous deux attribués dans l'article. Un outil court récupère
+  désormais un extrait YouTube autorisé et produit une planche de six images
+  dans l'espace privé ignoré par Git.
+- Renforcement de la page Ooni avec les neuf fiches issues du contenu réel, une
+  liste structurée, les résumés et les dates de mise à jour. Le balisage Article
+  expose aussi le nombre de mots et le temps de lecture.
 - Adoption du modèle documentaire permanent par l'ADR-0002. Le site attribue
   les expériences tierces, refuse notes et balisage d'avis, et emploie les
   classes `FAB`, `T-MES`, `T-OBS`, `FAN-SYN` et `FAN-INF`.

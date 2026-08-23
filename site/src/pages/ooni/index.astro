@@ -1,45 +1,87 @@
 ---
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/config/site";
+
+const analyses = (await getCollection("analyses"))
+  .filter((entry) => entry.data.status === "publishable");
+const modelEntries = analyses.filter((entry) => entry.data.type === "model");
+const entriesById = new Map(modelEntries.map((entry) => [entry.id, entry]));
+const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 const ranges = [
   {
     id: "koda",
     name: "Koda",
     energy: "Gaz",
-    models: [
-      { name: "Koda 2", href: "/ooni/koda-2/", state: "Dossier documenté" },
-      { name: "Koda 2 Pro", href: "/ooni/koda-2-pro/", state: "Dossier documenté" },
-      { name: "Koda 2 Max", href: "/ooni/koda-2-max/", state: "Dossier documenté" },
-      { name: "Koda 12", href: "/ooni/koda-12/", state: "Dossier documenté" },
-      { name: "Koda 16", href: "/ooni/koda-16/", state: "Dossier documenté" },
-    ],
+    articleIds: ["koda-2", "koda-2-pro", "koda-2-max", "koda-12", "koda-16"],
   },
   {
     id: "karu",
     name: "Karu",
     energy: "Multi-combustible",
-    models: [
-      { name: "Karu 2", href: "/ooni/karu-2/", state: "Dossier documenté" },
-      { name: "Karu 2 Pro", href: "/ooni/karu-2-pro/", state: "Dossier documenté" },
-      { name: "Karu 12", href: "/ooni/karu-12/", state: "Dossier documenté" },
-    ],
+    articleIds: ["karu-2", "karu-2-pro", "karu-12"],
   },
   {
     id: "volt",
     name: "Volt",
     energy: "Électrique",
-    models: [
-      { name: "Volt 2", href: "/ooni/volt-2/", state: "Dossier documenté" },
-    ],
+    articleIds: ["volt-2"],
   },
-];
+].map((range) => ({
+  ...range,
+  models: range.articleIds.map((articleId) => {
+    const entry = entriesById.get(articleId);
+    if (!entry) throw new Error(`Dossier Ooni absent : ${articleId}`);
+    return entry;
+  }),
+}));
+
+if (modelEntries.length !== 9) {
+  throw new Error(`La page Ooni exige neuf fiches modèle, ${modelEntries.length} trouvée(s).`);
+}
+
+const canonical = new URL("/ooni/", SITE.url).toString();
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${canonical}#collection`,
+      url: canonical,
+      name: "Les neuf fours Ooni vendus en France",
+      description:
+        "Dossiers documentaires sur les fours Ooni Koda, Karu et Volt vendus en France.",
+      inLanguage: SITE.language,
+      isPartOf: { "@id": `${SITE.url}/#website` },
+      mainEntity: { "@id": `${canonical}#models` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonical}#models`,
+      numberOfItems: modelEntries.length,
+      itemListElement: ranges.flatMap((range) => range.models).map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: new URL(`/ooni/${entry.id}/`, SITE.url).toString(),
+        name: entry.data.title,
+      })),
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Fours Ooni : gamme, modèles et comparatifs | Four à Nu"
-  description="Les neuf fours Ooni du catalogue France, classés par énergie, génération et état de notre analyse documentaire."
+  title="Fours Ooni 2026 : les 9 modèles de la gamme | Four à Nu"
+  description="Les neuf fours Ooni vendus en France, classés par énergie et format avec un dossier sourcé pour chaque modèle Koda, Karu et Volt."
   indexable={true}
+  schema={schema}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Ooni" }]} />
@@ -49,14 +91,14 @@ const ranges = [
         <p class="eyebrow">Catalogue France · vérifié le 23.08.2026</p>
         <h1>Comprendre la gamme Ooni avant de choisir un modèle.</h1>
         <p class="page-intro__lede">
-          Neuf fours autonomes sont actuellement présentés en France. Nous les
-          séparons par énergie, génération et contrainte d'usage. Les bundles ne
-          deviennent pas de faux modèles supplémentaires.
+          Les neuf fours autonomes vendus en France sont classés ici par
+          énergie et format. Chaque lien ouvre un dossier daté qui sépare les
+          annonces Ooni des mesures et observations publiées par des tiers.
         </p>
       </div>
       <p class="page-intro__aside">
-        Chaque fiche ouvre par une réponse courte, puis distingue les annonces
-        fabricant, les mesures publiées, les observations et les inconnues.
+        9 fiches modèle, 2 guides transversaux. Aucun classement général ni note
+        ne masque les différences de protocole entre les sources.
       </p>
     </header>
 
@@ -92,21 +134,18 @@ const ranges = [
             <p>{range.energy}</p>
           </header>
           <div class="range__models">
-            {range.models.map((model) =>
-              model.href ? (
-                <a href={model.href}>
-                  <strong>{model.name}</strong>
-                  <span>{model.state}</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              ) : (
-                <div>
-                  <strong>{model.name}</strong>
-                  <span>{model.state}</span>
-                  <span>—</span>
-                </div>
-              ),
-            )}
+            {range.models.map((entry: CollectionEntry<"analyses">) => (
+              <a href={`/ooni/${entry.id}/`}>
+                <span class="range__model-copy">
+                  <strong>{entry.data.model}</strong>
+                  <small>{entry.data.summary}</small>
+                </span>
+                <time datetime={entry.data.updatedAt.toISOString()}>
+                  Mis à jour {dateFormatter.format(entry.data.updatedAt)}
+                </time>
+                <span class="range__arrow" aria-hidden="true">↗</span>
+              </a>
+            ))}
           </div>
         </article>
       ))}
@@ -196,24 +235,48 @@ const ranges = [
     border-top: 1px solid var(--color-line);
   }
 
-  .range__models a,
-  .range__models > div {
+  .range__models a {
     display: grid;
-    grid-template-columns: 1fr minmax(10rem, auto) auto;
+    grid-template-columns: minmax(0, 1fr) minmax(9rem, auto) auto;
     gap: 1rem;
     align-items: center;
-    min-height: 4.8rem;
+    min-height: 7rem;
+    padding-block: 1rem;
     border-bottom: 1px solid var(--color-line);
     text-decoration: none;
   }
 
-  .range__models strong {
+  .range__model-copy {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .range__model-copy strong {
     font-family: var(--font-display);
     font-size: 1.45rem;
   }
 
+  .range__model-copy small {
+    max-width: 58ch;
+    color: var(--color-graphite);
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    text-transform: none;
+  }
+
+  .range__models time,
+  .range__arrow {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.66rem;
+    line-height: 1.4;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
   .range__models a:hover strong,
-  .range__models a:hover > span:last-child {
+  .range__models a:hover .range__arrow {
     color: var(--color-probe);
   }
 
@@ -233,18 +296,19 @@ const ranges = [
       gap: 2rem;
     }
 
-    .range__models a,
-    .range__models > div {
+    .range__models a {
       grid-template-columns: 1fr auto;
-      padding-block: 0.7rem;
+      min-height: 0;
+      padding-block: 1.25rem;
     }
 
-    .range__models span:nth-child(2) {
+    .range__models time {
       grid-column: 1;
       grid-row: 2;
+      text-align: left;
     }
 
-    .range__models span:last-child {
+    .range__arrow {
       grid-column: 2;
       grid-row: 1 / span 2;
     }

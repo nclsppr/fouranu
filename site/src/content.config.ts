@@ -15,6 +15,7 @@ const analyses = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     indexable: z.boolean().default(false),
+    image: z.string().startsWith("/").optional(),
     evidenceTypes: z.array(z.enum(["FAB", "T-MES", "T-OBS", "FAN-SYN", "FAN-INF"])),
     limitations: z.array(z.string()),
   }),

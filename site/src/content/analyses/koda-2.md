@@ -9,6 +9,7 @@ model: Ooni Koda 2
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+image: /images/articles/koda-2-photogramme-1600.webp
 evidenceTypes:
   - FAB
   - T-MES
@@ -16,7 +17,6 @@ evidenceTypes:
   - FAN-INF
 limitations:
   - Les trois protocoles de chauffe publiés ne sont pas directement comparables.
-  - Les trois protocoles de chauffe cités ne sont pas directement comparables.
   - Les dimensions impériales et métriques de la page fabricant sont incohérentes.
   - La consommation ne repose que sur une pesée tierce peu précise.
 ---
@@ -35,6 +35,16 @@ Pour arbitrer le combustible, voir
 [Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/).
 Les codes `FAB`, `T-MES`, `T-OBS` et `FAN-INF` sont définis dans
 [la méthode Four à Nu](/methode/).
+
+<figure class="article-media">
+  <picture>
+    <source media="(max-width: 48rem)" srcset="/images/articles/koda-2-photogramme-960.webp" />
+    <img src="/images/articles/koda-2-photogramme-1600.webp" width="1600" height="900" alt="Ooni Koda 2 gris vu de face, posé dehors, avec sa pierre visible" fetchpriority="high" />
+  </picture>
+  <figcaption>
+    <strong>Le Koda 2 vu de face.</strong> Photogramme utilisé avec l'autorisation de Pala Pizza. Source : <a href="https://www.youtube.com/watch?v=wPschLywLbI&t=8s">Pala Pizza, à 0:08</a>.
+  </figcaption>
+</figure>
 
 ## Ce qui est établi par le fabricant
 
@@ -86,6 +96,16 @@ difficile à chaud dans sa configuration
 ([EV-0201, à 1:29](https://www.youtube.com/watch?v=wPschLywLbI&t=89s)).
 Ces observations dépendent du geste, de la table et d'un seul exemplaire par
 source.
+
+<figure class="article-media">
+  <picture>
+    <source media="(max-width: 48rem)" srcset="/images/articles/koda-2-brosse-esquisse-960.webp" />
+    <img src="/images/articles/koda-2-brosse-esquisse-1600.webp" width="1600" height="900" alt="Esquisse de l'intérieur du Koda 2 montrant une brosse contrainte par la faible garde arrière" loading="lazy" />
+  </picture>
+  <figcaption>
+    <strong>Interprétation graphique de la garde arrière.</strong> Illustration assistée par IA d'après un photogramme de Pala Pizza, utilisé avec autorisation. Elle aide à situer l'observation et ne constitue pas une preuve de performance. Source : <a href="https://www.youtube.com/watch?v=wPschLywLbI&t=96s">Pala Pizza, à 1:36</a>.
+  </figcaption>
+</figure>
 
 ## Ce qui reste à vérifier
 

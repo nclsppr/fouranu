@@ -678,6 +678,12 @@ test("la preview sert une vraie 404 et stabilise les URL de referral", async () 
       font.headers.get("cache-control"),
       "public, max-age=31536000, immutable",
     );
+
+    const articleImage = await fetch(
+      `http://127.0.0.1:${port}/images/articles/koda-2-photogramme-960.webp`,
+    );
+    assert.equal(articleImage.status, 200);
+    assert.equal(articleImage.headers.get("content-type"), "image/webp");
   } finally {
     if (processHandle.exitCode === null) processHandle.kill("SIGTERM");
     await Promise.race([

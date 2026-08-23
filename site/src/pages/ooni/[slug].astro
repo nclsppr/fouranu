@@ -33,10 +33,12 @@ const canonical = new URL(`/ooni/${entry.id}/`, SITE.url).toString();
 const evidenceIds = [...new Set((entry.body ?? "").match(/\bEV-\d{4}\b/g) ?? [])];
 const words = (entry.body ?? "")
   .replace(/```[\s\S]*?```/g, " ")
+  .replace(/<[^>]*>/g, " ")
   .replace(/[#*_[\]()`>|-]/g, " ")
   .split(/\s+/)
   .filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(words / 220));
+const articleImage = new URL(entry.data.image ?? SITE.socialImage, SITE.url).toString();
 const typeLabels = {
   guide: "Guide d'achat",
   decision: "Comparatif par usage",
@@ -50,7 +52,9 @@ const schema = {
   url: canonical,
   headline: entry.data.title,
   description: entry.data.description,
-  image: new URL(SITE.socialImage, SITE.url).toString(),
+  image: articleImage,
+  wordCount: words,
+  timeRequired: `PT${readingMinutes}M`,
   datePublished: entry.data.publishedAt.toISOString(),
   dateModified: entry.data.updatedAt.toISOString(),
   inLanguage: SITE.language,

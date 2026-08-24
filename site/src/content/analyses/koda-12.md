@@ -1,95 +1,84 @@
 ---
 articleId: OONI-013
-title: "Ooni Koda 12 : dimensions, poids et format 30 cm"
-description: Le Koda 12 est annoncé pour 30 cm, avec un poids de 9,2 kg et une pierre de 10 mm. Les sources établissent ses dimensions, pas ses performances d'usage.
-summary: Le Koda 12 est un four à gaz annoncé pour 30 cm. Le corpus documente son format et son raccord, sans mesurer la chauffe, la marge de rotation ou la durabilité.
+brand: ooni
+title: "Ooni Koda 12 : dimensions, poids et limites"
+description: Le Koda 12 est un four à gaz compact pour pizza de 30 cm. Notre analyse porte sur son poids, son encombrement et les vérifications avant achat.
+summary: "Le Koda 12 va à l'essentiel : gaz, 30 cm et 9,2 kg. Nous le trouvons cohérent pour débuter si son petit format est une contrainte voulue."
 status: publishable
 type: model
 model: Ooni Koda 12
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+evidenceIds: [EV-0040, EV-0041, EV-0042, EV-0403]
 evidenceTypes:
   - FAB
+  - FAN-INF
 limitations:
-  - Les preuves rattachées à cette fiche sont uniquement des données et annonces fabricant.
-  - Le corpus ne mesure pas la montée en température, la récupération ou la consommation de gaz.
-  - Le format annoncé de 30 cm ne permet pas d'établir la marge disponible pour tourner une pizza.
-  - Les questions de panne, de réparation et de remplacement du dispositif de sécurité restent sans réponse documentée.
+  - Les preuves rattachées à cette fiche viennent uniquement du fabricant.
+  - Le corpus ne mesure pas la chauffe, la consommation ou la récupération.
+  - La compatibilité exacte du raccordement français doit être contrôlée avant achat.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Koda 12 est un four à gaz annoncé pour des pizzas de 30 cm. Ooni publie un
-poids de 9,2 kg, une pierre de 10 mm et des dimensions de 62 × 39 × 29 cm. Le
-corpus rattaché à cette fiche permet de vérifier ces caractéristiques. Il ne
-permet pas de juger la vitesse de chauffe réelle, la marge de rotation autour
-d'une pizza ou la durabilité du système gaz.
+Le Koda 12 est le choix simple de la gamme Ooni au gaz. Il accepte une pizza de
+30 cm, pèse 9,2 kg et évite la gestion du bois. Nous aimons cette franchise.
+Vous payez pour un four compact, pas pour une longue liste de fonctions.
 
-Cette page traite le Koda 12 seul. Pour situer son format dans la gamme, voir
-[quel four Ooni choisir](/ooni/quel-four-ooni-choisir/). La fiche du
-[Koda 16](/ooni/koda-16/) documente le modèle de 40 cm sans supposer que le
-format supérieur convient à tous les usages. Les codes de preuve sont définis
-dans [la méthode Four à Nu](/methode/).
+Ce petit format est aussi sa limite. Une pizza de 30 cm laisse peu de marge
+pour la pelle et les rotations. Pour deux personnes ou une cuisson occasionnelle,
+cela peut être exactement ce qu'il faut. Pour nourrir une grande tablée, nous
+regarderions d'abord le [Koda 16](/ooni/koda-16/) ou le
+[Koda 2](/ooni/koda-2/).
 
-## Ce qui est établi par le fabricant
+## Les caractéristiques utiles
 
-La [page française du Koda 12](https://eu.ooni.com/fr-fr/products/ooni-koda)
-le présente comme un four à gaz pour des pizzas de 30 cm, avec un poids de
-9,2 kg et une pierre de 10 mm (`EV-0040`).
+Le Koda 12 est annoncé pour une pizza de 30 cm. Il pèse 9,2 kg et utilise une
+pierre de 10 mm. Son raccordement dépend de la version régionale. Avant de
+commander, il faut donc vérifier le détendeur fourni et la bouteille réellement
+utilisée en France.
 
-Ooni affiche des dimensions de 62 × 39 × 29 cm. La même page précise un raccord
-fileté de 1/2 pouce conforme à l'exigence du régulateur NF français
-(`EV-0041`). Cette indication ne suffit pas à confirmer la compatibilité de
-chaque bouteille, détendeur ou installation.
+Le fabricant annonce 500 °C en 15 minutes et une pizza en 60 secondes. Ces
+chiffres décrivent une capacité visée, pas le déroulé garanti de votre première
+soirée. La température ambiante, le vent, le point mesuré sur la pierre et la
+pâte changent beaucoup le résultat.
 
-Le fabricant annonce 500 °C en 15 minutes et une pizza de 30 cm en 60 secondes
-(`EV-0042`). Le registre classe ces valeurs comme des annonces fabricant. Il ne
-les transforme pas en mesures de référence.
+## Ce que son petit format change vraiment
 
-Ooni est à la fois le fabricant du four et l'éditeur des trois sources citées
-dans cette section. Aucun passage tiers n'est rattaché à cette fiche.
+Le principal avantage n'est pas la vitesse. C'est la facilité de rangement et
+de manutention. À 9,2 kg, le four reste transportable par une personne. Il faut
+tout de même une table stable, incombustible et assez profonde pour que le tuyau
+de gaz ne soit jamais pincé.
 
-## Questions d'achat rattachées au modèle
+La contrepartie apparaît au moment d'enfourner. Avec 30 cm annoncés, mieux vaut
+préparer des pizzas légèrement plus petites. Cette marge facilite la rotation
+et réduit le risque de pousser la garniture vers la flamme. À nos yeux, viser
+28 cm est plus raisonnable que d'exploiter chaque millimètre disponible.
 
-Deux questions comparent le Koda 12 au Koda 16. Elles portent sur le surcoût du
-grand format et sur les différences perceptibles pendant la cuisson
-([Q-0001 et Q-0002](https://www.reddit.com/r/ooni/comments/1unwo9l/koda_12_vs_koda_16_advice/)).
-Le registre ne contient ni prix daté ni protocole commun permettant d'y répondre
-par un verdict.
+## Pour qui nous le conseillerions
 
-Deux autres questions demandent si le format de 30 cm laisse assez de place
-pour une pizza courante et pour la tourner confortablement
-([Q-0010 et Q-0011](https://www.reddit.com/r/ooni/comments/pra7vh/)). La taille
-maximale annoncée ne décrit pas cette marge de manoeuvre. Le corpus ne fournit
-aucune observation de lancement ou de rotation pour la quantifier.
+Le Koda 12 a du sens pour une première installation extérieure, un couple ou
+une petite famille qui préfère cuire les pizzas une par une. Il convient aussi
+à quelqu'un qui doit ranger le four après chaque usage.
 
-Enfin, une discussion porte sur le choix entre réparation, rachat ou changement
-de modèle après une panne, ainsi que sur le remplacement d'un thermocouple ou
-d'un dispositif de sécurité de flamme
-([Q-0005 et Q-0007](https://www.reddit.com/r/ooni/comments/1tybsoi/what_upgrade_to_get/)).
-Ces questions signalent un besoin d'information. Elles ne prouvent ni une panne
-fréquente ni la réparabilité de la pièce.
+Nous l'écarterions si vous voulez cuire de grandes pizzas, utiliser une poêle
+large ou servir beaucoup de monde avec peu d'attente. Dans ces cas, le prix plus
+bas peut être une fausse économie. Le bon comparatif n'est pas seulement le prix
+du four, mais le nombre de fournées et les gestes que son ouverture impose.
 
-## Ce que le corpus ne permet pas de conclure
+## À vérifier avant l'achat
 
-Les trois preuves rattachées au Koda 12 portent la classe `FAB`. Elles
-établissent les caractéristiques publiées par Ooni, mais ne mesurent pas :
+- La profondeur de la table et les dégagements autour du four.
+- Le type de bouteille, le détendeur et le tuyau livrés pour la France.
+- Le diamètre de votre pelle, idéalement inférieur à l'ouverture utile.
+- La place nécessaire pour ranger la bouteille et la housse.
+- Le nombre de pizzas prévu pendant une soirée normale.
 
-- la température de la sole à des points et instants définis ;
-- la récupération entre plusieurs pizzas identiques ;
-- la consommation de gaz sur une session ;
-- l'uniformité liée au brûleur ;
-- la fréquence des pannes ou la facilité de réparation ;
-- la place réellement disponible pour lancer et tourner une pizza.
+## Ce que nous ne savons pas encore
 
-Le poids et les dimensions aident à vérifier un emplacement brut. Ils ne
-définissent pas la surface de travail, les dégagements de sécurité ou
-l'installation gaz complète.
-
-## Limites de cette fiche
-
-Cette fiche peut répondre au format annoncé, au poids, à l'épaisseur de pierre,
-aux dimensions publiées et au type de raccord. Elle ne peut pas départager le
-Koda 12 et le Koda 16 sur la cuisson, le coût complet ou la durée de vie. Ces
-comparaisons exigent des données compatibles que le registre ne fournit pas.
+Le corpus actuel ne contient aucune mesure tierce rattachée à ce modèle. Nous
+ne fixons donc ni temps de chauffe réaliste, ni consommation, ni débit sur une
+série de pizzas. Le Koda 12 paraît cohérent par sa simplicité et son poids.
+Cela reste un jugement d'usage fondé sur ses caractéristiques, pas un résultat
+de test.

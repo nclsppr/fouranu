@@ -1,84 +1,95 @@
 ---
 articleId: OONI-017
+brand: ooni
 title: "Ooni Karu 12 : bois, charbon, gaz et dimensions"
-description: Le Karu 12 accepte bois, charbon et un brûleur propane séparé. Les sources établissent son format de 30 cm, son poids et ses dimensions.
-summary: Le Karu 12 est annoncé pour 30 cm avec bois, charbon ou propane via un brûleur séparé. Le corpus ne mesure pas sa chauffe ni sa consommation.
+description: Le Karu 12 accepte bois, charbon et un brûleur propane séparé. Notre analyse de son format 30 cm, de son poids et de ses limites.
+summary: Le Karu 12 reste séduisant si vous voulez apprendre à gérer un vrai feu dans un petit four. Son prix caché est le temps passé au combustible et au nettoyage.
 status: publishable
 type: model
 model: Ooni Karu 12
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+evidenceIds: [EV-0080, EV-0081, EV-0082, EV-0400]
 evidenceTypes:
   - FAB
+  - FAN-INF
 limitations:
-  - Les preuves rattachées à cette fiche sont uniquement des données et annonces fabricant.
+  - Les preuves rattachées à cette fiche viennent uniquement du fabricant.
   - Le corpus ne mesure pas la montée en température avec un combustible défini.
   - La consommation, la récupération et le débit sur plusieurs pizzas ne sont pas documentés.
   - Le passage entre combustibles et l'entretien associé ne sont pas observés.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Karu 12 de première génération accepte le bois et le charbon. Un brûleur
-vendu séparément permet aussi d'utiliser le propane. Ooni l'annonce pour des
-pizzas de 30 cm, avec un poids de 12 kg, une pierre de 15 mm et des dimensions
-de 80 × 40 × 77 cm. Le corpus établit ces caractéristiques, mais pas un temps de
-chauffe, une consommation ou un avantage pratique propre à un combustible.
+Le Karu 12 est le petit Ooni que nous regarderions si le plaisir de nourrir un
+feu compte presque autant que la pizza. Il accepte le bois et le charbon. Un
+brûleur vendu séparément permet aussi de passer au propane. Cette souplesse est
+réelle, mais elle ne rend pas le four simple par magie.
 
-Cette fiche traite le Karu 12 seul. Pour comparer les contraintes du gaz, de
-l'électricité et des combustibles solides, voir
-[Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/).
-La fiche du [Karu 2](/ooni/karu-2/) documente ce modèle séparément, sans
-présumer d'une équivalence entre les deux. Les codes de preuve sont définis dans
-[la méthode Four à Nu](/methode/).
+Son format annoncé de 30 cm et son poids de 12 kg restent raisonnables pour une
+terrasse. En revanche, la cheminée, le combustible et les gestes autour du four
+réclament plus de place qu'une simple fiche de dimensions ne le laisse penser.
+Si votre priorité est d'allumer, régler une molette et cuire, un modèle au gaz
+sera plus cohérent. Notre dossier
+[gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/)
+va droit au problème.
 
-## Ce qui est établi par le fabricant
+## Ce que l'on sait vraiment
 
-La [page française du Karu 12](https://eu.ooni.com/fr-fr/products/ooni-karu)
-indique une alimentation au bois et au charbon. Le propane demande un brûleur
-vendu séparément. Le diamètre de pizza annoncé est de 30 cm (`EV-0080`).
+Le Karu 12 est prévu pour des pizzas de 30 cm. Il pèse 12 kg, reçoit une pierre
+de 15 mm et mesure 80 × 40 × 77 cm selon les caractéristiques publiées. Le bois
+et le charbon sont acceptés d'origine. Le propane demande un brûleur distinct.
 
-Ooni affiche un poids de 12 kg, une pierre de 15 mm et des dimensions de
-80 × 40 × 77 cm (`EV-0081`). Ces dimensions ne précisent pas à elles seules la
-surface de travail, les dégagements de sécurité ou la place nécessaire à la
-manipulation du combustible.
+La température maximale annoncée atteint 500 °C, avec 450 °C en 15 minutes et
+une pizza en 60 secondes. Nous ne prendrions pas ces trois chiffres comme une
+promesse de résultat à la maison. Ils ne décrivent ni la quantité de bois, ni
+la météo, ni le point de mesure, ni la pâte utilisée.
 
-Le fabricant annonce 450 °C en 15 minutes, une température maximale de 500 °C
-et une pizza en 60 secondes (`EV-0082`). Le registre conserve ces valeurs comme
-des annonces fabricant. Elles ne constituent pas un protocole mesuré pour le
-bois, le charbon ou le propane.
+| Donnée utile | Valeur publiée | Ce qu'elle ne dit pas |
+| --- | --- | --- |
+| Pizza | 30 cm | La marge pour tourner la pizza |
+| Poids | 12 kg | Le poids du brûleur, du combustible et des outils |
+| Pierre | 15 mm | La récupération entre plusieurs pizzas |
+| Dimensions | 80 × 40 × 77 cm | Les dégagements de sécurité et la zone de travail |
 
-Ooni est à la fois le fabricant du Karu 12 et l'éditeur des trois sources
-rattachées à cette fiche. Le corpus ne relie aucune mesure ou observation
-tierce à cet article.
+## Le vrai choix est celui du combustible
 
-## Ce que les caractéristiques permettent de distinguer
+Sur le papier, trois combustibles valent mieux qu'un. Dans la pratique, vous
+n'en utiliserez probablement qu'un la plupart du temps. Le bois et le charbon
+demandent de préparer le feu, de surveiller sa vigueur et de gérer les résidus.
+Le propane retire une partie de ce rituel, mais ajoute un accessoire et son
+raccordement.
 
-Le registre permet d'identifier trois contraintes concrètes :
+Notre conseil est assez net. N'achetez pas le Karu 12 uniquement parce qu'il
+est polyvalent. Achetez-le si vous avez envie de pratiquer la cuisson au feu.
+La polyvalence devient alors un filet de sécurité utile. Sans cette envie, elle
+risque surtout de devenir une fonction payée puis rarement utilisée.
 
-- le format de pizza annoncé est de 30 cm ;
-- l'usage du propane ajoute un brûleur séparé ;
-- le poids publié est de 12 kg et l'encombrement publié de 80 × 40 × 77 cm.
+## Pour qui le Karu 12 a du sens
 
-Ces éléments décrivent la compatibilité matérielle et l'encombrement. Ils ne
-permettent pas de choisir un combustible selon le goût, la rapidité, le coût ou
-la facilité d'entretien. Aucun de ces critères n'est mesuré dans les preuves
-rattachées.
+Nous le retiendrions pour une personne qui veut rester sur un format compact,
+qui dispose d'un espace extérieur adapté et qui accepte une petite courbe
+d'apprentissage. Il peut aussi convenir si le choix du combustible n'est pas
+encore tranché et que le brûleur au gaz reste une option crédible plus tard.
 
-## Ce qui reste à vérifier
+Nous l'écarterions pour une cuisine intérieure, pour une terrasse très serrée
+ou pour quelqu'un qui veut enchaîner les pizzas sans surveiller un feu. Le
+[Karu 2](/ooni/karu-2/) mérite aussi d'être regardé avant l'achat.
 
-- la masse et la fréquence d'ajout du bois ou du charbon ;
-- le temps de chauffe avec une cible et des points de mesure fixes ;
-- la consommation au propane avec le brûleur séparé ;
-- la récupération de la sole entre plusieurs pizzas identiques ;
-- le geste et la durée nécessaires pour changer de configuration ;
-- les résidus, le nettoyage et l'entretien selon le combustible ;
-- les dégagements nécessaires autour du four et de sa cheminée.
+## Les questions à régler avant de payer
 
-## Limites de cette fiche
+- Où seront stockés le bois ou le charbon, au sec et loin de la chaleur ?
+- La table laisse-t-elle assez de place à la cheminée et aux gestes de service ?
+- Le brûleur propane, le détendeur et la housse sont-ils inclus dans votre budget ?
+- Combien de pizzas voulez-vous cuire à la suite ?
+- Êtes-vous prêt à nettoyer les cendres après la soirée ?
 
-Les trois preuves disponibles sont de classe `FAB`. Cette fiche peut donc
-documenter les combustibles annoncés, le format, le poids, la pierre et les
-dimensions publiées. Elle ne peut pas qualifier la performance, la simplicité
-d'usage ou le coût total du Karu 12.
+## Ce que nous ne tranchons pas
+
+Nous n'avons pas de mesure tierce exploitable pour fixer un temps de chauffe,
+une consommation ou une récupération de sole. Nous refusons donc de vendre le
+Karu 12 comme le champion du bois ou comme un four particulièrement rapide.
+Cette fiche établit son format et ses contraintes. La performance reste à
+documenter.

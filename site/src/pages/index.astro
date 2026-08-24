@@ -7,17 +7,44 @@ import { SITE } from "@/config/site";
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.status === "publishable")
   .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
-const lead = analyses.find((entry) => entry.id === "quel-four-ooni-choisir");
-const energyGuide = analyses.find((entry) => entry.id === "gaz-electrique-ou-multicombustible");
-const models = analyses.filter((entry) => entry.data.type === "model");
-const modelDateFormatter = new Intl.DateTimeFormat("fr-FR", {
+const lead = analyses.find(
+  (entry) => entry.data.brand === "ooni" && entry.id === "quel-four-ooni-choisir",
+);
+const energyGuide = analyses.find(
+  (entry) => entry.data.brand === "ooni" && entry.id === "gaz-electrique-ou-multicombustible",
+);
+const models = analyses.filter(
+  (entry) => entry.data.brand === "ooni" && entry.data.type === "model",
+);
+const featuredModelIds = ["koda-2", "volt-2", "karu-2", "koda-2-max"];
+const featuredModels = featuredModelIds
+  .map((id) => models.find((entry) => entry.id === id))
+  .filter((entry) => entry !== undefined);
+const remainingModels = models.filter(
+  (entry) => !featuredModelIds.includes(entry.id),
+);
+const citedEvidenceCount = new Set(
+  analyses.flatMap((entry) => entry.data.evidenceIds),
+).size;
+const latestUpdate = new Date(
+  Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
+);
+const shortDateFormatter = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
   month: "2-digit",
   year: "numeric",
   timeZone: "UTC",
 });
+const longDateFormatter = new Intl.DateTimeFormat("fr-FR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
-if (!lead || !energyGuide) throw new Error("Les deux guides Ooni principaux sont requis.");
+if (!lead || !energyGuide || featuredModels.length !== featuredModelIds.length) {
+  throw new Error("Les dossiers mis en avant sur l'accueil sont requis.");
+}
 
 const schema = {
   "@context": "https://schema.org",
@@ -47,127 +74,213 @@ const schema = {
 ---
 
 <BaseLayout indexable={true} schema={schema}>
-  <section class="hero page-shell">
-    <div class="hero__copy">
-      <p class="eyebrow">Guide indépendant des fours à pizza</p>
-      <h1>Choisir un four à pizza, <span>sans cuire les sources.</span></h1>
-      <p class="hero__lede">
-        Four à Nu confronte les fiches fabricant, les mesures publiées et les
-        retours d'usage pour répondre aux vraies questions d'achat. Chaque
-        affirmation importante garde son auteur, sa date et ses limites.
-      </p>
-      <div class="hero__actions">
-        <a class="button-link" href="/ooni/quel-four-ooni-choisir/">Choisir un Ooni</a>
-        <a class="button-link button-link--quiet" href="/fours-a-pizza/">Partir de mon usage</a>
+  <section class="editorial-hero page-shell" aria-labelledby="home-title">
+    <article class="lead-feature">
+      <div class="lead-feature__copy">
+        <p class="feature-kicker">Guide d'achat · analyse documentaire</p>
+        <h1 id="home-title">{lead.data.title}</h1>
+        <p class="lead-feature__summary">{lead.data.summary}</p>
+        <div class="lead-feature__filters" aria-label="Les premiers critères du guide">
+          <span>Lieu</span>
+          <span>Énergie</span>
+          <span>Format</span>
+          <span>Poids</span>
+        </div>
+        <a class="feature-action" href={`/${lead.data.brand}/${lead.id}/`}>
+          Lire le guide
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
-    </div>
 
-    <figure class="hero-visual">
-      <picture>
-        <source
-          srcset="/media/homepage-atelier-sketch-768.webp 768w, /media/homepage-atelier-sketch-1536.webp 1536w"
-          sizes="(max-width: 768px) 100vw, 52vw"
-          type="image/webp"
-        />
-        <img
-          src="/media/homepage-atelier-sketch-1536.webp"
-          alt="Croquis architectural d'un four à pizza contemporain posé sur une table métallique"
-          width="1536"
-          height="1024"
-          fetchpriority="high"
-        />
-      </picture>
-      <figcaption>
-        Illustration originale assistée par IA, direction Four à Nu. Elle
-        installe l'univers visuel et ne constitue pas une preuve produit.
-      </figcaption>
-    </figure>
-  </section>
+      <figure class="lead-feature__visual">
+        <picture>
+          <source
+            srcset="/media/homepage-atelier-sketch-768.webp 768w, /media/homepage-atelier-sketch-1536.webp 1536w"
+            sizes="(max-width: 768px) 100vw, 42vw"
+            type="image/webp"
+          />
+          <img
+            src="/media/homepage-atelier-sketch-1536.webp"
+            alt="Croquis architectural d'un four à pizza contemporain posé sur une table métallique"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
+          />
+        </picture>
+        <figcaption>
+          Illustration originale assistée par IA. Elle situe le sujet et ne
+          constitue pas une preuve produit.
+        </figcaption>
+      </figure>
+    </article>
 
-  <section class="front-page page-shell" aria-labelledby="front-page-title">
-    <header class="section-heading">
-      <div>
-        <p class="eyebrow">À la une</p>
-        <h2 id="front-page-title">Les deux décisions qui réduisent vraiment la gamme.</h2>
-      </div>
-      <p>Commencez par le lieu et l'énergie. Le diamètre, le poids et le débit viennent ensuite.</p>
-    </header>
-
-    <div class="front-page__grid">
-      <a class="lead-story" href={`/ooni/${lead.id}/`}>
-        <span class="story-kicker">Guide d'achat · Ooni</span>
-        <h3>{lead.data.title}</h3>
-        <p>{lead.data.summary}</p>
-        <span class="story-link">Lire le guide <span aria-hidden="true">→</span></span>
-      </a>
-
-      <a class="secondary-story" href={`/ooni/${energyGuide.id}/`}>
-        <span class="story-kicker">Comparatif par usage</span>
-        <h3>{energyGuide.data.title}</h3>
+    <div class="hero-side">
+      <a class="side-story" href={`/${energyGuide.data.brand}/${energyGuide.id}/`}>
+        <span class="side-story__meta">Comparatif par usage · 01</span>
+        <h2>{energyGuide.data.title}</h2>
         <p>{energyGuide.data.summary}</p>
-        <span class="story-link">Comparer les énergies <span aria-hidden="true">→</span></span>
+        <span class="side-story__link">Comparer les énergies <span aria-hidden="true">→</span></span>
       </a>
 
-      <aside class="front-page__method">
-        <p class="eyebrow">Notre différence</p>
-        <h3>La source reste visible jusqu'à la conclusion.</h3>
-        <p>Les protocoles incompatibles ne sont pas moyennés. Les prêts, affiliations et collaborations connus restent attachés à chaque observation.</p>
-        <a href="/methode/">Lire la méthode éditoriale</a>
-      </aside>
+      <a class="side-story side-story--dark" href="/fours-a-pizza/">
+        <span class="side-story__meta">Guide de choix · 02</span>
+        <h2>Quel four selon votre espace et votre façon de cuire&nbsp;?</h2>
+        <p>Commencez par les contraintes réelles, avant la marque et les promesses de vitesse.</p>
+        <span class="side-story__link">Partir de votre usage <span aria-hidden="true">→</span></span>
+      </a>
     </div>
   </section>
 
-  <section class="model-desk page-shell" aria-labelledby="model-desk-title">
-    <header class="section-heading section-heading--compact">
-      <div>
-        <p class="eyebrow">Dossiers Ooni</p>
-        <h2 id="model-desk-title">Neuf modèles, neuf contraintes distinctes.</h2>
-      </div>
-      <a href="/ooni/">Voir toute la gamme Ooni</a>
+  <section class="corpus-strip page-shell" aria-label="État du corpus Four à Nu">
+    <div>
+      <strong>{analyses.length}</strong>
+      <span>dossiers documentaires</span>
+    </div>
+    <div>
+      <strong>{citedEvidenceCount}</strong>
+      <span>éléments de preuve cités</span>
+    </div>
+    <div>
+      <strong>Sans note</strong>
+      <span>les protocoles restent séparés</span>
+    </div>
+    <div>
+      <strong>{longDateFormatter.format(latestUpdate)}</strong>
+      <span>dernière mise à jour du corpus</span>
+    </div>
+  </section>
+
+  <section class="featured-dossiers page-shell" aria-labelledby="featured-title">
+    <header class="section-bar">
+      <h2 id="featured-title">Dossiers modèles</h2>
+      <a href="/ooni/">Voir les neuf modèles Ooni <span aria-hidden="true">→</span></a>
     </header>
 
-    <div class="model-list">
-      {models.map((entry, index) => (
-        <a href={`/ooni/${entry.id}/`}>
-          <span class="model-list__index">{String(index + 1).padStart(2, "0")}</span>
-          <span>
-            <strong>{entry.data.title}</strong>
-            <small>{entry.data.summary}</small>
+    <div class="dossier-grid">
+      {featuredModels.map((entry, index) => (
+        <a class="dossier-card" href={`/${entry.data.brand}/${entry.id}/`}>
+          <span class="dossier-card__index">{String(index + 1).padStart(2, "0")}</span>
+          <span class="dossier-card__type">Analyse documentaire</span>
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.summary}</p>
+          <span class="dossier-card__date">
+            Mis à jour le {shortDateFormatter.format(entry.data.updatedAt)}
           </span>
-          <span class="model-list__meta">Mis à jour le {modelDateFormatter.format(entry.data.updatedAt)}</span>
-          <span aria-hidden="true">↗</span>
+          <span class="dossier-card__link">Lire <span aria-hidden="true">→</span></span>
         </a>
       ))}
     </div>
   </section>
 
-  <section class="choice-map">
-    <div class="page-shell choice-map__grid">
-      <div>
-        <p class="eyebrow">Choisir par contrainte</p>
-        <h2>Le bon point de départ n'est pas toujours une marque.</h2>
+  <section class="choice-guide">
+    <div class="page-shell choice-guide__grid">
+      <div class="choice-guide__intro">
+        <p class="feature-kicker">Guide d'achat</p>
+        <h2>Le bon four commence par quatre contraintes.</h2>
+        <p>
+          Le lieu autorisé et l'énergie réduisent la gamme. Le débit et le coût
+          complet départagent ensuite les options qui restent.
+        </p>
+        <a href="/fours-a-pizza/">Ouvrir le guide de choix <span aria-hidden="true">→</span></a>
       </div>
+
       <nav aria-label="Choisir un four à pizza par contrainte">
-        <a href="/fours-a-pizza/#lieu"><span>01</span><strong>Lieu</strong><small>Intérieur, balcon, terrasse ou jardin</small></a>
-        <a href="/fours-a-pizza/#energie"><span>02</span><strong>Énergie</strong><small>Électrique, gaz, bois ou charbon</small></a>
-        <a href="/fours-a-pizza/#debit"><span>03</span><strong>Débit</strong><small>Une pizza ou une série pour les invités</small></a>
-        <a href="/fours-a-pizza/#cout"><span>04</span><strong>Coût complet</strong><small>Four, table, pelle, énergie et entretien</small></a>
+        <a href="/fours-a-pizza/#lieu">
+          <span>01</span>
+          <strong>Lieu</strong>
+          <small>Intérieur, balcon, terrasse ou jardin</small>
+          <b aria-hidden="true">→</b>
+        </a>
+        <a href="/fours-a-pizza/#energie">
+          <span>02</span>
+          <strong>Énergie</strong>
+          <small>Électrique, gaz, bois ou charbon</small>
+          <b aria-hidden="true">→</b>
+        </a>
+        <a href="/fours-a-pizza/#debit">
+          <span>03</span>
+          <strong>Débit</strong>
+          <small>Une pizza ou une série pour les invités</small>
+          <b aria-hidden="true">→</b>
+        </a>
+        <a href="/fours-a-pizza/#cout">
+          <span>04</span>
+          <strong>Coût complet</strong>
+          <small>Four, table, pelle, énergie et entretien</small>
+          <b aria-hidden="true">→</b>
+        </a>
       </nav>
     </div>
   </section>
 
-  <section class="trust-strip page-shell" aria-labelledby="trust-title">
-    <div>
-      <p class="eyebrow">Pourquoi faire confiance à Four à Nu</p>
-      <h2 id="trust-title">Une méthode conçue pour être vérifiée.</h2>
+  <section class="reading-desk page-shell" aria-labelledby="reading-title">
+    <div class="reading-desk__list">
+      <header class="section-bar">
+        <h2 id="reading-title">À parcourir ensuite</h2>
+        <a href="/ooni/">Tous les dossiers <span aria-hidden="true">→</span></a>
+      </header>
+
+      <div class="compact-list">
+        {remainingModels.map((entry) => (
+          <a href={`/${entry.data.brand}/${entry.id}/`}>
+            <span>
+              <strong>{entry.data.title}</strong>
+              <small>{entry.data.summary}</small>
+            </span>
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
     </div>
-    <div class="trust-strip__proofs">
-      <div><ProofLabel code="FAB" /><p>Une annonce reste attribuée au fabricant.</p></div>
-      <div><ProofLabel code="T-MES" /><p>Une mesure tierce conserve ses conditions et son timecode.</p></div>
-      <div><ProofLabel code="T-OBS" /><p>Une observation reste limitée à la session publiée.</p></div>
-      <div><ProofLabel code="FAN-INF" /><p>Une inférence éditoriale expose ses prémisses et son incertitude.</p></div>
+
+    <aside class="rss-panel">
+      <p class="feature-kicker">Suivre Four à Nu</p>
+      <h2>Les nouveaux dossiers, sans boîte mail à remplir.</h2>
+      <p>
+        Le flux RSS publie les analyses dès qu'elles rejoignent le corpus.
+        Aucun formulaire, aucune promesse de fréquence.
+      </p>
+      <a class="feature-action" href="/rss.xml">
+        Ouvrir le flux RSS
+        <span aria-hidden="true">↗</span>
+      </a>
+      <small>Compatible avec votre lecteur RSS habituel.</small>
+    </aside>
+  </section>
+
+  <section class="method-strip page-shell" aria-labelledby="method-title">
+    <header class="section-bar">
+      <div>
+        <p class="feature-kicker">La méthode Four à Nu</p>
+        <h2 id="method-title">La source reste visible jusqu'à la conclusion.</h2>
+      </div>
+      <a href="/methode/">Lire le protocole éditorial <span aria-hidden="true">→</span></a>
+    </header>
+
+    <div class="method-grid">
+      <div>
+        <ProofLabel code="FAB" />
+        <h3>Le fabricant parle en son nom.</h3>
+        <p>Une dimension ou une promesse commerciale reste attribuée à sa fiche d'origine.</p>
+      </div>
+      <div>
+        <ProofLabel code="T-MES" />
+        <h3>Une mesure garde ses conditions.</h3>
+        <p>Le point de relevé, la météo, la durée et le protocole ne disparaissent pas.</p>
+      </div>
+      <div>
+        <ProofLabel code="T-OBS" />
+        <h3>Une observation reste limitée.</h3>
+        <p>Une cuisson publiée ne devient pas une vérité générale ni un test Four à Nu.</p>
+      </div>
+      <div>
+        <ProofLabel code="FAN-INF" />
+        <h3>Notre conclusion montre ses prémisses.</h3>
+        <p>L'incertitude et les conflits du corpus restent à côté de la recommandation.</p>
+      </div>
     </div>
-    <nav aria-label="Pages de confiance">
+
+    <nav class="trust-links" aria-label="Pages de confiance">
       <a href="/auteurs/redaction-four-a-nu/">La rédaction</a>
       <a href="/methode/">La méthode</a>
       <a href="/transparence/">La transparence commerciale</a>
@@ -177,410 +290,694 @@ const schema = {
 </BaseLayout>
 
 <style>
-  .hero {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.5rem;
-    align-items: center;
-    padding-block: clamp(3.5rem, 7vw, 7rem) clamp(2rem, 5vw, 4rem);
-  }
-
-  .hero__copy {
-    grid-column: 1 / span 6;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero h1 {
-    max-width: 10ch;
-    margin-bottom: 1.6rem;
-    font-size: clamp(4rem, 7.6vw, 7rem);
-    line-height: 0.89;
-    letter-spacing: -0.045em;
-  }
-
-  .hero h1 span {
-    color: var(--color-probe);
-  }
-
-  .hero__lede {
-    max-width: 42rem;
-    color: var(--color-graphite);
-    font-size: clamp(1.08rem, 1.8vw, 1.28rem);
-    line-height: 1.62;
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 2rem;
-  }
-
-  .hero-visual {
-    grid-column: 7 / -1;
-    margin: 0;
-    min-width: 0;
-  }
-
-  .hero-visual img {
-    width: 100%;
-    height: auto;
-  }
-
-  .hero-visual figcaption {
-    max-width: 38rem;
-    margin-top: 0.75rem;
-    padding-top: 0.65rem;
-    border-top: 1px solid var(--color-line);
-    color: var(--color-graphite);
-    font-family: var(--font-data);
-    font-size: 0.64rem;
-    line-height: 1.55;
-    text-transform: uppercase;
-  }
-
-  .front-page,
-  .model-desk,
-  .trust-strip {
-    padding-block: clamp(4.5rem, 9vw, 8rem);
-    border-top: 1px solid var(--color-carbon);
-  }
-
-  .section-heading {
-    display: grid;
-    grid-template-columns: 7fr 4fr;
-    gap: 3rem;
-    align-items: end;
-    margin-bottom: 3rem;
-  }
-
-  .section-heading h2 {
-    max-width: 15ch;
-    margin: 0;
-    font-size: clamp(3rem, 5.5vw, 5.4rem);
-    line-height: 0.96;
-  }
-
-  .section-heading > p,
-  .section-heading > a {
-    max-width: 34rem;
-    margin: 0;
-    color: var(--color-graphite);
-    line-height: 1.65;
-  }
-
-  .section-heading > a {
-    color: var(--color-probe);
-    font-weight: 600;
-  }
-
-  .front-page__grid {
-    display: grid;
-    grid-template-columns: 6fr 3fr 3fr;
-    border-top: 1px solid var(--color-line);
-  }
-
-  .lead-story,
-  .secondary-story,
-  .front-page__method {
-    display: flex;
-    min-height: 26rem;
-    flex-direction: column;
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    border-right: 1px solid var(--color-line);
-    text-decoration: none;
-  }
-
-  .front-page__method {
-    border-right: 0;
-  }
-
-  .story-kicker {
-    color: var(--color-probe);
+  .feature-kicker,
+  .side-story__meta,
+  .dossier-card__type,
+  .dossier-card__date {
     font-family: var(--font-data);
     font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
-  .lead-story h3,
-  .secondary-story h3,
-  .front-page__method h3 {
-    margin: auto 0 1rem;
-    font-size: clamp(2rem, 3.4vw, 3.8rem);
-    line-height: 0.98;
-  }
-
-  .secondary-story h3,
-  .front-page__method h3 {
-    font-size: clamp(1.7rem, 2.4vw, 2.5rem);
-  }
-
-  .lead-story p,
-  .secondary-story p,
-  .front-page__method p {
-    color: var(--color-graphite);
-    line-height: 1.6;
-  }
-
-  .story-link,
-  .front-page__method a {
-    color: var(--color-probe);
-    font-weight: 600;
-  }
-
-  .lead-story:hover h3,
-  .secondary-story:hover h3 {
-    color: var(--color-probe);
-  }
-
-  .section-heading--compact h2 {
-    max-width: 17ch;
-  }
-
-  .model-list {
-    border-top: 1px solid var(--color-line);
-  }
-
-  .model-list a {
+  .editorial-hero {
     display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr) 12rem auto;
-    gap: 1rem;
-    align-items: center;
-    min-height: 7.4rem;
-    border-bottom: 1px solid var(--color-line);
-    text-decoration: none;
+    grid-template-columns: minmax(0, 8fr) minmax(18rem, 4fr);
+    gap: 0.75rem;
+    padding-block: 1.5rem 2rem;
   }
 
-  .model-list__index,
-  .model-list__meta {
-    color: var(--color-graphite);
-    font-family: var(--font-data);
-    font-size: 0.66rem;
-    text-transform: uppercase;
-  }
-
-  .model-list strong {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
-    line-height: 1;
-  }
-
-  .model-list small {
-    display: block;
-    max-width: 52rem;
-    color: var(--color-graphite);
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
-
-  .model-list a:hover strong,
-  .model-list a:hover > span:last-child {
-    color: var(--color-probe);
-  }
-
-  .choice-map {
+  .lead-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    min-height: 34rem;
+    overflow: hidden;
     color: var(--color-white);
     background: var(--color-carbon);
   }
 
-  .choice-map__grid {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: clamp(3rem, 8vw, 8rem);
-    padding-block: clamp(5rem, 9vw, 8rem);
+  .lead-feature__copy {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(2rem, 4vw, 3.5rem);
   }
 
-  .choice-map .eyebrow {
+  .lead-feature .feature-kicker,
+  .choice-guide .feature-kicker,
+  .rss-panel .feature-kicker {
     color: var(--color-reading);
   }
 
-  .choice-map h2 {
-    max-width: 11ch;
-    margin: 0;
-    font-size: clamp(3.2rem, 5.8vw, 5.8rem);
-    line-height: 0.94;
+  .lead-feature h1 {
+    max-width: 10ch;
+    margin: auto 0 1.25rem;
+    font-size: clamp(3.4rem, 5.2vw, 5.4rem);
+    line-height: 0.91;
+    letter-spacing: -0.045em;
   }
 
-  .choice-map nav {
-    border-top: 1px solid var(--color-graphite);
-  }
-
-  .choice-map nav a {
-    display: grid;
-    grid-template-columns: 2.5rem 8rem 1fr;
-    gap: 1rem;
-    align-items: baseline;
-    min-height: 5.5rem;
-    padding-block: 1rem;
-    border-bottom: 1px solid var(--color-graphite);
-    text-decoration: none;
-  }
-
-  .choice-map nav span,
-  .choice-map nav small {
+  .lead-feature__summary {
+    max-width: 38rem;
     color: var(--color-carbon-muted);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .lead-feature__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .lead-feature__filters span {
+    min-height: 2rem;
+    padding: 0.42rem 0.58rem;
+    border: 1px solid var(--color-carbon-line);
     font-family: var(--font-data);
-    font-size: 0.68rem;
-    line-height: 1.5;
+    font-size: 0.64rem;
     text-transform: uppercase;
   }
 
-  .choice-map nav strong {
+  .feature-action {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    color: var(--color-white);
+    background: var(--color-probe);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 160ms ease-out, background 160ms ease-out, transform 160ms ease-out;
+  }
+
+  .feature-action:hover {
+    color: var(--color-carbon);
+    background: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  .lead-feature__visual {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 1.5rem 1.5rem 1rem 0;
+  }
+
+  .lead-feature__visual picture {
+    margin-block: auto;
+  }
+
+  .lead-feature__visual img {
+    width: 100%;
+    height: auto;
+    filter: invert(1) grayscale(1) contrast(1.15);
+    mix-blend-mode: screen;
+  }
+
+  .lead-feature__visual figcaption {
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-carbon-line);
+    color: var(--color-carbon-muted);
+    font-family: var(--font-data);
+    font-size: 0.62rem;
+    line-height: 1.55;
+    text-transform: uppercase;
+  }
+
+  .hero-side {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .side-story {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid var(--color-line);
+    background: var(--color-steel-soft);
+    text-decoration: none;
+    transition: border-color 160ms ease-out, transform 160ms ease-out;
+  }
+
+  .side-story:hover {
+    border-color: var(--color-probe);
+    transform: translateY(-2px);
+  }
+
+  .side-story__meta {
+    color: var(--color-probe);
+  }
+
+  .side-story h2 {
+    max-width: 13ch;
+    margin: auto 0 0.75rem;
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 0.96;
+  }
+
+  .side-story p {
+    color: var(--color-graphite);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .side-story__link {
+    margin-top: auto;
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  .side-story--dark {
+    color: var(--color-white);
+    border-color: var(--color-carbon);
+    background: var(--color-carbon);
+  }
+
+  .side-story--dark .side-story__meta,
+  .side-story--dark .side-story__link {
+    color: var(--color-reading);
+  }
+
+  .side-story--dark p {
+    color: var(--color-carbon-muted);
+  }
+
+  .corpus-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding-block: 1.5rem;
+    border-block: 1px solid var(--color-line);
+  }
+
+  .corpus-strip > div {
+    padding-inline: 1.25rem;
+    border-right: 1px solid var(--color-line);
+  }
+
+  .corpus-strip > div:first-child {
+    padding-left: 0;
+  }
+
+  .corpus-strip > div:last-child {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .corpus-strip strong,
+  .corpus-strip span {
+    display: block;
+  }
+
+  .corpus-strip strong {
+    margin-bottom: 0.3rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    line-height: 1;
+  }
+
+  .corpus-strip span {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.64rem;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .featured-dossiers,
+  .reading-desk,
+  .method-strip {
+    padding-block: clamp(4.5rem, 8vw, 7rem);
+  }
+
+  .section-bar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-carbon);
+  }
+
+  .section-bar h2 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2.6rem, 4.5vw, 4.3rem);
+    line-height: 0.96;
+  }
+
+  .section-bar > a {
+    min-height: 2.75rem;
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  .dossier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--color-line);
+  }
+
+  .dossier-card {
+    display: flex;
+    min-width: 0;
+    min-height: 28rem;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-block: 1px solid var(--color-line);
+    border-right: 1px solid var(--color-line);
+    text-decoration: none;
+    transition: color 160ms ease-out, background 160ms ease-out;
+  }
+
+  .dossier-card:first-child {
+    color: var(--color-white);
+    border-color: var(--color-carbon);
+    background: var(--color-carbon);
+  }
+
+  .dossier-card:hover {
+    color: var(--color-white);
+    background: var(--color-probe);
+  }
+
+  .dossier-card__index {
+    margin-bottom: 3.5rem;
+    font-family: var(--font-display);
+    font-size: 3.4rem;
+    line-height: 1;
+  }
+
+  .dossier-card__type {
+    color: var(--color-probe);
+  }
+
+  .dossier-card:first-child .dossier-card__type,
+  .dossier-card:hover .dossier-card__type,
+  .dossier-card:hover p,
+  .dossier-card:hover .dossier-card__date {
+    color: inherit;
+  }
+
+  .dossier-card h3 {
+    margin: 1rem 0 0.8rem;
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    line-height: 0.98;
+  }
+
+  .dossier-card p {
+    color: var(--color-graphite);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .dossier-card:first-child p,
+  .dossier-card:first-child .dossier-card__date {
+    color: var(--color-carbon-muted);
+  }
+
+  .dossier-card__date {
+    margin-top: auto;
+    color: var(--color-graphite);
+  }
+
+  .dossier-card__link {
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+
+  .choice-guide {
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .choice-guide__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 7vw, 7rem);
+    padding-block: clamp(4.5rem, 8vw, 7rem);
+  }
+
+  .choice-guide__intro h2 {
+    max-width: 10ch;
+    margin-bottom: 1.5rem;
+    font-size: clamp(3.2rem, 5.6vw, 5.6rem);
+    line-height: 0.91;
+  }
+
+  .choice-guide__intro > p:not(.feature-kicker) {
+    max-width: 35rem;
+    color: var(--color-carbon-muted);
+    line-height: 1.6;
+  }
+
+  .choice-guide__intro > a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-top: 1rem;
+    color: var(--color-reading);
+    font-weight: 600;
+  }
+
+  .choice-guide nav {
+    border-top: 1px solid var(--color-carbon-line);
+  }
+
+  .choice-guide nav a {
+    display: grid;
+    grid-template-columns: 2.5rem 8rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 5.7rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-carbon-line);
+    text-decoration: none;
+  }
+
+  .choice-guide nav span,
+  .choice-guide nav small {
+    color: var(--color-carbon-muted);
+    font-family: var(--font-data);
+    font-size: 0.68rem;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .choice-guide nav strong {
     font-family: var(--font-display);
     font-size: 1.8rem;
   }
 
-  .choice-map nav a:hover strong {
+  .choice-guide nav b {
+    color: var(--color-reading);
+    font-weight: 500;
+  }
+
+  .choice-guide nav a:hover strong {
     color: var(--color-reading);
   }
 
-  .trust-strip {
+  .reading-desk {
     display: grid;
-    grid-template-columns: 4fr 5fr 2fr;
-    gap: 3rem;
+    grid-template-columns: minmax(0, 8fr) minmax(18rem, 4fr);
+    gap: 1.5rem;
   }
 
-  .trust-strip h2 {
-    max-width: 11ch;
-    margin: 0;
-    font-size: clamp(2.8rem, 4.5vw, 4.4rem);
-    line-height: 0.97;
-  }
-
-  .trust-strip__proofs {
+  .compact-list {
     border-top: 1px solid var(--color-line);
   }
 
-  .trust-strip__proofs > div {
+  .compact-list a {
     display: grid;
-    grid-template-columns: 6.5rem 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 1rem;
-    padding-block: 1rem;
+    align-items: center;
+    min-height: 7rem;
+    padding: 1rem;
     border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
   }
 
-  .trust-strip__proofs p {
+  .compact-list a:hover strong,
+  .compact-list a:hover > span:last-child {
+    color: var(--color-probe);
+  }
+
+  .compact-list strong,
+  .compact-list small {
+    display: block;
+  }
+
+  .compact-list strong {
+    margin-bottom: 0.35rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+    line-height: 1;
+  }
+
+  .compact-list small {
+    max-width: 52rem;
+    color: var(--color-graphite);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .compact-list a > span:last-child {
+    color: var(--color-probe);
+    font-size: 1.25rem;
+  }
+
+  .rss-panel {
+    align-self: stretch;
+    padding: clamp(2rem, 4vw, 3rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .rss-panel h2 {
+    max-width: 12ch;
+    margin: clamp(4rem, 8vw, 8rem) 0 1rem;
+    font-size: clamp(2.4rem, 3.8vw, 3.8rem);
+    line-height: 0.96;
+  }
+
+  .rss-panel > p:not(.feature-kicker) {
+    color: var(--color-carbon-muted);
+    line-height: 1.6;
+  }
+
+  .rss-panel small {
+    display: block;
+    margin-top: 1rem;
+    color: var(--color-carbon-muted);
+    font-family: var(--font-data);
+    font-size: 0.64rem;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .method-strip {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .method-strip .feature-kicker {
+    margin-bottom: 0.75rem;
+    color: var(--color-probe);
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--color-line);
+  }
+
+  .method-grid > div {
+    min-height: 18rem;
+    padding: 1.5rem;
+    border-block: 1px solid var(--color-line);
+    border-right: 1px solid var(--color-line);
+  }
+
+  .method-grid h3 {
+    margin: 4rem 0 0.75rem;
+    font-size: 1.7rem;
+    line-height: 1;
+  }
+
+  .method-grid p {
     margin: 0;
     color: var(--color-graphite);
     font-size: 0.84rem;
     line-height: 1.55;
   }
 
-  .trust-strip nav {
-    display: grid;
-    align-content: start;
-    gap: 0.8rem;
+  .trust-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2rem;
+    margin-top: 1.5rem;
   }
 
-  .trust-strip nav a {
+  .trust-links a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--color-probe);
     font-weight: 600;
   }
 
-  @media (max-width: 64rem) {
-    .hero__copy {
-      grid-column: 1 / span 7;
-    }
-
-    .hero-visual {
-      grid-column: 7 / -1;
-    }
-
-    .front-page__grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .lead-story {
-      grid-column: 1 / -1;
-      min-height: 22rem;
-      border-right: 0;
-      border-bottom: 1px solid var(--color-line);
-    }
-
-    .trust-strip {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .trust-strip nav {
-      grid-column: 1 / -1;
-      grid-template-columns: repeat(4, 1fr);
-    }
+  .lead-feature :focus-visible,
+  .side-story--dark:focus-visible,
+  .choice-guide :focus-visible,
+  .rss-panel :focus-visible,
+  .dossier-card:first-child:focus-visible {
+    outline-color: var(--color-reading);
   }
 
-  @media (max-width: 48rem) {
-    .hero,
-    .section-heading,
-    .front-page__grid,
-    .choice-map__grid,
-    .trust-strip {
+  @media (max-width: 64rem) {
+    .editorial-hero,
+    .reading-desk {
       grid-template-columns: 1fr;
     }
 
-    .hero__copy,
-    .hero-visual,
-    .lead-story,
-    .trust-strip nav {
-      grid-column: 1;
+    .hero-side {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .hero {
-      gap: 2.5rem;
-      padding-top: 3rem;
+    .side-story {
+      min-height: 24rem;
     }
 
-    .hero h1 {
-      font-size: clamp(3.6rem, 18vw, 5rem);
+    .corpus-strip,
+    .dossier-grid,
+    .method-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
 
-    .hero-visual figcaption {
-      font-size: 0.6rem;
-    }
-
-    .section-heading {
-      gap: 1.5rem;
-    }
-
-    .lead-story,
-    .secondary-story,
-    .front-page__method {
-      min-height: auto;
+    .corpus-strip > div:nth-child(2) {
       border-right: 0;
-      border-bottom: 1px solid var(--color-line);
     }
 
-    .lead-story h3,
-    .secondary-story h3,
-    .front-page__method h3 {
-      margin-top: 4rem;
+    .corpus-strip > div:nth-child(n + 3) {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--color-line);
     }
 
-    .model-list a {
-      grid-template-columns: 2rem 1fr auto;
-      padding-block: 1rem;
+    .dossier-card {
+      min-height: 24rem;
     }
 
-    .model-list__meta {
+    .choice-guide__grid {
+      gap: 3rem;
+    }
+
+    .rss-panel h2 {
+      margin-top: 3rem;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .editorial-hero {
+      gap: 0.75rem;
+      padding-top: 0.75rem;
+    }
+
+    .lead-feature {
+      grid-template-columns: 1fr;
+    }
+
+    .lead-feature h1 {
+      margin-top: 3rem;
+      font-size: clamp(3.5rem, 15vw, 4.8rem);
+    }
+
+    .lead-feature__visual {
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    .hero-side,
+    .choice-guide__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .side-story {
+      min-height: 21rem;
+    }
+
+    .corpus-strip {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .section-bar {
+      display: grid;
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .dossier-card {
+      min-height: 23rem;
+    }
+
+    .choice-guide__intro h2 {
+      font-size: clamp(3.2rem, 14vw, 4.6rem);
+    }
+
+    .choice-guide nav a {
+      grid-template-columns: 2rem minmax(0, 1fr) auto;
+    }
+
+    .choice-guide nav small {
       grid-column: 2;
     }
 
-    .model-list a > span:last-child {
+    .choice-guide nav b {
       grid-column: 3;
       grid-row: 1 / span 2;
     }
 
-    .choice-map nav a {
-      grid-template-columns: 2rem 1fr;
+    .reading-desk {
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .corpus-strip,
+    .dossier-grid,
+    .method-grid {
+      grid-template-columns: 1fr;
     }
 
-    .choice-map nav small {
-      grid-column: 2;
+    .corpus-strip > div {
+      padding: 1rem 0;
+      border-top: 1px solid var(--color-line);
+      border-right: 0;
     }
 
-    .trust-strip nav {
-      grid-template-columns: 1fr 1fr;
+    .corpus-strip > div:first-child {
+      border-top: 0;
+    }
+
+    .corpus-strip > div:nth-child(n + 3) {
+      margin-top: 0;
+    }
+
+    .dossier-card,
+    .method-grid > div {
+      min-height: auto;
+    }
+
+    .dossier-card__index {
+      margin-bottom: 2.5rem;
+    }
+
+    .method-grid h3 {
+      margin-top: 2.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-action,
+    .side-story,
+    .dossier-card {
+      transition: none;
+    }
+
+    .feature-action:hover,
+    .side-story:hover {
+      transform: none;
     }
   }
 </style>

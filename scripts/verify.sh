@@ -61,61 +61,8 @@ if [[ -n "$(git -C "${PROJECT_ROOT}" ls-files -- research/private)" ]]; then
 fi
 npm ci --prefix "${PROJECT_ROOT}/site" --ignore-scripts --no-audit --no-fund
 npm run check --prefix "${PROJECT_ROOT}/site"
-python3 "${SCRIPT_DIR}/test_build_vps_release.py"
-
-release_test_root="$(mktemp -d "${TMPDIR:-/tmp}/fouranu-vps-release.XXXXXX")"
-cleanup_release_test() {
-  rm -rf -- "${release_test_root}"
-}
-trap cleanup_release_test EXIT
-trap 'exit 1' HUP INT TERM
-
 PUBLIC_SITE_INDEXABLE=true npm run build --prefix "${PROJECT_ROOT}/site"
-release_revision="$(git -C "${PROJECT_ROOT}" rev-parse HEAD)"
-bash "${SCRIPT_DIR}/build-vps-release.sh" \
-  "${PROJECT_ROOT}/site/dist" \
-  "${release_test_root}/first" \
-  "${release_revision}"
-PUBLIC_SITE_INDEXABLE=true npm run build --prefix "${PROJECT_ROOT}/site"
-bash "${SCRIPT_DIR}/build-vps-release.sh" \
-  "${PROJECT_ROOT}/site/dist" \
-  "${release_test_root}/second" \
-  "${release_revision}"
-cmp -- \
-  "${release_test_root}/first/site.tar.gz" \
-  "${release_test_root}/second/site.tar.gz"
-cmp -- \
-  "${release_test_root}/first/routes.json" \
-  "${release_test_root}/second/routes.json"
-python3 - \
-  "${release_test_root}/first/site.tar.gz" \
-  "${release_test_root}/first/routes.json" \
-  "${release_revision}" <<'PY'
-from __future__ import annotations
-
-import hashlib
-import json
-import sys
-from pathlib import Path
-
-archive = Path(sys.argv[1])
-inventory = json.loads(Path(sys.argv[2]).read_text(encoding="ascii"))
-revision = sys.argv[3]
-
-assert inventory["contract"] == "vps-infra.route-inventory.v1"
-assert inventory["schema"] == 1
-assert inventory["source"] == {
-    "repository": "nclsppr/fouranu",
-    "revision": revision,
-}
-assert inventory["site"]["archive_sha256"] == hashlib.sha256(archive.read_bytes()).hexdigest()
-assert inventory["site"]["file_count"] == len(inventory["routes"])
-files = {item["file"] for item in inventory["routes"]}
-paths = {item["path"] for item in inventory["routes"]}
-assert "index.html" in files
-assert "404.html" in files
-assert "/" in paths
-PY
+npm run cloudflare:check --prefix "${PROJECT_ROOT}/site"
 npm ci --prefix "${PROJECT_ROOT}/docs-nimbus" --ignore-scripts --no-audit --no-fund
 npm run check --prefix "${PROJECT_ROOT}/docs-nimbus"
 if [[ -n "$(git -C "${PROJECT_ROOT}" ls-files -- docs-nimbus/src/content/docs)" ]]; then
@@ -125,4 +72,4 @@ fi
 git -C "${PROJECT_ROOT}" diff --check
 git -C "${PROJECT_ROOT}" diff --cached --check
 
-echo "Vérification complète terminée, y compris le paquet Atlas reproductible."
+echo "Vérification complète terminée, y compris le candidat Cloudflare."

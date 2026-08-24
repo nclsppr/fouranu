@@ -5,7 +5,8 @@ import { z } from "astro/zod";
 const analyses = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/analyses" }),
   schema: z.object({
-    articleId: z.string().regex(/^OONI-\d{3}$/),
+    articleId: z.string().regex(/^(OONI|GOZNEY)-\d{3}$/),
+    brand: z.enum(["ooni", "gozney"]),
     title: z.string(),
     description: z.string(),
     summary: z.string(),
@@ -16,6 +17,7 @@ const analyses = defineCollection({
     updatedAt: z.coerce.date(),
     indexable: z.boolean().default(false),
     image: z.string().startsWith("/").optional(),
+    evidenceIds: z.array(z.string().regex(/^EV-\d{4}$/)).min(1),
     evidenceTypes: z.array(z.enum(["FAB", "T-MES", "T-OBS", "FAN-SYN", "FAN-INF"])),
     limitations: z.array(z.string()),
   }),

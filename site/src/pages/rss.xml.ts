@@ -17,7 +17,7 @@ export const GET: APIRoute = async () => {
     .filter((entry) => entry.data.status === "publishable")
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   const items = analyses.map((entry) => {
-    const url = `${SITE.url}/ooni/${entry.id}/`;
+    const url = `${SITE.url}/${entry.data.brand}/${entry.id}/`;
     return [
       "    <item>",
       `      <title>${escapeXml(entry.data.title)}</title>`,

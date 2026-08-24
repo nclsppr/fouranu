@@ -137,11 +137,10 @@ portes passent et si le propriétaire autorise le paquet exact.
 - des événements distincts pour sélection terminée, clic marchand, vente
   confirmée et prospect accepté.
 
-La preview reste en `noindex`. Le candidat Atlas, son admission dans
-`vps-infra`, la publication de sa release, l'activation de `fouranu.com` et
-l'ouverture aux moteurs sont des décisions séparées. Une page ne devient
-indexable qu'après sa barrière propre et l'autorisation du paquet qui la
-contient.
+La preview reste en `noindex`. Le candidat Workers Static Assets, son premier
+déploiement, le domaine personnalisé, le DNS de `fouranu.com` et l'ouverture
+aux moteurs sont des décisions séparées. Une page ne devient indexable qu'après
+sa barrière propre et l'autorisation du paquet exact qui la contient.
 
 Chaque lien rémunéré est déclaré auprès du lien et porte `rel="sponsored"`. Un
 refus des traceurs laisse le contenu accessible. La variante de lien proposée en

@@ -16,6 +16,24 @@ donnée structurée `Review` ou `AggregateRating`. Une vidéo tierce peut être 
 source. Une image transformée par IA peut être un habillage autorisé. Elle ne
 devient jamais une preuve.
 
+## Voix et assistance rédactionnelle
+
+ChatGPT peut assister le brouillon et la réécriture des articles publics. La
+voix reste personnelle et concrète : la rédaction peut expliquer ce qu'elle
+choisirait, écarterait ou vérifierait dans une situation donnée. Une telle
+prise de position relève de `FAN-INF`, cite ses prémisses et conserve son niveau
+de confiance.
+
+Cette voix ne permet jamais d'écrire qu'un produit a été testé, mesuré, utilisé
+ou goûté par Four à Nu lorsque l'expérience appartient à un tiers. Chaque fait,
+mesure et observation continue de passer par le registre. La rédaction relit
+les sources, contrôle les liens de preuve et approuve le texte final ; ChatGPT
+n'est ni l'auteur d'une source ni le responsable de publication.
+
+Le traitement `Unslop` n'est pas appliqué à la rédaction ou à la révision des
+articles Four à Nu. Le site ne termine pas ses dossiers par une note chiffrée,
+des étoiles ou un classement.
+
 ## Taxonomie de preuve
 
 Chaque affirmation importante porte un identifiant du registre

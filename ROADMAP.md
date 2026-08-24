@@ -16,6 +16,9 @@ racontée à la première personne.
 - La provenance et les droits précèdent l'indexation et la monétisation.
 - Une preview n'est ni une publication, ni une preuve de demande.
 - La production reste sur un seul domaine.
+- Un déploiement ne peut suivre qu'une gate `Verify` verte sur le même SHA.
+- Préparation, premier déploiement, domaine personnalisé, DNS et indexation
+  restent des autorisations distinctes.
 - Chaque phase se ferme par une preuve observable.
 
 ## Vue d'ensemble
@@ -24,7 +27,7 @@ racontée à la première personne.
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
 | 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et onze analyses documentaires | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
-| 3 | F03 | Candidat Atlas et paquet publiable | Le propriétaire peut examiner l'artefact exact et son contrat de release sans l'activer | `in_progress` | Barrières de publication, identité légale, audit média par actif et admission Atlas préparée |
+| 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `in_progress` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `planned` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 
@@ -126,13 +129,14 @@ factuelle critique ne subsiste après correction.
 Une seule itération du parcours est permise. En cas d'échec, conserver les
 preuves et retirer les pages du build du pilote.
 
-## Phase F03 : candidat Atlas et paquet publiable
+## Phase F03 : candidat Cloudflare et paquet publiable
 
 ### Objectif
 
 Préparer une version que le propriétaire peut autoriser sans devoir corriger
 après coup les droits, la transparence commerciale ou la confidentialité, puis
-décrire le candidat statique exact attendu par le contrôle central Atlas.
+décrire le candidat statique exact attendu par Cloudflare Workers Static Assets
+et le chemin GitHub Actions qui ne peut l'envoyer qu'après la gate `Verify`.
 
 ### Inclus
 
@@ -142,14 +146,19 @@ décrire le candidat statique exact attendu par le contrôle central Atlas.
 - mécanisme d'acceptation, refus et retrait si des traceurs sont nécessaires ;
 - déclaration commerciale et traitement `rel="sponsored"` ;
 - audit des médias, preuves, schémas structurés et URL indexables ;
-- preview privée ou non indexée sur Atlas après autorisation séparée ;
-- artefact statique immuable, identifiant de version, sonde de santé, procédure
-  de retour arrière et contrat d'admission pour `vps-infra`.
+- preview locale non indexée ;
+- artefact statique, identifiant de version, sonde de santé et procédure de
+  retour arrière ;
+- configuration Workers Static Assets vérifiable sans déploiement ;
+- job GitHub Actions protégé, dépendant de `Verify` sur le même SHA et inactif
+  tant que son autorisation et ses paramètres externes ne sont pas fournis.
 
 ### Exclu
 
 - activation du domaine public ;
-- admission ou publication d'une release dans `vps-infra` ;
+- premier déploiement Cloudflare, création ou adoption d'une zone, domaine
+  personnalisé et changement DNS ;
+- passage du paquet de `noindex` à indexable ;
 - candidature à un programme marchand sans accord du propriétaire ;
 - ajout d'un média dont la chaîne de droits reste incomplète.
 
@@ -167,13 +176,15 @@ et la barrière SEO de
 [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) passent. Les
 preuves privées sont validées localement, le paquet ne contient aucun document
 interne et le propriétaire reçoit une liste exacte des URL, tiers, traceurs et
-liens rémunérés proposés. Le candidat Atlas est reproductible et son contrat de
-release est vérifié sans admission, publication ni activation.
+liens rémunérés proposés. Le candidat Cloudflare est reproductible, sa
+configuration passe une validation sans déploiement et le job de livraison
+dépend explicitement de `Verify`, sans premier déploiement, zone, domaine,
+DNS ni indexation.
 
 ### Retour arrière
 
-Détruire uniquement la preview nommée et révoquer ses accès. Conserver
-l'artefact local et le rapport d'audit.
+Revenir au dernier SHA local vérifié et retirer uniquement la configuration
+candidate concernée. F03 ne doit avoir créé aucune surface distante à détruire.
 
 ## Phase F04 : lancement public
 
@@ -184,14 +195,21 @@ Publier uniquement les URL approuvées et établir leur disponibilité réelle.
 ### Dépendances
 
 - F03 terminée ;
-- remote, admission Atlas, publication de release et DNS autorisés ;
+- remote et environnement GitHub de production autorisés ;
+- premier déploiement Cloudflare autorisé, puis domaine personnalisé et DNS
+  autorisés séparément ;
+- indexation autorisée séparément pour le paquet exact ;
 - feu vert explicite du propriétaire sur le paquet de publication.
 
 ### Inclus
 
 - artefact immuable et procédure de retour arrière ;
-- admission et publication de la release statique par `vps-infra` ;
-- activation de `fouranu.com` ;
+- déploiement de l'artefact du SHA vérifié par GitHub Actions, après la réussite
+  de `Verify` ;
+- contrôle du premier déploiement Workers Static Assets avant tout routage
+  public ;
+- activation séparée du domaine personnalisé et du DNS de `fouranu.com` ;
+- passage séparé du paquet autorisé en indexable ;
 - contrôles HTTP, visuels, console et réseau ;
 - `robots.txt`, sitemap, canonical et données structurées ;
 - Search Console, Bing Webmaster Tools et IndexNow après autorisation ;
@@ -206,20 +224,23 @@ Publier uniquement les URL approuvées et établir leur disponibilité réelle.
 ### Risques
 
 - publier un artefact différent de celui vérifié ;
+- laisser un build natif de plateforme contourner la gate Compose du dépôt ;
 - exposer Nimbus ou un brouillon ;
 - activer les moteurs avant correction d'un problème canonique ;
 - considérer un DNS valide comme preuve du déploiement applicatif.
 
 ### Critère de sortie
 
-Les checks distants passent, l'artefact public correspond au SHA livré, les URL
-approuvées répondent avec leurs métadonnées attendues et les URL internes ou
-`noindex` ne sont pas annoncées dans le sitemap.
+La gate `Verify` et le déploiement GitHub Actions passent sur le même SHA,
+l'artefact public correspond à ce SHA, les URL approuvées répondent avec leurs
+métadonnées attendues et les URL internes ou `noindex` ne sont pas annoncées
+dans le sitemap.
 
 ### Retour arrière
 
-Revenir au dernier artefact vérifié, retirer des moteurs les URL fautives et
-conserver le domaine sans rediriger vers une surface non contrôlée.
+Revenir au précédent déploiement correspondant à un SHA vérifié, restaurer ou
+détacher séparément le domaine et le DNS selon l'incident, retirer des moteurs
+les URL fautives et ne jamais rediriger vers une surface non contrôlée.
 
 ## Phase F05 : mesure et décision
 

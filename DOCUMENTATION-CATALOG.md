@@ -9,7 +9,7 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 3 |
+| Décisions | `internal` | 4 |
 | Barrières de publication | `internal` | 1 |
 | Brouillons éditoriaux du site | `internal` | 11 |
 | Socle vendorisé | `reference` | 6 |
@@ -40,6 +40,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0001-promotion-produit-et-site-astro.md](docs/decisions/0001-promotion-produit-et-site-astro.md)
 - [docs/decisions/0002-media-documentaire-permanent.md](docs/decisions/0002-media-documentaire-permanent.md)
 - [docs/decisions/0003-coordination-secrets-atlas.md](docs/decisions/0003-coordination-secrets-atlas.md)
+- [docs/decisions/0004-cloudflare-workers-static-assets.md](docs/decisions/0004-cloudflare-workers-static-assets.md)
 
 ## Barrières de publication
 

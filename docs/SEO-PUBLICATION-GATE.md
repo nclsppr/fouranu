@@ -192,12 +192,12 @@ tranches séparées.
 - [ ] Les sources, affirmations, titres, descriptions et liens ont été relus
   après la dernière modification.
 - [ ] Le propriétaire du projet a autorisé explicitement le passage de cette URL
-  au statut `publishable` et son inclusion dans le candidat Atlas.
+  au statut `publishable` et son inclusion dans le candidat Cloudflare exact.
 - [ ] `indexable: true` n'apparaît que sur une page `publishable`. Le mode preview
   continue de produire `noindex` et de l'exclure du sitemap.
-- [ ] Le candidat Atlas, son identifiant d'artefact et la liste exacte des URL
-  autorisées sont consignés. Leur admission, leur publication et leur activation
-  restent trois décisions séparées.
+- [ ] Le candidat Cloudflare, son SHA et la liste exacte des URL autorisées sont
+  consignés. Le premier déploiement, le domaine personnalisé, le DNS et
+  l'indexation restent quatre décisions séparées.
 - [ ] Après publication, le canonique, les robots, le sitemap, le statut HTTP et
   le contenu public ont été contrôlés sur l'URL réelle.
 - [ ] Toute soumission à Google, Bing ou IndexNow intervient seulement après ces

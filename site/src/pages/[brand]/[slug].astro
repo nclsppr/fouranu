@@ -9,7 +9,7 @@ import { SITE } from "@/config/site";
 export async function getStaticPaths() {
   const analyses = await getCollection("analyses");
   return analyses.map((entry) => ({
-    params: { slug: entry.id },
+    params: { brand: entry.data.brand, slug: entry.id },
     props: { entry },
   }));
 }
@@ -29,8 +29,9 @@ const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
 });
 const publishedAt = dateFormatter.format(entry.data.publishedAt);
 const updatedAt = dateFormatter.format(entry.data.updatedAt);
-const canonical = new URL(`/ooni/${entry.id}/`, SITE.url).toString();
-const evidenceIds = [...new Set((entry.body ?? "").match(/\bEV-\d{4}\b/g) ?? [])];
+const canonical = new URL(`/${entry.data.brand}/${entry.id}/`, SITE.url).toString();
+const evidenceIds = entry.data.evidenceIds;
+const brandLabel = entry.data.brand === "gozney" ? "Gozney" : "Ooni";
 const words = (entry.body ?? "")
   .replace(/```[\s\S]*?```/g, " ")
   .replace(/<[^>]*>/g, " ")
@@ -94,7 +95,7 @@ const schema = {
     <Breadcrumbs
       items={[
         { label: "Accueil", href: "/" },
-        { label: "Ooni", href: "/ooni/" },
+        { label: brandLabel, href: `/${entry.data.brand}/` },
         { label: entry.data.title },
       ]}
     />

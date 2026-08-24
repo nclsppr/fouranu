@@ -1,14 +1,16 @@
 ---
 articleId: OONI-015
+brand: ooni
 title: "Ooni Karu 2 : bois, charbon ou gaz"
-description: Le Karu 2, anciennement Karu 12G, accepte bois, charbon et un brûleur gaz séparé. Format 30 cm, poids et mesures tierces sont documentés.
-summary: Le Karu 2 accepte le bois et le charbon, avec un brûleur propane séparé. Les deux sessions tierces ne permettent pas de fixer un temps de chauffe.
+description: Le Karu 2 accepte bois, charbon et un brûleur gaz séparé. Notre analyse de son format 30 cm, de sa chauffe publiée et de ses contraintes.
+summary: Le Karu 2 est le petit multi-combustible que nous choisirions pour apprendre le feu. Ses temps de chauffe publiés sont trop différents pour devenir une promesse.
 status: publishable
 type: model
 model: Ooni Karu 2
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+evidenceIds: [EV-0060, EV-0061, EV-0062, EV-0063, EV-0102, EV-0240, EV-0241, EV-0242, EV-0243, EV-0244, EV-0301, EV-0402]
 evidenceTypes:
   - FAB
   - T-MES
@@ -17,89 +19,84 @@ evidenceTypes:
 limitations:
   - Les sessions disponibles ne suivent pas un protocole commun.
   - Une source vidéo utilise encore le nom Karu 12G.
-  - Les sessions tierces diffèrent par l'air, le combustible, la pâte et les instruments.
+  - Les sessions diffèrent par l'air, le combustible, la pâte et les instruments.
   - Le tableau fabricant duplique un libellé de dimension.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Karu 2, anciennement Karu 12G, est le modèle Ooni actuel documenté ici pour
-qui veut utiliser le bois ou le charbon dans un format annoncé autour de 30 cm.
-Un brûleur vendu séparément permet aussi d'utiliser le propane. Le corpus
-établit cette compatibilité et un poids de 15,3 kg, mais pas un avantage de goût
-ni un temps de chauffe de référence.
+Le Karu 2 est le four Ooni que nous regarderions pour apprendre réellement à
+gérer le bois ou le charbon sans passer à un appareil énorme. Il accepte une
+pizza d'environ 30 cm, pèse 15,3 kg et peut recevoir un brûleur propane vendu
+séparément. Son ancien nom, Karu 12G, apparaît encore dans certains contenus.
 
-Cette fiche répond aux questions propres au Karu 2. Pour choisir dans toute la
-gamme, voir [quel four Ooni choisir](/ooni/quel-four-ooni-choisir/). Pour
-comparer les contraintes du gaz, de l'électricité et des combustibles solides,
-voir [Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/).
-Les codes de preuve sont définis dans [la méthode Four à Nu](/methode/).
+Ce n'est pas le choix tranquille. Il faut nourrir le feu, surveiller la sole et
+accepter que deux sessions ne se ressemblent pas. Si ce rituel vous attire,
+la contrainte devient une partie du plaisir. Si vous voulez surtout manger vite,
+le [Koda 2](/ooni/koda-2/) sera plus logique.
 
-## Identité et caractéristiques établies
+## Ce que le format implique
 
-Ooni précise que le Karu 12G porte désormais le nom Karu 2 (`EV-0060`). Cette
-continuité explique pourquoi une vidéo antérieure peut documenter le matériel
-actuel sous son ancien nom.
-
-La [page française du Karu 2](https://eu.ooni.com/fr-fr/products/ooni-karu-2)
-indique bois et charbon, ou propane avec un brûleur vendu séparément. Elle
-annonce des pizzas de 30 cm et plus, un poids de 15,3 kg et une pierre de 15 mm
-(`EV-0061`).
+La pierre mesure 15 mm et le poids publié atteint 15,3 kg. La cheminée et la
+zone de chargement du combustible ajoutent de l'encombrement autour du corps du
+four. Les dimensions publiées comportent en plus un libellé dupliqué. Nous ne
+conseillons donc pas d'acheter la table au centimètre près.
 
 Le fabricant annonce 450 °C en 15 minutes, 500 °C au maximum et une pizza en
-60 secondes (`EV-0062`). Ces valeurs restent des annonces fabricant.
+60 secondes. Nous lisons ces valeurs comme des capacités commerciales. Elles ne
+disent rien de la masse de bois, du vent ou du point mesuré sur la pierre.
 
-Le tableau métrique de la page utilise deux fois le libellé largeur pour des
-axes distincts (`EV-0063`). `EV-0102` conserve l'anomalie sans attribuer un axe
-supposé. Les dimensions exactes doivent être confirmées avant le choix d'une
-table.
+## Les séances publiées ne racontent pas le même chrono
 
-## Ce que montrent les sessions tierces
+Une session par temps doux atteint environ 510 °C sur la sole avec des relevés
+toutes les cinq minutes. Deux pizzas y cuisent en 75 et 82 secondes, mais avec
+des pâtes et des températures de lancement différentes. Une autre séance au
+bois relève environ 350 °C après 40 minutes, sans pesée du combustible.
 
-Pala Pizza utilise un Karu 12G acheté par le créateur et des liens affiliés. La
-[séquence de montage, EV-0240](https://www.youtube.com/watch?v=kkpPK3gsqko&t=19s)
-montre la cheminée, la pierre, la porte et le brûleur arrière. Le montage
-complet n'est pas chronométré.
+L'écart est énorme, mais il n'est pas contradictoire. Les conditions, le bois,
+l'air et les instruments changent. Notre conclusion est donc simple : le Karu 2
+peut atteindre une chaleur napolitaine, mais il ne possède pas un temps de
+chauffe universel que l'on pourrait imprimer sur une minuterie.
 
-Dans cette session à 68 °F, des relevés toutes les cinq minutes atteignent
-950 °F sur la sole
-([EV-0241, à 1:05](https://www.youtube.com/watch?v=kkpPK3gsqko&t=65s)). Les
-autres fours du graphique ont été testés à 56 °F, ce qui interdit une
-comparaison directe. Deux pizzas sont ensuite cuites en 75 et 82 secondes avec
-des pâtes et des températures de lancement différentes
-([EV-0242, à 1:35](https://www.youtube.com/watch?v=kkpPK3gsqko&t=95s) et
-[EV-0243, à 1:56](https://www.youtube.com/watch?v=kkpPK3gsqko&t=116s)).
+Une séquence de pizza new-yorkaise montre aussi qu'un lancement trop chaud peut
+être un problème. La température maximale n'est pas toujours la bonne cible.
+Le vrai apprentissage consiste à faire correspondre la sole, la flamme et le
+style de pâte.
 
-Pour un style new-yorkais, le créateur juge un lancement à 664 °F trop chaud,
-puis cuit une seconde pizza quatre minutes après un lancement à 534 °F avec une
-gestion de flamme différente
-([EV-0244, à 2:41](https://www.youtube.com/watch?v=kkpPK3gsqko&t=161s)). Ces
-deux essais décrivent ses réglages. Ils ne définissent pas une plage optimale
-générale.
+## Bois, charbon ou propane
 
-Dans une autre vidéo, Julien Serri relève environ 350 °C après 40 minutes au
-bois
-([EV-0301, à 11:40](https://www.youtube.com/watch?v=yBCZ_Mxh3FI&t=700s)). Le
-combustible n'est pas pesé et l'auteur est ambassadeur Ooni, affilié et
-détenteur d'un code promotionnel. Les conditions sont trop différentes pour
-rapprocher ce relevé des 950 °F précédents.
+Le bois donne le plus de gestes à apprendre et le plus de variations. Le charbon
+peut aider à construire une base de chaleur plus stable, mais il ne supprime pas
+la surveillance. Le propane simplifie le réglage au prix d'un brûleur séparé et
+d'une conversion matérielle.
 
-## Ce qui reste à vérifier
+À nos yeux, la bonne raison d'acheter ce four est le bois. L'option gaz est
+utile comme solution de repli. Si le gaz devient dès le départ votre usage
+principal, mieux vaut choisir un four conçu autour de lui plutôt que d'empiler
+les accessoires.
 
-- les dimensions exactes et l'espace nécessaire à la cheminée ;
-- la masse et la fréquence d'ajout du bois ou du charbon ;
-- le temps de chauffe avec une cible, un combustible et un climat fixés ;
-- le passage réel entre combustible solide et brûleur au propane ;
-- la récupération de la sole entre plusieurs pizzas ;
-- le nettoyage et les résidus selon le combustible.
+## Pour qui nous le retenons
 
-## Limites de cette fiche
+Le Karu 2 convient à une personne curieuse, patiente et prête à prendre quelques
+notes au début. Il reste assez compact pour une installation domestique tout en
+offrant une vraie porte d'entrée vers la cuisson au feu.
 
-Le registre contient plusieurs mesures, mais aucun protocole commun. Il ne
-permet pas d'attribuer au Karu 2 un temps de chauffe, une consommation ou un
-avantage gustatif de référence. La polyvalence décrite est une compatibilité
-matérielle annoncée. Son intérêt pratique reste à observer.
+Nous l'écarterions pour l'intérieur, pour une terrasse où la fumée pose problème
+ou pour un service régulier de nombreuses pizzas. Le
+[Karu 2 Pro](/ooni/karu-2-pro/) offre davantage d'espace, mais son poids et son
+prix changent complètement le projet.
 
-Le [Karu 2 Pro](/ooni/karu-2-pro/) ajoute un format annoncé pour 40 cm et une
-instrumentation différente. Sa fiche traite ces contraintes sans supposer un
-gain de performance face au Karu 2.
+## À vérifier avant l'achat
+
+- Les dégagements autour de la cheminée et l'orientation du vent.
+- Le stockage sec du bois et du charbon.
+- Le prix du brûleur propane et la compatibilité de son raccordement.
+- La taille de pizza réellement confortable à tourner.
+- Le temps que vous acceptez de consacrer au feu et au nettoyage.
+
+## Les limites de notre lecture
+
+Les mesures disponibles ne partagent pas un protocole commun. Elles ne donnent
+ni consommation, ni débit, ni avantage gustatif démontré. Notre lecture porte sur
+la cohérence du concept et les gestes visibles. Il ne remplace pas un test
+comparatif réalisé dans les mêmes conditions.

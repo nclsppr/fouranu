@@ -1,5 +1,6 @@
 ---
 articleId: OONI-001
+brand: ooni
 title: Quel four Ooni choisir en 2026 ?
 description: Les neuf fours Ooni vendus en France, triés selon le lieu, l'énergie, le diamètre annoncé et l'encombrement, sans faux classement.
 summary: Pour l'intérieur, le corpus ne retient que le Volt 2. Dehors, l'énergie sépare Koda et Karu, puis le diamètre, le poids et le débit annoncé départagent les modèles.
@@ -8,10 +9,12 @@ type: guide
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+evidenceIds: [EV-0001, EV-0002, EV-0010, EV-0020, EV-0021, EV-0030, EV-0031, EV-0040, EV-0050, EV-0061, EV-0070, EV-0080, EV-0090, EV-0300, EV-0330, EV-0331, EV-0410]
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
+  - FAN-INF
 limitations:
   - Les sources disponibles ne suivent pas un protocole commun à toute la gamme.
   - Les questions d'acheteurs viennent d'un forum anglophone et ne mesurent pas la demande française.
@@ -19,13 +22,17 @@ limitations:
   - Aucune synthèse FAN-SYN ne permet de classer les performances.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
 Pour un usage intérieur, le Volt 2 est le seul modèle actuel présenté comme tel
 dans le corpus. Pour l'extérieur, une alimentation directe au gaz conduit vers
 les Koda, tandis que le bois ou le charbon conduit vers les Karu. Le diamètre
 annoncé, le poids et le besoin de cuire une ou deux pizzas terminent le tri.
 Cette page ne désigne pas un "meilleur Ooni".
+
+À notre place, nous éliminerions d'abord les fours incompatibles avec le lieu
+et l'énergie disponibles. Nous regarderions ensuite le diamètre et le poids,
+avant de payer pour un débit ou des fonctions dont l'usage reste hypothétique.
 
 Si l'hésitation porte d'abord sur le combustible, l'analyse
 [Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/)

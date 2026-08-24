@@ -7,8 +7,8 @@ colors:
   calibration-white: "#FFFFFF"
   cold-steel: "#E6EBED"
   graphite: "#536168"
-  probe-blue: "#006B8F"
-  live-cyan: "#5DD7E7"
+  editorial-orange: "#C7370C"
+  live-orange: "#FF5A24"
 typography:
   display:
     fontFamily: IBM Plex Sans Condensed
@@ -83,10 +83,18 @@ Numerama ou Frandroid : accueil éditorial dense mais lisible, rubriques nettes,
 signature auteur, dates, sources et navigation vers les dossiers. Four à Nu ne
 copie ni leur identité, ni leur densité publicitaire, ni leurs gabarits.
 
+`prototype.png` est la référence de composition de l'accueil : rapport 8/4 du
+sujet principal, rythme de une, alternance des fonds et densité des entrées.
+Ses textes, notes, photographies, produits, actions et routes ne constituent
+ni du contenu publiable, ni des actifs réutilisables. Chaque élément réel doit
+respecter les registres éditoriaux, les droits et les capacités exécutables du
+site.
+
 Le système reprend des éléments matériels réels du sujet : acier thermolaqué,
 inox, cordiérite, sondes, afficheurs, thermomètres infrarouges, cotes et plaques
-signalétiques. Il ne met pas en scène un imaginaire de pizzeria. Il ne copie pas
-non plus la photographie héroïque et le discours de vente des fabricants.
+signalétiques. Hors du lockup adopté, il ne met pas en scène un imaginaire de
+pizzeria. Il ne copie pas non plus la photographie héroïque et le discours de
+vente des fabricants.
 
 Ce document fixe les valeurs et les règles. Leur traduction exécutable vit dans
 `site/src/styles/global.css`. Les composants référencent ces propriétés CSS.
@@ -102,12 +110,12 @@ Il n'existe pas de thème sombre automatique dans cette version du système.
 | Token exécutable | Rôle autorisé |
 | --- | --- |
 | `--color-carbon` | Texte principal, fonds de protocole et contours exigeant le contraste maximal |
-| `--color-white` | Fond de page et texte inversé sur bleu de sonde |
+| `--color-white` | Fond de page et texte inversé sur orange éditorial |
 | `--color-steel` | Séparation froide et piste de défilement |
 | `--color-steel-soft` | Fond secondaire très léger |
 | `--color-graphite` | Métadonnées, légendes et texte secondaire sur blanc |
-| `--color-probe` | Liens, action principale, focus sur fond clair et repère mesuré |
-| `--color-reading` | Valeur active sur carbone, jamais texte ou contrôle sur fond clair |
+| `--color-probe` | Orange éditorial `#C7370C` : liens, action principale, focus sur fond clair et repère mesuré |
+| `--color-reading` | Orange vif `#FF5A24` : valeur active et focus sur carbone, jamais texte ou contrôle sur fond clair |
 | `--color-line` | Règle structurelle sur fond clair |
 | `--color-carbon-line` | Règle structurelle sur fond carbone |
 | `--color-carbon-muted` | Texte secondaire sur fond carbone |
@@ -118,9 +126,9 @@ Les paires textuelles approuvées ont été calculées en sRGB :
 | --- | --- | ---: |
 | `--color-carbon` | `--color-white` | 18,86:1 |
 | `--color-graphite` | `--color-white` | 6,41:1 |
-| `--color-probe` | `--color-white` | 6,00:1 |
-| `--color-white` | `--color-probe` | 6,00:1 |
-| `--color-reading` | `--color-carbon` | 11,08:1 |
+| `--color-probe` | `--color-white` | 5,28:1 |
+| `--color-white` | `--color-probe` | 5,28:1 |
+| `--color-reading` | `--color-carbon` | 6,05:1 |
 | `--color-steel` | `--color-carbon` | 15,69:1 |
 | `--color-carbon-muted` | `--color-carbon` | 8,98:1 |
 
@@ -129,9 +137,11 @@ de bordure de contrôle ou de focus sur blanc. Une information ne repose jamais
 sur la couleur seule : un libellé, un symbole ou une valeur textuelle porte le
 même sens.
 
-Les couleurs chaudes sont absentes de l'identité. Une alerte fonctionnelle
-future peut introduire une couleur d'état distincte seulement après mesure du
-contraste et validation de son rôle. Elle ne devient pas une couleur de marque.
+L'orange est la seule famille chaude de l'identité. Il reste limité au logo,
+aux actions, aux liens, au focus et aux repères documentaires. Une alerte
+fonctionnelle future peut introduire une couleur d'état distincte seulement
+après mesure du contraste et validation de son rôle ; elle ne devient pas une
+nouvelle couleur de marque.
 
 ## Typography
 
@@ -211,11 +221,14 @@ L'interface emploie des rectangles francs. Les boutons, champs, plaques de
 preuve et conteneurs ont un rayon de 0 ou 2 px. Les pilules sont interdites.
 Les lignes techniques mesurent 1 px. La `ligne de sole` mesure 2 px.
 
-Le logo est monochrome, sans dégradé, ombre, texture ou contour décoratif. Sa
-forme finale doit fonctionner en noir sur blanc, en blanc sur carbone, en 16 px,
-en favicon et en impression une couleur. Le bleu et le cyan appartiennent au
-système de preuve, pas au mot-symbole. Le tracé SVG provisoire reste une
-exploration tant qu'une validation séparée ne l'adopte pas.
+Le lockup couleur fourni est adopté sous
+`site/public/brand/logo-fouranu.png`. Il s'utilise dans son ratio d'origine,
+sur fond blanc ou acier très clair, sans recoloration, recadrage, ombre,
+texture ni contour ajouté. Sa pizza, sa flamme et son lettrage script forment
+un ensemble de marque indivisible : ils ne deviennent ni des icônes, ni un
+vocabulaire décoratif à répéter dans l'interface. Ce lockup plein format n'est
+pas forcé en 16 px ; une marque compacte et un favicon restent des livrables
+séparés.
 
 Les icônes utilisent un contour régulier et une géométrie orthogonale lorsque
 le sens le permet. Elles accompagnent toujours un libellé pour les actions et
@@ -225,14 +238,15 @@ les états importants.
 
 ### En-tête et navigation
 
-L'en-tête contient le logo monochrome et les entrées éditoriales nécessaires.
+L'en-tête contient le lockup couleur sur fond clair et les entrées éditoriales
+nécessaires.
 Une recherche textuelle n'apparaît que lorsqu'un index local fonctionnel existe.
 Il n'intègre ni bande promotionnelle, ni carrousel, ni compte à rebours. La
 navigation active combine texte, épaisseur et règle basse.
 
 ### Actions et liens marchands
 
-Une vue contient une seule action remplie en `probe-blue`. Les actions
+Une vue contient une seule action remplie en `--color-probe`. Les actions
 secondaires restent blanches avec texte et bordure carbone. Les liens de texte
 sont soulignés au repos dans le corps des articles.
 
@@ -254,7 +268,8 @@ interdit.
 
 ### Ligne de sole
 
-La signature relie une ligne cyan horizontale de 2 px à une plaque monospacée.
+La signature relie une ligne orange vive horizontale de 2 px à une plaque
+monospacée.
 La plaque montre uniquement les champs réellement présents dans le registre :
 nom du plan mesuré, valeur, unité, condition, instant ou durée, dispersion si
 elle existe, et identifiant de preuve.
@@ -297,8 +312,8 @@ poster local autorisé et le mode de confidentialité disponible.
 ### Accessibilité et interaction
 
 - Chaque cible interactive mesure au moins 44 par 44 px.
-- Le focus clair utilise un contour `probe-blue` de 2 px avec un décalage de
-  2 px. Sur carbone, il utilise `live-cyan`.
+- Le focus clair utilise un contour `--color-probe` de 2 px avec un décalage de
+  2 px. Sur carbone, il utilise `--color-reading`.
 - Le lien d'évitement devient visible au focus avant la navigation.
 - Les titres suivent un ordre HTML continu. Les légendes et notes de tableau
   restent associées par la sémantique HTML.
@@ -332,8 +347,8 @@ validation, jamais des résultats déclarés avant mesure.
 - Montrer un matériau, un instrument, une cote ou une condition qui aide à
   comprendre le produit.
 - Conserver les unités, sources, dates et limites à proximité de chaque valeur.
-- Utiliser le bleu pour l'action ou un repère mesuré, et le cyan pour une
-  lecture active sur carbone.
+- Utiliser l'orange éditorial pour l'action ou un repère mesuré, et l'orange vif
+  pour une lecture active sur carbone.
 - Préférer une photographie neutre, une coupe technique ou un gros plan utile à
   une image d'ambiance.
 - Faire passer le contenu HTML, la méthode et la source avant tout effet visuel.
@@ -341,9 +356,11 @@ validation, jamais des résultats déclarés avant mesure.
 ### Exclusions anti-slop
 
 - Aucun ivoire, crème, beige, terracotta, bordeaux gourmand ou vert basilic.
-- Aucune serif de magazine, script de pizzeria ou fausse enseigne artisanale.
+- Aucune serif de magazine, aucun second script de pizzeria ni fausse enseigne
+  artisanale ; le script reste réservé au logo adopté.
 - Aucune flamme, tranche de pizza, toque, moustache, drapeau italien, damier,
-  basilic, mozzarella ou pelle croisée comme emblème.
+  basilic, mozzarella ou pelle croisée comme décor ou nouvel emblème. La pizza
+  et la flamme du lockup adopté ne sont jamais extraites ni répétées.
 - Aucun grain papier, vieillissement, trame d'impression ou texture analogique
   ajoutée à l'interface.
 - Aucun dégradé thermique décoratif, halo, néon, pseudo-terminal ou grille
@@ -363,10 +380,12 @@ Toute modification d'un point ci-dessous exige une décision explicite du
 propriétaire du projet avant implémentation :
 
 1. le nom public `Four à Nu` et la direction `Ligne de sole` ;
-2. les six couleurs, leurs rôles et l'absence de palette chaude de marque ;
+2. les six couleurs, leurs rôles et l'orange comme seule famille chaude de
+   marque ;
 3. IBM Plex Sans Condensed, Sans et Mono, sans serif éditoriale ;
 4. la grille 12, 6 et 4 colonnes, le rythme de 8 px et le conteneur de 1360 px ;
-5. le logo monochrome et l'interdiction d'utiliser l'accent dans le mot-symbole ;
+5. le lockup couleur adopté, son ratio, son usage sur fond clair et
+   l'interdiction d'en extraire la pizza ou la flamme ;
 6. la ligne de sole conditionnée à une mesure ou une cote réellement sourcée ;
 7. la provenance visible des médias et l'interdiction de transformer une
    preuve ;
@@ -376,9 +395,9 @@ propriétaire du projet avant implémentation :
    exécutables ;
 10. les exclusions anti-slop de la section précédente.
 
-Le dessin définitif du logo, le choix des premières photographies originales et
-le cadrage exact de chaque gabarit restent ouverts. Leur validation ne peut pas
-contredire une zone gelée.
+La marque compacte, le favicon, le choix des premières photographies originales
+et le cadrage exact de chaque gabarit restent ouverts. Leur validation ne peut
+pas contredire une zone gelée ni altérer le lockup adopté.
 
 ### Matrice de validation
 
@@ -387,7 +406,7 @@ contredire une zone gelée.
 | Tokens | Rechercher les hex, familles, rayons et espacements hors de `site/src/styles/global.css` | Aucun doublon exécutable dans un composant ou un module |
 | Couleurs | Mesurer chaque paire réellement rendue, dans tous ses états | WCAG AA pour texte et contrôles, rôles de couleur respectés |
 | Typographie | Vérifier les fichiers WOFF2, les graisses chargées, les replis et les chiffres tabulaires | Aucun appel de police tiers, aucun texte important rasterisé |
-| Logo | Rendre en noir, blanc, 16 px, favicon et impression une couleur | Lisibilité sans détail perdu ni accent coloré nécessaire |
+| Logo | Rendre le lockup au ratio d'origine sur les fonds clairs et aux largeurs réelles de l'en-tête | Aucun recadrage ou effet ajouté ; le favicon et la marque compacte restent séparés |
 | Responsive | Capturer et parcourir au clavier à 360, 768, 1280 et 1440 px | Aucun débordement de page, rail replacé, tableaux accessibles |
 | Structure | Inspecter H1, ordre des titres, landmarks, lien d'évitement et ordre DOM | Lecture cohérente sans CSS et au zoom 200 % |
 | Focus | Parcourir toutes les actions au clavier sur fond clair et carbone | Focus visible, cible de 44 px, aucun piège clavier |

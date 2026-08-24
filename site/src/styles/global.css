@@ -4,8 +4,8 @@
   --color-steel: #e6ebed;
   --color-steel-soft: #f4f6f7;
   --color-graphite: #536168;
-  --color-probe: #006b8f;
-  --color-reading: #5dd7e7;
+  --color-probe: #c7370c;
+  --color-reading: #ff5a24;
   --color-line: #c8d0d4;
   --color-carbon-line: #354045;
   --color-carbon-muted: #a9b5ba;
@@ -127,47 +127,26 @@ li {
 
 .site-header__inner {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  min-height: 5rem;
+  grid-template-columns: minmax(12rem, 16rem) 1fr;
+  min-height: 6.75rem;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(1.5rem, 4vw, 4rem);
 }
 
 .brand-lockup {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
+  display: block;
   text-decoration: none;
 }
 
-.brand-lockup__name {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.site-header__status {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 0;
-  color: var(--color-graphite);
-  font-family: var(--font-data);
-  font-size: 0.7rem;
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
-}
-
-.site-header__status span {
-  width: 0.5rem;
-  height: 0.5rem;
-  background: var(--color-probe);
+.brand-lockup img {
+  width: min(100%, 15.5rem);
+  height: auto;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: clamp(1rem, 2.4vw, 2.25rem);
   white-space: nowrap;
 }
@@ -213,17 +192,19 @@ li {
   padding-block: 3rem 2rem;
 }
 
-.site-footer__name {
-  margin-bottom: 0.3rem;
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 700;
-}
-
-.site-footer__claim,
 .site-footer__legal {
   color: var(--color-graphite);
   font-size: 0.85rem;
+}
+
+.site-footer__brand {
+  display: block;
+  max-width: 15rem;
+}
+
+.site-footer__brand img {
+  width: 100%;
+  height: auto;
 }
 
 .site-footer__state {
@@ -553,6 +534,7 @@ li {
   width: min(100vw - 2 * var(--page-gutter), 62rem);
   max-width: none;
   margin-block: 2.5rem;
+  margin-inline: 0;
   border-top: 2px solid var(--color-carbon);
 }
 
@@ -663,10 +645,6 @@ li {
     padding-block: 0.8rem;
   }
 
-  .site-header__status {
-    justify-self: end;
-  }
-
   .site-nav {
     grid-column: 1 / -1;
     justify-content: space-between;
@@ -714,8 +692,14 @@ li {
     --page-gutter: 1.25rem;
   }
 
-  .site-header__status {
-    display: none;
+  .site-header__inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 0.75rem;
+  }
+
+  .brand-lockup img {
+    width: 12rem;
   }
 
   .site-nav {
@@ -799,7 +783,6 @@ li {
 }
 
 @media (forced-colors: active) {
-  .site-header__status span,
   .proof-dot {
     border: 1px solid currentColor;
   }

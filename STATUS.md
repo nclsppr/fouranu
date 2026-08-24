@@ -7,127 +7,107 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-08-23 |
-| Par | Codex, inspection locale et distante en lecture seule |
+| Vérifié le | 2026-08-24 |
+| Par | Codex, checkout local, navigateur, CI et état Cloudflare en lecture seule |
 | Branche | `main` |
-| Base de la tranche | `e422d5461a6f64b67e6f1f3364d134f44297f70b` |
-| Environnement | Dépôt local, GitHub `nclsppr/fouranu` et audit du contrôle Atlas |
-| Version site livrée | `288d36bf3538309a2626f7aa6de23e45a886d2ac` poussée sur `origin/main` |
+| Base de la tranche | `5857ef314c0a7f1492dc7c394812400faf659992` |
+| Révision contrôlée | Tranche locale à livrer ; SHA remplacé après le premier commit |
+| Surface publique | Aucune surface Four à Nu activée ou vérifiée |
 
 ## Résumé
 
-Four à Nu est désormais construit comme un média documentaire permanent. Le
-site Astro génère 21 pages HTML sans JavaScript client nécessaire au contenu,
-dont onze analyses Ooni : deux dossiers de décision et une fiche pour chacun
-des neuf fours de la gamme France enregistrée.
+Four à Nu est un média documentaire statique de 21 pages HTML. Le corpus
+contient onze analyses Ooni, 118 preuves citées, 50 questions et 19 entrées
+média. Le site n'exécute aucun JavaScript client nécessaire au contenu. Le
+build de preview reste en `noindex` et le build opt-in ouvre uniquement les URL
+éligibles.
 
-Le build de preview garde toutes les pages en `noindex` et son sitemap vide. Le
-build explicite `PUBLIC_SITE_INDEXABLE=true` rend 20 URL éligibles : neuf pages
-fixes et onze analyses. La 404 reste hors index. Les tests contrôlent titres,
-descriptions, canonicals, dates, auteur, RSS, `llms.txt`, données structurées,
-liens internes, bibliographies, médias, robots et sitemap.
+L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
+8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
+la méthode. Il emploie seulement le corpus et l'illustration publiables. Les
+notes, verdicts, photographies, produits, rubriques et fonctions fictives du
+prototype n'ont pas été repris.
 
-L'interface suit la direction `Ligne de sole` en blanc, carbone, acier froid et
-bleu de sonde. L'accueil utilise une illustration originale assistée par IA,
-déclarée comme telle et sans image tierce en entrée. Le nouveau gabarit article
-rend visibles l'auteur, les dates, le sommaire, la nature documentaire, les
-limites, la bibliographie et l'accès direct à chaque preuve.
+Le logo Four à Nu fourni est rendu dans l'en-tête et le pied de page depuis une
+version PNG de 480 x 172 px et 70 804 octets. Sa source et son dérivé sont
+enregistrés. La direction `Ligne de sole` conserve IBM Plex, le carbone, le
+blanc, l'acier et la grille, avec deux oranges accessibles à la place du bleu.
 
-Le service Compose est sain. Le producteur Atlas génère une archive et un
-inventaire de routes déterministes, avec publication OCI immuable et
-attestations prévues dans GitHub Actions. Il ne constitue pas une admission
-dans `vps-infra` et n'active ni domaine ni hébergement.
+Cloudflare Workers Static Assets remplace Atlas comme cible future. Wrangler
+4.125.0, `site/wrangler.jsonc`, les en-têtes statiques et la validation à sec
+sont présents. Le job GitHub Actions dépend de `Verify` sur le même SHA et reste
+inactif tant que `CLOUDFLARE_DEPLOY_ENABLED` n'est pas explicitement activé.
+Aucun Worker, projet Pages, zone `fouranu.com`, domaine personnalisé, secret,
+DNS ou déploiement n'a été créé par cette tranche.
 
 ## Phases actives
 
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
-| F01, socle produit local | `done` | Build, Compose, tests et première CI | Aucune dans son périmètre historique | nclsppr |
-| F02, corpus documentaire publiable | `in_progress` | Onze analyses, pages de confiance, provenance et politique de correction | Identité légale exacte, cinq sessions et revue visuelle de la tranche | nclsppr |
-| F03, candidat Atlas | `in_progress` | Producteur, paquet déterministe, artefacts publics attestés et gate complète | Preuves médias par actif et admission centrale désactivée | nclsppr |
-| F04, lancement public | `planned` | Domaine acquis selon le propriétaire | Autorisations de publication, admission, DNS et contrôles publics | nclsppr |
+| F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
+| F02, corpus documentaire publiable | `in_progress` | Onze analyses, pages de confiance, provenance et politique de correction | Identité légale exacte, cinq sessions et rapprochement des médias Koda 2 | nclsppr |
+| F03, candidat Cloudflare | `in_progress` | Configuration, validation à sec et job dépendant de `Verify` | Paquet exact approuvé, preuves privées et environnement GitHub protégé | nclsppr |
+| F04, lancement public | `planned` | Domaine acquis selon le propriétaire | Premier déploiement, domaine personnalisé, DNS, indexation et contrôles publics autorisés séparément | nclsppr |
 
 ## Livré et vérifié localement
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Application Astro | 21 pages HTML statiques et zéro fichier JavaScript client | `site/` et neuf tests de contrat | Aucun artefact public |
-| Corpus Ooni | Deux dossiers de décision et neuf fiches modèle | `site/src/content/analyses/` | Aucune utilité utilisateur encore mesurée |
-| Provenance | 107 preuves, 50 questions et 18 entrées média | `research/` et 21 tests de registre | Une source tierce peut être retirée ou corrigée |
-| Confiance éditoriale | Auteur, méthode, À propos, corrections, transparence et confidentialité | Routes et données structurées contrôlées | Identité légale et canal de contact exacts absents |
-| SEO conditionnel | 20 URL éligibles, RSS, `llms.txt`, robots, sitemap et canonical | Build normal et build opt-in couverts par les tests | Aucun classement, crawl ou citation réelle observé |
-| Design | Système froid sans ivoire, illustration responsive et gabarit média | `DESIGN.md`, CSS et contrôles statiques | Revue visuelle actuelle bloquée par le navigateur intégré |
-| Parcours local | Service `site` en lecture seule avec healthcheck | `compose.yaml` et Compose sain | Aucun preview partagé |
-| Candidat Atlas | Archive et inventaire reproductibles, tags par SHA et attestations prévues | Workflow `VPS release` et tests adversariaux | Non admis par le contrôle central |
-| Documentation interne | Nimbus et catalogue de 38 Markdown | `docs-nimbus/` et `DOCUMENTATION-CATALOG.md` | Nimbus reste exclu du site public |
+| Application Astro | 21 pages HTML statiques et zéro JavaScript client | `site/` et dix tests de contrat | Aucun artefact public actuel |
+| Corpus | Onze analyses Ooni sous des routes généralisées par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Aucun dossier Gozney réel |
+| Provenance | 118 preuves, 50 questions et 19 entrées média | `research/` et contrôles de registre | Les preuves privées ne sont pas lisibles en CI |
+| Accueil éditorial | Composition responsive issue du prototype et contenu réel | Contrats du build et revue navigateur | L'illustration reste déclarative, jamais une preuve produit |
+| Identité | Logo optimisé, palette orange accessible et contrat de marque aligné | `DESIGN.md`, `BRAND-SEO.md` et `AS-1002` | Marque compacte et favicon définitif encore ouverts |
+| SEO conditionnel | RSS, `llms.txt`, robots, sitemap, canonicals et données structurées | Build normal et build opt-in couverts | Aucune exploration ou citation publique observée |
+| Parcours local | Service statique avec healthcheck | `compose.yaml` | Aucun preview partagé |
+| Candidat Cloudflare | 79 fichiers acceptés par le `dry-run`, sans binding | Wrangler 4.125.0 et `site/wrangler.jsonc` | Aucun état Cloudflare créé |
+| Documentation interne | Nimbus reste séparé du site public | `docs-nimbus/` et catalogue | Le build Cloudflare pointe uniquement vers `site/dist/` |
 
-## Médias et autorisations
+## Revue d'interface du 2026-08-24
 
-Le propriétaire a déclaré le 2026-08-23 avoir obtenu l'accord de tous les
-créateurs du corpus courant pour réutiliser leurs contenus et produire des
-images dérivées par IA. Cette déclaration autorise la préparation du flux, mais
-chaque photogramme public doit encore recevoir sa ligne exacte dans
-`research/assets.csv` : source, timecode, titulaire, périmètre, crédit,
-personnes visibles, éléments tiers, empreinte et preuve privée.
+| Contrôle | Résultat | Portée |
+| --- | --- | --- |
+| Responsive | Aucun débordement à 360, 768, 1280 et 1440 px sur l'accueil | Build statique local |
+| Contenu long | Article Koda 2 contrôlé à 360 et 1440 px ; figure mobile corrigée, tableau contenu dans une région défilable et focusable | 11 392 caractères et 23 intertitres |
+| Clavier et focus | Lien d'évitement visible ; contour orange 3 px sur fond clair et fond carbone | Parcours critique de l'accueil |
+| Mouvement réduit | Deux règles finales suppriment transitions et transformations | CSS construit réellement chargé |
+| Console et chargements | Aucun journal d'erreur après rechargement de l'accueil et de l'article | Navigateur local sur le build statique |
+| Lighthouse accueil | Performance 96, accessibilité 100, bonnes pratiques 100 ; CLS 0, TBT 0 ms | Simulation mobile locale, sans valeur de production |
+| Lighthouse article | Performance 95, accessibilité 100, bonnes pratiques 100 ; CLS 0, TBT 0 ms | Simulation mobile locale, sans valeur de production |
 
-Aucun photogramme ni dérivé de vidéo n'entre dans l'arbre public actuel. Les
-seuls fichiers nouveaux sont deux variantes WebP d'une création IA originale,
-sans marque, personne ou média tiers. Elles portent une mention visible et leur
-provenance est enregistrée.
+Les captures de contrôle sont conservées hors du dépôt. Aucun screenshot,
+fichier source de prototype ou logo brut n'entre dans l'artefact public.
 
-## Candidat Atlas immuable
+## Hébergement et livraison
 
-| Élément | Référence vérifiée |
+| Élément | État vérifié |
 | --- | --- |
-| Révision source | `288d36bf3538309a2626f7aa6de23e45a886d2ac` |
-| Site OCI | `ghcr.io/nclsppr/fouranu/site@sha256:beac460832b08eb1a996a43e5612df14bb3cf590775cc30c698a58a857acaf0b` |
-| Routes OCI | `ghcr.io/nclsppr/fouranu/routes@sha256:2d1feeac1e5ef3dd82ba8f904bd753cd34a5a477ae0e005a17a397dd0f05846c` |
-| Archive dans le site OCI | SHA-256 `1f6a83a44c28026059763e207c96821a0a133ffeb8314903cc58683bafa9a4b1` |
-| Inventaire | Contrat `vps-infra.route-inventory.v1`, 47 fichiers et 47 routes |
-| Preuve de promotion | Artefact GitHub `9496295926`, SHA-256 `a99f0cbc321f7bccd307afbfe9010a45bdf39b3337846b763d2100880de6ea88` |
-
-## État opérationnel
-
-| Surface | Accès | Artefact | Santé | Dernière observation |
-| --- | --- | --- | --- | --- |
-| Site local | `http://127.0.0.1:4321` pendant Compose | `site/dist/`, dérivé non suivi | Sain | 2026-08-23 |
-| Documentation Nimbus | Build local uniquement | `docs-nimbus/dist/`, dérivé non suivi | Contrôles disponibles | 2026-08-23 |
-| CI du site | [Run `32651428082`](https://github.com/nclsppr/fouranu/actions/runs/32651428082) | Job `verify` du SHA livré | Succès ; enveloppe du run encore signalée `in_progress` par l'API après la fin du job | 2026-08-23 |
-| Producteur Atlas | [Run `32651428066`](https://github.com/nclsppr/fouranu/actions/runs/32651428066) | OCI publics `site` et `routes` par SHA | Succès, attestations vérifiées | 2026-08-23 |
-| Contrôle Atlas | Dépôt séparé `vps-infra` | Aucun profil Four à Nu | Non admis ; réconciliation centrale observée en échec | 2026-08-23 |
-| Domaine | `fouranu.com` et `www.fouranu.com` | Aucun service Four à Nu | DNS observé sans résolution | 2026-08-23 |
-
-## Validations récentes
-
-| Date | Contrôle | Résultat | Portée de la preuve |
-| --- | --- | --- | --- |
-| 2026-08-23 | `npm run check --prefix site` | Typecheck sans erreur, 21 pages, neuf tests sur neuf | Site local et contrats automatisés |
-| 2026-08-23 | Registres éditoriaux | 107 preuves, 18 médias, 50 questions et 21 tests sur 21 | Métadonnées versionnées ; preuves privées non lues |
-| 2026-08-23 | Docker Compose | Image construite et healthcheck sain | Machine locale uniquement |
-| 2026-08-23 | `./scripts/verify.sh` | Gate complète verte, deux paquets Atlas identiques et 47 pages Nimbus générées | Diff local avant livraison Git |
-| 2026-08-23 | GitHub Actions `Verify` | Job `verify` vert sur `288d36b`, y compris Compose intégré | Le statut d'enveloppe du run n'était pas encore finalisé par l'API lors du relevé |
-| 2026-08-23 | GitHub Actions `VPS release` | Run vert, artefacts publics, attestés et preuve immuable enregistrée | Producteur uniquement, sans admission Atlas |
-| 2026-08-23 | Tirage public des OCI | Site et inventaire téléchargés sans session ; 47 fichiers et révision exacte | Registre public, pas consommateur Atlas |
-| 2026-08-23 | Revue navigateur de la tranche | Bloquée avant ouverture par une vérification de sécurité administrateur indisponible | Aucune affirmation visuelle sur la nouvelle interface |
-| 2026-08-23 | Audit Atlas en lecture seule | Aucun profil Four à Nu ; dernier contrôleur central observé en échec avant admission | Aucun changement dans `vps-infra` |
+| Cible | Cloudflare Workers Static Assets, sans Worker JavaScript |
+| Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
+| Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
+| Graphe CI | `deploy-cloudflare` dépend de `verify`, uniquement sur un push `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` |
+| Paramètres futurs | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
+| État Cloudflare observé | Aucun projet Pages, Worker Four à Nu ou zone `fouranu.com` dans le compte connecté |
+| Ancienne cible Atlas | Workflow producteur retiré ; OCI et preuves du 2026-08-23 restent historiques, plus chemin courant |
 
 ## Blocages avant publication
 
 | Blocage | Impact | Condition de reprise |
 | --- | --- | --- |
-| Identité de l'éditeur, responsable de publication, adresse et contact exacts absents | Mentions légales incomplètes | Fournir ces informations par un canal approprié, sans secret dans Git |
-| Autorisations non rapprochées des actifs exacts | Aucun dérivé vidéo ne peut entrer dans le paquet public | Enregistrer chaque actif et vérifier sa preuve privée |
-| Revue visuelle actuelle non acquise | Le changement d'interface ne satisfait pas encore la gate manuelle | Refaire mobile, bureau, clavier, focus, mouvement réduit, console et réseau lorsque le navigateur est disponible |
-| Four à Nu absent de `vps-infra` | Aucun déploiement Atlas possible | Réparer la gate centrale puis préparer une admission désactivée dans une tranche séparée |
-| DNS et publication non autorisés | Aucun site public ni indexation réelle | Feu vert explicite sur le paquet exact, puis activation séparée |
+| Identité de l'éditeur, responsable de publication, adresse et contact exacts absents | Mentions légales incomplètes | Fournir les informations exactes par un canal approprié, sans secret dans Git |
+| Quatre fichiers Koda 2 publics ne sont pas rapprochés de lignes exactes dans `research/assets.csv` | Le paquet exact ne passe pas encore la barrière média manuelle | Enregistrer source, timecode, titulaire, périmètre, crédit, personnes, éléments tiers, empreinte et preuve privée de chaque actif |
+| Preuves privées non disponibles en CI | La CI ne peut pas autoriser seule la publication des médias | Validation humaine locale du paquet exact |
+| Environnement Cloudflare non configuré | Le job de déploiement reste volontairement inactif | Créer l'environnement GitHub protégé, ajouter le jeton minimal et l'identifiant de compte, puis autoriser le premier déploiement |
+| Zone, domaine, DNS et indexation non autorisés | Aucun site public ou indexable | Autorisations et preuves séparées après contrôle du premier déploiement |
 | Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
 
-## Risques et prochaines preuves
+## Prochaines preuves
 
 | Sujet | Type | Prochaine preuve | Phase |
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
-| Valeur propre des analyses | Hypothèse | Relecture des onze URL avec la barrière SEO | F02 |
-| Droits des dérivés | Risque | Validation d'un premier actif complet, de la source au rendu public | F03 |
-| Publication interne accidentelle | Risque | Inspection de l'archive Atlas, distincte de Nimbus | F03 |
+| Médias Koda 2 | Risque | Rapprochement complet des quatre fichiers publics et de leurs droits | F02/F03 |
+| Candidat exact | Gate | Revue éditoriale, visuelle et légale du SHA livré, puis feu vert sur ce paquet | F03 |
+| Premier déploiement | Activation | Run GitHub Actions vert après `Verify`, empreinte et contrôle de la version Cloudflare | F04 |
+| Domaine public | Activation | Custom Domain, DNS, HTTP, routes, console, robots, sitemap et SHA contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |

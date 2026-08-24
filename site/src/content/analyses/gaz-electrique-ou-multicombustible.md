@@ -1,5 +1,6 @@
 ---
 articleId: OONI-004
+brand: ooni
 title: Ooni gaz, électrique ou multi-combustible ?
 description: "Koda au gaz, Karu au bois ou charbon, Volt 2 électrique : les différences établies pour choisir selon le lieu et les gestes acceptés."
 summary: Le Volt 2 est prévu pour l'intérieur. Dehors, Koda donne une commande directe du gaz, tandis que Karu ajoute la gestion du bois ou du charbon et un brûleur gaz optionnel.
@@ -8,10 +9,12 @@ type: decision
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+evidenceIds: [EV-0001, EV-0010, EV-0020, EV-0061, EV-0070, EV-0090, EV-0091, EV-0260, EV-0262, EV-0340, EV-0370, EV-0371, EV-0373, EV-0409]
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
+  - FAN-INF
 limitations:
   - Aucun protocole commun ne compare les trois énergies dans les mêmes conditions.
   - Les dégustations tierces relevées ne sont ni aveugles ni répétées.
@@ -19,13 +22,18 @@ limitations:
   - Le corpus ne permet pas d'établir une consommation ou une performance de cuisson comparables entre les trois énergies.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
 Le Volt 2 est le choix documenté pour l'intérieur. Pour l'extérieur, Koda
 correspond à une commande directe du propane. Karu accepte bois et charbon,
 avec un brûleur propane vendu séparément sur les modèles documentés. Le corpus
 ne permet pas de déclarer une énergie supérieure aux autres pour le goût ou la
 performance.
+
+Nous commencerions toujours par le lieu autorisé et les gestes acceptés. Le
+choix du combustible vient avant la recherche d'un modèle précis : une énergie
+mal adaptée au quotidien annule vite l'intérêt d'un four plus performant sur le
+papier.
 
 Une fois l'énergie choisie, le guide
 [Quel four Ooni choisir en 2026 ?](/ooni/quel-four-ooni-choisir/) départage les

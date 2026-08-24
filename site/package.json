@@ -10,6 +10,8 @@
     "dev": "astro dev --host 0.0.0.0 --port 4321",
     "build": "astro build",
     "preview": "node scripts/serve.mjs",
+    "cloudflare:check": "wrangler deploy --dry-run",
+    "cloudflare:deploy": "wrangler deploy",
     "typecheck": "astro check",
     "test": "node --test scripts/*.test.mjs",
     "check": "npm run typecheck && npm run build && npm run test"
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "4.125.0"
   }
 }

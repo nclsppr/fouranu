@@ -6,6 +6,29 @@ importantes.
 
 ## Non publié
 
+- Recomposition de l'accueil selon la hiérarchie éditoriale du prototype : une
+  une 8/4, des dossiers modèles, un guide par contraintes et la méthode, sans
+  reprendre ses faux scores, ses promesses de test, ses médias ni ses routes
+  fictives.
+- Adoption et optimisation du logo Four à Nu fourni, désormais rendu dans
+  l'en-tête et le pied de page. Sa provenance et ses empreintes source et web
+  entrent dans le registre des médias.
+- Passage de l'accent bleu à deux oranges accessibles, tout en conservant IBM
+  Plex, la grille, les fonds carbone et la lecture documentaire de « Ligne de
+  sole ». Le prototype reste une référence de composition, pas une source de
+  contenu ou d'actifs.
+- Généralisation des routes d'analyse par marque, des canonicales, du RSS, du
+  sitemap, de `llms.txt` et des bibliographies depuis les `evidenceIds`
+  explicites, sans créer de dossier Gozney sans contenu réel.
+- Correction du débordement des figures sur les articles longs mobiles et ajout
+  d'un contrat automatisé sur le logo public.
+- Adoption de Cloudflare Workers Static Assets par l'ADR-0004. Wrangler est
+  épinglé et validé à sec ; le job GitHub Actions ne peut s'exécuter sur `main`
+  qu'après `Verify` et un signal d'activation explicite. Le premier déploiement,
+  le domaine, le DNS et l'indexation restent hors de cette préparation.
+- Retrait de l'ancien workflow producteur Atlas et de ses scripts de paquet afin
+  de conserver une seule cible publique future. Les ADR et preuves Atlas
+  antérieures restent historiques.
 - Ajout du premier dossier illustré : un photogramme couleur du Koda 2 et une
   esquisse dérivée, tous deux attribués dans l'article. Un outil court récupère
   désormais un extrait YouTube autorisé et produit une planche de six images
@@ -20,7 +43,7 @@ importantes.
   d'article avec signature, dates, sommaire, rail de preuve, limites,
   bibliographie et accès direct à chaque preuve.
 - Passage à 21 pages HTML et onze analyses Ooni, dont les neuf modèles de la
-  gamme France, avec neuf tests de contrat et 107 preuves croisées.
+  gamme France, avec dix tests de contrat et 118 preuves croisées.
 - Ajout des pages auteur, À propos, méthode, corrections, transparence
   commerciale et confidentialité, sans analytics, publicité ou lien rémunéré
   actif.

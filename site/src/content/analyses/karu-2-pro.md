@@ -1,99 +1,96 @@
 ---
 articleId: OONI-016
-title: "Ooni Karu 2 Pro : format 40 cm et combustibles"
-description: Le Karu 2 Pro est annoncé pour 40 cm avec bois, charbon ou brûleur propane séparé. Une seule session tierce documente son usage.
-summary: Le Karu 2 Pro est annoncé pour 40 cm, avec bois, charbon ou brûleur propane séparé. Une seule session tierce interdit toute conclusion de performance.
+brand: ooni
+title: "Ooni Karu 2 Pro : 40 cm, bois ou gaz"
+description: Le Karu 2 Pro vise les pizzas de 40 cm avec bois, charbon ou propane. Notre analyse de son poids, de ses commandes et des mesures publiées.
+summary: Le Karu 2 Pro est un gros four multi-combustible de 28,4 kg. Nous le réserverions à un emplacement fixe et à quelqu'un qui veut vraiment cuisiner au feu.
 status: publishable
 type: model
 model: Ooni Karu 2 Pro
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
+evidenceIds: [EV-0002, EV-0070, EV-0071, EV-0072, EV-0073, EV-0250, EV-0251, EV-0252, EV-0253, EV-0401]
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
+  - FAN-INF
 limitations:
-  - Une seule session tierce exploitable limite la portée des conclusions d'usage.
-  - Une seule source tierce exploitable documente actuellement la performance.
+  - Une seule session tierce exploitable documente actuellement la performance.
   - Le préchauffage au bois n'est pas mesuré dans cette source.
   - Le brûleur au propane est un accessoire séparé.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Karu 2 Pro combine un format annoncé pour 40 cm avec le bois, le charbon et
-un brûleur propane vendu séparément. Il pèse 28,4 kg et intègre une porte vitrée,
-un afficheur et une sonde alimentaire. Une seule session tierce exploitable
-documente son usage. Elle ne suffit pas à le déclarer plus performant que le
-Karu 2 ou qu'un modèle au gaz.
+Le Karu 2 Pro n'est pas un Karu 2 un peu plus grand. Avec 28,4 kg, une ouverture
+pour pizza de 40 cm, une porte vitrée et un afficheur, il demande un vrai
+emplacement. Nous le conseillerions à quelqu'un qui veut cuisiner souvent au
+bois et qui apprécie de pouvoir passer au gaz. Pour une sortie occasionnelle,
+il est difficile de justifier autant de masse et de complexité.
 
-Cette fiche traite le Karu 2 Pro, pas le choix de toute la gamme. Voir
-[quel four Ooni choisir](/ooni/quel-four-ooni-choisir/) pour le tri par format,
-puis [Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/)
-pour les contraintes liées à l'énergie. Les codes de preuve sont définis dans
-[la méthode Four à Nu](/methode/).
+Le brûleur propane est vendu séparément. Le pack qui le contient reste un
+ensemble commercial, pas un modèle différent. Cette précision compte quand on
+compare les prix.
 
-## Ce qui est établi par le fabricant
+## Taille, pierre et instrumentation
 
-La [page française du Karu 2 Pro](https://eu.ooni.com/fr-fr/products/ooni-karu-2-pro)
-indique une alimentation au bois et au charbon, ou au propane avec un brûleur
-vendu séparément. Le diamètre maximal annoncé est de 40 cm (`EV-0070`).
+La surface de cuisson publiée fait 43 cm de large. Le four mesure
+50 × 83 × 83 cm, pèse 28,4 kg et utilise une pierre de 15 mm. Il ajoute une
+porte vitrée, un afficheur et une sonde alimentaire.
 
-Le fabricant affiche une surface de cuisson large de 43 cm, un poids de 28,4 kg,
-une pierre de 15 mm et des dimensions de 50 × 83 × 83 cm (`EV-0071`). Il inclut
-une porte ClearView et un hub Ooni Connect avec sonde alimentaire (`EV-0072`).
+Le fabricant annonce 500 °C en 15 minutes et une pizza au feu de bois en
+60 secondes. Nous ne traiterions pas ces valeurs comme un horaire. Une seule
+session tierce documente la chauffe et elle utilise le gaz, pas le bois.
 
-Ooni annonce 500 °C en 15 minutes et une pizza au feu de bois en 60 secondes
-(`EV-0073`). Ces valeurs restent des annonces fabricant.
+## Passer du gaz au bois demande une intervention
 
-Le pack associant le Karu 2 Pro à son brûleur est enregistré comme un bundle,
-pas comme un modèle autonome différent (`EV-0002`).
+La conversion observée demande de desserrer deux vis, de retirer le brûleur et
+de remettre le panneau arrière. Le geste paraît accessible, mais ce n'est pas
+une bascule instantanée au milieu d'une cuisson. Il faut attendre que le four
+soit froid et manipuler des pièces propres.
 
-## Ce que montre la source tierce disponible
+Le thermomètre intégré mesure l'air du four. Une mesure de sole exige toujours
+un thermomètre infrarouge. Nous insistons sur cette différence, car une belle
+valeur sur l'afficheur ne garantit pas que la pierre est prête au centre et sur
+les bords.
 
-Pala Pizza utilise une unité reçue gratuitement et des liens affiliés. Le
-[passage du gaz au bois, EV-0250](https://www.youtube.com/watch?v=fxkTzr8GYwE&t=19s)
-demande de desserrer deux vis puis d'échanger le brûleur avec le panneau
-arrière. Cette séquence documente le geste sur cet exemplaire. Elle ne mesure
-ni sa fréquence acceptable, ni son usure.
+## Ce que montre la séance au gaz
 
-Le thermomètre intégré ne mesure pas directement la surface de la sole. Le
-créateur emploie donc aussi un thermomètre infrarouge
-([EV-0251, à 1:25](https://www.youtube.com/watch?v=fxkTzr8GYwE&t=85s)). Cette
-distinction importe lorsque l'affichage et la température de lancement sont
-comparés.
+Dans la session disponible, la pleine température arrive après environ 30 à
+40 minutes, avec un départ à 44 °F et le gaz laissé à pleine puissance. Ce
+résultat ne réfute pas l'annonce de quinze minutes. La cible exacte, le climat
+et le point de mesure ne sont pas alignés.
 
-Dans la session au gaz, le créateur annonce environ 30 à 40 minutes pour
-atteindre la pleine température. La sole part de 44 °F, le gaz reste à pleine
-puissance et une seule session est documentée
-([EV-0252, à 1:32](https://www.youtube.com/watch?v=fxkTzr8GYwE&t=92s)). Le passage
-ne documente pas le préchauffage au bois. Cette mesure ne réfute pas seule
-l'annonce fabricant, car le protocole et la cible exacte diffèrent.
+La cuisson montrée réduit ensuite la flamme après l'enfournement, puis la remonte
+pour colorer le dessus. Plusieurs rotations sont nécessaires sur des pizzas de
+style new-yorkais. Ce geste nous paraît plus instructif qu'un chrono isolé. Un
+grand four ne retire pas le besoin de piloter séparément la sole et la flamme.
 
-La source montre enfin une réduction de flamme après le lancement puis une
-remontée pour colorer le dessus, avec plusieurs rotations sur des pizzas
-new-yorkaises
-([EV-0253, à 2:06](https://www.youtube.com/watch?v=fxkTzr8GYwE&t=126s)). Le
-résultat n'est pas instrumenté.
+## Pour qui il a du sens
 
-## Ce qui reste à vérifier
+Nous le retenons pour une installation extérieure durable, une table solide et
+un cuisinier qui veut exploiter le bois, le charbon et le gaz. L'ouverture de
+40 cm donne aussi de la marge pour tourner une pizza plus petite ou utiliser un
+plat compatible.
 
-- le préchauffage au bois avec une masse de combustible connue ;
-- la consommation et la stabilité au propane ;
-- la température de sole par rapport au thermomètre intégré ;
-- l'effet de la porte sur la chauffe, les rotations et la récupération ;
-- le débit sur plusieurs pizzas de même pâte ;
-- la manutention d'un ensemble de 28,4 kg et son encombrement réel ;
-- le changement répété de combustible et l'entretien des pièces concernées.
+Nous l'écarterions si le four doit être rangé après chaque usage. À près de
+30 kg, la notion de portabilité devient théorique. Pour un format plus simple,
+le [Karu 2](/ooni/karu-2/) reste plus cohérent. Pour cuisiner surtout au gaz,
+le [Koda 2 Pro](/ooni/koda-2-pro/) évite les pièces liées au feu solide.
 
-## Limites de cette fiche
+## À vérifier avant l'achat
 
-Le corpus ne compte qu'un créateur exploitable pour les observations d'usage du
-Karu 2 Pro. Une comparaison de performance exige au moins une deuxième source
-indépendante et compatible. Cette fiche reste donc un inventaire raisonné des
-caractéristiques et des questions ouvertes.
+- La profondeur et la résistance de la table.
+- Les dégagements autour de la cheminée et de la porte.
+- Le coût total avec brûleur gaz, pelle, housse et thermomètre infrarouge.
+- Le combustible principal que vous utiliserez réellement.
+- L'espace nécessaire pour nettoyer et stocker les pièces de conversion.
 
-Le [Karu 2 de 30 cm](/ooni/karu-2/) répond à une intention distincte de format
-et de manutention. Sa fiche ne sert pas de comparaison de performance avec le
-Karu 2 Pro.
+## Les limites de notre lecture
+
+Une seule session tierce ne suffit pas à mesurer la performance ou la facilité
+d'apprentissage. Le préchauffage au bois reste notamment absent. Notre lecture se
+concentre donc sur l'encombrement, la conversion et les gestes observés. Il ne
+permet pas de classer le Karu 2 Pro face aux fours au gaz.

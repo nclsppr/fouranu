@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
     .filter((entry) => entry.data.status === "publishable")
     .sort((a, b) => a.data.title.localeCompare(b.data.title, "fr"));
   const dossiers = analyses
-    .map((entry) => `- [${entry.data.title}](${SITE.url}/ooni/${entry.id}/): ${entry.data.summary}`)
+    .map((entry) => `- [${entry.data.title}](${SITE.url}/${entry.data.brand}/${entry.id}/): ${entry.data.summary}`)
     .join("\n");
   const body = `# ${SITE.name}
 
@@ -27,7 +27,7 @@ Four à Nu est un média francophone indépendant consacré au choix des fours �
 - [Transparence commerciale](${SITE.url}/transparence/)
 - [Politique de correction](${SITE.url}/corrections/)
 
-## Dossiers Ooni
+## Dossiers
 
 ${dossiers}
 

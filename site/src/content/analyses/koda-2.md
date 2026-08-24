@@ -1,8 +1,9 @@
 ---
 articleId: OONI-010
-title: "Ooni Koda 2 : dimensions et mesures tierces"
-description: Le Koda 2 est annoncé pour 35 cm et pèse 16 kg. Trois protocoles tiers de chauffe et une incohérence de dimensions sont documentés.
-summary: Le Koda 2 est annoncé pour 35 cm et pèse 16 kg. Les trois temps de chauffe tiers ne sont pas comparables, donc aucun temps de référence n'est retenu.
+brand: ooni
+title: "Ooni Koda 2 : dimensions et chauffe"
+description: Le Koda 2 est un four à gaz de 35 cm et 16 kg. Notre analyse confronte ses dimensions aux mesures de chauffe publiées et aux gestes observés.
+summary: Le Koda 2 est notre format Ooni au gaz le plus facile à recommander à un foyer. Il reste assez compact, mais ses chiffres de chauffe varient trop pour promettre un chrono.
 status: publishable
 type: model
 model: Ooni Koda 2
@@ -10,6 +11,7 @@ publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
 image: /images/articles/koda-2-photogramme-1600.webp
+evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407]
 evidenceTypes:
   - FAB
   - T-MES
@@ -21,108 +23,103 @@ limitations:
   - La consommation ne repose que sur une pesée tierce peu précise.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Koda 2 de deuxième génération est un four extérieur au propane annoncé pour
-des pizzas de 35 cm. Son poids publié est de 16 kg. Trois sources tierces
-atteignent plus de 400 °C sur la sole, mais dans des climats, à des points de
-mesure et selon des rythmes différents. Aucun temps de chauffe unique n'est
-donc retenu.
+Le Koda 2 est probablement le point d'équilibre le plus évident de la gamme
+Ooni au gaz. Son espace annoncé de 35 cm donne davantage de marge qu'un four de
+30 cm, sans basculer dans les 30 ou 43 kg des grands modèles. À 16 kg, il reste
+déplaçable, même si nous n'aurions pas envie de le rentrer après chaque pizza.
 
-Cette fiche répond uniquement aux questions propres au Koda 2. Pour choisir
-dans toute la gamme, voir [quel four Ooni choisir](/ooni/quel-four-ooni-choisir/).
-Pour arbitrer le combustible, voir
-[Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/).
-Les codes `FAB`, `T-MES`, `T-OBS` et `FAN-INF` sont définis dans
-[la méthode Four à Nu](/methode/).
+Nous le conseillerions à quelqu'un qui veut apprendre les gestes de la pizza
+napolitaine sans ajouter la gestion d'un feu de bois. Nous ne promettrions en
+revanche ni une chauffe en quinze minutes, ni une pizza parfaite en soixante
+secondes. Les sessions publiées montrent justement que le climat, la mesure et
+la façon de cuire changent beaucoup le résultat.
+
+Pour une vue d'ensemble, notre guide
+[Quel four Ooni choisir en 2026 ?](/ooni/quel-four-ooni-choisir/) replace ce
+modèle face aux autres formats.
 
 <figure class="article-media">
   <picture>
     <source media="(max-width: 48rem)" srcset="/images/articles/koda-2-photogramme-960.webp" />
     <img src="/images/articles/koda-2-photogramme-1600.webp" width="1600" height="900" alt="Ooni Koda 2 gris vu de face, posé dehors, avec sa pierre visible" fetchpriority="high" />
   </picture>
-  <figcaption>
-    <strong>Le Koda 2 vu de face.</strong> Photogramme utilisé avec l'autorisation de Pala Pizza. Source : <a href="https://www.youtube.com/watch?v=wPschLywLbI&t=8s">Pala Pizza, à 0:08</a>.
-  </figcaption>
+  <figcaption><strong>Le Koda 2 vu de face.</strong> Le crédit et le passage d'origine figurent dans les sources en fin d'article.</figcaption>
 </figure>
 
-## Ce qui est établi par le fabricant
+## Taille, poids et incohérence de dimensions
 
-La [page française du Koda 2](https://eu.ooni.com/fr-fr/products/ooni-koda-2)
-le présente comme un four extérieur au propane pour des pizzas jusqu'à 35 cm
-(`EV-0010`). Elle affiche un poids de 16 kg, une pierre de 15 mm et des
-dimensions métriques de 545 × 472 × 333 mm (`EV-0011`).
+Le Koda 2 fonctionne au propane et se destine à l'extérieur. Il accepte des
+pizzas jusqu'à 35 cm, pèse 16 kg et reçoit une pierre de 15 mm. Les dimensions
+métriques publiées sont de 545 × 472 × 333 mm.
 
-La même page associe ces dimensions à 21,5 × 28,4 × 13,1 pouces. Les deux séries
-ne sont pas toutes équivalentes. `EV-0100` conserve cette anomalie et interdit
-de corriger silencieusement l'une des valeurs. Les dimensions doivent être
-confirmées avant de choisir une table ou un emplacement.
+Un détail nous gêne. Les dimensions en pouces publiées sur la même page ne sont
+pas toutes équivalentes aux valeurs métriques. Ce n'est pas un débat de puriste.
+Quelques centimètres peuvent décider si le four tient sur une table. Nous
+conseillons donc de mesurer l'emplacement avec une marge et de confirmer la
+profondeur avant l'achat.
 
-Ooni annonce 500 °C et une pizza napolitaine en 60 secondes (`EV-0012`). Ces
-valeurs restent des annonces fabricant.
+## La chauffe ne tient pas dans un seul chiffre
 
-## Mesures tierces de chauffe
+Trois sessions tierces dépassent 400 °C sur la sole, mais elles ne racontent pas
+la même histoire.
 
-Trois sessions illustrent l'effet des conditions :
-
-| Source | Conditions déclarées | Relevé |
+| Conditions publiées | Relevé observé | Notre lecture |
 | --- | --- | --- |
-| [Pala Pizza, EV-0202](https://www.youtube.com/watch?v=wPschLywLbI&t=99s) | Pluie, air à 56 °F, thermomètre infrarouge | Plus de 800 °F sur la sole après 20 minutes, environ 900 °F après 30 minutes |
-| [The Technology Man, EV-0210](https://www.youtube.com/watch?v=BvUVIWEBmVk&t=195s) | Air à 2 °C, four initialement enneigé, centre relevé toutes les cinq minutes | 400 °C à 25 minutes, plateau proche de 450 °C à 35 minutes |
-| [Julien Serri, EV-0311 et EV-0312](https://www.youtube.com/watch?v=o3RYV6eoGFU&t=363s) | Propane, pleine puissance, une session | Plus de 400 °C après environ 12 minutes, environ 435 °C après 16 min 54 s |
+| Pluie, air à 56 °F | Plus de 800 °F après 20 minutes, environ 900 °F après 30 minutes | La météo douce et humide ne bloque pas la haute température |
+| Air à 2 °C, four enneigé au départ | 400 °C à 25 minutes, plateau proche de 450 °C à 35 minutes | Le froid rallonge la séance sans empêcher la chauffe |
+| Propane à pleine puissance | Plus de 400 °C vers 12 minutes, environ 435 °C à 16 min 54 s | Le relevé est rapide, mais isolé et réalisé autrement |
 
-Pala Pizza utilise une unité reçue gratuitement et des liens affiliés. The
-Technology Man utilise des liens affiliés, sans prêt ou sponsoring détecté dans
-le registre. La vidéo de Julien Serri est une promotion payée publiée par un
-marchand. Les températures, points de mesure et environnements diffèrent. Une
-moyenne serait trompeuse.
+Faire une moyenne de ces chronos serait absurde. Les températures ambiantes,
+les points de mesure et les rythmes ne sont pas les mêmes. La conclusion utile
+est plus modeste : le four peut dépasser 400 °C dans des conditions variées,
+mais votre temps de chauffe dépendra de la météo et de votre cible sur la sole.
 
-## Observations de cuisson et d'usage
+## Les gestes qui comptent pendant la cuisson
 
-Pala Pizza montre une pizza cuite en environ 60 secondes après un lancement
-annoncé autour de 800 °F
-([EV-0203, à 1:57](https://www.youtube.com/watch?v=wPschLywLbI&t=117s)).
-Une seule pizza et une pâte poolish à 65 % d'hydratation sont documentées. Dans
-une session hivernale distincte, The Technology Man tourne une pizza de
-12 pouces après environ 30 secondes puis toutes les 15 secondes, pour une
-cuisson proche de deux minutes
-([EV-0211, à 4:22](https://www.youtube.com/watch?v=BvUVIWEBmVk&t=262s)).
+Une pizza documentée cuit autour d'une minute après un lancement annoncé à
+environ 425 °C. Une autre session hivernale approche plutôt deux minutes, avec
+une première rotation après trente secondes puis des rotations rapprochées.
+Nous retenons surtout la nécessité de rester devant le four.
 
-Julien Serri observe que le brûleur arrière demande davantage de rotations
-qu'une flamme en L ou en U
-([EV-0313, à 6:25](https://www.youtube.com/watch?v=o3RYV6eoGFU&t=385s)).
-Pala Pizza relève aussi une garde arrière qui rend le passage d'une brosse
-difficile à chaud dans sa configuration
-([EV-0201, à 1:29](https://www.youtube.com/watch?v=wPschLywLbI&t=89s)).
-Ces observations dépendent du geste, de la table et d'un seul exemplaire par
-source.
+Le brûleur arrière colore davantage un côté. Il faut donc tourner la pizza plus
+souvent qu'avec une flamme qui enveloppe deux ou trois côtés. Une séquence montre
+aussi que la faible garde à l'arrière peut gêner le passage d'une brosse quand
+le four est chaud. Ce n'est pas rédhibitoire, mais c'est exactement le genre de
+détail que la fiche commerciale ne raconte pas.
 
 <figure class="article-media">
   <picture>
     <source media="(max-width: 48rem)" srcset="/images/articles/koda-2-brosse-esquisse-960.webp" />
     <img src="/images/articles/koda-2-brosse-esquisse-1600.webp" width="1600" height="900" alt="Esquisse de l'intérieur du Koda 2 montrant une brosse contrainte par la faible garde arrière" loading="lazy" />
   </picture>
-  <figcaption>
-    <strong>Interprétation graphique de la garde arrière.</strong> Illustration assistée par IA d'après un photogramme de Pala Pizza, utilisé avec autorisation. Elle aide à situer l'observation et ne constitue pas une preuve de performance. Source : <a href="https://www.youtube.com/watch?v=wPschLywLbI&t=96s">Pala Pizza, à 1:36</a>.
-  </figcaption>
+  <figcaption><strong>La garde arrière vue comme un geste d'entretien.</strong> Illustration assistée par IA, utilisée pour situer l'observation et non comme preuve de performance. Le crédit figure dans les sources.</figcaption>
 </figure>
 
-## Ce qui reste à vérifier
+## Pour qui nous le choisirions
 
-- les dimensions exactes et les dégagements nécessaires ;
-- la répartition de chaleur sur toute la pierre ;
-- la récupération entre plusieurs pizzas identiques ;
-- le comportement au vent et à différentes températures ambiantes ;
-- la consommation de gaz avec une méthode plus précise ;
-- la durée de vie de l'allumage, du brûleur et de la pierre.
+Le Koda 2 convient à un foyer qui cuisine dehors, veut rester au gaz et cherche
+un peu plus d'aisance qu'avec une pierre de 30 cm. Il est aussi plus facile à
+placer que le [Koda 2 Pro](/ooni/koda-2-pro/) et beaucoup plus léger que le
+[Koda 2 Max](/ooni/koda-2-max/).
 
-## Limites de cette fiche
+Nous l'écarterions pour un balcon dont les règles ou les dégagements sont
+incertains, pour un usage intérieur, ou si deux pizzas doivent cuire en même
+temps. Et si le rituel du bois fait partie du projet, le
+[Karu 2](/ooni/karu-2/) répond à une envie différente.
 
-Le corpus autorise une description des spécifications et de plusieurs sessions
-tierces. Il ne permet pas de convertir ces sessions en temps de chauffe de
-référence, en note ou en recommandation générale.
+## À vérifier avant de commander
 
-Si 35 cm ne répondent pas au besoin annoncé, les fiches du
-[Koda 2 Pro de 45 cm](/ooni/koda-2-pro/) et du
-[Koda 2 Max à deux zones](/ooni/koda-2-max/) documentent les formats supérieurs
-sans les présenter comme des améliorations automatiques.
+- La profondeur exacte de la table, avec une marge pour le tuyau.
+- Les dégagements de sécurité autour et au-dessus du four.
+- Le raccordement propane livré pour la France.
+- La place nécessaire à une pelle et à une pizza de 35 cm en rotation.
+- Le rangement d'un appareil de 16 kg entre deux usages.
+
+## Les limites de notre lecture
+
+Les observations disponibles portent sur quelques exemplaires et des sessions
+très différentes. Elles ne donnent ni débit moyen, ni consommation fiable, ni
+durée de vie. Notre préférence pour ce format vient de son compromis entre
+place et poids. Elle ne transforme pas ces vidéos en test Four à Nu.

@@ -33,6 +33,7 @@ const fixedIndexableRoutes = [
 ];
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+const articleRoutePattern = /^\/(?:ooni|gozney)\/[^/]+\/$/;
 
 async function filesRecursively(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -300,7 +301,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   assert.equal(profile.mainEntity?.name, editorialAuthor.name);
   assert.equal(profile.mainEntity?.url, `${canonicalOrigin}${editorialAuthor.route}`);
 
-  const articlePages = pages.filter((page) => /^\/ooni\/[^/]+\/$/.test(page.route ?? ""));
+  const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   assert.equal(articlePages.length, 11);
 
   for (const page of pages) {
@@ -362,7 +363,7 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 107);
+  assert.equal(records.size, 118);
 
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
@@ -372,8 +373,14 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(siteRoot, "src/content/analyses", markdownFile), "utf8");
-    const articleId = markdown.match(/^articleId:\s*(OONI-\d{3})$/m)?.[1];
+    const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY)-\d{3})$/m)?.[1];
+    const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
     assert.ok(articleId, `${slug}: articleId absent ou invalide`);
+    assert.ok(brand, `${slug}: marque absente ou invalide`);
+    assert.ok(
+      articleId.startsWith(`${brand.toUpperCase()}-`),
+      `${slug}: articleId incohérent avec la marque`,
+    );
     const expectedIds = [...new Set(markdown.match(/\bEV-\d{4}\b/g) ?? [])];
     assert.ok(expectedIds.length >= 1, `${slug}: aucune preuve citée`);
     for (const evidenceId of expectedIds) {
@@ -384,13 +391,13 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
       );
     }
 
-    const html = await readFile(join(dist, "ooni", slug, "index.html"), "utf8");
+    const html = await readFile(join(dist, brand, slug, "index.html"), "utf8");
     const renderedIds = [...html.matchAll(/data-evidence-id="(EV-\d{4})"/g)].map((match) => match[1]);
     assert.deepEqual(renderedIds, expectedIds, `${slug}: bibliographie incomplète ou réordonnée`);
     assert.ok(
       pairedElements(html, "h2").some((heading) =>
         attribute(`<h2${heading[1]}>`, "id") === "cited-sources-title" &&
-        visibleText(heading[2]) === "Sources citées"
+        visibleText(heading[2]) === "Sources"
       ),
       `${slug}: titre de bibliographie absent`,
     );
@@ -413,7 +420,7 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
 test("RSS et llms.txt exposent exactement les onze dossiers publiables", async () => {
   const articleRoutes = (await htmlPages())
     .map((page) => page.route)
-    .filter((route) => /^\/ooni\/[^/]+\/$/.test(route ?? ""))
+    .filter((route) => articleRoutePattern.test(route ?? ""))
     .sort();
   assert.equal(articleRoutes.length, 11);
 
@@ -430,8 +437,10 @@ test("RSS et llms.txt exposent exactement les onze dossiers publiables", async (
     const link = item.match(/<link>([^<]+)<\/link>/)?.[1];
     const guid = item.match(/<guid isPermaLink="true">([^<]+)<\/guid>/)?.[1];
     assert.equal(guid, link, "le GUID RSS doit être l'URL canonique du dossier");
-    assert.ok(link?.startsWith(`${canonicalOrigin}/ooni/`));
-    return new URL(link).pathname;
+    assert.ok(link);
+    const pathname = new URL(link).pathname;
+    assert.match(pathname, articleRoutePattern);
+    return pathname;
   }).sort();
   assert.deepEqual(rssRoutes, articleRoutes);
 
@@ -447,7 +456,7 @@ test("RSS et llms.txt exposent exactement les onze dossiers publiables", async (
   ]) {
     assert.match(llms, new RegExp(escapeRegex(`${canonicalOrigin}${route}`)));
   }
-  const llmsRoutes = [...llms.matchAll(/\]\(https:\/\/fouranu\.com(\/ooni\/[^/)]+\/)\)/g)]
+  const llmsRoutes = [...llms.matchAll(/\]\(https:\/\/fouranu\.com(\/(?:ooni|gozney)\/[^/)]+\/)\)/g)]
     .map((match) => match[1])
     .sort();
   assert.deepEqual(llmsRoutes, articleRoutes);
@@ -493,6 +502,24 @@ test("l'illustration d'accueil est responsive, explicite et légère", async () 
   const largeVisual = await stat(join(dist, candidates[1][0].replace(/^\//, "")));
   assert.ok(smallVisual.size < 50_000, "le visuel 768 px dépasse 50 Ko");
   assert.ok(largeVisual.size < 150_000, "le visuel 1536 px dépasse 150 Ko");
+});
+
+test("le logo Four à Nu est explicite, dimensionné et léger", async () => {
+  const home = (await htmlPages()).find((page) => page.route === "/");
+  assert.ok(home);
+  const header = pairedElements(home.html, "header")[0];
+  assert.ok(header, "en-tête absent de l'accueil");
+  const logo = tags(header[2], "img").find(
+    (image) => attribute(image, "src") === "/brand/logo-fouranu.png",
+  );
+  assert.ok(logo, "logo Four à Nu absent de l'en-tête");
+  assert.equal(attribute(logo, "width"), "480");
+  assert.equal(attribute(logo, "height"), "172");
+  assert.equal(attribute(logo, "alt"), "Four à Nu");
+  assert.equal(await routeExists("/brand/logo-fouranu.png"), true);
+
+  const logoFile = await stat(join(dist, "brand/logo-fouranu.png"));
+  assert.ok(logoFile.size < 200_000, "le logo d'en-tête dépasse 200 Ko");
 });
 
 test("robots et sitemap gardent la preview hors index et séparent Search de GPTBot", async () => {
@@ -551,7 +578,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const pages = await htmlPages(temporaryOutput);
     const articleRoutes = pages
       .map((page) => page.route)
-      .filter((route) => /^\/ooni\/[^/]+\/$/.test(route ?? ""));
+      .filter((route) => articleRoutePattern.test(route ?? ""));
     assert.equal(articleRoutes.length, 11);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
     assert.equal(expectedRoutes.length, 20);

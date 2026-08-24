@@ -5,7 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
 
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.status === "publishable");
+  .filter((entry) => entry.data.brand === "ooni" && entry.data.status === "publishable");
 const modelEntries = analyses.filter((entry) => entry.data.type === "model");
 const entriesById = new Map(modelEntries.map((entry) => [entry.id, entry]));
 const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
@@ -69,7 +69,7 @@ const schema = {
       itemListElement: ranges.flatMap((range) => range.models).map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(`/ooni/${entry.id}/`, SITE.url).toString(),
+        url: new URL(`/${entry.data.brand}/${entry.id}/`, SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -135,7 +135,7 @@ const schema = {
           </header>
           <div class="range__models">
             {range.models.map((entry: CollectionEntry<"analyses">) => (
-              <a href={`/ooni/${entry.id}/`}>
+              <a href={`/${entry.data.brand}/${entry.id}/`}>
                 <span class="range__model-copy">
                   <strong>{entry.data.model}</strong>
                   <small>{entry.data.summary}</small>

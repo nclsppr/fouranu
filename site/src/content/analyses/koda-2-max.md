@@ -1,111 +1,83 @@
 ---
 articleId: OONI-012
-title: "Ooni Koda 2 Max : double zone et deux pizzas"
-description: Le Koda 2 Max pèse 43 kg et annonce deux zones gaz pour deux pizzas de 30 cm. Les sources disponibles ne mesurent pas une série complète.
-summary: Le Koda 2 Max annonce deux pizzas de 30 cm grâce à deux zones indépendantes. Les sources le montrent une fois, sans établir le débit d'une série complète.
+brand: ooni
+title: "Ooni Koda 2 Max : deux pizzas et double zone"
+description: Le Koda 2 Max pèse 43 kg et possède deux zones gaz pour deux pizzas de 30 cm. Notre analyse de son intérêt, de sa chauffe et de son encombrement.
+summary: "Le Koda 2 Max répond à un besoin très précis : cuire deux pizzas à la fois. À 43 kg, nous ne le conseillerions que si ce débit potentiel sera vraiment utilisé."
 status: publishable
 type: model
 model: Ooni Koda 2 Max
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
-evidenceTypes:
-  - FAB
-  - T-MES
-  - T-OBS
+evidenceIds: [EV-0030, EV-0031, EV-0032, EV-0231, EV-0232, EV-0300, EV-0330, EV-0331, EV-0332, EV-0333, EV-0405]
+evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]
 limitations:
-  - Les sources disponibles ne mesurent pas une série complète de cuissons simultanées.
-  - Les séries de deux pizzas citées ne sont pas répétées avec un protocole constant.
-  - Le vent et l'accumulation de chaleur changent les résultats observés.
+  - Les sources ne mesurent pas une série complète de cuissons simultanées.
+  - Les séries de deux pizzas ne sont pas répétées avec un protocole constant.
+  - Le vent et l'accumulation de chaleur changent les résultats.
   - La consommation de gaz et le coût complet ne sont pas établis.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Koda 2 Max de deuxième génération est annoncé pour une pizza de 50 cm ou deux
-pizzas de 30 cm. Ses deux zones gaz sont indépendantes, mais le four pèse 43 kg.
-Deux sources montrent une cuisson simultanée. Aucune ne mesure une série
-complète, le taux d'échec ou la récupération des deux pierres.
+Le Koda 2 Max peut accueillir une pizza de 50 cm ou deux pizzas de 30 cm. Ses
+deux zones gaz sont indépendantes. C'est impressionnant, mais son poids de
+43 kg remet les choses en place : ce four est un poste fixe, pas un appareil que
+l'on range après le dîner.
 
-Cette fiche répond à l'intention de cuisson simultanée. Pour choisir parmi les
-neuf modèles, voir [le guide de gamme Ooni](/ooni/quel-four-ooni-choisir/).
-Pour un format à gaz plus petit, les dossiers du
-[Koda 2](/ooni/koda-2/) et du [Koda 2 Pro](/ooni/koda-2-pro/) restent distincts.
-La [méthode Four à Nu](/methode/) explique les codes et conflits cités.
+Nous le choisirions uniquement pour cuire souvent à deux personnes ou servir de
+grandes tablées. Pour quatre pizzas un samedi soir, un four plus petit et une
+bonne organisation coûteront moins cher et prendront beaucoup moins de place.
 
-Une discussion demande si le modèle se justifie pour une famille de quatre et
-s'il est réservé aux professionnels
-([Q-0037 et Q-0038](https://www.reddit.com/r/ooni/comments/1k90vig/)).
-Une autre porte sur la surface de table
-([Q-0040](https://www.reddit.com/r/ooni/comments/1hgn0mm/)). Ces questions ne
-permettent pas de conclure que le modèle est domestique ou professionnel.
+## Ce que la double zone change
 
-## Ce qui est établi par le fabricant
+Chaque moitié possède sa commande. On peut donc viser deux températures ou
+éteindre un côté. Deux séquences montrent bien deux pizzas qui cuisent ensemble.
+Elles prouvent que le geste est possible, pas que le débit double sur toute une
+soirée.
 
-La [page française du Koda 2 Max](https://eu.ooni.com/fr-fr/products/ooni-koda-2-max)
-le présente comme un four de 61 cm, avec une pizza maximale annoncée de 50 cm ou
-deux pizzas de 30 cm simultanées (`EV-0030`).
+Cuire deux pizzas implique deux pelles, deux rythmes de rotation et beaucoup
+d'attention. Dans une séance, les deux pizzas ne demandent pas exactement le
+même temps. C'est logique : la pâte, l'étalage et la position ne sont jamais
+parfaitement identiques.
 
-Le fabricant indique deux zones gaz indépendantes, deux pierres de 20 mm, un
-poids de 43 kg et des dimensions de 80 × 72,2 × 42,8 cm (`EV-0031`). Il annonce
-une plage de 100 à 500 °C, un état prêt à cuire en 30 minutes à 400 °C et une
-pizza en 60 secondes (`EV-0032`). Ces valeurs restent des annonces fabricant.
+## Chauffe, vent et récupération
 
-## Cuisson simultanée dans les sources tierces
+Une journée très venteuse montre une montée en température difficile. Lors
+d'une seconde journée annoncée sans vent, les deux soles atteignent environ
+440 °C et 412 °C après 25 minutes. Une autre session affiche 400 °C après
+23 min 40 s. Ces valeurs sont utiles, mais elles ne forment pas un chrono de
+référence.
 
-Pala Pizza montre une pizza cuite en 60 secondes après un lancement annoncé à
-910 °F ([EV-0231, à 2:23](https://www.youtube.com/watch?v=1Kl3E8cYp64&t=143s)),
-puis deux pizzas cuites simultanément en environ 80 secondes
-([EV-0232, à 2:43](https://www.youtube.com/watch?v=1Kl3E8cYp64&t=163s)).
-Une seule paire est documentée et la similarité des résultats est appréciée
-visuellement. La source utilise des liens affiliés et aucune relation de prêt ou
-sponsoring n'a été détectée dans le registre.
+Une pizza documentée cuit en 60 secondes après un lancement autour de 488 °C,
+avec plusieurs rotations. Une seconde cuisson plus froide prend davantage de
+temps. Nous retenons surtout que la double zone ne supprime ni le vent, ni la
+récupération de la pierre, ni la surveillance.
 
-La French Pizza montre aussi deux pizzas de 12 pouces cuites ensemble. Les
-relevés infrarouges annoncés sont proches de 430 et 440 °C avant l'opération,
-mais le créateur la juge difficile pour un débutant
-([EV-0332, à 5:50](https://www.youtube.com/watch?v=o424Pz0WbyM&t=350s)).
-Cette appréciation appartient à l'auteur. Son exemplaire est déclaré acheté et
-la vidéo comporte des liens affiliés.
+## Pour qui nous le recommandons
 
-Ces deux séquences prouvent que leurs auteurs ont réalisé l'opération montrée.
-Elles ne mesurent ni le taux d'échec, ni le débit sur une soirée complète, ni
-la récupération après plusieurs paires.
+Le Koda 2 Max a du sens pour une grande famille, un passionné qui reçoit souvent
+ou un duo déjà à l'aise avec l'enfournement. Il faut aussi une table adaptée,
+une bouteille dimensionnée au débit et un emplacement qui restera consacré au
+four.
 
-## Vent, zones et températures
+Nous l'écarterions pour débuter. Apprendre à tourner deux pizzas devant deux
+zones augmente la difficulté au moment où l'on devrait surtout travailler la
+pâte. Le [Koda 2](/ooni/koda-2/) ou le
+[Koda 2 Pro](/ooni/koda-2-pro/) laisse plus de temps au cuisinier.
 
-Lors d'une première journée très venteuse, La French Pizza observe une montée
-difficile et un dessous insuffisamment cuit
-([EV-0330, à 3:20](https://www.youtube.com/watch?v=o424Pz0WbyM&t=200s)).
-Lors d'une seconde journée annoncée sans vent, la façade indique 364 °C après
-environ 25 minutes, contre 440 °C à gauche et 412 °C à droite sur la sole
-([EV-0331, à 3:46](https://www.youtube.com/watch?v=o424Pz0WbyM&t=226s)).
+## Le budget caché
 
-Avant deux autres pizzas, les relevés des zones se rapprochent. La première
-reste pâle dessous, puis les deux suivantes profitent d'une accumulation de
-chaleur plus longue
-([EV-0333, à 8:13](https://www.youtube.com/watch?v=o424Pz0WbyM&t=493s)).
-Ces écarts montrent pourquoi température d'air, température de sole, durée et
-position ne doivent pas être confondues.
+Le coût réel ne s'arrête pas au four. Une table assez large, une housse, deux
+pelles et une alimentation en gaz confortable peuvent compter. L'encombrement
+de 80 × 72,2 × 42,8 cm impose aussi de penser au passage, au vent et à la
+protection contre la pluie.
 
-Une source distincte, ambassadrice Ooni et affiliée, affiche 400 °C après
-23 min 40 s
-([EV-0300, à 10:46](https://www.youtube.com/watch?v=yBCZ_Mxh3FI&t=646s)).
-Les conditions ne permettent pas de comparer ce nombre directement aux
-sessions précédentes.
+## Les limites de notre lecture
 
-## Ce qui reste à vérifier
-
-- le débit sur une série définie de pizzas identiques ;
-- la récupération de chaque zone et leur interaction ;
-- l'effet du vent avec une vitesse mesurée ;
-- la consommation lorsque les deux brûleurs fonctionnent ;
-- la table, les dégagements et la manutention nécessaires pour 43 kg ;
-- la différence pratique entre pizza de 50 cm et deux pizzas de 30 cm.
-
-## Limites de cette fiche
-
-Le corpus établit l'architecture à deux zones et documente quelques cuissons.
-Il ne permet pas de qualifier le modèle de professionnel, familial, facile ou
-rentable. Ces termes exigeraient des critères définis, des répétitions et des
-données de première main.
+Les vidéos disponibles montrent la cuisson simultanée, mais pas dix pizzas
+répétées avec la même pâte et des relevés sur les deux pierres. Nous ne pouvons
+donc pas annoncer un débit, une consommation ou un gain de temps moyen. Le Koda
+2 Max est une machine spécialisée. Sa valeur dépend entièrement de la fréquence
+à laquelle vous exploiterez vraiment ses deux zones.

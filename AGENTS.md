@@ -83,8 +83,10 @@ arbitrée silencieusement.
   propriétaire donne un feu vert explicite sur le paquet exact.
 - L'achat du domaine n'autorise pas le DNS, l'hébergement, les comptes
   marchands, l'analytics, les réseaux sociaux ou un déploiement public.
-- Atlas est la cible de publication. Préparer son contrat de release n'autorise
-  ni l'admission dans `vps-infra`, ni la publication, ni l'activation publique.
+- Cloudflare Workers Static Assets est la cible de publication définie par
+  l'ADR-0004. Préparer sa configuration et son job GitHub Actions n'autorise ni
+  le premier déploiement, ni le domaine personnalisé, ni le DNS, ni
+  l'indexation publique.
 - Appliquer `P18` après validation. Committer chaque tranche cohérente puis la
   pousser sur la branche autorisée. Sans remote, conserver le SHA local et
   annoncer le blocage au lieu de déclarer la livraison complète.

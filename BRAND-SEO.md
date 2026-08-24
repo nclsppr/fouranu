@@ -305,43 +305,48 @@ Sources : [robots OpenAI](https://developers.openai.com/api/docs/bots),
 Ces mesures rendent les pages explorables et éligibles. Elles ne garantissent ni
 classement, ni citation, ni trafic.
 
-L'artefact public vise Atlas via le contrôle central `vps-infra`. La préparation
-du candidat, son admission, la publication de sa release, l'activation DNS et la
-soumission aux moteurs restent des étapes distinctes.
+L'artefact statique a désormais pour cible préparée Cloudflare Workers Static
+Assets. Cette orientation ne prouve ni l'existence d'un Worker de production,
+ni le rattachement de `fouranu.com`, ni une activation DNS. La validation du
+candidat, l'autorisation du déploiement, la publication, le domaine personnalisé,
+l'indexabilité et la soumission aux moteurs restent des étapes distinctes.
 
 ## Direction visuelle
 
-Les premières planches couleur sont rejetées. L'ivoire, la terracotta, le grain
-papier et le couple serif/grotesk produisaient un effet de marque éditoriale IA
-générique. Le projet ne les conserve pas.
+Décision actualisée le 2026-08-24 : le lockup couleur fourni est adopté comme
+identité plein format sous `site/public/brand/logo-fouranu.png`. Il s'affiche
+dans son ratio d'origine sur fond blanc ou acier très clair, sans recoloration,
+recadrage, ombre ou texture. Son lettrage script, sa pizza et sa flamme forment
+un ensemble indivisible ; ces éléments ne sont jamais extraits ou répétés comme
+décor, pictogramme ou motif de page. Une marque compacte et un favicon restent
+des livrables distincts.
 
-La comparaison de la shortlist reste volontairement en noir sur blanc afin d'évaluer
-le nom, le rythme du mot et le signe sans maquillage. La couleur sera choisie
-après le nom, à partir d'un audit des concurrents, de références matérielles
-réelles et de tests de contraste. Les règles actuelles sont :
+La palette associe le carbone, le blanc et l'acier à deux oranges contrôlés :
+`#C7370C` sur blanc pour l'action et les repères éditoriaux, puis `#FF5A24` sur
+carbone pour les états actifs et le focus. IBM Plex, la grille 12/6/4 colonnes,
+le rythme de 8 px et la traçabilité des preuves restent inchangés.
+
+`prototype.png` sert de référence de composition pour l'accueil : rapport 8/4
+du sujet principal, rythme de une, alternance des fonds et densité éditoriale.
+Il n'autorise aucun de ses textes, notes, photographies, produits, actions ou
+routes. Seuls les contenus et médias présents dans les registres, avec leur
+statut et leurs droits, peuvent entrer dans le site public.
+
+Les règles actuelles sont :
 
 - aucun ivoire, beige, terracotta ou faux grain ;
-- aucun dégradé thermique, flamme, drapeau italien, toque, moustache ou part de
-  pizza décorative ;
-- un signe lisible en 16 pixels et reproductible en une couleur ;
-- une interface qui ressemble à un instrument de décision, pas à une marque de
-  café ou à un portfolio d'agence ;
-- une photographie traitée comme preuve ou illustration clairement
-  identifiée, jamais comme remplissage d'ambiance.
+- aucun dégradé thermique, drapeau italien, toque, moustache ou motif pizza en
+  dehors du lockup adopté ;
+- aucun second lettrage script dans l'interface ;
+- une interface éditoriale de décision, pas une fausse pizzeria ni un portfolio
+  d'agence ;
+- une photographie traitée comme preuve ou illustration clairement identifiée,
+  jamais comme remplissage d'ambiance.
 
-| Artefact | Valeur |
-| --- | --- |
-| Fichier | `assets/brand/explorations/seo-name-logo-shortlist-bw.png` |
-| Format | PNG RGB, 1774 x 887 |
-| SHA-256 | `db5a62a641ba29a95b13fc7d00b51872ac832bc638ad14348a194bae1fc6d692` |
-| Statut | Exploration générée par IA, non canonique, à redessiner en SVG après sélection |
-| Prompt synthétique | Trois marques en colonnes égales, noir pur sur blanc, un symbole vectorisable, un nom et un domaine par colonne, sans couleur, texture, mockup ni folklore pizza |
-
-Le signe en tête de classement a aussi une version SVG provisoire, construite
-avec trois tracés noirs sans police ni effet :
-`assets/brand/explorations/four-a-nu-mark-provisional.svg`. Elle sert uniquement
-à tester la lisibilité et la reproductibilité du concept d'ouverture. Elle ne
-constitue pas encore le logo adopté.
+La shortlist noir et blanc
+`assets/brand/explorations/seo-name-logo-shortlist-bw.png` et le tracé
+`assets/brand/explorations/four-a-nu-mark-provisional.svg` restent des traces
+historiques d'exploration. Ils ne sont plus des candidats au logo public.
 
 ## Prochaine porte
 
@@ -351,7 +356,10 @@ Le nom, le domaine et le socle produit sont retenus. La suite est ordonnée :
    contact et la transparence commerciale avec des informations exactes ;
 2. faire passer chaque URL destinée au lancement par la barrière SEO et la
    relecture documentaire ;
-3. construire l'artefact statique exact et son contrat de release Atlas ;
-4. autoriser séparément l'admission dans `vps-infra`, la publication de la
-   release et l'activation de `fouranu.com` ;
-5. contrôler le site public avant toute soumission à Google, Bing ou IndexNow.
+3. construire l'artefact statique exact et valider à sec son contrat Workers
+   Static Assets ;
+4. autoriser séparément l'environnement GitHub de production et le déploiement
+   Cloudflare ;
+5. rattacher ensuite `fouranu.com`, son DNS et son indexabilité au paquet public
+   explicitement approuvé ;
+6. contrôler le site public avant toute soumission à Google, Bing ou IndexNow.

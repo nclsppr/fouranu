@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
     ? (await getCollection("analyses"))
         .filter((entry) => entry.data.indexable)
         .map((entry) => ({
-          path: `/ooni/${entry.id}/`,
+          path: `/${entry.data.brand}/${entry.id}/`,
           modified: entry.data.updatedAt.toISOString().slice(0, 10),
         }))
     : [];

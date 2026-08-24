@@ -1,110 +1,86 @@
 ---
 articleId: OONI-014
-title: "Ooni Koda 16 : brûleur en L, format 40 cm et mesures"
-description: Le Koda 16 est annoncé pour 40 cm et pèse 18,2 kg. Une session tierce compare sa chauffe au bois, sans établir un avantage général du gaz.
-summary: Le Koda 16 est un four à gaz de 40 cm avec brûleur en L. Une seule comparaison tierce documente sa chauffe, sa cuisson et sa chaleur résiduelle.
+brand: ooni
+title: "Ooni Koda 16 : format 40 cm et chauffe"
+description: Le Koda 16 est un four à gaz de 40 cm et 18,2 kg. Notre analyse de son brûleur en L, de sa chauffe et de ses limites face au bois.
+summary: Le Koda 16 donne une vraie marge de travail sans devenir monstrueux. Nous le trouvons pertinent pour de grandes pizzas, moins pour être déplacé souvent.
 status: publishable
 type: model
 model: Ooni Koda 16
 publishedAt: 2026-08-23
 updatedAt: 2026-08-23
 indexable: true
-evidenceTypes:
-  - FAB
-  - T-MES
-  - T-OBS
-  - FAN-INF
+evidenceIds: [EV-0050, EV-0051, EV-0052, EV-0101, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0404]
+evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]
 limitations:
-  - Les mesures tierces proviennent d'une seule session et d'un seul créateur.
-  - La version exacte du four Branner comparé n'est pas établie dans le registre.
-  - Les instants de comparaison, les architectures et les combustibles ne sont pas normalisés.
-  - La dégustation citée porte sur une pizza par four et n'est pas documentée comme aveugle.
-  - Deux dimensions métriques publiées par le fabricant ont une unité incohérente et ne sont pas corrigées par supposition.
+  - Les mesures tierces viennent d'une seule session.
+  - Le four à bois comparé n'est pas identifié avec assez de précision.
+  - Les instants, architectures et combustibles ne sont pas normalisés.
+  - La dégustation porte sur une pizza par four et n'est pas aveugle.
+  - Deux dimensions métriques publiées ont une unité incohérente.
 ---
 
-## Réponse courte
+## Notre lecture en bref
 
-Le Koda 16 de première génération est un four à gaz annoncé pour des pizzas de
-40 cm. Il utilise un brûleur en L, une pierre de 15 mm et pèse 18,2 kg. Une
-session tierce compare sa montée en température, une cuisson et sa chaleur
-résiduelle à celles d'un four à bois. Cette session décrit ce qui s'est produit
-ce jour-là. Elle ne permet pas d'établir un avantage général du gaz, une
-température de référence ou une différence de goût.
+Le Koda 16 est un four à gaz de 40 cm avec un brûleur en L, une pierre de 15 mm
+et un poids de 18,2 kg. Nous aimons la marge qu'offre ce format. Une pizza de
+30 à 35 cm se tourne sans exploiter toute la largeur, et une poêle compatible a
+plus de chances d'entrer.
 
-Pour comparer les formats Koda, voir aussi la fiche du
-[Koda 12](/ooni/koda-12/). Le dossier
-[Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/)
-traite les contraintes propres à chaque énergie. La
-[méthode Four à Nu](/methode/) définit les niveaux de preuve et leur portée.
+En contrepartie, ce n'est déjà plus un petit appareil à sortir d'un placard. Il
+lui faut une table profonde et un emplacement extérieur stable. Si vous cuisez
+surtout des pizzas de 28 cm, le [Koda 2](/ooni/koda-2/) est probablement plus
+raisonnable.
 
-## Ce qui est établi par le fabricant
+## Ce que l'on sait du format
 
-La [page française du Koda 16](https://eu.ooni.com/fr-fr/products/ooni-koda-16)
-le présente comme un four à gaz pour des pizzas de 40 cm, avec un brûleur en L
-et une pierre de 15 mm (`EV-0050`).
+Le diamètre maximal annoncé est de 40 cm. Le fabricant publie 18,2 kg, une
+pierre de 15 mm et une température maximale de 500 °C, avec 20 minutes pour y
+arriver et une pizza en 60 secondes. Deux dimensions métriques comportent une
+unité incohérente. Nous recommandons de confirmer l'encombrement avant de choisir
+la table.
 
-Le fabricant affiche un poids de 18,2 kg. Son tableau emploie toutefois l'unité
-`m` pour deux dimensions dont les valeurs impériales décrivent un four
-domestique (`EV-0051`). `EV-0101` classe cette incohérence comme une inférence
-Four à Nu à forte confiance. Aucune conversion supposée n'est publiée ici. Les
-dimensions exactes doivent être confirmées avant de choisir une table.
+Le brûleur en L chauffe l'arrière et un côté. Cette géométrie réduit l'angle
+froid par rapport à une flamme uniquement arrière, mais elle impose toujours de
+tourner la pizza. Elle ne garantit pas une sole uniforme.
 
-Ooni annonce 500 °C en 20 minutes et une pizza en 60 secondes (`EV-0052`). Ces
-deux valeurs restent des annonces fabricant.
+## Gaz contre bois : ce qu'une séance permet de voir
 
-## Questions d'achat reliées
+Une comparaison publiée montre le Koda démarrer plus vite qu'un four à bois.
+Après trois minutes, les températures centrales annoncées sont d'environ
+155 °C contre 93 °C. Plus tard, les deux soles se rapprochent autour de 233 à
+241 °C. Le bois demande davantage de surveillance du combustible.
 
-Les questions publiques opposent d'abord le Koda 12 au Koda 16 sur le surcoût
-et les différences ressenties pendant la cuisson
-([Q-0001 et Q-0002](https://www.reddit.com/r/ooni/comments/1unwo9l/koda_12_vs_koda_16_advice/)).
-Le registre ne contient pas de prix daté ni de protocole commun pour trancher ce
-rapport entre coût et usage.
+Une pizza est cuite dans chaque four avec la même pâte. Les colorations sont
+jugées proches et les dégustateurs ne déclarent pas de différence de goût.
+Nous n'en tirons aucune vérité générale. Une pizza par four, sans dégustation
+aveugle, ne suffit pas à départager deux énergies.
 
-D'autres acheteurs interrogent la compatibilité d'un détendeur GPL
-([Q-0017](https://www.reddit.com/r/ooni/comments/1u08c95/confused_on_what_ooni_model_to_buy_500600/)),
-le risque de surcuisson lié au brûleur en L
-([Q-0047](https://www.reddit.com/r/ooni/comments/1unwo9l/comment/ovtxq54/)),
-puis la température face à un Karu et la sécurité d'une porte ajoutée
-([Q-0049 et Q-0050](https://www.reddit.com/r/ooni/comments/1dpy9jy/koda_16_or_karu_12g/)).
-Ces questions justifient les points à vérifier. Les preuves rattachées ne
-répondent ni à la compatibilité du détendeur ni à la sécurité d'une modification
-de porte.
+Quinze minutes après l'arrêt, le four à bois conserve davantage de chaleur dans
+cette session. Cela illustre l'effet possible d'une masse thermique différente,
+pas la supériorité d'un four précis.
 
-## Une seule session comparative tierce
+## Pour qui nous le choisirions
 
-La source Barbecue Way Of Life compare ce Koda 16 à un four Branner dont la
-version exacte n'est pas établie. Le registre signale un code promotionnel, des
-liens marchands et aucun prêt ou sponsoring déclaré. Ces relations restent
-attachées à tous les passages suivants.
+Le Koda 16 a du sens si vous voulez de grandes pizzas, une ouverture confortable
+ou davantage de place pour les rotations. Il reste plus facile à prendre en main
+qu'un four au bois et moins lourd que les grands modèles de deuxième génération.
 
-| Passage | Conditions enregistrées | Observation ou mesure attribuée |
-| --- | --- | --- |
-| [EV-0370, de 04:03 à 04:35](https://www.youtube.com/watch?v=fSADscR71oo&t=243s) | Démarrages gaz et bois, thermomètre infrarouge, un exemplaire par four | Après trois minutes, les relevés centraux annoncés sont d'environ 155 °C pour le Koda et 93 °C pour le Branner. |
-| [EV-0371, de 06:10 à 07:18](https://www.youtube.com/watch?v=fSADscR71oo&t=370s) | Même pâte, instants exacts non normalisés, une session | Plus tard, les deux soles sont annoncées autour de 233 à 241 °C. Les présentateurs observent que le Branner rattrape son démarrage plus lent. |
-| [EV-0372, de 07:36 à 09:18](https://www.youtube.com/watch?v=fSADscR71oo&t=456s) | Une pizza par four, farine T00, hydratation de 60 %, environ 30 heures au froid | Les présentateurs jugent les dessous et colorations proches. Ils trouvent le Koda plus simple à maintenir à température et surveillent les bûchettes du Branner. |
-| [EV-0373, de 09:49 à 10:13](https://www.youtube.com/watch?v=fSADscR71oo&t=589s) | Une pizza par four, dégustation non documentée comme aveugle | Les dégustateurs disent ne pas percevoir de différence entre bois et gaz dans ces cuissons courtes. |
-| [EV-0374, de 10:11 à 10:57](https://www.youtube.com/watch?v=fSADscR71oo&t=611s) | Fours éteints, architectures et combustibles différents | Environ quinze minutes après l'arrêt, la sole du Koda est annoncée à 150 °C et celle du Branner à 230 °C. |
+Nous l'écarterions pour une installation mobile, une petite table ou un foyer
+qui cuisine rarement plus de deux pizzas. Le volume utile doit servir souvent,
+sinon il devient simplement plus de métal à stocker.
 
-Le premier relevé montre un départ plus rapide du Koda dans cette session. Le
-relevé suivant montre un rapprochement des températures. Les instants ne sont
-pas normalisés et la version du Branner reste indéterminée. Il serait donc
-trompeur de transformer ces nombres en courbe de chauffe comparative ou en
-conclusion générale sur le gaz et le bois.
+## À vérifier avant l'achat
 
-## Ce qui reste à vérifier
+- Les dimensions exactes de la table et les dégagements de sécurité.
+- Le diamètre réel de vos pizzas et de votre pelle.
+- La place de la bouteille et du tuyau.
+- Le comportement au vent dans votre emplacement.
+- Le nombre de pizzas prévu par session.
 
-- les dimensions métriques exactes du four ;
-- la compatibilité du raccord et du détendeur avec une installation donnée ;
-- la répartition de chaleur autour du brûleur en L ;
-- la chauffe et la récupération sur plusieurs pizzas identiques ;
-- la consommation de gaz avec une méthode déclarée ;
-- la sécurité de toute modification de la façade ou de la porte ;
-- une comparaison du goût documentée à l'aveugle avec plusieurs répétitions.
+## Les limites de notre lecture
 
-## Limites de cette fiche
-
-Le corpus autorise une description du Koda 16 et de la session comparative
-citée. Il ne mesure pas la facilité d'usage moyenne, la durabilité, le coût
-complet ou un avantage de goût. Les conclusions de la vidéo restent celles de
-ses auteurs, dans leurs conditions et avec leurs relations commerciales
-déclarées.
+Le corpus tiers repose sur une seule comparaison dont les fours et les instants
+ne sont pas normalisés. Il ne fournit ni consommation, ni débit en série, ni
+cartographie thermique. Notre lecture porte donc sur le format et la simplicité du
+gaz, pas sur une victoire mesurée face au bois.

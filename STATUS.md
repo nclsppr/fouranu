@@ -11,7 +11,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Par | Codex, checkout local, navigateur, CI et état Cloudflare en lecture seule |
 | Branche | `main` |
 | Base de la tranche | `5857ef314c0a7f1492dc7c394812400faf659992` |
-| Révision contrôlée | Tranche locale à livrer ; SHA remplacé après le premier commit |
+| Révision contrôlée | `5a4aa8c9b20b59256312851a5f43f6e18843c137`, gate locale complète et Compose sain ; livraison Git à confirmer |
 | Surface publique | Aucune surface Four à Nu activée ou vérifiée |
 
 ## Résumé

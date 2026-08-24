@@ -6,6 +6,14 @@ importantes.
 
 ## Non publié
 
+## 2026-08-24 - Gozney et pétrins Ooni publics
+
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `e96d3ac265dfb24b14cf4dc1461a1985cdba50ac`. Le run GitHub Actions
+  [`32736959106`](https://github.com/nclsppr/fouranu/actions/runs/32736959106)
+  a vérifié puis déployé l'artefact exact ; `/release.json`, les nouvelles
+  routes, les médias, les 25 URL du sitemap et les treize entrées RSS ont été
+  contrôlés publiquement.
 - Adoption d'une règle éditoriale durable : tout article produit nouveau ou
   substantiellement révisé s'ouvre sur une photo officielle du fabricant
   stylisée dans « Ligne de sole » ; les vues en situation viennent ensuite.
@@ -13,7 +21,7 @@ importantes.
   réponse et les compromis précèdent les détails techniques, sans revendiquer
   d'essai propre absent du registre. Le rattrapage du corpus public est tracé
   explicitement dans la roadmap et n'est pas encore présenté comme livré.
-- Deux nouveaux guides prêts à publier rejoignent le build : le Gozney Arc XL
+- Deux nouveaux guides publics rejoignent le build : le Gozney Arc XL
   et le choix entre les pétrins Ooni Halo Core et Halo Pro. Leurs en-têtes sont
   dérivés de photos officielles fabricant ; les vues documentaires viennent
   ensuite dans le corps des pages.

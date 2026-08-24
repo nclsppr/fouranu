@@ -151,8 +151,8 @@ livré :
   main.
 - [ ] Contrôler le résultat sur mobile et bureau : ordre des médias, fidélité du
   produit, densité, lisibilité, clavier, mouvement réduit, console et réseau.
-- [ ] Publier seulement le paquet dont la gate complète, la CI, les routes et
-  les médias ont été vérifiés sur le même SHA.
+- [x] Publier la tranche Arc XL / Halo seulement après la gate complète, puis
+  vérifier sa CI, ses routes et ses médias sur le même SHA.
 
 ## Phase F03 : candidat Cloudflare et paquet publiable
 

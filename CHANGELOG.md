@@ -6,6 +6,15 @@ importantes.
 
 ## Non publié
 
+## 2026-08-24 - Fonds éditorial Ooni harmonisé
+
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `87580db54eb90a60a6f68c81828f80dc35929c3d`. Le run GitHub Actions
+  [`32744201126`](https://github.com/nclsppr/fouranu/actions/runs/32744201126)
+  a vérifié puis déployé l'artefact exact ; `/release.json`, les 25 URL du
+  sitemap, les treize entrées RSS et les médias modifiés ont été contrôlés
+  publiquement.
+
 - Harmonisation des treize guides autour d'une voix plus directe : la réponse
   d'achat et les compromis arrivent avant les détails, le jargon est traduit et
   aucune expérience propre n'est revendiquée sans preuve.

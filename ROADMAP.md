@@ -143,16 +143,22 @@ livré :
   puis déplacer leurs photogrammes actuels dans le corps des articles.
 - [x] Ajouter une gate qui impose cette chaîne d'en-tête à tout nouvel article
   produit et à toute révision substantielle.
-- [ ] Reprendre les onze dossiers déjà publics : photo officielle stylisée en
+- [x] Reprendre les onze dossiers déjà publics : photo officielle stylisée en
   tête, médias en situation ensuite, registre et textes alternatifs rapprochés.
-- [ ] Réécrire les treize dossiers, puis les pages d'accueil, de gamme et de
+- [x] Réécrire les treize dossiers, puis les pages d'accueil, de gamme et de
   méthode, dans une voix plus directe et accueillante : réponse avant protocole,
   jargon traduit, paragraphes courts et conclusion utile sans fausse prise en
   main.
-- [ ] Contrôler le résultat sur mobile et bureau : ordre des médias, fidélité du
+- [x] Contrôler le résultat sur mobile et bureau : ordre des médias, fidélité du
   produit, densité, lisibilité, clavier, mouvement réduit, console et réseau.
 - [x] Publier la tranche Arc XL / Halo seulement après la gate complète, puis
   vérifier sa CI, ses routes et ses médias sur le même SHA.
+- [ ] Ouvrir la prochaine tranche Gozney par un inventaire fabricant France et
+  une question d'achat précise, puis produire un dossier sourcé sans dupliquer
+  le guide Arc XL.
+- [ ] Approfondir les pétrins Ooni Halo avec des dossiers séparés seulement si
+  chacun répond à une question d'achat distincte ; sinon enrichir le comparatif
+  Core / Pro avec de nouvelles mesures publiées.
 
 ## Phase F03 : candidat Cloudflare et paquet publiable
 

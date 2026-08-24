@@ -11,7 +11,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Par | Codex, checkout local, navigateur, CI et état Cloudflare en lecture seule |
 | Branche | `main` |
 | Base de la tranche | `5857ef314c0a7f1492dc7c394812400faf659992` |
-| Révision contrôlée | `5a4aa8c9b20b59256312851a5f43f6e18843c137`, gate locale complète et Compose sain ; livraison Git à confirmer |
+| Révision livrée | `04c42b416f1d3141cd5480db0458ed98f758d39b`, poussée sur `origin/main` ; [run `Verify` 32704153720](https://github.com/nclsppr/fouranu/actions/runs/32704153720) vert |
 | Surface publique | Aucune surface Four à Nu activée ou vérifiée |
 
 ## Résumé
@@ -86,6 +86,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
 | Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
 | Graphe CI | `deploy-cloudflare` dépend de `verify`, uniquement sur un push `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` |
+| CI livrée | [Run GitHub Actions `32704153720`](https://github.com/nclsppr/fouranu/actions/runs/32704153720) vert ; job `verify` réussi et `deploy-cloudflare` ignoré comme prévu |
 | Paramètres futurs | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
 | État Cloudflare observé | Aucun projet Pages, Worker Four à Nu ou zone `fouranu.com` dans le compte connecté |
 | Ancienne cible Atlas | Workflow producteur retiré ; OCI et preuves du 2026-08-23 restent historiques, plus chemin courant |

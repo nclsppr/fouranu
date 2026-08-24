@@ -16,7 +16,26 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Tranche Gozney et Halo publiée | SHA applicatif `e96d3ac265dfb24b14cf4dc1461a1985cdba50ac` ; [run GitHub Actions `32736959106`](https://github.com/nclsppr/fouranu/actions/runs/32736959106) vert pour `Verify` et `deploy-cloudflare` |
 | Harmonisation éditoriale publiée | SHA applicatif `87580db54eb90a60a6f68c81828f80dc35929c3d` ; [run GitHub Actions `32744201126`](https://github.com/nclsppr/fouranu/actions/runs/32744201126) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche Arc Lite, Tread et Halo publiée | SHA applicatif `6511eccf4971d962f6916dc8ab1fc74742e8f321` ; [run GitHub Actions `32750836887`](https://github.com/nclsppr/fouranu/actions/runs/32750836887) vert pour `Verify` et `deploy-cloudflare` |
+| Gamme Gozney et appels d'achat publiés | SHA applicatif `bdd647b38fde6de2f8db01092c6adba5e08a7b35` ; [run GitHub Actions `32762552261`](https://github.com/nclsppr/fouranu/actions/runs/32762552261) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Gamme Gozney et appels d'achat publiés
+
+La production construit désormais 32 pages HTML, dix-neuf guides, 168 preuves,
+66 questions, 85 médias et 31 URL indexables. Les sept fours autonomes du
+catalogue Gozney France vérifié le 24 août 2026 sont couverts sans dupliquer les
+couleurs ni les packs : un guide de gamme relie les dossiers Arc XL, Arc Lite ou
+Tread, Dome XL (Gen 2), Dome (Gen 2), Arc et Roccbox.
+
+Le SHA applicatif `bdd647b38fde6de2f8db01092c6adba5e08a7b35` a passé la
+gate éditoriale avec preuves privées, `./scripts/verify.sh`, Compose et la revue
+navigateur locale. Le run `32762552261` a transmis l'artefact exact à
+Cloudflare. Le contrôle public a retrouvé ce SHA dans `/release.json`, les cinq
+nouvelles routes et leurs dix médias en 200, 31 URL canoniques et indexables,
+ainsi que dix-neuf entrées RSS. Chaque article expose deux appels d'achat vers
+les boutiques officielles, séparés par le contenu et accompagnés d'une mention
+explicite d'absence de rémunération. Le parcours Gozney a aussi été relu à 360
+et 1 440 px sans débordement, image cassée ni erreur console.
 
 ## Tranche Arc Lite, Tread et Halo publiée
 
@@ -65,13 +84,12 @@ quatre médias nouveaux, les 25 URL du sitemap et les treize entrées RSS.
 
 ## Résumé
 
-Four à Nu est un média statique de 27 pages HTML. Sa V1 et ses quatre tranches
-éditoriales sont publiques sur `fouranu.com`. Le site propose quatorze guides :
-dix guides de fours Ooni, une comparaison d'énergie Ooni, une comparaison de
-pétrins Ooni et deux guides Gozney. Les registres comptent 155 preuves,
-62 questions et 75 médias. Aucun JavaScript client n'est nécessaire au contenu.
-Le build de preview reste en `noindex` et la production ouvre 26 URL dans le
-sitemap.
+Four à Nu est un média statique de 32 pages HTML. Sa V1 et ses cinq tranches
+éditoriales sont publiques sur `fouranu.com`. Le site propose dix-neuf guides :
+onze guides de fours ou d'énergie Ooni, une comparaison de pétrins Ooni et sept
+guides Gozney. Les registres comptent 168 preuves, 66 questions et 85 médias.
+Aucun JavaScript client n'est nécessaire au contenu. Le build de preview reste
+en `noindex` et la production ouvre 31 URL dans le sitemap.
 
 L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
 8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
@@ -88,7 +106,7 @@ Cloudflare Workers Static Assets sert la production. GitHub Actions construit
 puis transmet l'artefact exact produit par `Verify`, sans second build dans le
 job de déploiement. Le domaine personnalisé, le DNS, HTTPS et l'indexation sont
 actifs. Le contrôle public a retrouvé dans `/release.json` le SHA applicatif de
-la tranche la plus récente, consacrée à Arc Lite, Tread et Halo.
+la tranche la plus récente, consacrée à la gamme Gozney et aux appels d'achat.
 
 La tranche post-V1 couvre les signatures Nicolas, Florian et Magali, une photo
 documentaire pour chacun des onze dossiers, une mise en page plus dense et des
@@ -101,15 +119,17 @@ La tranche Gozney et Halo ajoute deux réponses d'achat plus directes, une page
 de marque Gozney et une règle durable pour les futurs en-têtes produit.
 L'harmonisation suivante a résorbé les onze anciens en-têtes et la réécriture
 générale de leur voix. La tranche suivante ajoute Arc Lite ou Tread et enrichit
-Halo Core ou Pro sans dupliquer artificiellement ces deux fiches. Les prochains
-dossiers restent conditionnés par une question d'achat et des sources suffisantes.
+Halo Core ou Pro sans dupliquer artificiellement ces deux fiches. La tranche la
+plus récente couvre toute la gamme Gozney actuelle et place deux accès marchands
+non rémunérés dans chaque article. Les prochains dossiers restent conditionnés
+par une question d'achat et des sources suffisantes.
 
 ## Phases actives
 
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
 | F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
-| F02, corpus documentaire publiable | `in_progress` | Quatorze guides, pages de confiance, provenance et politique de correction | Cinq sessions restent à mener ; le propriétaire autorise la publication sans attendre cette preuve d'utilité | nclsppr |
+| F02, corpus documentaire publiable | `in_progress` | Dix-neuf guides, pages de confiance, provenance et politique de correction | Cinq sessions restent à mener ; le propriétaire autorise la publication sans attendre cette preuve d'utilité | nclsppr |
 | F03, candidat Cloudflare | `done` | Paquet approuvé, preuves privées, gate locale, CI du même SHA et environnement GitHub protégé | Aucune pour la V1 | nclsppr |
 | F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
 | F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
@@ -118,26 +138,26 @@ dossiers restent conditionnés par une question d'achat et des sources suffisant
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Application Astro | 27 pages HTML statiques et zéro JavaScript client nécessaire au contenu | `site/`, treize tests de contrat et production | Les prochains dossiers de marque restent une tranche séparée jusqu'à leur propre publication |
-| Guides | Douze guides Ooni et deux guides Gozney sous des routes par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Les prochains dossiers de marque exigent leur propre recherche et publication |
-| Provenance | 155 preuves, 62 questions et 75 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
+| Application Astro | 32 pages HTML statiques et zéro JavaScript client nécessaire au contenu | `site/`, quatorze tests de contrat et production | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
+| Guides | Douze guides Ooni et sept guides Gozney sous des routes par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Les prochains dossiers exigent leur propre recherche et publication |
+| Provenance | 168 preuves, 66 questions et 85 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
 | Accueil éditorial | Composition responsive issue du prototype et contenu réel | Contrats du build et revue navigateur | Les photos restent attribuées à leurs sources et ne deviennent pas des tests Four à Nu |
 | Identité | Logo optimisé, palette orange accessible et contrat de marque aligné | `DESIGN.md`, `BRAND-SEO.md` et `AS-1002` | Marque compacte et favicon définitif encore ouverts |
-| SEO conditionnel | RSS, robots, sitemap, canonicals et données structurées | Build normal, build opt-in et 26 URL publiques contrôlés | L'exploration et le classement par les moteurs ne sont pas garantis |
+| SEO conditionnel | RSS, robots, sitemap, canonicals et données structurées | Build normal, build opt-in et 31 URL publiques contrôlés | L'exploration et le classement par les moteurs ne sont pas garantis |
 | Parcours local | Service statique avec healthcheck | `compose.yaml` | Aucun preview partagé |
-| Production Cloudflare | Artefact Arc Lite, Tread et Halo servi par Workers Static Assets sur le domaine personnalisé | Run `32750836887`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
+| Production Cloudflare | Artefact Gozney et appels d'achat servi par Workers Static Assets sur le domaine personnalisé | Run `32762552261`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
 | Documentation interne | Nimbus reste séparé du site public | `docs-nimbus/` et catalogue | Le build Cloudflare pointe uniquement vers `site/dist/` |
 
 ## Revue d'interface du 2026-08-24
 
 | Contrôle | Résultat | Portée |
 | --- | --- | --- |
-| Responsive | Aucun débordement à 360, 768, 1 280 et 1 440 px sur les parcours critiques | Build statique local et contrôle public |
-| Nouvelles surfaces | Accueil, Ooni, Méthode, pages de confiance et trois dossiers représentatifs contrôlés ; images de une avant les vues documentaires | Candidat local puis contrôle public bureau et mobile |
+| Responsive | Aucun débordement à 360, 640, 768, 1 280 et 1 440 px sur les parcours critiques | Build statique local et contrôle public |
+| Nouvelles surfaces | Accueil, Gozney, guide de gamme et dossiers représentatifs contrôlés ; images de une avant les vues documentaires et deux appels d'achat par article | Candidat local puis contrôle public bureau et mobile |
 | Contenu long | Article Koda 2 contrôlé à 360 et 1 440 px ; sommaire mobile défilable, tableau focusable et sources repliées sur 123 px | Navigateur local et public |
 | Clavier et focus | Lien d'évitement présent ; contour orange 3 px sur les deux niveaux de sources et tableaux focusables | Parcours critique de l'article |
 | Mouvement réduit | Deux règles finales suppriment transitions et transformations | CSS construit réellement chargé |
-| Console et chargements | Aucun journal d'erreur après rechargement de l'accueil et de l'article | Navigateur local sur le build statique |
+| Console et chargements | Aucun journal d'erreur après rechargement de la gamme et de l'article ; tous les nouveaux médias sont chargés | Navigateur local puis domaine public |
 | Lighthouse accueil | Performance 96, accessibilité 100, bonnes pratiques 100 ; CLS 0, TBT 0 ms | Simulation mobile locale, sans valeur de production |
 | Lighthouse article | Performance 95, accessibilité 100, bonnes pratiques 100 ; CLS 0, TBT 0 ms | Simulation mobile locale, sans valeur de production |
 
@@ -152,13 +172,13 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
 | Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
 | Graphe CI | `deploy-cloudflare` dépend de `verify`, sur `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` ; il télécharge l'artefact exact construit par `verify` |
-| CI publique | Runs [`32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972), [`32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541), [`32736959106`](https://github.com/nclsppr/fouranu/actions/runs/32736959106), [`32744201126`](https://github.com/nclsppr/fouranu/actions/runs/32744201126) et [`32750836887`](https://github.com/nclsppr/fouranu/actions/runs/32750836887) verts ; chaque déploiement a livré l'artefact exact construit par son job `verify` |
+| CI publique | Runs [`32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972), [`32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541), [`32736959106`](https://github.com/nclsppr/fouranu/actions/runs/32736959106), [`32744201126`](https://github.com/nclsppr/fouranu/actions/runs/32744201126), [`32750836887`](https://github.com/nclsppr/fouranu/actions/runs/32750836887) et [`32762552261`](https://github.com/nclsppr/fouranu/actions/runs/32762552261) verts ; chaque déploiement a livré l'artefact exact construit par son job `verify` |
 | Paramètres de production | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
 | État Cloudflare observé | Worker Static Assets, domaine personnalisé et DNS de `fouranu.com` actifs |
 | Transport public | HTTP redirige vers HTTPS ; TLS 1.0 et 1.1 sont refusés, TLS 1.2 et 1.3 acceptés |
 | Certificats | Packs universel et avancé actifs pour `fouranu.com` et `*.fouranu.com` |
-| Contrat public | `/` répond 200, `/health` répond `ok`, `/release.json` a exposé `6511ecc…`, les routes critiques et tous les médias modifiés répondent 200 |
-| Indexation | 26 URL du sitemap répondent 200 avec canonical et `index, follow` |
+| Contrat public | `/` répond 200, `/health` répond `ok`, `/release.json` a exposé `bdd647b…`, les routes critiques et les dix nouveaux médias répondent 200 |
+| Indexation | 31 URL du sitemap répondent 200 avec canonical et sans `noindex` |
 | Ancienne cible Atlas | Workflow producteur retiré ; OCI et preuves du 2026-08-23 restent historiques, plus chemin courant |
 
 ## Dettes après le lancement V1
@@ -166,7 +186,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Condition | Impact | Preuve attendue |
 | --- | --- | --- |
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
-| Couverture hors Ooni encore ciblée | Le fonds répond encore à peu de questions d'achat Gozney | Inventorier les produits actuels et ouvrir chaque dossier seulement avec une question et des sources suffisantes |
+| Accessoires encore absents | Le fonds n'aide pas encore à choisir les petits outils autour du four | Ouvrir chaque dossier depuis un geste ou un problème concret, avec compatibilité, limites, coût complet et alternatives |
 | Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
 
 ## Prochaines preuves
@@ -175,6 +195,6 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
 | Médias d'article | Gate | Tout nouvel en-tête produit part d'une photo officielle stylisée et possède une entrée exacte dans `research/assets.csv` | F02/F03 |
-| Prochains dossiers de marque | Gate | Sources actuelles, en-tête fabricant stylisé, revue éditoriale et visuelle, gate complète et `Verify` vert sur leur SHA | F02/F03 |
+| Prochains dossiers d'accessoires | Gate | Problème d'usage réel, sources actuelles, média publiable, compatibilité et alternatives, revue éditoriale et visuelle, gate complète et `Verify` vert sur leur SHA | F02/F03 |
 | Publication suivante | Activation | Run GitHub Actions vert, `/release.json`, routes, médias et métadonnées contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |

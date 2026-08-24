@@ -6,6 +6,16 @@ importantes.
 
 ## Non publié
 
+Rien pour le moment.
+
+## 2026-08-24 - Gamme Gozney et appels d'achat publics
+
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `bdd647b38fde6de2f8db01092c6adba5e08a7b35`. Le run GitHub Actions
+  [`32762552261`](https://github.com/nclsppr/fouranu/actions/runs/32762552261)
+  a vérifié puis déployé l'artefact exact ; `/release.json`, les cinq nouvelles
+  routes, les dix nouveaux médias, les 31 URL du sitemap et les dix-neuf entrées
+  RSS ont été contrôlés publiquement.
 - Couverture des sept fours autonomes proposés dans le catalogue Gozney France
   vérifié le 24 août 2026 : un guide de gamme, puis de nouveaux dossiers Dome
   XL (Gen 2), Dome (Gen 2), Arc et Roccbox, sans multiplier les pages par pack
@@ -159,8 +169,8 @@ importantes.
   l'en-tête et le pied de page. Sa provenance et ses empreintes source et web
   entrent dans le registre des médias.
 - Passage de l'accent bleu à deux oranges accessibles, tout en conservant IBM
-  Plex, la grille, les fonds carbone et la lecture documentaire de « Ligne de
-  sole ». Le prototype reste une référence de composition, pas une source de
+  Plex, la grille, les fonds carbone et la lecture documentaire du système
+  visuel. Le prototype reste une référence de composition, pas une source de
   contenu ou d'actifs.
 - Généralisation des routes d'analyse par marque, des canonicales, du RSS, du
   sitemap, de `llms.txt` et des bibliographies depuis les `evidenceIds`

@@ -6,7 +6,10 @@ import { SITE } from "@/config/site";
 
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.brand === "gozney" && entry.data.status === "publishable")
-  .sort((a, b) => b.data.updatedAt.getTime() - a.data.updatedAt.getTime());
+  .sort((a, b) =>
+    b.data.updatedAt.getTime() - a.data.updatedAt.getTime() ||
+    b.data.articleId.localeCompare(a.data.articleId)
+  );
 const canonical = new URL("/gozney/", SITE.url).toString();
 const schema = {
   "@context": "https://schema.org",
@@ -48,14 +51,14 @@ const schema = {
 
     <header class="gozney-intro">
       <div>
-        <p class="eyebrow">Gozney · premier guide</p>
-        <h1>Les grands fours demandent de regarder plus loin que le diamètre annoncé.</h1>
+        <p class="eyebrow">Gozney · guides d’achat</p>
+        <h1>Le bon four dépend d’abord de l’endroit où il va vivre.</h1>
       </div>
       <div class="gozney-intro__copy">
         <p>
-          L’Arc XL ouvre la rubrique. Nous regardons la place qu’il réclame, la
-          taille de pizza vraiment confortable et les gestes à prévoir avant de
-          vous décider.
+          Arc Lite ou Tread pour le format compact ; Arc XL pour garder de la
+          marge autour de grandes pizzas. Chaque dossier part de la décision qui
+          change réellement l’achat.
         </p>
         <p>{analyses.length} dossier{analyses.length > 1 ? "s" : ""} disponible{analyses.length > 1 ? "s" : ""} aujourd’hui.</p>
       </div>
@@ -64,7 +67,7 @@ const schema = {
     <section class="gozney-list" aria-labelledby="gozney-list-title">
       <div class="gozney-list__head">
         <p class="eyebrow">Nos guides Gozney</p>
-        <h2 id="gozney-list-title">Commencez par le modèle qui vous intéresse</h2>
+        <h2 id="gozney-list-title">Commencez par la décision qui vous ressemble</h2>
       </div>
 
       <div class="gozney-list__entries">

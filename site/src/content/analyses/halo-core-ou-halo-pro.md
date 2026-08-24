@@ -17,14 +17,14 @@ image:
   alt: "Pétrins Ooni Halo Core blanc à gauche et Halo Pro noir à droite sur un plan de travail en acier"
   caption: "Illustration éditoriale des Ooni Halo Core et Halo Pro d’après des photographies officielles Ooni, utilisées avec autorisation. Elle ne constitue pas une preuve de performance."
   assetId: AS-2202
-evidenceIds: [EV-0600, EV-0601, EV-0602, EV-0603, EV-0610, EV-0611, EV-0612, EV-0613, EV-0614, EV-0620, EV-0621]
+evidenceIds: [EV-0600, EV-0601, EV-0602, EV-0603, EV-0610, EV-0611, EV-0612, EV-0613, EV-0614, EV-0620, EV-0621, EV-0622, EV-0623, EV-0624]
 evidenceTypes:
   - FAB
   - T-MES
   - T-OBS
   - FAN-INF
 limitations:
-  - Aucun protocole indépendant ne compare directement Halo Core et Halo Pro avec la même pâte.
+  - Le seul face-à-face publié entre Halo Core et Halo Pro est une collaboration rémunérée sans protocole assez complet pour conclure à une équivalence.
   - Le Halo Core n'a que quelques semaines de recul au 24 août 2026.
   - Les prix et stocks peuvent changer après la date de vérification.
   - Les sources disponibles ne permettent pas de comparer la durabilité, le bruit ou la consommation électrique des deux appareils.
@@ -93,6 +93,29 @@ de rupture amovible. Ils reçoivent aussi un batteur et un fouet. Le Pro ajoute
 un écran et son minuteur, tandis que le Core commande ses vingt vitesses avec
 une molette.
 
+## Le vrai sujet est le bas de plage
+
+Les limites fabricant disent ce que les machines acceptent. Elles ne disent pas
+forcément quelle petite fournée sera confortable avec chaque recette.
+
+Sourdough Etc a comparé les deux Halo avec une pâte annoncée à 88 %
+d'hydratation. L'autrice juge le développement proche sur les deux appareils.
+Elle rapporte aussi qu'entre 600 et 700 g, certaines pâtes peuvent monter au
+crochet du Core et demander d'être rabattues, tandis qu'un essai à 500 g aurait
+fonctionné. Cette publication est une collaboration rémunérée avec Ooni : le
+Core a été fourni et la page contient des liens affiliés.
+
+Surtout, le face-à-face ne publie ni la masse exacte de la pâte comparée, ni les
+vitesses, ni les durées, ni les températures finales, ni plusieurs répétitions.
+Il montre que les deux machines peuvent travailler une même formule dans cette
+séance. Il ne prouve pas que le Core est simplement un Pro moins puissant, ni
+que toutes les pâtes de 500 à 700 g seront faciles.
+
+Pour une petite fournée, partez donc du minimum fabricant sans le traiter comme
+un point de confort garanti. Si vous préparez souvent deux pizzas très hydratées,
+le Core reste le seul des deux à annoncer 500 g, mais prévoyez d'observer le
+crochet et d'adapter la vitesse plutôt que de lancer la machine puis de partir.
+
 ## Comptez vos pâtons avant de compter les vitesses
 
 Avec des pâtons de 250 g, les limites annoncées donnent une lecture très simple.
@@ -135,6 +158,18 @@ avec chaque recette.
 Un moteur peut continuer à tourner alors que la pâte chauffe trop. Ooni explique
 que ses moteurs sont conçus pour de longs pétrissages, mais la friction continue
 de réchauffer la pâte.
+
+Boulangerie Pas à pas publie deux pétrissages sur Halo Pro avec la même formule :
+1 kg de farine, 650 g d'eau, 18 g de sel et 8 g de levure fraîche, puis quatre
+minutes à 30 % et six minutes à 60 %. La première pâte termine à 28,6 °C. Pour
+la seconde, l'eau est abaissée à 11,9 °C et la pâte termine à 26,4 °C
+([voir le premier relevé à 13:20](https://www.youtube.com/watch?v=DSju1QosicQ&t=800s)
+et [le second à 17:48](https://www.youtube.com/watch?v=DSju1QosicQ&t=1068s)).
+La vidéo est réalisée en collaboration avec Ooni et contient un lien affilié.
+
+Cette paire ne mesure pas une performance générale du Pro. Elle rend une chose
+très concrète : garder le même minuteur ne garde pas la même température finale.
+L'eau de départ et votre cuisine comptent davantage que la présence d'un écran.
 
 Eater a utilisé un appareil envoyé par Ooni et publie des liens rémunérés. Sa
 première pâte à pain sort assez chaude pour accélérer la fermentation. La

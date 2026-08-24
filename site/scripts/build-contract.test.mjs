@@ -190,7 +190,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, 26);
+  assert.equal(pages.length, 27);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -328,7 +328,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   );
 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, 13);
+  assert.equal(articlePages.length, 14);
   const authorAssignments = new Map([...editorialAuthors.keys()].map((name) => [name, 0]));
 
   for (const page of pages) {
@@ -381,12 +381,12 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
   assert.deepEqual(
     [...authorAssignments.values()].sort((left, right) => left - right),
-    [4, 4, 5],
-    "les treize dossiers doivent rester répartis entre les trois signatures",
+    [4, 5, 5],
+    "les quatorze dossiers doivent rester répartis entre les trois signatures",
   );
 });
 
-test("les treize analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
+test("les quatorze analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
   const canonicalCsv = await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8");
   const componentCsv = await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8");
   assert.equal(componentCsv, canonicalCsv, "la copie de build du registre a dérivé de research/evidence.csv");
@@ -400,7 +400,7 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 142);
+  assert.equal(records.size, 155);
 
   const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
   const assetRows = parseCsv(assetCsv);
@@ -415,7 +415,7 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
     .sort();
-  assert.equal(markdownFiles.length, 13);
+  assert.equal(markdownFiles.length, 14);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
@@ -488,19 +488,19 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
   }
 });
 
-test("le RSS expose exactement les treize dossiers publiables", async () => {
+test("le RSS expose exactement les quatorze dossiers publiables", async () => {
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   const articleRoutes = articlePages
     .map((page) => page.route)
     .sort();
-  assert.equal(articleRoutes.length, 13);
+  assert.equal(articleRoutes.length, 14);
 
   const rss = await readFile(join(dist, "rss.xml"), "utf8");
   assert.match(rss, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.match(rss, /<rss version="2\.0" xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
   const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
-  assert.equal(rssItems.length, 13);
+  assert.equal(rssItems.length, 14);
   const rssRoutes = rssItems.map((item) => {
     assert.match(item, /<title>[^<]+<\/title>/);
     assert.match(item, /<description>[^<]+<\/description>/);
@@ -569,8 +569,8 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
   const assetIds = new Set();
   const categoryCounts = { ooniOvens: 0, ooniMixers: 0, gozneyOvens: 0 };
 
-  assert.equal(markdownFiles.length, 13);
-  assert.equal(articlePages.length, 13);
+  assert.equal(markdownFiles.length, 14);
+  assert.equal(articlePages.length, 14);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
@@ -618,7 +618,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     );
   }
 
-  assert.deepEqual(categoryCounts, { ooniOvens: 11, ooniMixers: 1, gozneyOvens: 1 });
+  assert.deepEqual(categoryCounts, { ooniOvens: 11, ooniMixers: 1, gozneyOvens: 2 });
 
   const home = pages.find((page) => page.route === "/");
   const homeArticleImages = tags(home.html, "img")
@@ -637,7 +637,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
   const gozneyThumbnails = tags(gozney.html, "img")
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
-  assert.equal(gozneyThumbnails.length, 1, "la page Gozney doit illustrer son premier dossier");
+  assert.equal(gozneyThumbnails.length, 2, "la page Gozney doit illustrer ses deux dossiers");
 });
 
 test("aucune ancienne mention d'outil rédactionnel ne sort dans le site public", async () => {
@@ -721,14 +721,14 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const articleRoutes = pages
       .map((page) => page.route)
       .filter((route) => articleRoutePattern.test(route ?? ""));
-    assert.equal(articleRoutes.length, 13);
+    assert.equal(articleRoutes.length, 14);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, 25);
+    assert.equal(expectedRoutes.length, 26);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
-    assert.equal((sitemap.match(/<lastmod>2026-08-24<\/lastmod>/g) ?? []).length, 25);
+    assert.equal((sitemap.match(/<lastmod>2026-08-24<\/lastmod>/g) ?? []).length, 26);
 
     for (const page of pages) {
       const expected = page.route === null ? "noindex, follow" : indexableRobots;

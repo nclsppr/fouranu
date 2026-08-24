@@ -11,7 +11,7 @@ Moteur déclaré : `nimbus`.
 | Documentation du projet | `internal` | 17 |
 | Décisions | `internal` | 5 |
 | Barrières de publication | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 13 |
+| Brouillons éditoriaux du site | `internal` | 14 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -49,6 +49,7 @@ Moteur déclaré : `nimbus`.
 
 ## Brouillons éditoriaux du site
 
+- [site/src/content/analyses/arc-lite-ou-tread.md](site/src/content/analyses/arc-lite-ou-tread.md)
 - [site/src/content/analyses/arc-xl.md](site/src/content/analyses/arc-xl.md)
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
 - [site/src/content/analyses/halo-core-ou-halo-pro.md](site/src/content/analyses/halo-core-ou-halo-pro.md)

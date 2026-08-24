@@ -8,6 +8,9 @@ décision d'achat, le volume de préparation ou le coût complet.
 Le 24 août 2026, la comparaison `OONI-040` entre Halo Core et Halo Pro a rejoint
 le corpus publiable. Elle reste séparée des neuf fiches de four : la capacité de
 pâte, l'encombrement et les fonctions du pétrin forment une décision propre.
+Elle couvre aussi le bas de plage et la température finale depuis sa seconde
+passe documentaire. Une fiche Halo séparée exigera une autre question d'achat
+et au moins deux protocoles indépendants qui ne répètent pas ce comparatif.
 
 ## Vérité catalogue
 

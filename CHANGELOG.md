@@ -6,6 +6,20 @@ importantes.
 
 ## Non publié
 
+- Nouveau dossier `Gozney Arc Lite ou Tread` : une décision centrée sur les
+  100 € d'écart, les gestes de transport et la récupération entre deux pizzas,
+  avec un en-tête Arc Lite et une vue Tread issus de photographies officielles
+  stylisées et autorisées.
+- Le comparatif Halo Core / Halo Pro gagne un passage sur les petites fournées
+  et deux relevés de température publiés. Le corpus ne justifie pas encore deux
+  fiches séparées, qui répéteraient la même décision d'achat.
+- Les relations commerciales des sources ont désormais un libellé français
+  explicite ; le build refuse tout nouveau code interne non traduit. Le lien
+  déplacé du face-à-face Halo Core / Halo Pro a également été corrigé.
+- L'accueil et la rubrique Gozney accueillent les deux dossiers Gozney sans
+  allonger le module de une. Le candidat passe à 27 pages HTML, quatorze guides,
+  155 preuves, 62 questions, 75 médias et 26 URL indexables.
+
 ## 2026-08-24 - Fonds éditorial Ooni harmonisé
 
 - Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif

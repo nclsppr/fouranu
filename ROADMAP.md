@@ -26,7 +26,7 @@ racontée à la première personne.
 | Ordre | ID | Phase | Résultat observable | État | Critère de sortie |
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
-| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et treize guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
+| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et quatorze guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
@@ -153,12 +153,14 @@ livré :
   produit, densité, lisibilité, clavier, mouvement réduit, console et réseau.
 - [x] Publier la tranche Arc XL / Halo seulement après la gate complète, puis
   vérifier sa CI, ses routes et ses médias sur le même SHA.
-- [ ] Ouvrir la prochaine tranche Gozney par un inventaire fabricant France et
+- [x] Ouvrir la prochaine tranche Gozney par un inventaire fabricant France et
   une question d'achat précise, puis produire un dossier sourcé sans dupliquer
-  le guide Arc XL.
-- [ ] Approfondir les pétrins Ooni Halo avec des dossiers séparés seulement si
-  chacun répond à une question d'achat distincte ; sinon enrichir le comparatif
-  Core / Pro avec de nouvelles mesures publiées.
+  le guide Arc XL : le choix Arc Lite ou Tread porte sur le budget, le transport
+  et la récupération entre deux pizzas.
+- [x] Approfondir les pétrins Ooni Halo avec des dossiers séparés seulement si
+  chacun répond à une question d'achat distincte ; le corpus ne le justifiant
+  pas encore, le comparatif Core / Pro rassemble désormais le bas de plage et
+  deux relevés de température publiés.
 
 ## Phase F03 : candidat Cloudflare et paquet publiable
 

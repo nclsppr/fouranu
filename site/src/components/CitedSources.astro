@@ -125,6 +125,12 @@ const confidenceLabels: Record<string, string> = {
 };
 const relationshipLabels: Record<string, string> = {
   affiliate: "liens affiliés",
+  "affiliate-links": "liens affiliés",
+  "arc-lite-origin-not-disclosed": "origine de l’Arc Lite non précisée",
+  "arc-lite-supplied-by-gozney": "Arc Lite fourni par Gozney",
+  "collaboration-with-ooni": "collaboration avec Ooni",
+  "core-supplied-by-ooni": "Halo Core fourni par Ooni",
+  "launch-exclusivity": "exclusivité commerciale au lancement",
   "loaned-by-ooni": "unité prêtée par Ooni",
   "loan-or-sponsorship-not-detected": "aucun prêt ou sponsoring repéré",
   "loan-or-sponsorship-not-disclosed": "prêt ou sponsoring non précisé",
@@ -133,11 +139,15 @@ const relationshipLabels: Record<string, string> = {
   "no-loan-or-sponsorship-detected": "aucun prêt ou sponsoring repéré",
   "ooni-ambassador": "ambassadeur Ooni",
   "ooni-collaboration": "collaboration Ooni",
+  "paid-partnership-with-ooni": "partenariat rémunéré avec Ooni",
   "paid-promotion": "promotion rémunérée",
+  "product-sold-by-publisher": "produit vendu par la source",
   "promo-code": "code promotionnel",
   "review-unit-free": "unité fournie gratuitement",
+  "review-unit-supplied-by-ooni": "appareil fourni par Ooni",
   "self-purchased": "unité achetée par la source",
   "tracked-merchant-link": "lien marchand suivi",
+  "tread-purchased-by-publisher": "Tread acheté par la source",
   "unit-origin-not-disclosed": "origine de l'unité non précisée",
 };
 const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
@@ -191,7 +201,11 @@ function relationships(record: Evidence) {
   return record.sponsorship
     .split(";")
     .filter(Boolean)
-    .map((value) => relationshipLabels[value] ?? value.replaceAll("-", " "));
+    .map((value) => {
+      const label = relationshipLabels[value];
+      if (!label) throw new Error(`Relation éditoriale sans libellé public : ${value}.`);
+      return label;
+    });
 }
 ---
 

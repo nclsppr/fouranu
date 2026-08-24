@@ -6,6 +6,15 @@ importantes.
 
 ## Non publié
 
+## 2026-08-24 - Arc Lite, Tread et Halo publics
+
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `6511eccf4971d962f6916dc8ab1fc74742e8f321`. Le run GitHub Actions
+  [`32750836887`](https://github.com/nclsppr/fouranu/actions/runs/32750836887)
+  a vérifié puis déployé l'artefact exact ; `/release.json`, les deux articles,
+  les quatre nouveaux médias, les 26 URL du sitemap et les quatorze entrées RSS
+  ont été contrôlés publiquement.
+
 - Nouveau dossier `Gozney Arc Lite ou Tread` : une décision centrée sur les
   100 € d'écart, les gestes de transport et la récupération entre deux pizzas,
   avec un en-tête Arc Lite et une vue Tread issus de photographies officielles

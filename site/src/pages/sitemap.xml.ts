@@ -10,7 +10,7 @@ const escapeXml = (value: string) =>
 export const GET: APIRoute = async () => {
   const analyses = INDEXING_ENABLED
     ? (await getCollection("analyses"))
-        .filter((entry) => entry.data.indexable)
+        .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
         .map((entry) => ({
           path: `/${entry.data.brand}/${entry.id}/`,
           modified: entry.data.updatedAt.toISOString().slice(0, 10),

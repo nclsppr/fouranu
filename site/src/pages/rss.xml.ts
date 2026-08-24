@@ -16,6 +16,9 @@ export const GET: APIRoute = async () => {
   const analyses = (await getCollection("analyses"))
     .filter((entry) => entry.data.status === "publishable")
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+  const lastBuildDate = new Date(
+    Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
+  );
   const items = analyses.map((entry) => {
     const url = `${SITE.url}/${entry.data.brand}/${entry.id}/`;
     const author = SITE.authors[entry.data.author];
@@ -38,7 +41,7 @@ export const GET: APIRoute = async () => {
     `    <link>${escapeXml(`${SITE.url}/`)}</link>`,
     `    <description>${escapeXml(SITE.description)}</description>`,
     `    <language>${SITE.language}</language>`,
-    `    <lastBuildDate>${new Date("2026-08-24T00:00:00Z").toUTCString()}</lastBuildDate>`,
+    `    <lastBuildDate>${lastBuildDate.toUTCString()}</lastBuildDate>`,
     items,
     "  </channel>",
     "</rss>",

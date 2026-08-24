@@ -9,9 +9,9 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 4 |
+| Décisions | `internal` | 5 |
 | Barrières de publication | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 11 |
+| Brouillons éditoriaux du site | `internal` | 13 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -41,6 +41,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0002-media-documentaire-permanent.md](docs/decisions/0002-media-documentaire-permanent.md)
 - [docs/decisions/0003-coordination-secrets-atlas.md](docs/decisions/0003-coordination-secrets-atlas.md)
 - [docs/decisions/0004-cloudflare-workers-static-assets.md](docs/decisions/0004-cloudflare-workers-static-assets.md)
+- [docs/decisions/0005-en-tete-officiel-et-voix-accessible.md](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md)
 
 ## Barrières de publication
 
@@ -48,7 +49,9 @@ Moteur déclaré : `nimbus`.
 
 ## Brouillons éditoriaux du site
 
+- [site/src/content/analyses/arc-xl.md](site/src/content/analyses/arc-xl.md)
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
+- [site/src/content/analyses/halo-core-ou-halo-pro.md](site/src/content/analyses/halo-core-ou-halo-pro.md)
 - [site/src/content/analyses/karu-12.md](site/src/content/analyses/karu-12.md)
 - [site/src/content/analyses/karu-2-pro.md](site/src/content/analyses/karu-2-pro.md)
 - [site/src/content/analyses/karu-2.md](site/src/content/analyses/karu-2.md)

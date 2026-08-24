@@ -100,7 +100,10 @@ class EditorialLedgerTests(unittest.TestCase):
                 "permission_proof_sha256": "",
             }
         )
-        if acquisition_mode == "authorized-frame-capture":
+        if acquisition_mode in {
+            "authorized-frame-capture",
+            "authorized-manufacturer-photo",
+        }:
             row.update(
                 {
                     "permission_proof": "research/private/permissions/AS-0001.txt",
@@ -316,10 +319,11 @@ class EditorialLedgerTests(unittest.TestCase):
         ledger.check_evidence([source, inference], errors)
         self.assertEqual([], errors)
 
-    def test_ai_illustration_accepts_both_authorized_acquisition_modes(self) -> None:
+    def test_ai_illustration_accepts_authorized_acquisition_modes(self) -> None:
         for acquisition_mode in (
             "rights-holder-file",
             "authorized-frame-capture",
+            "authorized-manufacturer-photo",
         ):
             with self.subTest(acquisition_mode=acquisition_mode):
                 errors: list[str] = []
@@ -346,6 +350,15 @@ class EditorialLedgerTests(unittest.TestCase):
 
     def test_authorized_frame_capture_requires_private_attestation(self) -> None:
         row = self.granted_frame_asset("authorized-frame-capture")
+        row.update({"permission_proof": "", "permission_proof_sha256": ""})
+        errors: list[str] = []
+        ledger.check_assets([row], {"EV-0001"}, errors)
+        self.assertTrue(
+            any("exige une attestation privée" in item for item in errors)
+        )
+
+    def test_authorized_manufacturer_photo_requires_private_attestation(self) -> None:
+        row = self.derived_ai_asset("authorized-manufacturer-photo")
         row.update({"permission_proof": "", "permission_proof_sha256": ""})
         errors: list[str] = []
         ledger.check_assets([row], {"EV-0001"}, errors)
@@ -421,10 +434,7 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertIn("n'est pas encore actif", joined)
         self.assertIn("web_scope doit contenir des origines HTTPS", joined)
         self.assertIn("publication_url n'est pas autorisée", joined)
-        self.assertIn(
-            "rights-holder-file ou authorized-frame-capture",
-            joined,
-        )
+        self.assertIn("exige une source autorisée", joined)
         self.assertIn("présence de personnes doit être résolue", joined)
         self.assertIn("interdit les personnes identifiables", joined)
         self.assertIn("human_validation approved", joined)

@@ -14,6 +14,8 @@ const analyses = defineCollection({
   schema: z.object({
     articleId: z.string().regex(/^(OONI|GOZNEY)-\d{3}$/),
     brand: z.enum(["ooni", "gozney"]),
+    category: z.enum(["oven", "mixer"]),
+    heroTreatment: z.enum(["legacy-documentary", "official-stylized"]),
     title: z.string(),
     description: z.string(),
     summary: z.string(),
@@ -28,6 +30,14 @@ const analyses = defineCollection({
     evidenceIds: z.array(z.string().regex(/^EV-\d{4}$/)).min(1),
     evidenceTypes: z.array(z.enum(["FAB", "T-MES", "T-OBS", "FAN-SYN", "FAN-INF"])),
     limitations: z.array(z.string()),
+  }).superRefine((entry, context) => {
+    if (entry.indexable && entry.status !== "publishable") {
+      context.addIssue({
+        code: "custom",
+        message: "Un dossier indexable doit être publiable.",
+        path: ["indexable"],
+      });
+    }
   }),
 });
 

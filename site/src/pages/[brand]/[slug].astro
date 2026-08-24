@@ -3,7 +3,6 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import CitedSources from "@/components/CitedSources.astro";
-import ProofLabel from "@/components/ProofLabel.astro";
 import { SITE } from "@/config/site";
 
 export async function getStaticPaths() {
@@ -45,6 +44,10 @@ const typeLabels = {
   decision: "Comparatif par usage",
   model: "Analyse de modèle",
 };
+const categoryLabels = {
+  oven: "Fours à pizza",
+  mixer: "Pétrins",
+};
 const author = SITE.authors[entry.data.author];
 const canonicalAuthor = new URL(author.url, SITE.url).toString();
 const schema = {
@@ -54,6 +57,7 @@ const schema = {
   url: canonical,
   headline: entry.data.title,
   description: entry.data.description,
+  articleSection: categoryLabels[entry.data.category],
   image: articleImage,
   wordCount: words,
   timeRequired: `PT${readingMinutes}M`,
@@ -108,7 +112,7 @@ const schema = {
 
     <article class="article-shell">
       <header class="article-header">
-        <p class="eyebrow">{typeLabels[entry.data.type]} · Analyse documentaire</p>
+        <p class="eyebrow">{typeLabels[entry.data.type]}</p>
         <h1>{entry.data.title}</h1>
         <p class="article-header__summary">{entry.data.summary}</p>
 
@@ -141,14 +145,10 @@ const schema = {
 
       <aside class="article-facts" aria-label="Repères éditoriaux">
         <dl>
-          <div><dt>Nature</dt><dd>Analyse documentaire</dd></div>
+          <div><dt>Catégorie</dt><dd>{categoryLabels[entry.data.category]}</dd></div>
           <div><dt>Sources citées</dt><dd><a href="#cited-sources-title">{evidenceIds.length}</a></dd></div>
           {entry.data.model && <div><dt>Produit</dt><dd>{entry.data.model}</dd></div>}
-          <div><dt>Dossier</dt><dd>{entry.data.articleId}</dd></div>
         </dl>
-        <div class="article-facts__proofs">
-          {entry.data.evidenceTypes.map((code) => <ProofLabel code={code} />)}
-        </div>
       </aside>
 
       <div class="article-reading-grid">
@@ -164,18 +164,18 @@ const schema = {
 
         <div class="article-body">
           <div class="documentary-notice">
-            <strong>Analyse documentaire</strong>
+            <strong>Comment lire ce guide</strong>
             <span>
-              Ce dossier confronte des données fabricant, des mesures publiées
-              et des observations attribuées. Les protocoles et relations
-              commerciales connus sont indiqués avec les sources.
+              Les promesses du fabricant, les mesures publiées et notre lecture
+              restent séparées. Les conditions et relations commerciales utiles
+              sont précisées dans les sources.
             </span>
-            <a href="#cited-sources-title">Consulter la bibliographie complète</a>
+            <a href="#cited-sources-title">Voir les sources</a>
           </div>
           <Content />
 
           <aside class="article-limitations" aria-labelledby="limitations-title">
-            <h2 id="limitations-title">Ce que le corpus ne permet pas de trancher</h2>
+            <h2 id="limitations-title">Ce qu’on ne sait pas encore</h2>
             <ul>
               {entry.data.limitations.map((limitation) => <li>{limitation}</li>)}
             </ul>
@@ -192,9 +192,9 @@ const schema = {
         </div>
         <div>
           <p>
-            Cette signature couvre la sélection des sources, leur attribution,
-            la comparaison des protocoles et la formulation des limites. Une
-            correction importante reste datée et expliquée.
+            {author.name} a vérifié les sources, distingué les faits des
+            conclusions et formulé les limites de ce guide. Toute correction
+            importante reste datée et expliquée.
           </p>
           <a href={author.url}>Voir les signatures de la rédaction</a>
           <a href="/corrections/">Consulter la politique de correction</a>
@@ -332,13 +332,6 @@ const schema = {
     max-width: 11rem;
     margin: 0;
     text-align: right;
-  }
-
-  .article-facts__proofs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    justify-content: flex-end;
   }
 
   .article-reading-grid {

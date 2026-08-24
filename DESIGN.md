@@ -72,11 +72,11 @@ rounded:
 
 ## Overview
 
-`Ligne de sole` donne à Four à Nu l'apparence d'un poste de lecture technique
-publié sur le web. L'interface compare les dimensions, contraintes et mesures
-publiées sans suggérer que le média les a produites. Elle donne la priorité aux
-conditions, aux sources, aux écarts et aux limites avant toute recommandation ou
-action marchande.
+`Ligne de sole` donne à Four à Nu l'allure d'un guide d'achat éditorial précis,
+direct et chaleureux. L'interface compare les dimensions, contraintes et
+mesures publiées sans suggérer que le média les a produites. La réponse utile
+vient avant le détail méthodologique ; les sources et limites restent faciles à
+retrouver sans donner à la page l'apparence d'une documentation d'ingénieur.
 
 La hiérarchie peut s'inspirer de médias technologiques professionnels comme
 Numerama ou Frandroid : accueil éditorial dense mais lisible, rubriques nettes,
@@ -305,6 +305,19 @@ pas la copie publique. Une illustration éditoriale est identifiée comme telle
 et ne soutient jamais une affirmation factuelle. Aucune copie visible ne cite
 un logiciel, un assistant de rédaction ou un procédé de génération.
 
+L'image d'en-tête de tout nouvel article produit, ou de tout article produit
+substantiellement révisé, part obligatoirement d'une photographie officielle du
+modèle publiée sur le site du fabricant. Elle est stylisée dans « Ligne de
+sole » : fond clair ou carbone, acier froid, contraste franc et accent orange
+limité. La silhouette, les proportions, commandes, couleurs, accessoires et
+marquages du produit restent fidèles à la source. L'image ne contient ni texte,
+ni personnage, ni mesure, ni flamme ou cuisson inventée.
+
+Les photographies en situation arrivent seulement après cet en-tête, dans le
+corps de l'article. Elles peuvent rester documentaires ou recevoir un traitement
+éditorial autorisé. Elles gardent une légende et un crédit exacts et ne servent
+jamais à simuler une prise en main Four à Nu.
+
 La direction visuelle s'applique autour d'une preuve avec cadre, légende,
 annotations et mise en page. Elle ne modifie pas les pixels qui montrent une
 flamme, une cuisson, un affichage, un défaut, une géométrie ou une mesure. Les
@@ -359,6 +372,10 @@ validation, jamais des résultats déclarés avant mesure.
 - Préférer une photographie neutre, une coupe technique ou un gros plan utile à
   une image d'ambiance.
 - Faire passer le contenu HTML, la méthode et la source avant tout effet visuel.
+- Ouvrir un article par la décision concrète qu'il aide à prendre, puis traduire
+  chaque donnée technique en conséquence d'usage.
+- Employer des intertitres qui répondent aux questions d'un acheteur, des
+  paragraphes courts et une conclusion « pour qui / à éviter si » sans note.
 
 ### Exclusions anti-slop
 
@@ -401,6 +418,9 @@ propriétaire du projet avant implémentation :
 9. `site/src/styles/global.css` comme unique emplacement des tokens CSS
    exécutables ;
 10. les exclusions anti-slop de la section précédente.
+11. l'en-tête officiel stylisé avant toute photo en situation dans un article
+    produit nouveau ou substantiellement révisé ;
+12. une voix accessible de guide d'achat, sans prétention d'essai propre.
 
 La marque compacte, le favicon, le choix des premières photographies originales
 et le cadrage exact de chaque gabarit restent ouverts. Leur validation ne peut
@@ -418,7 +438,8 @@ pas contredire une zone gelée ni altérer le lockup adopté.
 | Structure | Inspecter H1, ordre des titres, landmarks, lien d'évitement et ordre DOM | Lecture cohérente sans CSS et au zoom 200 % |
 | Focus | Parcourir toutes les actions au clavier sur fond clair et carbone | Focus visible, cible de 44 px, aucun piège clavier |
 | Preuves | Rapprocher chaque valeur, graphique et plaque de son registre | Aucun chiffre public sans source et identifiant autorisés |
-| Médias | Vérifier type, droit, légende, texte alternatif, source et statut éditorial visible | Aucun média `quarantine`, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
+| Médias | Vérifier type, droit, fidélité du produit, ordre, légende, texte alternatif, source et statut éditorial visible | En-tête officiel stylisé avant les vues en situation ; aucun média `quarantine`, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
+| Voix | Relire accroche, intertitres, jargon, tableaux et conclusion comme un parcours d'achat | Réponse et compromis compris avant la méthode ; aucun ton de notice ni fausse expérience personnelle |
 | Affiliation | Inspecter déclaration, libellé et attribut des liens rémunérés | `rel="sponsored"`, réserve éditoriale au moins aussi visible que l'action |
 | Mouvement | Tester le comportement normal et `prefers-reduced-motion` | Aucun contenu dépendant du mouvement, aucune translation résiduelle requise |
 | Performance | Mesurer les pages représentatives sur mobile et desktop | LCP, INP et CLS sous leurs objectifs avant déclaration de réussite |

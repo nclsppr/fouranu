@@ -1,6 +1,8 @@
 ---
 articleId: OONI-010
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: "Ooni Koda 2 : dimensions et chauffe"
 description: Le Koda 2 est un four à gaz de 35 cm et 16 kg. Notre analyse confronte ses dimensions aux mesures de chauffe publiées et aux gestes observés.
 summary: Le Koda 2 est notre format Ooni au gaz le plus facile à recommander à un foyer. Il reste assez compact, mais ses chiffres de chauffe varient trop pour promettre un chrono.

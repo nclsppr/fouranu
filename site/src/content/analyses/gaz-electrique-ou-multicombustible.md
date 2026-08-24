@@ -1,6 +1,8 @@
 ---
 articleId: OONI-004
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: Ooni gaz, électrique ou multi-combustible ?
 description: "Koda au gaz, Karu au bois ou charbon, Volt 2 électrique : les différences établies pour choisir selon le lieu et les gestes acceptés."
 summary: Le Volt 2 est prévu pour l'intérieur. Dehors, Koda donne une commande directe du gaz, tandis que Karu ajoute la gestion du bois ou du charbon et un brûleur gaz optionnel.

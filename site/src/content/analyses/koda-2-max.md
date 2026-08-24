@@ -1,6 +1,8 @@
 ---
 articleId: OONI-012
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: "Ooni Koda 2 Max : deux pizzas et double zone"
 description: Le Koda 2 Max pèse 43 kg et possède deux zones gaz pour deux pizzas de 30 cm. Notre analyse de son intérêt, de sa chauffe et de son encombrement.
 summary: "Le Koda 2 Max répond à un besoin très précis : cuire deux pizzas à la fois. À 43 kg, nous ne le conseillerions que si ce débit potentiel sera vraiment utilisé."

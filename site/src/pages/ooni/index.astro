@@ -6,7 +6,11 @@ import { SITE } from "@/config/site";
 
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.brand === "ooni" && entry.data.status === "publishable");
-const modelEntries = analyses.filter((entry) => entry.data.type === "model");
+const modelEntries = analyses.filter(
+  (entry) => entry.data.category === "oven" && entry.data.type === "model",
+);
+const equipmentEntries = analyses.filter((entry) => entry.data.category === "mixer");
+const haloComparison = equipmentEntries.find((entry) => entry.id === "halo-core-ou-halo-pro");
 const entriesById = new Map(modelEntries.map((entry) => [entry.id, entry]));
 const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
@@ -47,6 +51,10 @@ if (modelEntries.length !== 9) {
   throw new Error(`La page Ooni exige neuf fiches modèle, ${modelEntries.length} trouvée(s).`);
 }
 
+if (equipmentEntries.length !== 1 || !haloComparison) {
+  throw new Error("La page Ooni exige exactement le comparatif Halo Core ou Halo Pro.");
+}
+
 const canonical = new URL("/ooni/", SITE.url).toString();
 const schema = {
   "@context": "https://schema.org",
@@ -55,12 +63,24 @@ const schema = {
       "@type": "CollectionPage",
       "@id": `${canonical}#collection`,
       url: canonical,
-      name: "Les neuf fours Ooni vendus en France",
+      name: "Fours et pétrins Ooni documentés en France",
       description:
-        "Dossiers documentaires sur les fours Ooni Koda, Karu et Volt vendus en France.",
+        "Dossiers documentaires sur les fours Ooni Koda, Karu et Volt ainsi que les pétrins Halo vendus en France.",
       inLanguage: SITE.language,
       isPartOf: { "@id": `${SITE.url}/#website` },
       mainEntity: { "@id": `${canonical}#models` },
+      hasPart: { "@id": `${canonical}#equipment` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonical}#equipment`,
+      numberOfItems: equipmentEntries.length,
+      itemListElement: equipmentEntries.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: new URL(`/${entry.data.brand}/${entry.id}/`, SITE.url).toString(),
+        name: entry.data.title,
+      })),
     },
     {
       "@type": "ItemList",
@@ -78,8 +98,8 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Fours Ooni 2026 : les 9 modèles de la gamme | Four à Nu"
-  description="Les neuf fours Ooni vendus en France, classés par énergie et format avec un dossier sourcé pour chaque modèle Koda, Karu et Volt."
+  title="Fours et pétrins Ooni 2026 : dossiers sourcés | Four à Nu"
+  description="Les neuf fours Ooni vendus en France et les pétrins Halo, avec des dossiers sourcés pour comparer énergie, format et capacité."
   indexable={true}
   schema={schema}
 >
@@ -88,23 +108,25 @@ const schema = {
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Catalogue France · vérifié le 23.08.2026</p>
-        <h1>Comprendre la gamme Ooni avant de choisir un modèle.</h1>
+        <p class="eyebrow">Catalogue France · vérifié le 24.08.2026</p>
+        <h1>Comprendre les fours et pétrins Ooni avant de choisir.</h1>
         <p class="page-intro__lede">
-          Les neuf fours autonomes vendus en France sont classés ici par
-          énergie et format. Chaque lien ouvre un dossier daté qui sépare les
-          annonces Ooni des mesures et observations publiées par des tiers.
+          Les neuf fours autonomes vendus en France restent classés par énergie
+          et format. Les deux pétrins Halo rejoignent maintenant la sélection
+          pour choisir selon le poids de pâte préparé. Chaque guide distingue
+          les annonces Ooni des mesures et retours publiés.
         </p>
       </div>
       <p class="page-intro__aside">
-        9 fiches modèle, 2 guides transversaux. Aucun classement général ni note
-        ne masque les différences de protocole entre les sources.
+        9 fiches de four, 2 guides transversaux et 1 comparaison de pétrins.
+        Pas de classement général ni de note : partez de votre lieu, de vos
+        fournées et de la place disponible.
       </p>
     </header>
 
     <section class="lead-analysis" aria-labelledby="lead-analysis-title">
       <p class="eyebrow">Deux guides d'abord</p>
-      <h2 id="lead-analysis-title">Les décisions transversales avant les fiches produit.</h2>
+      <h2 id="lead-analysis-title">Deux grandes questions avant de choisir un modèle.</h2>
       <div>
         <a class="link-row" href="/ooni/quel-four-ooni-choisir/">
           <span class="link-row__title">Quel four Ooni choisir en 2026&nbsp;?</span>
@@ -119,10 +141,41 @@ const schema = {
       </div>
     </section>
 
+    <section class="equipment" aria-labelledby="equipment-title">
+      <header>
+        <p class="eyebrow">Préparer la pâte</p>
+        <h2 id="equipment-title">Deux pétrins, une question de quantité réelle.</h2>
+        <p>Le grand modèle n'est utile que si la fournée, la place et les fonctions supplémentaires le justifient.</p>
+      </header>
+
+      <div class="equipment__list">
+        {equipmentEntries.map((entry) => (
+          <a href={`/${entry.data.brand}/${entry.id}/`}>
+            <span class="equipment__image">
+              <img
+                src={entry.data.image.src}
+                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                sizes="(max-width: 48rem) 100vw, 12rem"
+                alt={entry.data.image.alt}
+                width="960"
+                height="540"
+                loading="lazy"
+              />
+            </span>
+            <span class="equipment__copy">
+              <strong>{entry.data.title}</strong>
+              <small>{entry.data.summary}</small>
+              <b>Lire la comparaison <span aria-hidden="true">↗</span></b>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
     <section class="ranges" aria-labelledby="ranges-title">
       <div class="ranges__head">
         <p class="eyebrow">Catalogue actuel</p>
-        <h2 id="ranges-title">Trois familles</h2>
+        <h2 id="ranges-title">Trois familles de fours</h2>
         <p>Chaque modèle renvoie vers un dossier sourcé et daté, sans classement artificiel.</p>
       </div>
 
@@ -168,6 +221,83 @@ const schema = {
   .lead-analysis {
     padding-block: clamp(3rem, 5vw, 4.5rem);
     border-bottom: 1px solid var(--color-line);
+  }
+
+  .equipment {
+    display: grid;
+    grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
+    gap: 1.5rem;
+    padding-block: clamp(3rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .equipment > header {
+    align-self: end;
+  }
+
+  .equipment > header h2 {
+    max-width: 13ch;
+    margin-bottom: 0.75rem;
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .equipment > header > p:last-child {
+    max-width: 32rem;
+    margin-bottom: 0;
+    color: var(--color-graphite);
+    line-height: 1.55;
+  }
+
+  .equipment__list {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .equipment__list > a {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 1rem;
+    min-height: 11rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
+  }
+
+  .equipment__image {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-steel-soft);
+  }
+
+  .equipment__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .equipment__copy {
+    display: grid;
+    align-content: center;
+    gap: 0.5rem;
+  }
+
+  .equipment__copy strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 2.5vw, 2.5rem);
+    line-height: 1;
+  }
+
+  .equipment__copy small {
+    color: var(--color-graphite);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .equipment__copy b {
+    color: var(--color-probe);
+    font-size: 0.85rem;
+    font-weight: 600;
   }
 
   .lead-analysis h2 {
@@ -305,9 +435,22 @@ const schema = {
   }
 
   @media (max-width: 48rem) {
+    .equipment,
     .ranges__head,
     .range {
       grid-template-columns: 1fr;
+    }
+
+    .equipment__list > a {
+      grid-template-columns: 8rem minmax(0, 1fr);
+      min-height: 8rem;
+    }
+
+    .equipment__copy small {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
     }
 
     .ranges__head .eyebrow,

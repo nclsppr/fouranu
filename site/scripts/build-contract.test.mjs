@@ -33,6 +33,7 @@ const fixedIndexableRoutes = [
   "/corrections/",
   "/confidentialite/",
   "/fours-a-pizza/",
+  "/gozney/",
   "/methode/",
   "/mentions-legales/",
   "/ooni/",
@@ -189,7 +190,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, 23);
+  assert.equal(pages.length, 26);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -327,7 +328,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   );
 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, 11);
+  assert.equal(articlePages.length, 13);
   const authorAssignments = new Map([...editorialAuthors.keys()].map((name) => [name, 0]));
 
   for (const page of pages) {
@@ -356,6 +357,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.equal(article.url, `${canonicalOrigin}${page.route}`);
       assert.equal(visibleText(article.headline), h1);
       assert.equal(article.inLanguage, "fr");
+      assert.ok(["Fours à pizza", "Pétrins"].includes(article.articleSection));
       assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
       authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
       assert.equal(article.author["@type"], "Person");
@@ -379,12 +381,12 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
   assert.deepEqual(
     [...authorAssignments.values()].sort((left, right) => left - right),
-    [3, 4, 4],
-    "les onze dossiers doivent rester répartis entre les trois signatures",
+    [4, 4, 5],
+    "les treize dossiers doivent rester répartis entre les trois signatures",
   );
 });
 
-test("les onze analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
+test("les treize analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
   const canonicalCsv = await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8");
   const componentCsv = await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8");
   assert.equal(componentCsv, canonicalCsv, "la copie de build du registre a dérivé de research/evidence.csv");
@@ -398,24 +400,80 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 118);
+  assert.equal(records.size, 142);
+
+  const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
+  const assetRows = parseCsv(assetCsv);
+  const assetHeaders = assetRows.shift();
+  assert.equal(assetHeaders.length, 29);
+  const assets = new Map(
+    assetRows.map((values) => [
+      values[0],
+      Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
+    ]),
+  );
+  const legacyHeroArticles = new Set([
+    "OONI-001",
+    "OONI-004",
+    "OONI-010",
+    "OONI-011",
+    "OONI-012",
+    "OONI-013",
+    "OONI-014",
+    "OONI-015",
+    "OONI-016",
+    "OONI-017",
+    "OONI-018",
+  ]);
+  const renderedLegacyHeroes = new Set();
 
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
     .sort();
-  assert.equal(markdownFiles.length, 11);
+  assert.equal(markdownFiles.length, 13);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(siteRoot, "src/content/analyses", markdownFile), "utf8");
     const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY)-\d{3})$/m)?.[1];
     const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
+    const category = markdown.match(/^category:\s*(oven|mixer)$/m)?.[1];
+    const heroTreatment = markdown.match(
+      /^heroTreatment:\s*(legacy-documentary|official-stylized)$/m,
+    )?.[1];
+    const heroAssetId = markdown.match(/^\s{2}assetId:\s*(AS-\d{4})$/m)?.[1];
     assert.ok(articleId, `${slug}: articleId absent ou invalide`);
     assert.ok(brand, `${slug}: marque absente ou invalide`);
+    assert.ok(category, `${slug}: catégorie absente ou invalide`);
+    assert.ok(heroTreatment, `${slug}: traitement de hero absent ou invalide`);
+    assert.ok(heroAssetId, `${slug}: identifiant du hero absent ou invalide`);
     assert.ok(
       articleId.startsWith(`${brand.toUpperCase()}-`),
       `${slug}: articleId incohérent avec la marque`,
     );
+    if (heroTreatment === "legacy-documentary") {
+      assert.ok(
+        legacyHeroArticles.has(articleId),
+        `${slug}: un nouveau dossier ne peut pas adopter le repli legacy`,
+      );
+      renderedLegacyHeroes.add(articleId);
+    } else {
+      const heroAsset = assets.get(heroAssetId);
+      assert.ok(heroAsset, `${slug}: hero absent du registre média`);
+      assert.equal(heroAsset.asset_type, "ai-illustration", `${slug}: type de hero incohérent`);
+      assert.equal(
+        heroAsset.acquisition_mode,
+        "authorized-manufacturer-photo",
+        `${slug}: le hero doit partir d'une photo officielle fabricant`,
+      );
+      assert.equal(heroAsset.human_validation, "approved", `${slug}: hero non validé`);
+      assert.equal(heroAsset.identifiable_people, "no", `${slug}: personne dans la source du hero`);
+      assert.match(
+        markdown,
+        /^\s{2}caption:\s*"Illustration éditoriale .+photograph(?:ie|ies) officielle(?:s)? .+"$/m,
+        `${slug}: statut public du hero absent`,
+      );
+    }
     const expectedIds = [...new Set(markdown.match(/\bEV-\d{4}\b/g) ?? [])];
     assert.ok(expectedIds.length >= 1, `${slug}: aucune preuve citée`);
     for (const evidenceId of expectedIds) {
@@ -453,21 +511,22 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
       }
     }
   }
+  assert.deepEqual(renderedLegacyHeroes, legacyHeroArticles, "la dette des onze anciens heroes a dérivé");
 });
 
-test("le RSS expose exactement les onze dossiers publiables", async () => {
+test("le RSS expose exactement les treize dossiers publiables", async () => {
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   const articleRoutes = articlePages
     .map((page) => page.route)
     .sort();
-  assert.equal(articleRoutes.length, 11);
+  assert.equal(articleRoutes.length, 13);
 
   const rss = await readFile(join(dist, "rss.xml"), "utf8");
   assert.match(rss, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.match(rss, /<rss version="2\.0" xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
   const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
-  assert.equal(rssItems.length, 11);
+  assert.equal(rssItems.length, 13);
   const rssRoutes = rssItems.map((item) => {
     assert.match(item, /<title>[^<]+<\/title>/);
     assert.match(item, /<description>[^<]+<\/description>/);
@@ -534,19 +593,25 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   const imagePaths = new Set();
   const assetIds = new Set();
+  const categoryCounts = { ooniOvens: 0, ooniMixers: 0, gozneyOvens: 0 };
 
-  assert.equal(markdownFiles.length, 11);
-  assert.equal(articlePages.length, 11);
+  assert.equal(markdownFiles.length, 13);
+  assert.equal(articlePages.length, 13);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(markdownDirectory, markdownFile), "utf8");
     const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
+    const category = markdown.match(/^category:\s*(oven|mixer)$/m)?.[1];
     const imagePath = markdown.match(
       /^\s{2}src:\s*(\/images\/articles\/[a-z0-9-]+-1600\.webp)$/m,
     )?.[1];
     const assetId = markdown.match(/^\s{2}assetId:\s*(AS-\d{4})$/m)?.[1];
     assert.ok(brand, `${slug}: marque absente`);
+    assert.ok(category, `${slug}: catégorie absente`);
+    if (brand === "ooni" && category === "oven") categoryCounts.ooniOvens += 1;
+    if (brand === "ooni" && category === "mixer") categoryCounts.ooniMixers += 1;
+    if (brand === "gozney" && category === "oven") categoryCounts.gozneyOvens += 1;
     assert.ok(imagePath, `${slug}: image 1600 px absente du frontmatter`);
     assert.ok(assetId, `${slug}: assetId absent du frontmatter`);
     assert.equal(imagePaths.has(imagePath), false, `${slug}: photo dupliquée ${imagePath}`);
@@ -579,17 +644,26 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     );
   }
 
+  assert.deepEqual(categoryCounts, { ooniOvens: 11, ooniMixers: 1, gozneyOvens: 1 });
+
   const home = pages.find((page) => page.route === "/");
   const homeArticleImages = tags(home.html, "img")
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
-  assert.equal(homeArticleImages.length, 10, "la une doit illustrer le guide et les neuf modèles");
+  assert.equal(homeArticleImages.length, 12, "la une doit illustrer le guide, les neuf fours et les deux nouveaux dossiers");
 
   const ooni = pages.find((page) => page.route === "/ooni/");
   const ooniThumbnails = tags(ooni.html, "img")
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
-  assert.equal(ooniThumbnails.length, 9, "la page Ooni doit illustrer ses neuf modèles");
+  assert.equal(ooniThumbnails.length, 10, "la page Ooni doit illustrer ses neuf fours et le dossier pétrins");
+
+  const gozney = pages.find((page) => page.route === "/gozney/");
+  assert.ok(gozney, "page de marque Gozney absente");
+  const gozneyThumbnails = tags(gozney.html, "img")
+    .map((image) => attribute(image, "src"))
+    .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
+  assert.equal(gozneyThumbnails.length, 1, "la page Gozney doit illustrer son premier dossier");
 });
 
 test("aucune ancienne mention d'outil rédactionnel ne sort dans le site public", async () => {
@@ -673,14 +747,14 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const articleRoutes = pages
       .map((page) => page.route)
       .filter((route) => articleRoutePattern.test(route ?? ""));
-    assert.equal(articleRoutes.length, 11);
+    assert.equal(articleRoutes.length, 13);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, 22);
+    assert.equal(expectedRoutes.length, 25);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
-    assert.equal((sitemap.match(/<lastmod>2026-08-24<\/lastmod>/g) ?? []).length, 22);
+    assert.equal((sitemap.match(/<lastmod>2026-08-24<\/lastmod>/g) ?? []).length, 25);
 
     for (const page of pages) {
       const expected = page.route === null ? "noindex, follow" : indexableRobots;
@@ -788,6 +862,12 @@ test("la preview sert une vraie 404 et stabilise les URL de referral", async () 
     });
     assert.equal(slashless.status, 308);
     assert.equal(slashless.headers.get("location"), "/ooni/");
+
+    const gozneySlashless = await fetch(`http://127.0.0.1:${port}/gozney`, {
+      redirect: "manual",
+    });
+    assert.equal(gozneySlashless.status, 308);
+    assert.equal(gozneySlashless.headers.get("location"), "/gozney/");
 
     const fontFile = (await filesRecursively(dist)).find((file) => file.endsWith(".woff2"));
     assert.ok(fontFile, "une fonte WOFF2 construite est attendue");

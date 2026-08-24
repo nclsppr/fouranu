@@ -15,6 +15,20 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Tranche post-V1 publiée | SHA applicatif `eb12619007191c82d963017f598b462ca54bdc51` ; [run GitHub Actions `32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
+## Candidat local en attente de publication
+
+Le checkout contient un candidat distinct de la production décrite ci-dessous.
+Il construit 26 pages HTML, treize guides, 142 preuves, 58 questions, 49 médias
+et 25 URL indexables. Il ajoute le Gozney Arc XL et le comparatif Ooni Halo Core
+ou Halo Pro, avec leurs nouveaux en-têtes officiels stylisés et leurs vues
+documentaires secondaires.
+
+Ce candidat a passé `./scripts/verify.sh`, la vérification des preuves privées,
+le build Cloudflare hors déploiement, le démarrage Compose sain et la revue
+navigateur locale. Il ne sera présenté comme public qu'après une CI verte sur
+son SHA, la lecture de ce même SHA dans `/release.json` et le contrôle des
+nouvelles routes et images sur `fouranu.com`.
+
 ## Résumé
 
 Four à Nu est un média documentaire statique de 23 pages HTML. Sa V1 et sa
@@ -58,7 +72,7 @@ technique.
 | F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
 | F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
 
-## Livré et vérifié
+## Livré et vérifié en production
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |

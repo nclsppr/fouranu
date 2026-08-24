@@ -1,6 +1,8 @@
 ---
 articleId: OONI-017
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: "Ooni Karu 12 : bois, charbon, gaz et dimensions"
 description: Le Karu 12 accepte bois, charbon et un brûleur propane séparé. Notre analyse de son format 30 cm, de son poids et de ses limites.
 summary: Le Karu 12 reste séduisant si vous voulez apprendre à gérer un vrai feu dans un petit four. Son prix caché est le temps passé au combustible et au nettoyage.

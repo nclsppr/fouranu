@@ -62,7 +62,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
           <p>
             Le diamètre de la pizza, la marge pour la tourner et la récupération
             de la sole entre deux cuissons doivent être séparés. Les sources
-            disponibles ne suivent pas encore un protocole commun sur une série.
+            disponibles ne permettent pas encore de comparer la cadence dans
+            les mêmes conditions.
           </p>
         </div>
         <p class="constraint-list__check">À relever : diamètre habituel, nombre de convives, séries fréquentes ou occasionnelles.</p>
@@ -83,10 +84,13 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     </div>
 
     <aside class="next-step">
-      <p class="eyebrow">Première gamme documentée</p>
-      <h2>Ooni sert de terrain de départ.</h2>
-      <p>Les neuf fours du catalogue France ont chacun leur fiche. Deux guides transversaux traitent le choix du modèle et celui de l'énergie.</p>
-      <a class="button-link" href="/ooni/">Explorer la gamme Ooni</a>
+      <p class="eyebrow">Marques documentées</p>
+      <h2>Ooni s'élargit, Gozney commence.</h2>
+      <p>Les neuf fours Ooni du catalogue France ont chacun leur fiche. Le premier dossier Gozney ouvre une seconde gamme sans prétendre déjà la couvrir.</p>
+      <div class="next-step__links">
+        <a class="button-link" href="/ooni/">Explorer Ooni</a>
+        <a class="button-link button-link--quiet" href="/gozney/">Découvrir Gozney</a>
+      </div>
     </aside>
   </div>
 </BaseLayout>
@@ -166,6 +170,24 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .next-step .button-link {
+    color: var(--color-carbon);
+    border-color: var(--color-reading);
+    background: var(--color-reading);
+  }
+
+  .next-step__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .next-step .button-link--quiet {
+    color: var(--color-white);
+    border-color: var(--color-carbon-line);
+    background: transparent;
+  }
+
+  .next-step .button-link--quiet:hover {
     color: var(--color-carbon);
     border-color: var(--color-reading);
     background: var(--color-reading);

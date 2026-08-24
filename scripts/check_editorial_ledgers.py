@@ -106,6 +106,7 @@ CONFIDENCE_VALUES = {"low", "medium", "high"}
 ACQUISITION_MODES = {
     "rights-holder-file",
     "authorized-frame-capture",
+    "authorized-manufacturer-photo",
     "youtube-embed",
     "fouranu-original",
     "ai-generated",
@@ -599,9 +600,10 @@ def check_assets(
             if row["acquisition_mode"] not in {
                 "rights-holder-file",
                 "authorized-frame-capture",
+                "authorized-manufacturer-photo",
             }:
                 errors.append(
-                    f"{prefix} : une illustration IA dérivée exige rights-holder-file ou authorized-frame-capture"
+                    f"{prefix} : une illustration IA dérivée exige une source autorisée"
                 )
             if row["provider_training"] not in PROVIDER_TRAINING_VALUES:
                 errors.append(
@@ -684,6 +686,15 @@ def check_assets(
             if not row["permission_proof"] or not row["permission_proof_sha256"]:
                 errors.append(
                     f"{prefix} : authorized-frame-capture exige une attestation privée et son SHA-256"
+                )
+        if row["acquisition_mode"] == "authorized-manufacturer-photo":
+            if row["asset_type"] != "ai-illustration":
+                errors.append(
+                    f"{prefix} : authorized-manufacturer-photo est réservé aux illustrations dérivées d'une photo officielle"
+                )
+            if not row["permission_proof"] or not row["permission_proof_sha256"]:
+                errors.append(
+                    f"{prefix} : authorized-manufacturer-photo exige une attestation privée et son SHA-256"
                 )
 
 

@@ -127,7 +127,8 @@ Les premiers silos restent explicites dans la navigation et les URL :
 | Silo | URL de départ | Périmètre |
 | --- | --- | --- |
 | Fours à pizza | `/fours-a-pizza/` | Bois, gaz, électrique, pellets et contraintes d'usage |
-| Ooni | `/ooni/` | Modèles, comparaisons, accessoires, entretien et décisions d'achat |
+| Ooni | `/ooni/` | Fours, pétrins Halo, comparaisons, entretien et décisions d'achat |
+| Gozney | `/gozney/` | Fours documentés modèle par modèle, mesures publiées et contraintes d'installation |
 | Comparatifs | `/comparatifs/` | Face-à-face et dossiers longs `Dossier 430` |
 | Accessoires pizza | `/accessoires-pizza/` | Pelles, thermomètres, tables, housses, pierres et consommables |
 | Pizza napolitaine | `/pizza-napolitaine/` | Pâte, farine, fermentation, température, cuisson et matériel |

@@ -1,6 +1,8 @@
 ---
 articleId: OONI-013
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: "Ooni Koda 12 : dimensions, poids et limites"
 description: Le Koda 12 est un four à gaz compact pour pizza de 30 cm. Notre analyse porte sur son poids, son encombrement et les vérifications avant achat.
 summary: "Le Koda 12 va à l'essentiel : gaz, 30 cm et 9,2 kg. Nous le trouvons cohérent pour débuter si son petit format est une contrainte voulue."

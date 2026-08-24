@@ -13,26 +13,33 @@ transforme jamais une expérience tierce en expérience de Four à Nu.
 
 Le produit ne publie ni note, ni étoile, ni classement pseudo-scientifique, ni
 donnée structurée `Review` ou `AggregateRating`. Une vidéo tierce peut être une
-source. Une image transformée par IA peut être un habillage autorisé. Elle ne
-devient jamais une preuve.
+source. Une image transformée peut être un habillage autorisé. Elle ne devient
+jamais une preuve.
 
-## Voix et assistance rédactionnelle
+## Voix éditoriale
 
-ChatGPT peut assister le brouillon et la réécriture des articles publics. La
-voix reste personnelle et concrète : la rédaction peut expliquer ce qu'elle
-choisirait, écarterait ou vérifierait dans une situation donnée. Une telle
-prise de position relève de `FAN-INF`, cite ses prémisses et conserve son niveau
-de confiance.
+Four à Nu écrit comme un bon testeur qui aide un ami à choisir, pas comme une
+notice technique. Le lecteur doit comprendre dès l'ouverture à qui le produit
+convient, ce qui peut coincer et quelle question trancher. La rédaction emploie
+des mots courants, des paragraphes courts, des intertitres utiles et des
+exemples concrets. Une caractéristique technique n'apparaît que lorsqu'elle
+change réellement l'achat, l'installation ou l'usage ; le jargon est traduit
+au premier emploi.
 
-Cette voix ne permet jamais d'écrire qu'un produit a été testé, mesuré, utilisé
-ou goûté par Four à Nu lorsque l'expérience appartient à un tiers. Chaque fait,
-mesure et observation continue de passer par le registre. La rédaction relit
-les sources, contrôle les liens de preuve et approuve le texte final ; ChatGPT
-n'est ni l'auteur d'une source ni le responsable de publication.
+La voix peut être personnelle, directe et tranchée : la rédaction peut
+expliquer ce qu'elle choisirait, écarterait ou vérifierait dans une situation
+donnée. Une telle prise de position relève de `FAN-INF`, cite ses prémisses et
+conserve son niveau de confiance. Elle ne permet jamais d'écrire qu'un produit
+a été testé, mesuré, utilisé ou goûté par Four à Nu lorsque l'expérience
+appartient à un tiers. Les formules « notre test », « nous avons mesuré » ou
+« après plusieurs semaines d'utilisation » sont interdites sans expérience
+propre enregistrée.
 
-Le traitement `Unslop` n'est pas appliqué à la rédaction ou à la révision des
-articles Four à Nu. Le site ne termine pas ses dossiers par une note chiffrée,
-des étoiles ou un classement.
+Chaque création ou révision d'article comprend une passe de simplification :
+réponse avant méthode, bénéfice avant fiche technique, verdict nuancé avant
+bibliographie. Les tableaux détaillés et les protocoles restent accessibles
+après une synthèse en langage courant. Le site ne termine pas ses dossiers par
+une note chiffrée, des étoiles ou un classement.
 
 ## Taxonomie de preuve
 
@@ -76,7 +83,7 @@ Les couples autorisés sont explicites :
 | --- | --- | --- |
 | `embed` | `youtube-embed` | `service-permitted` |
 | `licensed-frame` | `rights-holder-file` ou `authorized-frame-capture` | `granted` |
-| `ai-illustration` | `rights-holder-file` | `granted` |
+| `ai-illustration` | `rights-holder-file`, `authorized-manufacturer-photo` ou `authorized-frame-capture` | `granted` |
 | `fouranu-original` | `fouranu-original` | `original` |
 | `ai-original` | `ai-generated` | `original` |
 | `quarantine` | `not-acquired` | Aucun |
@@ -118,6 +125,13 @@ libellée comme une attestation du propriétaire et ne doit jamais être présen
 comme un contrat, un message ou un justificatif provenant de l'ayant droit.
 L'extraction reste limitée aux vidéos, usages, supports, transformations et
 crédits expressément consignés.
+
+`authorized-manufacturer-photo` désigne une photographie officielle récupérée
+sur le site HTTPS du fabricant après attestation explicite du propriétaire du
+projet couvrant la reproduction et la transformation prévues. Le registre
+conserve l'URL exacte, la date de récupération, l'empreinte du fichier source,
+le périmètre et la preuve privée. Cette attestation décrit l'autorisation donnée
+au projet ; elle n'est jamais présentée comme une déclaration du fabricant.
 
 Le statut de droit d'un média vaut `not-requested`, `requested`, `granted`,
 `denied`, `expired`, `service-permitted` pour un lecteur officiel, ou `original`
@@ -170,7 +184,7 @@ expressément autorisée :
 3. limiter la transformation au périmètre accordé ;
 4. conserver l'identifiant de l'entrée, de la sortie et le SHA-256 du dérivé ;
 5. comparer source et dérivé, puis enregistrer une validation humaine du rendu ;
-6. publier le crédit et la mention IA avec le visuel.
+6. publier le crédit et le statut d'illustration éditoriale avec le visuel.
 
 Il est interdit d'améliorer générativement une flamme, une cuisson, une mesure,
 un affichage, un défaut ou tout autre élément invoqué comme preuve. La géométrie,
@@ -187,20 +201,46 @@ la région de traitement, les transferts, la rétention et la suppression. Les
 [questions-réponses de la CNIL sur l'IA générative](https://www.cnil.fr/fr/les-questions-reponses-de-la-cnil-sur-lutilisation-dun-systeme-dia-generative)
 seront alors revérifiées.
 
-Mention minimale :
+Mention publique minimale :
 
-> Illustration assistée par IA d'après une image de [créateur], utilisée avec
-> autorisation. Cette illustration ne constitue pas une preuve de performance.
-> Source : [vidéo et timecode].
+> Illustration éditoriale d'après une photographie officielle de [fabricant],
+> utilisée avec autorisation. Elle ne constitue pas une preuve de performance.
+
+La catégorie technique du registre, les outils de production et les assistants
+rédactionnels ne paraissent jamais dans la copie publique. La traçabilité
+détaillée reste interne. Le protocole ne suppose pas que cette présentation
+épuise toutes les obligations applicables : leur périmètre est revérifié avant
+tout changement de technique ou de diffusion.
 
 L'[article 50 du règlement européen sur l'IA](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
 s'applique depuis le 2026-08-02. Les
 [lignes directrices de la Commission](https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations)
 prévoient des obligations de marquage ou d'information pour certains contenus
-générés ou manipulés. Four à Nu déclare donc tout visuel IA, y compris lorsqu'une
-exception artistique pourrait permettre une présentation plus discrète.
+générés ou manipulés. Four à Nu conserve donc la provenance technique et le
+statut de transformation dans son registre, tout en présentant au lecteur le
+statut fonctionnel exact d'« illustration éditoriale ».
 
-### 5. Publier ou revenir au repli sûr
+### 5. Composer l'en-tête d'un article produit
+
+Tout nouvel article consacré à un four, un pétrin ou un autre matériel, ainsi
+que toute révision éditoriale substantielle d'un tel article, commence par une
+photo officielle du modèle publiée sur le site du fabricant puis stylisée dans
+la direction « Ligne de sole ». Cette image devient l'en-tête obligatoire et
+reste une illustration, jamais une preuve.
+
+La transformation peut changer le fond, la lumière, le cadrage et la matière
+environnante. Elle préserve sans invention la silhouette, les proportions, les
+commandes, les couleurs, les accessoires, les marquages et les éléments
+fonctionnels du produit. Aucun texte, personnage, aliment, flamme, lecture
+d'écran ou défaut n'est ajouté. La source officielle et le dérivé sont comparés
+avant publication.
+
+Les vraies photos en situation, photogrammes autorisés et vues documentaires
+peuvent ensuite enrichir le corps de l'article, stylisés ou non. Ils ne
+remplacent pas l'en-tête officiel stylisé et leur légende indique clairement ce
+qu'ils montrent et d'où ils viennent.
+
+### 6. Publier ou revenir au repli sûr
 
 Sans droit suffisant sur une image, les options sont :
 
@@ -236,8 +276,12 @@ sont vraies :
 - chaque média de l'arbre public a un statut de droit `service-permitted`,
   `granted` ou `original`, cohérent avec son type, son acquisition, son périmètre
   et sa provenance ;
-- chaque illustration IA est déclarée et ne soutient aucune affirmation
-  factuelle ;
+- chaque article produit nouveau ou substantiellement révisé possède l'en-tête
+  officiel stylisé décrit ci-dessus ;
+- chaque illustration est identifiée comme illustration éditoriale, sans citer
+  son outil de production, et ne soutient aucune affirmation factuelle ;
+- l'accroche répond à une question d'achat en langage courant avant les données
+  détaillées ;
 - l'auteur, la méthode, la date de vérification, les conflits et la politique de
   correction sont visibles ;
 - les liens rémunérés sont déclarés, portent `rel="sponsored"` et plusieurs

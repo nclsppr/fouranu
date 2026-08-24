@@ -1,8 +1,8 @@
 # Four à Nu
 
-Four à Nu construit un outil francophone pour choisir un four à pizza à partir
-de contraintes vérifiables, avec Ooni comme premier corpus. `Jupiter` reste le
-nom de code du dépôt.
+Four à Nu construit un outil francophone pour choisir un four à pizza et son
+matériel à partir de contraintes vérifiables. Ooni ouvre le catalogue, désormais
+rejoint par Gozney. `Jupiter` reste le nom de code du dépôt.
 
 Le propriétaire a confirmé l'acquisition de `fouranu.com` le 2026-08-23. La V1
 est publique sur [`fouranu.com`](https://fouranu.com) depuis le 2026-08-24. Elle
@@ -15,8 +15,9 @@ La tranche éditoriale post-V1 a ensuite été publiée depuis le SHA applicatif
 ## État du produit
 
 Le dépôt utilise le pack Foundation `full`. `site/` contient une application
-Astro statique distincte de Nimbus. Son build génère 23 pages HTML, dont onze
-analyses documentaires Ooni. Four à Nu est un média documentaire permanent :
+Astro statique distincte de Nimbus. Son build génère 26 pages HTML, dont treize
+guides : douze sur les fours et pétrins Ooni, un sur le Gozney Arc XL. Four à Nu
+est un média documentaire permanent :
 chaque page attribue ses sources, conserve leurs limites et ne publie ni note,
 ni étoile, ni balisage d'avis.
 
@@ -46,7 +47,7 @@ plus récent, Node `22.12.0` ou plus récent, npm, Docker et Docker Compose
 | Action actuelle | Commande | Résultat attendu |
 | --- | --- | --- |
 | Vérifier le dépôt | `./scripts/verify.sh` | Contrôle les documents, registres, Compose, le site Astro et Nimbus |
-| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 23 pages et treize tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 26 pages et treize tests de contrat |
 | Vérifier le candidat Cloudflare | `npm run cloudflare:check --prefix site` | Valide le paquet Workers Static Assets sans déploiement |
 | Vérifier Compose | `python3 scripts/check_compose.py` | Valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Site Nimbus local généré depuis les Markdown classés |
@@ -68,6 +69,7 @@ code, de la configuration et d'une vérification réelle.
 - [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) : contrôle SEO bloquant appliqué à chaque article avant indexation.
 - [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) : modèle documentaire permanent et indexation.
 - [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) : cible Cloudflare et chemin de déploiement.
+- [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) : photo officielle stylisée en tête et voix accessible.
 - [`EXPERIMENT.md`](EXPERIMENT.md) : métriques, limites et décision du pilote documentaire.
 - [`FEASIBILITY.md`](FEASIBILITY.md) : modèle économique et options rejetées.
 - [`BRIEF.md`](BRIEF.md) : question et conclusion de l'exploration d'origine.

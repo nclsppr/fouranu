@@ -1,6 +1,8 @@
 ---
 articleId: OONI-018
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: "Ooni Volt 2 : four électrique intérieur"
 description: Le Volt 2 est le four Ooni intérieur de 1 600 W. Ses commandes et mesures tierces sont documentées, pas sa fiabilité ni sa consommation.
 summary: Le Volt 2 est le four intérieur de la gamme actuelle. Ses commandes sont documentées, mais pas son uniformité, sa fiabilité ni son coût d'usage.

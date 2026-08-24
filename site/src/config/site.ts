@@ -6,7 +6,7 @@ export const SITE = {
   language: "fr",
   title: "Four à Nu | Le guide des fours à pizza",
   description:
-    "Comparatifs documentés, guides d'achat et dossiers Ooni pour choisir un four à pizza, ses accessoires et réussir ses cuissons napolitaines.",
+    "Comparatifs documentés, guides d'achat et dossiers Ooni ou Gozney pour choisir un four à pizza et le matériel de préparation adapté.",
   shortDescription: "Fours à pizza, sources à l'appui",
   socialImage: "/og/four-a-nu-default.png",
   editorialAuthor: {
@@ -40,6 +40,7 @@ export const FIXED_INDEXABLE_ROUTES = [
   { path: "/corrections/", modified: "2026-08-24" },
   { path: "/confidentialite/", modified: "2026-08-24" },
   { path: "/fours-a-pizza/", modified: "2026-08-24" },
+  { path: "/gozney/", modified: "2026-08-24" },
   { path: "/methode/", modified: "2026-08-24" },
   { path: "/mentions-legales/", modified: "2026-08-24" },
   { path: "/ooni/", modified: "2026-08-24" },
@@ -49,6 +50,7 @@ export const FIXED_INDEXABLE_ROUTES = [
 export const PRIMARY_NAV = [
   { href: "/fours-a-pizza/", label: "Guides" },
   { href: "/ooni/", label: "Ooni" },
+  { href: "/gozney/", label: "Gozney" },
   { href: "/methode/", label: "Méthode" },
   { href: "/a-propos/", label: "À propos" },
 ] as const;

@@ -6,6 +6,27 @@ importantes.
 
 ## Non publié
 
+- Adoption d'une règle éditoriale durable : tout article produit nouveau ou
+  substantiellement révisé s'ouvre sur une photo officielle du fabricant
+  stylisée dans « Ligne de sole » ; les vues en situation viennent ensuite.
+- La voix cible devient celle d'un guide d'achat accessible et accrocheur : la
+  réponse et les compromis précèdent les détails techniques, sans revendiquer
+  d'essai propre absent du registre. Le rattrapage du corpus public est tracé
+  explicitement dans la roadmap et n'est pas encore présenté comme livré.
+- Deux nouveaux guides prêts à publier rejoignent le build : le Gozney Arc XL
+  et le choix entre les pétrins Ooni Halo Core et Halo Pro. Leurs en-têtes sont
+  dérivés de photos officielles fabricant ; les vues documentaires viennent
+  ensuite dans le corps des pages.
+- L'accueil, les pages Ooni et Gozney, le flux RSS, le sitemap et les données
+  structurées accueillent ces deux guides. Le build passe à 26 pages HTML,
+  treize articles et 25 URL indexables.
+- La gate refuse désormais tout nouvel article produit qui contourne la photo
+  officielle stylisée, une provenance média approuvée ou l'ordre des visuels.
+  Les onze anciens en-têtes restent une dette explicitement suivie.
+- Les textes visibles ajoutés dans cette tranche ont reçu une passe de
+  simplification : moins de vocabulaire interne, réponse d'achat plus directe
+  et sources renvoyées vers un second niveau de lecture.
+
 ## 2026-08-24 - Tranche éditoriale post-V1 publique
 
 - Le workflow de publication utilise désormais les actions d'artefact Node 24

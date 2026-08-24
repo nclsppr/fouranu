@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ProofLabel from "@/components/ProofLabel.astro";
 import { SITE } from "@/config/site";
 
 const analyses = (await getCollection("analyses"))
@@ -14,8 +13,20 @@ const energyGuide = analyses.find(
   (entry) => entry.data.brand === "ooni" && entry.id === "gaz-electrique-ou-multicombustible",
 );
 const models = analyses.filter(
-  (entry) => entry.data.brand === "ooni" && entry.data.type === "model",
+  (entry) =>
+    entry.data.brand === "ooni" &&
+    entry.data.category === "oven" &&
+    entry.data.type === "model",
 );
+const newDossierRefs = [
+  { brand: "gozney", id: "arc-xl" },
+  { brand: "ooni", id: "halo-core-ou-halo-pro" },
+] as const;
+const newDossiers = newDossierRefs
+  .map((reference) => analyses.find(
+    (entry) => entry.data.brand === reference.brand && entry.id === reference.id,
+  ))
+  .filter((entry) => entry !== undefined);
 const featuredModelIds = ["koda-2", "volt-2", "karu-2", "koda-2-max"];
 const featuredModels = featuredModelIds
   .map((id) => models.find((entry) => entry.id === id))
@@ -41,8 +52,15 @@ const longDateFormatter = new Intl.DateTimeFormat("fr-FR", {
   year: "numeric",
   timeZone: "UTC",
 });
+const brandLabels = { ooni: "Ooni", gozney: "Gozney" } as const;
+const categoryLabels = { oven: "Four à pizza", mixer: "Pétrins" } as const;
 
-if (!lead || !energyGuide || featuredModels.length !== featuredModelIds.length) {
+if (
+  !lead ||
+  !energyGuide ||
+  featuredModels.length !== featuredModelIds.length ||
+  newDossiers.length !== newDossierRefs.length
+) {
   throw new Error("Les dossiers mis en avant sur l'accueil sont requis.");
 }
 
@@ -77,7 +95,7 @@ const schema = {
   <section class="editorial-hero page-shell" aria-labelledby="home-title">
     <article class="lead-feature">
       <div class="lead-feature__copy">
-        <p class="feature-kicker">Guide d'achat · analyse documentaire</p>
+        <p class="feature-kicker">Guide d'achat</p>
         <h1 id="home-title">{lead.data.title}</h1>
         <p class="lead-feature__summary">{lead.data.summary}</p>
         <div class="lead-feature__filters" aria-label="Les premiers critères du guide">
@@ -123,24 +141,61 @@ const schema = {
     </div>
   </section>
 
-  <section class="corpus-strip page-shell" aria-label="État du corpus Four à Nu">
+  <section class="corpus-strip page-shell" aria-label="Repères Four à Nu">
     <div>
       <strong>{analyses.length}</strong>
-      <span>dossiers documentaires</span>
+      <span>guides disponibles</span>
     </div>
     <div>
       <strong>{citedEvidenceCount}</strong>
-      <span>éléments de preuve cités</span>
+      <span>sources citées</span>
     </div>
     <div>
       <strong>Sans note</strong>
-      <span>les protocoles restent séparés</span>
+      <span>les usages comptent davantage</span>
     </div>
     <div>
       <strong>{longDateFormatter.format(latestUpdate)}</strong>
-      <span>dernière mise à jour du corpus</span>
+      <span>dernière mise à jour</span>
     </div>
   </section>
+
+  {newDossiers.length > 0 && (
+    <section class="new-dossiers page-shell" aria-labelledby="new-dossiers-title">
+      <header>
+        <p class="feature-kicker">Nouveaux guides</p>
+        <h2 id="new-dossiers-title">Un grand four et deux pétrins à choisir selon vos fournées.</h2>
+        <p>
+          L’Arc XL ouvre la rubrique Gozney. Les Halo Core et Pro posent une
+          question différente : combien de pâte préparez-vous vraiment ?
+        </p>
+      </header>
+
+      <div class="new-dossiers__list">
+        {newDossiers.map((entry) => (
+          <a href={`/${entry.data.brand}/${entry.id}/`}>
+            <span class="new-dossiers__media">
+              <img
+                src={entry.data.image.src}
+                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                sizes="(max-width: 48rem) 100vw, 11rem"
+                alt={entry.data.image.alt}
+                width="960"
+                height="540"
+                loading="lazy"
+              />
+            </span>
+            <span class="new-dossiers__copy">
+              <small>{brandLabels[entry.data.brand]} · {categoryLabels[entry.data.category]}</small>
+              <strong>{entry.data.title}</strong>
+              <span>{entry.data.summary}</span>
+              <b>Par {SITE.authors[entry.data.author].name} · Lire →</b>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="featured-dossiers page-shell" aria-labelledby="featured-title">
     <header class="section-bar">
@@ -164,7 +219,7 @@ const schema = {
             <span class="dossier-card__index">{String(index + 1).padStart(2, "0")}</span>
           </span>
           <span class="dossier-card__content">
-            <span class="dossier-card__type">Analyse documentaire</span>
+            <span class="dossier-card__type">Guide modèle</span>
             <h3>{entry.data.title}</h3>
             <span class="dossier-card__summary">{entry.data.summary}</span>
             <span class="dossier-card__meta">
@@ -257,7 +312,7 @@ const schema = {
       <p class="feature-kicker">Suivre Four à Nu</p>
       <h2>Les nouveaux dossiers, sans boîte mail à remplir.</h2>
       <p>
-        Le flux RSS publie les analyses dès qu'elles rejoignent le corpus.
+        Le flux RSS publie les nouveaux guides dès qu’ils sont prêts.
         Aucun formulaire, aucune promesse de fréquence.
       </p>
       <a class="feature-action" href="/rss.xml">
@@ -272,31 +327,26 @@ const schema = {
     <header class="section-bar">
       <div>
         <p class="feature-kicker">La méthode Four à Nu</p>
-        <h2 id="method-title">La source reste visible jusqu'à la conclusion.</h2>
+        <h2 id="method-title">Promesses, mesures et avis restent bien séparés.</h2>
       </div>
-      <a href="/methode/">Lire le protocole éditorial <span aria-hidden="true">→</span></a>
+      <a href="/methode/">Voir comment nous vérifions <span aria-hidden="true">→</span></a>
     </header>
 
     <div class="method-grid">
       <div>
-        <ProofLabel code="FAB" />
-        <h3>Le fabricant parle en son nom.</h3>
-        <p>Une dimension ou une promesse commerciale reste attribuée à sa fiche d'origine.</p>
+        <span class="method-step">01</span>
+        <h3>Les promesses restent attribuées.</h3>
+        <p>Une dimension ou une fonction annoncée renvoie à sa source d’origine.</p>
       </div>
       <div>
-        <ProofLabel code="T-MES" />
-        <h3>Une mesure garde ses conditions.</h3>
-        <p>Le point de relevé, la météo, la durée et le protocole ne disparaissent pas.</p>
+        <span class="method-step">02</span>
+        <h3>Les mesures gardent leur contexte.</h3>
+        <p>La durée, la météo et la façon de mesurer restent visibles lorsqu’elles comptent.</p>
       </div>
       <div>
-        <ProofLabel code="T-OBS" />
-        <h3>Une observation reste limitée.</h3>
-        <p>Une cuisson publiée ne devient pas une vérité générale ni un test Four à Nu.</p>
-      </div>
-      <div>
-        <ProofLabel code="FAN-INF" />
-        <h3>Notre conclusion montre ses prémisses.</h3>
-        <p>L'incertitude et les conflits du corpus restent à côté de la recommandation.</p>
+        <span class="method-step">03</span>
+        <h3>Notre avis ne se déguise pas en essai.</h3>
+        <p>Nous expliquons ce que nous choisirions et ce que les sources ne permettent pas d’affirmer.</p>
       </div>
     </div>
 
@@ -555,9 +605,98 @@ const schema = {
   }
 
   .featured-dossiers,
+  .new-dossiers,
   .reading-desk,
   .method-strip {
     padding-block: clamp(3rem, 4vw, 4rem);
+  }
+
+  .new-dossiers {
+    display: grid;
+    grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .new-dossiers > header {
+    align-self: end;
+  }
+
+  .new-dossiers > header h2 {
+    max-width: 14ch;
+    margin-bottom: 0.75rem;
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    line-height: 0.98;
+  }
+
+  .new-dossiers > header > p:last-child {
+    max-width: 33rem;
+    margin-bottom: 0;
+    color: var(--color-graphite);
+    line-height: 1.55;
+  }
+
+  .new-dossiers__list {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .new-dossiers__list > a {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 1rem;
+    min-height: 10rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
+  }
+
+  .new-dossiers__media {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-steel-soft);
+  }
+
+  .new-dossiers__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .new-dossiers__copy {
+    display: grid;
+    align-content: center;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .new-dossiers__copy small,
+  .new-dossiers__copy b {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .new-dossiers__copy strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    line-height: 1;
+  }
+
+  .new-dossiers__copy > span {
+    color: var(--color-graphite);
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  .new-dossiers__copy b {
+    margin-top: 0.15rem;
+  }
+
+  .new-dossiers__list > a:hover strong {
+    color: var(--color-probe);
   }
 
   .section-bar {
@@ -884,7 +1023,7 @@ const schema = {
 
   .method-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     border-left: 1px solid var(--color-line);
   }
 
@@ -893,6 +1032,12 @@ const schema = {
     padding: 1.25rem;
     border-block: 1px solid var(--color-line);
     border-right: 1px solid var(--color-line);
+  }
+
+  .method-step {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
   }
 
   .method-grid h3 {
@@ -933,8 +1078,14 @@ const schema = {
 
   @media (max-width: 56rem) {
     .editorial-hero,
+    .new-dossiers,
     .reading-desk {
       grid-template-columns: 1fr;
+    }
+
+    .new-dossiers > header h2,
+    .new-dossiers > header > p:last-child {
+      max-width: 35rem;
     }
 
     .hero-side {
@@ -959,6 +1110,11 @@ const schema = {
       margin-top: 1.25rem;
       padding-top: 1.25rem;
       border-top: 1px solid var(--color-line);
+    }
+
+    .method-grid > div:last-child {
+      grid-column: 1 / -1;
+      min-height: auto;
     }
 
     .dossier-card {
@@ -1004,6 +1160,18 @@ const schema = {
 
     .corpus-strip {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .new-dossiers__list > a {
+      grid-template-columns: 8rem minmax(0, 1fr);
+      min-height: 8rem;
+    }
+
+    .new-dossiers__copy > span {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
     }
 
     .section-bar {
@@ -1062,6 +1230,10 @@ const schema = {
     .dossier-card,
     .method-grid > div {
       min-height: auto;
+    }
+
+    .method-grid > div:last-child {
+      grid-column: auto;
     }
 
     .method-grid h3 {

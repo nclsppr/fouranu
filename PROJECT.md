@@ -62,6 +62,9 @@ qui est réellement vérifié.
 - un parcours de choix par contraintes ;
 - une méthode publique, une politique de correction et une page auteur ;
 - des analyses documentaires Ooni dont la provenance est visible ;
+- des dossiers sur les fours, pétrins et matériels écrits comme des guides
+  d'achat accessibles, avec un en-tête issu d'une photo officielle du fabricant
+  stylisée dans la direction du site ;
 - une preview en `noindex` par défaut et des pages indexables uniquement après
   passage de leur barrière éditoriale et autorisation de publication ;
 - un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires ;
@@ -101,6 +104,7 @@ explicite avant son lancement.
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
 | Modèle documentaire | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
+| En-tête produit et voix éditoriale | [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) | Décision acceptée |
 | Cible d'hébergement et chemin de déploiement | [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
 | Design system | [`DESIGN.md`](DESIGN.md) | Actuel |
@@ -116,7 +120,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | V1 publique | Build, service local et production | `site/`, 23 pages HTML dans le candidat V1 |
+| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 26 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -126,16 +130,20 @@ explicite avant son lancement.
 ### Flux éditorial cible
 
 1. L'auteur part d'une question d'achat et des registres versionnés.
-2. La page référence les identifiants de preuve et de média nécessaires.
-3. La gate refuse une provenance absente, un média non publiable, une
+2. Il formule d'abord la réponse et les compromis en langage courant, sans
+   revendiquer d'essai propre absent du registre.
+3. Il compose l'en-tête à partir d'une photo officielle du produit publiée sur
+   le site du fabricant ; les vues en situation viennent ensuite.
+4. La page référence les identifiants de preuve et de média nécessaires.
+5. La gate refuse une provenance absente, un média non publiable, une
    expérience tierce racontée à la première personne, une note, un balisage
    d'avis ou un lien rémunéré mal déclaré.
-4. Astro génère un artefact statique avec métadonnées, canonical, sitemap et
+6. Astro génère un artefact statique avec métadonnées, canonical, sitemap et
    directives d'indexation cohérentes.
-5. Chaque nouveau paquet reste en preview locale et `noindex` jusqu'aux
+7. Chaque nouveau paquet reste en preview locale et `noindex` jusqu'aux
    contrôles éditoriaux, visuels et techniques, puis jusqu'au feu vert explicite
    du propriétaire.
-6. GitHub Actions ne peut déployer ce SHA vers Workers Static Assets qu'après
+8. GitHub Actions ne peut déployer ce SHA vers Workers Static Assets qu'après
    la réussite de `Verify` et l'activation explicite du chemin de déploiement.
    La V1 a reçu séparément les autorisations de premier déploiement, de domaine,
    de DNS et d'indexation. Toute nouvelle mutation de ces éléments garde sa
@@ -168,7 +176,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 23 pages HTML et exécute treize tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 26 pages HTML et exécute treize tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |

@@ -1,0 +1,287 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/config/site";
+
+const analyses = (await getCollection("analyses"))
+  .filter((entry) => entry.data.brand === "gozney" && entry.data.status === "publishable")
+  .sort((a, b) => b.data.updatedAt.getTime() - a.data.updatedAt.getTime());
+const canonical = new URL("/gozney/", SITE.url).toString();
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${canonical}#collection`,
+      url: canonical,
+      name: "Guides des fours Gozney",
+      description:
+        "Guides des fours Gozney pour choisir selon le format, la place disponible et les usages.",
+      inLanguage: SITE.language,
+      isPartOf: { "@id": `${SITE.url}/#website` },
+      mainEntity: { "@id": `${canonical}#articles` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonical}#articles`,
+      numberOfItems: analyses.length,
+      itemListElement: analyses.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: new URL(`/gozney/${entry.id}/`, SITE.url).toString(),
+        name: entry.data.title,
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Fours Gozney : guides et conseils d’achat | Four à Nu"
+  description="Les fours Gozney étudiés par Four à Nu pour choisir selon le format, la place disponible, la chauffe et le budget complet."
+  indexable={true}
+  schema={schema}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Gozney" }]} />
+
+    <header class="gozney-intro">
+      <div>
+        <p class="eyebrow">Gozney · premier guide</p>
+        <h1>Les grands fours demandent de regarder plus loin que le diamètre annoncé.</h1>
+      </div>
+      <div class="gozney-intro__copy">
+        <p>
+          L’Arc XL ouvre la rubrique. Nous regardons la place qu’il réclame, la
+          taille de pizza vraiment confortable et les gestes à prévoir avant de
+          vous décider.
+        </p>
+        <p>{analyses.length} dossier{analyses.length > 1 ? "s" : ""} disponible{analyses.length > 1 ? "s" : ""} aujourd’hui.</p>
+      </div>
+    </header>
+
+    <section class="gozney-list" aria-labelledby="gozney-list-title">
+      <div class="gozney-list__head">
+        <p class="eyebrow">Nos guides Gozney</p>
+        <h2 id="gozney-list-title">Commencez par le modèle qui vous intéresse</h2>
+      </div>
+
+      <div class="gozney-list__entries">
+        {analyses.map((entry) => (
+          <a class="gozney-entry" href={`/gozney/${entry.id}/`}>
+            <span class="gozney-entry__image">
+              <img
+                src={entry.data.image.src}
+                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                sizes="(max-width: 48rem) 100vw, 40vw"
+                alt={entry.data.image.alt}
+                width="1600"
+                height="900"
+              />
+            </span>
+            <span class="gozney-entry__copy">
+              <span class="eyebrow">Gozney · Four à gaz</span>
+              <strong>{entry.data.title}</strong>
+              <span>{entry.data.summary}</span>
+              <span class="gozney-entry__link">Lire le dossier <span aria-hidden="true">↗</span></span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <aside class="gozney-method">
+      <p class="eyebrow">Ce que nous vérifions</p>
+      <p>
+        Les annonces Gozney restent attribuées. Les mesures publiées gardent
+        leurs conditions et nos conclusions indiquent ce qui manque encore.
+      </p>
+      <a href="/methode/">Voir comment nous travaillons</a>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .gozney-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(16rem, 4fr);
+    gap: 1.5rem;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--color-carbon);
+  }
+
+  .gozney-intro h1 {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(3rem, 6vw, 5.8rem);
+    line-height: 0.94;
+  }
+
+  .gozney-intro__copy {
+    align-self: end;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .gozney-intro__copy p {
+    margin: 0;
+    color: var(--color-graphite);
+  }
+
+  .gozney-intro__copy p:last-child {
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-line);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .gozney-list {
+    padding-block: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .gozney-list__head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .gozney-list__head .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .gozney-list__head h2 {
+    grid-column: 1 / span 8;
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2.5rem, 4.8vw, 4.8rem);
+    line-height: 0.96;
+  }
+
+  .gozney-list__entries {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .gozney-entry {
+    display: grid;
+    grid-template-columns: minmax(16rem, 5fr) minmax(0, 7fr);
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
+  }
+
+  .gozney-entry__image {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: var(--color-steel-soft);
+  }
+
+  .gozney-entry__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 180ms ease;
+  }
+
+  .gozney-entry__copy {
+    display: grid;
+    align-content: start;
+    gap: 0.9rem;
+  }
+
+  .gozney-entry__copy strong {
+    max-width: 17ch;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 4.2rem);
+    font-weight: 600;
+    line-height: 0.96;
+  }
+
+  .gozney-entry__copy > span:not(.eyebrow, .gozney-entry__link) {
+    max-width: 48rem;
+    color: var(--color-graphite);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  .gozney-entry__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    margin-top: 0.25rem;
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .gozney-entry:hover .gozney-entry__image img {
+    transform: scale(1.015);
+  }
+
+  .gozney-method {
+    display: grid;
+    grid-template-columns: 3fr 6fr 3fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding-block: 2rem;
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .gozney-method p {
+    margin: 0;
+  }
+
+  .gozney-method > p:nth-child(2) {
+    color: var(--color-graphite);
+  }
+
+  .gozney-method a {
+    justify-self: end;
+    min-height: 2.75rem;
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 48rem) {
+    .gozney-intro,
+    .gozney-entry,
+    .gozney-method {
+      grid-template-columns: 1fr;
+    }
+
+    .gozney-list__head {
+      grid-template-columns: 1fr;
+    }
+
+    .gozney-list__head .eyebrow,
+    .gozney-list__head h2 {
+      grid-column: 1;
+    }
+
+    .gozney-entry {
+      gap: 1rem;
+    }
+
+    .gozney-method a {
+      justify-self: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gozney-entry__image img {
+      transition: none;
+    }
+
+    .gozney-entry:hover .gozney-entry__image img {
+      transform: none;
+    }
+  }
+</style>

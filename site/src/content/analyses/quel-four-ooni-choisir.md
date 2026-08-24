@@ -1,6 +1,8 @@
 ---
 articleId: OONI-001
 brand: ooni
+category: oven
+heroTreatment: legacy-documentary
 title: Quel four Ooni choisir en 2026 ?
 description: Les neuf fours Ooni vendus en France, triés selon le lieu, l'énergie, le diamètre annoncé et l'encombrement, sans faux classement.
 summary: Pour l'intérieur, le corpus ne retient que le Volt 2. Dehors, l'énergie sépare Koda et Karu, puis le diamètre, le poids et le débit annoncé départagent les modèles.

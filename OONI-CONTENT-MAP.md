@@ -1,9 +1,13 @@
 # Carte éditoriale Ooni
 
-État vérifié le 2026-08-23. Cette carte transforme la priorité Ooni en backlog
+État vérifié le 2026-08-24. Cette carte transforme la priorité Ooni en backlog
 exhaustif et évite de créer une page faible pour chaque variante de requête.
-Elle couvre d'abord les fours, puis les accessoires qui changent réellement une
-décision d'achat ou le coût complet.
+Elle couvre d'abord les fours, puis le matériel qui change réellement une
+décision d'achat, le volume de préparation ou le coût complet.
+
+Le 24 août 2026, la comparaison `OONI-040` entre Halo Core et Halo Pro a rejoint
+le corpus publiable. Elle reste séparée des neuf fiches de four : la capacité de
+pâte, l'encombrement et les fonctions du pétrin forment une décision propre.
 
 ## Vérité catalogue
 
@@ -124,19 +128,19 @@ de ne pas diluer la priorité Ooni.
 
 ## Lot 4 — accessoires et possession
 
-| ID | Article | Décision couverte |
-| --- | --- | --- |
-| `OONI-030` | Les accessoires Ooni vraiment indispensables | Acheter le minimum viable sans pack surdimensionné |
-| `OONI-031` | Quelle taille de pelle pour chaque four Ooni ? | Compatibilité 30, 35 et 40 cm |
-| `OONI-032` | Brûleur à gaz Karu : intérêt, compatibilité et coût | Ajouter le gaz ou rester au bois/charbon |
-| `OONI-033` | Thermomètre et Ooni Connect : utiles ou optionnels ? | Mesurer la pierre, l'air et les aliments |
-| `OONI-034` | Housse et stockage extérieur d'un Ooni | Protéger le four selon modèle et météo |
-| `OONI-035` | Quelle table pour un four Ooni ? | Surface, dégagement, stabilité et poids |
-| `OONI-036` | Nettoyer un four Ooni et sa pierre | Entretien sûr sans promesse non vérifiée |
-| `OONI-037` | Brancher un Ooni à gaz en France | Pression, détendeur et variantes nationales |
-| `OONI-038` | Garantie Ooni : achat direct ou revendeur | Conditions, enregistrement et preuve d'achat |
-| `OONI-039` | Acheter un Ooni d'occasion | Identifier génération, état, pierre et pièces manquantes |
-| `OONI-040` | Halo Core ou Halo Pro pour la pâte à pizza | Capacité, encombrement et volume de pétrissage |
+| ID | Article | Décision couverte | Statut |
+| --- | --- | --- | --- |
+| `OONI-030` | Les accessoires Ooni vraiment indispensables | Acheter le minimum viable sans pack surdimensionné | `inventory` |
+| `OONI-031` | Quelle taille de pelle pour chaque four Ooni ? | Compatibilité 30, 35 et 40 cm | `inventory` |
+| `OONI-032` | Brûleur à gaz Karu : intérêt, compatibilité et coût | Ajouter le gaz ou rester au bois/charbon | `inventory` |
+| `OONI-033` | Thermomètre et Ooni Connect : utiles ou optionnels ? | Mesurer la pierre, l'air et les aliments | `inventory` |
+| `OONI-034` | Housse et stockage extérieur d'un Ooni | Protéger le four selon modèle et météo | `inventory` |
+| `OONI-035` | Quelle table pour un four Ooni ? | Surface, dégagement, stabilité et poids | `inventory` |
+| `OONI-036` | Nettoyer un four Ooni et sa pierre | Entretien sûr sans promesse non vérifiée | `inventory` |
+| `OONI-037` | Brancher un Ooni à gaz en France | Pression, détendeur et variantes nationales | `inventory` |
+| `OONI-038` | Garantie Ooni : achat direct ou revendeur | Conditions, enregistrement et preuve d'achat | `inventory` |
+| `OONI-039` | Acheter un Ooni d'occasion | Identifier génération, état, pierre et pièces manquantes | `inventory` |
+| `OONI-040` | Halo Core ou Halo Pro pour la pâte à pizza | Capacité, encombrement et volume de pétrissage | `publishable` |
 
 Les consignes de sécurité, de gaz et d'entretien s'appuient d'abord sur les
 manuels du modèle et les sources officielles applicables. Elles ne sont pas

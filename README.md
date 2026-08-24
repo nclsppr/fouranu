@@ -4,25 +4,24 @@ Four à Nu construit un outil francophone pour choisir un four à pizza à parti
 de contraintes vérifiables, avec Ooni comme premier corpus. `Jupiter` reste le
 nom de code du dépôt.
 
-Le propriétaire a confirmé l'acquisition de `fouranu.com` le 2026-08-23. Le
-site existe et se vérifie en local. Aucun DNS, hébergement, compte externe ou
-lien affilié n'est activé par ce dépôt.
+Le propriétaire a confirmé l'acquisition de `fouranu.com` le 2026-08-23. La
+zone Cloudflare est active et le candidat V1 se vérifie en local. Aucun Worker,
+Custom Domain, DNS Four à Nu ou lien affilié n'est encore activé.
 
 ## État du produit
 
 Le dépôt utilise le pack Foundation `full`. `site/` contient une application
-Astro statique distincte de Nimbus. Son build génère 21 pages HTML, dont onze
+Astro statique distincte de Nimbus. Son build génère 23 pages HTML, dont onze
 analyses documentaires Ooni. Four à Nu est un média documentaire permanent :
 chaque page attribue ses sources, conserve leurs limites et ne publie ni note,
 ni étoile, ni balisage d'avis.
 
 La preview reste en `noindex` par défaut. Une page ne devient indexable qu'après
 sa barrière éditoriale et une autorisation de publication. Cloudflare Workers
-Static Assets est la cible préparée ; la configuration et son job GitHub
-Actions n'autorisent aucun premier déploiement, domaine personnalisé, DNS,
-indexation ou autre surface publique.
+Static Assets est la cible préparée ; le propriétaire a autorisé le premier
+déploiement, le domaine et l'indexation, qui restent à exécuter et vérifier.
 
-La suite locale compte dix tests de contrat. Le service Compose répond avec un
+La suite locale compte onze tests de contrat. Le service Compose répond avec un
 healthcheck sain. La revue visuelle de la tranche courante reste une preuve
 manuelle distincte des contrôles automatisés. Ces preuves décrivent le candidat
 local, pas un site publié.
@@ -42,7 +41,7 @@ plus récent, Node `22.12.0` ou plus récent, npm, Docker et Docker Compose
 | Action actuelle | Commande | Résultat attendu |
 | --- | --- | --- |
 | Vérifier le dépôt | `./scripts/verify.sh` | Contrôle les documents, registres, Compose, le site Astro et Nimbus |
-| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 21 pages et dix tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 23 pages et onze tests de contrat |
 | Vérifier le candidat Cloudflare | `npm run cloudflare:check --prefix site` | Valide le paquet Workers Static Assets sans déploiement |
 | Vérifier Compose | `python3 scripts/check_compose.py` | Valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Site Nimbus local généré depuis les Markdown classés |

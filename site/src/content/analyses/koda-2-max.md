@@ -7,8 +7,8 @@ summary: "Le Koda 2 Max répond à un besoin très précis : cuire deux pizzas �
 status: publishable
 type: model
 model: Ooni Koda 2 Max
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0030, EV-0031, EV-0032, EV-0231, EV-0232, EV-0300, EV-0330, EV-0331, EV-0332, EV-0333, EV-0405]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]

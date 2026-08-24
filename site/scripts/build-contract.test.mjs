@@ -24,10 +24,12 @@ const fixedIndexableRoutes = [
   "/",
   "/a-propos/",
   editorialAuthor.route,
+  "/contact/",
   "/corrections/",
   "/confidentialite/",
   "/fours-a-pizza/",
   "/methode/",
+  "/mentions-legales/",
   "/ooni/",
   "/transparence/",
 ];
@@ -182,7 +184,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, 21);
+  assert.equal(pages.length, 23);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -545,6 +547,15 @@ test("robots et sitemap gardent la preview hors index et séparent Search de GPT
   assert.doesNotMatch(sitemap, /<url>/);
 });
 
+test("les sondes statiques exposent la santé et la révision du build", async () => {
+  assert.equal(await readFile(join(dist, "health"), "utf8"), "ok\n");
+  const release = JSON.parse(await readFile(join(dist, "release.json"), "utf8"));
+  assert.deepEqual(release, {
+    sha: "local",
+    source: "https://github.com/nclsppr/fouranu/commit/local",
+  });
+});
+
 test("le build opt-in n'indexe que les URL explicitement éligibles", async () => {
   const temporaryOutput = await mkdtemp(join(tmpdir(), "four-a-nu-indexable-"));
   const astroBin = join(siteRoot, "node_modules/astro/bin/astro.mjs");
@@ -581,12 +592,12 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       .filter((route) => articleRoutePattern.test(route ?? ""));
     assert.equal(articleRoutes.length, 11);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, 20);
+    assert.equal(expectedRoutes.length, 22);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
-    assert.equal((sitemap.match(/<lastmod>2026-08-23<\/lastmod>/g) ?? []).length, 20);
+    assert.equal((sitemap.match(/<lastmod>2026-08-24<\/lastmod>/g) ?? []).length, 22);
 
     for (const page of pages) {
       const expected = page.route === null ? "noindex, follow" : indexableRobots;
@@ -706,11 +717,10 @@ test("la preview sert une vraie 404 et stabilise les URL de referral", async () 
       "public, max-age=31536000, immutable",
     );
 
-    const articleImage = await fetch(
+    const retiredArticleImage = await fetch(
       `http://127.0.0.1:${port}/images/articles/koda-2-photogramme-960.webp`,
     );
-    assert.equal(articleImage.status, 200);
-    assert.equal(articleImage.headers.get("content-type"), "image/webp");
+    assert.equal(retiredArticleImage.status, 404);
   } finally {
     if (processHandle.exitCode === null) processHandle.kill("SIGTERM");
     await Promise.race([

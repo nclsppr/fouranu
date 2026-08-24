@@ -7,8 +7,8 @@ summary: Le Koda 2 Pro donne beaucoup de place et une flamme sur trois côtés. 
 status: publishable
 type: model
 model: Ooni Koda 2 Pro
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0020, EV-0021, EV-0022, EV-0220, EV-0221, EV-0222, EV-0223, EV-0304, EV-0320, EV-0322, EV-0323, EV-0406]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]

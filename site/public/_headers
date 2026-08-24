@@ -6,3 +6,9 @@
 
 /_astro/*
   Cache-Control: public, max-age=31556952, immutable
+
+/health
+  Cache-Control: no-store
+
+/release.json
+  Cache-Control: no-store

@@ -19,15 +19,17 @@ export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
 export const FIXED_INDEXABLE_ROUTES = [
-  { path: "/", modified: "2026-08-23" },
-  { path: "/a-propos/", modified: "2026-08-23" },
-  { path: "/auteurs/redaction-four-a-nu/", modified: "2026-08-23" },
-  { path: "/corrections/", modified: "2026-08-23" },
-  { path: "/confidentialite/", modified: "2026-08-23" },
-  { path: "/fours-a-pizza/", modified: "2026-08-23" },
-  { path: "/methode/", modified: "2026-08-23" },
-  { path: "/ooni/", modified: "2026-08-23" },
-  { path: "/transparence/", modified: "2026-08-23" },
+  { path: "/", modified: "2026-08-24" },
+  { path: "/a-propos/", modified: "2026-08-24" },
+  { path: "/auteurs/redaction-four-a-nu/", modified: "2026-08-24" },
+  { path: "/contact/", modified: "2026-08-24" },
+  { path: "/corrections/", modified: "2026-08-24" },
+  { path: "/confidentialite/", modified: "2026-08-24" },
+  { path: "/fours-a-pizza/", modified: "2026-08-24" },
+  { path: "/methode/", modified: "2026-08-24" },
+  { path: "/mentions-legales/", modified: "2026-08-24" },
+  { path: "/ooni/", modified: "2026-08-24" },
+  { path: "/transparence/", modified: "2026-08-24" },
 ] as const;
 
 export const PRIMARY_NAV = [

@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Contact | Four à Nu"
+  description="Signaler une erreur, demander une correction ou exercer un droit de réponse auprès de Four à Nu."
+  indexable={true}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Contact" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Contact</p>
+        <h1>Un signalement utile commence par une URL précise.</h1>
+        <p class="page-intro__lede">Indiquez la page, le passage concerné et la source qui permet de le vérifier. Ne publiez aucune donnée personnelle dans un ticket GitHub.</p>
+      </div>
+      <p class="page-intro__aside">Pour une correction factuelle, le dépôt public reste le canal le plus rapide.</p>
+    </header>
+
+    <section class="contact-grid" aria-label="Canaux de contact">
+      <article>
+        <p class="eyebrow">Erreur ou correction</p>
+        <h2>Signalement public</h2>
+        <p>Le dépôt permet de suivre la correction et sa source. Il convient uniquement aux informations qui peuvent rester publiques.</p>
+        <a href="https://github.com/nclsppr/fouranu/issues/new" rel="external">Ouvrir un ticket GitHub</a>
+      </article>
+
+      <article>
+        <p class="eyebrow">Droit de réponse</p>
+        <h2>Demande transmise par l'hébergeur</h2>
+        <p>L'éditeur non professionnel préserve son anonymat public. Une demande de droit de réponse peut être adressée à Cloudflare, hébergeur du site, qui la transmettra à l'éditeur dans le cadre légal applicable.</p>
+        <a href="https://www.cloudflare.com/trust-hub/reporting-abuse/" rel="external">Contacter Cloudflare</a>
+      </article>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .contact-grid article {
+    min-height: 20rem;
+    padding: 2rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .contact-grid article:last-child {
+    border-right: 0;
+  }
+
+  .contact-grid h2 {
+    margin: 4rem 0 1rem;
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    line-height: 1;
+  }
+
+  .contact-grid p {
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .contact-grid a {
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  @media (max-width: 48rem) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-grid article {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .contact-grid h2 {
+      margin-top: 2rem;
+    }
+  }
+</style>

@@ -7,10 +7,9 @@ summary: Le Koda 2 est notre format Ooni au gaz le plus facile à recommander à
 status: publishable
 type: model
 model: Ooni Koda 2
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
-image: /images/articles/koda-2-photogramme-1600.webp
 evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407]
 evidenceTypes:
   - FAB
@@ -39,14 +38,6 @@ la façon de cuire changent beaucoup le résultat.
 Pour une vue d'ensemble, notre guide
 [Quel four Ooni choisir en 2026 ?](/ooni/quel-four-ooni-choisir/) replace ce
 modèle face aux autres formats.
-
-<figure class="article-media">
-  <picture>
-    <source media="(max-width: 48rem)" srcset="/images/articles/koda-2-photogramme-960.webp" />
-    <img src="/images/articles/koda-2-photogramme-1600.webp" width="1600" height="900" alt="Ooni Koda 2 gris vu de face, posé dehors, avec sa pierre visible" fetchpriority="high" />
-  </picture>
-  <figcaption><strong>Le Koda 2 vu de face.</strong> Le crédit et le passage d'origine figurent dans les sources en fin d'article.</figcaption>
-</figure>
 
 ## Taille, poids et incohérence de dimensions
 
@@ -88,14 +79,6 @@ souvent qu'avec une flamme qui enveloppe deux ou trois côtés. Une séquence mo
 aussi que la faible garde à l'arrière peut gêner le passage d'une brosse quand
 le four est chaud. Ce n'est pas rédhibitoire, mais c'est exactement le genre de
 détail que la fiche commerciale ne raconte pas.
-
-<figure class="article-media">
-  <picture>
-    <source media="(max-width: 48rem)" srcset="/images/articles/koda-2-brosse-esquisse-960.webp" />
-    <img src="/images/articles/koda-2-brosse-esquisse-1600.webp" width="1600" height="900" alt="Esquisse de l'intérieur du Koda 2 montrant une brosse contrainte par la faible garde arrière" loading="lazy" />
-  </picture>
-  <figcaption><strong>La garde arrière vue comme un geste d'entretien.</strong> Illustration assistée par IA, utilisée pour situer l'observation et non comme preuve de performance. Le crédit figure dans les sources.</figcaption>
-</figure>
 
 ## Pour qui nous le choisirions
 

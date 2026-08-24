@@ -1,0 +1,107 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+---
+
+<BaseLayout
+  title="Mentions légales | Four à Nu"
+  description="Édition, hébergement et contact du site Four à Nu."
+  indexable={true}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Mentions légales" }]} />
+
+    <header class="page-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Informations légales</p>
+        <h1>Édition et hébergement.</h1>
+        <p class="page-intro__lede">Four à Nu est édité à titre non professionnel. L'éditeur a choisi de préserver son anonymat public dans le cadre prévu par l'article 1-1, II de la loi pour la confiance dans l'économie numérique.</p>
+      </div>
+      <p class="page-intro__aside">Page mise à jour le 24 août 2026.</p>
+    </header>
+
+    <section class="legal-grid" aria-label="Mentions légales de Four à Nu">
+      <article>
+        <p class="eyebrow">Édition</p>
+        <h2>Four à Nu</h2>
+        <p>Service de communication au public en ligne édité à titre non professionnel.</p>
+        <p>Les demandes de correction et de droit de réponse suivent les canaux indiqués sur la page de contact.</p>
+        <a href="/contact/">Contacter Four à Nu</a>
+        <br />
+        <a href="https://www.legifrance.gouv.fr/codes/section_lc/JORFTEXT000000801164/LEGISCTA000006117684/" rel="external">Consulter le texte applicable</a>
+      </article>
+
+      <article>
+        <p class="eyebrow">Hébergement</p>
+        <h2>Cloudflare, Inc.</h2>
+        <address>
+          101 Townsend Street<br />
+          San Francisco, CA 94107<br />
+          États-Unis<br />
+          <a href="tel:+16503198930">+1 (650) 319-8930</a><br />
+          <a href="mailto:support@cloudflare.com">support@cloudflare.com</a>
+        </address>
+        <a href="https://www.cloudflare.com/policies/terms/" rel="external">Informations légales de Cloudflare</a>
+      </article>
+
+      <article>
+        <p class="eyebrow">Contenus et marques</p>
+        <h2>Attribution</h2>
+        <p>Les textes Four à Nu restent soumis au droit d'auteur. Les marques, noms de produits et contenus tiers cités appartiennent à leurs titulaires respectifs. Une citation ou un lien ne vaut ni partenariat ni approbation.</p>
+      </article>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .legal-grid article {
+    min-height: 20rem;
+    padding: 2rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .legal-grid article:last-child {
+    border-right: 0;
+  }
+
+  .legal-grid h2 {
+    margin: 4rem 0 1rem;
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    line-height: 1;
+  }
+
+  .legal-grid p,
+  .legal-grid address {
+    color: var(--color-graphite);
+    font-style: normal;
+    line-height: 1.65;
+  }
+
+  .legal-grid a {
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  @media (max-width: 48rem) {
+    .legal-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .legal-grid article {
+      min-height: auto;
+      border-right: 0;
+    }
+
+    .legal-grid h2 {
+      margin-top: 2rem;
+    }
+  }
+</style>

@@ -7,8 +7,8 @@ summary: Le Koda 16 donne une vraie marge de travail sans devenir monstrueux. No
 status: publishable
 type: model
 model: Ooni Koda 16
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0050, EV-0051, EV-0052, EV-0101, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0404]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]

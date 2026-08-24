@@ -7,8 +7,8 @@ summary: Le Karu 2 Pro est un gros four multi-combustible de 28,4 kg. Nous le r√
 status: publishable
 type: model
 model: Ooni Karu 2 Pro
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0002, EV-0070, EV-0071, EV-0072, EV-0073, EV-0250, EV-0251, EV-0252, EV-0253, EV-0401]
 evidenceTypes:

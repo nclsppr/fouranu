@@ -458,6 +458,36 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertEqual("", row["permission_proof"])
         self.assertEqual([], errors)
 
+    def test_public_article_media_requires_an_exact_ledger_url(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            media_root = Path(temporary)
+            (media_root / "oven.webp").write_bytes(b"image")
+            errors: list[str] = []
+
+            ledger.check_public_article_media([], errors, media_root=media_root)
+
+            self.assertEqual(
+                [
+                    "site/public/images/articles/oven.webp : média d'article public absent de research/assets.csv"
+                ],
+                errors,
+            )
+
+    def test_registered_article_media_must_exist_in_public_tree(self) -> None:
+        row = self.granted_frame_asset()
+        row["publication_url"] = "https://fouranu.com/images/articles/oven.webp"
+        with tempfile.TemporaryDirectory() as temporary:
+            errors: list[str] = []
+
+            ledger.check_public_article_media([row], errors, media_root=Path(temporary))
+
+            self.assertEqual(
+                [
+                    "research/assets.csv : média d'article enregistré mais fichier public absent : /images/articles/oven.webp"
+                ],
+                errors,
+            )
+
     def test_declared_permission_proof_requires_a_sha_and_private_path(self) -> None:
         row = self.granted_frame_asset()
         row["permission_proof"] = "proof.txt"

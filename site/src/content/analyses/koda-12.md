@@ -7,8 +7,8 @@ summary: "Le Koda 12 va à l'essentiel : gaz, 30 cm et 9,2 kg. Nous le trouvons 
 status: publishable
 type: model
 model: Ooni Koda 12
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0040, EV-0041, EV-0042, EV-0403]
 evidenceTypes:

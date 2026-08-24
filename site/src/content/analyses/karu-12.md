@@ -7,8 +7,8 @@ summary: Le Karu 12 reste séduisant si vous voulez apprendre à gérer un vrai 
 status: publishable
 type: model
 model: Ooni Karu 12
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0080, EV-0081, EV-0082, EV-0400]
 evidenceTypes:

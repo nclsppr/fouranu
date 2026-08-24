@@ -7,8 +7,8 @@ summary: Le Karu 2 est le petit multi-combustible que nous choisirions pour appr
 status: publishable
 type: model
 model: Ooni Karu 2
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0060, EV-0061, EV-0062, EV-0063, EV-0102, EV-0240, EV-0241, EV-0242, EV-0243, EV-0244, EV-0301, EV-0402]
 evidenceTypes:

@@ -26,6 +26,8 @@ ROOT = Path(__file__).resolve().parent.parent
 EVIDENCE_PATH = ROOT / "research/evidence.csv"
 ASSET_PATH = ROOT / "research/assets.csv"
 QUESTION_PATH = ROOT / "research/questions.csv"
+PUBLIC_ARTICLE_MEDIA_ROOT = ROOT / "site/public/images/articles"
+PUBLIC_ARTICLE_MEDIA_PREFIX = "/images/articles/"
 
 EVIDENCE_FIELDS = (
     "evidence_id",
@@ -673,6 +675,33 @@ def check_assets(
             errors.append(f"{prefix} : une référence en quarantaine ne doit pas être acquise")
 
 
+def check_public_article_media(
+    rows: list[dict[str, str]],
+    errors: list[str],
+    media_root: Path = PUBLIC_ARTICLE_MEDIA_ROOT,
+) -> None:
+    public_files = {
+        PUBLIC_ARTICLE_MEDIA_PREFIX + path.relative_to(media_root).as_posix()
+        for path in media_root.rglob("*")
+        if path.is_file()
+    } if media_root.is_dir() else set()
+    registered_files = {
+        urlparse(row["publication_url"]).path
+        for row in rows
+        if row["publication_url"]
+        and urlparse(row["publication_url"]).path.startswith(PUBLIC_ARTICLE_MEDIA_PREFIX)
+    }
+
+    for path in sorted(public_files - registered_files):
+        errors.append(
+            f"site/public{path} : média d'article public absent de research/assets.csv"
+        )
+    for path in sorted(registered_files - public_files):
+        errors.append(
+            f"research/assets.csv : média d'article enregistré mais fichier public absent : {path}"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -693,6 +722,7 @@ def main() -> int:
         errors,
         require_private_proofs=args.require_private_proofs,
     )
+    check_public_article_media(asset_rows, errors)
 
     if errors:
         for error in errors:

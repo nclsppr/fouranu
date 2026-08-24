@@ -7,8 +7,8 @@ summary: Le Volt 2 est le four intérieur de la gamme actuelle. Ses commandes so
 status: publishable
 type: model
 model: Ooni Volt 2
-publishedAt: 2026-08-23
-updatedAt: 2026-08-23
+publishedAt: 2026-08-24
+updatedAt: 2026-08-24
 indexable: true
 evidenceIds: [EV-0090, EV-0091, EV-0092, EV-0103, EV-0260, EV-0261, EV-0262, EV-0340, EV-0341, EV-0342, EV-0343, EV-0408]
 evidenceTypes:

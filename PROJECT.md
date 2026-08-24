@@ -14,7 +14,7 @@ reste consignée dans [`BRIEF.md`](BRIEF.md).
 | Classe | Produit |
 | Langue initiale | Français |
 | Domaine | `fouranu.com`, acquisition confirmée par le propriétaire le 2026-08-23 |
-| Surface de production | Cloudflare Workers Static Assets via GitHub Actions après la gate `Verify` ; aucune activation n'est incluse par ce contrat |
+| Surface de production | Cloudflare Workers Static Assets via GitHub Actions après la gate `Verify` ; l'état d'activation vérifié vit dans `STATUS.md` |
 | Socle adopté | [`FOUNDATION.md`](FOUNDATION.md) |
 
 ## Problème
@@ -65,9 +65,9 @@ qui est réellement vérifié.
 - une preview en `noindex` par défaut et des pages indexables uniquement après
   passage de leur barrière éditoriale et autorisation de publication ;
 - un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires ;
-- un artefact statique et un contrat de déploiement préparés pour Cloudflare
-  Workers Static Assets, sans premier déploiement, zone, DNS, domaine
-  personnalisé ni indexation dans cette tranche.
+- un artefact statique et un contrat de déploiement pour Cloudflare Workers
+  Static Assets, activables uniquement après la gate du même SHA et une
+  autorisation explicite du propriétaire.
 
 ### Non-objectifs
 
@@ -115,7 +115,7 @@ l'expérience en faits et n'autorise pas sa publication.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Actuel, non publié | Build et service local | `site/`, 21 pages HTML au dernier build local |
+| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Actuel, candidat V1 | Build, service local et futur artefact de production | `site/`, 23 pages HTML au dernier build local |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -146,8 +146,8 @@ l'expérience en faits et n'autorise pas sa publication.
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
 | Programmes marchands | Liens rémunérés et attribution | Navigation vers le marchand, puis traceurs uniquement selon consentement et contrat | Aucun compte actif ; le contenu reste accessible sans lien suivi |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
-| GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Contrat préparé ; premier déploiement, zone, domaine personnalisé et DNS non activés |
-| DNS | Relier séparément `fouranu.com` au Worker autorisé | Noms et routage publics | Domaine acquis selon le propriétaire ; aucune zone ni route publique n'est autorisée par la préparation du Worker |
+| GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Contrat prêt ; activation autorisée, réalisation et preuves dans `STATUS.md` |
+| DNS | Relier séparément `fouranu.com` au Worker autorisé | Noms et routage publics | Domaine acquis et zone Cloudflare active ; aucune route Four à Nu encore vérifiée |
 
 ## Environnements
 
@@ -156,7 +156,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Développement | `compose.yaml` | `http://127.0.0.1:4321` | Build et healthcheck vérifiés localement |
 | CI | `.github/workflows/verify.yml` | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` exécuté avec succès sur `main` |
 | Preview | Artefact statique local avec `noindex` ; éventuel accès Cloudflare à autoriser séparément | Aucun | Candidat reproductible, aucune preview distante activée par défaut |
-| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | `fouranu.com` | Domaine acquis selon le propriétaire ; premier déploiement, domaine personnalisé et DNS restent à autoriser et vérifier |
+| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | `fouranu.com` | Activation autorisée par le propriétaire ; premier déploiement, domaine personnalisé et DNS restent à exécuter et vérifier |
 
 ## Commandes canoniques
 
@@ -166,12 +166,12 @@ l'expérience en faits et n'autorise pas sa publication.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 21 pages HTML et exécute dix tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 23 pages HTML et exécute onze tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |
 | Vérifier le contrat Cloudflare | `npm run cloudflare:check --prefix site` | Valide localement la configuration et le paquet sans créer de Worker ni publier d'URL |
-| Déployer | Aucune commande locale canonique | Le job GitHub Actions dépend de `Verify` et reste inactif jusqu'à son autorisation explicite ; premier déploiement, domaine, DNS et indexation restent séparés |
+| Déployer | Workflow GitHub Actions `Verify` sur `main` | Le job `deploy-cloudflare` dépend de `verify`, télécharge son artefact exact et exige l'environnement `cloudflare-production` activé |
 
 ## Données, sécurité et confidentialité
 

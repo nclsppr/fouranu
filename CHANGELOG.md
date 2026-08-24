@@ -6,6 +6,17 @@ importantes.
 
 ## Non publié
 
+- Préparation du paquet public V1 : 23 pages HTML, 22 URL indexables, une sonde
+  `/health`, une empreinte `/release.json`, des mentions légales et deux canaux
+  de contact sans analytics, publicité, formulaire ni cookie.
+- GitHub Actions construit désormais l'artefact indexable une seule fois dans
+  `Verify`, le conserve sous le SHA exact puis livre ce même paquet à
+  Cloudflare. Le job reste fermé tant que l'environnement de production n'est
+  pas configuré et activé.
+- Retrait des quatre médias Koda 2 dont la chaîne de droits n'était pas
+  rapprochée du registre. Une nouvelle gate refuse désormais tout fichier
+  public sous `images/articles` absent de `research/assets.csv` et tout fichier
+  enregistré mais manquant.
 - Recomposition de l'accueil selon la hiérarchie éditoriale du prototype : une
   une 8/4, des dossiers modèles, un guide par contraintes et la méthode, sans
   reprendre ses faux scores, ses promesses de test, ses médias ni ses routes
@@ -29,10 +40,6 @@ importantes.
 - Retrait de l'ancien workflow producteur Atlas et de ses scripts de paquet afin
   de conserver une seule cible publique future. Les ADR et preuves Atlas
   antérieures restent historiques.
-- Ajout du premier dossier illustré : un photogramme couleur du Koda 2 et une
-  esquisse dérivée, tous deux attribués dans l'article. Un outil court récupère
-  désormais un extrait YouTube autorisé et produit une planche de six images
-  dans l'espace privé ignoré par Git.
 - Renforcement de la page Ooni avec les neuf fiches issues du contenu réel, une
   liste structurée, les résumés et les dates de mise à jour. Le balisage Article
   expose aussi le nombre de mots et le temps de lecture.
@@ -42,12 +49,12 @@ importantes.
 - Refonte du site public en média éditorial : accueil hiérarchisé, gabarit
   d'article avec signature, dates, sommaire, rail de preuve, limites,
   bibliographie et accès direct à chaque preuve.
-- Passage à 21 pages HTML et onze analyses Ooni, dont les neuf modèles de la
-  gamme France, avec dix tests de contrat et 118 preuves croisées.
+- Passage à 23 pages HTML et onze analyses Ooni, dont les neuf modèles de la
+  gamme France, avec onze tests de contrat et 118 preuves croisées.
 - Ajout des pages auteur, À propos, méthode, corrections, transparence
   commerciale et confidentialité, sans analytics, publicité ou lien rémunéré
   actif.
-- Extension du contrat SEO : 20 URL explicitement éligibles au build de
+- Extension du contrat SEO : 22 URL explicitement éligibles au build de
   production, 404 seule hors index, RSS, `llms.txt`, canonicals, dates,
   données structurées `Article`, `Organization`, `ProfilePage` et fils d'Ariane.
 - Ajout d'une illustration d'accueil originale assistée par IA, en esquisse
@@ -67,10 +74,10 @@ importantes.
 - Acquisition de `fouranu.com` confirmée par le propriétaire le 2026-08-23,
   sans activation DNS, hébergement ou autre surface publique par le projet.
 - Création du site Astro local, depuis consolidé dans le média documentaire de
-  21 pages décrit ci-dessus.
+  23 pages décrit ci-dessus.
 - Ajout d'une indexation conditionnelle. Le mode par défaut place toutes les
   pages en `noindex` et garde le sitemap vide ; le mode de production n'ouvre
-  que les 20 URL explicitement éligibles.
+  que les 22 URL explicitement éligibles.
 - Ajout des métadonnées, canonicals, aperçus sociaux, données structurées
   honnêtes, bibliographies horodatées et contrôles croisés avec le registre de
   preuves.

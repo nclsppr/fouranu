@@ -22,7 +22,7 @@ Chaque nouvel article produit et chaque révision éditoriale substantielle :
 
 1. commence par une photographie officielle du modèle trouvée sur le site du
    fabricant et dont l'usage prévu est enregistré ;
-2. transforme cette source dans la direction « Ligne de sole » sans modifier
+2. transforme cette source dans le système visuel Four à Nu sans modifier
    la géométrie, les commandes, les couleurs, les accessoires ou les marquages
    du produit ;
 3. présente le résultat comme une « illustration éditoriale », sans citer dans

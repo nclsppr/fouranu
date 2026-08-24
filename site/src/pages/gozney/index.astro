@@ -7,6 +7,7 @@ import { SITE } from "@/config/site";
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.brand === "gozney" && entry.data.status === "publishable")
   .sort((a, b) =>
+    Number(b.id === "quel-four-gozney-choisir") - Number(a.id === "quel-four-gozney-choisir") ||
     b.data.updatedAt.getTime() - a.data.updatedAt.getTime() ||
     b.data.articleId.localeCompare(a.data.articleId)
   );
@@ -56,9 +57,9 @@ const schema = {
       </div>
       <div class="gozney-intro__copy">
         <p>
-          Arc Lite ou Tread pour le format compact ; Arc XL pour garder de la
-          marge autour de grandes pizzas. Chaque dossier part de la décision qui
-          change réellement l’achat.
+          Du Roccbox au Dome XL, les sept fours du catalogue français sont
+          couverts sans transformer les variantes de couleur ou les packs en
+          faux modèles. Chaque dossier part de la décision qui change l’achat.
         </p>
         <p>{analyses.length} dossier{analyses.length > 1 ? "s" : ""} disponible{analyses.length > 1 ? "s" : ""} aujourd’hui.</p>
       </div>
@@ -84,7 +85,7 @@ const schema = {
               />
             </span>
             <span class="gozney-entry__copy">
-              <span class="eyebrow">Gozney · Four à gaz</span>
+              <span class="eyebrow">Gozney · {entry.data.type === "guide" ? "Guide d’achat" : "Four à pizza"}</span>
               <strong>{entry.data.title}</strong>
               <span>{entry.data.summary}</span>
               <span class="gozney-entry__link">Lire le dossier <span aria-hidden="true">↗</span></span>

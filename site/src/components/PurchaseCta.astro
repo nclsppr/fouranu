@@ -1,0 +1,142 @@
+---
+import type { PurchaseLink } from "@/data/purchase-links";
+
+interface Props {
+  links: PurchaseLink[];
+  variant: "primary" | "closing";
+}
+
+const { links, variant } = Astro.props;
+const multiple = links.length > 1;
+const titles = {
+  primary: multiple ? "Comparer les offres officielles" : "Voir l’offre officielle",
+  closing: multiple ? "Prêt à comparer les deux ?" : "Ce modèle vous convient ?",
+};
+---
+
+<section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label="Liens d’achat directs">
+  <p class="purchase-cta__eyebrow">Où l’acheter</p>
+  <p class="purchase-cta__title">{titles[variant]}</p>
+  <p class="purchase-cta__copy">
+    Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur,
+    les accessoires inclus et les conditions de livraison avant de commander.
+  </p>
+  <div class="purchase-cta__actions">
+    {links.map((link) => (
+      <a href={link.url} rel="external noopener">
+        {link.label}
+        <span aria-hidden="true">→</span>
+      </a>
+    ))}
+  </div>
+  <p class="purchase-cta__disclosure">
+    Liens directs non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui.
+  </p>
+</section>
+
+<style>
+  .purchase-cta {
+    display: grid;
+    gap: 0.85rem;
+    max-width: var(--reading-width);
+    padding: clamp(1rem, 2.2vw, 1.5rem);
+    border: 2px solid var(--color-carbon);
+  }
+
+  .purchase-cta--primary {
+    margin-block: 0 1.75rem;
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .purchase-cta--closing {
+    margin-block: 2rem 0;
+    background: var(--color-steel-soft);
+  }
+
+  .purchase-cta__eyebrow,
+  .purchase-cta__title,
+  .purchase-cta__copy,
+  .purchase-cta__disclosure {
+    margin: 0;
+  }
+
+  .purchase-cta__eyebrow {
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .purchase-cta--primary .purchase-cta__eyebrow {
+    color: var(--color-reading);
+  }
+
+  .purchase-cta__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 3vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .purchase-cta__copy {
+    max-width: 56ch;
+    color: var(--color-graphite);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .purchase-cta--primary .purchase-cta__copy {
+    color: var(--color-carbon-muted);
+  }
+
+  .purchase-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .purchase-cta__actions a {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.72rem 1rem;
+    color: var(--color-white);
+    background: var(--color-probe);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .purchase-cta__actions a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .purchase-cta__disclosure {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.66rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .purchase-cta--primary .purchase-cta__disclosure {
+    color: var(--color-carbon-muted);
+  }
+
+  @media (max-width: 48rem) {
+    .purchase-cta__actions {
+      display: grid;
+    }
+
+    .purchase-cta__actions a {
+      width: 100%;
+    }
+  }
+</style>

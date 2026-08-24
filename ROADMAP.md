@@ -26,7 +26,7 @@ racontée à la première personne.
 | Ordre | ID | Phase | Résultat observable | État | Critère de sortie |
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
-| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et quatorze guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
+| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et dix-neuf guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
@@ -161,6 +161,29 @@ livré :
   chacun répond à une question d'achat distincte ; le corpus ne le justifiant
   pas encore, le comparatif Core / Pro rassemble désormais le bas de plage et
   deux relevés de température publiés.
+- [x] Couvrir les sept fours autonomes du catalogue Gozney France vérifié le
+  2026-08-24 : guide de gamme, Dome XL (Gen 2), Dome (Gen 2), Arc XL, Arc,
+  Arc Lite, Tread et Roccbox, sans créer de page artificielle par couleur ou pack.
+- [x] Ajouter à chacun des dix-neuf articles deux appels d'achat très visibles,
+  séparés par le contenu, avec produit, marchand et statut
+  non rémunéré explicitement visibles.
+
+### Todo commerce éditorial et accessoires
+
+- [ ] Sélectionner puis faire approuver les programmes Amazon, Gozney et Ooni
+  avant toute candidature ou substitution de lien.
+- [ ] Remplacer les liens directs uniquement après acceptation des programmes,
+  avec déclaration visible, `rel="sponsored"`, suivi minimal documenté et
+  contrôle qu'aucun prix périmé ne devient une promesse.
+- [ ] Préserver un choix de marchand lorsque cela aide réellement le lecteur ;
+  ne pas dissimuler les destinations et ne pas faire dépendre une conclusion du
+  niveau de commission.
+- [ ] Ouvrir les dossiers d'accessoires par un problème concret, puis seulement
+  avec assez de preuves et de valeur originale : thermomètre infrarouge, pelle
+  d'enfournement, pelle de rotation, bac à pâtons et balance précise en premier.
+- [ ] Pour chaque accessoire, expliquer la compatibilité, le geste utile, les
+  limites, le coût complet et les alternatives ; refuser les pages minces faites
+  uniquement pour viser une requête Amazon.
 
 ## Phase F03 : candidat Cloudflare et paquet publiable
 

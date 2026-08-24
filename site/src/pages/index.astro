@@ -19,8 +19,10 @@ const models = analyses.filter(
     entry.data.type === "model",
 );
 const newDossierRefs = [
-  { brand: "gozney", id: "arc-lite-ou-tread" },
-  { brand: "ooni", id: "halo-core-ou-halo-pro" },
+  { brand: "gozney", id: "quel-four-gozney-choisir" },
+  { brand: "gozney", id: "dome-gen-2" },
+  { brand: "gozney", id: "arc" },
+  { brand: "gozney", id: "roccbox" },
 ] as const;
 const newDossiers = newDossierRefs
   .map((reference) => analyses.find(
@@ -164,10 +166,10 @@ const schema = {
     <section class="new-dossiers page-shell" aria-labelledby="new-dossiers-title">
       <header>
         <p class="feature-kicker">Nouveaux guides</p>
-        <h2 id="new-dossiers-title">Deux choix qui dépendent de vos vraies fournées.</h2>
+        <h2 id="new-dossiers-title">Toute la gamme Gozney, sans vous noyer dans le catalogue.</h2>
         <p>
-          Arc Lite ou Tread : payez la mobilité seulement si vous allez
-          l’utiliser. Halo Core ou Pro : commencez par peser votre pâte.
+          Commencez par le guide complet, puis ouvrez seulement le dossier du
+          format qui correspond à votre place, vos pizzas et votre budget.
         </p>
       </header>
 

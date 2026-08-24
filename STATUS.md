@@ -81,7 +81,7 @@ fonctions fictives du prototype n'ont pas été repris.
 
 Le logo Four à Nu fourni est rendu dans l'en-tête et le pied de page depuis une
 version PNG de 480 x 172 px et 70 804 octets. Sa source et son dérivé sont
-enregistrés. La direction `Ligne de sole` conserve IBM Plex, le carbone, le
+enregistrés. Le système visuel Four à Nu conserve IBM Plex, le carbone, le
 blanc, l'acier et la grille, avec deux oranges accessibles à la place du bleu.
 
 Cloudflare Workers Static Assets sert la production. GitHub Actions construit

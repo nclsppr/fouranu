@@ -120,7 +120,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 27 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
+| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 32 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |

@@ -11,7 +11,7 @@ Moteur déclaré : `nimbus`.
 | Documentation du projet | `internal` | 17 |
 | Décisions | `internal` | 5 |
 | Barrières de publication | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 14 |
+| Brouillons éditoriaux du site | `internal` | 19 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -51,6 +51,9 @@ Moteur déclaré : `nimbus`.
 
 - [site/src/content/analyses/arc-lite-ou-tread.md](site/src/content/analyses/arc-lite-ou-tread.md)
 - [site/src/content/analyses/arc-xl.md](site/src/content/analyses/arc-xl.md)
+- [site/src/content/analyses/arc.md](site/src/content/analyses/arc.md)
+- [site/src/content/analyses/dome-gen-2.md](site/src/content/analyses/dome-gen-2.md)
+- [site/src/content/analyses/dome-xl-gen-2.md](site/src/content/analyses/dome-xl-gen-2.md)
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
 - [site/src/content/analyses/halo-core-ou-halo-pro.md](site/src/content/analyses/halo-core-ou-halo-pro.md)
 - [site/src/content/analyses/karu-12.md](site/src/content/analyses/karu-12.md)
@@ -61,7 +64,9 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/koda-2-max.md](site/src/content/analyses/koda-2-max.md)
 - [site/src/content/analyses/koda-2-pro.md](site/src/content/analyses/koda-2-pro.md)
 - [site/src/content/analyses/koda-2.md](site/src/content/analyses/koda-2.md)
+- [site/src/content/analyses/quel-four-gozney-choisir.md](site/src/content/analyses/quel-four-gozney-choisir.md)
 - [site/src/content/analyses/quel-four-ooni-choisir.md](site/src/content/analyses/quel-four-ooni-choisir.md)
+- [site/src/content/analyses/roccbox.md](site/src/content/analyses/roccbox.md)
 - [site/src/content/analyses/volt-2.md](site/src/content/analyses/volt-2.md)
 
 ## Socle vendorisé

@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: Four à Nu - Ligne de sole
+name: Four à Nu - Système visuel
 description: Système visuel d'un média de décision sur les fours à pizza, construit autour des matériaux, des instruments et de la traçabilité des preuves.
 colors:
   primary: "#0D1214"
@@ -72,7 +72,7 @@ rounded:
 
 ## Overview
 
-`Ligne de sole` donne à Four à Nu l'allure d'un guide d'achat éditorial précis,
+Le système visuel donne à Four à Nu l'allure d'un guide d'achat éditorial précis,
 direct et chaleureux. L'interface compare les dimensions, contraintes et
 mesures publiées sans suggérer que le média les a produites. La réponse utile
 vient avant le détail méthodologique ; les sources et limites restent faciles à
@@ -221,7 +221,7 @@ Les bandes carbone restent planes et ne reçoivent ni lueur ni dégradé.
 
 L'interface emploie des rectangles francs. Les boutons, champs, plaques de
 preuve et conteneurs ont un rayon de 0 ou 2 px. Les pilules sont interdites.
-Les lignes techniques mesurent 1 px. La `ligne de sole` mesure 2 px.
+Les lignes techniques mesurent 1 px. La ligne de mesure mesure 2 px.
 
 Le lockup couleur fourni est adopté sous
 `site/public/brand/logo-fouranu.png`. Il s'utilise dans son ratio d'origine,
@@ -248,14 +248,18 @@ navigation active combine texte, épaisseur et règle basse.
 
 ### Actions et liens marchands
 
-Une vue contient une seule action remplie en `--color-probe`. Les actions
-secondaires restent blanches avec texte et bordure carbone. Les liens de texte
-sont soulignés au repos dans le corps des articles.
+Une page d'article répète une action remplie en `--color-probe` à deux moments
+distincts : après le résumé d'ouverture, puis avant les
+limites et sources. Deux actions marchandes ne se suivent jamais dans le même
+écran et chacune garde un libellé explicite avec le produit et le marchand.
+Les liens de texte sont soulignés au repos dans le corps des articles.
 
-Un lien affilié porte un libellé marchand explicite et reste visuellement
-séparé du verdict, des limites et des sources. Sa taille, sa couleur ou sa
-position ne doit jamais faire disparaître une réserve éditoriale. Le marquage
-`rel="sponsored"` et la déclaration d'affiliation font partie du composant.
+Tant que les liens sont directs et non rémunérés, le composant le dit
+explicitement et n'utilise pas `rel="sponsored"`. Un futur lien affilié restera
+visuellement séparé du verdict, des limites et des sources. Sa taille, sa couleur
+ou sa position ne devra jamais faire disparaître une réserve éditoriale. Le
+marquage `rel="sponsored"` et la déclaration d'affiliation deviendront alors
+obligatoires.
 
 ### Rail de preuve
 
@@ -274,7 +278,7 @@ première recommandation. Une note, une étoile, un classement
 pseudo-scientifique ou un composant visuel qui imite un verdict d'essai reste
 interdit.
 
-### Ligne de sole
+### Ligne de mesure
 
 La signature relie une ligne orange vive horizontale de 2 px à une plaque
 monospacée.
@@ -313,8 +317,8 @@ un logiciel, un assistant de rédaction ou un procédé de génération.
 
 L'image d'en-tête de tout nouvel article produit, ou de tout article produit
 substantiellement révisé, part obligatoirement d'une photographie officielle du
-modèle publiée sur le site du fabricant. Elle est stylisée dans « Ligne de
-sole » : fond clair ou carbone, acier froid, contraste franc et accent orange
+modèle publiée sur le site du fabricant. Elle est stylisée dans le système
+visuel Four à Nu : fond clair ou carbone, acier froid, contraste franc et accent orange
 limité. La silhouette, les proportions, commandes, couleurs, accessoires et
 marquages du produit restent fidèles à la source. L'image ne contient ni texte,
 ni personnage, ni mesure, ni flamme ou cuisson inventée.
@@ -409,14 +413,14 @@ validation, jamais des résultats déclarés avant mesure.
 Toute modification d'un point ci-dessous exige une décision explicite du
 propriétaire du projet avant implémentation :
 
-1. le nom public `Four à Nu` et la direction `Ligne de sole` ;
+1. le nom public `Four à Nu` et son système visuel ;
 2. les six couleurs, leurs rôles et l'orange comme seule famille chaude de
    marque ;
 3. IBM Plex Sans Condensed, Sans et Mono, sans serif éditoriale ;
 4. la grille 12, 6 et 4 colonnes, le rythme de 8 px et le conteneur de 1360 px ;
 5. le lockup couleur adopté, son ratio, son usage sur fond clair et
    l'interdiction d'en extraire la pizza ou la flamme ;
-6. la ligne de sole conditionnée à une mesure ou une cote réellement sourcée ;
+6. la ligne de mesure conditionnée à une mesure ou une cote réellement sourcée ;
 7. la provenance visible des médias et l'interdiction de transformer une
    preuve ;
 8. l'absence de note, étoile, classement pseudo-scientifique ou apparence de

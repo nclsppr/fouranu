@@ -6,6 +6,26 @@ importantes.
 
 ## Non publié
 
+- Couverture des sept fours autonomes proposés dans le catalogue Gozney France
+  vérifié le 24 août 2026 : un guide de gamme, puis de nouveaux dossiers Dome
+  XL (Gen 2), Dome (Gen 2), Arc et Roccbox, sans multiplier les pages par pack
+  ou par couleur.
+- Cinq nouveaux en-têtes éditoriaux partent de photographies officielles Gozney
+  autorisées. Le contrôle visuel conserve la silhouette, les commandes et les
+  marquages du produit ; les dix rendus WebP sont enregistrés avec leur chaîne
+  de droits.
+- Chaque article comporte désormais deux appels d'achat très visibles vers la
+  boutique officielle. Les destinations sont directes, sans suivi ni
+  rémunération, et cette absence de commission est écrite à proximité.
+- La roadmap sépare l'activation future des programmes Amazon, Gozney et Ooni
+  de cette tranche. Elle ouvre aussi une stratégie d'accessoires fondée sur un
+  problème concret — thermomètre, pelles, bacs et balance — et refuse les pages
+  minces créées uniquement pour viser une requête marchande.
+- L'accueil, la rubrique Gozney et le parcours par usage passent à 32 pages
+  HTML, dix-neuf guides, 168 preuves, 66 questions, 85 médias et 31 URL
+  indexables. Le nom de travail opaque de l'ancien système visuel a été retiré
+  au profit de termes simples.
+
 ## 2026-08-24 - Arc Lite, Tread et Halo publics
 
 - Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
@@ -66,7 +86,7 @@ importantes.
   contrôlés publiquement.
 - Adoption d'une règle éditoriale durable : tout article produit nouveau ou
   substantiellement révisé s'ouvre sur une photo officielle du fabricant
-  stylisée dans « Ligne de sole » ; les vues en situation viennent ensuite.
+  stylisée dans le système visuel Four à Nu ; les vues en situation viennent ensuite.
 - La voix cible devient celle d'un guide d'achat accessible et accrocheur : la
   réponse et les compromis précèdent les détails techniques, sans revendiquer
   d'essai propre absent du registre. Le rattrapage du corpus public est tracé
@@ -244,6 +264,6 @@ importantes.
 - Ajout d'un contrat de découvrabilité Google, Bing et ChatGPT qui sépare le nom
   de marque des requêtes portées par les pages et conserve les limites du
   corpus documentaire.
-- Remplacement des premières palettes ivoire et terracotta par la direction
-  « Ligne de sole », en blanc, carbone, acier et bleu de mesure. Le logo, les
+- Remplacement des premières palettes ivoire et terracotta par le système
+  visuel Four à Nu, en blanc, carbone, acier et bleu de mesure. Le logo, les
   favicons et la carte sociale locale suivent cette direction.

@@ -225,7 +225,7 @@ statut fonctionnel exact d'« illustration éditoriale ».
 Tout nouvel article consacré à un four, un pétrin ou un autre matériel, ainsi
 que toute révision éditoriale substantielle d'un tel article, commence par une
 photo officielle du modèle publiée sur le site du fabricant puis stylisée dans
-la direction « Ligne de sole ». Cette image devient l'en-tête obligatoire et
+le système visuel Four à Nu. Cette image devient l'en-tête obligatoire et
 reste une illustration, jamais une preuve.
 
 La transformation peut changer le fond, la lumière, le cadrage et la matière

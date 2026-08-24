@@ -3,7 +3,9 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import CitedSources from "@/components/CitedSources.astro";
+import PurchaseCta from "@/components/PurchaseCta.astro";
 import { SITE } from "@/config/site";
+import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
 
 export async function getStaticPaths() {
   const analyses = await getCollection("analyses");
@@ -50,6 +52,10 @@ const categoryLabels = {
 };
 const author = SITE.authors[entry.data.author];
 const canonicalAuthor = new URL(author.url, SITE.url).toString();
+const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
+if (!purchaseLinks?.length) {
+  throw new Error(`Liens d’achat absents pour ${entry.data.articleId}`);
+}
 const schema = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -172,7 +178,10 @@ const schema = {
             </span>
             <a href="#cited-sources-title">Voir les sources</a>
           </div>
+          <PurchaseCta links={purchaseLinks} variant="primary" />
           <Content />
+
+          <PurchaseCta links={purchaseLinks} variant="closing" />
 
           <aside class="article-limitations" aria-labelledby="limitations-title">
             <h2 id="limitations-title">Ce qu’on ne sait pas encore</h2>

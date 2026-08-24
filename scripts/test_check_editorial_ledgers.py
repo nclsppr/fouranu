@@ -73,12 +73,15 @@ class EditorialLedgerTests(unittest.TestCase):
         )
         return row
 
-    def granted_frame_asset(self) -> dict[str, str]:
+    def granted_frame_asset(
+        self,
+        acquisition_mode: str = "rights-holder-file",
+    ) -> dict[str, str]:
         row = self.embed_asset()
         row.update(
             {
                 "asset_type": "licensed-frame",
-                "acquisition_mode": "rights-holder-file",
+                "acquisition_mode": acquisition_mode,
                 "rights_status": "granted",
                 "commercial_use": "yes",
                 "ai_transform": "no",
@@ -97,13 +100,20 @@ class EditorialLedgerTests(unittest.TestCase):
                 "permission_proof_sha256": "",
             }
         )
+        if acquisition_mode == "authorized-frame-capture":
+            row.update(
+                {
+                    "permission_proof": "research/private/permissions/AS-0001.txt",
+                    "permission_proof_sha256": "c" * 64,
+                }
+            )
         return row
 
     def derived_ai_asset(
         self,
         acquisition_mode: str = "rights-holder-file",
     ) -> dict[str, str]:
-        row = self.granted_frame_asset()
+        row = self.granted_frame_asset(acquisition_mode)
         row.update(
             {
                 "asset_type": "ai-illustration",
@@ -319,6 +329,29 @@ class EditorialLedgerTests(unittest.TestCase):
                     errors,
                 )
                 self.assertEqual([], errors)
+
+    def test_licensed_frame_accepts_both_authorized_acquisition_modes(self) -> None:
+        for acquisition_mode in (
+            "rights-holder-file",
+            "authorized-frame-capture",
+        ):
+            with self.subTest(acquisition_mode=acquisition_mode):
+                errors: list[str] = []
+                ledger.check_assets(
+                    [self.granted_frame_asset(acquisition_mode)],
+                    {"EV-0001"},
+                    errors,
+                )
+                self.assertEqual([], errors)
+
+    def test_authorized_frame_capture_requires_private_attestation(self) -> None:
+        row = self.granted_frame_asset("authorized-frame-capture")
+        row.update({"permission_proof": "", "permission_proof_sha256": ""})
+        errors: list[str] = []
+        ledger.check_assets([row], {"EV-0001"}, errors)
+        self.assertTrue(
+            any("exige une attestation privée" in item for item in errors)
+        )
 
     def test_ai_original_is_valid_without_raw_file_or_third_party_right(self) -> None:
         row = self.original_ai_asset()

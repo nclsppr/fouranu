@@ -1,15 +1,21 @@
 ---
 articleId: OONI-015
 brand: ooni
-title: "Ooni Karu 2 : bois, charbon ou gaz"
+title: "Ooni Karu 2 : bois, charbon ou gaz"
 description: Le Karu 2 accepte bois, charbon et un brûleur gaz séparé. Notre analyse de son format 30 cm, de sa chauffe publiée et de ses contraintes.
 summary: Le Karu 2 est le petit multi-combustible que nous choisirions pour apprendre le feu. Ses temps de chauffe publiés sont trop différents pour devenir une promesse.
 status: publishable
 type: model
+author: magali
 model: Ooni Karu 2
 publishedAt: 2026-08-24
 updatedAt: 2026-08-24
 indexable: true
+image:
+  src: /images/articles/ooni-karu-2-1600.webp
+  alt: "Ooni Karu 2 vu de face avec sa porte abaissée et sa cheminée"
+  caption: "Photogramme du Ooni Karu 2 avec sa porte abaissée — Source : Pala Pizza, passage 00:25."
+  assetId: AS-2014
 evidenceIds: [EV-0060, EV-0061, EV-0062, EV-0063, EV-0102, EV-0240, EV-0241, EV-0242, EV-0243, EV-0244, EV-0301, EV-0402]
 evidenceTypes:
   - FAB

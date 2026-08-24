@@ -6,9 +6,15 @@ description: Les neuf fours Ooni vendus en France, triés selon le lieu, l'éner
 summary: Pour l'intérieur, le corpus ne retient que le Volt 2. Dehors, l'énergie sépare Koda et Karu, puis le diamètre, le poids et le débit annoncé départagent les modèles.
 status: publishable
 type: guide
+author: nicolas
 publishedAt: 2026-08-24
 updatedAt: 2026-08-24
 indexable: true
+image:
+  src: /images/articles/ooni-gamme-documentee-1600.webp
+  alt: "Cinq fours à pizza Ooni alignés sur leurs tables extérieures"
+  caption: "Photogramme de la gamme Ooni disposée en ligne — Source : Julien Serri, passage 10:47."
+  assetId: AS-2000
 evidenceIds: [EV-0001, EV-0002, EV-0010, EV-0020, EV-0021, EV-0030, EV-0031, EV-0040, EV-0050, EV-0061, EV-0070, EV-0080, EV-0090, EV-0300, EV-0330, EV-0331, EV-0410]
 evidenceTypes:
   - FAB

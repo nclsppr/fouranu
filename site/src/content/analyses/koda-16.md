@@ -1,15 +1,21 @@
 ---
 articleId: OONI-014
 brand: ooni
-title: "Ooni Koda 16 : format 40 cm et chauffe"
+title: "Ooni Koda 16 : format 40 cm et chauffe"
 description: Le Koda 16 est un four à gaz de 40 cm et 18,2 kg. Notre analyse de son brûleur en L, de sa chauffe et de ses limites face au bois.
 summary: Le Koda 16 donne une vraie marge de travail sans devenir monstrueux. Nous le trouvons pertinent pour de grandes pizzas, moins pour être déplacé souvent.
 status: publishable
 type: model
+author: florian
 model: Ooni Koda 16
 publishedAt: 2026-08-24
 updatedAt: 2026-08-24
 indexable: true
+image:
+  src: /images/articles/ooni-koda-16-1600.webp
+  alt: "Ooni Koda 16 ouvert pendant une mesure de température de la sole"
+  caption: "Photogramme du Ooni Koda 16 pendant une mesure de sole — Source : Barbecue Way Of Life, passage 04:19."
+  assetId: AS-2012
 evidenceIds: [EV-0050, EV-0051, EV-0052, EV-0101, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0404]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]
 limitations:

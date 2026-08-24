@@ -1,15 +1,21 @@
 ---
 articleId: OONI-011
 brand: ooni
-title: "Ooni Koda 2 Pro : 45 cm et brûleur en U"
+title: "Ooni Koda 2 Pro : 45 cm et brûleur en U"
 description: Le Koda 2 Pro est un four à gaz de 45 cm et 30 kg. Notre analyse de son brûleur en U, de ses commandes et des cuissons publiées.
 summary: Le Koda 2 Pro donne beaucoup de place et une flamme sur trois côtés. Nous le réserverions à un emplacement fixe et à des pizzas vraiment grandes.
 status: publishable
 type: model
+author: florian
 model: Ooni Koda 2 Pro
 publishedAt: 2026-08-24
 updatedAt: 2026-08-24
 indexable: true
+image:
+  src: /images/articles/ooni-koda-2-pro-1600.webp
+  alt: "Ooni Koda 2 Pro ouvert avec sa sole et son thermomètre numérique"
+  caption: "Photogramme du Ooni Koda 2 Pro et de son ouverture — Source : Got2EatPizza, passage 01:08."
+  assetId: AS-2006
 evidenceIds: [EV-0020, EV-0021, EV-0022, EV-0220, EV-0221, EV-0222, EV-0223, EV-0304, EV-0320, EV-0322, EV-0323, EV-0406]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]
 limitations:

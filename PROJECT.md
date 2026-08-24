@@ -65,9 +65,9 @@ qui est réellement vérifié.
 - une preview en `noindex` par défaut et des pages indexables uniquement après
   passage de leur barrière éditoriale et autorisation de publication ;
 - un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires ;
-- un artefact statique et un contrat de déploiement pour Cloudflare Workers
-  Static Assets, activables uniquement après la gate du même SHA et une
-  autorisation explicite du propriétaire.
+- un artefact statique déployé sur Cloudflare Workers Static Assets par GitHub
+  Actions, uniquement après la gate du même SHA et une autorisation explicite
+  du propriétaire.
 
 ### Non-objectifs
 
@@ -83,8 +83,9 @@ qui est réellement vérifié.
 
 Les seuils, dates et conditions d'arrêt de l'expérience documentaire restent dans
 [`EXPERIMENT.md`](EXPERIMENT.md). La classe Produit signifie que le dépôt porte
-désormais une application durable. Elle ne transforme pas les hypothèses de
-l'expérience en faits et n'autorise pas sa publication.
+une application durable. Elle ne transforme pas les hypothèses de l'expérience
+en faits et ne suffit pas à autoriser une publication. La V1 a reçu son feu vert
+explicite avant son lancement.
 
 ## Sources de vérité
 
@@ -103,7 +104,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Cible d'hébergement et chemin de déploiement | [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
 | Design system | [`DESIGN.md`](DESIGN.md) | Actuel |
-| Code du site | `site/` | Actuel, local et non publié |
+| Code du site | `site/` | Actuel ; la V1 issue de ce dépôt est publiée sur `fouranu.com` |
 | Registres éditoriaux | `research/evidence.csv`, `research/questions.csv`, `research/assets.csv` | Actuel |
 | Configuration locale intégrée | `compose.yaml` | Actuelle, service `site` et healthcheck vérifiés localement |
 | Documentation interne | `documentation.json`, `docs-nimbus/` et [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) | Actuel |
@@ -115,12 +116,12 @@ l'expérience en faits et n'autorise pas sa publication.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Actuel, candidat V1 | Build, service local et futur artefact de production | `site/`, 23 pages HTML au dernier build local |
+| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | V1 publique | Build, service local et production | `site/`, 23 pages HTML dans le candidat V1 |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
 | Docker Compose | Lancer le parcours local intégré | Actuel | Développement local | `compose.yaml`, service `site` sain lors du dernier contrôle local |
-| Cloudflare Workers Static Assets | Servir l'artefact statique vérifié sur `fouranu.com` | Cible retenue, non activée | Production | `site/wrangler.jsonc`, GitHub Actions et ADR-0004 ; préparation, premier déploiement, domaine et indexation restent séparés |
+| Cloudflare Workers Static Assets | Servir l'artefact statique vérifié sur `fouranu.com` | Actif | Production | `site/wrangler.jsonc`, GitHub Actions et ADR-0004 ; première publication vérifiée dans `STATUS.md` |
 
 ### Flux éditorial cible
 
@@ -131,13 +132,14 @@ l'expérience en faits et n'autorise pas sa publication.
    d'avis ou un lien rémunéré mal déclaré.
 4. Astro génère un artefact statique avec métadonnées, canonical, sitemap et
    directives d'indexation cohérentes.
-5. Le paquet reste en preview locale et `noindex` jusqu'aux contrôles
-   éditoriaux, visuels et techniques, puis jusqu'au feu vert explicite du
-   propriétaire.
+5. Chaque nouveau paquet reste en preview locale et `noindex` jusqu'aux
+   contrôles éditoriaux, visuels et techniques, puis jusqu'au feu vert explicite
+   du propriétaire.
 6. GitHub Actions ne peut déployer ce SHA vers Workers Static Assets qu'après
    la réussite de `Verify` et l'activation explicite du chemin de déploiement.
-   Le premier déploiement, le domaine personnalisé, le DNS et l'indexation
-   gardent chacun leur autorisation propre.
+   La V1 a reçu séparément les autorisations de premier déploiement, de domaine,
+   de DNS et d'indexation. Toute nouvelle mutation de ces éléments garde sa
+   propre autorisation.
 
 ### Dépendances externes
 
@@ -146,8 +148,8 @@ l'expérience en faits et n'autorise pas sa publication.
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
 | Programmes marchands | Liens rémunérés et attribution | Navigation vers le marchand, puis traceurs uniquement selon consentement et contrat | Aucun compte actif ; le contenu reste accessible sans lien suivi |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
-| GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Contrat prêt ; activation autorisée, réalisation et preuves dans `STATUS.md` |
-| DNS | Relier séparément `fouranu.com` au Worker autorisé | Noms et routage publics | Domaine acquis et zone Cloudflare active ; aucune route Four à Nu encore vérifiée |
+| GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |
+| DNS | Relier `fouranu.com` au Worker autorisé | Noms et routage publics | Zone, domaine personnalisé et routage HTTPS actifs |
 
 ## Environnements
 
@@ -156,7 +158,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Développement | `compose.yaml` | `http://127.0.0.1:4321` | Build et healthcheck vérifiés localement |
 | CI | `.github/workflows/verify.yml` | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` exécuté avec succès sur `main` |
 | Preview | Artefact statique local avec `noindex` ; éventuel accès Cloudflare à autoriser séparément | Aucun | Candidat reproductible, aucune preview distante activée par défaut |
-| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | `fouranu.com` | Activation autorisée par le propriétaire ; premier déploiement, domaine personnalisé et DNS restent à exécuter et vérifier |
+| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | [`https://fouranu.com`](https://fouranu.com) | V1 active, indexable et servie en HTTPS avec TLS 1.2 ou plus récent |
 
 ## Commandes canoniques
 
@@ -166,7 +168,7 @@ l'expérience en faits et n'autorise pas sa publication.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 23 pages HTML et exécute onze tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 23 pages HTML et exécute treize tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |
@@ -181,9 +183,8 @@ l'expérience en faits et n'autorise pas sa publication.
 - Les preuves d'autorisation et coordonnées restent sous `research/private/`,
   hors Git. La CI ne peut pas les lire.
 - Aucun secret, compte marchand, identifiant analytics ou clé d'API n'est
-  requis pour la vérification locale. Un premier déploiement Cloudflare exigera
-  un jeton minimal conservé dans l'environnement GitHub protégé, jamais dans le
-  dépôt.
+  requis pour la vérification locale. Le déploiement Cloudflare utilise un jeton
+  minimal conservé dans l'environnement GitHub protégé, jamais dans le dépôt.
 - Le premier site n'a ni compte utilisateur, ni base de données, ni paiement.
 - Toute mesure d'audience future exige une décision sur la minimisation, le
   consentement, la rétention et les tiers avant activation.
@@ -206,7 +207,7 @@ l'expérience en faits et n'autorise pas sa publication.
 - Politique actuelle : chaque tranche cohérente passe les gates locales, est
   poussée sur `main`, puis sa CI distante est vérifiée conformément à `P18`.
 - Artefact cible : sortie statique générée par `site/`.
-- Déploiement cible : Cloudflare Workers Static Assets par GitHub Actions,
+- Déploiement actif : Cloudflare Workers Static Assets par GitHub Actions,
   uniquement pour le SHA dont la gate `Verify` a réussi et après activation
   explicite du job protégé.
 - La préparation du workflow n'autorise ni le premier déploiement, ni la
@@ -223,4 +224,4 @@ l'expérience en faits et n'autorise pas sa publication.
 | Produit et ordre de livraison | nclsppr | `PROJECT.md` et `ROADMAP.md` |
 | Contenu, provenance et droits | nclsppr | `EDITORIAL-PROTOCOL.md` et `research/` |
 | Design et accessibilité | nclsppr | `DESIGN.md` et profil web |
-| Publication et services externes | nclsppr | Autorisation explicite et futur runbook de publication |
+| Publication et services externes | nclsppr | Autorisation explicite, ADR-0004 et preuves dans `STATUS.md` |

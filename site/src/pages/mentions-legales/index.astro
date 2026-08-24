@@ -57,13 +57,12 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .legal-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding-block: clamp(3rem, 6vw, 5rem);
+    padding-block: 4rem;
     border-top: 1px solid var(--color-carbon);
   }
 
   .legal-grid article {
-    min-height: 20rem;
-    padding: 2rem;
+    padding: 1.5rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
   }
@@ -73,7 +72,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .legal-grid h2 {
-    margin: 4rem 0 1rem;
+    margin: 2rem 0 0.75rem;
     font-size: clamp(2rem, 3.4vw, 3rem);
     line-height: 1;
   }
@@ -86,22 +85,44 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .legal-grid a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--color-probe);
     font-weight: 600;
+  }
+
+  @media (max-width: 64rem) {
+    .legal-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .legal-grid article:nth-child(2) {
+      border-right: 0;
+    }
+
+    .legal-grid article:last-child {
+      grid-column: 1 / -1;
+      border-right: 0;
+    }
   }
 
   @media (max-width: 48rem) {
     .legal-grid {
       grid-template-columns: 1fr;
+      padding-block: 3rem;
     }
 
     .legal-grid article {
-      min-height: auto;
       border-right: 0;
     }
 
+    .legal-grid article:last-child {
+      grid-column: auto;
+    }
+
     .legal-grid h2 {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
   }
 </style>

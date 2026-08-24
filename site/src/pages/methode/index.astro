@@ -78,7 +78,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
       <article>
         <span>03</span>
         <h2>Une illustration ne devient jamais une preuve.</h2>
-        <p>Un lecteur vidéo officiel, un photogramme autorisé ou un croquis peuvent illustrer une page. Une transformation IA reste déclarée, créditée et séparée des éléments probants.</p>
+        <p>Un lecteur vidéo officiel, un photogramme autorisé ou un croquis peuvent illustrer une page. Leur origine reste créditée et séparée des éléments probants.</p>
       </article>
       <article>
         <span>04</span>
@@ -87,7 +87,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
       </article>
       <article>
         <span>05</span>
-        <h2>ChatGPT aide à rédiger, pas à fabriquer les faits.</h2>
+        <h2>Un brouillon n'autorise jamais à fabriquer les faits.</h2>
         <p>La rédaction contrôle les sources, les inférences et le texte final. Une voix personnelle n'autorise jamais à raconter comme nôtre une expérience réalisée par un tiers.</p>
       </article>
     </section>
@@ -110,7 +110,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
     display: grid;
     grid-template-columns: 4fr 8fr;
     gap: 1.5rem;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: 4rem;
     border-bottom: 1px solid var(--color-line);
   }
 
@@ -128,7 +128,6 @@ import ProofLabel from "@/components/ProofLabel.astro";
   }
 
   .method-grid__levels article {
-    min-height: 15rem;
     padding: 1.5rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
@@ -138,8 +137,12 @@ import ProofLabel from "@/components/ProofLabel.astro";
     border-right: 0;
   }
 
+  .method-grid__levels article:last-child {
+    grid-column: 1 / -1;
+  }
+
   .method-grid__levels h3 {
-    margin: 2.5rem 0 0.7rem;
+    margin: 1.5rem 0 0.5rem;
     font-size: 1.65rem;
   }
 
@@ -151,14 +154,14 @@ import ProofLabel from "@/components/ProofLabel.astro";
   }
 
   .principles {
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: 4rem;
   }
 
   .principles article {
     display: grid;
     grid-template-columns: 3rem minmax(18rem, 5fr) minmax(14rem, 3fr);
     gap: 1.5rem;
-    padding-block: 2rem;
+    padding-block: 1.5rem;
     border-top: 1px solid var(--color-line);
   }
 
@@ -169,7 +172,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
   .principles span {
     color: var(--color-probe);
     font-family: var(--font-data);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
   }
 
   .principles h2 {
@@ -192,8 +195,8 @@ import ProofLabel from "@/components/ProofLabel.astro";
   .correction-link {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    padding: clamp(2rem, 5vw, 4rem);
+    gap: 2rem;
+    padding: 2rem;
     color: var(--color-white);
     background: var(--color-carbon);
   }
@@ -218,6 +221,9 @@ import ProofLabel from "@/components/ProofLabel.astro";
   }
 
   .correction-link a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--color-reading);
   }
 
@@ -230,17 +236,30 @@ import ProofLabel from "@/components/ProofLabel.astro";
     }
 
     .method-grid {
-      gap: 3rem;
+      gap: 2rem;
+      padding-block: 3rem;
     }
 
     .method-grid__levels article,
     .method-grid__levels article:nth-child(even) {
-      min-height: auto;
       border-right: 0;
+    }
+
+    .method-grid__levels article:last-child {
+      grid-column: auto;
     }
 
     .principles article {
       gap: 0.8rem;
+    }
+
+    .principles {
+      padding-block: 3rem;
+    }
+
+    .correction-link {
+      gap: 1.5rem;
+      padding: 1.5rem;
     }
   }
 </style>

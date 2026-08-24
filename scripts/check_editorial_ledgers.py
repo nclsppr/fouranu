@@ -651,10 +651,13 @@ def check_assets(
             errors.append(f"{prefix} : un embed exige rights_status service-permitted")
         if (
             row["asset_type"] == "licensed-frame"
-            and row["acquisition_mode"] != "rights-holder-file"
+            and row["acquisition_mode"] not in {
+                "rights-holder-file",
+                "authorized-frame-capture",
+            }
         ):
             errors.append(
-                f"{prefix} : un photogramme licencié exige acquisition_mode rights-holder-file"
+                f"{prefix} : un photogramme licencié exige rights-holder-file ou authorized-frame-capture"
             )
         if row["asset_type"] == "licensed-frame":
             if row["rights_status"] != "granted":
@@ -673,6 +676,15 @@ def check_assets(
             errors.append(f"{prefix} : un original Four à Nu exige rights_status original")
         if row["asset_type"] == "quarantine" and row["acquisition_mode"] != "not-acquired":
             errors.append(f"{prefix} : une référence en quarantaine ne doit pas être acquise")
+        if row["acquisition_mode"] == "authorized-frame-capture":
+            if row["asset_type"] not in {"licensed-frame", "ai-illustration"}:
+                errors.append(
+                    f"{prefix} : authorized-frame-capture est réservé aux photogrammes et à leurs illustrations dérivées"
+                )
+            if not row["permission_proof"] or not row["permission_proof_sha256"]:
+                errors.append(
+                    f"{prefix} : authorized-frame-capture exige une attestation privée et son SHA-256"
+                )
 
 
 def check_public_article_media(

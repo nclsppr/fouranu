@@ -4,9 +4,10 @@ Four à Nu construit un outil francophone pour choisir un four à pizza à parti
 de contraintes vérifiables, avec Ooni comme premier corpus. `Jupiter` reste le
 nom de code du dépôt.
 
-Le propriétaire a confirmé l'acquisition de `fouranu.com` le 2026-08-23. La
-zone Cloudflare est active et le candidat V1 se vérifie en local. Aucun Worker,
-Custom Domain, DNS Four à Nu ou lien affilié n'est encore activé.
+Le propriétaire a confirmé l'acquisition de `fouranu.com` le 2026-08-23. La V1
+est publique sur [`fouranu.com`](https://fouranu.com) depuis le 2026-08-24. Elle
+est servie par Cloudflare Workers Static Assets depuis le SHA vérifié
+`c5da961ceabcd021c5501d1cbda3ddb00c57c2ee`. Aucun lien affilié n'est actif.
 
 ## État du produit
 
@@ -17,14 +18,14 @@ chaque page attribue ses sources, conserve leurs limites et ne publie ni note,
 ni étoile, ni balisage d'avis.
 
 La preview reste en `noindex` par défaut. Une page ne devient indexable qu'après
-sa barrière éditoriale et une autorisation de publication. Cloudflare Workers
-Static Assets est la cible préparée ; le propriétaire a autorisé le premier
-déploiement, le domaine et l'indexation, qui restent à exécuter et vérifier.
+sa barrière éditoriale et une autorisation de publication. Le paquet V1 de
+production est indexable et son déploiement GitHub Actions, son domaine
+personnalisé, son DNS et son HTTPS sont actifs.
 
-La suite locale compte onze tests de contrat. Le service Compose répond avec un
-healthcheck sain. La revue visuelle de la tranche courante reste une preuve
-manuelle distincte des contrôles automatisés. Ces preuves décrivent le candidat
-local, pas un site publié.
+La suite locale compte treize tests de contrat. Le service Compose répond avec un
+healthcheck sain. Le run GitHub Actions de la V1 et les contrôles publics sont
+consignés dans [`STATUS.md`](STATUS.md). La tranche post-V1 en cours reste
+distincte de cette version publiée jusqu'à son prochain déploiement vérifié.
 
 - Le contrat stable vit dans [`PROJECT.md`](PROJECT.md).
 - L'état réellement vérifié vit dans [`STATUS.md`](STATUS.md).
@@ -41,7 +42,7 @@ plus récent, Node `22.12.0` ou plus récent, npm, Docker et Docker Compose
 | Action actuelle | Commande | Résultat attendu |
 | --- | --- | --- |
 | Vérifier le dépôt | `./scripts/verify.sh` | Contrôle les documents, registres, Compose, le site Astro et Nimbus |
-| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 23 pages et onze tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 23 pages et treize tests de contrat |
 | Vérifier le candidat Cloudflare | `npm run cloudflare:check --prefix site` | Valide le paquet Workers Static Assets sans déploiement |
 | Vérifier Compose | `python3 scripts/check_compose.py` | Valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Site Nimbus local généré depuis les Markdown classés |

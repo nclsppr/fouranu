@@ -92,25 +92,17 @@ const schema = {
         </a>
       </div>
 
-      <figure class="lead-feature__visual">
-        <picture>
-          <source
-            srcset="/media/homepage-atelier-sketch-768.webp 768w, /media/homepage-atelier-sketch-1536.webp 1536w"
-            sizes="(max-width: 768px) 100vw, 42vw"
-            type="image/webp"
-          />
-          <img
-            src="/media/homepage-atelier-sketch-1536.webp"
-            alt="Croquis architectural d'un four à pizza contemporain posé sur une table métallique"
-            width="1536"
-            height="1024"
-            fetchpriority="high"
-          />
-        </picture>
-        <figcaption>
-          Illustration originale assistée par IA. Elle situe le sujet et ne
-          constitue pas une preuve produit.
-        </figcaption>
+      <figure class="lead-feature__visual lead-feature__visual--documentary">
+        <img
+          src={lead.data.image.src}
+          srcset={`${lead.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image.src} 1600w`}
+          sizes="(max-width: 40rem) 100vw, 42vw"
+          alt={lead.data.image.alt}
+          width="1600"
+          height="900"
+          fetchpriority="high"
+        />
+        <figcaption>{lead.data.image.caption}</figcaption>
       </figure>
     </article>
 
@@ -159,14 +151,28 @@ const schema = {
     <div class="dossier-grid">
       {featuredModels.map((entry, index) => (
         <a class="dossier-card" href={`/${entry.data.brand}/${entry.id}/`}>
-          <span class="dossier-card__index">{String(index + 1).padStart(2, "0")}</span>
-          <span class="dossier-card__type">Analyse documentaire</span>
-          <h3>{entry.data.title}</h3>
-          <p>{entry.data.summary}</p>
-          <span class="dossier-card__date">
-            Mis à jour le {shortDateFormatter.format(entry.data.updatedAt)}
+          <span class="dossier-card__media">
+            <img
+              src={entry.data.image.src}
+              srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+              sizes="(max-width: 32rem) 100vw, (max-width: 56rem) 50vw, 25vw"
+              alt={entry.data.image.alt}
+              width="960"
+              height="540"
+              loading="lazy"
+            />
+            <span class="dossier-card__index">{String(index + 1).padStart(2, "0")}</span>
           </span>
-          <span class="dossier-card__link">Lire <span aria-hidden="true">→</span></span>
+          <span class="dossier-card__content">
+            <span class="dossier-card__type">Analyse documentaire</span>
+            <h3>{entry.data.title}</h3>
+            <span class="dossier-card__summary">{entry.data.summary}</span>
+            <span class="dossier-card__meta">
+              <span>Par {SITE.authors[entry.data.author].name}</span>
+              <span>{shortDateFormatter.format(entry.data.updatedAt)}</span>
+            </span>
+            <span class="dossier-card__link">Lire <span aria-hidden="true">→</span></span>
+          </span>
         </a>
       ))}
     </div>
@@ -223,9 +229,23 @@ const schema = {
       <div class="compact-list">
         {remainingModels.map((entry) => (
           <a href={`/${entry.data.brand}/${entry.id}/`}>
-            <span>
+            <span class="compact-list__media">
+              <img
+                src={entry.data.image.src}
+                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                sizes="7.5rem"
+                alt=""
+                width="320"
+                height="180"
+                loading="lazy"
+              />
+            </span>
+            <span class="compact-list__copy">
               <strong>{entry.data.title}</strong>
               <small>{entry.data.summary}</small>
+              <small class="compact-list__byline">
+                Par {SITE.authors[entry.data.author].name} · {shortDateFormatter.format(entry.data.updatedAt)}
+              </small>
             </span>
             <span aria-hidden="true">→</span>
           </a>
@@ -295,7 +315,7 @@ const schema = {
   .dossier-card__type,
   .dossier-card__date {
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -311,7 +331,7 @@ const schema = {
   .lead-feature {
     display: grid;
     grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    min-height: 34rem;
+    min-height: 30rem;
     overflow: hidden;
     color: var(--color-white);
     background: var(--color-carbon);
@@ -323,7 +343,7 @@ const schema = {
     z-index: 1;
     flex-direction: column;
     align-items: flex-start;
-    padding: clamp(2rem, 4vw, 3.5rem);
+    padding: clamp(1.75rem, 3vw, 2.75rem);
   }
 
   .lead-feature .feature-kicker,
@@ -335,7 +355,7 @@ const schema = {
   .lead-feature h1 {
     max-width: 10ch;
     margin: auto 0 1.25rem;
-    font-size: clamp(3.4rem, 5.2vw, 5.4rem);
+    font-size: clamp(3.15rem, 4.8vw, 4.9rem);
     line-height: 0.91;
     letter-spacing: -0.045em;
   }
@@ -359,7 +379,7 @@ const schema = {
     padding: 0.42rem 0.58rem;
     border: 1px solid var(--color-carbon-line);
     font-family: var(--font-data);
-    font-size: 0.64rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
   }
 
@@ -393,10 +413,6 @@ const schema = {
     padding: 1.5rem 1.5rem 1rem 0;
   }
 
-  .lead-feature__visual picture {
-    margin-block: auto;
-  }
-
   .lead-feature__visual img {
     width: 100%;
     height: auto;
@@ -404,12 +420,36 @@ const schema = {
     mix-blend-mode: screen;
   }
 
+  .lead-feature__visual--documentary {
+    position: relative;
+    padding: 0;
+  }
+
+  .lead-feature__visual--documentary img {
+    width: 100%;
+    height: 100%;
+    min-height: 30rem;
+    object-fit: cover;
+    filter: none;
+    mix-blend-mode: normal;
+  }
+
+  .lead-feature__visual--documentary figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.65rem 0.8rem;
+    border: 0;
+    background: color-mix(in srgb, var(--color-carbon) 88%, transparent);
+  }
+
   .lead-feature__visual figcaption {
     padding-top: 0.75rem;
     border-top: 1px solid var(--color-carbon-line);
     color: var(--color-carbon-muted);
     font-family: var(--font-data);
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     line-height: 1.55;
     text-transform: uppercase;
   }
@@ -476,7 +516,7 @@ const schema = {
   .corpus-strip {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding-block: 1.5rem;
+    padding-block: 1.1rem;
     border-block: 1px solid var(--color-line);
   }
 
@@ -509,7 +549,7 @@ const schema = {
   .corpus-strip span {
     color: var(--color-graphite);
     font-family: var(--font-data);
-    font-size: 0.64rem;
+    font-size: 0.75rem;
     line-height: 1.45;
     text-transform: uppercase;
   }
@@ -517,7 +557,7 @@ const schema = {
   .featured-dossiers,
   .reading-desk,
   .method-strip {
-    padding-block: clamp(4.5rem, 8vw, 7rem);
+    padding-block: clamp(3rem, 4vw, 4rem);
   }
 
   .section-bar {
@@ -525,15 +565,15 @@ const schema = {
     align-items: end;
     justify-content: space-between;
     gap: 2rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.8rem;
     border-bottom: 1px solid var(--color-carbon);
   }
 
   .section-bar h2 {
-    max-width: 15ch;
+    max-width: 22ch;
     margin: 0;
-    font-size: clamp(2.6rem, 4.5vw, 4.3rem);
+    font-size: clamp(2.35rem, 3.8vw, 3.8rem);
     line-height: 0.96;
   }
 
@@ -550,13 +590,12 @@ const schema = {
   }
 
   .dossier-card {
-    display: flex;
+    display: grid;
+    grid-template-rows: auto 1fr;
     min-width: 0;
-    min-height: 28rem;
-    flex-direction: column;
-    padding: 1.5rem;
     border-block: 1px solid var(--color-line);
     border-right: 1px solid var(--color-line);
+    background: var(--color-white);
     text-decoration: none;
     transition: color 160ms ease-out, background 160ms ease-out;
   }
@@ -572,11 +611,44 @@ const schema = {
     background: var(--color-probe);
   }
 
+  .dossier-card__media {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-steel-soft);
+  }
+
+  .dossier-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease-out;
+  }
+
+  .dossier-card:hover .dossier-card__media img {
+    transform: scale(1.025);
+  }
+
   .dossier-card__index {
-    margin-bottom: 3.5rem;
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    min-width: 2.5rem;
+    padding: 0.35rem 0.45rem;
+    color: var(--color-white);
+    background: color-mix(in srgb, var(--color-carbon) 88%, transparent);
     font-family: var(--font-display);
-    font-size: 3.4rem;
+    font-size: 1.35rem;
     line-height: 1;
+    text-align: center;
+  }
+
+  .dossier-card__content {
+    display: flex;
+    min-height: 14rem;
+    flex-direction: column;
+    padding: 1rem;
   }
 
   .dossier-card__type {
@@ -585,8 +657,8 @@ const schema = {
 
   .dossier-card:first-child .dossier-card__type,
   .dossier-card:hover .dossier-card__type,
-  .dossier-card:hover p,
-  .dossier-card:hover .dossier-card__date {
+  .dossier-card:hover .dossier-card__summary,
+  .dossier-card:hover .dossier-card__meta {
     color: inherit;
   }
 
@@ -596,24 +668,37 @@ const schema = {
     line-height: 0.98;
   }
 
-  .dossier-card p {
+  .dossier-card__summary {
+    display: -webkit-box;
+    overflow: hidden;
     color: var(--color-graphite);
     font-size: 0.84rem;
     line-height: 1.55;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 
-  .dossier-card:first-child p,
-  .dossier-card:first-child .dossier-card__date {
+  .dossier-card:first-child .dossier-card__summary,
+  .dossier-card:first-child .dossier-card__meta {
     color: var(--color-carbon-muted);
   }
 
-  .dossier-card__date {
+  .dossier-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 0.75rem;
     margin-top: auto;
+    padding-top: 0.9rem;
     color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    text-transform: uppercase;
   }
 
   .dossier-card__link {
-    margin-top: 1rem;
+    margin-top: 0.65rem;
     font-weight: 600;
   }
 
@@ -625,14 +710,14 @@ const schema = {
   .choice-guide__grid {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: clamp(3rem, 7vw, 7rem);
-    padding-block: clamp(4.5rem, 8vw, 7rem);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    padding-block: clamp(3rem, 4vw, 4rem);
   }
 
   .choice-guide__intro h2 {
     max-width: 10ch;
     margin-bottom: 1.5rem;
-    font-size: clamp(3.2rem, 5.6vw, 5.6rem);
+    font-size: clamp(3rem, 4.8vw, 4.8rem);
     line-height: 0.91;
   }
 
@@ -660,8 +745,8 @@ const schema = {
     grid-template-columns: 2.5rem 8rem minmax(0, 1fr) auto;
     gap: 1rem;
     align-items: center;
-    min-height: 5.7rem;
-    padding-block: 1rem;
+    min-height: 4.8rem;
+    padding-block: 0.75rem;
     border-bottom: 1px solid var(--color-carbon-line);
     text-decoration: none;
   }
@@ -670,7 +755,7 @@ const schema = {
   .choice-guide nav small {
     color: var(--color-carbon-muted);
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     line-height: 1.45;
     text-transform: uppercase;
   }
@@ -701,11 +786,11 @@ const schema = {
 
   .compact-list a {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1rem;
+    grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+    gap: 0.9rem;
     align-items: center;
-    min-height: 7rem;
-    padding: 1rem;
+    min-height: 5.75rem;
+    padding: 0.7rem 0;
     border-bottom: 1px solid var(--color-line);
     text-decoration: none;
   }
@@ -723,15 +808,35 @@ const schema = {
   .compact-list strong {
     margin-bottom: 0.35rem;
     font-family: var(--font-display);
-    font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+    font-size: clamp(1.35rem, 2vw, 1.85rem);
     line-height: 1;
   }
 
   .compact-list small {
     max-width: 52rem;
     color: var(--color-graphite);
-    font-size: 0.78rem;
-    line-height: 1.5;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .compact-list__media {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-steel-soft);
+  }
+
+  .compact-list__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .compact-list__byline {
+    margin-top: 0.35rem;
+    font-family: var(--font-data);
+    font-size: 0.75rem !important;
+    text-transform: uppercase;
   }
 
   .compact-list a > span:last-child {
@@ -748,8 +853,8 @@ const schema = {
 
   .rss-panel h2 {
     max-width: 12ch;
-    margin: clamp(4rem, 8vw, 8rem) 0 1rem;
-    font-size: clamp(2.4rem, 3.8vw, 3.8rem);
+    margin: clamp(2.25rem, 4vw, 3.75rem) 0 1rem;
+    font-size: clamp(2.25rem, 3.4vw, 3.4rem);
     line-height: 0.96;
   }
 
@@ -763,7 +868,7 @@ const schema = {
     margin-top: 1rem;
     color: var(--color-carbon-muted);
     font-family: var(--font-data);
-    font-size: 0.64rem;
+    font-size: 0.75rem;
     line-height: 1.45;
     text-transform: uppercase;
   }
@@ -784,14 +889,14 @@ const schema = {
   }
 
   .method-grid > div {
-    min-height: 18rem;
-    padding: 1.5rem;
+    min-height: 13rem;
+    padding: 1.25rem;
     border-block: 1px solid var(--color-line);
     border-right: 1px solid var(--color-line);
   }
 
   .method-grid h3 {
-    margin: 4rem 0 0.75rem;
+    margin: 2.25rem 0 0.65rem;
     font-size: 1.7rem;
     line-height: 1;
   }
@@ -826,7 +931,7 @@ const schema = {
     outline-color: var(--color-reading);
   }
 
-  @media (max-width: 64rem) {
+  @media (max-width: 56rem) {
     .editorial-hero,
     .reading-desk {
       grid-template-columns: 1fr;
@@ -857,7 +962,7 @@ const schema = {
     }
 
     .dossier-card {
-      min-height: 24rem;
+      min-height: 0;
     }
 
     .choice-guide__grid {
@@ -869,7 +974,7 @@ const schema = {
     }
   }
 
-  @media (max-width: 47.99rem) {
+  @media (max-width: 40rem) {
     .editorial-hero {
       gap: 0.75rem;
       padding-top: 0.75rem;
@@ -894,7 +999,7 @@ const schema = {
     }
 
     .side-story {
-      min-height: 21rem;
+      min-height: 18rem;
     }
 
     .corpus-strip {
@@ -908,7 +1013,7 @@ const schema = {
     }
 
     .dossier-card {
-      min-height: 23rem;
+      min-height: 0;
     }
 
     .choice-guide__intro h2 {
@@ -933,7 +1038,7 @@ const schema = {
     }
   }
 
-  @media (max-width: 34rem) {
+  @media (max-width: 32rem) {
     .corpus-strip,
     .dossier-grid,
     .method-grid {
@@ -959,10 +1064,6 @@ const schema = {
       min-height: auto;
     }
 
-    .dossier-card__index {
-      margin-bottom: 2.5rem;
-    }
-
     .method-grid h3 {
       margin-top: 2.5rem;
     }
@@ -971,12 +1072,17 @@ const schema = {
   @media (prefers-reduced-motion: reduce) {
     .feature-action,
     .side-story,
-    .dossier-card {
+    .dossier-card,
+    .dossier-card__media img {
       transition: none;
     }
 
     .feature-action:hover,
     .side-story:hover {
+      transform: none;
+    }
+
+    .dossier-card:hover .dossier-card__media img {
       transform: none;
     }
   }

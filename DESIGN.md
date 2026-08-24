@@ -58,7 +58,7 @@ spacing:
   large: 32px
   xlarge: 48px
   xxlarge: 64px
-  section: 96px
+  section: 64px
   gutter-desktop: 24px
   gutter-mobile: 16px
   margin-mobile: 20px
@@ -201,9 +201,11 @@ comme défilable permet le déplacement horizontal au clavier et au toucher. Le
 premier intitulé reste visible si cela n'occulte pas les valeurs. Une vue mobile
 ne remplace jamais un tableau par des cartes qui cacheraient des critères.
 
-Les sections commencent sur le rythme de 96 px en desktop et 64 px en mobile.
-Les groupes liés utilisent 16 ou 24 px. Un vide de grille ne reçoit pas une
-carte, une citation ou une illustration uniquement pour équilibrer la page.
+Les sections commencent sur un rythme dense de 64 px en desktop et 48 px en
+mobile. Un manifeste ou une rupture de chapitre peut atteindre 80 px si ce vide
+porte réellement la hiérarchie. Les groupes liés utilisent 16 ou 24 px. Un vide
+de grille ne reçoit pas une carte, une citation ou une illustration uniquement
+pour équilibrer la page.
 
 ## Elevation & Depth
 
@@ -289,19 +291,24 @@ zéro. L'ordre d'affichage ne suggère pas un classement non autorisé.
 
 ### Médias
 
-Chaque média public utilise un type prévu par le protocole éditorial : `embed`,
-`licensed-frame`, `ai-illustration`, `fouranu-original` ou `ai-original`. Le
-type `quarantine` n'entre jamais dans le site public.
+Chaque média public correspond à un type publiable du protocole éditorial. Le
+site présente ce statut en langage éditorial : image documentaire,
+illustration éditoriale, photographie originale ou lecteur officiel. Les
+libellés techniques internes et les outils de production ne font pas partie de
+la copie publique. Le type `quarantine` n'entre jamais dans le site public.
 
-Une figure contient un texte alternatif adapté, une légende visible, la source,
-la date, le statut d'illustration ou de preuve et l'identifiant associé. Une
-illustration assistée par IA est déclarée à côté de l'image. Elle ne soutient
-jamais une affirmation factuelle.
+Une figure contient un texte alternatif adapté et une légende visible. Le
+crédit ou la source sont affichés lorsqu'ils aident réellement le lecteur à
+comprendre l'image. La date, le statut de preuve et l'identifiant média restent
+dans le registre de traçabilité interne : ces libellés techniques ne surchargent
+pas la copie publique. Une illustration éditoriale est identifiée comme telle
+et ne soutient jamais une affirmation factuelle. Aucune copie visible ne cite
+un logiciel, un assistant de rédaction ou un procédé de génération.
 
 La direction visuelle s'applique autour d'une preuve avec cadre, légende,
 annotations et mise en page. Elle ne modifie pas les pixels qui montrent une
 flamme, une cuisson, un affichage, un défaut, une géométrie ou une mesure. Les
-personnes identifiables restent exclues des entrées IA.
+personnes identifiables restent exclues de toute transformation externalisée.
 
 Les images utilisent `srcset`, `sizes`, une largeur et une hauteur explicites,
 AVIF ou WebP avec repli adapté. L'image principale n'est pas chargée à la
@@ -411,7 +418,7 @@ pas contredire une zone gelée ni altérer le lockup adopté.
 | Structure | Inspecter H1, ordre des titres, landmarks, lien d'évitement et ordre DOM | Lecture cohérente sans CSS et au zoom 200 % |
 | Focus | Parcourir toutes les actions au clavier sur fond clair et carbone | Focus visible, cible de 44 px, aucun piège clavier |
 | Preuves | Rapprocher chaque valeur, graphique et plaque de son registre | Aucun chiffre public sans source et identifiant autorisés |
-| Médias | Vérifier type, droit, légende, texte alternatif, source et déclaration IA | Aucun média `quarantine`, aucune illustration utilisée comme preuve |
+| Médias | Vérifier type, droit, légende, texte alternatif, source et statut éditorial visible | Aucun média `quarantine`, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
 | Affiliation | Inspecter déclaration, libellé et attribut des liens rémunérés | `rel="sponsored"`, réserve éditoriale au moins aussi visible que l'action |
 | Mouvement | Tester le comportement normal et `prefers-reduced-motion` | Aucun contenu dépendant du mouvement, aucune translation résiduelle requise |
 | Performance | Mesurer les pages représentatives sur mobile et desktop | LCP, INP et CLS sous leurs objectifs avant déclaration de réussite |

@@ -75,7 +75,7 @@ Les couples autorisés sont explicites :
 | Type | Acquisition | Statut de droit publiable |
 | --- | --- | --- |
 | `embed` | `youtube-embed` | `service-permitted` |
-| `licensed-frame` | `rights-holder-file` | `granted` |
+| `licensed-frame` | `rights-holder-file` ou `authorized-frame-capture` | `granted` |
 | `ai-illustration` | `rights-holder-file` | `granted` |
 | `fouranu-original` | `fouranu-original` | `original` |
 | `ai-original` | `ai-generated` | `original` |
@@ -110,6 +110,15 @@ Les affirmations vont dans `research/evidence.csv`, les questions d'achat dans
 Les coordonnées, messages d'autorisation et fichiers sources restent sous
 `research/private/`, ignoré par Git.
 
+`authorized-frame-capture` désigne un photogramme extrait localement d'une
+vidéo lorsque le propriétaire du projet atteste explicitement que les droits
+nécessaires ont été acquis pour les vidéos identifiées et le périmètre
+enregistré. L'attestation privée peut consigner cette autorisation. Elle est
+libellée comme une attestation du propriétaire et ne doit jamais être présentée
+comme un contrat, un message ou un justificatif provenant de l'ayant droit.
+L'extraction reste limitée aux vidéos, usages, supports, transformations et
+crédits expressément consignés.
+
 Le statut de droit d'un média vaut `not-requested`, `requested`, `granted`,
 `denied`, `expired`, `service-permitted` pour un lecteur officiel, ou `original`
 pour un visuel intégralement créé par Four à Nu. Aucun statut générique
@@ -120,7 +129,8 @@ points-virgules. Le registre conserve aussi le SHA-256 de l'accord, la présence
 éventuelle de personnes identifiables, leur statut d'autorisation et les
 éléments tiers connus. Ces métadonnées ne remplacent pas la preuve privée.
 
-Avant accord, enregistrer uniquement l'URL, le timecode et le storyboard. Ne pas
+Avant accord ou attestation explicite du propriétaire au sens du paragraphe
+précédent, enregistrer uniquement l'URL, le timecode et le storyboard. Ne pas
 extraire le photogramme et ne pas le transmettre à un outil d'IA. Le
 [Code de la propriété intellectuelle](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278911)
 vise aussi l'adaptation et la transformation, et les
@@ -150,7 +160,8 @@ Four à Nu ne traite jamais le silence comme une autorisation.
 
 ### 4. Transformer après accord
 
-Une fois le statut `granted` enregistré :
+Une fois le statut `granted` enregistré avec un fichier fourni ou une extraction
+expressément autorisée :
 
 1. conserver le fichier fourni et son SHA-256 dans l'espace privé ;
 2. vérifier que le fournisseur IA, sa conservation et son usage éventuel des

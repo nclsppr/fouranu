@@ -6,13 +6,36 @@ importantes.
 
 ## Non publié
 
+- Chaque dossier possède désormais une photo documentaire WebP en 1600 et
+  960 px, avec texte alternatif, légende, source, timecode, empreintes et
+  chaîne de droits. Les mêmes visuels structurent l'accueil et la gamme Ooni.
+- Les onze dossiers sont répartis de façon stable entre Nicolas, Florian et
+  Magali. La signature alimente la page, les métadonnées, les données
+  structurées et le flux RSS sans biographie publique.
+- L'accueil, les articles et les pages de confiance adoptent un rythme plus
+  dense, des seuils responsive plus progressifs et des cibles de 44 px. Les
+  bibliographies deviennent des références repliées et compactes.
+- La copie publique ne cite plus les anciens outils rédactionnels. Un test
+  bloque leur retour dans les sorties HTML, texte et XML.
+- Le protocole média et sa gate reconnaissent les photogrammes dont
+  l'extraction et la republication ont reçu l'autorisation explicite du
+  propriétaire, avec preuve privée hors Git.
+
+## 2026-08-24 - V1 publique
+
+- Publication de la V1 sur [`fouranu.com`](https://fouranu.com) depuis le SHA
+  `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee`. Le run GitHub Actions
+  [`32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972)
+  a validé puis déployé le même artefact sur Cloudflare Workers Static Assets.
+  Le domaine personnalisé, le DNS, HTTPS avec TLS 1.2 ou plus récent et les 22
+  URL indexables sont actifs.
+
 - Préparation du paquet public V1 : 23 pages HTML, 22 URL indexables, une sonde
   `/health`, une empreinte `/release.json`, des mentions légales et deux canaux
   de contact sans analytics, publicité, formulaire ni cookie.
-- GitHub Actions construit désormais l'artefact indexable une seule fois dans
-  `Verify`, le conserve sous le SHA exact puis livre ce même paquet à
-  Cloudflare. Le job reste fermé tant que l'environnement de production n'est
-  pas configuré et activé.
+- GitHub Actions construit l'artefact indexable une seule fois dans `Verify`,
+  le conserve sous le SHA exact puis livre ce même paquet à Cloudflare. Le job
+  reste protégé par l'environnement de production.
 - Retrait des quatre médias Koda 2 dont la chaîne de droits n'était pas
   rapprochée du registre. Une nouvelle gate refuse désormais tout fichier
   public sous `images/articles` absent de `research/assets.csv` et tout fichier
@@ -35,8 +58,7 @@ importantes.
   d'un contrat automatisé sur le logo public.
 - Adoption de Cloudflare Workers Static Assets par l'ADR-0004. Wrangler est
   épinglé et validé à sec ; le job GitHub Actions ne peut s'exécuter sur `main`
-  qu'après `Verify` et un signal d'activation explicite. Le premier déploiement,
-  le domaine, le DNS et l'indexation restent hors de cette préparation.
+  qu'après `Verify` et un signal d'activation explicite.
 - Retrait de l'ancien workflow producteur Atlas et de ses scripts de paquet afin
   de conserver une seule cible publique future. Les ADR et preuves Atlas
   antérieures restent historiques.
@@ -72,7 +94,7 @@ importantes.
 - Promotion de Jupiter en produit web sous la marque `Four à Nu`. `Jupiter`
   reste le nom de code du dépôt.
 - Acquisition de `fouranu.com` confirmée par le propriétaire le 2026-08-23,
-  sans activation DNS, hébergement ou autre surface publique par le projet.
+  avant son activation publique avec la V1 le 2026-08-24.
 - Création du site Astro local, depuis consolidé dans le média documentaire de
   23 pages décrit ci-dessus.
 - Ajout d'une indexation conditionnelle. Le mode par défaut place toutes les

@@ -42,13 +42,12 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding-block: clamp(3rem, 6vw, 5rem);
+    padding-block: 4rem;
     border-top: 1px solid var(--color-carbon);
   }
 
   .contact-grid article {
-    min-height: 20rem;
-    padding: 2rem;
+    padding: 1.5rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
   }
@@ -58,7 +57,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .contact-grid h2 {
-    margin: 4rem 0 1rem;
+    margin: 2rem 0 0.75rem;
     font-size: clamp(2rem, 3.4vw, 3rem);
     line-height: 1;
   }
@@ -69,6 +68,9 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .contact-grid a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--color-probe);
     font-weight: 600;
   }
@@ -76,15 +78,15 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   @media (max-width: 48rem) {
     .contact-grid {
       grid-template-columns: 1fr;
+      padding-block: 3rem;
     }
 
     .contact-grid article {
-      min-height: auto;
       border-right: 0;
     }
 
     .contact-grid h2 {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
   }
 </style>

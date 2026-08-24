@@ -38,12 +38,11 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .transparency-rules {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: 4rem;
   }
 
   .transparency-rules article {
-    min-height: 19rem;
-    padding: 2rem;
+    padding: 1.5rem;
     border-top: 1px solid var(--color-line);
     border-right: 1px solid var(--color-line);
   }
@@ -55,11 +54,11 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .transparency-rules span {
     color: var(--color-probe);
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
   }
 
   .transparency-rules h2 {
-    margin: 4rem 0 1rem;
+    margin: 2rem 0 0.75rem;
     font-size: clamp(2rem, 3.3vw, 3rem);
     line-height: 1;
   }
@@ -77,8 +76,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .transparency-status {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    padding: clamp(2rem, 5vw, 4rem);
+    gap: 2rem;
+    padding: 2rem;
     color: var(--color-white);
     background: var(--color-carbon);
   }
@@ -103,6 +102,12 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     line-height: 1.65;
   }
 
+  .transparency-status a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
   @media (max-width: 48rem) {
     .transparency-rules,
     .transparency-status {
@@ -110,12 +115,20 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     }
 
     .transparency-rules article {
-      min-height: auto;
       border-right: 0;
     }
 
     .transparency-rules h2 {
-      margin-top: 2.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .transparency-rules {
+      padding-block: 3rem;
+    }
+
+    .transparency-status {
+      gap: 1.5rem;
+      padding: 1.5rem;
     }
   }
 </style>

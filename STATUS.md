@@ -10,17 +10,18 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Vérifié le | 2026-08-24 |
 | Par | Codex, checkout local, navigateur, CI et compte Cloudflare autorisé |
 | Branche | `main` |
-| Base du candidat V1 | `1b291bfd58462e0e020d0f7cba37e32537a04eb4` ; le diff de publication passe la gate locale complète |
-| Révision livrée précédente | `1b291bfd58462e0e020d0f7cba37e32537a04eb4`, poussée sur `origin/main` ; [run `Verify` 32704333374](https://github.com/nclsppr/fouranu/actions/runs/32704333374) vert |
-| Surface publique | Aucune surface Four à Nu activée ou vérifiée |
+| Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
+| Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
+| Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
 ## Résumé
 
-Four à Nu est un média documentaire statique de 23 pages HTML. Le corpus
+Four à Nu est un média documentaire statique de 23 pages HTML. Sa V1 est
+publique sur `fouranu.com`. Le corpus
 contient onze analyses Ooni, 118 preuves citées, 50 questions et 19 entrées
 média. Le site n'exécute aucun JavaScript client nécessaire au contenu. Le
-build de preview reste en `noindex` et le build opt-in ouvre uniquement les URL
-éligibles.
+build de preview reste en `noindex`. Le paquet de production ouvre uniquement
+les 22 URL éligibles et publiées dans le sitemap.
 
 L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
 8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
@@ -33,13 +34,16 @@ version PNG de 480 x 172 px et 70 804 octets. Sa source et son dérivé sont
 enregistrés. La direction `Ligne de sole` conserve IBM Plex, le carbone, le
 blanc, l'acier et la grille, avec deux oranges accessibles à la place du bleu.
 
-Cloudflare Workers Static Assets remplace Atlas comme cible. Wrangler 4.125.0,
-`site/wrangler.jsonc`, les en-têtes statiques et la validation à sec sont
-présents. GitHub Actions construit puis transmet l'artefact exact produit par
-`Verify`, sans second build dans le job de déploiement. La zone `fouranu.com`
-est active chez Cloudflare et le propriétaire a explicitement autorisé le
-premier déploiement, le domaine et l'indexation. Aucun Worker, Custom Domain ou
-enregistrement DNS Four à Nu n'est encore activé à cette étape.
+Cloudflare Workers Static Assets sert la production. GitHub Actions construit
+puis transmet l'artefact exact produit par `Verify`, sans second build dans le
+job de déploiement. Le domaine personnalisé, le DNS, HTTPS et l'indexation sont
+actifs. Le contrôle public retrouve le SHA V1 dans `/release.json`.
+
+Une tranche post-V1 est en cours dans le checkout. Elle couvre les signatures
+Nicolas, Florian et Magali, des photos documentaires, une mise en page plus
+dense et des sources compactes. Elle n'est pas publiée et ne décrit donc pas
+l'état de `fouranu.com` tant qu'un nouveau SHA n'a pas passé les gates, la CI et
+le déploiement.
 
 ## Phases actives
 
@@ -47,21 +51,22 @@ enregistrement DNS Four à Nu n'est encore activé à cette étape.
 | --- | --- | --- | --- | --- |
 | F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
 | F02, corpus documentaire publiable | `in_progress` | Onze analyses, pages de confiance, provenance et politique de correction | Cinq sessions restent à mener ; le propriétaire autorise la V1 sans attendre cette preuve d'utilité | nclsppr |
-| F03, candidat Cloudflare | `in_progress` | Paquet exact approuvé, preuves privées validées, configuration et gate complète vertes | Commit, CI du SHA et environnement GitHub protégé | nclsppr |
-| F04, lancement public | `in_progress` | Domaine acquis, zone active et activation explicitement autorisée | Premier déploiement, Custom Domain, DNS, indexation et contrôles publics | nclsppr |
+| F03, candidat Cloudflare | `done` | Paquet approuvé, preuves privées, gate locale, CI du même SHA et environnement GitHub protégé | Aucune pour la V1 | nclsppr |
+| F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
+| F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
 
-## Livré et vérifié localement
+## Livré et vérifié
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Application Astro | 23 pages HTML statiques et zéro JavaScript client | `site/` et onze tests de contrat | Aucun artefact public actuel |
+| Application Astro | 23 pages HTML statiques et zéro JavaScript client nécessaire au contenu | `site/`, onze tests de contrat et production | La tranche post-V1 reste locale |
 | Corpus | Onze analyses Ooni sous des routes généralisées par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Aucun dossier Gozney réel |
 | Provenance | 118 preuves, 50 questions et 19 entrées média | `research/` et contrôles de registre | Les preuves privées ne sont pas lisibles en CI |
 | Accueil éditorial | Composition responsive issue du prototype et contenu réel | Contrats du build et revue navigateur | L'illustration reste déclarative, jamais une preuve produit |
 | Identité | Logo optimisé, palette orange accessible et contrat de marque aligné | `DESIGN.md`, `BRAND-SEO.md` et `AS-1002` | Marque compacte et favicon définitif encore ouverts |
-| SEO conditionnel | RSS, `llms.txt`, robots, sitemap, canonicals et données structurées | Build normal et build opt-in couverts | Aucune exploration ou citation publique observée |
+| SEO conditionnel | RSS, `llms.txt`, robots, sitemap, canonicals et données structurées | Build normal, build opt-in et 22 URL publiques contrôlés | L'exploration et le classement par les moteurs ne sont pas garantis |
 | Parcours local | Service statique avec healthcheck | `compose.yaml` | Aucun preview partagé |
-| Candidat Cloudflare | 79 fichiers acceptés par le `dry-run`, sans binding | Wrangler 4.125.0 et `site/wrangler.jsonc` | Aucun Worker ni domaine personnalisé créé |
+| Production Cloudflare | Artefact V1 servi par Workers Static Assets sur le domaine personnalisé | Run `32716795972`, `/release.json` et contrôles HTTP/TLS | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
 | Documentation interne | Nimbus reste séparé du site public | `docs-nimbus/` et catalogue | Le build Cloudflare pointe uniquement vers `site/dist/` |
 
 ## Revue d'interface du 2026-08-24
@@ -87,20 +92,22 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
 | Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
 | Graphe CI | `deploy-cloudflare` dépend de `verify`, sur `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` ; il télécharge l'artefact exact construit par `verify` |
-| CI livrée | [Run GitHub Actions `32704153720`](https://github.com/nclsppr/fouranu/actions/runs/32704153720) vert ; job `verify` réussi et `deploy-cloudflare` ignoré comme prévu |
-| Paramètres futurs | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
-| État Cloudflare observé | Zone `fouranu.com` active ; aucun projet Pages, Worker Four à Nu, Custom Domain ou DNS Four à Nu |
+| CI de la V1 | [Run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert ; `verify` et `deploy-cloudflare` ont livré le même SHA `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
+| Paramètres de production | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
+| État Cloudflare observé | Worker Static Assets, domaine personnalisé et DNS de `fouranu.com` actifs |
+| Transport public | HTTP redirige vers HTTPS ; TLS 1.0 et 1.1 sont refusés, TLS 1.2 et 1.3 acceptés |
+| Certificats | Packs universel et avancé actifs pour `fouranu.com` et `*.fouranu.com` |
+| Contrat public | `/` répond 200, `/health` répond `ok`, `/release.json` expose le SHA V1, la 404 reste distincte |
+| Indexation | 22 URL du sitemap répondent 200 avec canonical et `index, follow` |
 | Ancienne cible Atlas | Workflow producteur retiré ; OCI et preuves du 2026-08-23 restent historiques, plus chemin courant |
 
-## Conditions restantes avant publication
+## Dettes après le lancement V1
 
 | Condition | Impact | Preuve attendue |
 | --- | --- | --- |
-| Candidat non encore livré | Aucun SHA public immuable | Committer, pousser et obtenir `Verify` vert sur ce SHA |
-| Environnement Cloudflare non configuré | Le job de déploiement reste volontairement inactif | Créer l'environnement GitHub restreint à `main`, ajouter le jeton minimal et l'identifiant de compte |
-| Worker et domaine non activés | Aucun site public | Déployer d'abord sans route publique, contrôler la version, puis attacher `fouranu.com` |
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
 | Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
+| Tranche post-V1 non publiée | Les auteurs, photos, sources compactes et ajustements de densité restent locaux | Passer les gates, pousser le nouveau SHA, vérifier sa CI puis la production |
 
 ## Prochaines preuves
 
@@ -108,7 +115,6 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
 | Médias d'article | Gate | Tout nouveau fichier sous `images/articles` doit avoir une URL exacte dans `research/assets.csv` | F02/F03 |
-| Candidat exact | Gate | `Verify` vert sur le SHA poussé et artefact GitHub correspondant | F03 |
-| Premier déploiement | Activation | Run GitHub Actions vert après `Verify`, empreinte et contrôle de la version Cloudflare | F04 |
-| Domaine public | Activation | Custom Domain, DNS, HTTP, routes, console, robots, sitemap et SHA contrôlés | F04 |
+| Tranche post-V1 | Gate | Revue éditoriale et visuelle, gate complète et `Verify` vert sur son SHA | F02/F03 |
+| Publication suivante | Activation | Run GitHub Actions vert, `/release.json`, routes, médias et métadonnées contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |

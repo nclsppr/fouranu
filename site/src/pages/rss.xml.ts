@@ -18,6 +18,7 @@ export const GET: APIRoute = async () => {
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   const items = analyses.map((entry) => {
     const url = `${SITE.url}/${entry.data.brand}/${entry.id}/`;
+    const author = SITE.authors[entry.data.author];
     return [
       "    <item>",
       `      <title>${escapeXml(entry.data.title)}</title>`,
@@ -25,7 +26,7 @@ export const GET: APIRoute = async () => {
       `      <guid isPermaLink="true">${escapeXml(url)}</guid>`,
       `      <description>${escapeXml(entry.data.description)}</description>`,
       `      <pubDate>${entry.data.publishedAt.toUTCString()}</pubDate>`,
-      `      <dc:creator>${escapeXml(SITE.editorialAuthor.name)}</dc:creator>`,
+      `      <dc:creator>${escapeXml(author.name)}</dc:creator>`,
       "    </item>",
     ].join("\n");
   }).join("\n");
@@ -37,7 +38,7 @@ export const GET: APIRoute = async () => {
     `    <link>${escapeXml(`${SITE.url}/`)}</link>`,
     `    <description>${escapeXml(SITE.description)}</description>`,
     `    <language>${SITE.language}</language>`,
-    `    <lastBuildDate>${new Date("2026-08-23T00:00:00Z").toUTCString()}</lastBuildDate>`,
+    `    <lastBuildDate>${new Date("2026-08-24T00:00:00Z").toUTCString()}</lastBuildDate>`,
     items,
     "  </channel>",
     "</rss>",

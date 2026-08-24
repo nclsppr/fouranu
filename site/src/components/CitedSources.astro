@@ -199,13 +199,12 @@ function relationships(record: Evidence) {
   <section class="cited-sources" aria-labelledby="cited-sources-title">
     <header class="cited-sources__header">
       <div>
-        <p class="eyebrow">Bibliographie</p>
+        <p class="eyebrow">Bibliographie · {citedEvidence.length}</p>
         <h2 id="cited-sources-title">Sources</h2>
       </div>
       <p>
-        Toutes les références utilisées pour cet article sont regroupées ici.
-        Les liens vidéo ouvrent au passage relevé. Les relations commerciales
-        connues sont précisées avec chaque source.
+        Ouvrez une référence pour retrouver le lien, le passage relevé et ses
+        conditions.
       </p>
     </header>
 
@@ -216,39 +215,45 @@ function relationships(record: Evidence) {
         const relationshipNotes = relationships(record);
         return (
           <li id={`preuve-${record.evidence_id}`} data-evidence-id={record.evidence_id}>
-            <div class="cited-source__meta">
-              <code>{record.evidence_id}</code>
-              <span>{classLabels[record.evidence_class] ?? record.evidence_class}</span>
-              <span>{confidenceLabels[record.confidence] ?? record.confidence}</span>
-            </div>
-            <h3>
-              {href ? (
-                <a href={href} rel="external">{sourceTitle(record)}</a>
-              ) : (
-                sourceTitle(record)
-              )}
-            </h3>
-            <p class="cited-source__byline">
-              {publisher && <span>{publisher}</span>}
-              {record.timecode_start && (
-                <span>
-                  Passage {record.timecode_start}
-                  {record.timecode_end && `–${record.timecode_end}`}
+            <details>
+              <summary>
+                <span class="cited-source__meta">
+                  <code>{record.evidence_id}</code>
+                  <span>{classLabels[record.evidence_class] ?? record.evidence_class}</span>
                 </span>
-              )}
-              <span>
-                Vérifié le <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
-              </span>
-            </p>
-            <p class="cited-source__observation">{record.observation}</p>
-            {record.conditions && (
-              <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
-            )}
-            {relationshipNotes.length > 0 && (
-              <p class="cited-source__relationships">
-                <strong>Relations signalées :</strong> {relationshipNotes.join(" · ")}
-              </p>
-            )}
+                <span class="cited-source__title">{sourceTitle(record)}</span>
+                <span class="cited-source__byline">
+                  {publisher && <span>{publisher}</span>}
+                  {record.timecode_start && <span>{record.timecode_start}</span>}
+                  <span>{confidenceLabels[record.confidence] ?? record.confidence}</span>
+                </span>
+              </summary>
+              <div class="cited-source__detail">
+                <p class="cited-source__checked">
+                  Vérifié le <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
+                  {record.timecode_start && (
+                    <span>
+                      · Passage {record.timecode_start}
+                      {record.timecode_end && `–${record.timecode_end}`}
+                    </span>
+                  )}
+                </p>
+                <p class="cited-source__observation">{record.observation}</p>
+                {record.conditions && (
+                  <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
+                )}
+                {relationshipNotes.length > 0 && (
+                  <p class="cited-source__relationships">
+                    <strong>Relations signalées :</strong> {relationshipNotes.join(" · ")}
+                  </p>
+                )}
+                {href && (
+                  <a class="cited-source__link" href={href} rel="external">
+                    Ouvrir la source <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            </details>
           </li>
         );
       })}
@@ -259,30 +264,31 @@ function relationships(record: Evidence) {
 <style>
   .cited-sources {
     grid-column: 2 / span 10;
-    margin-top: 3rem;
-    padding-top: clamp(3rem, 7vw, 6rem);
+    margin-top: 2rem;
+    padding-top: clamp(2rem, 4vw, 3.5rem);
     border-top: 1px solid var(--color-carbon);
   }
 
   .cited-sources__header {
     display: grid;
-    grid-template-columns: minmax(16rem, 4fr) minmax(18rem, 6fr);
-    gap: 2rem;
+    grid-template-columns: minmax(12rem, 3fr) minmax(18rem, 5fr);
+    gap: 1.5rem;
     align-items: end;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .cited-sources__header h2 {
     margin: 0;
-    font-size: clamp(2.6rem, 5vw, 4.8rem);
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
     line-height: 0.96;
   }
 
   .cited-sources__header > p {
-    max-width: 42rem;
+    max-width: 34rem;
     margin: 0;
     color: var(--color-graphite);
-    line-height: 1.65;
+    font-size: 0.86rem;
+    line-height: 1.5;
   }
 
   .cited-sources__list {
@@ -293,23 +299,53 @@ function relationships(record: Evidence) {
   }
 
   .cited-sources__list > li {
-    display: grid;
-    grid-template-columns: minmax(10rem, 2fr) minmax(18rem, 5fr) minmax(14rem, 3fr);
-    gap: 0.65rem 1.5rem;
-    padding-block: 1.5rem;
     border-bottom: 1px solid var(--color-line);
     scroll-margin-top: 1.5rem;
+  }
+
+  .cited-sources details {
+    margin: 0;
+  }
+
+  .cited-sources summary {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1.5fr) minmax(14rem, 4fr) minmax(10rem, 2fr) 1rem;
+    gap: 1rem;
+    align-items: center;
+    min-height: 4rem;
+    padding-block: 0.7rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .cited-sources summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .cited-sources summary::after {
+    content: "+";
+    color: var(--color-probe);
+    font-family: var(--font-data);
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  .cited-sources details[open] summary::after {
+    content: "−";
+  }
+
+  .cited-sources summary:hover .cited-source__title {
+    color: var(--color-probe);
   }
 
   .cited-source__meta {
     display: flex;
     flex-wrap: wrap;
-    align-content: start;
-    gap: 0.4rem 0.7rem;
+    gap: 0.2rem 0.55rem;
     color: var(--color-graphite);
     font-family: var(--font-data);
-    font-size: 0.65rem;
-    line-height: 1.5;
+    font-size: 0.75rem;
+    line-height: 1.35;
     text-transform: uppercase;
   }
 
@@ -319,24 +355,40 @@ function relationships(record: Evidence) {
     font-weight: 500;
   }
 
-  .cited-sources h3 {
-    margin: 0;
-    font-size: clamp(1.35rem, 2.4vw, 2rem);
-    line-height: 1.08;
-  }
-
-  .cited-sources h3 a:hover {
-    color: var(--color-probe);
+  .cited-source__title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.6vw, 1.28rem);
+    font-weight: 600;
+    line-height: 1.12;
+    transition: color 140ms ease-out;
   }
 
   .cited-source__byline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.15rem 0.55rem;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .cited-source__detail {
     display: grid;
-    align-content: start;
-    gap: 0.25rem;
+    grid-template-columns: minmax(8rem, 1.5fr) minmax(14rem, 4fr) minmax(10rem, 2fr) 1rem;
+    gap: 0.6rem 1rem;
+    padding: 0 0 1.2rem;
+  }
+
+  .cited-source__checked {
+    grid-column: 1;
     margin: 0;
     color: var(--color-graphite);
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     line-height: 1.45;
     text-transform: uppercase;
   }
@@ -344,22 +396,33 @@ function relationships(record: Evidence) {
   .cited-source__observation,
   .cited-source__conditions,
   .cited-source__relationships {
-    grid-column: 2 / -1;
-    max-width: 62rem;
+    grid-column: 2 / span 2;
+    max-width: 52rem;
     margin: 0;
     color: var(--color-graphite);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 
   .cited-source__conditions,
   .cited-source__relationships {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
 
   .cited-source__conditions strong,
   .cited-source__relationships strong {
     color: var(--color-carbon);
+  }
+
+  .cited-source__link {
+    grid-column: 2 / span 2;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-self: start;
+    color: var(--color-probe);
+    font-size: 0.75rem;
+    font-weight: 600;
   }
 
   @media (max-width: 75rem) {
@@ -369,15 +432,49 @@ function relationships(record: Evidence) {
   }
 
   @media (max-width: 48rem) {
-    .cited-sources__header,
-    .cited-sources__list > li {
+    .cited-sources__header {
       grid-template-columns: 1fr;
     }
 
+    .cited-sources summary {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.35rem 0.75rem;
+      min-height: 4.5rem;
+    }
+
+    .cited-source__meta,
+    .cited-source__title,
+    .cited-source__byline {
+      grid-column: 1;
+    }
+
+    .cited-source__byline {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .cited-sources summary::after {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+
+    .cited-source__detail {
+      grid-template-columns: 1fr;
+      padding-bottom: 1rem;
+    }
+
+    .cited-source__checked,
     .cited-source__observation,
     .cited-source__conditions,
-    .cited-source__relationships {
+    .cited-source__relationships,
+    .cited-source__link {
       grid-column: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cited-source__title {
+      transition: none;
     }
   }
 </style>

@@ -16,14 +16,19 @@ const siteRoot = fileURLToPath(new URL("../", import.meta.url));
 const repositoryRoot = fileURLToPath(new URL("../../", import.meta.url));
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const canonicalOrigin = "https://fouranu.com";
-const editorialAuthor = {
-  name: "Rédaction Four à Nu",
+const editorialTeam = {
+  name: "Nicolas, Florian & Magali",
   route: "/auteurs/redaction-four-a-nu/",
 };
+const editorialAuthors = new Map([
+  ["Nicolas", `${editorialTeam.route}#nicolas`],
+  ["Florian", `${editorialTeam.route}#florian`],
+  ["Magali", `${editorialTeam.route}#magali`],
+]);
 const fixedIndexableRoutes = [
   "/",
   "/a-propos/",
-  editorialAuthor.route,
+  editorialTeam.route,
   "/contact/",
   "/corrections/",
   "/confidentialite/",
@@ -252,14 +257,25 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
 
     assert.equal(metaContent(page.html, "og:title"), metaContent(page.html, "twitter:title"), label);
     assert.equal(metaContent(page.html, "og:description"), metaContent(page.html, "twitter:description"), label);
-    assert.equal(metaContent(page.html, "og:title"), decodeHtml(title), label);
+    assert.equal(visibleText(metaContent(page.html, "og:title")), visibleText(title), label);
     assert.equal(metaContent(page.html, "og:description"), metaContent(page.html, "description"), label);
     assert.equal(metaContent(page.html, "og:site_name"), "Four à Nu", label);
     assert.equal(metaContent(page.html, "og:locale"), "fr_FR", label);
-    assert.equal(metaContent(page.html, "og:image"), `${canonicalOrigin}/og/four-a-nu-default.png`, label);
-    assert.equal(metaContent(page.html, "og:image:type"), "image/png", label);
-    assert.equal(metaContent(page.html, "og:image:width"), "1200", label);
-    assert.equal(metaContent(page.html, "og:image:height"), "630", label);
+    if (articleRoutePattern.test(page.route ?? "")) {
+      assert.match(
+        metaContent(page.html, "og:image") ?? "",
+        /^https:\/\/fouranu\.com\/images\/articles\/[a-z0-9-]+-1600\.webp$/,
+        label,
+      );
+      assert.equal(metaContent(page.html, "og:image:type"), "image/webp", label);
+      assert.equal(metaContent(page.html, "og:image:width"), "1600", label);
+      assert.equal(metaContent(page.html, "og:image:height"), "900", label);
+    } else {
+      assert.equal(metaContent(page.html, "og:image"), `${canonicalOrigin}/og/four-a-nu-default.png`, label);
+      assert.equal(metaContent(page.html, "og:image:type"), "image/png", label);
+      assert.equal(metaContent(page.html, "og:image:width"), "1200", label);
+      assert.equal(metaContent(page.html, "og:image:height"), "630", label);
+    }
     assert.ok(metaContent(page.html, "og:image:alt")?.length > 20, label);
     assert.equal(metaContent(page.html, "twitter:card"), "summary_large_image", label);
     assert.equal(metaContent(page.html, "twitter:image"), metaContent(page.html, "og:image"), label);
@@ -293,18 +309,26 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   assert.equal(website.url, `${canonicalOrigin}/`);
   assert.equal(organization["@id"], `${canonicalOrigin}/#organization`);
 
-  const authorPage = pages.find((page) => page.route === editorialAuthor.route);
+  const authorPage = pages.find((page) => page.route === editorialTeam.route);
   assert.ok(authorPage, "page de signature éditoriale absente");
-  const profile = schemaNodes(jsonLdDocuments(authorPage.html))
-    .find((node) => node["@type"] === "ProfilePage");
-  assert.ok(profile, "ProfilePage de la rédaction absent");
-  assert.equal(profile.url, `${canonicalOrigin}${editorialAuthor.route}`);
-  assert.equal(profile.mainEntity?.["@type"], "Organization");
-  assert.equal(profile.mainEntity?.name, editorialAuthor.name);
-  assert.equal(profile.mainEntity?.url, `${canonicalOrigin}${editorialAuthor.route}`);
+  const collection = schemaNodes(jsonLdDocuments(authorPage.html))
+    .find((node) => node["@type"] === "CollectionPage");
+  assert.ok(collection, "CollectionPage des signatures absente");
+  assert.equal(collection.url, `${canonicalOrigin}${editorialTeam.route}`);
+  assert.equal(collection.name, editorialTeam.name);
+  assert.equal(collection.mainEntity?.["@type"], "ItemList");
+  assert.deepEqual(
+    collection.mainEntity.itemListElement.map((item) => item.position),
+    [1, 2, 3],
+  );
+  assert.deepEqual(
+    collection.mainEntity.itemListElement.map((item) => [item.item?.name, item.item?.url]),
+    [...editorialAuthors].map(([name, route]) => [name, `${canonicalOrigin}${route}`]),
+  );
 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   assert.equal(articlePages.length, 11);
+  const authorAssignments = new Map([...editorialAuthors.keys()].map((name) => [name, 0]));
 
   for (const page of pages) {
     const documents = jsonLdDocuments(page.html);
@@ -330,12 +354,16 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       const h1 = visibleText(pairedElements(page.html, "h1")[0][2]);
       assert.ok(article, `${page.route}: Article JSON-LD absent`);
       assert.equal(article.url, `${canonicalOrigin}${page.route}`);
-      assert.equal(article.headline, h1);
+      assert.equal(visibleText(article.headline), h1);
       assert.equal(article.inLanguage, "fr");
-      assert.equal(article.author.name, editorialAuthor.name);
-      assert.equal(article.author["@type"], "Organization");
-      assert.equal(article.author.url, `${canonicalOrigin}${editorialAuthor.route}`);
-      assert.equal(metaContent(page.html, "article:author"), editorialAuthor.name);
+      assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
+      authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
+      assert.equal(article.author["@type"], "Person");
+      assert.equal(
+        article.author.url,
+        `${canonicalOrigin}${editorialAuthors.get(article.author.name)}`,
+      );
+      assert.equal(metaContent(page.html, "article:author"), article.author.name);
       assert.equal(article.datePublished, metaContent(page.html, "article:published_time"));
       assert.equal(article.dateModified, metaContent(page.html, "article:modified_time"));
       assert.equal(new Date(article.datePublished).toISOString(), article.datePublished);
@@ -343,12 +371,17 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.ok(
         tags(page.html, "a").some((tag) =>
           attribute(tag, "rel") === "author" &&
-          attribute(tag, "href") === editorialAuthor.route
+          attribute(tag, "href") === editorialAuthors.get(article.author.name)
         ),
         `${page.route}: lien de signature visible absent`,
       );
     }
   }
+  assert.deepEqual(
+    [...authorAssignments.values()].sort((left, right) => left - right),
+    [3, 4, 4],
+    "les onze dossiers doivent rester répartis entre les trois signatures",
+  );
 });
 
 test("les onze analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
@@ -405,13 +438,16 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
     );
 
     for (const evidenceId of expectedIds) {
-      assert.match(html, new RegExp(`href="#preuve-${evidenceId}"`), `${slug}: ${evidenceId} non cliquable`);
       const item = html.match(
         new RegExp(`<li id="preuve-${evidenceId}"[\\s\\S]*?<\\/li>`),
       )?.[0];
       assert.ok(item, `${slug}: entrée ${evidenceId} absente`);
+      const details = tags(item, "details")[0];
+      assert.ok(details, `${slug}: détails ${evidenceId} absents`);
+      assert.equal(attribute(details, "open"), undefined, `${slug}: ${evidenceId} doit être replié par défaut`);
+      assert.equal(tags(item, "summary").length, 1, `${slug}: résumé ${evidenceId} absent`);
       const record = records.get(evidenceId);
-      if (record.source_url) assert.match(item, /<a href="https?:\/\//, `${slug}: source ${evidenceId} non liée`);
+      if (record.source_url) assert.match(item, /<a\b[^>]*href="https?:\/\//, `${slug}: source ${evidenceId} non liée`);
       if (record.source_type === "youtube" && record.timecode_start) {
         assert.match(item, /[?&amp;]t=\d+s/, `${slug}: timecode ${evidenceId} absent du lien`);
       }
@@ -419,10 +455,11 @@ test("les onze analyses rendent toutes leurs preuves citées depuis le registre 
   }
 });
 
-test("RSS et llms.txt exposent exactement les onze dossiers publiables", async () => {
-  const articleRoutes = (await htmlPages())
+test("le RSS expose exactement les onze dossiers publiables", async () => {
+  const pages = await htmlPages();
+  const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
+  const articleRoutes = articlePages
     .map((page) => page.route)
-    .filter((route) => articleRoutePattern.test(route ?? ""))
     .sort();
   assert.equal(articleRoutes.length, 11);
 
@@ -435,75 +472,135 @@ test("RSS et llms.txt exposent exactement les onze dossiers publiables", async (
     assert.match(item, /<title>[^<]+<\/title>/);
     assert.match(item, /<description>[^<]+<\/description>/);
     assert.match(item, /<pubDate>[^<]+<\/pubDate>/);
-    assert.match(item, new RegExp(`<dc:creator>${editorialAuthor.name}<\\/dc:creator>`));
+    const creator = item.match(/<dc:creator>([^<]+)<\/dc:creator>/)?.[1];
+    assert.ok(editorialAuthors.has(creator), `auteur RSS inconnu : ${creator}`);
     const link = item.match(/<link>([^<]+)<\/link>/)?.[1];
     const guid = item.match(/<guid isPermaLink="true">([^<]+)<\/guid>/)?.[1];
     assert.equal(guid, link, "le GUID RSS doit être l'URL canonique du dossier");
     assert.ok(link);
     const pathname = new URL(link).pathname;
     assert.match(pathname, articleRoutePattern);
+    const articlePage = articlePages.find((page) => page.route === pathname);
+    assert.ok(articlePage, `page absente pour l'item RSS ${pathname}`);
+    assert.equal(creator, metaContent(articlePage.html, "article:author"));
     return pathname;
   }).sort();
   assert.deepEqual(rssRoutes, articleRoutes);
 
-  const llms = await readFile(join(dist, "llms.txt"), "utf8");
-  assert.match(llms, /^# Four à Nu\n/);
-  for (const route of [
-    "/fours-a-pizza/",
-    "/ooni/",
-    "/methode/",
-    editorialAuthor.route,
-    "/transparence/",
-    "/corrections/",
-  ]) {
-    assert.match(llms, new RegExp(escapeRegex(`${canonicalOrigin}${route}`)));
-  }
-  const llmsRoutes = [...llms.matchAll(/\]\(https:\/\/fouranu\.com(\/(?:ooni|gozney)\/[^/)]+\/)\)/g)]
-    .map((match) => match[1])
-    .sort();
-  assert.deepEqual(llmsRoutes, articleRoutes);
-  assert.doesNotMatch(llms, /J-TEST/);
-  assert.match(llms, /ne publie ni note, ni étoile, ni donnée Review ou AggregateRating/i);
 });
 
-test("l'illustration d'accueil est responsive, explicite et légère", async () => {
+test("la photo documentaire de une est responsive, attribuée et légère", async () => {
   const home = (await htmlPages()).find((page) => page.route === "/");
   assert.ok(home);
-  const picture = pairedElements(home.html, "picture")[0];
-  assert.ok(picture, "picture responsive absent de l'accueil");
-  const source = tags(picture[2], "source")[0];
-  const image = tags(picture[2], "img")[0];
-  assert.ok(source);
+  const figure = pairedElements(home.html, "figure").find((match) =>
+    attribute(`<figure${match[1]}>`, "class")?.split(/\s+/).includes("lead-feature__visual")
+  );
+  assert.ok(figure, "visuel documentaire absent de la une");
+  const image = tags(figure[2], "img")[0];
   assert.ok(image);
-  assert.equal(attribute(source, "type"), "image/webp");
-  assert.ok(attribute(source, "sizes")?.length > 0, "attribut sizes absent");
+  assert.ok(attribute(image, "sizes")?.length > 0, "attribut sizes absent");
 
-  const candidates = attribute(source, "srcset")
+  const candidates = attribute(image, "srcset")
     ?.split(",")
     .map((candidate) => candidate.trim().split(/\s+/)) ?? [];
   assert.equal(candidates.length, 2);
-  assert.deepEqual(candidates.map(([, width]) => width), ["768w", "1536w"]);
+  assert.deepEqual(candidates.map(([, width]) => width), ["960w", "1600w"]);
   for (const [route] of candidates) {
     assert.equal(await routeExists(route), true, `variante responsive absente: ${route}`);
   }
 
   assert.equal(attribute(image, "src"), candidates[1][0]);
-  assert.equal(attribute(image, "width"), "1536");
-  assert.equal(attribute(image, "height"), "1024");
-  assert.ok((attribute(image, "alt") ?? "").length >= 45, "alternative textuelle trop vague");
+  assert.equal(attribute(image, "width"), "1600");
+  assert.equal(attribute(image, "height"), "900");
+  assert.ok((attribute(image, "alt") ?? "").length >= 20, "alternative textuelle trop vague");
   assert.equal(attribute(image, "fetchpriority"), "high");
   assert.equal(attribute(image, "loading"), undefined, "le visuel LCP ne doit pas être chargé paresseusement");
 
-  const figure = pairedElements(home.html, "figure").find((match) => match[2].includes(image));
-  assert.ok(figure);
   const caption = visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? "");
-  assert.match(caption, /assistée par IA/i);
-  assert.match(caption, /ne constitue pas une preuve/i);
+  assert.ok(caption.length >= 20, "légende documentaire trop vague");
 
   const smallVisual = await stat(join(dist, candidates[0][0].replace(/^\//, "")));
   const largeVisual = await stat(join(dist, candidates[1][0].replace(/^\//, "")));
-  assert.ok(smallVisual.size < 50_000, "le visuel 768 px dépasse 50 Ko");
-  assert.ok(largeVisual.size < 150_000, "le visuel 1536 px dépasse 150 Ko");
+  assert.ok(smallVisual.size < 100_000, "le visuel 960 px dépasse 100 Ko");
+  assert.ok(largeVisual.size < 200_000, "le visuel 1600 px dépasse 200 Ko");
+});
+
+test("chaque dossier possède une photo documentaire et ses deux rendus", async () => {
+  const markdownDirectory = join(siteRoot, "src/content/analyses");
+  const markdownFiles = (await readdir(markdownDirectory))
+    .filter((file) => file.endsWith(".md"))
+    .sort();
+  const pages = await htmlPages();
+  const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
+  const imagePaths = new Set();
+  const assetIds = new Set();
+
+  assert.equal(markdownFiles.length, 11);
+  assert.equal(articlePages.length, 11);
+
+  for (const markdownFile of markdownFiles) {
+    const slug = markdownFile.replace(/\.md$/, "");
+    const markdown = await readFile(join(markdownDirectory, markdownFile), "utf8");
+    const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
+    const imagePath = markdown.match(
+      /^\s{2}src:\s*(\/images\/articles\/[a-z0-9-]+-1600\.webp)$/m,
+    )?.[1];
+    const assetId = markdown.match(/^\s{2}assetId:\s*(AS-\d{4})$/m)?.[1];
+    assert.ok(brand, `${slug}: marque absente`);
+    assert.ok(imagePath, `${slug}: image 1600 px absente du frontmatter`);
+    assert.ok(assetId, `${slug}: assetId absent du frontmatter`);
+    assert.equal(imagePaths.has(imagePath), false, `${slug}: photo dupliquée ${imagePath}`);
+    assert.equal(assetIds.has(assetId), false, `${slug}: assetId dupliqué ${assetId}`);
+    imagePaths.add(imagePath);
+    assetIds.add(assetId);
+
+    const smallPath = imagePath.replace("-1600.webp", "-960.webp");
+    assert.equal(await routeExists(imagePath), true, `${slug}: rendu 1600 px absent`);
+    assert.equal(await routeExists(smallPath), true, `${slug}: rendu 960 px absent`);
+    assert.ok((await stat(join(dist, imagePath.replace(/^\//, "")))).size < 200_000);
+    assert.ok((await stat(join(dist, smallPath.replace(/^\//, "")))).size < 100_000);
+
+    const page = articlePages.find((candidate) => candidate.route === `/${brand}/${slug}/`);
+    assert.ok(page, `${slug}: page article absente`);
+    const figure = pairedElements(page.html, "figure").find((match) =>
+      attribute(`<figure${match[1]}>`, "class") === "article-lead-media"
+    );
+    assert.ok(figure, `${slug}: photo principale absente`);
+    const image = tags(figure[2], "img")[0];
+    assert.equal(attribute(image, "src"), imagePath);
+    assert.equal(attribute(image, "width"), "1600");
+    assert.equal(attribute(image, "height"), "900");
+    assert.ok((attribute(image, "alt") ?? "").length >= 20, `${slug}: alt trop vague`);
+    assert.match(attribute(image, "srcset") ?? "", new RegExp(`${escapeRegex(smallPath)} 960w`));
+    assert.match(attribute(image, "srcset") ?? "", new RegExp(`${escapeRegex(imagePath)} 1600w`));
+    assert.ok(
+      visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? "").length >= 20,
+      `${slug}: légende trop vague`,
+    );
+  }
+
+  const home = pages.find((page) => page.route === "/");
+  const homeArticleImages = tags(home.html, "img")
+    .map((image) => attribute(image, "src"))
+    .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
+  assert.equal(homeArticleImages.length, 10, "la une doit illustrer le guide et les neuf modèles");
+
+  const ooni = pages.find((page) => page.route === "/ooni/");
+  const ooniThumbnails = tags(ooni.html, "img")
+    .map((image) => attribute(image, "src"))
+    .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
+  assert.equal(ooniThumbnails.length, 9, "la page Ooni doit illustrer ses neuf modèles");
+});
+
+test("aucune ancienne mention d'outil rédactionnel ne sort dans le site public", async () => {
+  const publicFiles = (await filesRecursively(dist)).filter((file) =>
+    [".html", ".txt", ".xml"].includes(extname(file))
+  );
+  const forbidden = /\b(?:ChatGPT|OpenAI|GPTBot|OAI-SearchBot)\b|intelligence artificielle/iu;
+  for (const file of publicFiles) {
+    const body = await readFile(file, "utf8");
+    assert.doesNotMatch(body, forbidden, relative(dist, file));
+  }
 });
 
 test("le logo Four à Nu est explicite, dimensionné et léger", async () => {
@@ -524,22 +621,14 @@ test("le logo Four à Nu est explicite, dimensionné et léger", async () => {
   assert.ok(logoFile.size < 200_000, "le logo d'en-tête dépasse 200 Ko");
 });
 
-test("robots et sitemap gardent la preview hors index et séparent Search de GPTBot", async () => {
+test("robots et sitemap gardent la preview hors index", async () => {
   const robots = await readFile(join(dist, "robots.txt"), "utf8");
   const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
   assert.equal(
     robots,
     [
-      "User-agent: OAI-SearchBot",
-      "Disallow: /",
-      "",
-      "User-agent: GPTBot",
-      "Disallow: /",
-      "",
       "User-agent: *",
-      "Allow: /",
-      "Disallow: /llms.txt",
-      "Disallow: /sitemap.xml",
+      "Disallow: /",
       "",
     ].join("\n"),
   );
@@ -570,12 +659,6 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     assert.equal(
       robots,
       [
-        "User-agent: OAI-SearchBot",
-        "Allow: /",
-        "",
-        "User-agent: GPTBot",
-        "Disallow: /",
-        "",
         "User-agent: *",
         "Allow: /",
         "",
@@ -694,7 +777,7 @@ test("la preview sert une vraie 404 et stabilise les URL de referral", async () 
     assert.deepEqual(linkHref(missingHtml, "canonical"), []);
 
     const referral = await fetch(
-      `http://127.0.0.1:${port}/?utm_source=chatgpt.com&utm_medium=referral`,
+      `http://127.0.0.1:${port}/?utm_source=example.com&utm_medium=referral`,
     );
     const referralHtml = await referral.text();
     assert.equal(referral.status, 200);

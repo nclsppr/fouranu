@@ -10,8 +10,22 @@ export const SITE = {
   shortDescription: "Fours à pizza, sources à l'appui",
   socialImage: "/og/four-a-nu-default.png",
   editorialAuthor: {
-    name: "Rédaction Four à Nu",
+    name: "Nicolas, Florian & Magali",
     url: "/auteurs/redaction-four-a-nu/",
+  },
+  authors: {
+    nicolas: {
+      name: "Nicolas",
+      url: "/auteurs/redaction-four-a-nu/#nicolas",
+    },
+    florian: {
+      name: "Florian",
+      url: "/auteurs/redaction-four-a-nu/#florian",
+    },
+    magali: {
+      name: "Magali",
+      url: "/auteurs/redaction-four-a-nu/#magali",
+    },
   },
 } as const;
 

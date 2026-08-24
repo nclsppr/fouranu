@@ -1,15 +1,21 @@
 ---
 articleId: OONI-016
 brand: ooni
-title: "Ooni Karu 2 Pro : 40 cm, bois ou gaz"
+title: "Ooni Karu 2 Pro : 40 cm, bois ou gaz"
 description: Le Karu 2 Pro vise les pizzas de 40 cm avec bois, charbon ou propane. Notre analyse de son poids, de ses commandes et des mesures publiées.
 summary: Le Karu 2 Pro est un gros four multi-combustible de 28,4 kg. Nous le réserverions à un emplacement fixe et à quelqu'un qui veut vraiment cuisiner au feu.
 status: publishable
 type: model
+author: nicolas
 model: Ooni Karu 2 Pro
 publishedAt: 2026-08-24
 updatedAt: 2026-08-24
 indexable: true
+image:
+  src: /images/articles/ooni-karu-2-pro-1600.webp
+  alt: "Sole large et afficheur numérique visibles dans le Ooni Karu 2 Pro"
+  caption: "Photogramme de la sole et de l’afficheur du Ooni Karu 2 Pro — Source : Pala Pizza, passage 01:51."
+  assetId: AS-2016
 evidenceIds: [EV-0002, EV-0070, EV-0071, EV-0072, EV-0073, EV-0250, EV-0251, EV-0252, EV-0253, EV-0401]
 evidenceTypes:
   - FAB

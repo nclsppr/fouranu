@@ -4,55 +4,61 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
 
 const canonical = new URL(SITE.editorialAuthor.url, SITE.url).toString();
+const authors = Object.values(SITE.authors);
 const schema = {
   "@context": "https://schema.org",
-  "@type": "ProfilePage",
+  "@type": "CollectionPage",
   "@id": `${canonical}#profile`,
   url: canonical,
   name: SITE.editorialAuthor.name,
   mainEntity: {
-    "@type": "Organization",
-    "@id": `${canonical}#author`,
-    name: SITE.editorialAuthor.name,
-    url: canonical,
-    description:
-      "Signature collective responsable de la recherche, de l'attribution et de la mise à jour des dossiers Four à Nu.",
-    publishingPrinciples: `${SITE.url}/methode/`,
+    "@type": "ItemList",
+    itemListElement: authors.map((author, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Person",
+        name: author.name,
+        url: new URL(author.url, SITE.url).toString(),
+      },
+    })),
   },
 };
 ---
 
 <BaseLayout
-  title="Rédaction Four à Nu : rôle et méthode"
-  description="Qui signe les dossiers Four à Nu, comment les sources sont sélectionnées et quels contrôles encadrent chaque mise à jour."
+  title="Nicolas, Florian & Magali | Rédaction Four à Nu"
+  description="Les trois signatures éditoriales des dossiers Four à Nu : Nicolas, Florian et Magali."
   indexable={true}
   schema={schema}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "À propos", href: "/a-propos/" }, { label: "Rédaction Four à Nu" }]} />
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "À propos", href: "/a-propos/" }, { label: "Rédaction" }]} />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Signature éditoriale</p>
-        <h1>Rédaction Four à Nu</h1>
+        <p class="eyebrow">La rédaction</p>
+        <h1>Nicolas, Florian & Magali.</h1>
         <p class="page-intro__lede">
-          Cette signature collective désigne le travail de recherche,
-          d'attribution, de synthèse et de mise à jour réalisé pour les dossiers
-          Four à Nu.
+          Chaque dossier porte l'une de ces trois signatures. Elle indique qui
+          répond de la version publiée, de ses sources et de ses limites.
         </p>
       </div>
-      <p class="page-intro__aside">Chaque article renvoie ici, affiche sa date de publication, sa mise à jour, son temps de lecture et sa bibliographie.</p>
+      <p class="page-intro__aside">Les dossiers sont répartis sans ordre fixe entre Nicolas, Florian et Magali. Aucun autre détail biographique n'est publié.</p>
     </header>
 
     <section class="author-scope" aria-labelledby="author-scope-title">
       <div>
-        <p class="eyebrow">Responsabilité</p>
-        <h2 id="author-scope-title">Ce que couvre cette signature.</h2>
+        <p class="eyebrow">Trois signatures</p>
+        <h2 id="author-scope-title">Un même protocole.</h2>
       </div>
-      <div>
-        <p>La rédaction choisit une question d'achat précise, collecte les sources accessibles, conserve les passages utiles et distingue l'annonce fabricant de l'observation tierce.</p>
-        <p>Elle compare uniquement des protocoles compatibles, signale les relations commerciales connues et formule les inconnues sans les remplacer par une note ou une impression générale.</p>
-        <p>La signature n'efface pas l'auteur d'une source : les créateurs, fabricants et publications restent nommés au plus près de ce qui leur est attribué.</p>
+      <div class="author-names">
+        {Object.entries(SITE.authors).map(([id, author]) => (
+          <article id={id}>
+            <span aria-hidden="true">{author.name.slice(0, 1)}</span>
+            <h3>{author.name}</h3>
+          </article>
+        ))}
       </div>
     </section>
 
@@ -74,8 +80,8 @@ const schema = {
   .author-scope {
     display: grid;
     grid-template-columns: 5fr 6fr;
-    gap: 3rem;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    gap: 2rem;
+    padding-block: clamp(3rem, 5vw, 4.5rem);
   }
 
   .author-scope h2 {
@@ -92,6 +98,40 @@ const schema = {
     line-height: 1.7;
   }
 
+  .author-names {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .author-names article {
+    min-height: 8rem;
+    padding: 1.1rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .author-names article:last-child {
+    border-right: 0;
+  }
+
+  .author-names span {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    color: var(--color-white);
+    background: var(--color-probe);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+  }
+
+  .author-names h3 {
+    margin: 1.25rem 0 0;
+    font-size: 2rem;
+  }
+
   .author-controls {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -99,8 +139,8 @@ const schema = {
   }
 
   .author-controls article {
-    min-height: 20rem;
-    padding: 2rem;
+    min-height: 14rem;
+    padding: 1.5rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
   }
@@ -112,11 +152,11 @@ const schema = {
   .author-controls span {
     color: var(--color-probe);
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
   }
 
   .author-controls h2 {
-    margin: 5rem 0 1rem;
+    margin: 2.5rem 0 0.8rem;
     font-size: 2rem;
   }
 
@@ -129,21 +169,30 @@ const schema = {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem 2rem;
-    margin-top: clamp(4rem, 8vw, 7rem);
-    padding: 2rem;
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+    padding: 1rem;
     border-top: 2px solid var(--color-probe);
     border-bottom: 1px solid var(--color-line);
   }
 
   .author-links a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--color-probe);
     font-weight: 600;
   }
 
   @media (max-width: 48rem) {
     .author-scope,
-    .author-controls {
+    .author-controls,
+    .author-names {
       grid-template-columns: 1fr;
+    }
+
+    .author-names article {
+      min-height: auto;
+      border-right: 0;
     }
 
     .author-controls article {

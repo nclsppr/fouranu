@@ -27,9 +27,13 @@ racontée à la première personne.
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
 | 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et onze analyses documentaires | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
-| 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `in_progress` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
-| 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `planned` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
+| 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
+| 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
+
+La V1 a franchi F03 et F04 le 2026-08-24. F02 reste ouverte jusqu'aux cinq
+sessions prévues. La tranche post-V1 en cours ne change pas ces états tant
+qu'elle n'a pas été vérifiée, poussée et publiée sous un nouveau SHA.
 
 ## Phase F01 : socle produit local
 
@@ -213,7 +217,7 @@ Publier uniquement les URL approuvées et établir leur disponibilité réelle.
 - contrôles HTTP, visuels, console et réseau ;
 - `robots.txt`, sitemap, canonical et données structurées ;
 - Search Console, Bing Webmaster Tools et IndexNow après autorisation ;
-- accès de `OAI-SearchBot` aux seules pages publiques.
+- accès des robots d'exploration aux seules pages publiques.
 
 ### Exclu
 

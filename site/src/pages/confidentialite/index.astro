@@ -38,12 +38,11 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .privacy-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: 4rem;
   }
 
   .privacy-grid article {
-    min-height: 19rem;
-    padding: 2rem;
+    padding: 1.5rem;
     border-top: 1px solid var(--color-line);
     border-right: 1px solid var(--color-line);
   }
@@ -55,11 +54,11 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .privacy-grid span {
     color: var(--color-probe);
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
   }
 
   .privacy-grid h2 {
-    margin: 4rem 0 1rem;
+    margin: 2rem 0 0.75rem;
     font-size: clamp(2rem, 3.3vw, 3rem);
     line-height: 1;
   }
@@ -73,8 +72,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .privacy-contact {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    padding: clamp(2rem, 5vw, 4rem);
+    gap: 2rem;
+    padding: 2rem;
     color: var(--color-white);
     background: var(--color-carbon);
   }
@@ -94,6 +93,12 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     color: var(--color-carbon-muted);
   }
 
+  .privacy-contact a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
   @media (max-width: 48rem) {
     .privacy-grid,
     .privacy-contact {
@@ -101,12 +106,20 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     }
 
     .privacy-grid article {
-      min-height: auto;
       border-right: 0;
     }
 
     .privacy-grid h2 {
-      margin-top: 2.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .privacy-grid {
+      padding-block: 3rem;
+    }
+
+    .privacy-contact {
+      gap: 1.5rem;
+      padding: 1.5rem;
     }
   }
 </style>

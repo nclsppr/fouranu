@@ -100,7 +100,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     display: grid;
     grid-template-columns: 1fr 5fr 3fr;
     gap: 1.5rem;
-    padding-block: 2.5rem;
+    padding-block: 2rem;
     border-bottom: 1px solid var(--color-line);
     scroll-margin-top: 2rem;
   }
@@ -109,14 +109,14 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .constraint-list__check {
     color: var(--color-graphite);
     font-family: var(--font-data);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     line-height: 1.55;
     text-transform: uppercase;
   }
 
   .constraint-list h2 {
     max-width: 19ch;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
     font-size: clamp(2rem, 4vw, 3.5rem);
     line-height: 1;
   }
@@ -129,7 +129,10 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .constraint-list section > a {
+    display: inline-flex;
+    min-height: 2.75rem;
     align-self: end;
+    align-items: center;
     color: var(--color-probe);
     font-weight: 600;
   }
@@ -139,8 +142,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     grid-template-columns: 4fr 4fr 3fr;
     gap: 1.5rem;
     align-items: end;
-    margin-top: clamp(5rem, 9vw, 8rem);
-    padding: clamp(2rem, 5vw, 4rem);
+    margin-top: 4rem;
+    padding: 2rem;
     color: var(--color-white);
     background: var(--color-carbon);
   }
@@ -168,6 +171,22 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     background: var(--color-reading);
   }
 
+  @media (max-width: 64rem) {
+    .constraint-list section {
+      grid-template-columns: 4.5rem minmax(0, 1fr);
+    }
+
+    .constraint-list__check,
+    .constraint-list section > a {
+      grid-column: 2;
+      justify-self: start;
+    }
+
+    .constraint-list section > a {
+      align-self: start;
+    }
+  }
+
   @media (max-width: 48rem) {
     .constraint-list section,
     .next-step {
@@ -176,10 +195,21 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
     .constraint-list section {
       gap: 1rem;
+      padding-block: 1.5rem;
+    }
+
+    .constraint-list__check,
+    .constraint-list section > a {
+      grid-column: 1;
     }
 
     .next-step .eyebrow {
       grid-column: 1;
+    }
+
+    .next-step {
+      margin-top: 3rem;
+      padding: 1.5rem;
     }
   }
 </style>

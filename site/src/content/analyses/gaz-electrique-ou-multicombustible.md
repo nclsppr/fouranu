@@ -6,9 +6,15 @@ description: "Koda au gaz, Karu au bois ou charbon, Volt 2 électrique : les dif
 summary: Le Volt 2 est prévu pour l'intérieur. Dehors, Koda donne une commande directe du gaz, tandis que Karu ajoute la gestion du bois ou du charbon et un brûleur gaz optionnel.
 status: publishable
 type: decision
+author: magali
 publishedAt: 2026-08-24
 updatedAt: 2026-08-24
 indexable: true
+image:
+  src: /images/articles/ooni-energies-volt-2-1600.webp
+  alt: "Intérieur éclairé et commandes tactiles du four électrique Ooni Volt 2"
+  caption: "Photogramme de l’intérieur et des commandes du Ooni Volt 2 — Source : Boulangerie Pas à pas, passage 02:23."
+  assetId: AS-2002
 evidenceIds: [EV-0001, EV-0010, EV-0020, EV-0061, EV-0070, EV-0090, EV-0091, EV-0260, EV-0262, EV-0340, EV-0370, EV-0371, EV-0373, EV-0409]
 evidenceTypes:
   - FAB

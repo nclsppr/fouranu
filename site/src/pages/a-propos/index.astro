@@ -41,8 +41,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
     <section class="about-links">
       <div><p class="eyebrow">Qui signe</p><h2>Une responsabilité éditoriale explicite.</h2></div>
       <div>
-        <p>Les dossiers sont signés par la Rédaction Four à Nu. Sa page décrit son rôle, sa méthode et les contrôles appliqués avant publication.</p>
-        <a href="/auteurs/redaction-four-a-nu/">Découvrir la rédaction</a>
+        <p>Les dossiers sont répartis sans ordre fixe entre Nicolas, Florian et Magali. Aucun autre détail biographique n'est publié.</p>
+        <a href="/auteurs/redaction-four-a-nu/">Voir les trois signatures</a>
         <a href="/transparence/">Lire la politique de transparence</a>
       </div>
     </section>
@@ -53,8 +53,8 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .about-copy {
     display: grid;
     grid-template-columns: 5fr 6fr;
-    gap: 3rem;
-    padding-block: clamp(4rem, 8vw, 7rem);
+    gap: 2rem;
+    padding-block: 4rem;
   }
 
   .about-copy h2 {
@@ -71,6 +71,9 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .about-copy a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     color: var(--color-probe);
     font-weight: 600;
   }
@@ -82,8 +85,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .about-values article {
-    min-height: 21rem;
-    padding: 2rem;
+    padding: 1.5rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
   }
@@ -95,11 +97,11 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .about-values span {
     color: var(--color-probe);
     font-family: var(--font-data);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
   }
 
   .about-values h2 {
-    margin: 5rem 0 1rem;
+    margin: 2rem 0 0.75rem;
     font-size: 2.2rem;
     line-height: 1.02;
   }
@@ -113,9 +115,9 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   .about-links {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: clamp(4rem, 8vw, 7rem);
-    padding: clamp(2rem, 5vw, 4rem);
+    gap: 2rem;
+    margin-top: 4rem;
+    padding: 2rem;
     color: var(--color-white);
     background: var(--color-carbon);
   }
@@ -136,8 +138,25 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
   }
 
   .about-links a {
-    display: inline-block;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
     margin: 0.5rem 1.2rem 0 0;
+  }
+
+  @media (max-width: 64rem) {
+    .about-values {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-values article:nth-child(2) {
+      border-right: 0;
+    }
+
+    .about-values article:last-child {
+      grid-column: 1 / -1;
+      border-right: 0;
+    }
   }
 
   @media (max-width: 48rem) {
@@ -147,13 +166,26 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
       grid-template-columns: 1fr;
     }
 
+    .about-copy {
+      padding-block: 3rem;
+    }
+
     .about-values article {
-      min-height: auto;
       border-right: 0;
     }
 
+    .about-values article:last-child {
+      grid-column: auto;
+    }
+
     .about-values h2 {
-      margin-top: 2.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .about-links {
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding: 1.5rem;
     }
   }
 </style>

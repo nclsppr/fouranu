@@ -6,6 +6,17 @@ importantes.
 
 ## Non publié
 
+## 2026-08-24 - Tranche éditoriale post-V1 publique
+
+- Le workflow de publication utilise désormais les actions d'artefact Node 24
+  actuelles, épinglées par empreinte, sans changer le principe : un seul build
+  vérifié est transmis à Cloudflare.
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `eb12619007191c82d963017f598b462ca54bdc51`. Le run GitHub Actions
+  [`32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541)
+  a validé puis déployé l'artefact exact sur Cloudflare Workers Static Assets ;
+  `/release.json`, les 22 URL du sitemap, les médias et les métadonnées ont été
+  contrôlés sur le domaine public.
 - Chaque dossier possède désormais une photo documentaire WebP en 1600 et
   960 px, avec texte alternatif, légende, source, timecode, empreintes et
   chaîne de droits. Les mêmes visuels structurent l'accueil et la gamme Ooni.
@@ -16,7 +27,8 @@ importantes.
   dense, des seuils responsive plus progressifs et des cibles de 44 px. Les
   bibliographies deviennent des références repliées et compactes.
 - La copie publique ne cite plus les anciens outils rédactionnels. Un test
-  bloque leur retour dans les sorties HTML, texte et XML.
+  bloque leur retour dans les sorties HTML, texte et XML. L'ancienne route
+  technique de lecture automatisée a été retirée.
 - Le protocole média et sa gate reconnaissent les photogrammes dont
   l'extraction et la republication ont reçu l'autorisation explicite du
   propriétaire, avec preuve privée hors Git.

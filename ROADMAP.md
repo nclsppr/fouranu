@@ -32,8 +32,8 @@ racontée à la première personne.
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 
 La V1 a franchi F03 et F04 le 2026-08-24. F02 reste ouverte jusqu'aux cinq
-sessions prévues. La tranche post-V1 en cours ne change pas ces états tant
-qu'elle n'a pas été vérifiée, poussée et publiée sous un nouveau SHA.
+sessions prévues. La tranche éditoriale post-V1 a été vérifiée, poussée et
+publiée le même jour sans changer cette dette d'observation.
 
 ## Phase F01 : socle produit local
 

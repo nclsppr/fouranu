@@ -8,6 +8,9 @@ Le propriétaire a confirmé l'acquisition de `fouranu.com` le 2026-08-23. La V1
 est publique sur [`fouranu.com`](https://fouranu.com) depuis le 2026-08-24. Elle
 est servie par Cloudflare Workers Static Assets depuis le SHA vérifié
 `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee`. Aucun lien affilié n'est actif.
+La tranche éditoriale post-V1 a ensuite été publiée depuis le SHA applicatif
+`eb12619007191c82d963017f598b462ca54bdc51` par le run GitHub Actions
+[`32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541).
 
 ## État du produit
 
@@ -24,8 +27,9 @@ personnalisé, son DNS et son HTTPS sont actifs.
 
 La suite locale compte treize tests de contrat. Le service Compose répond avec un
 healthcheck sain. Le run GitHub Actions de la V1 et les contrôles publics sont
-consignés dans [`STATUS.md`](STATUS.md). La tranche post-V1 en cours reste
-distincte de cette version publiée jusqu'à son prochain déploiement vérifié.
+consignés dans [`STATUS.md`](STATUS.md). Les signatures, photos documentaires,
+sources compactes et ajustements de densité de la tranche post-V1 sont actifs
+sur le domaine public.
 
 - Le contrat stable vit dans [`PROJECT.md`](PROJECT.md).
 - L'état réellement vérifié vit dans [`STATUS.md`](STATUS.md).

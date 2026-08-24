@@ -15,7 +15,7 @@ const analyses = defineCollection({
     articleId: z.string().regex(/^(OONI|GOZNEY)-\d{3}$/),
     brand: z.enum(["ooni", "gozney"]),
     category: z.enum(["oven", "mixer"]),
-    heroTreatment: z.enum(["legacy-documentary", "official-stylized"]),
+    heroTreatment: z.literal("official-stylized"),
     title: z.string(),
     description: z.string(),
     summary: z.string(),

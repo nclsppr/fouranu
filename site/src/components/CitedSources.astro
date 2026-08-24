@@ -116,7 +116,7 @@ const classLabels: Record<string, string> = {
   "T-MES": "Mesure tierce",
   "T-OBS": "Observation tierce",
   "FAN-SYN": "Synthèse Four à Nu",
-  "FAN-INF": "Inférence éditoriale",
+  "FAN-INF": "Conclusion Four à Nu",
 };
 const confidenceLabels: Record<string, string> = {
   high: "confiance haute",
@@ -176,7 +176,7 @@ function sourceHref(record: Evidence) {
 function sourceTitle(record: Evidence) {
   if (record.source_title) return record.source_title;
   if (record.source_type === "fouranu") {
-    return `Inférence éditoriale sur ${record.product_version}`;
+    return `Conclusion sur ${record.product_version}`;
   }
   return record.product_version;
 }
@@ -197,97 +197,165 @@ function relationships(record: Evidence) {
 
 {citedEvidence.length > 0 && (
   <section class="cited-sources" aria-labelledby="cited-sources-title">
-    <header class="cited-sources__header">
-      <div>
-        <p class="eyebrow">Bibliographie · {citedEvidence.length}</p>
-        <h2 id="cited-sources-title">Sources</h2>
-      </div>
-      <p>
-        Ouvrez une référence pour retrouver le lien, le passage relevé et ses
-        conditions.
-      </p>
-    </header>
+    <details class="cited-sources__disclosure">
+      <summary class="cited-sources__summary">
+        <span class="cited-sources__heading">
+          <span class="eyebrow">Références</span>
+          <h2 id="cited-sources-title">Sources de cet article</h2>
+        </span>
+        <span class="cited-sources__toggle">
+          <span>{citedEvidence.length} références</span>
+          <span class="cited-sources__action cited-sources__action--closed">Voir la liste</span>
+          <span class="cited-sources__action cited-sources__action--open">Masquer la liste</span>
+        </span>
+      </summary>
 
-    <ol class="cited-sources__list">
-      {citedEvidence.map((record) => {
-        const href = sourceHref(record);
-        const publisher = sourcePublisher(record);
-        const relationshipNotes = relationships(record);
-        return (
-          <li id={`preuve-${record.evidence_id}`} data-evidence-id={record.evidence_id}>
-            <details>
-              <summary>
-                <span class="cited-source__meta">
-                  <code>{record.evidence_id}</code>
-                  <span>{classLabels[record.evidence_class] ?? record.evidence_class}</span>
-                </span>
-                <span class="cited-source__title">{sourceTitle(record)}</span>
-                <span class="cited-source__byline">
-                  {publisher && <span>{publisher}</span>}
-                  {record.timecode_start && <span>{record.timecode_start}</span>}
-                  <span>{confidenceLabels[record.confidence] ?? record.confidence}</span>
-                </span>
-              </summary>
-              <div class="cited-source__detail">
-                <p class="cited-source__checked">
-                  Vérifié le <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
-                  {record.timecode_start && (
-                    <span>
-                      · Passage {record.timecode_start}
-                      {record.timecode_end && `–${record.timecode_end}`}
-                    </span>
-                  )}
-                </p>
-                <p class="cited-source__observation">{record.observation}</p>
-                {record.conditions && (
-                  <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
-                )}
-                {relationshipNotes.length > 0 && (
-                  <p class="cited-source__relationships">
-                    <strong>Relations signalées :</strong> {relationshipNotes.join(" · ")}
+      <p class="cited-sources__intro">
+        Ouvrez une référence pour retrouver le lien, le passage relevé et ses conditions.
+      </p>
+
+      <ol class="cited-sources__list">
+        {citedEvidence.map((record) => {
+          const href = sourceHref(record);
+          const publisher = sourcePublisher(record);
+          const relationshipNotes = relationships(record);
+          return (
+            <li id={`preuve-${record.evidence_id}`} data-evidence-id={record.evidence_id}>
+              <details class="cited-source">
+                <summary>
+                  <span class="cited-source__title">{sourceTitle(record)}</span>
+                  <span class="cited-source__meta">
+                    <span>{classLabels[record.evidence_class] ?? record.evidence_class}</span>
+                    {publisher && <span>{publisher}</span>}
+                    {record.timecode_start && <span>{record.timecode_start}</span>}
+                  </span>
+                </summary>
+                <div class="cited-source__detail">
+                  <p class="cited-source__checked">
+                    Vérifié le <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
+                    {record.timecode_start && (
+                      <span>
+                        · Passage {record.timecode_start}
+                        {record.timecode_end && `–${record.timecode_end}`}
+                      </span>
+                    )}
+                    <span> · {confidenceLabels[record.confidence] ?? record.confidence}</span>
                   </p>
-                )}
-                {href && (
-                  <a class="cited-source__link" href={href} rel="external">
-                    Ouvrir la source <span aria-hidden="true">↗</span>
-                  </a>
-                )}
-              </div>
-            </details>
-          </li>
-        );
-      })}
-    </ol>
+                  <p class="cited-source__observation">{record.observation}</p>
+                  {record.conditions && (
+                    <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
+                  )}
+                  {relationshipNotes.length > 0 && (
+                    <p class="cited-source__relationships">
+                      <strong>Relations signalées :</strong> {relationshipNotes.join(" · ")}
+                    </p>
+                  )}
+                  {href && (
+                    <a class="cited-source__link" href={href} rel="external">
+                      Ouvrir la source <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                </div>
+              </details>
+            </li>
+          );
+        })}
+      </ol>
+    </details>
   </section>
 )}
 
 <style>
   .cited-sources {
     grid-column: 2 / span 10;
-    margin-top: 2rem;
-    padding-top: clamp(2rem, 4vw, 3.5rem);
+    margin-top: 0;
+    padding-top: 2rem;
     border-top: 1px solid var(--color-carbon);
   }
 
-  .cited-sources__header {
+  .cited-sources__disclosure,
+  .cited-source {
+    margin: 0;
+  }
+
+  .cited-sources__summary {
     display: grid;
-    grid-template-columns: minmax(12rem, 3fr) minmax(18rem, 5fr);
+    grid-template-columns: minmax(12rem, 1fr) auto;
     gap: 1.5rem;
-    align-items: end;
-    margin-bottom: 1.25rem;
+    align-items: center;
+    min-height: 4.5rem;
+    padding-block: 0.65rem;
+    cursor: pointer;
+    list-style: none;
   }
 
-  .cited-sources__header h2 {
-    margin: 0;
-    font-size: clamp(2.2rem, 4vw, 3.6rem);
-    line-height: 0.96;
+  .cited-sources__summary::-webkit-details-marker,
+  .cited-source > summary::-webkit-details-marker {
+    display: none;
   }
 
-  .cited-sources__header > p {
-    max-width: 34rem;
+  .cited-sources__heading .eyebrow {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .cited-sources__heading h2 {
     margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1;
+  }
+
+  .cited-sources__toggle {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.25rem 1rem;
+    align-items: center;
     color: var(--color-graphite);
-    font-size: 0.86rem;
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .cited-sources__toggle::after {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    content: "+";
+    color: var(--color-probe);
+    font-size: 1rem;
+  }
+
+  .cited-sources__action {
+    color: var(--color-probe);
+    font-weight: 500;
+  }
+
+  .cited-sources__action--open {
+    display: none;
+  }
+
+  .cited-sources__disclosure[open] > .cited-sources__summary {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .cited-sources__disclosure[open] > .cited-sources__summary .cited-sources__toggle::after {
+    content: "−";
+  }
+
+  .cited-sources__disclosure[open] .cited-sources__action--closed {
+    display: none;
+  }
+
+  .cited-sources__disclosure[open] .cited-sources__action--open {
+    display: inline;
+  }
+
+  .cited-sources__intro {
+    max-width: 42rem;
+    margin: 0;
+    padding-block: 0.75rem;
+    color: var(--color-graphite);
+    font-size: 0.82rem;
     line-height: 1.5;
   }
 
@@ -303,26 +371,18 @@ function relationships(record: Evidence) {
     scroll-margin-top: 1.5rem;
   }
 
-  .cited-sources details {
-    margin: 0;
-  }
-
-  .cited-sources summary {
+  .cited-source > summary {
     display: grid;
-    grid-template-columns: minmax(8rem, 1.5fr) minmax(14rem, 4fr) minmax(10rem, 2fr) 1rem;
+    grid-template-columns: minmax(14rem, 4fr) minmax(12rem, 2fr) 1rem;
     gap: 1rem;
     align-items: center;
-    min-height: 4rem;
-    padding-block: 0.7rem;
+    min-height: 3.25rem;
+    padding-block: 0.5rem;
     cursor: pointer;
     list-style: none;
   }
 
-  .cited-sources summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .cited-sources summary::after {
+  .cited-source > summary::after {
     content: "+";
     color: var(--color-probe);
     font-family: var(--font-data);
@@ -330,29 +390,24 @@ function relationships(record: Evidence) {
     text-align: right;
   }
 
-  .cited-sources details[open] summary::after {
+  .cited-source[open] > summary::after {
     content: "−";
   }
 
-  .cited-sources summary:hover .cited-source__title {
+  .cited-source > summary:hover .cited-source__title {
     color: var(--color-probe);
   }
 
   .cited-source__meta {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 0.2rem 0.55rem;
     color: var(--color-graphite);
     font-family: var(--font-data);
     font-size: 0.75rem;
     line-height: 1.35;
     text-transform: uppercase;
-  }
-
-  .cited-source__meta code {
-    color: var(--color-probe);
-    font: inherit;
-    font-weight: 500;
   }
 
   .cited-source__title {
@@ -363,24 +418,11 @@ function relationships(record: Evidence) {
     transition: color 140ms ease-out;
   }
 
-  .cited-source__byline {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.15rem 0.55rem;
-    color: var(--color-graphite);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    line-height: 1.35;
-    text-align: right;
-    text-transform: uppercase;
-  }
-
   .cited-source__detail {
     display: grid;
-    grid-template-columns: minmax(8rem, 1.5fr) minmax(14rem, 4fr) minmax(10rem, 2fr) 1rem;
+    grid-template-columns: minmax(10rem, 2fr) minmax(14rem, 4fr) 1rem;
     gap: 0.6rem 1rem;
-    padding: 0 0 1.2rem;
+    padding: 0 0 0.9rem;
   }
 
   .cited-source__checked {
@@ -396,7 +438,7 @@ function relationships(record: Evidence) {
   .cited-source__observation,
   .cited-source__conditions,
   .cited-source__relationships {
-    grid-column: 2 / span 2;
+    grid-column: 2;
     max-width: 52rem;
     margin: 0;
     color: var(--color-graphite);
@@ -415,7 +457,7 @@ function relationships(record: Evidence) {
   }
 
   .cited-source__link {
-    grid-column: 2 / span 2;
+    grid-column: 2;
     display: inline-flex;
     min-height: 2.75rem;
     align-items: center;
@@ -432,30 +474,56 @@ function relationships(record: Evidence) {
   }
 
   @media (max-width: 48rem) {
-    .cited-sources__header {
-      grid-template-columns: 1fr;
+    .cited-sources {
+      padding-top: 1.5rem;
     }
 
-    .cited-sources summary {
+    .cited-sources__summary {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.75rem;
+    }
+
+    .cited-sources__toggle {
+      grid-template-columns: auto;
+    }
+
+    .cited-sources__toggle::after {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .cited-sources__toggle > span:first-child {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .cited-sources__action {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .cited-source > summary {
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 0.35rem 0.75rem;
-      min-height: 4.5rem;
+      min-height: 3.75rem;
     }
 
-    .cited-source__meta,
     .cited-source__title,
-    .cited-source__byline {
+    .cited-source__meta {
       grid-column: 1;
     }
 
-    .cited-source__byline {
+    .cited-source__meta {
       justify-content: flex-start;
-      text-align: left;
     }
 
-    .cited-sources summary::after {
+    .cited-source > summary::after {
       grid-column: 2;
-      grid-row: 1 / span 3;
+      grid-row: 1 / span 2;
     }
 
     .cited-source__detail {

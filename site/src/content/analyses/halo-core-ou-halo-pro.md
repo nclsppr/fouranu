@@ -121,8 +121,9 @@ exclusivité commerciale, nous regardons la séquence plutôt que son verdict.
 
 Dans cette session, le pétrissage dure environ seize minutes et monte jusqu'à
 260 tr/min. Vers la fin, la machine devient plus bruyante et bouge légèrement.
-Elle termine néanmoins la fournée, puis la pâte passe le test de la membrane
-montré à l'image
+Elle termine néanmoins la fournée. La pâte passe ensuite le test de la membrane,
+qui consiste à en étirer un morceau jusqu'à obtenir une fine pellicule sans la déchirer,
+comme le montre l'image
 ([voir le passage à partir de 06:20](https://www.youtube.com/watch?v=FqXpIiFlL5E&t=380s)).
 
 Cette séquence montre que l'appareil termine cette grande fournée. Une seule
@@ -141,7 +142,8 @@ rédactrice recommence avec de l'eau froide. Après huit minutes, la pâte sort 
 température ambiante et fermente correctement. La page ne donne ni les quantités
 ni les températures exactes, donc nous n'en tirons pas de règle universelle.
 
-WIRED rapporte de son côté avoir trop pétri deux pâtes à shokupan pendant ses
+WIRED rapporte de son côté avoir trop pétri deux pâtes à shokupan, un pain au
+lait japonais très moelleux, pendant ses
 deux mois d'utilisation. Le minuteur du Pro arrête la machine à l'heure
 choisie. Il ne détecte ni le développement du gluten, ni la température de la
 pâte. Un thermomètre, une recette adaptée et l'observation de la pâte restent

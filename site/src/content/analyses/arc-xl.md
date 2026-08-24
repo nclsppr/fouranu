@@ -55,9 +55,9 @@ Une pizza de 40 cm rentre aussi. C’est la promesse qui attire, mais ce n’est
 le format le plus facile à cuire. Les deux retours d’usage disponibles montrent
 qu’à ce diamètre la pâte se rapproche du brûleur et qu’il faut la tourner tôt.
 
-Le prix affiché en France était de 899,99 € le 24 août 2026. Ajoutez un four au
-propane de 26,5 kg, une table solide et assez profonde, puis les pelles et la
-housse. L’achat se justifie mieux pour un coin pizza durable que pour un four à
+Le prix affiché en France était de 899,99 € le 24 août 2026. À ce prix s'ajoutent
+une table solide et assez profonde, les pelles et la housse. Les 26,5 kg du four
+réclament aussi un emplacement stable. L’achat se justifie mieux pour un coin pizza durable que pour un four à
 sortir du garage le dimanche.
 
 ## Avant le diamètre, regardez la place disponible
@@ -79,10 +79,10 @@ cuisson.
 ## 40 cm rentrent, mais sans beaucoup de marge
 
 Gozney annonce des pizzas jusqu’à 40 cm. The Barbecue Lab en fait entrer une,
-mais son centre reste insuffisamment cuit après un départ sur écran. Une
-finition directe sur la sole est ensuite tentée. La source attribue une partie
-du problème à l’outil utilisé. Une seule pizza ne suffit donc pas à juger le
-four.
+mais son centre reste insuffisamment cuit après un départ sur un support de
+cuisson perforé, appelé « écran » dans la vidéo. Une finition directe sur la
+sole est ensuite tentée. La source attribue une partie du problème à ce support.
+Une seule pizza ne suffit donc pas à juger le four.
 
 Le retour de Tom’s Guide confirme surtout la difficulté du geste. Après un
 mois avec des pizzas de 30 à 40 cm, l’auteur explique que les plus grandes
@@ -119,8 +119,8 @@ plages par style de pizza. Il n’explique pas assez précisément comment cette
 valeur correspond aux différentes zones de la pierre.
 
 Les deux sources tierces ne lui donnent d’ailleurs pas le même sens. The
-Barbecue Lab parle d’un indicateur de saturation de la pierre. Tom’s Guide le
-lit comme une température ambiante. Dans la vidéo, plusieurs relevés
+Barbecue Lab estime qu'il indique surtout que la pierre a fini d'accumuler sa
+chaleur. Tom’s Guide le lit comme une température ambiante. Dans la vidéo, plusieurs relevés
 infrarouges sur la sole s’écartent nettement de la valeur affichée.
 
 Nous garderions donc l’écran pour suivre la montée en température. Avant de

@@ -6,6 +6,24 @@ importantes.
 
 ## Non publié
 
+- Harmonisation des treize guides autour d'une voix plus directe : la réponse
+  d'achat et les compromis arrivent avant les détails, le jargon est traduit et
+  aucune expérience propre n'est revendiquée sans preuve.
+- Remplacement des onze anciens en-têtes Ooni par des compositions fidèles
+  issues de photographies officielles du fabricant. Les anciennes vues
+  documentaires passent dans le corps des articles ; le registre atteint 71
+  médias et les treize guides suivent désormais la même règle.
+- Resserrement de l'accueil, de la gamme Ooni, de la méthode et du gabarit
+  d'article pour réduire les empilements verticaux tout en conservant la largeur
+  de lecture, les cibles tactiles et les tableaux défilables.
+- Les sources sont repliées par défaut dans un panneau compact. Les libellés
+  internes et identifiants de preuve ne sont plus exposés dans la lecture
+  courante ; le lien, le passage et les conditions restent accessibles au
+  second niveau.
+- Revue responsive à 360, 768, 1 280 et 1 440 px des parcours critiques :
+  aucun débordement, ordre des images conforme, médias chargés, focus visible,
+  mouvement réduit préservé et console sans erreur.
+
 ## 2026-08-24 - Gozney et pétrins Ooni publics
 
 - Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif

@@ -2,7 +2,7 @@
 articleId: OONI-014
 brand: ooni
 category: oven
-heroTreatment: legacy-documentary
+heroTreatment: official-stylized
 title: "Ooni Koda 16 : format 40 cm et chauffe"
 description: Le Koda 16 est un four à gaz de 40 cm et 18,2 kg. Notre analyse de son brûleur en L, de sa chauffe et de ses limites face au bois.
 summary: Le Koda 16 donne une vraie marge de travail sans devenir monstrueux. Nous le trouvons pertinent pour de grandes pizzas, moins pour être déplacé souvent.
@@ -15,9 +15,9 @@ updatedAt: 2026-08-24
 indexable: true
 image:
   src: /images/articles/ooni-koda-16-1600.webp
-  alt: "Ooni Koda 16 ouvert pendant une mesure de température de la sole"
-  caption: "Photogramme du Ooni Koda 16 pendant une mesure de sole — Source : Barbecue Way Of Life, passage 04:19."
-  assetId: AS-2012
+  alt: "Four à gaz Ooni Koda 16 de première génération sur une table en acier"
+  caption: "Illustration éditoriale du Ooni Koda 16 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  assetId: AS-2312
 evidenceIds: [EV-0050, EV-0051, EV-0052, EV-0101, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0404]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]
 limitations:
@@ -28,67 +28,86 @@ limitations:
   - Deux dimensions métriques publiées ont une unité incohérente.
 ---
 
-## Notre lecture en bref
+## La question à trancher d'abord
 
-Le Koda 16 est un four à gaz de 40 cm avec un brûleur en L, une pierre de 15 mm
-et un poids de 18,2 kg. Nous aimons la marge qu'offre ce format. Une pizza de
-30 à 35 cm se tourne sans exploiter toute la largeur, et une poêle compatible a
-plus de chances d'entrer.
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-16-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-16-documentary-960.webp 960w, /images/articles/ooni-koda-16-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Ooni Koda 16 ouvert pendant une mesure de température de la sole"
+  />
+  <figcaption>Photogramme du Ooni Koda 16 pendant une mesure de sole — Source : Barbecue Way Of Life, passage 04:19.</figcaption>
+</figure>
 
-En contrepartie, ce n'est déjà plus un petit appareil à sortir d'un placard. Il
-lui faut une table profonde et un emplacement extérieur stable. Si vous cuisez
-surtout des pizzas de 28 cm, le [Koda 2](/ooni/koda-2/) est probablement plus
-raisonnable.
+Le Koda 16 vaut surtout pour sa place autour de la pizza. Son ouverture de
+40 cm permet de tourner plus facilement un disque de 30 à 35 cm, sans utiliser
+toute la largeur. Une poêle compatible a aussi plus de chances d'entrer.
 
-## Ce que l'on sait du format
+Cette aisance pèse 18,2 kg. Le four demande une table profonde et un emplacement
+extérieur stable. Si vos pizzas font surtout 28 cm, le
+[Koda 2](/ooni/koda-2/) paraît plus raisonnable.
 
-Le diamètre maximal annoncé est de 40 cm. Le fabricant publie 18,2 kg, une
-pierre de 15 mm et une température maximale de 500 °C, avec 20 minutes pour y
-arriver et une pizza en 60 secondes. Deux dimensions métriques comportent une
-unité incohérente. Nous recommandons de confirmer l'encombrement avant de choisir
-la table.
+## Quarante centimètres à installer pour de bon
 
-Le brûleur en L chauffe l'arrière et un côté. Cette géométrie réduit l'angle
-froid par rapport à une flamme uniquement arrière, mais elle impose toujours de
-tourner la pizza. Elle ne garantit pas une sole uniforme.
+Ooni annonce une capacité de 40 cm, une pierre de 15 mm et une température
+maximale de 500 °C. Le fabricant indique 20 minutes pour atteindre cette
+température et 60 secondes pour cuire une pizza.
 
-## Gaz contre bois : ce qu'une séance permet de voir
+Deux dimensions métriques de la page fabricant utilisent une unité
+incohérente. Ne choisissez donc pas la table à partir de ces seules valeurs.
+Confirmez l'encombrement avant l'achat et gardez une marge pour les gestes de
+service.
 
-Une comparaison publiée montre le Koda démarrer plus vite qu'un four à bois.
-Après trois minutes, les températures centrales annoncées sont d'environ
-155 °C contre 93 °C. Plus tard, les deux soles se rapprochent autour de 233 à
-241 °C. Le bois demande davantage de surveillance du combustible.
+Le brûleur en L chauffe l'arrière et un côté. Il réduit l'angle froid par rapport
+à une flamme placée seulement au fond, mais la pizza doit toujours tourner.
+Cette forme ne garantit pas une température uniforme sur toute la pierre.
 
-Une pizza est cuite dans chaque four avec la même pâte. Les colorations sont
-jugées proches et les dégustateurs ne déclarent pas de différence de goût.
-Nous n'en tirons aucune vérité générale. Une pizza par four, sans dégustation
-aveugle, ne suffit pas à départager deux énergies.
+## Une comparaison gaz et bois, pas un match définitif
 
-Quinze minutes après l'arrêt, le four à bois conserve davantage de chaleur dans
-cette session. Cela illustre l'effet possible d'une masse thermique différente,
-pas la supériorité d'un four précis.
+Dans une séance publiée, le Koda démarre plus vite qu'un four à bois. Après
+trois minutes, les températures centrales annoncées sont d'environ 155 °C pour
+le gaz et 93 °C pour le bois. Plus tard, les deux soles se rapprochent autour
+de 233 à 241 °C. Le four à bois demande davantage de surveillance du combustible.
 
-## Pour qui nous le choisirions
+La même séance montre une pizza cuite dans chaque four avec la même pâte. Les
+colorations sont jugées proches et les dégustateurs ne signalent pas de
+différence de goût. Une pizza par four et une dégustation non aveugle ne
+suffisent pas à départager les deux énergies.
 
-Le Koda 16 a du sens si vous voulez de grandes pizzas, une ouverture confortable
-ou davantage de place pour les rotations. Il reste plus facile à prendre en main
-qu'un four au bois et moins lourd que les grands modèles de deuxième génération.
+Quinze minutes après l'arrêt, la sole du Koda est annoncée à 150 °C et celle du
+four à bois à 230 °C. Cela peut venir d'une masse thermique différente. Ce
+relevé isolé ne prouve pas la supériorité d'un modèle.
+
+## Qui profitera vraiment de l'ouverture
+
+Le Koda 16 a du sens pour de grandes pizzas, une pelle large ou davantage de
+marge pendant les rotations. Le gaz demande moins de gestion du combustible
+que le bois, et ce four reste moins lourd que les grands Koda de deuxième
+génération.
 
 Nous l'écarterions pour une installation mobile, une petite table ou un foyer
-qui cuisine rarement plus de deux pizzas. Le volume utile doit servir souvent,
-sinon il devient simplement plus de métal à stocker.
+qui cuisine rarement plus de deux pizzas. Si son volume ne sert presque jamais,
+il devient surtout un gros appareil à stocker.
 
-## À vérifier avant l'achat
+## Les cinq vérifications utiles
 
-- Les dimensions exactes de la table et les dégagements de sécurité.
-- Le diamètre réel de vos pizzas et de votre pelle.
-- La place de la bouteille et du tuyau.
-- Le comportement au vent dans votre emplacement.
-- Le nombre de pizzas prévu par session.
+- Mesurez la table et les dégagements de sécurité.
+- Comparez le diamètre réel de vos pizzas et celui de votre pelle.
+- Prévoyez la place de la bouteille et du tuyau.
+- Regardez comment le vent circule à l'emplacement choisi.
+- Estimez le nombre de pizzas d'une session habituelle.
 
-## Les limites de notre lecture
+## Ce que nous retenons
 
-Le corpus tiers repose sur une seule comparaison dont les fours et les instants
-ne sont pas normalisés. Il ne fournit ni consommation, ni débit en série, ni
-cartographie thermique. Notre lecture porte donc sur le format et la simplicité du
-gaz, pas sur une victoire mesurée face au bois.
+Le Koda 16 apporte une vraie marge pour les grandes pizzas, au prix d'un
+encombrement déjà sérieux. La comparaison tierce disponible repose sur une
+seule séance, avec un four à bois mal identifié et des mesures prises à des
+moments différents. Elle ne dit rien de fiable sur la consommation,
+l'enchaînement de plusieurs pizzas ou l'uniformité de la pierre.
+Notre choix repose donc sur le format et la simplicité du gaz, pas sur une
+victoire mesurée face au bois.

@@ -111,31 +111,31 @@ const schema = {
         <p class="eyebrow">Catalogue France · vérifié le 24.08.2026</p>
         <h1>Comprendre les fours et pétrins Ooni avant de choisir.</h1>
         <p class="page-intro__lede">
-          Les neuf fours autonomes vendus en France restent classés par énergie
-          et format. Les deux pétrins Halo rejoignent maintenant la sélection
-          pour choisir selon le poids de pâte préparé. Chaque guide distingue
-          les annonces Ooni des mesures et retours publiés.
+          Retrouvez les neuf fours autonomes vendus en France, rangés par
+          énergie et par format. Les deux pétrins Halo sont comparés selon la
+          quantité de pâte à préparer. Chaque guide sépare les annonces Ooni des
+          mesures et retours publiés.
         </p>
       </div>
       <p class="page-intro__aside">
-        9 fiches de four, 2 guides transversaux et 1 comparaison de pétrins.
-        Pas de classement général ni de note : partez de votre lieu, de vos
-        fournées et de la place disponible.
+        9 fiches de four, 2 guides de choix et 1 comparaison de pétrins. Pas de
+        classement général ni de note. Partez de votre lieu, de vos fournées et
+        de la place disponible.
       </p>
     </header>
 
     <section class="lead-analysis" aria-labelledby="lead-analysis-title">
-      <p class="eyebrow">Deux guides d'abord</p>
-      <h2 id="lead-analysis-title">Deux grandes questions avant de choisir un modèle.</h2>
+      <p class="eyebrow">Commencez ici</p>
+      <h2 id="lead-analysis-title">Choisissez d'abord votre lieu et votre énergie.</h2>
       <div>
         <a class="link-row" href="/ooni/quel-four-ooni-choisir/">
           <span class="link-row__title">Quel four Ooni choisir en 2026&nbsp;?</span>
-          <span class="link-row__meta">OONI-001 · Guide de gamme</span>
+          <span class="link-row__meta">Guide de gamme</span>
           <span class="link-row__arrow" aria-hidden="true">↗</span>
         </a>
         <a class="link-row" href="/ooni/gaz-electrique-ou-multicombustible/">
           <span class="link-row__title">Gaz, électrique ou multi-combustible&nbsp;?</span>
-          <span class="link-row__meta">OONI-004 · Choix de l'énergie</span>
+          <span class="link-row__meta">Guide des énergies</span>
           <span class="link-row__arrow" aria-hidden="true">↗</span>
         </a>
       </div>
@@ -144,8 +144,8 @@ const schema = {
     <section class="equipment" aria-labelledby="equipment-title">
       <header>
         <p class="eyebrow">Préparer la pâte</p>
-        <h2 id="equipment-title">Deux pétrins, une question de quantité réelle.</h2>
-        <p>Le grand modèle n'est utile que si la fournée, la place et les fonctions supplémentaires le justifient.</p>
+        <h2 id="equipment-title">Le bon pétrin dépend surtout de la quantité de pâte.</h2>
+        <p>Le grand modèle n'a de sens que si vos fournées, votre plan de travail et ses fonctions supplémentaires le justifient.</p>
       </header>
 
       <div class="equipment__list">
@@ -176,7 +176,7 @@ const schema = {
       <div class="ranges__head">
         <p class="eyebrow">Catalogue actuel</p>
         <h2 id="ranges-title">Trois familles de fours</h2>
-        <p>Chaque modèle renvoie vers un dossier sourcé et daté, sans classement artificiel.</p>
+        <p>Ouvrez le modèle qui correspond à votre usage. Chaque dossier reste sourcé et daté, sans classement artificiel.</p>
       </div>
 
       {ranges.map((range) => (
@@ -219,7 +219,7 @@ const schema = {
 
 <style>
   .lead-analysis {
-    padding-block: clamp(3rem, 5vw, 4.5rem);
+    padding-block: 3rem;
     border-bottom: 1px solid var(--color-line);
   }
 
@@ -227,7 +227,7 @@ const schema = {
     display: grid;
     grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
     gap: 1.5rem;
-    padding-block: clamp(3rem, 5vw, 4rem);
+    padding-block: 3rem;
     border-bottom: 1px solid var(--color-line);
   }
 
@@ -302,20 +302,20 @@ const schema = {
 
   .lead-analysis h2 {
     max-width: 18ch;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     font-size: clamp(2.5rem, 4vw, 4rem);
     line-height: 0.98;
   }
 
   .ranges {
-    padding-top: clamp(3rem, 5vw, 4.5rem);
+    padding-top: 3rem;
   }
 
   .ranges__head {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
   }
 
   .ranges__head .eyebrow {
@@ -340,7 +340,7 @@ const schema = {
     display: grid;
     grid-template-columns: 4fr 8fr;
     gap: 1.5rem;
-    padding-block: 2rem;
+    padding-block: 1.5rem;
     border-top: 1px solid var(--color-carbon);
     scroll-margin-top: 2rem;
   }
@@ -460,7 +460,7 @@ const schema = {
     }
 
     .range {
-      gap: 2rem;
+      gap: 1.25rem;
     }
 
     .range__models a {

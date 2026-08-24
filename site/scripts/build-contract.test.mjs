@@ -412,21 +412,6 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
       Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
     ]),
   );
-  const legacyHeroArticles = new Set([
-    "OONI-001",
-    "OONI-004",
-    "OONI-010",
-    "OONI-011",
-    "OONI-012",
-    "OONI-013",
-    "OONI-014",
-    "OONI-015",
-    "OONI-016",
-    "OONI-017",
-    "OONI-018",
-  ]);
-  const renderedLegacyHeroes = new Set();
-
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
     .sort();
@@ -438,9 +423,7 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
     const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY)-\d{3})$/m)?.[1];
     const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
     const category = markdown.match(/^category:\s*(oven|mixer)$/m)?.[1];
-    const heroTreatment = markdown.match(
-      /^heroTreatment:\s*(legacy-documentary|official-stylized)$/m,
-    )?.[1];
+    const heroTreatment = markdown.match(/^heroTreatment:\s*(official-stylized)$/m)?.[1];
     const heroAssetId = markdown.match(/^\s{2}assetId:\s*(AS-\d{4})$/m)?.[1];
     assert.ok(articleId, `${slug}: articleId absent ou invalide`);
     assert.ok(brand, `${slug}: marque absente ou invalide`);
@@ -451,29 +434,21 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
       articleId.startsWith(`${brand.toUpperCase()}-`),
       `${slug}: articleId incohérent avec la marque`,
     );
-    if (heroTreatment === "legacy-documentary") {
-      assert.ok(
-        legacyHeroArticles.has(articleId),
-        `${slug}: un nouveau dossier ne peut pas adopter le repli legacy`,
-      );
-      renderedLegacyHeroes.add(articleId);
-    } else {
-      const heroAsset = assets.get(heroAssetId);
-      assert.ok(heroAsset, `${slug}: hero absent du registre média`);
-      assert.equal(heroAsset.asset_type, "ai-illustration", `${slug}: type de hero incohérent`);
-      assert.equal(
-        heroAsset.acquisition_mode,
-        "authorized-manufacturer-photo",
-        `${slug}: le hero doit partir d'une photo officielle fabricant`,
-      );
-      assert.equal(heroAsset.human_validation, "approved", `${slug}: hero non validé`);
-      assert.equal(heroAsset.identifiable_people, "no", `${slug}: personne dans la source du hero`);
-      assert.match(
-        markdown,
-        /^\s{2}caption:\s*"Illustration éditoriale .+photograph(?:ie|ies) officielle(?:s)? .+"$/m,
-        `${slug}: statut public du hero absent`,
-      );
-    }
+    const heroAsset = assets.get(heroAssetId);
+    assert.ok(heroAsset, `${slug}: hero absent du registre média`);
+    assert.equal(heroAsset.asset_type, "ai-illustration", `${slug}: type de hero incohérent`);
+    assert.equal(
+      heroAsset.acquisition_mode,
+      "authorized-manufacturer-photo",
+      `${slug}: le hero doit partir d'une photo officielle fabricant`,
+    );
+    assert.equal(heroAsset.human_validation, "approved", `${slug}: hero non validé`);
+    assert.equal(heroAsset.identifiable_people, "no", `${slug}: personne dans la source du hero`);
+    assert.match(
+      markdown,
+      /^\s{2}caption:\s*"Illustration éditoriale .+photograph(?:ie|ies) officielle(?:s)? .+"$/m,
+      `${slug}: statut public du hero absent`,
+    );
     const expectedIds = [...new Set(markdown.match(/\bEV-\d{4}\b/g) ?? [])];
     assert.ok(expectedIds.length >= 1, `${slug}: aucune preuve citée`);
     for (const evidenceId of expectedIds) {
@@ -490,7 +465,7 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
     assert.ok(
       pairedElements(html, "h2").some((heading) =>
         attribute(`<h2${heading[1]}>`, "id") === "cited-sources-title" &&
-        visibleText(heading[2]) === "Sources"
+        visibleText(heading[2]) === "Sources de cet article"
       ),
       `${slug}: titre de bibliographie absent`,
     );
@@ -511,7 +486,6 @@ test("les treize analyses rendent toutes leurs preuves citées depuis le registr
       }
     }
   }
-  assert.deepEqual(renderedLegacyHeroes, legacyHeroArticles, "la dette des onze anciens heroes a dérivé");
 });
 
 test("le RSS expose exactement les treize dossiers publiables", async () => {

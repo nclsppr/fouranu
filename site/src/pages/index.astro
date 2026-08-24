@@ -135,7 +135,7 @@ const schema = {
       <a class="side-story side-story--dark" href="/fours-a-pizza/">
         <span class="side-story__meta">Guide de choix · 02</span>
         <h2>Quel four selon votre espace et votre façon de cuire&nbsp;?</h2>
-        <p>Commencez par les contraintes réelles, avant la marque et les promesses de vitesse.</p>
+        <p>Commencez par ce qui est possible chez vous. La marque et le chrono viennent après.</p>
         <span class="side-story__link">Partir de votre usage <span aria-hidden="true">→</span></span>
       </a>
     </div>
@@ -148,7 +148,7 @@ const schema = {
     </div>
     <div>
       <strong>{citedEvidenceCount}</strong>
-      <span>sources citées</span>
+      <span>repères sourcés</span>
     </div>
     <div>
       <strong>Sans note</strong>
@@ -164,10 +164,10 @@ const schema = {
     <section class="new-dossiers page-shell" aria-labelledby="new-dossiers-title">
       <header>
         <p class="feature-kicker">Nouveaux guides</p>
-        <h2 id="new-dossiers-title">Un grand four et deux pétrins à choisir selon vos fournées.</h2>
+        <h2 id="new-dossiers-title">Un grand four ou deux pétrins, selon ce que vous préparez.</h2>
         <p>
-          L’Arc XL ouvre la rubrique Gozney. Les Halo Core et Pro posent une
-          question différente : combien de pâte préparez-vous vraiment ?
+          L’Arc XL ouvre la rubrique Gozney. Pour les Halo Core et Pro, la
+          question est simple. Combien de pâte préparez-vous vraiment ?
         </p>
       </header>
 
@@ -199,7 +199,7 @@ const schema = {
 
   <section class="featured-dossiers page-shell" aria-labelledby="featured-title">
     <header class="section-bar">
-      <h2 id="featured-title">Dossiers modèles</h2>
+      <h2 id="featured-title">Choisir un modèle</h2>
       <a href="/ooni/">Voir les neuf modèles Ooni <span aria-hidden="true">→</span></a>
     </header>
 
@@ -219,7 +219,7 @@ const schema = {
             <span class="dossier-card__index">{String(index + 1).padStart(2, "0")}</span>
           </span>
           <span class="dossier-card__content">
-            <span class="dossier-card__type">Guide modèle</span>
+            <span class="dossier-card__type">Guide d'achat</span>
             <h3>{entry.data.title}</h3>
             <span class="dossier-card__summary">{entry.data.summary}</span>
             <span class="dossier-card__meta">
@@ -237,10 +237,10 @@ const schema = {
     <div class="page-shell choice-guide__grid">
       <div class="choice-guide__intro">
         <p class="feature-kicker">Guide d'achat</p>
-        <h2>Le bon four commence par quatre contraintes.</h2>
+        <h2>Quatre questions pour réduire la liste.</h2>
         <p>
-          Le lieu autorisé et l'énergie réduisent la gamme. Le débit et le coût
-          complet départagent ensuite les options qui restent.
+          Où pouvez-vous cuire et avec quelle énergie ? Le nombre de pizzas et
+          le budget total départagent ensuite les modèles qui restent.
         </p>
         <a href="/fours-a-pizza/">Ouvrir le guide de choix <span aria-hidden="true">→</span></a>
       </div>
@@ -260,13 +260,13 @@ const schema = {
         </a>
         <a href="/fours-a-pizza/#debit">
           <span>03</span>
-          <strong>Débit</strong>
-          <small>Une pizza ou une série pour les invités</small>
+          <strong>Rythme</strong>
+          <small>Une pizza à la fois ou une série pour les invités</small>
           <b aria-hidden="true">→</b>
         </a>
         <a href="/fours-a-pizza/#cout">
           <span>04</span>
-          <strong>Coût complet</strong>
+          <strong>Budget total</strong>
           <small>Four, table, pelle, énergie et entretien</small>
           <b aria-hidden="true">→</b>
         </a>
@@ -327,7 +327,7 @@ const schema = {
     <header class="section-bar">
       <div>
         <p class="feature-kicker">La méthode Four à Nu</p>
-        <h2 id="method-title">Promesses, mesures et avis restent bien séparés.</h2>
+        <h2 id="method-title">Ce qu'annonce une marque n'est pas une mesure.</h2>
       </div>
       <a href="/methode/">Voir comment nous vérifions <span aria-hidden="true">→</span></a>
     </header>
@@ -335,18 +335,18 @@ const schema = {
     <div class="method-grid">
       <div>
         <span class="method-step">01</span>
-        <h3>Les promesses restent attribuées.</h3>
-        <p>Une dimension ou une fonction annoncée renvoie à sa source d’origine.</p>
+        <h3>Nous attribuons chaque chiffre.</h3>
+        <p>Une dimension ou une fonction annoncée renvoie à la marque qui la publie.</p>
       </div>
       <div>
         <span class="method-step">02</span>
-        <h3>Les mesures gardent leur contexte.</h3>
+        <h3>Nous gardons le contexte.</h3>
         <p>La durée, la météo et la façon de mesurer restent visibles lorsqu’elles comptent.</p>
       </div>
       <div>
         <span class="method-step">03</span>
-        <h3>Notre avis ne se déguise pas en essai.</h3>
-        <p>Nous expliquons ce que nous choisirions et ce que les sources ne permettent pas d’affirmer.</p>
+        <h3>Une conclusion reste une conclusion.</h3>
+        <p>Nous expliquons notre choix et ce que les sources ne permettent pas d’affirmer.</p>
       </div>
     </div>
 
@@ -407,7 +407,7 @@ const schema = {
     margin: auto 0 1.25rem;
     font-size: clamp(3.15rem, 4.8vw, 4.9rem);
     line-height: 0.91;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.04em;
   }
 
   .lead-feature__summary {
@@ -608,7 +608,7 @@ const schema = {
   .new-dossiers,
   .reading-desk,
   .method-strip {
-    padding-block: clamp(3rem, 4vw, 4rem);
+    padding-block: clamp(2.5rem, 3.5vw, 3rem);
   }
 
   .new-dossiers {
@@ -849,8 +849,8 @@ const schema = {
   .choice-guide__grid {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: clamp(2.5rem, 5vw, 5rem);
-    padding-block: clamp(3rem, 4vw, 4rem);
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-block: clamp(2.5rem, 3.5vw, 3rem);
   }
 
   .choice-guide__intro h2 {
@@ -992,7 +992,7 @@ const schema = {
 
   .rss-panel h2 {
     max-width: 12ch;
-    margin: clamp(2.25rem, 4vw, 3.75rem) 0 1rem;
+    margin: clamp(1.5rem, 2.5vw, 2.25rem) 0 1rem;
     font-size: clamp(2.25rem, 3.4vw, 3.4rem);
     line-height: 0.96;
   }
@@ -1028,8 +1028,8 @@ const schema = {
   }
 
   .method-grid > div {
-    min-height: 13rem;
-    padding: 1.25rem;
+    min-height: 11rem;
+    padding: 1rem;
     border-block: 1px solid var(--color-line);
     border-right: 1px solid var(--color-line);
   }
@@ -1041,7 +1041,7 @@ const schema = {
   }
 
   .method-grid h3 {
-    margin: 2.25rem 0 0.65rem;
+    margin: 1.25rem 0 0.65rem;
     font-size: 1.7rem;
     line-height: 1;
   }
@@ -1093,7 +1093,7 @@ const schema = {
     }
 
     .side-story {
-      min-height: 24rem;
+      min-height: 18rem;
     }
 
     .corpus-strip,
@@ -1122,11 +1122,11 @@ const schema = {
     }
 
     .choice-guide__grid {
-      gap: 3rem;
+      gap: 2rem;
     }
 
     .rss-panel h2 {
-      margin-top: 3rem;
+      margin-top: 1.5rem;
     }
   }
 
@@ -1141,12 +1141,24 @@ const schema = {
     }
 
     .lead-feature h1 {
-      margin-top: 3rem;
+      margin-top: 2rem;
       font-size: clamp(3.5rem, 15vw, 4.8rem);
     }
 
-    .lead-feature__visual {
-      padding: 0 1.5rem 1.5rem;
+    .lead-feature__visual--documentary {
+      aspect-ratio: auto;
+      padding: 0;
+    }
+
+    .lead-feature__visual--documentary img {
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+
+    .lead-feature__visual--documentary figcaption {
+      position: static;
+      background: var(--color-carbon);
     }
 
     .hero-side,
@@ -1155,7 +1167,7 @@ const schema = {
     }
 
     .side-story {
-      min-height: 18rem;
+      min-height: 16rem;
     }
 
     .corpus-strip {
@@ -1202,7 +1214,7 @@ const schema = {
     }
 
     .reading-desk {
-      gap: 3rem;
+      gap: 2rem;
     }
   }
 

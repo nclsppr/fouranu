@@ -6,7 +6,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
 
 <BaseLayout
   title="Notre méthode : sources, preuves et corrections | Four à Nu"
-  description="Comment Four à Nu attribue les données fabricant, mesures tierces, observations, synthèses et inférences de ses dossiers."
+  description="Comment Four à Nu distingue les annonces des marques, les mesures publiées, les observations et ses propres conclusions."
   indexable={true}
 >
   <div class="page-shell">
@@ -14,52 +14,52 @@ import ProofLabel from "@/components/ProofLabel.astro";
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Protocole éditorial</p>
+        <p class="eyebrow">Comment nous travaillons</p>
         <h1>Montrer d'où vient chaque conclusion.</h1>
         <p class="page-intro__lede">
-          Four à Nu ne mélange pas une fiche constructeur, une mesure publiée,
-          une observation vidéo et une conclusion éditoriale. Chaque niveau de
-          preuve a son code, ses formulations permises et ses limites.
+          Une fiche du fabricant n'est pas une mesure. Une vidéo n'est pas une
+          expérience Four à Nu. Nous indiquons l'origine de chaque information et
+          ce qu'elle permet vraiment de conclure.
         </p>
       </div>
       <p class="page-intro__aside">
-        La méthode est permanente : une expérience tierce reste attribuée à son
-        auteur et une inconnue reste une inconnue, même si une réponse plus
-        spectaculaire serait plus facile à vendre.
+        Nous attribuons chaque mesure à la personne qui l'a réalisée. Quand une
+        réponse manque, nous l'écrivons, même si une certitude serait plus facile
+        à vendre.
       </p>
     </header>
 
     <section class="method-grid" aria-labelledby="levels-title">
       <header>
-        <p class="eyebrow">Niveaux de preuve</p>
-        <h2 id="levels-title">Cinq niveaux pour ne pas confondre une source et une conclusion.</h2>
+        <p class="eyebrow">D'où vient l'information</p>
+        <h2 id="levels-title">Cinq étiquettes pour savoir ce que vous lisez.</h2>
       </header>
 
       <div class="method-grid__levels">
         <article>
           <ProofLabel code="FAB" />
           <h3>Donnée fabricant</h3>
-          <p>Nous l'attribuons au fabricant. Elle décrit une annonce, pas une performance vérifiée.</p>
+          <p>Une valeur annoncée par la marque. Nous la citons comme telle, sans la présenter comme vérifiée.</p>
         </article>
         <article>
           <ProofLabel code="T-MES" />
           <h3>Mesure tierce</h3>
-          <p>La source, le timecode, les conditions annoncées et les conflits connus accompagnent la valeur.</p>
+          <p>Une autre personne a réalisé la mesure. Nous gardons la source, le moment de la vidéo et les conditions utiles.</p>
         </article>
         <article>
           <ProofLabel code="T-OBS" />
           <h3>Observation tierce</h3>
-          <p>Nous décrivons ce qui est visible sans transformer une séquence en règle générale.</p>
+          <p>Nous décrivons ce que la séquence montre, rien de plus.</p>
         </article>
         <article>
           <ProofLabel code="FAN-SYN" />
           <h3>Synthèse Four à Nu</h3>
-          <p>Un rapprochement entre plusieurs sources, avec méthode et incertitude explicites.</p>
+          <p>Nous rapprochons plusieurs sources et montrons notre raisonnement, avec ce qui reste incertain.</p>
         </article>
         <article>
           <ProofLabel code="FAN-INF" />
-          <h3>Inférence éditoriale</h3>
-          <p>Une estimation motivée, signalée comme telle et accompagnée d'un niveau de confiance.</p>
+          <h3>Conclusion Four à Nu</h3>
+          <p>Une conclusion tirée des faits disponibles. Nous montrons ses raisons et son degré de confiance.</p>
         </article>
       </div>
     </section>
@@ -67,38 +67,38 @@ import ProofLabel from "@/components/ProofLabel.astro";
     <section class="principles" aria-label="Règles éditoriales">
       <article>
         <span>01</span>
-        <h2>Deux sources avant une comparaison de performance.</h2>
-        <p>Si une seule source exploitable existe, la dépendance reste visible. Des protocoles incompatibles ne sont pas moyennés.</p>
+        <h2>Une comparaison solide demande deux sources indépendantes.</h2>
+        <p>S'il n'en existe qu'une, nous présentons un exemple, pas une règle générale. Nous ne mélangeons pas des mesures réalisées de façons incompatibles.</p>
       </article>
       <article>
         <span>02</span>
-        <h2>Les conflits sont déclarés, pas devinés.</h2>
-        <p>Prêt, sponsoring, affiliation et lien marchand sont enregistrés lorsqu'ils sont connus. Aucun de ces liens ne prouve à lui seul qu'une source est fausse.</p>
+        <h2>Nous signalons les liens commerciaux connus.</h2>
+        <p>Produit prêté, sponsoring, affiliation et lien marchand sont enregistrés. Aucun de ces liens ne suffit à rendre une source vraie ou fausse.</p>
       </article>
       <article>
         <span>03</span>
-        <h2>Une illustration ne devient jamais une preuve.</h2>
-        <p>Un lecteur vidéo officiel, un photogramme autorisé ou un croquis peuvent illustrer une page. Leur origine reste créditée et séparée des éléments probants.</p>
+        <h2>Une image illustre, elle ne prouve pas une performance.</h2>
+        <p>Une vidéo, une image autorisée ou un schéma peuvent illustrer la page. Nous créditons leur origine et les séparons des faits.</p>
       </article>
       <article>
         <span>04</span>
-        <h2>L'affiliation vient après la réponse.</h2>
-        <p>Un lien rémunéré portera la mention adaptée et l'attribut <code>rel="sponsored"</code>. Il ne décidera ni de la sélection des sources ni du verdict.</p>
+        <h2>L'affiliation ne choisit pas la réponse.</h2>
+        <p>Un lien rémunéré est signalé clairement. Il ne décide ni de la sélection des sources ni de notre conclusion.</p>
       </article>
       <article>
         <span>05</span>
-        <h2>Un brouillon n'autorise jamais à fabriquer les faits.</h2>
-        <p>La rédaction contrôle les sources, les inférences et le texte final. Une voix personnelle n'autorise jamais à raconter comme nôtre une expérience réalisée par un tiers.</p>
+        <h2>Nous n'inventons pas ce qui manque.</h2>
+        <p>La rédaction contrôle les sources, les conclusions et le texte final. Une voix personnelle ne transforme jamais l'expérience d'un tiers en expérience Four à Nu.</p>
       </article>
     </section>
 
     <section class="correction-link">
       <div>
-        <p class="eyebrow">Une donnée change ou une erreur apparaît</p>
-        <h2>La correction reste visible.</h2>
+        <p class="eyebrow">Une donnée change ou une erreur nous échappe</p>
+        <h2>Nous corrigeons et gardons une trace.</h2>
       </div>
       <div>
-        <p>Chaque article portera une date de vérification. Une correction importante conservera son motif et son impact.</p>
+        <p>Chaque article affiche sa date de vérification. Pour une correction importante, nous conservons le motif et ce qu'elle change.</p>
         <a href="/corrections/">Lire la politique de correction <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -110,7 +110,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
     display: grid;
     grid-template-columns: 4fr 8fr;
     gap: 1.5rem;
-    padding-block: 4rem;
+    padding-block: 3rem;
     border-bottom: 1px solid var(--color-line);
   }
 
@@ -128,7 +128,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
   }
 
   .method-grid__levels article {
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
   }
@@ -142,7 +142,7 @@ import ProofLabel from "@/components/ProofLabel.astro";
   }
 
   .method-grid__levels h3 {
-    margin: 1.5rem 0 0.5rem;
+    margin: 1rem 0 0.5rem;
     font-size: 1.65rem;
   }
 
@@ -154,14 +154,14 @@ import ProofLabel from "@/components/ProofLabel.astro";
   }
 
   .principles {
-    padding-block: 4rem;
+    padding-block: 3rem;
   }
 
   .principles article {
     display: grid;
     grid-template-columns: 3rem minmax(18rem, 5fr) minmax(14rem, 3fr);
     gap: 1.5rem;
-    padding-block: 1.5rem;
+    padding-block: 1rem;
     border-top: 1px solid var(--color-line);
   }
 

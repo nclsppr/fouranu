@@ -58,7 +58,7 @@ spacing:
   large: 32px
   xlarge: 48px
   xxlarge: 64px
-  section: 64px
+  section: 48px
   gutter-desktop: 24px
   gutter-mobile: 16px
   margin-mobile: 20px
@@ -201,9 +201,9 @@ comme défilable permet le déplacement horizontal au clavier et au toucher. Le
 premier intitulé reste visible si cela n'occulte pas les valeurs. Une vue mobile
 ne remplace jamais un tableau par des cartes qui cacheraient des critères.
 
-Les sections commencent sur un rythme dense de 64 px en desktop et 48 px en
-mobile. Un manifeste ou une rupture de chapitre peut atteindre 80 px si ce vide
-porte réellement la hiérarchie. Les groupes liés utilisent 16 ou 24 px. Un vide
+Les sections commencent sur un rythme dense de 48 px en desktop et 40 px en
+mobile. Un manifeste ou une rupture de chapitre peut atteindre 64 px si ce vide
+porte réellement la hiérarchie. Les groupes liés utilisent 12, 16 ou 24 px. Un vide
 de grille ne reçoit pas une carte, une citation ou une illustration uniquement
 pour équilibrer la page.
 
@@ -262,6 +262,12 @@ position ne doit jamais faire disparaître une réserve éditoriale. Le marquage
 Le rail affiche la nature de la preuve, la source, la date de vérification, les
 conditions connues, le niveau de confiance et les conflits déclarés. Il ne
 réduit jamais ces données à une note, une étoile ou un badge coloré.
+
+La bibliographie de fin d'article reste fermée au premier chargement derrière
+une ligne « Sources de cet article ». Son ouverture révèle une liste compacte,
+puis le détail de chaque référence à la demande. Les identifiants internes et le
+niveau de confiance restent dans ce détail : ils ne saturent pas le premier
+niveau de lecture.
 
 Le bandeau `Analyse documentaire - sources et protocoles attribués` précède la
 première recommandation. Une note, une étoile, un classement

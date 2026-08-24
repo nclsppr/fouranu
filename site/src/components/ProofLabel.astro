@@ -11,6 +11,13 @@ const names = {
   "FAN-SYN": "Synthèse Four à Nu",
   "FAN-INF": "Inférence éditoriale Four à Nu",
 } as const;
+const labels = {
+  FAB: "Annonce",
+  "T-MES": "Mesure publiée",
+  "T-OBS": "Observation publiée",
+  "FAN-SYN": "Synthèse",
+  "FAN-INF": "Conclusion",
+} as const;
 ---
 
 <span
@@ -18,5 +25,5 @@ const names = {
   aria-label={names[code]}
   title={names[code]}
 >
-  {code}
+  {labels[code]}
 </span>

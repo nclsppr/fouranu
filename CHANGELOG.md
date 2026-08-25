@@ -6,6 +6,16 @@ importantes.
 
 ## Non publié
 
+Rien pour le moment.
+
+## 2026-08-25 - SEO, partage et favicon publics
+
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `a6e8f622b13db50b852e8e71c4da57beb30f8dd7`. Le run GitHub Actions
+  [`32886732924`](https://github.com/nclsppr/fouranu/actions/runs/32886732924)
+  a vérifié puis déployé l'artefact exact ; `/release.json`, l'accueil, un
+  article, le sitemap, la 404, les nouvelles icônes et la carte sociale ont été
+  contrôlés publiquement en HTTP et dans le navigateur.
 - Passe SEO sur les 31 pages canoniques : titres sociaux resserrés, image
   principale déclarée dans chaque `WebPage`, schémas `Article` enrichis,
   auteurs reliés à leur profil et dix-neuf images ajoutées au sitemap.

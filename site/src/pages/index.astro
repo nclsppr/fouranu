@@ -88,17 +88,29 @@ const schema = {
       description:
         "Média francophone indépendant consacré aux fours à pizza, à leurs usages et à leur équipement.",
       publishingPrinciples: `${SITE.url}/methode/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE.url}/brand/logo-fouranu.png`,
+        contentUrl: `${SITE.url}/brand/logo-fouranu.png`,
+        width: 480,
+        height: 172,
+      },
     },
   ],
 };
 ---
 
-<BaseLayout indexable={true} schema={schema}>
+<BaseLayout
+  socialTitle="Choisir son four à pizza, sources à l’appui"
+  indexable={true}
+  schema={schema}
+>
   <section class="editorial-hero page-shell" aria-labelledby="home-title">
     <article class="lead-feature">
       <div class="lead-feature__copy">
         <p class="feature-kicker">Guide d'achat</p>
-        <h1 id="home-title">{lead.data.title}</h1>
+        <h1 id="home-title">Choisir son four à pizza, sources à l’appui.</h1>
+        <h2 class="lead-feature__story-title">{lead.data.title}</h2>
         <p class="lead-feature__summary">{lead.data.summary}</p>
         <div class="lead-feature__filters" aria-label="Les premiers critères du guide">
           <span>Lieu</span>
@@ -406,10 +418,18 @@ const schema = {
 
   .lead-feature h1 {
     max-width: 10ch;
-    margin: auto 0 1.25rem;
+    margin: auto 0 0.8rem;
     font-size: clamp(3.15rem, 4.8vw, 4.9rem);
     line-height: 0.91;
     letter-spacing: -0.04em;
+  }
+
+  .lead-feature__story-title {
+    max-width: 28ch;
+    margin: 0 0 0.8rem;
+    color: var(--color-white);
+    font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+    line-height: 1.05;
   }
 
   .lead-feature__summary {

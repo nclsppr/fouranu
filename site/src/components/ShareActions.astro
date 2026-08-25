@@ -1,0 +1,101 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+}
+
+const { title, description, url } = Astro.props;
+const emailSubject = encodeURIComponent(`À lire : ${title}`);
+const emailBody = encodeURIComponent(`${description}\n\n${url}`);
+const whatsappText = encodeURIComponent(`${title}\n${url}`);
+---
+
+<section
+  class="share-actions page-shell"
+  aria-labelledby="share-actions-title"
+  data-share-root
+  data-share-title={title}
+  data-share-text={description}
+  data-share-url={url}
+>
+  <div class="share-actions__inner">
+    <div class="share-actions__copy">
+      <p class="eyebrow">À faire circuler</p>
+      <h2 id="share-actions-title">Partager cette page</h2>
+      <p>
+        Le menu de partage peut proposer Messages, Messenger, Instagram ou
+        d’autres apps compatibles installées sur votre appareil.
+      </p>
+    </div>
+
+    <div class="share-actions__controls" role="group" aria-label="Options de partage">
+      <button class="button-link" type="button" hidden data-share-native>
+        Partager…
+      </button>
+      <a
+        class="button-link button-link--quiet"
+        href={`https://wa.me/?text=${whatsappText}`}
+        rel="external noopener"
+      >
+        WhatsApp
+      </a>
+      <a
+        class="button-link button-link--quiet"
+        href={`mailto:?subject=${emailSubject}&body=${emailBody}`}
+      >
+        Par e-mail
+      </a>
+      <button class="button-link button-link--quiet" type="button" hidden data-share-copy>
+        Copier le lien
+      </button>
+      <p
+        class="share-actions__status"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-share-status
+      ></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const roots = document.querySelectorAll<HTMLElement>("[data-share-root]");
+
+  for (const root of roots) {
+    const title = root.dataset.shareTitle ?? document.title;
+    const text = root.dataset.shareText ?? "";
+    const url = root.dataset.shareUrl ?? window.location.href;
+    const status = root.querySelector<HTMLElement>("[data-share-status]");
+    const nativeButton = root.querySelector<HTMLButtonElement>("[data-share-native]");
+    const copyButton = root.querySelector<HTMLButtonElement>("[data-share-copy]");
+
+    if (nativeButton && typeof navigator.share === "function") {
+      nativeButton.hidden = false;
+      nativeButton.addEventListener("click", async () => {
+        status?.replaceChildren();
+        try {
+          await navigator.share({ title, text, url });
+        } catch (error) {
+          if (error instanceof DOMException && error.name === "AbortError") return;
+          if (status) {
+            status.textContent = "Le partage n’a pas abouti. Vous pouvez copier le lien ou l’envoyer par e-mail.";
+          }
+        }
+      });
+    }
+
+    if (copyButton && navigator.clipboard?.writeText) {
+      copyButton.hidden = false;
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(url);
+          if (status) status.textContent = "Lien copié.";
+        } catch {
+          if (status) status.textContent = "La copie a échoué. Vous pouvez envoyer la page par e-mail.";
+        }
+      });
+    }
+  }
+</script>

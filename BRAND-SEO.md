@@ -279,8 +279,9 @@ Sources : [contenu utile Google](https://developers.google.com/search/docs/funda
 
 ### Exploration et indexation
 
-- produire HTML, titres et informations essentielles sans dépendre d'une
-  exécution JavaScript fragile ;
+- produire HTML, titres et informations essentielles sans dépendre de
+  JavaScript ; réserver un script client minimal aux améliorations progressives
+  dont l'absence ne retire ni contenu, ni lien essentiel ;
 - maintenir les previews en `noindex` et ne rendre indexables que les pages au
   statut `publishable` incluses dans un paquet autorisé ;
 - publier un sitemap XML contenant uniquement les URL canoniques et des dates
@@ -306,6 +307,36 @@ Sources : [robots OpenAI](https://developers.openai.com/api/docs/bots),
 Ces mesures rendent les pages explorables et éligibles. Elles ne garantissent ni
 classement, ni citation, ni trafic.
 
+### Aperçus sociaux et partage
+
+Les pages sans image éditoriale propre utilisent
+`site/public/og/four-a-nu-default-v2.jpg`, une carte générique de 1200 par 630 px
+qui centre le lockup complet sur un fond acier clair entre une règle carbone et
+une règle orange. Sa source est `assets/brand/production/four-a-nu-og.svg`.
+L'ancien signe géométrique et les textes génériques de la première carte n'y
+figurent plus. Les articles utilisent leur illustration d'en-tête propre en 1600
+par 900 px plutôt que cette carte de repli.
+
+L'URL, le titre social, la description, le type, les dimensions et l'alternative
+de chaque image restent cohérents entre Open Graph, Twitter et les données
+structurées de page. Une miniature améliore l'éligibilité et la qualité d'un
+aperçu ; elle ne garantit ni son affichage, ni sa forme finale dans un moteur ou
+une messagerie.
+
+Chaque page canonique propose ensuite un partage progressif. WhatsApp et
+l'e-mail sont des liens HTML disponibles sans JavaScript. Le bouton natif
+apparaît seulement lorsque Web Share est pris en charge et peut alors proposer
+Messages, Messenger, Instagram ou d'autres applications installées. « Copier le
+lien » apparaît seulement lorsque Clipboard est disponible. Tous utilisent
+l'URL canonique sans paramètre de suivi ; aucun SDK social ni pixel tiers n'est
+chargé.
+
+La QA contrôle les aperçus en 1200 par 630 px, leurs types, dimensions,
+alternatives et URL absolues, puis le partage avec et sans Web Share et
+Clipboard. Elle vérifie aussi le clavier, le focus, l'annonce polie des succès et
+échecs, l'absence d'erreur après annulation du menu natif et le maintien des
+liens WhatsApp et e-mail lorsque le script ne s'exécute pas.
+
 L'artefact statique a désormais pour cible préparée Cloudflare Workers Static
 Assets. Cette orientation ne prouve ni l'existence d'un Worker de production,
 ni le rattachement de `fouranu.com`, ni une activation DNS. La validation du
@@ -314,13 +345,19 @@ l'indexabilité et la soumission aux moteurs restent des étapes distinctes.
 
 ## Direction visuelle
 
-Décision actualisée le 2026-08-24 : le lockup couleur fourni est adopté comme
+Décision actualisée le 2026-08-25 : le lockup couleur fourni est adopté comme
 identité plein format sous `site/public/brand/logo-fouranu.png`. Il s'affiche
 dans son ratio d'origine sur fond blanc ou acier très clair, sans recoloration,
 recadrage, ombre ou texture. Son lettrage script, sa pizza et sa flamme forment
-un ensemble indivisible ; ces éléments ne sont jamais extraits ou répétés comme
-décor, pictogramme ou motif de page. Une marque compacte et un favicon restent
-des livrables distincts.
+un ensemble indivisible et ne sont jamais répétés comme décor ou motif de page.
+
+Une seule dérivation échappe à cette règle : le four est simplifié en SVG pour
+la marque compacte, le favicon, l'icône Apple et les icônes 192 et 512 px du
+manifeste. Sa cheminée, sa voûte, son ouverture et sa flamme restent solidaires ;
+la pizza, la pelle et le lettrage n'y sont pas repris. Les couleurs claires,
+l'arrondi et le jaune internes de cette icône restent propres à l'actif de
+marque : ils ne deviennent ni tokens, ni formes disponibles pour l'interface.
+L'ancien signe géométrique angulaire est retiré de toutes les surfaces actives.
 
 La palette associe le carbone, le blanc et l'acier à deux oranges contrôlés :
 `#C7370C` sur blanc pour l'action et les repères éditoriaux, puis `#FF5A24` sur
@@ -337,7 +374,7 @@ Les règles actuelles sont :
 
 - aucun ivoire, beige, terracotta ou faux grain ;
 - aucun dégradé thermique, drapeau italien, toque, moustache ou motif pizza en
-  dehors du lockup adopté ;
+  dehors du lockup adopté ; le four compact reste limité aux icônes d'identité ;
 - aucun second lettrage script dans l'interface ;
 - une interface éditoriale de décision, pas une fausse pizzeria ni un portfolio
   d'agence ;
@@ -347,7 +384,8 @@ Les règles actuelles sont :
 La shortlist noir et blanc
 `assets/brand/explorations/seo-name-logo-shortlist-bw.png` et le tracé
 `assets/brand/explorations/four-a-nu-mark-provisional.svg` restent des traces
-historiques d'exploration. Ils ne sont plus des candidats au logo public.
+historiques d'exploration. Ils ne sont plus des candidats au logo public et
+aucun dérivé actif ne doit réintroduire leur ancien signe.
 
 ## Prochaine porte
 

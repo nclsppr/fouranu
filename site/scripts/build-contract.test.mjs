@@ -42,6 +42,11 @@ const fixedIndexableRoutes = [
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 const articleRoutePattern = /^\/(?:ooni|gozney)\/[^/]+\/$/;
+const defaultSocialImage = `${canonicalOrigin}/og/four-a-nu-default-v2.jpg`;
+const rangeSocialImages = new Map([
+  ["/ooni/", `${canonicalOrigin}/images/articles/ooni-gamme-documentee-1600.webp`],
+  ["/gozney/", `${canonicalOrigin}/images/articles/gozney-gamme-1600.webp`],
+]);
 
 async function filesRecursively(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -145,6 +150,48 @@ async function routeExists(route, directory = dist) {
   }
 }
 
+function rasterDimensions(buffer) {
+  const pngSignature = "89504e470d0a1a0a";
+  if (buffer.subarray(0, 8).toString("hex") === pngSignature) {
+    return {
+      width: buffer.readUInt32BE(16),
+      height: buffer.readUInt32BE(20),
+      type: "image/png",
+    };
+  }
+
+  if (buffer[0] === 0xff && buffer[1] === 0xd8) {
+    const startOfFrameMarkers = new Set([
+      0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7,
+      0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf,
+    ]);
+    let offset = 2;
+    while (offset + 8 < buffer.length) {
+      if (buffer[offset] !== 0xff) {
+        offset += 1;
+        continue;
+      }
+      const marker = buffer[offset + 1];
+      if (marker === 0xd8 || marker === 0xd9) {
+        offset += 2;
+        continue;
+      }
+      const segmentLength = buffer.readUInt16BE(offset + 2);
+      if (startOfFrameMarkers.has(marker)) {
+        return {
+          width: buffer.readUInt16BE(offset + 7),
+          height: buffer.readUInt16BE(offset + 5),
+          type: "image/jpeg",
+        };
+      }
+      assert.ok(segmentLength >= 2, "segment JPEG invalide");
+      offset += segmentLength + 2;
+    }
+  }
+
+  throw new Error("format raster non pris en charge");
+}
+
 function parseCsv(input) {
   const rows = [];
   let row = [];
@@ -197,7 +244,11 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
   for (const page of pages) {
     const label = relative(dist, page.file);
     assert.match(page.html, /<!doctype html>/i, label);
-    assert.match(page.html, /<html lang="fr">/, label);
+    assert.match(
+      page.html,
+      /<html lang="fr" prefix="og: https:\/\/ogp\.me\/ns# article: https:\/\/ogp\.me\/ns\/article#">/,
+      label,
+    );
     assert.match(page.html, /<meta charset="UTF-8">/, label);
     assert.match(page.html, /<meta name="viewport" content="width=device-width, initial-scale=1">/, label);
     assert.equal(metaContent(page.html, "robots"), "noindex, follow", label);
@@ -256,30 +307,43 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
       assert.equal(metaContent(page.html, "og:url"), canonical.toString(), label);
     }
 
+    const socialTitle = visibleText(metaContent(page.html, "og:title"));
     assert.equal(metaContent(page.html, "og:title"), metaContent(page.html, "twitter:title"), label);
     assert.equal(metaContent(page.html, "og:description"), metaContent(page.html, "twitter:description"), label);
-    assert.equal(visibleText(metaContent(page.html, "og:title")), visibleText(title), label);
+    assert.ok(socialTitle.length >= 5, `${label}: titre social vide ou trop vague`);
+    assert.ok(socialTitle.length <= 65, `${label}: titre social trop long`);
+    assert.doesNotMatch(socialTitle, /\s+\|\s+Four à Nu$/, `${label}: suffixe de marque social superflu`);
     assert.equal(metaContent(page.html, "og:description"), metaContent(page.html, "description"), label);
     assert.equal(metaContent(page.html, "og:site_name"), "Four à Nu", label);
     assert.equal(metaContent(page.html, "og:locale"), "fr_FR", label);
+    const socialImage = metaContent(page.html, "og:image");
     if (articleRoutePattern.test(page.route ?? "")) {
       assert.match(
-        metaContent(page.html, "og:image") ?? "",
+        socialImage ?? "",
         /^https:\/\/fouranu\.com\/images\/articles\/[a-z0-9-]+-1600\.webp$/,
         label,
       );
       assert.equal(metaContent(page.html, "og:image:type"), "image/webp", label);
       assert.equal(metaContent(page.html, "og:image:width"), "1600", label);
       assert.equal(metaContent(page.html, "og:image:height"), "900", label);
+    } else if (rangeSocialImages.has(page.route)) {
+      assert.equal(socialImage, rangeSocialImages.get(page.route), label);
+      assert.equal(metaContent(page.html, "og:image:type"), "image/webp", label);
+      assert.equal(metaContent(page.html, "og:image:width"), "1600", label);
+      assert.equal(metaContent(page.html, "og:image:height"), "900", label);
     } else {
-      assert.equal(metaContent(page.html, "og:image"), `${canonicalOrigin}/og/four-a-nu-default.png`, label);
-      assert.equal(metaContent(page.html, "og:image:type"), "image/png", label);
+      assert.equal(socialImage, defaultSocialImage, label);
+      assert.equal(metaContent(page.html, "og:image:type"), "image/jpeg", label);
       assert.equal(metaContent(page.html, "og:image:width"), "1200", label);
       assert.equal(metaContent(page.html, "og:image:height"), "630", label);
     }
+    assert.match(socialImage ?? "", /^https:\/\//, `${label}: image sociale non absolue`);
+    assert.equal(await routeExists(socialImage), true, `${label}: image sociale absente du build`);
+    assert.equal(metaContent(page.html, "og:image:secure_url"), socialImage, label);
+    assert.deepEqual(linkHref(page.html, "image_src"), [socialImage], label);
     assert.ok(metaContent(page.html, "og:image:alt")?.length > 20, label);
     assert.equal(metaContent(page.html, "twitter:card"), "summary_large_image", label);
-    assert.equal(metaContent(page.html, "twitter:image"), metaContent(page.html, "og:image"), label);
+    assert.equal(metaContent(page.html, "twitter:image"), socialImage, label);
     assert.equal(metaContent(page.html, "twitter:image:alt"), metaContent(page.html, "og:image:alt"), label);
     assert.deepEqual(
       tags(page.html, "link")
@@ -291,12 +355,115 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     );
     assert.ok(Buffer.byteLength(page.html) < 80_000, `${label}: HTML supérieur à 80 Ko`);
 
+  }
+});
+
+test("le partage reste local sur les trente et une pages canoniques et absent de la 404", async () => {
+  const pages = await htmlPages();
+  const moduleBodies = new Set();
+  let shareRootCount = 0;
+
+  for (const page of pages) {
+    const label = page.route ?? "404";
+    const shareSections = pairedElements(page.html, "section").filter((section) =>
+      /\sdata-share-root(?:\s|$)/i.test(section[1])
+    );
     const scripts = pairedElements(page.html, "script");
+    const moduleScripts = scripts.filter((script) =>
+      attribute(`<script${script[1]}>`, "type") === "module"
+    );
+
     assert.ok(
-      scripts.every((script) => attribute(`<script${script[1]}>`, "type") === "application/ld+json"),
-      `${label}: JavaScript client inattendu`,
+      scripts.every((script) => attribute(`<script${script[1]}>`, "src") === undefined),
+      `${label}: aucun script tiers ou fichier client n'est permis`,
+    );
+    assert.ok(
+      scripts.every((script) =>
+        ["application/ld+json", "module"].includes(attribute(`<script${script[1]}>`, "type"))
+      ),
+      `${label}: type de script inattendu`,
+    );
+
+    if (page.route === null) {
+      assert.equal(shareSections.length, 0, "la 404 ne doit pas proposer de partage canonique");
+      assert.equal(moduleScripts.length, 0, "la 404 ne doit pas charger le module de partage");
+      continue;
+    }
+
+    assert.equal(shareSections.length, 1, `${label}: un seul composant de partage attendu`);
+    assert.equal(moduleScripts.length, 1, `${label}: un seul module inline attendu`);
+    shareRootCount += shareSections.length;
+    moduleBodies.add(moduleScripts[0][2]);
+
+    const share = shareSections[0];
+    const opening = `<section${share[1]}>`;
+    const canonical = `${canonicalOrigin}${page.route}`;
+    const sharedTitle = decodeHtml(attribute(opening, "data-share-title"));
+    const sharedText = decodeHtml(attribute(opening, "data-share-text"));
+    assert.equal(attribute(opening, "data-share-url"), canonical, label);
+    assert.equal(
+      visibleText(sharedTitle),
+      visibleText(metaContent(page.html, "og:title")),
+      label,
+    );
+    assert.equal(
+      sharedText,
+      decodeHtml(metaContent(page.html, "description")),
+      label,
+    );
+    assert.ok(
+      pairedElements(share[2], "h2").some((heading) =>
+        visibleText(heading[2]) === "Partager cette page"
+      ),
+      `${label}: titre de partage absent`,
+    );
+
+    const controlGroups = pairedElements(share[2], "div").filter((element) =>
+      (attribute(`<div${element[1]}>`, "class") ?? "").split(/\s+/).includes("share-actions__controls")
+    );
+    assert.equal(controlGroups.length, 1, `${label}: groupe de contrôles ambigu`);
+    const controlGroup = `<div${controlGroups[0][1]}>`;
+    assert.equal(attribute(controlGroup, "role"), "group", label);
+    assert.equal(attribute(controlGroup, "aria-label"), "Options de partage", label);
+
+    const links = tags(share[2], "a");
+    const whatsappLinks = links.filter((link) =>
+      attribute(link, "href")?.startsWith("https://wa.me/?text=")
+    );
+    assert.equal(whatsappLinks.length, 1, `${label}: lien WhatsApp absent`);
+    const whatsappUrl = new URL(decodeHtml(attribute(whatsappLinks[0], "href")));
+    assert.equal(whatsappUrl.searchParams.get("text"), `${sharedTitle}\n${canonical}`, label);
+
+    const emailLinks = links.filter((link) =>
+      attribute(link, "href")?.startsWith("mailto:?subject=")
+    );
+    assert.equal(emailLinks.length, 1, `${label}: lien e-mail absent`);
+    const emailUrl = new URL(decodeHtml(attribute(emailLinks[0], "href")));
+    assert.equal(emailUrl.searchParams.get("subject"), `À lire : ${sharedTitle}`, label);
+    assert.equal(emailUrl.searchParams.get("body"), `${sharedText}\n\n${canonical}`, label);
+    const buttons = tags(share[2], "button");
+    assert.equal(buttons.filter((button) => /\sdata-share-native(?:\s|>)/.test(button)).length, 1, label);
+    assert.equal(buttons.filter((button) => /\sdata-share-copy(?:\s|>)/.test(button)).length, 1, label);
+    assert.ok(buttons.every((button) => /\shidden(?:\s|>)/.test(button)), `${label}: repli sans JS absent`);
+    assert.ok(
+      tags(share[2], "p").some((paragraph) =>
+        attribute(paragraph, "role") === "status" && attribute(paragraph, "aria-live") === "polite"
+      ),
+      `${label}: retour d'état accessible absent`,
+    );
+
+    const moduleBody = moduleScripts[0][2];
+    assert.match(moduleBody, /navigator\.share/, label);
+    assert.match(moduleBody, /navigator\.clipboard/, label);
+    assert.doesNotMatch(
+      moduleBody,
+      /\b(?:fetch|XMLHttpRequest|sendBeacon|WebSocket)\b|https?:\/\/|import\s*\(/,
+      `${label}: le partage ne doit contacter ou importer aucun tiers`,
     );
   }
+
+  assert.equal(shareRootCount, 31);
+  assert.equal(moduleBodies.size, 1, "les pages doivent embarquer le même petit module local");
 });
 
 test("les données structurées restent vérifiables et sans faux avis", async () => {
@@ -309,6 +476,13 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   assert.equal(website.alternateName, "Four a Nu");
   assert.equal(website.url, `${canonicalOrigin}/`);
   assert.equal(organization["@id"], `${canonicalOrigin}/#organization`);
+  assert.deepEqual(organization.logo, {
+    "@type": "ImageObject",
+    url: `${canonicalOrigin}/brand/logo-fouranu.png`,
+    contentUrl: `${canonicalOrigin}/brand/logo-fouranu.png`,
+    width: 480,
+    height: 172,
+  });
 
   const authorPage = pages.find((page) => page.route === editorialTeam.route);
   assert.ok(authorPage, "page de signature éditoriale absente");
@@ -333,11 +507,40 @@ test("les données structurées restent vérifiables et sans faux avis", async (
 
   for (const page of pages) {
     const documents = jsonLdDocuments(page.html);
+    const nodes = schemaNodes(documents);
     const serialized = JSON.stringify(documents);
     assert.doesNotMatch(serialized, /AggregateRating|"@type":"Review"/);
 
+    const webPages = nodes.filter((node) => node["@type"] === "WebPage");
+    if (page.route === null) {
+      assert.equal(webPages.length, 0, "la 404 ne doit pas se déclarer comme WebPage canonique");
+    } else {
+      const canonical = `${canonicalOrigin}${page.route}`;
+      const webPage = webPages[0];
+      const socialImage = metaContent(page.html, "og:image");
+      assert.equal(webPages.length, 1, `${page.route}: un seul schéma WebPage attendu`);
+      assert.equal(webPage["@id"], canonical, page.route);
+      assert.equal(webPage.url, canonical, page.route);
+      assert.equal(visibleText(webPage.name), visibleText(metaContent(page.html, "og:title")), page.route);
+      assert.equal(webPage.description, decodeHtml(metaContent(page.html, "description")), page.route);
+      assert.equal(webPage.inLanguage, "fr", page.route);
+      assert.deepEqual(webPage.isPartOf, { "@id": `${canonicalOrigin}/#website` }, page.route);
+      assert.deepEqual(
+        webPage.primaryImageOfPage,
+        {
+          "@type": "ImageObject",
+          url: socialImage,
+          contentUrl: socialImage,
+          width: Number(metaContent(page.html, "og:image:width")),
+          height: Number(metaContent(page.html, "og:image:height")),
+          caption: decodeHtml(metaContent(page.html, "og:image:alt")),
+        },
+        `${page.route}: ImageObject principal incohérent`,
+      );
+    }
+
     if (page.route && page.route !== "/") {
-      const breadcrumb = schemaNodes(documents).find((node) => node["@type"] === "BreadcrumbList");
+      const breadcrumb = nodes.find((node) => node["@type"] === "BreadcrumbList");
       assert.ok(breadcrumb, `${page.route}: BreadcrumbList absent`);
       assert.deepEqual(
         breadcrumb.itemListElement.map((item) => item.position),
@@ -351,13 +554,32 @@ test("les données structurées restent vérifiables et sans faux avis", async (
     }
 
     if (articlePages.includes(page)) {
-      const article = schemaNodes(documents).find((node) => node["@type"] === "Article");
+      const article = nodes.find((node) => node["@type"] === "Article");
       const h1 = visibleText(pairedElements(page.html, "h1")[0][2]);
+      const leadFigure = pairedElements(page.html, "figure").find((figure) =>
+        attribute(`<figure${figure[1]}>`, "class") === "article-lead-media"
+      );
+      const imageCaption = visibleText(pairedElements(leadFigure?.[2] ?? "", "figcaption")[0]?.[2] ?? "");
       assert.ok(article, `${page.route}: Article JSON-LD absent`);
+      assert.ok(imageCaption.length >= 20, `${page.route}: légende documentaire absente`);
       assert.equal(article.url, `${canonicalOrigin}${page.route}`);
       assert.equal(visibleText(article.headline), h1);
+      assert.equal(visibleText(metaContent(page.html, "og:title")), h1);
       assert.equal(article.inLanguage, "fr");
       assert.ok(["Fours à pizza", "Pétrins"].includes(article.articleSection));
+      assert.deepEqual(
+        article.image,
+        {
+          "@type": "ImageObject",
+          url: metaContent(page.html, "og:image"),
+          contentUrl: metaContent(page.html, "og:image"),
+          width: 1600,
+          height: 900,
+          caption: imageCaption,
+        },
+        `${page.route}: ImageObject de l'article incohérent`,
+      );
+      assert.equal(article.isAccessibleForFree, true);
       assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
       authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
       assert.equal(article.author["@type"], "Person");
@@ -365,7 +587,9 @@ test("les données structurées restent vérifiables et sans faux avis", async (
         article.author.url,
         `${canonicalOrigin}${editorialAuthors.get(article.author.name)}`,
       );
-      assert.equal(metaContent(page.html, "article:author"), article.author.name);
+      assert.equal(metaContent(page.html, "author"), article.author.name);
+      assert.equal(metaContent(page.html, "article:author"), article.author.url);
+      assert.equal(metaContent(page.html, "article:section"), article.articleSection);
       assert.equal(article.datePublished, metaContent(page.html, "article:published_time"));
       assert.equal(article.dateModified, metaContent(page.html, "article:modified_time"));
       assert.equal(new Date(article.datePublished).toISOString(), article.datePublished);
@@ -489,7 +713,7 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
   }
 });
 
-test("le RSS expose exactement les dix-neuf dossiers publiables", async () => {
+test("le RSS expose exactement les dix-neuf dossiers publiables et indexables", async () => {
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   const articleRoutes = articlePages
@@ -502,7 +726,8 @@ test("le RSS expose exactement les dix-neuf dossiers publiables", async () => {
   assert.match(rss, /<rss version="2\.0" xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
   const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
   assert.equal(rssItems.length, 19);
-  const rssRoutes = rssItems.map((item) => {
+  const rssRoutes = [];
+  for (const item of rssItems) {
     assert.match(item, /<title>[^<]+<\/title>/);
     assert.match(item, /<description>[^<]+<\/description>/);
     assert.match(item, /<pubDate>[^<]+<\/pubDate>/);
@@ -516,10 +741,24 @@ test("le RSS expose exactement les dix-neuf dossiers publiables", async () => {
     assert.match(pathname, articleRoutePattern);
     const articlePage = articlePages.find((page) => page.route === pathname);
     assert.ok(articlePage, `page absente pour l'item RSS ${pathname}`);
-    assert.equal(creator, metaContent(articlePage.html, "article:author"));
-    return pathname;
-  }).sort();
-  assert.deepEqual(rssRoutes, articleRoutes);
+    const article = schemaNodes(jsonLdDocuments(articlePage.html))
+      .find((node) => node["@type"] === "Article");
+    assert.ok(article, `Article JSON-LD absent pour l'item RSS ${pathname}`);
+    assert.equal(creator, article.author.name);
+    assert.equal(metaContent(articlePage.html, "article:author"), article.author.url);
+
+    const [, brand, slug] = pathname.split("/");
+    const markdown = await readFile(
+      join(siteRoot, "src/content/analyses", `${slug}.md`),
+      "utf8",
+    );
+    assert.match(markdown, /^brand:\s*(ooni|gozney)$/m, `${pathname}: marque source absente`);
+    assert.equal(markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1], brand, pathname);
+    assert.match(markdown, /^status:\s*publishable$/m, `${pathname}: dossier non publiable dans le RSS`);
+    assert.match(markdown, /^indexable:\s*true$/m, `${pathname}: dossier non indexable dans le RSS`);
+    rssRoutes.push(pathname);
+  }
+  assert.deepEqual(rssRoutes.sort(), articleRoutes);
 
 });
 
@@ -705,6 +944,88 @@ test("le logo Four à Nu est explicite, dimensionné et léger", async () => {
   assert.ok(logoFile.size < 200_000, "le logo d'en-tête dépasse 200 Ko");
 });
 
+test("le four du logo équipe favicon, icônes installables et miniature sociale", async () => {
+  for (const page of await htmlPages()) {
+    const label = page.route ?? "404";
+    const favicon = tags(page.html, "link").filter((link) => attribute(link, "rel") === "icon");
+    assert.equal(favicon.length, 1, `${label}: favicon ambigu`);
+    assert.equal(attribute(favicon[0], "href"), "/favicon.svg", label);
+    assert.equal(attribute(favicon[0], "type"), "image/svg+xml", label);
+    assert.equal(attribute(favicon[0], "sizes"), "any", label);
+
+    const appleIcons = tags(page.html, "link")
+      .filter((link) => attribute(link, "rel") === "apple-touch-icon");
+    assert.equal(appleIcons.length, 1, `${label}: icône Apple ambiguë`);
+    assert.equal(attribute(appleIcons[0], "href"), "/apple-touch-icon.png", label);
+    assert.equal(attribute(appleIcons[0], "sizes"), "180x180", label);
+    assert.deepEqual(linkHref(page.html, "manifest"), ["/site.webmanifest"], label);
+  }
+
+  const manifest = JSON.parse(await readFile(join(dist, "site.webmanifest"), "utf8"));
+  assert.equal(manifest.name, "Four à Nu");
+  assert.equal(manifest.short_name, "Four à Nu");
+  assert.equal(manifest.start_url, "/");
+  assert.equal(manifest.display, "standalone");
+  assert.deepEqual(manifest.icons, [
+    {
+      src: "/favicon.svg",
+      sizes: "any",
+      type: "image/svg+xml",
+    },
+    {
+      src: "/icons/icon-192.png",
+      sizes: "192x192",
+      type: "image/png",
+      purpose: "any",
+    },
+    {
+      src: "/icons/icon-512.png",
+      sizes: "512x512",
+      type: "image/png",
+      purpose: "any",
+    },
+  ]);
+  for (const icon of manifest.icons) {
+    assert.equal(await routeExists(icon.src), true, `icône du manifeste absente: ${icon.src}`);
+  }
+
+  const favicon = await readFile(join(dist, "favicon.svg"));
+  const faviconMarkup = favicon.toString("utf8");
+  assert.match(faviconMarkup, /viewBox="0 0 128 128"/);
+  assert.match(faviconMarkup, /Le four du logo Four à Nu/);
+  assert.match(faviconMarkup, /#FF5A24/);
+  assert.ok(favicon.byteLength < 5_000, "le favicon SVG dépasse 5 Ko");
+
+  const rasterAssets = [
+    ["apple-touch-icon.png", 180, 180, 25_000],
+    ["icons/icon-192.png", 192, 192, 25_000],
+    ["icons/icon-512.png", 512, 512, 50_000],
+    ["og/four-a-nu-default-v2.jpg", 1200, 630, 100_000],
+  ];
+  for (const [path, width, height, byteBudget] of rasterAssets) {
+    const buffer = await readFile(join(dist, path));
+    const dimensions = rasterDimensions(buffer);
+    assert.deepEqual(
+      [dimensions.width, dimensions.height],
+      [width, height],
+      `${path}: dimensions incohérentes`,
+    );
+    assert.equal(
+      dimensions.type,
+      path.endsWith(".jpg") ? "image/jpeg" : "image/png",
+      `${path}: format incohérent`,
+    );
+    assert.ok(buffer.byteLength < byteBudget, `${path}: budget de ${byteBudget} octets dépassé`);
+  }
+
+  const headers = await readFile(join(dist, "_headers"), "utf8");
+  assert.match(
+    headers,
+    /^  Permissions-Policy: camera=\(\), geolocation=\(\), microphone=\(\), web-share=\(self\)$/m,
+    "la politique de permissions doit autoriser le partage natif uniquement sur le site",
+  );
+});
+
 test("robots et sitemap gardent la preview hors index", async () => {
   const robots = await readFile(join(dist, "robots.txt"), "utf8");
   const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
@@ -717,7 +1038,9 @@ test("robots et sitemap gardent la preview hors index", async () => {
     ].join("\n"),
   );
   assert.match(sitemap, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
+  assert.match(sitemap, /xmlns:image="http:\/\/www\.google\.com\/schemas\/sitemap-image\/1\.1"/);
   assert.doesNotMatch(sitemap, /<url>/);
+  assert.doesNotMatch(sitemap, /<image:image>/);
 });
 
 test("les sondes statiques exposent la santé et la révision du build", async () => {
@@ -752,7 +1075,12 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     );
 
     const sitemap = await readFile(join(temporaryOutput, "sitemap.xml"), "utf8");
+    assert.match(
+      sitemap,
+      /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9" xmlns:image="http:\/\/www\.google\.com\/schemas\/sitemap-image\/1\.1">/,
+    );
     const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+    const urlEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
     const pages = await htmlPages(temporaryOutput);
     const articleRoutes = pages
       .map((page) => page.route)
@@ -764,7 +1092,31 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
-    assert.equal((sitemap.match(/<lastmod>2026-08-24<\/lastmod>/g) ?? []).length, 31);
+    assert.equal(urlEntries.length, 31);
+    assert.equal((sitemap.match(/<lastmod>2026-08-25<\/lastmod>/g) ?? []).length, 31);
+
+    const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
+      .map((match) => match[1]);
+    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 19);
+    assert.equal(sitemapImages.length, 19);
+    const expectedArticleImages = pages
+      .filter((page) => articleRoutePattern.test(page.route ?? ""))
+      .map((page) => metaContent(page.html, "og:image"))
+      .sort();
+    assert.deepEqual(sitemapImages.sort(), expectedArticleImages);
+
+    for (const entry of urlEntries) {
+      const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];
+      assert.ok(location, "URL absente d'une entrée sitemap");
+      const imageLocations = [...entry.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
+        .map((match) => match[1]);
+      if (articleRoutePattern.test(new URL(location).pathname)) {
+        assert.equal(imageLocations.length, 1, `${location}: une image sitemap attendue`);
+        assert.equal(await routeExists(imageLocations[0], temporaryOutput), true, `${location}: image absente`);
+      } else {
+        assert.deepEqual(imageLocations, [], `${location}: image sitemap réservée aux articles`);
+      }
+    }
 
     for (const page of pages) {
       const expected = page.route === null ? "noindex, follow" : indexableRobots;
@@ -799,8 +1151,8 @@ test("le rendu statique reste léger et précharge seulement les deux fontes cri
     }
   }
 
-  const socialImage = await stat(join(dist, "og/four-a-nu-default.png"));
-  assert.ok(socialImage.size < 100_000, "l'image sociale dépasse 100 Ko");
+  const socialImage = await stat(join(dist, "og/four-a-nu-default-v2.jpg"));
+  assert.ok(socialImage.size < 100_000, "l'image sociale JPEG dépasse 100 Ko");
 });
 
 async function availablePort() {
@@ -889,6 +1241,12 @@ test("la preview sert une vraie 404 et stabilise les URL de referral", async () 
       font.headers.get("cache-control"),
       "public, max-age=31536000, immutable",
     );
+
+    const socialImage = await fetch(
+      `http://127.0.0.1:${port}/og/four-a-nu-default-v2.jpg`,
+    );
+    assert.equal(socialImage.status, 200);
+    assert.equal(socialImage.headers.get("content-type"), "image/jpeg");
 
     const retiredArticleImage = await fetch(
       `http://127.0.0.1:${port}/images/articles/koda-2-photogramme-960.webp`,

@@ -2,7 +2,7 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), geolocation=(), microphone=()
+  Permissions-Policy: camera=(), geolocation=(), microphone=(), web-share=(self)
 
 /_astro/*
   Cache-Control: public, max-age=31556952, immutable

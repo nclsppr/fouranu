@@ -41,6 +41,7 @@ const words = (entry.body ?? "")
   .filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(words / 220));
 const articleImage = new URL(entry.data.image.src, SITE.url).toString();
+const articleMetaTitle = entry.data.seoTitle ?? `${entry.data.title} | Four à Nu`;
 const typeLabels = {
   guide: "Guide d'achat",
   decision: "Comparatif par usage",
@@ -64,7 +65,14 @@ const schema = {
   headline: entry.data.title,
   description: entry.data.description,
   articleSection: categoryLabels[entry.data.category],
-  image: articleImage,
+  image: {
+    "@type": "ImageObject",
+    url: articleImage,
+    contentUrl: articleImage,
+    width: 1600,
+    height: 900,
+    caption: entry.data.image.caption,
+  },
   wordCount: words,
   timeRequired: `PT${readingMinutes}M`,
   datePublished: entry.data.publishedAt.toISOString(),
@@ -90,11 +98,13 @@ const schema = {
     "@id": `${SITE.url}/#website`,
   },
   publishingPrinciples: `${SITE.url}/methode/`,
+  isAccessibleForFree: true,
 };
 ---
 
 <BaseLayout
-  title={`${entry.data.title} | Four à Nu`}
+  title={articleMetaTitle}
+  socialTitle={entry.data.title}
   description={entry.data.description}
   image={entry.data.image.src}
   imageAlt={entry.data.image.alt}
@@ -103,6 +113,8 @@ const schema = {
   indexable={entry.data.indexable}
   pageType="article"
   authorName={author.name}
+  authorUrl={canonicalAuthor}
+  articleSection={categoryLabels[entry.data.category]}
   publishedAt={entry.data.publishedAt}
   modifiedAt={entry.data.updatedAt}
   schema={schema}

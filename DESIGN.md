@@ -227,10 +227,23 @@ Le lockup couleur fourni est adopté sous
 `site/public/brand/logo-fouranu.png`. Il s'utilise dans son ratio d'origine,
 sur fond blanc ou acier très clair, sans recoloration, recadrage, ombre,
 texture ni contour ajouté. Sa pizza, sa flamme et son lettrage script forment
-un ensemble de marque indivisible : ils ne deviennent ni des icônes, ni un
-vocabulaire décoratif à répéter dans l'interface. Ce lockup plein format n'est
-pas forcé en 16 px ; une marque compacte et un favicon restent des livrables
-séparés.
+un ensemble de marque indivisible : ils ne deviennent pas un vocabulaire
+décoratif à répéter dans l'interface. Ce lockup plein format n'est jamais forcé
+aux dimensions d'un favicon.
+
+La seule dérivation compacte autorisée simplifie le four du logo en SVG :
+cheminée, voûte, ouverture et flamme restent solidaires, sans pizza, pelle ni
+lettrage. `assets/brand/production/four-a-nu-app-icon.svg` en est la source ;
+`site/public/favicon.svg`, `site/public/brand/four-a-nu-mark.svg`, l'icône Apple
+180 px et les icônes de manifeste 192 et 512 px en sont les consommateurs. Cette
+exception sert uniquement l'identification du site et de l'application. Elle
+n'autorise ni un motif de four dans les pages, ni l'extraction isolée de la
+flamme. Les nuances claires, le jaune interne et l'arrondi de fond propres à cet
+actif ne créent aucun nouveau token, rayon ou composant d'interface.
+
+L'ancien signe géométrique ouvert dans un angle est retiré des surfaces actives.
+Son tracé provisoire reste seulement une trace historique sous
+`assets/brand/explorations/` et ne doit plus être servi ou réintroduit.
 
 Les icônes utilisent un contour régulier et une géométrie orthogonale lorsque
 le sens le permet. Elles accompagnent toujours un libellé pour les actions et
@@ -260,6 +273,20 @@ visuellement séparé du verdict, des limites et des sources. Sa taille, sa coul
 ou sa position ne devra jamais faire disparaître une réserve éditoriale. Le
 marquage `rel="sponsored"` et la déclaration d'affiliation deviendront alors
 obligatoires.
+
+### Partage
+
+Chaque page disposant d'une URL canonique se termine par un module « Partager
+cette page ». Sans JavaScript, WhatsApp reste un vrai lien avec le titre et
+l'URL canonique ; l'e-mail ajoute la description. Quand Web Share est
+disponible, le script révèle « Partager… » et laisse le système proposer
+Messages, Messenger, Instagram ou les autres applications installées. Aucun
+bouton direct ne prétend ouvrir un service que le navigateur ne sait pas cibler.
+
+« Copier le lien » apparaît seulement lorsque l'API Clipboard est disponible.
+Les contrôles natif et copier restent absents plutôt que désactivés lorsque leur
+capacité manque. Le composant ne charge ni SDK social, ni pixel, ni traceur et
+n'ajoute aucun paramètre de campagne à l'URL partagée.
 
 ### Rail de preuve
 
@@ -339,6 +366,13 @@ demande. Les médias sous le premier écran le sont. Une vidéo ne démarre jama
 automatiquement. Un lecteur tiers se charge après une action explicite, avec un
 poster local autorisé et le mode de confidentialité disponible.
 
+Les pages sans image éditoriale propre utilisent la carte sociale générique v2
+de 1200 par 630 px : fond acier clair, règles carbone et orange, puis lockup
+complet centré. Sa source est `assets/brand/production/four-a-nu-og.svg` et son
+dérivé public `site/public/og/four-a-nu-default-v2.jpg`. Elle n'emploie pas la
+marque compacte. Les articles conservent leur illustration d'en-tête propre
+comme aperçu social, avec dimensions, type et alternative explicites.
+
 ### Accessibilité et interaction
 
 - Chaque cible interactive mesure au moins 44 par 44 px.
@@ -351,6 +385,13 @@ poster local autorisé et le mode de confidentialité disponible.
 - Les changements de sélection, de filtre et de statut sont annoncés aux
   technologies d'assistance.
 - La couleur, la position ou une icône seule ne portent jamais un verdict.
+- Les actions de partage conservent un libellé textuel, un parcours clavier et
+  le même focus visible que les autres actions.
+- Le succès ou l'échec de la copie et les erreurs de partage sont annoncés dans
+  une région `role="status"` polie et atomique. L'annulation volontaire du menu
+  natif ne produit pas de message d'erreur.
+- L'absence de Web Share ou de Clipboard ne laisse aucun bouton inerte : les
+  liens WhatsApp et e-mail restent utilisables sans script.
 
 Les transitions durent de 120 à 180 ms et modifient seulement l'opacité, la
 couleur ou une translation de 2 px au maximum. `prefers-reduced-motion: reduce`
@@ -360,9 +401,12 @@ supprime les translations et les transitions non indispensables. Aucun contenu
 ### Performance
 
 Le site utilise une seule entrée CSS globale pour les tokens et les règles
-partagées. Le JavaScript client est réservé à la recherche, aux filtres, aux
-comparaisons et au chargement volontaire des lecteurs tiers. Le contenu, les
-sources et les tableaux restent lisibles sans JavaScript.
+partagées. Un JavaScript client minimal est autorisé pour les améliorations
+progressives : recherche, filtres, comparaisons, chargement volontaire des
+lecteurs tiers, menu de partage natif et copie du lien. Il détecte une capacité
+avant de révéler son contrôle et n'appelle aucune bibliothèque sociale tierce.
+Le contenu, les sources, les tableaux et les chemins WhatsApp ou e-mail restent
+lisibles et utilisables sans JavaScript.
 
 Les images réservent leur ratio avant chargement. Les animations n'utilisent
 que `transform` et `opacity`. La recette de build doit viser, au 75e centile,
@@ -386,6 +430,8 @@ validation, jamais des résultats déclarés avant mesure.
   chaque donnée technique en conséquence d'usage.
 - Employer des intertitres qui répondent aux questions d'un acheteur, des
   paragraphes courts et une conclusion « pour qui / à éviter si » sans note.
+- Préférer les capacités natives détectées progressivement et conserver un lien
+  HTML réel lorsqu'une action peut fonctionner sans script.
 
 ### Exclusions anti-slop
 
@@ -394,7 +440,8 @@ validation, jamais des résultats déclarés avant mesure.
   artisanale ; le script reste réservé au logo adopté.
 - Aucune flamme, tranche de pizza, toque, moustache, drapeau italien, damier,
   basilic, mozzarella ou pelle croisée comme décor ou nouvel emblème. La pizza
-  et la flamme du lockup adopté ne sont jamais extraites ni répétées.
+  et la flamme du lockup adopté ne sont jamais extraites ni répétées ; la flamme
+  reste seulement un élément indissociable du four compact dans les icônes.
 - Aucun grain papier, vieillissement, trame d'impression ou texture analogique
   ajoutée à l'interface.
 - Aucun dégradé thermique décoratif, halo, néon, pseudo-terminal ou grille
@@ -418,8 +465,9 @@ propriétaire du projet avant implémentation :
    marque ;
 3. IBM Plex Sans Condensed, Sans et Mono, sans serif éditoriale ;
 4. la grille 12, 6 et 4 colonnes, le rythme de 8 px et le conteneur de 1360 px ;
-5. le lockup couleur adopté, son ratio, son usage sur fond clair et
-   l'interdiction d'en extraire la pizza ou la flamme ;
+5. le lockup couleur adopté, son ratio, son usage sur fond clair et l'unique
+   exception du four simplifié pour la marque compacte, le favicon et les icônes,
+   sans extraction séparée de la pizza, de la flamme ou du lettrage ;
 6. la ligne de mesure conditionnée à une mesure ou une cote réellement sourcée ;
 7. la provenance visible des médias et l'interdiction de transformer une
    preuve ;
@@ -431,10 +479,12 @@ propriétaire du projet avant implémentation :
 11. l'en-tête officiel stylisé avant toute photo en situation dans un article
     produit nouveau ou substantiellement révisé ;
 12. une voix accessible de guide d'achat, sans prétention d'essai propre.
+13. un partage progressif fondé sur l'URL canonique, sans SDK social, traceur ni
+    dépendance du contenu à JavaScript.
 
-La marque compacte, le favicon, le choix des premières photographies originales
-et le cadrage exact de chaque gabarit restent ouverts. Leur validation ne peut
-pas contredire une zone gelée ni altérer le lockup adopté.
+Le choix des premières photographies originales et le cadrage exact de chaque
+gabarit restent ouverts. Leur validation ne peut pas contredire une zone gelée
+ni altérer le lockup ou sa dérivation compacte adoptés.
 
 ### Matrice de validation
 
@@ -443,16 +493,17 @@ pas contredire une zone gelée ni altérer le lockup adopté.
 | Tokens | Rechercher les hex, familles, rayons et espacements hors de `site/src/styles/global.css` | Aucun doublon exécutable dans un composant ou un module |
 | Couleurs | Mesurer chaque paire réellement rendue, dans tous ses états | WCAG AA pour texte et contrôles, rôles de couleur respectés |
 | Typographie | Vérifier les fichiers WOFF2, les graisses chargées, les replis et les chiffres tabulaires | Aucun appel de police tiers, aucun texte important rasterisé |
-| Logo | Rendre le lockup au ratio d'origine sur les fonds clairs et aux largeurs réelles de l'en-tête | Aucun recadrage ou effet ajouté ; le favicon et la marque compacte restent séparés |
+| Logo et icônes | Rendre le lockup au ratio d'origine, puis inspecter séparément la marque compacte et les sorties 16, 32, 180, 192 et 512 px sur fonds clair et sombre | Aucun recadrage du lockup ; four compact reconnaissable, sans ancien signe, détail coupé ni nouveau motif d'interface |
 | Responsive | Capturer et parcourir au clavier à 360, 768, 1280 et 1440 px | Aucun débordement de page, rail replacé, tableaux accessibles |
 | Structure | Inspecter H1, ordre des titres, landmarks, lien d'évitement et ordre DOM | Lecture cohérente sans CSS et au zoom 200 % |
 | Focus | Parcourir toutes les actions au clavier sur fond clair et carbone | Focus visible, cible de 44 px, aucun piège clavier |
+| Partage | Tester avec et sans Web Share et Clipboard, au clavier, puis vérifier WhatsApp, e-mail, URL canonique et annonces de statut | Aucun bouton inerte, aucune erreur sur annulation, aucun SDK ou paramètre de suivi ; repli HTML utilisable sans JavaScript |
 | Preuves | Rapprocher chaque valeur, graphique et plaque de son registre | Aucun chiffre public sans source et identifiant autorisés |
 | Médias | Vérifier type, droit, fidélité du produit, ordre, légende, texte alternatif, source et statut éditorial visible | En-tête officiel stylisé avant les vues en situation ; aucun média `quarantine`, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
 | Voix | Relire accroche, intertitres, jargon, tableaux et conclusion comme un parcours d'achat | Réponse et compromis compris avant la méthode ; aucun ton de notice ni fausse expérience personnelle |
 | Affiliation | Inspecter déclaration, libellé et attribut des liens rémunérés | `rel="sponsored"`, réserve éditoriale au moins aussi visible que l'action |
 | Mouvement | Tester le comportement normal et `prefers-reduced-motion` | Aucun contenu dépendant du mouvement, aucune translation résiduelle requise |
-| Performance | Mesurer les pages représentatives sur mobile et desktop | LCP, INP et CLS sous leurs objectifs avant déclaration de réussite |
+| Performance | Mesurer les pages représentatives sur mobile et desktop, puis inspecter le JavaScript et les requêtes du partage | LCP, INP et CLS sous leurs objectifs avant déclaration de réussite ; aucun tiers ou script au-delà de l'amélioration progressive attendue |
 | Anti-slop | Revue visuelle des pages d'accueil, article, comparatif et média | Aucun motif interdit, aucune décoration sans fonction éditoriale |
 
 Une ligne validée sans mesure, capture ou inspection correspondante reste

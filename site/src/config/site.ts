@@ -8,7 +8,7 @@ export const SITE = {
   description:
     "Comparatifs documentés, guides d'achat et dossiers Ooni ou Gozney pour choisir un four à pizza et le matériel de préparation adapté.",
   shortDescription: "Fours à pizza, sources à l'appui",
-  socialImage: "/og/four-a-nu-default.png",
+  socialImage: "/og/four-a-nu-default-v2.jpg",
   editorialAuthor: {
     name: "Nicolas, Florian & Magali",
     url: "/auteurs/redaction-four-a-nu/",
@@ -32,19 +32,21 @@ export const SITE = {
 export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
+export const SITE_SURFACE_UPDATED_AT = "2026-08-25";
+
 export const FIXED_INDEXABLE_ROUTES = [
-  { path: "/", modified: "2026-08-24" },
-  { path: "/a-propos/", modified: "2026-08-24" },
-  { path: "/auteurs/redaction-four-a-nu/", modified: "2026-08-24" },
-  { path: "/contact/", modified: "2026-08-24" },
-  { path: "/corrections/", modified: "2026-08-24" },
-  { path: "/confidentialite/", modified: "2026-08-24" },
-  { path: "/fours-a-pizza/", modified: "2026-08-24" },
-  { path: "/gozney/", modified: "2026-08-24" },
-  { path: "/methode/", modified: "2026-08-24" },
-  { path: "/mentions-legales/", modified: "2026-08-24" },
-  { path: "/ooni/", modified: "2026-08-24" },
-  { path: "/transparence/", modified: "2026-08-24" },
+  { path: "/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/a-propos/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/auteurs/redaction-four-a-nu/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/contact/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/corrections/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/confidentialite/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/fours-a-pizza/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/gozney/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/methode/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/mentions-legales/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/ooni/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/transparence/", modified: SITE_SURFACE_UPDATED_AT },
 ] as const;
 
 export const PRIMARY_NAV = [

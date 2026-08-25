@@ -3,7 +3,9 @@
 Cette checklist s'applique à chaque article de Four à Nu. Elle protège la
 qualité éditoriale, la séparation entre sources, synthèses et inférences, ainsi
 que la lisibilité du site pour Google, Bing et les assistants qui citent des
-pages publiques.
+pages publiques. Les contrôles transversaux du rendu, des métadonnées, des
+icônes et du partage s'appliquent aussi à chaque page structurelle incluse dans
+le candidat.
 
 Une case non cochée bloque l'indexation. La mention « sans objet » doit être
 justifiée dans le dossier de l'article. La validation éditoriale n'autorise ni
@@ -160,6 +162,14 @@ tranches séparées.
 - [ ] La page rend un seul H1 et une hiérarchie d'intertitres valide.
 - [ ] Le titre HTML, la description, l'URL canonique et les directives robots
   ont été vérifiés dans le HTML construit, pas seulement dans le Markdown.
+- [ ] L'aperçu social reprend le titre, la description et l'URL canonique de la
+  page. Son image est pertinente pour cette URL, accessible sur une URL HTTPS
+  absolue de l'origine canonique et déclarée avec son type, ses dimensions
+  réelles et un texte alternatif descriptif.
+- [ ] Le favicon carré reste lisible aux petites tailles et utilise une URL
+  stable. Les déclarations `rel="icon"`, `apple-touch-icon` et le manifeste web
+  pointent vers des fichiers accessibles dont les types et dimensions annoncés
+  correspondent aux fichiers servis.
 - [ ] Pendant la prépublication, la page reste `noindex` et absente du sitemap.
 - [ ] Le contenu principal et les liens sont présents dans le HTML rendu et ne
   dépendent pas d'une interaction ou d'un script fragile.
@@ -167,6 +177,18 @@ tranches séparées.
   accessibles et la page finale répond en HTTP 200.
 - [ ] Les données structurées décrivent uniquement le contenu visible. Aucun
   balisage `Review` ou `AggregateRating` n'est présent.
+- [ ] Un dossier éditorial expose un objet `Article` et une page structurelle un
+  objet `WebPage` ou un sous-type adapté. Leur URL, `mainEntityOfPage`, auteur,
+  dates et image, lorsqu'ils s'appliquent, concordent avec le canonique, les
+  métadonnées sociales et le contenu visible.
+- [ ] Les actions de partage transmettent strictement l'URL canonique absolue,
+  sans paramètres ni fragment. La feuille native n'est proposée que comme une
+  amélioration progressive lorsque le navigateur la prend en charge ; un repli
+  accessible permet encore de copier ou transmettre le lien.
+- [ ] Aucun libellé de partage ne promet une destination précise telle
+  qu'iMessage, Messenger ou Instagram. Le navigateur et le système présentent
+  les destinations réellement disponibles, sans SDK tiers ni suivi ajouté par
+  Four à Nu.
 - [ ] Les commandes de contrôle Astro et de construction terminent sans erreur.
 - [ ] Le rendu mobile, le clavier, le contraste et l'absence de débordement ont
   été vérifiés si le contenu introduit un nouveau type de bloc.
@@ -217,17 +239,26 @@ tranches séparées.
 | Une source décisive, un lien interne ou le canonique est cassé | Bloqué |
 | Un média tiers n'a pas d'autorisation ou de licence vérifiable | Bloqué |
 | Une donnée structurée ne correspond pas au contenu visible | Bloqué |
+| L'aperçu social emploie une image absente, inaccessible ou incohérente avec son canonique | Bloqué |
+| Le favicon, l'icône tactile ou le manifeste annonce un fichier absent ou des dimensions fausses | Bloqué |
+| Une action de partage diffuse une URL non canonique ou promet une destination que le navigateur ne garantit pas | Bloqué |
 | La construction Astro échoue | Bloqué |
 
 ## Références officielles
 
-Références revérifiées le 23 août 2026 :
+Références de la gate. Les références ajoutées pour les aperçus, les données
+structurées, le manifeste et le partage ont été revérifiées le 25 août 2026 :
 
 - [Google Search Central, créer du contenu utile, fiable et centré sur les personnes](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central, bonnes pratiques pour les liens de titre](https://developers.google.com/search/docs/appearance/title-link)
 - [Google Search Central, contrôler les extraits et les descriptions](https://developers.google.com/search/docs/appearance/snippet)
 - [Google Search Central, rendre les liens explorables et explicites](https://developers.google.com/search/docs/crawling-indexing/links-crawlable)
+- [Google Search Central, données structurées Article](https://developers.google.com/search/docs/appearance/structured-data/article)
+- [Google Search Central, bonnes pratiques pour les images](https://developers.google.com/search/docs/appearance/google-images)
 - [Google Search Central, rédiger des avis de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews)
 - [Google Search Essentials, règles concernant le spam](https://developers.google.com/search/docs/essentials/spam-policies)
 - [Bing Webmaster Guidelines](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a)
 - [Bing Webmaster Tools, AI Performance](https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c)
+- [Open Graph protocol](https://ogp.me/)
+- [W3C, Web Application Manifest](https://www.w3.org/TR/appmanifest/)
+- [W3C, Web Share API](https://www.w3.org/TR/web-share/)

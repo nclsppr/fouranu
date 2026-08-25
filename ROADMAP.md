@@ -167,6 +167,9 @@ livré :
 - [x] Ajouter à chacun des dix-neuf articles deux appels d'achat très visibles,
   séparés par le contenu, avec produit, marchand et statut
   non rémunéré explicitement visibles.
+- [x] Reprendre les 31 pages canoniques pour leurs titres sociaux, images
+  d'aperçu, données structurées, sitemap d'images et favicon, puis leur ajouter
+  un partage progressif fondé sur l'URL canonique, sans SDK social ni traceur.
 
 ### Todo commerce éditorial et accessoires
 

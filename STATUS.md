@@ -7,7 +7,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-08-24 |
+| Vérifié le | 2026-08-25 |
 | Par | Codex, checkout local, navigateur, CI et compte Cloudflare autorisé |
 | Branche | `main` |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
@@ -17,7 +17,30 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Harmonisation éditoriale publiée | SHA applicatif `87580db54eb90a60a6f68c81828f80dc35929c3d` ; [run GitHub Actions `32744201126`](https://github.com/nclsppr/fouranu/actions/runs/32744201126) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche Arc Lite, Tread et Halo publiée | SHA applicatif `6511eccf4971d962f6916dc8ab1fc74742e8f321` ; [run GitHub Actions `32750836887`](https://github.com/nclsppr/fouranu/actions/runs/32750836887) vert pour `Verify` et `deploy-cloudflare` |
 | Gamme Gozney et appels d'achat publiés | SHA applicatif `bdd647b38fde6de2f8db01092c6adba5e08a7b35` ; [run GitHub Actions `32762552261`](https://github.com/nclsppr/fouranu/actions/runs/32762552261) vert pour `Verify` et `deploy-cloudflare` |
+| Candidat SEO, partage et favicon | Gate locale complète et revue navigateur acquises ; publication et preuve publique encore à produire |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Candidat SEO, partage et favicon vérifié localement
+
+Les 31 pages canoniques ont désormais des titres sociaux resserrés, une image
+principale explicite, un schéma `WebPage` et un partage fondé sur leur URL
+canonique. Les dix-neuf articles gardent chacun leur image 1600 × 900 et gagnent
+un `ImageObject`, une section et une URL d'auteur cohérentes ; Ooni et Gozney
+reprennent l'image de leur guide de gamme. Le sitemap indexable annonce les
+dix-neuf images d'article.
+
+La carte générique 1200 × 630 emploie le lockup actuel. Le favicon, l'icône
+Apple 180 px et les icônes 192/512 px reprennent un four simplifié issu du logo,
+à la place de l'ancien signe géométrique. Chaque page canonique se termine par
+la feuille de partage native lorsqu'elle est disponible, puis WhatsApp, e-mail
+et copie du lien, sans SDK ni requête sociale au chargement.
+
+Le candidat construit 32 pages et passe seize tests de contrat,
+`npm run check --prefix site`, la gate `./scripts/verify.sh`, le contrôle
+Cloudflare à sec et la revue navigateur locale à 360 et 1 280 px. Le focus, les
+cibles de 48 px, l'annonce de copie, la 404, la console et l'absence de requête
+tierce ont été vérifiés. Cette section ne présente pas encore ces changements
+comme publiés : la CI du SHA livré et le domaine public restent à contrôler.
 
 ## Gamme Gozney et appels d'achat publiés
 
@@ -88,8 +111,9 @@ Four à Nu est un média statique de 32 pages HTML. Sa V1 et ses cinq tranches
 éditoriales sont publiques sur `fouranu.com`. Le site propose dix-neuf guides :
 onze guides de fours ou d'énergie Ooni, une comparaison de pétrins Ooni et sept
 guides Gozney. Les registres comptent 168 preuves, 66 questions et 85 médias.
-Aucun JavaScript client n'est nécessaire au contenu. Le build de preview reste
-en `noindex` et la production ouvre 31 URL dans le sitemap.
+Aucun JavaScript client n'est nécessaire au contenu. Un module progressif révèle
+seulement les capacités natives de partage et de copie disponibles. Le build de
+preview reste en `noindex` et la production ouvre 31 URL dans le sitemap.
 
 L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
 8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
@@ -99,8 +123,9 @@ fonctions fictives du prototype n'ont pas été repris.
 
 Le logo Four à Nu fourni est rendu dans l'en-tête et le pied de page depuis une
 version PNG de 480 x 172 px et 70 804 octets. Sa source et son dérivé sont
-enregistrés. Le système visuel Four à Nu conserve IBM Plex, le carbone, le
-blanc, l'acier et la grille, avec deux oranges accessibles à la place du bleu.
+enregistrés. Le four du logo fournit aussi la marque compacte et les icônes du
+candidat. Le système visuel Four à Nu conserve IBM Plex, le carbone, le blanc,
+l'acier et la grille, avec deux oranges accessibles à la place du bleu.
 
 Cloudflare Workers Static Assets sert la production. GitHub Actions construit
 puis transmet l'artefact exact produit par `Verify`, sans second build dans le
@@ -138,15 +163,27 @@ par une question d'achat et des sources suffisantes.
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Application Astro | 32 pages HTML statiques et zéro JavaScript client nécessaire au contenu | `site/`, quatorze tests de contrat et production | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
+| Application Astro | 32 pages HTML statiques ; contenu indépendant du seul module progressif de partage | `site/`, seize tests de contrat et candidat local | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
 | Guides | Douze guides Ooni et sept guides Gozney sous des routes par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Les prochains dossiers exigent leur propre recherche et publication |
 | Provenance | 168 preuves, 66 questions et 85 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
 | Accueil éditorial | Composition responsive issue du prototype et contenu réel | Contrats du build et revue navigateur | Les photos restent attribuées à leurs sources et ne deviennent pas des tests Four à Nu |
-| Identité | Logo optimisé, palette orange accessible et contrat de marque aligné | `DESIGN.md`, `BRAND-SEO.md` et `AS-1002` | Marque compacte et favicon définitif encore ouverts |
-| SEO conditionnel | RSS, robots, sitemap, canonicals et données structurées | Build normal, build opt-in et 31 URL publiques contrôlés | L'exploration et le classement par les moteurs ne sont pas garantis |
+| Identité | Logo optimisé, four compact, favicon SVG et icônes 180/192/512 px | `DESIGN.md`, `BRAND-SEO.md`, `AS-1002` et candidat local | La marque compacte reste réservée aux surfaces d'identité |
+| SEO conditionnel | RSS, robots, sitemap texte et image, canonicals, aperçus sociaux et données structurées | Build normal, build opt-in et 31 URL contrôlés localement | L'affichage d'une miniature, l'exploration et le classement ne sont pas garantis |
+| Partage | Feuille native progressive, WhatsApp, e-mail et copie sur les 31 pages canoniques | Contrat du build et revue navigateur locale | Les destinations proposées dépendent du navigateur, du système et des applications installées |
 | Parcours local | Service statique avec healthcheck | `compose.yaml` | Aucun preview partagé |
 | Production Cloudflare | Artefact Gozney et appels d'achat servi par Workers Static Assets sur le domaine personnalisé | Run `32762552261`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
 | Documentation interne | Nimbus reste séparé du site public | `docs-nimbus/` et catalogue | Le build Cloudflare pointe uniquement vers `site/dist/` |
+
+## Revue d'interface du candidat SEO du 2026-08-25
+
+| Contrôle | Résultat | Portée |
+| --- | --- | --- |
+| Responsive | Aucun débordement à 360 et 1 280 px sur l'accueil et un article long | Candidat statique local |
+| Partage | Quatre actions de 48 px, URL canonique exacte, copie annoncée et replis HTML visibles | Accueil et article Koda 2 |
+| Clavier et focus | Contour orange 3 px visible ; groupe de contrôles nommé et statut poli | Bloc de partage mobile et bureau |
+| Métadonnées | Titres, canonicales, images, dimensions, auteurs, schémas et sitemap rapprochés sur 32 HTML | Seize tests de contrat et inspection navigateur |
+| Console et réseau | Aucun avertissement ou erreur ; aucune requête tierce avant une action du lecteur | Accueil, article et 404 locales |
+| Frontière 404 | `noindex, follow`, aucun canonical, aucun `WebPage` et aucun partage | Route absente locale |
 
 ## Revue d'interface du 2026-08-24
 

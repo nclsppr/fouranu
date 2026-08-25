@@ -14,7 +14,7 @@ const escapeXml = (value: string) =>
 
 export const GET: APIRoute = async () => {
   const analyses = (await getCollection("analyses"))
-    .filter((entry) => entry.data.status === "publishable")
+    .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
     .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
   const lastBuildDate = new Date(
     Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),

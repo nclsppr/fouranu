@@ -120,7 +120,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix et les contenus en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 32 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
+| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 32 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -138,8 +138,9 @@ explicite avant son lancement.
 5. La gate refuse une provenance absente, un média non publiable, une
    expérience tierce racontée à la première personne, une note, un balisage
    d'avis ou un lien rémunéré mal déclaré.
-6. Astro génère un artefact statique avec métadonnées, canonical, sitemap et
-   directives d'indexation cohérentes.
+6. Astro génère un artefact statique avec métadonnées, images sociales,
+   favicon, canonical, sitemap texte et image, puis directives d'indexation
+   cohérentes. Le partage progressif réutilise strictement l'URL canonique.
 7. Chaque nouveau paquet reste en preview locale et `noindex` jusqu'aux
    contrôles éditoriaux, visuels et techniques, puis jusqu'au feu vert explicite
    du propriétaire.
@@ -155,6 +156,7 @@ explicite avant son lancement.
 | --- | --- | --- | --- |
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
 | Programmes marchands | Liens rémunérés et attribution | Navigation vers le marchand, puis traceurs uniquement selon consentement et contrat | Aucun compte actif ; le contenu reste accessible sans lien suivi |
+| Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |
 | DNS | Relier `fouranu.com` au Worker autorisé | Noms et routage publics | Zone, domaine personnalisé et routage HTTPS actifs |
@@ -176,7 +178,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 27 pages HTML et exécute treize tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 32 pages HTML et exécute seize tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |
@@ -190,9 +192,10 @@ explicite avant son lancement.
   ni fichiers médias tiers.
 - Les preuves d'autorisation et coordonnées restent sous `research/private/`,
   hors Git. La CI ne peut pas les lire.
-- Aucun secret, compte marchand, identifiant analytics ou clé d'API n'est
-  requis pour la vérification locale. Le déploiement Cloudflare utilise un jeton
-  minimal conservé dans l'environnement GitHub protégé, jamais dans le dépôt.
+- Aucun secret, compte marchand, identifiant analytics, SDK social ou clé d'API
+  n'est requis pour la vérification locale. Le déploiement Cloudflare utilise un
+  jeton minimal conservé dans l'environnement GitHub protégé, jamais dans le
+  dépôt.
 - Le premier site n'a ni compte utilisateur, ni base de données, ni paiement.
 - Toute mesure d'audience future exige une décision sur la minimisation, le
   consentement, la rétention et les tiers avant activation.

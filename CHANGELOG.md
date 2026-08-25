@@ -6,7 +6,20 @@ importantes.
 
 ## Non publié
 
-Rien pour le moment.
+- Passe SEO sur les 31 pages canoniques : titres sociaux resserrés, image
+  principale déclarée dans chaque `WebPage`, schémas `Article` enrichis,
+  auteurs reliés à leur profil et dix-neuf images ajoutées au sitemap.
+- Remplacement de l'ancienne carte sociale générique par une version 1200 × 630
+  au logo actuel. Les pages Ooni et Gozney reprennent désormais l'image de leur
+  guide de gamme ; chaque article conserve sa propre image documentaire.
+- Ajout d'un bloc de partage à toutes les pages canoniques : feuille native pour
+  Messages, Messenger, Instagram ou toute app compatible installée, puis
+  WhatsApp, e-mail et copie du lien comme replis, sans SDK ni requête tierce.
+- Nouveau favicon dérivé du four du logo, lisible aux petites tailles, avec
+  icône SVG stable, Apple Touch 180 px et déclinaisons PWA 192 et 512 px.
+- Différenciation du titre éditorial de l'accueil et resserrement des deux
+  titres d'article les plus longs ; le flux RSS exclut désormais tout article
+  explicitement non indexable.
 
 ## 2026-08-24 - Gamme Gozney et appels d'achat publics
 

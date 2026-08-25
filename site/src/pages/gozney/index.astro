@@ -12,6 +12,10 @@ const analyses = (await getCollection("analyses"))
     b.data.articleId.localeCompare(a.data.articleId)
   );
 const canonical = new URL("/gozney/", SITE.url).toString();
+const rangeGuide = analyses.find((entry) => entry.id === "quel-four-gozney-choisir");
+if (!rangeGuide) {
+  throw new Error("Le guide de gamme Gozney est requis pour la page et son aperçu social.");
+}
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -44,6 +48,10 @@ const schema = {
 <BaseLayout
   title="Fours Gozney : guides et conseils d’achat | Four à Nu"
   description="Les fours Gozney étudiés par Four à Nu pour choisir selon le format, la place disponible, la chauffe et le budget complet."
+  image={rangeGuide.data.image.src}
+  imageAlt={rangeGuide.data.image.alt}
+  imageWidth={1600}
+  imageHeight={900}
   indexable={true}
   schema={schema}
 >

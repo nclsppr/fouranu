@@ -11,6 +11,7 @@ const modelEntries = analyses.filter(
 );
 const equipmentEntries = analyses.filter((entry) => entry.data.category === "mixer");
 const haloComparison = equipmentEntries.find((entry) => entry.id === "halo-core-ou-halo-pro");
+const rangeGuide = analyses.find((entry) => entry.id === "quel-four-ooni-choisir");
 const entriesById = new Map(modelEntries.map((entry) => [entry.id, entry]));
 const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
@@ -53,6 +54,10 @@ if (modelEntries.length !== 9) {
 
 if (equipmentEntries.length !== 1 || !haloComparison) {
   throw new Error("La page Ooni exige exactement le comparatif Halo Core ou Halo Pro.");
+}
+
+if (!rangeGuide) {
+  throw new Error("Le guide de gamme Ooni est requis pour la page et son aperçu social.");
 }
 
 const canonical = new URL("/ooni/", SITE.url).toString();
@@ -100,6 +105,10 @@ const schema = {
 <BaseLayout
   title="Fours et pétrins Ooni 2026 : dossiers sourcés | Four à Nu"
   description="Les neuf fours Ooni vendus en France et les pétrins Halo, avec des dossiers sourcés pour comparer énergie, format et capacité."
+  image={rangeGuide.data.image.src}
+  imageAlt={rangeGuide.data.image.alt}
+  imageWidth={1600}
+  imageHeight={900}
   indexable={true}
   schema={schema}
 >

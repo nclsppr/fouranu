@@ -4,6 +4,7 @@ brand: ooni
 category: mixer
 heroTreatment: official-stylized
 title: "Ooni Halo Core ou Halo Pro : combien de pâte faut-il vraiment ?"
+seoTitle: "Ooni Halo Core ou Pro : lequel choisir ? | Four à Nu"
 description: Halo Core ou Halo Pro ? Capacités, poids, prix datés et observations publiées pour choisir le pétrin adapté à vos vraies fournées.
 summary: Le Halo Core couvre deux à dix pâtons de 250 g et suffit à la plupart des soirées maison. Le Halo Pro devient cohérent si vous dépassez régulièrement 2,5 kg de pâte ou tenez à son minuteur.
 status: publishable

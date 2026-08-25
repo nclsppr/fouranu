@@ -17,6 +17,7 @@ const analyses = defineCollection({
     category: z.enum(["oven", "mixer"]),
     heroTreatment: z.literal("official-stylized"),
     title: z.string(),
+    seoTitle: z.string().max(65).optional(),
     description: z.string(),
     summary: z.string(),
     status: z.enum(["draft", "review", "publishable"]),

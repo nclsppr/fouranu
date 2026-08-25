@@ -4,6 +4,7 @@ brand: gozney
 category: oven
 heroTreatment: official-stylized
 title: "Gozney Arc Lite ou Tread : où vont les 100 € de plus ?"
+seoTitle: "Gozney Arc Lite ou Tread : lequel choisir ? | Four à Nu"
 description: Arc Lite ou Tread ? Prix, transport, chauffe et récupération publiés pour savoir si les 100 € supplémentaires servent vraiment votre usage.
 summary: L’Arc Lite garde les 100 € si le four reste sur une table. Le Tread devient cohérent si vous le transportez souvent ou voulez rapprocher les pizzas.
 status: publishable

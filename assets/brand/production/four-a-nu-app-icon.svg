@@ -1,10 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
   <title id="title">Four à Nu</title>
-  <desc id="desc">Icône blanche portant l'ouverture de four noire de Four à Nu.</desc>
-  <rect width="256" height="256" fill="#FFFFFF"/>
-  <g fill="none" stroke="#0D1214" stroke-width="20" stroke-linecap="square" stroke-linejoin="miter">
-    <path d="M36 220V36H220V180"/>
-    <path d="M76 220V177C76 145.52 101.52 120 133 120C164.48 120 190 145.52 190 177V220"/>
-    <path d="M212 220H228"/>
-  </g>
+  <desc id="desc">Le four du logo Four à Nu, avec sa cheminée, sa voûte et sa flamme orange.</desc>
+  <rect width="128" height="128" fill="#FFFFFF"/>
+  <rect width="128" height="128" rx="18" fill="#F4F6F7"/>
+  <path d="M49 34V16H79V34" fill="#0D1214"/>
+  <path d="M55 35V21H73V35" fill="#FFF9EF"/>
+  <path d="M45 15C45 10.6 53.5 7 64 7s19 3.6 19 8-8.5 8-19 8-19-3.6-19-8Z" fill="#0D1214"/>
+  <path d="M53 15c2.7-1.1 6.6-1.8 11-1.8s8.3.7 11 1.8c-2.7 1.1-6.6 1.8-11 1.8S55.7 16.1 53 15Z" fill="#FFF9EF"/>
+  <path d="M15 103C17.4 57 35.4 29 64 29s46.6 28 49 74H15Z" fill="#0D1214"/>
+  <path d="M24 97C27.4 60.2 41.6 37 64 37s36.6 23.2 40 60H24Z" fill="#FFF9EF"/>
+  <path d="M31 98C33.8 69.4 45.6 51 64 51s30.2 18.4 33 47H31Z" fill="#FF5A24"/>
+  <path d="M39 98C41.4 75 50.5 60 64 60s22.6 15 25 38H39Z" fill="#0D1214"/>
+  <path d="M52 96c-1-8.2 5.6-11.8 5.6-19.7 4.2 3 6.4 6.1 6.7 9.3 2.6-4.4 6.3-8.1 10.2-10.1-.1 5.4 4.8 9 2.2 20.5H52Z" fill="#FF5A24"/>
+  <path d="M60.2 96c-.6-4.8 2.7-7.2 4.4-11.2 1.3 3.5 5.2 5.9 4.1 11.2h-8.5Z" fill="#FFD166"/>
+  <path d="M10 99H118V114H10Z" fill="#0D1214"/>
+  <path d="M18 114H40V120H18ZM88 114H110V120H88Z" fill="#0D1214"/>
 </svg>

@@ -6,22 +6,35 @@ importantes.
 
 ## Non publié
 
-- Candidat local du 2026-08-26 : l'accueil, sa description SEO, son aperçu
-  social, la page À propos et le manifeste présentent désormais l'ambition de
-  tester progressivement les fours à pizza vendus en France, en commençant par
-  les modèles des marques de référence, puis les accessoires utiles et
-  différents pétrins.
-- L'ADR-0006, le contrat produit, la roadmap, le protocole éditorial, l'état et
-  le cadrage SEO distinguent explicitement ce cap du corpus actuel : aucun essai
-  physique Four à Nu n'est publié, la taxonomie documentaire reste inchangée et
-  les premiers pilotes appartiennent à F06.
-- Un contrat de build contrôle l'accueil, la page À propos et le schéma éditeur,
-  puis bloque sur ces surfaces les formulations laissant entendre que Four à Nu
-  a déjà mené ces tests. Publication sur `fouranu.com` et demande de
-  réindexation restent soumises à deux autorisations distinctes.
+Rien pour le moment.
+
+## 2026-08-26 - Ambition de tests et promesse SEO publiques
+
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `e7a6223f9a9e61052b1a99e7bf60a037c8fb8e61`. Le run GitHub Actions
+  [`32979871986`](https://github.com/nclsppr/fouranu/actions/runs/32979871986)
+  a vérifié puis déployé l'artefact exact ; `/release.json`, les 31 URL
+  canoniques, les métadonnées, le sitemap et les icônes ont été contrôlés sur le
+  domaine public.
+- L'accueil annonce désormais l'ambition de tester tous les fours à pizza
+  vendus en France, en commençant par les modèles des marques de référence,
+  puis les accessoires utiles et différents pétrins. Son titre, sa description,
+  son aperçu social et son H1 reprennent ce cap ; la page À propos et le texte
+  visible précisent que le corpus actuel reste documentaire.
+- L'ADR-0006, le contrat produit, la roadmap, le protocole éditorial et le
+  cadrage SEO séparent ce programme futur des dix-neuf guides publiés. Aucun
+  essai physique Four à Nu, classement de « meilleures marques », note, étoile,
+  `Review` ou `AggregateRating` n'est présenté comme acquis.
 - Un `favicon.ico` de repli reprend le four canonique aux formats 16, 32, 48 et
-  64 px. Il complète l'URL SVG stable sans la remplacer et évite une 404 aux
+  64 px. Il complète l'URL SVG stable sans la remplacer et évite la 404 aux
   robots ou navigateurs qui demandent encore automatiquement l'icône racine.
+- Le candidat passe 26 tests Python, 17 contrats du site, le check Astro,
+  Compose, le contrôle Cloudflare à sec et Nimbus. Les 31 URL sont publiques,
+  canoniques et indexables ; le rendu a été relu à 360 et 1 280 px sans
+  débordement, image visible cassée ni alerte console.
+- Aucune demande manuelle de réindexation n'accompagne cette livraison. Le
+  choix du texte et du favicon finalement affichés dans les résultats reste
+  celui du moteur après sa prochaine exploration.
 
 ## 2026-08-25 - SEO, partage et favicon publics
 

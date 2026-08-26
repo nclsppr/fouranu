@@ -7,7 +7,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-08-25 |
+| Vérifié le | 2026-08-26 |
 | Par | Codex, checkout local, navigateur, CI et compte Cloudflare autorisé |
 | Branche | `main` |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
@@ -18,21 +18,41 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Tranche Arc Lite, Tread et Halo publiée | SHA applicatif `6511eccf4971d962f6916dc8ab1fc74742e8f321` ; [run GitHub Actions `32750836887`](https://github.com/nclsppr/fouranu/actions/runs/32750836887) vert pour `Verify` et `deploy-cloudflare` |
 | Gamme Gozney et appels d'achat publiés | SHA applicatif `bdd647b38fde6de2f8db01092c6adba5e08a7b35` ; [run GitHub Actions `32762552261`](https://github.com/nclsppr/fouranu/actions/runs/32762552261) vert pour `Verify` et `deploy-cloudflare` |
 | Passe SEO, partage et favicon publiée | SHA applicatif `a6e8f622b13db50b852e8e71c4da57beb30f8dd7` ; [run GitHub Actions `32886732924`](https://github.com/nclsppr/fouranu/actions/runs/32886732924) vert pour `Verify` et `deploy-cloudflare` |
+| Ambition de tests et promesse SEO publiées | SHA applicatif `e7a6223f9a9e61052b1a99e7bf60a037c8fb8e61` ; [run GitHub Actions `32979871986`](https://github.com/nclsppr/fouranu/actions/runs/32979871986) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Ambition d'essais retenue, non activée
+## Ambition d'essais et promesse SEO publiées
 
-Le propriétaire a fixé le 2026-08-26 l'objectif de tester progressivement les
-fours à pizza du marché domestique français, les accessoires utiles des marques
-de référence et différents pétrins. Le checkout contient un candidat local qui
-présente cette ambition sur l'accueil et la page À propos.
+Le propriétaire a fixé puis approuvé le 2026-08-26 l'objectif de tester
+progressivement les fours à pizza du marché domestique français, en commençant
+par les modèles des marques de référence, puis les accessoires utiles et
+différents pétrins. L'accueil, sa description SEO et son aperçu social portent
+ce cap ; la page À propos rappelle dans le même écran qu'aucun essai mené par
+Four à Nu n'est encore publié.
 
-Ce candidat local n'est pas publié et aucune soumission aux moteurs n'est
-autorisée par ce changement. Les dix-neuf guides publics restent des analyses
-documentaires et aucun essai physique Four à Nu n'y est présenté. Aucun
-protocole, taxonomie de première main, achat dédié, prêt ou session de test n'est
-autorisé ou enregistré dans les sources de vérité. L'ADR-0006 et la phase F06
-portent la cible et ses portes de vérité.
+Le SHA applicatif `e7a6223f9a9e61052b1a99e7bf60a037c8fb8e61`
+construit 32 pages et passe dix-sept tests de contrat, le check Astro, la gate
+`./scripts/verify.sh`, Compose, le contrôle Cloudflare à sec et la revue
+navigateur locale. Le run `32979871986` a vérifié puis déployé l'artefact exact.
+Le domaine public expose ce SHA dans `/release.json` ; le titre, la description,
+le titre social, le H1, le schéma éditeur et la frontière documentaire ont été
+retrouvés sur l'accueil, puis la description et la limite d'essai sur la page À
+propos.
+
+Les 31 URL du sitemap répondent 200, déclarent leur canonique exacte et restent
+indexables. Le sitemap contient dix-neuf images, avec vingt-neuf dates au
+2026-08-25 et les deux surfaces modifiées au 2026-08-26. Aucune donnée
+`Review` ou `AggregateRating` n'est publiée. Le favicon SVG, le repli racine ICO
+16/32/48/64 px, l'icône Apple et les icônes 192/512 px sont servis avec leur bon
+type et correspondent octet pour octet aux actifs canoniques. L'accueil à 360
+et 1 280 px et la page À propos à 360 px n'ont montré ni débordement, ni image
+visible cassée, ni alerte console.
+
+Cette publication n'active pas le programme F06. Les dix-neuf guides publics
+restent des analyses documentaires ; aucun protocole, taxonomie de première
+main, achat dédié, prêt ou session de test n'est autorisé ou enregistré dans
+les sources de vérité. L'ADR-0006 et la phase F06 conservent ces portes. Aucune
+demande manuelle de réindexation n'a été effectuée avec cette livraison.
 
 ## Passe SEO, partage et favicon publiée
 

@@ -270,6 +270,19 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     assert.match(page.html, /<a class="skip-link" href="#contenu">Aller au contenu<\/a>/, label);
     assert.match(page.html, /<header class="site-header">/, label);
     assert.match(page.html, /<footer class="site-footer">/, label);
+    const footer = pairedElements(page.html, "footer")
+      .find((candidate) => attribute(`<footer${candidate[1]}>`, "class") === "site-footer");
+    assert.ok(footer, `${label}: pied de page absent`);
+    assert.match(
+      visibleText(footer[2]),
+      /Édité avec amour du pâton par NicolasPieper\.com$/,
+      `${label}: signature du pied de page absente`,
+    );
+    const footerCreditLinks = pairedElements(footer[2], "a")
+      .filter((anchor) => attribute(`<a${anchor[1]}>`, "href") === "https://nicolaspieper.com/");
+    assert.equal(footerCreditLinks.length, 1, `${label}: lien NicolasPieper.com absent ou ambigu`);
+    assert.equal(visibleText(footerCreditLinks[0][2]), "NicolasPieper.com", label);
+    assert.equal(attribute(`<a${footerCreditLinks[0][1]}>`, "rel"), "author", label);
 
     const headings = [...page.html.matchAll(/<h([1-6])\b/gi)].map((match) => Number(match[1]));
     assert.equal(headings[0], 1, `${label}: la hiérarchie doit commencer par h1`);

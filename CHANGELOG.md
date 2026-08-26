@@ -6,7 +6,12 @@ importantes.
 
 ## Non publié
 
-Rien pour le moment.
+- Le pied de page global signe désormais les 32 pages avec la formule
+  « Édité avec amour du pâton par NicolasPieper.com » et un lien d'auteur
+  direct, sans tracking, vers `https://nicolaspieper.com/`.
+- La signature reste distincte de la mention légale, tient sur une ligne lorsque
+  l'espace le permet et repasse proprement sous celle-ci sur mobile. Le contrat
+  du site vérifie sa présence et sa destination sur chaque page construite.
 
 ## 2026-08-26 - Ambition de tests et promesse SEO publiques
 

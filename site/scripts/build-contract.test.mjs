@@ -1035,6 +1035,24 @@ test("le four du logo équipe favicon, icônes installables et miniature sociale
   assert.match(faviconMarkup, /#FF5A24/);
   assert.ok(favicon.byteLength < 5_000, "le favicon SVG dépasse 5 Ko");
 
+  const fallbackFavicon = await readFile(join(dist, "favicon.ico"));
+  assert.equal(
+    fallbackFavicon.subarray(0, 4).toString("hex"),
+    "00000100",
+    "le fallback favicon.ico n'est pas une icône Windows valide",
+  );
+  const fallbackIconCount = fallbackFavicon.readUInt16LE(4);
+  assert.equal(fallbackIconCount, 4, "favicon.ico doit contenir quatre tailles de repli");
+  const fallbackSizes = Array.from({ length: fallbackIconCount }, (_, index) => {
+    const offset = 6 + index * 16;
+    const width = fallbackFavicon[offset] || 256;
+    const height = fallbackFavicon[offset + 1] || 256;
+    return [width, height];
+  });
+  assert.deepEqual(fallbackSizes, [[16, 16], [32, 32], [48, 48], [64, 64]]);
+  assert.ok(fallbackFavicon.byteLength < 50_000, "le fallback favicon.ico dépasse 50 Ko");
+  assert.equal(await routeExists("/favicon.ico"), true, "fallback favicon.ico absent du build");
+
   const rasterAssets = [
     ["apple-touch-icon.png", 180, 180, 25_000],
     ["icons/icon-192.png", 192, 192, 25_000],

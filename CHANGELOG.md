@@ -19,6 +19,9 @@ importantes.
   puis bloque sur ces surfaces les formulations laissant entendre que Four à Nu
   a déjà mené ces tests. Publication sur `fouranu.com` et demande de
   réindexation restent soumises à deux autorisations distinctes.
+- Un `favicon.ico` de repli reprend le four canonique aux formats 16, 32, 48 et
+  64 px. Il complète l'URL SVG stable sans la remplacer et évite une 404 aux
+  robots ou navigateurs qui demandent encore automatiquement l'icône racine.
 
 ## 2026-08-25 - SEO, partage et favicon publics
 

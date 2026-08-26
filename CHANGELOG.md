@@ -6,12 +6,23 @@ importantes.
 
 ## Non publié
 
+Rien pour le moment.
+
+## 2026-08-26 - Signature d'auteur publique dans le footer
+
 - Le pied de page global signe désormais les 32 pages avec la formule
   « Édité avec amour du pâton par NicolasPieper.com » et un lien d'auteur
   direct, sans tracking, vers `https://nicolaspieper.com/`.
 - La signature reste distincte de la mention légale, tient sur une ligne lorsque
   l'espace le permet et repasse proprement sous celle-ci sur mobile. Le contrat
   du site vérifie sa présence et sa destination sur chaque page construite.
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `9677694683644985180f96608a943f8adeb6cb2e`. Le run GitHub Actions
+  [`32982081071`](https://github.com/nclsppr/fouranu/actions/runs/32982081071)
+  a vérifié puis déployé l'artefact exact.
+- `/release.json`, les 31 URL du sitemap et une vraie réponse 404 ont été
+  sondés sur le domaine public. La signature et son lien d'auteur sont uniques
+  sur chaque page ; le rendu a été relu à 360 et 1 280 px sans débordement.
 
 ## 2026-08-26 - Ambition de tests et promesse SEO publiques
 

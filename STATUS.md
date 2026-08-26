@@ -19,7 +19,28 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Gamme Gozney et appels d'achat publiés | SHA applicatif `bdd647b38fde6de2f8db01092c6adba5e08a7b35` ; [run GitHub Actions `32762552261`](https://github.com/nclsppr/fouranu/actions/runs/32762552261) vert pour `Verify` et `deploy-cloudflare` |
 | Passe SEO, partage et favicon publiée | SHA applicatif `a6e8f622b13db50b852e8e71c4da57beb30f8dd7` ; [run GitHub Actions `32886732924`](https://github.com/nclsppr/fouranu/actions/runs/32886732924) vert pour `Verify` et `deploy-cloudflare` |
 | Ambition de tests et promesse SEO publiées | SHA applicatif `e7a6223f9a9e61052b1a99e7bf60a037c8fb8e61` ; [run GitHub Actions `32979871986`](https://github.com/nclsppr/fouranu/actions/runs/32979871986) vert pour `Verify` et `deploy-cloudflare` |
+| Signature du footer publiée | SHA applicatif `9677694683644985180f96608a943f8adeb6cb2e` ; [run GitHub Actions `32982081071`](https://github.com/nclsppr/fouranu/actions/runs/32982081071) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Signature du footer publiée
+
+Le pied de page global affiche désormais « Édité avec amour du pâton par
+NicolasPieper.com » sur les 32 pages construites. Le nom renvoie directement à
+`https://nicolaspieper.com/`, avec la relation d'auteur et sans paramètre de
+suivi. Cette signature reste séparée de la mention légale : elle tient à droite
+sur grand écran et repasse sous celle-ci sur mobile.
+
+Le SHA applicatif `9677694683644985180f96608a943f8adeb6cb2e` passe les 26
+tests Python, les 17 contrats du site, le check Astro, Compose, le contrôle
+Cloudflare à sec, Nimbus et la gate `./scripts/verify.sh`. Le run `32982081071`
+a vérifié puis déployé cet artefact exact ; le domaine public expose ce SHA dans
+`/release.json`.
+
+Le contrôle public a retrouvé une seule signature et une seule destination
+d'auteur sur les 31 URL du sitemap ainsi que sur une vraie réponse 404. La page
+d'accueil a aussi été relue à 360 et 1 280 px : la signature est complète, le
+lien est correct, la disposition passe de colonne à ligne et aucun débordement
+horizontal n'apparaît.
 
 ## Ambition d'essais et promesse SEO publiées
 
@@ -170,8 +191,7 @@ Cloudflare Workers Static Assets sert la production. GitHub Actions construit
 puis transmet l'artefact exact produit par `Verify`, sans second build dans le
 job de déploiement. Le domaine personnalisé, le DNS, HTTPS et l'indexation sont
 actifs. Le contrôle public a retrouvé dans `/release.json` le SHA applicatif de
-la tranche la plus récente, consacrée au SEO, aux aperçus sociaux, au partage et
-au favicon.
+la tranche la plus récente, consacrée à la signature d'auteur du pied de page.
 
 La tranche post-V1 couvre les signatures Nicolas, Florian et Magali, une photo
 documentaire pour chacun des onze dossiers, une mise en page plus dense et des

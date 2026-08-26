@@ -7,6 +7,7 @@
 | Propriétaire | nclsppr |
 | Portée | Modèle éditorial, taxonomie de preuve, indexation et cible de publication |
 | Remplace | Les sections de l'ADR-0001 relatives à la Saison 0, à `J-TEST` et à une transition vers des essais physiques |
+| Remplacée partiellement par | [ADR-0006](0006-programme-essais-et-couverture-du-marche.md), uniquement pour le refus d'un programme futur d'essais de première main |
 
 ## Contexte
 
@@ -84,8 +85,10 @@ changement DNS, aucune release publique et aucun compte externe.
 
 - Les contrats, le rendu public, les validateurs et les tests doivent supprimer
   `J-TEST` et remplacer `J-SYN` et `J-INF` par `FAN-SYN` et `FAN-INF`.
-- Les mentions de Saison 0, de niveau verrouillé ou de capacité physique future
-  disparaissent des surfaces actuelles.
+- Les mentions de Saison 0 et de niveau verrouillé disparaissent des surfaces
+  actuelles. L'interdiction d'y présenter une capacité physique future est
+  remplacée par l'ADR-0006 : seule une ambition explicitement future, accolée à
+  l'état documentaire actuel, peut apparaître avant l'activation du protocole.
 - Les onze dossiers Ooni peuvent devenir indexables après validation. Ils ne
   restent pas en `noindex` du seul fait de leur nature documentaire.
 - La page auteur, la page À propos, les mentions légales, la confidentialité, le
@@ -109,7 +112,8 @@ L'ADR-0001 reste valide pour :
 La présente ADR remplace les sections Préserver la vérité de la Saison 0,
 Conserver les URL lors des futurs tests, les lignes d'état associées aux tests
 physiques et les fixtures de transition correspondantes. En cas de divergence,
-l'ADR-0002 fait autorité.
+l'ADR-0002 fait autorité, sauf sur la capacité future d'essais désormais régie
+par l'ADR-0006. Le corpus actuel et sa taxonomie restent documentaires.
 
 ## Options écartées
 

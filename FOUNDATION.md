@@ -85,7 +85,8 @@ Les règles locales vivent dans leur document naturel. Cette table les référen
 | Sources, droits, IA et publication | `EDITORIAL-PROTOCOL.md` |
 | Contrôle SEO bloquant avant indexation | `docs/SEO-PUBLICATION-GATE.md` |
 | Demande d'autorisation visuelle | `PERMISSION-TEMPLATE.md` |
-| Modèle documentaire permanent | `docs/decisions/0002-media-documentaire-permanent.md` |
+| Modèle du corpus documentaire actuel | `docs/decisions/0002-media-documentaire-permanent.md` |
+| Programme futur d'essais de première main | `docs/decisions/0006-programme-essais-et-couverture-du-marche.md` |
 | Cible Cloudflare et chemin de déploiement | `docs/decisions/0004-cloudflare-workers-static-assets.md` |
 
 ## Reclassification du 2026-08-23
@@ -101,8 +102,9 @@ ni l'utilité ni la rentabilité. Elle n'autorise pas non plus le DNS,
 l'hébergement, l'indexation, les liens affiliés ou une autre activation
 externe. La décision
 [`ADR-0002`](docs/decisions/0002-media-documentaire-permanent.md) fixe ensuite
-le modèle documentaire permanent. Sa cible Atlas historique est remplacée par
-Cloudflare Workers Static Assets dans
+le modèle du corpus documentaire actuel. L'[`ADR-0006`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md)
+remplace seulement son refus d'un futur programme d'essais de première main. La
+cible Atlas historique est remplacée par Cloudflare Workers Static Assets dans
 [`ADR-0004`](docs/decisions/0004-cloudflare-workers-static-assets.md), toujours
 sans activation externe implicite.
 

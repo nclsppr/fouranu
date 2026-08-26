@@ -358,6 +358,45 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
   }
 });
 
+test("les surfaces de promesse distinguent l'ambition du corpus documentaire actuel", async () => {
+  const pages = await htmlPages();
+  const home = pages.find((page) => page.route === "/");
+  const about = pages.find((page) => page.route === "/a-propos/");
+  assert.ok(home, "accueil absent");
+  assert.ok(about, "page À propos absente");
+  assert.equal(
+    visibleText(pairedElements(home.html, "title")[0][2]),
+    "Four à Nu | Fours à pizza, accessoires et pétrins",
+  );
+  assert.equal(
+    decodeHtml(metaContent(home.html, "description")),
+    "Four à Nu veut tester tous les fours à pizza vendus en France, en commençant par les marques de référence, puis les accessoires utiles et différents pétrins.",
+  );
+  assert.equal(
+    visibleText(metaContent(home.html, "og:title")),
+    "Notre ambition : tester tous les fours à pizza vendus en France",
+  );
+  assert.match(
+    visibleText(home.html),
+    /Aujourd’hui, nos guides sont des analyses documentaires sourcées ; chaque futur essai mené par Four à Nu sera clairement signalé\./,
+  );
+  assert.match(
+    visibleText(about.html),
+    /Nous n'avons encore publié aucun essai mené par Four à Nu\. Chaque futur essai sera clairement signalé, avec ses conditions, ses mesures et ses limites\./,
+  );
+  const organization = schemaNodes(jsonLdDocuments(home.html))
+    .find((node) => node["@type"] === "Organization");
+  assert.equal(
+    organization?.description,
+    "Média francophone indépendant qui publie des guides sourcés et vise à tester progressivement les fours à pizza vendus en France, les accessoires utiles et différents pétrins.",
+  );
+
+  const falseFirstPartyClaim = /(?:nous avons testé|nous testons|nos tests|notre test|notre mesure|après notre essai|testé par Four à Nu)/i;
+  for (const page of [home, about]) {
+    assert.doesNotMatch(visibleText(page.html), falseFirstPartyClaim, page.route);
+  }
+});
+
 test("le partage reste local sur les trente et une pages canoniques et absent de la 404", async () => {
   const pages = await htmlPages();
   const moduleBodies = new Set();
@@ -1093,7 +1132,16 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       expectedRoutes,
     );
     assert.equal(urlEntries.length, 31);
-    assert.equal((sitemap.match(/<lastmod>2026-08-25<\/lastmod>/g) ?? []).length, 31);
+    assert.equal((sitemap.match(/<lastmod>2026-08-25<\/lastmod>/g) ?? []).length, 29);
+    assert.equal((sitemap.match(/<lastmod>2026-08-26<\/lastmod>/g) ?? []).length, 2);
+    const homeEntry = urlEntries.find((entry) =>
+      entry.includes(`<loc>${canonicalOrigin}/</loc>`)
+    );
+    assert.match(homeEntry ?? "", /<lastmod>2026-08-26<\/lastmod>/);
+    const aboutEntry = urlEntries.find((entry) =>
+      entry.includes(`<loc>${canonicalOrigin}/a-propos/<\/loc>`)
+    );
+    assert.match(aboutEntry ?? "", /<lastmod>2026-08-26<\/lastmod>/);
 
     const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
       .map((match) => match[1]);

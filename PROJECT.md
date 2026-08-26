@@ -37,10 +37,16 @@ promesse du premier produit.
 
 Four à Nu doit permettre à cet acheteur de réduire sa liste de choix, de
 comprendre les compromis restants et de vérifier les sources utilisées. Le
-produit est un média documentaire permanent. Il confronte les données
+produit public est aujourd'hui un média documentaire : il confronte les données
 fabricant, les mesures et observations publiées par des tiers, puis produit des
 synthèses et inférences Four à Nu dont les prémisses et les limites restent
 visibles.
+
+À terme, Four à Nu vise à inventorier puis tester progressivement les fours à
+pizza domestiques commercialisés en France, en commençant par les modèles des
+marques de référence, puis les accessoires utiles et différents pétrins. Cette
+ambition ne décrit pas l'état actuel : aucun essai physique Four à Nu n'est
+publié avant l'adoption et l'exécution d'un protocole de première main traçable.
 
 ### Preuves de succès
 
@@ -61,10 +67,13 @@ qui est réellement vérifié.
 - un seul site francophone sous la marque Four à Nu ;
 - un parcours de choix par contraintes ;
 - une méthode publique, une politique de correction et une page auteur ;
-- des analyses documentaires Ooni dont la provenance est visible ;
+- des analyses documentaires multi-marques dont la provenance est visible ;
 - des dossiers sur les fours, pétrins et matériels écrits comme des guides
   d'achat accessibles, avec un en-tête issu d'une photo officielle du fabricant
   stylisée dans la direction du site ;
+- un programme futur d'essais de première main sur les fours, accessoires et
+  pétrins, activé seulement après un inventaire daté du marché, un protocole
+  accepté et des sessions enregistrées ;
 - une preview en `noindex` par défaut et des pages indexables uniquement après
   passage de leur barrière éditoriale et autorisation de publication ;
 - un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires ;
@@ -77,6 +86,8 @@ qui est réellement vérifié.
 - créer une ferme de sites ou des pages satellites ;
 - répondre automatiquement sur X à partir de recherches de mots-clés ;
 - présenter une source tierce comme une expérience de Four à Nu ;
+- affirmer que tous les fours ont été testés ou classer les « meilleures
+  marques » sans inventaire daté, critères explicites et essais comparables ;
 - publier une note, des étoiles, un classement pseudo-scientifique ou un
   balisage `Review` ou `AggregateRating` ;
 - ouvrir une offre professionnelle avant validation de l'utilité domestique ;
@@ -104,6 +115,7 @@ explicite avant son lancement.
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
 | Modèle documentaire | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
+| Programme d'essais et couverture du marché | [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) | Décision acceptée ; non activée |
 | En-tête produit et voix éditoriale | [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) | Décision acceptée |
 | Cible d'hébergement et chemin de déploiement | [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
@@ -178,7 +190,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 32 pages HTML et exécute seize tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 32 pages HTML et exécute dix-sept tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |

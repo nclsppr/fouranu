@@ -86,7 +86,7 @@ const schema = {
       alternateName: SITE.alternateName,
       url: `${SITE.url}/`,
       description:
-        "Média francophone indépendant consacré aux fours à pizza, à leurs usages et à leur équipement.",
+        "Média francophone indépendant qui publie des guides sourcés et vise à tester progressivement les fours à pizza vendus en France, les accessoires utiles et différents pétrins.",
       publishingPrinciples: `${SITE.url}/methode/`,
       logo: {
         "@type": "ImageObject",
@@ -101,15 +101,21 @@ const schema = {
 ---
 
 <BaseLayout
-  socialTitle="Choisir son four à pizza, sources à l’appui"
+  socialTitle="Notre ambition : tester tous les fours à pizza vendus en France"
   indexable={true}
   schema={schema}
 >
   <section class="editorial-hero page-shell" aria-labelledby="home-title">
     <article class="lead-feature">
       <div class="lead-feature__copy">
-        <p class="feature-kicker">Guide d'achat</p>
-        <h1 id="home-title">Choisir son four à pizza, sources à l’appui.</h1>
+        <p class="feature-kicker">Notre ambition</p>
+        <h1 id="home-title">Tester tous les fours à pizza vendus en France.</h1>
+        <p class="lead-feature__mission">
+          Nous voulons couvrir les modèles des marques de référence, les
+          accessoires qui comptent vraiment et différents pétrins. Aujourd’hui,
+          nos guides sont des analyses documentaires sourcées&nbsp;; chaque futur
+          essai mené par Four à Nu sera clairement signalé.
+        </p>
         <h2 class="lead-feature__story-title">{lead.data.title}</h2>
         <p class="lead-feature__summary">{lead.data.summary}</p>
         <div class="lead-feature__filters" aria-label="Les premiers critères du guide">
@@ -430,6 +436,14 @@ const schema = {
     color: var(--color-white);
     font-size: clamp(1.35rem, 2.1vw, 1.8rem);
     line-height: 1.05;
+  }
+
+  .lead-feature__mission {
+    max-width: 38rem;
+    margin: 0 0 1.25rem;
+    color: var(--color-carbon-muted);
+    font-size: 1rem;
+    line-height: 1.55;
   }
 
   .lead-feature__summary {

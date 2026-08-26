@@ -9,7 +9,7 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 5 |
+| Décisions | `internal` | 6 |
 | Barrières de publication | `internal` | 1 |
 | Brouillons éditoriaux du site | `internal` | 19 |
 | Socle vendorisé | `reference` | 6 |
@@ -42,6 +42,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0003-coordination-secrets-atlas.md](docs/decisions/0003-coordination-secrets-atlas.md)
 - [docs/decisions/0004-cloudflare-workers-static-assets.md](docs/decisions/0004-cloudflare-workers-static-assets.md)
 - [docs/decisions/0005-en-tete-officiel-et-voix-accessible.md](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md)
+- [docs/decisions/0006-programme-essais-et-couverture-du-marche.md](docs/decisions/0006-programme-essais-et-couverture-du-marche.md)
 
 ## Barrières de publication
 

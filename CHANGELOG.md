@@ -6,7 +6,19 @@ importantes.
 
 ## Non publié
 
-Rien pour le moment.
+- Candidat local du 2026-08-26 : l'accueil, sa description SEO, son aperçu
+  social, la page À propos et le manifeste présentent désormais l'ambition de
+  tester progressivement les fours à pizza vendus en France, en commençant par
+  les modèles des marques de référence, puis les accessoires utiles et
+  différents pétrins.
+- L'ADR-0006, le contrat produit, la roadmap, le protocole éditorial, l'état et
+  le cadrage SEO distinguent explicitement ce cap du corpus actuel : aucun essai
+  physique Four à Nu n'est publié, la taxonomie documentaire reste inchangée et
+  les premiers pilotes appartiennent à F06.
+- Un contrat de build contrôle l'accueil, la page À propos et le schéma éditeur,
+  puis bloque sur ces surfaces les formulations laissant entendre que Four à Nu
+  a déjà mené ces tests. Publication sur `fouranu.com` et demande de
+  réindexation restent soumises à deux autorisations distinctes.
 
 ## 2026-08-25 - SEO, partage et favicon publics
 

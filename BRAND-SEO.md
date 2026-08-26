@@ -15,13 +15,16 @@ preuves et leurs limites. Il est court, prononçable, compatible avec le domaine
 toujours l'accompagner d'un descripteur explicite sur sa page d'accueil :
 
 - nom de site : `Four à Nu` ;
-- titre d'accueil proposé : `Four à Nu | Le guide des fours à pizza` ;
-- H1 proposé : `Choisir son four à pizza, sources à l'appui` ;
-- descripteur éditorial : `Fours à pizza, sources à l'appui` ;
+- titre d'accueil : `Four à Nu | Fours à pizza, accessoires et pétrins` ;
+- H1 d'accueil : `Tester tous les fours à pizza vendus en France` ;
+- descripteur éditorial : `Fours à pizza, accessoires et pétrins, sources à l'appui` ;
 - nom alternatif sans accent : `Four a Nu` ;
-- meta description proposée : `Comparatifs documentés, guides d'achat et
-  dossiers Ooni pour choisir un four à pizza, ses accessoires et réussir ses
-  cuissons napolitaines.`
+- meta description : `Four à Nu veut tester tous les fours à pizza vendus en
+  France, en commençant par les marques de référence, puis les accessoires utiles
+  et différents pétrins.`
+
+Cette promesse décrit un cap. Aucun essai physique Four à Nu n'est publié au
+2026-08-26 ; le H1 est immédiatement suivi de cette limite sur l'accueil.
 
 Cette décision ne prétend pas qu'un mot dans le domaine produit un classement.
 Google recommande un nom de site unique et non générique. Son système de domaine
@@ -119,8 +122,8 @@ Les trois pistes utiles ne sont pas obligées de se concurrencer :
 | Dossiers longs | `Dossier 430` | Comparaisons approfondies, protocoles et coût de possession |
 | Formats courts | `Faits de Four` | Vérification d'une affirmation, d'une fiche ou d'une idée reçue |
 
-La signature SEO proposée pour le lancement est :
-`Four à Nu | Le guide des fours à pizza`.
+La signature SEO active visée est :
+`Four à Nu | Fours à pizza, accessoires et pétrins`.
 
 Les premiers silos restent explicites dans la navigation et les URL :
 
@@ -251,8 +254,9 @@ permanente entre donnée fabricant, mesure ou observation tierce, synthèse
   propos, méthode, politique de correction et coordonnées publiques minimales ;
 - lancer un seul domaine, une seule langue canonique par URL et une seule
   intention principale par page ;
-- structurer les premiers ensembles autour de `fours à pizza`, `Ooni`, modèles,
-  comparaisons de choix et accessoires, avec des liens internes HTML standards ;
+- structurer les ensembles autour des fours à pizza, marques de référence,
+  comparaisons de choix, accessoires et pétrins, avec des liens internes HTML
+  standards ;
 - réserver une URL canonique stable par produit et par décision d'achat.
 
 ### Contenu et preuve
@@ -266,8 +270,10 @@ permanente entre donnée fabricant, mesure ou observation tierce, synthèse
   propre à Four à Nu ;
 - utiliser un balisage éditorial de type `Article`, sans note, étoiles, verdict
   de prise en main, `Review` ou `AggregateRating` ;
-- exprimer chaque manque comme une limite du corpus ou de la comparabilité, sans
-  promettre une mesure future par Four à Nu.
+- exprimer chaque manque comme une limite du corpus ou de la comparabilité ;
+- présenter le programme d'essais comme une ambition datée, jamais comme une
+  expérience acquise, puis enrichir l'URL stable seulement après une session
+  enregistrée et un protocole accepté.
 
 Google demande du contenu original, utile, attribué et transparent sur sa
 méthode. Ses recommandations d'avis produit demandent notamment des preuves de
@@ -389,16 +395,16 @@ aucun dérivé actif ne doit réintroduire leur ancien signe.
 
 ## Prochaine porte
 
-Le nom, le domaine et le socle produit sont retenus. La suite est ordonnée :
+Le nom, le domaine et la V1 publique sont acquis. La suite SEO et produit reste
+ordonnée :
 
-1. compléter l'identité auteur, les mentions légales, la confidentialité, le
-   contact et la transparence commerciale avec des informations exactes ;
-2. faire passer chaque URL destinée au lancement par la barrière SEO et la
-   relecture documentaire ;
-3. construire l'artefact statique exact et valider à sec son contrat Workers
-   Static Assets ;
-4. autoriser séparément l'environnement GitHub de production et le déploiement
-   Cloudflare ;
-5. rattacher ensuite `fouranu.com`, son DNS et son indexabilité au paquet public
-   explicitement approuvé ;
-6. contrôler le site public avant toute soumission à Google, Bing ou IndexNow.
+1. vérifier le paquet exact qui aligne titre, description, H1, texte visible et
+   données structurées sur la nouvelle ambition ;
+2. autoriser séparément sa publication sur `fouranu.com` ;
+3. contrôler l'artefact public avant toute demande de réindexation, elle-même
+   autorisée séparément ;
+4. inventorier et dater le marché français des fours, accessoires et pétrins ;
+5. accepter le protocole et la taxonomie de première main avant tout achat,
+   prêt, mesure ou affirmation de test ;
+6. publier les pilotes uniquement après leur barrière éditoriale, technique et
+   juridique propre.

@@ -1,15 +1,20 @@
 # Protocole éditorial, sources et visuels
 
-État du cadre vérifié le 2026-08-23. Ce protocole est une barrière
+Cadre mis à jour le 2026-08-26. Ce protocole est une barrière
 opérationnelle, pas un avis juridique. Une validation professionnelle sera
 nécessaire avant une exploitation répétée ou contractuellement complexe.
 
 ## Décision
 
-Four à Nu est un média documentaire permanent. Il produit des analyses, un jeu
-de données et un parcours de décision à partir de sources attribuées. Une
+Four à Nu publie aujourd'hui un corpus documentaire. Il produit des analyses,
+un jeu de données et un parcours de décision à partir de sources attribuées. Une
 analyse peut rapprocher, normaliser ou contredire ces sources, mais elle ne
 transforme jamais une expérience tierce en expérience de Four à Nu.
+
+L'ADR-0006 fixe une ambition future d'essais de première main sur les fours,
+accessoires et pétrins. Elle n'active aucun test : tant qu'un protocole et sa
+taxonomie n'ont pas été acceptés séparément, toutes les pages restent soumises
+au présent modèle documentaire.
 
 Le produit ne publie ni note, ni étoile, ni classement pseudo-scientifique, ni
 donnée structurée `Review` ou `AggregateRating`. Une vidéo tierce peut être une
@@ -65,6 +70,27 @@ Les questions d'acheteurs vivent séparément dans
 regrouper les décisions ; elles ne prouvent ni une performance produit, ni un
 volume de recherche, ni la représentativité du marché. Chaque question publique
 est paraphrasée, datée et reliée à sa source sans conserver de pseudonyme.
+
+## Programme d'essais de première main non activé
+
+La cible décrite par l'ADR-0006 est un programme progressif, pas une preuve
+actuelle. Aucun essai physique Four à Nu n'est publié au 2026-08-26 et la
+taxonomie active reste limitée aux cinq classes ci-dessus.
+
+Avant tout achat dédié, prêt, mesure ou session du programme, une décision
+dédiée doit définir au minimum le type de session, le produit exact, la date, le
+lieu, l'opérateur, les instruments et leur étalonnage, le scénario, le nombre de
+répétitions, les mesures brutes, les observations, les incidents, les limites,
+les prêts, le sponsoring et les conflits d'intérêts. Elle doit aussi définir les
+formulations permises et la chaîne de droits des médias originaux. Chaque paquet
+d'essai garde ensuite sa propre autorisation de publication.
+
+Un futur essai enrichit l'URL documentaire stable. Il ne permet pas de convertir
+une observation tierce en expérience propre, de masquer un protocole
+incompatible ou de généraliser une session à toute une marque. La formule
+« tous les fours du marché » reste une ambition jusqu'à l'existence d'un
+inventaire français daté et d'une session enregistrée pour chaque modèle du
+périmètre.
 
 ## Types de visuels
 

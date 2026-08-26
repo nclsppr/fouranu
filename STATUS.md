@@ -20,6 +20,20 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Passe SEO, partage et favicon publiée | SHA applicatif `a6e8f622b13db50b852e8e71c4da57beb30f8dd7` ; [run GitHub Actions `32886732924`](https://github.com/nclsppr/fouranu/actions/runs/32886732924) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
+## Ambition d'essais retenue, non activée
+
+Le propriétaire a fixé le 2026-08-26 l'objectif de tester progressivement les
+fours à pizza du marché domestique français, les accessoires utiles des marques
+de référence et différents pétrins. Le checkout contient un candidat local qui
+présente cette ambition sur l'accueil et la page À propos.
+
+Ce candidat local n'est pas publié et aucune soumission aux moteurs n'est
+autorisée par ce changement. Les dix-neuf guides publics restent des analyses
+documentaires et aucun essai physique Four à Nu n'y est présenté. Aucun
+protocole, taxonomie de première main, achat dédié, prêt ou session de test n'est
+autorisé ou enregistré dans les sources de vérité. L'ADR-0006 et la phase F06
+portent la cible et ses portes de vérité.
+
 ## Passe SEO, partage et favicon publiée
 
 Les 31 pages canoniques ont désormais des titres sociaux resserrés, une image
@@ -164,6 +178,7 @@ par une question d'achat et des sources suffisantes.
 | F03, candidat Cloudflare | `done` | Paquet approuvé, preuves privées, gate locale, CI du même SHA et environnement GitHub protégé | Aucune pour la V1 | nclsppr |
 | F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
 | F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
+| F06, banc d'essai et premiers pilotes | `planned` | Ambition et limites décidées ; aucun essai physique publié | Inventaire daté, protocole accepté et pilotes vérifiés sur un four, un accessoire et un pétrin | nclsppr |
 
 ## Livré et vérifié en production
 
@@ -230,6 +245,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | --- | --- | --- |
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
 | Accessoires encore absents | Le fonds n'aide pas encore à choisir les petits outils autour du four | Ouvrir chaque dossier depuis un geste ou un problème concret, avec compatibilité, limites, coût complet et alternatives |
+| Aucun essai de première main | La nouvelle ambition ne possède encore ni protocole ni résultat propre | Accepter le protocole, étendre les registres puis vérifier les trois pilotes de F06 sans réécrire le passé documentaire |
 | Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
 
 ## Prochaines preuves
@@ -241,3 +257,4 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Prochains dossiers d'accessoires | Gate | Problème d'usage réel, sources actuelles, média publiable, compatibilité et alternatives, revue éditoriale et visuelle, gate complète et `Verify` vert sur leur SHA | F02/F03 |
 | Publication suivante | Activation | Run GitHub Actions vert, `/release.json`, routes, médias et métadonnées contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |
+| Premiers essais Four à Nu | Capacité future | Inventaire français daté, décision de protocole, sessions enregistrées et pilotes vérifiés sur un four, un accessoire et un pétrin | F06 |

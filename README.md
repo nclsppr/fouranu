@@ -15,17 +15,19 @@ affilié n'est actif.
 Le dépôt utilise le pack Foundation `full`. `site/` contient une application
 Astro statique distincte de Nimbus. Son build génère 32 pages HTML, dont dix-neuf
 guides : douze sur les fours et pétrins Ooni, sept sur les Gozney. Four à Nu
-est un média documentaire permanent :
-chaque page attribue ses sources, conserve leurs limites et ne publie ni note,
-ni étoile, ni balisage d'avis.
+publie aujourd'hui un corpus documentaire : chaque page attribue ses sources,
+conserve leurs limites et ne publie ni note, ni étoile, ni balisage d'avis. La
+phase F06 vise ensuite des essais de première main sur les fours vendus en
+France, les accessoires et différents pétrins, sans les présenter comme acquis
+avant leur protocole et leurs sessions.
 
 La preview reste en `noindex` par défaut. Une page ne devient indexable qu'après
 sa barrière éditoriale et une autorisation de publication. Le paquet V1 de
 production est indexable et son déploiement GitHub Actions, son domaine
 personnalisé, son DNS et son HTTPS sont actifs.
 
-La suite locale compte quatorze tests de contrat. Le service Compose répond avec un
-healthcheck sain. Le run GitHub Actions de la V1 et les contrôles publics sont
+La suite locale compte dix-sept tests de contrat. Le service Compose répond avec
+un healthcheck sain. Le run GitHub Actions de la V1 et les contrôles publics sont
 consignés dans [`STATUS.md`](STATUS.md). Les signatures, photos documentaires,
 sources compactes et ajustements de densité de la tranche post-V1 sont actifs
 sur le domaine public.
@@ -45,7 +47,7 @@ plus récent, Node `22.12.0` ou plus récent, npm, Docker et Docker Compose
 | Action actuelle | Commande | Résultat attendu |
 | --- | --- | --- |
 | Vérifier le dépôt | `./scripts/verify.sh` | Contrôle les documents, registres, Compose, le site Astro et Nimbus |
-| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 32 pages et quatorze tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 32 pages et dix-sept tests de contrat |
 | Vérifier le candidat Cloudflare | `npm run cloudflare:check --prefix site` | Valide le paquet Workers Static Assets sans déploiement |
 | Vérifier Compose | `python3 scripts/check_compose.py` | Valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Site Nimbus local généré depuis les Markdown classés |
@@ -59,13 +61,14 @@ code, de la configuration et d'une vérification réelle.
 
 - [`PROJECT.md`](PROJECT.md) : promesse, périmètre, architecture et commandes.
 - [`STATUS.md`](STATUS.md) : état courant, preuves, blocages et dérives.
-- [`ROADMAP.md`](ROADMAP.md) : phases F01 à F05 et critères de sortie.
+- [`ROADMAP.md`](ROADMAP.md) : phases F01 à F06 et critères de sortie.
 - [`DESIGN.md`](DESIGN.md) : direction visuelle, tokens, accessibilité et budgets du site.
 - [`BRAND-SEO.md`](BRAND-SEO.md) : marque, découvrabilité et premières URL.
 - [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) : corpus produit et ordre éditorial.
 - [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) : preuves, droits, IA et barrière de publication.
 - [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) : contrôle SEO bloquant appliqué à chaque article avant indexation.
-- [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) : modèle documentaire permanent et indexation.
+- [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) : modèle du corpus documentaire actuel et indexation.
+- [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) : programme futur d'essais et couverture progressive du marché.
 - [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) : cible Cloudflare et chemin de déploiement.
 - [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) : photo officielle stylisée en tête et voix accessible.
 - [`EXPERIMENT.md`](EXPERIMENT.md) : métriques, limites et décision du pilote documentaire.

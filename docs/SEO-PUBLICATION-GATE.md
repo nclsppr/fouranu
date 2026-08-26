@@ -104,19 +104,24 @@ tranches séparées.
 - [ ] Le catalogue, la génération du produit et les liens externes ont été
   revérifiés à la date inscrite dans l'article.
 
-## 5. Frontière documentaire permanente
+## 5. Frontière documentaire actuelle et ambition future
 
-- [ ] Le contenu se présente comme une analyse documentaire et précise les
-  catégories de sources utilisées.
+- [ ] Chaque dossier sans session de première main se présente comme une analyse
+  documentaire et précise les catégories de sources utilisées.
 - [ ] Le contenu ne dit jamais « nous avons testé », « notre mesure », « notre
-  avis », « le meilleur » ou une formulation équivalente.
+  avis », « le meilleur » ou une formulation équivalente sans protocole et
+  session propres enregistrés.
 - [ ] Aucune note, étoile, recommandation globale, donnée `Review`, donnée
   `AggregateRating` ou apparence de verdict issu d'une prise en main n'est
   utilisée.
 - [ ] Une observation ou mesure tierce reste attribuée à son auteur et à une
   session précise. Elle ne devient pas une expérience Four à Nu.
-- [ ] Une limite est formulée comme une limite du corpus, du protocole publié ou
-  de la comparabilité. Elle ne promet pas une vérification future par Four à Nu.
+- [ ] Une limite d'article est formulée comme une limite du corpus, du protocole
+  publié ou de la comparabilité. Elle ne sert pas à promettre une vérification
+  future de ce produit.
+- [ ] Une page structurelle peut présenter le programme d'essais comme une
+  ambition future seulement si le même bloc visible indique que le corpus
+  actuel reste documentaire et qu'aucun essai Four à Nu n'est encore publié.
 - [ ] Les photos, captures et illustrations disposent d'une autorisation ou
   d'une licence vérifiable avant toute publication. Une transformation par IA
   ne remplace pas cette autorisation.
@@ -231,7 +236,7 @@ tranches séparées.
 | --- | --- |
 | Une affirmation importante n'a ni preuve enregistrée ni attribution | Bloqué |
 | Une page existante répond déjà à la même intention avec les mêmes preuves | Fusion ou justification avant rédaction |
-| Le titre promet un test Four à Nu, un avis, une note ou un classement | Bloqué |
+| Le titre affirme ou laisse croire qu'un test Four à Nu, un avis, une note ou un classement existe déjà sans preuve propre enregistrée | Bloqué |
 | Une expérience tierce est racontée à la première personne | Bloqué |
 | Une mesure incompatible est moyennée avec une autre | Bloqué |
 | Une page contient une note, `Review` ou `AggregateRating` | Bloqué |

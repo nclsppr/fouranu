@@ -4,10 +4,10 @@ export const SITE = {
   url: "https://fouranu.com",
   locale: "fr_FR",
   language: "fr",
-  title: "Four à Nu | Le guide des fours à pizza",
+  title: "Four à Nu | Fours à pizza, accessoires et pétrins",
   description:
-    "Comparatifs documentés, guides d'achat et dossiers Ooni ou Gozney pour choisir un four à pizza et le matériel de préparation adapté.",
-  shortDescription: "Fours à pizza, sources à l'appui",
+    "Four à Nu veut tester tous les fours à pizza vendus en France, en commençant par les marques de référence, puis les accessoires utiles et différents pétrins.",
+  shortDescription: "Fours à pizza, accessoires et pétrins, sources à l'appui",
   socialImage: "/og/four-a-nu-default-v2.jpg",
   editorialAuthor: {
     name: "Nicolas, Florian & Magali",
@@ -33,10 +33,12 @@ export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
 export const SITE_SURFACE_UPDATED_AT = "2026-08-25";
+export const SITE_HOME_UPDATED_AT = "2026-08-26";
+export const SITE_ABOUT_UPDATED_AT = "2026-08-26";
 
 export const FIXED_INDEXABLE_ROUTES = [
-  { path: "/", modified: SITE_SURFACE_UPDATED_AT },
-  { path: "/a-propos/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/", modified: SITE_HOME_UPDATED_AT },
+  { path: "/a-propos/", modified: SITE_ABOUT_UPDATED_AT },
   { path: "/auteurs/redaction-four-a-nu/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/contact/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/corrections/", modified: SITE_SURFACE_UPDATED_AT },

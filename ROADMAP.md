@@ -5,9 +5,10 @@ réel de la phase active.
 
 ## Résultat produit
 
-Servir sur un domaine unique un outil francophone qui aide à choisir un four à
-pizza, sépare clairement les types de preuve et mesure son utilité puis son
-économie sans contenu de masse, note, balisage d'avis ou expérience tierce
+Servir sur un domaine unique un média francophone qui aide à choisir un four à
+pizza, sépare clairement les types de preuve, puis construit un programme
+progressif d'essais sur les fours, accessoires et pétrins du marché domestique
+français sans contenu de masse, note, balisage d'avis ou expérience tierce
 racontée à la première personne.
 
 ## Principes de séquencement
@@ -19,6 +20,8 @@ racontée à la première personne.
 - Un déploiement ne peut suivre qu'une gate `Verify` verte sur le même SHA.
 - Préparation, premier déploiement, domaine personnalisé, DNS et indexation
   restent des autorisations distinctes.
+- Une ambition d'essai n'est jamais présentée comme une prise en main acquise ;
+  protocole, session et limites précèdent toute formulation de première main.
 - Chaque phase se ferme par une preuve observable.
 
 ## Vue d'ensemble
@@ -30,10 +33,13 @@ racontée à la première personne.
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
+| 6 | F06 | Banc d'essai et premiers pilotes | Four à Nu peut publier des essais de première main reproductibles sans les confondre avec son corpus documentaire | `planned` | Protocole accepté, inventaire daté et trois pilotes vérifiés : un four, un accessoire et un pétrin |
 
 La V1 a franchi F03 et F04 le 2026-08-24. F02 reste ouverte jusqu'aux cinq
 sessions prévues. La tranche éditoriale post-V1 a été vérifiée, poussée et
 publiée le même jour sans changer cette dette d'observation.
+F06 porte la nouvelle ambition de couverture du marché. Aucun essai Four à Nu
+n'est encore inclus dans le produit public.
 
 ## Phase F01 : socle produit local
 
@@ -338,6 +344,64 @@ une décision explicite de poursuivre, prolonger une seule fois ou arrêter.
 Désactiver les liens et traceurs concernés, retirer le pilote si nécessaire et
 conserver une conclusion anonymisée. Une nouvelle niche repart dans une
 expérience séparée.
+
+## Phase F06 : banc d'essai et premiers pilotes
+
+### Objectif
+
+Rendre possible un programme crédible d'essais de première main avant d'étendre
+progressivement la couverture aux fours à pizza domestiques commercialisés en
+France, à leurs accessoires utiles et à différents pétrins.
+
+### Dépendances
+
+- conclusion explicite de F05 autorisant la poursuite ;
+- budget, lieu, sécurité et stockage décidés séparément ;
+- ADR-0006 acceptée ;
+- protocole de première main et extension de taxonomie acceptés dans une
+  décision dédiée.
+
+### Inclus
+
+- inventaire fabricant daté du marché français, avec modèles, énergies,
+  disponibilités, accessoires et pétrins concernés ;
+- protocoles reproductibles par catégorie, instruments étalonnés, scénarios,
+  durées, incertitudes et règles de répétition ;
+- registre des sessions, prêts, achats, sponsoring, conflits et médias originaux ;
+- trois pilotes publiables : un four, un accessoire et un pétrin ;
+- enrichissement des URL stables en conservant les preuves documentaires et
+  leurs limites.
+
+### Exclu
+
+- affirmer une couverture exhaustive avant l'inventaire et toutes les sessions ;
+- désigner les « meilleures marques » sans critères et essais comparables ;
+- notes, étoiles, classement global, `Review` ou `AggregateRating` ;
+- achat massif de matériel, prêt fabricant ou publication sans autorisation
+  distincte.
+
+### Risques
+
+- comparer des sessions dont les conditions ne sont pas compatibles ;
+- laisser un prêt ou une commission orienter la sélection ou la conclusion ;
+- confondre prise en main courte, mesure isolée et essai complet ;
+- annoncer « tous les fours » alors que l'inventaire évolue ou reste incomplet ;
+- sous-estimer la sécurité, le stockage, l'énergie et le coût des consommables.
+
+### Critère de sortie
+
+La décision dédiée, les registres et la gate acceptent les preuves de première
+main. Un four, un accessoire et un pétrin possèdent chacun une session
+reproductible, des conditions visibles, des médias originaux publiables et une
+page contrôlée sans fausse extrapolation. Le reste de l'inventaire reste
+explicitement non testé.
+
+### Retour arrière
+
+Retirer les affirmations de première main et revenir au dernier état
+documentaire vérifié des URL concernées. Conserver les registres minimaux, les
+incidents de sécurité et les conflits ; ne pas transformer un pilote abandonné
+en recommandation.
 
 ## Règle de mise à jour
 

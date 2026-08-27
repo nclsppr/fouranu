@@ -6,7 +6,7 @@ importantes.
 
 ## Non publié
 
-### Profils individuels et signatures incarnées
+## 2026-08-27 - Profils individuels et signatures incarnées
 
 - Nicolas, Florian et Magali disposent chacun d'une page canonique avec leur
   parcours, leur rôle éditorial et la liste des dossiers dont ils sont les
@@ -21,8 +21,15 @@ importantes.
   les photographies réelles annoncées par le propriétaire ne sont pas fournies.
 - Les signatures visibles, métadonnées `article:author`, schémas `Article`,
   profils `ProfilePage`/`Person`, RSS et sitemap utilisent les mêmes noms et URL.
-  Le candidat passe à 35 pages HTML et 34 URL canoniques, sans changer les
+  La production passe à 35 pages HTML et 34 URL canoniques, sans changer les
   dix-neuf dossiers ni leur modèle de preuve.
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `80c2f76c1bd939b521e90f529b5e8d525c200990`. Le run GitHub Actions
+  [`33087428591`](https://github.com/nclsppr/fouranu/actions/runs/33087428591)
+  a vérifié puis déployé l'artefact exact.
+- `/release.json`, l'annuaire, les trois profils, une signature par auteur et
+  les 34 URL du sitemap ont été contrôlés sur le domaine public. Les profils et
+  l'annuaire ont été relus à 360 et 1 440 px sans débordement ni erreur console.
 
 ## 2026-08-26 - Signature d'auteur publique dans le footer
 

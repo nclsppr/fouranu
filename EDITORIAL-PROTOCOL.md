@@ -272,10 +272,13 @@ Les métadonnées de prise de vue sont retirées du dérivé public. Une amélio
 qui invente des détails du visage, des yeux, des vêtements ou du décor reste
 interdite.
 
-Mention publique minimale :
+Mention publique minimale, placée sous le visuel sans le recouvrir :
 
-> Illustration éditoriale d'après une photographie officielle de [fabricant],
-> utilisée avec autorisation. Elle ne constitue pas une preuve de performance.
+> Illustration éditoriale d'après une photographie officielle [fabricant].
+
+La page explique une seule fois, dans son second niveau de lecture, que l'image
+d'en-tête illustre le produit sans constituer une preuve de performance. Cette
+réserve n'est pas répétée sur chaque visuel et ne masque jamais ses pixels.
 
 La catégorie technique du registre, les outils de production et les assistants
 rédactionnels ne paraissent jamais dans la copie publique. La traçabilité

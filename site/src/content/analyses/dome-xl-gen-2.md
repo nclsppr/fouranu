@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/gozney-dome-xl-gen-2-1600.webp
   alt: "Grand four Gozney Dome XL Gen 2 couleur crème sur un plan de travail en acier"
-  caption: "Illustration éditoriale du Gozney Dome XL (Gen 2) d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2402
 evidenceIds: [EV-0702, EV-0703, EV-0704]
 evidenceTypes:

@@ -155,15 +155,17 @@ const schema = {
       </header>
 
       <figure class="article-lead-media">
-        <img
-          src={entry.data.image.src}
-          srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
-          sizes="(max-width: 48rem) 100vw, 42vw"
-          alt={entry.data.image.alt}
-          width="1600"
-          height="900"
-          fetchpriority="high"
-        />
+        <div class="article-lead-media__image">
+          <img
+            src={entry.data.image.src}
+            srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+            sizes="(max-width: 48rem) 100vw, 42vw"
+            alt={entry.data.image.alt}
+            width="1600"
+            height="900"
+            fetchpriority="high"
+          />
+        </div>
         <figcaption>{entry.data.image.caption}</figcaption>
       </figure>
 
@@ -190,8 +192,9 @@ const schema = {
           <div class="documentary-notice">
             <strong>Comment lire ce guide</strong>
             <span>
+              L’image d’en-tête illustre le produit sans prouver ses performances.
               Les promesses du fabricant, les mesures publiées et notre lecture
-              restent séparées. Les conditions et relations commerciales utiles
+              restent séparées ; les conditions et relations commerciales utiles
               sont précisées dans les sources.
             </span>
             <a href="#cited-sources-title">Voir les sources</a>
@@ -304,10 +307,16 @@ const schema = {
   .article-lead-media {
     grid-column: 8 / -1;
     grid-row: 1;
-    position: relative;
+    display: flex;
     min-width: 0;
     min-height: 22rem;
+    flex-direction: column;
     margin: 0;
+  }
+
+  .article-lead-media__image {
+    flex: 1;
+    min-height: 22rem;
     overflow: hidden;
     background: var(--color-steel-soft);
   }
@@ -320,17 +329,11 @@ const schema = {
   }
 
   .article-lead-media figcaption {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 0.65rem 0.8rem;
-    color: var(--color-carbon-muted);
-    background: color-mix(in srgb, var(--color-carbon) 88%, transparent);
+    padding: 0.5rem 0.1rem 0;
+    color: var(--color-graphite);
     font-family: var(--font-data);
     font-size: 0.75rem;
     line-height: 1.45;
-    text-transform: uppercase;
   }
 
   .article-facts {
@@ -606,11 +609,17 @@ const schema = {
     .article-lead-media {
       grid-row: 2;
       min-height: 0;
-      aspect-ratio: 16 / 10;
+    }
+
+    .article-lead-media__image {
+      min-height: 0;
+      flex: none;
     }
 
     .article-lead-media img {
+      height: auto;
       min-height: 0;
+      aspect-ratio: 16 / 10;
     }
 
     .article-facts {

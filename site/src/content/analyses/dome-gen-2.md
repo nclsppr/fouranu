@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/gozney-dome-gen-2-1600.webp
   alt: "Four Gozney Dome Gen 2 couleur crème installé sur un plan de travail extérieur en acier"
-  caption: "Illustration éditoriale du Gozney Dome (Gen 2) d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2404
 evidenceIds: [EV-0705, EV-0706, EV-0707]
 evidenceTypes:

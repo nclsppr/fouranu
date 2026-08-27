@@ -5,7 +5,7 @@ import { z } from "astro/zod";
 const articleImage = z.object({
   src: z.string().regex(/^\/images\/articles\/[a-z0-9-]+-1600\.webp$/),
   alt: z.string().min(20),
-  caption: z.string().min(20),
+  caption: z.string().min(20).max(90),
   assetId: z.string().regex(/^AS-\d{4}$/),
 });
 

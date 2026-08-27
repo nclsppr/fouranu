@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp
   alt: "Four électrique Ooni Volt 2 gris sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Volt 2 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2320
 evidenceIds: [EV-0090, EV-0091, EV-0092, EV-0103, EV-0260, EV-0261, EV-0262, EV-0340, EV-0341, EV-0342, EV-0343, EV-0408]
 evidenceTypes:

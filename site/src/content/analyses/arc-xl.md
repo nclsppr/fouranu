@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/gozney-arc-xl-1600.webp
   alt: "Four à pizza Gozney Arc XL couleur crème sur un plan de travail en acier"
-  caption: "Illustration éditoriale du Gozney Arc XL d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2102
 evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512]
 evidenceTypes:

@@ -356,13 +356,17 @@ illustration éditoriale, portrait d'auteur, photographie originale ou lecteur o
 libellés techniques internes et les outils de production ne font pas partie de
 la copie publique. Le type `quarantine` n'entre jamais dans le site public.
 
-Une figure contient un texte alternatif adapté et une légende visible. Le
-crédit ou la source sont affichés lorsqu'ils aident réellement le lecteur à
-comprendre l'image. La date, le statut de preuve et l'identifiant média restent
-dans le registre de traçabilité interne : ces libellés techniques ne surchargent
-pas la copie publique. Une illustration éditoriale est identifiée comme telle
-et ne soutient jamais une affirmation factuelle. Aucune copie visible ne cite
-un logiciel, un assistant de rédaction ou un procédé de génération.
+Une figure contient un texte alternatif adapté et une légende visible. Une
+légende ne recouvre jamais l'image : elle reste dans le flux, immédiatement
+sous le visuel, en casse courante et dans la couleur secondaire. L'en-tête se
+limite au statut d'illustration éditoriale et à la photographie officielle de
+la marque ; la réserve sur la valeur de preuve apparaît une seule fois dans le
+bloc « Comment lire ce guide ». Le crédit ou la source détaillée restent sous
+les vues documentaires lorsqu'ils aident réellement le lecteur à comprendre
+l'image. La date, le statut de preuve et l'identifiant média restent dans le
+registre de traçabilité interne : ces libellés techniques ne surchargent pas la
+copie publique. Aucune copie visible ne cite un logiciel, un assistant de
+rédaction ou un procédé de génération.
 
 L'image d'en-tête de tout nouvel article produit, ou de tout article produit
 substantiellement révisé, part obligatoirement d'une photographie officielle du

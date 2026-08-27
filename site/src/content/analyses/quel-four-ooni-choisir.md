@@ -15,7 +15,7 @@ indexable: true
 image:
   src: /images/articles/ooni-gamme-documentee-1600.webp
   alt: "Six fours Ooni alignés, dont deux modèles à cheminée, un modèle électrique et trois modèles à gaz"
-  caption: "Illustration éditoriale de la gamme de fours Ooni d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2300
 evidenceIds: [EV-0001, EV-0002, EV-0010, EV-0020, EV-0021, EV-0030, EV-0031, EV-0040, EV-0050, EV-0061, EV-0070, EV-0080, EV-0090, EV-0300, EV-0330, EV-0331, EV-0410]
 evidenceTypes:

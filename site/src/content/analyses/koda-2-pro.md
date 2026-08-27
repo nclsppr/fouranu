@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-koda-2-pro-1600.webp
   alt: "Four à gaz Ooni Koda 2 Pro avec son boîtier de température sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Koda 2 Pro d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2306
 evidenceIds: [EV-0020, EV-0021, EV-0022, EV-0220, EV-0221, EV-0222, EV-0223, EV-0304, EV-0320, EV-0322, EV-0323, EV-0406]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]

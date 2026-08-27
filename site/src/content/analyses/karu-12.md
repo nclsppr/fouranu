@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-karu-12-1600.webp
   alt: "Four multi-combustible Ooni Karu 12 avec sa cheminée sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Karu 12 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2318
 evidenceIds: [EV-0080, EV-0081, EV-0082, EV-0400]
 evidenceTypes:

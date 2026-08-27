@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-karu-2-pro-1600.webp
   alt: "Four multi-combustible Ooni Karu 2 Pro avec sa cheminée et son boîtier de température sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Karu 2 Pro d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2316
 evidenceIds: [EV-0002, EV-0070, EV-0071, EV-0072, EV-0073, EV-0250, EV-0251, EV-0252, EV-0253, EV-0401]
 evidenceTypes:

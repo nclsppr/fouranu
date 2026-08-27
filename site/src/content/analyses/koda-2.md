@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
   alt: "Four à gaz Ooni Koda 2 noir sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Koda 2 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2304
 evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407]
 evidenceTypes:

@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-koda-2-max-1600.webp
   alt: "Four à gaz Ooni Koda 2 Max et ses deux commandes sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Koda 2 Max d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2308
 evidenceIds: [EV-0030, EV-0031, EV-0032, EV-0231, EV-0232, EV-0300, EV-0330, EV-0331, EV-0332, EV-0333, EV-0405]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]

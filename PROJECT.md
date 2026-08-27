@@ -193,7 +193,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 35 pages HTML et exécute dix-sept tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 35 pages HTML et exécute dix-neuf tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |

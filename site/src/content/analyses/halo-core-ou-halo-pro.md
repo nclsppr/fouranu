@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-halo-core-ou-halo-pro-1600.webp
   alt: "Pétrins Ooni Halo Core blanc à gauche et Halo Pro noir à droite sur un plan de travail en acier"
-  caption: "Illustration éditoriale des Ooni Halo Core et Halo Pro d’après des photographies officielles Ooni, utilisées avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après des photographies officielles Ooni."
   assetId: AS-2202
 evidenceIds: [EV-0600, EV-0601, EV-0602, EV-0603, EV-0610, EV-0611, EV-0612, EV-0613, EV-0614, EV-0620, EV-0621, EV-0622, EV-0623, EV-0624]
 evidenceTypes:

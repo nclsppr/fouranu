@@ -6,6 +6,12 @@ importantes.
 
 ## Non publié
 
+- Les légendes des dix-neuf images de tête et de la une ne recouvrent plus les
+  fours. Une attribution courte reste immédiatement sous chaque visuel, en
+  casse courante ; la réserve sur la valeur de preuve n'apparaît plus qu'une
+  fois dans le bloc « Comment lire ce guide ». Les crédits et timecodes des
+  photogrammes du corps restent inchangés.
+
 ## 2026-08-27 - Portraits réels dans les signatures
 
 - Les portraits réels fournis pour Nicolas, Florian et Magali remplacent les

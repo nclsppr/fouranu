@@ -17,7 +17,7 @@ indexable: true
 image:
   src: /images/articles/gozney-arc-lite-1600.webp
   alt: "Four à pizza Gozney Arc Lite noir posé sur une table extérieure en acier"
-  caption: "Illustration éditoriale du Gozney Arc Lite d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2112
 evidenceIds: [EV-0520, EV-0521, EV-0522, EV-0523, EV-0524, EV-0525, EV-0526, EV-0527, EV-0528, EV-0529]
 evidenceTypes:
@@ -62,8 +62,7 @@ ni une pizza plus grande, ni une preuve de meilleure cuisson.
     alt="Four à pizza Gozney Tread noir avec sa poignée supérieure visible"
   />
   <figcaption>
-    Illustration éditoriale du Gozney Tread d’après une photographie officielle
-    Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance.
+    Illustration éditoriale d’après une photographie officielle Gozney.
   </figcaption>
 </figure>
 

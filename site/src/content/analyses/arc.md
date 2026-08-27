@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/gozney-arc-1600.webp
   alt: "Four à gaz Gozney Arc noir sur une table extérieure en acier"
-  caption: "Illustration éditoriale du Gozney Arc d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2406
 evidenceIds: [EV-0708, EV-0500, EV-0501, EV-0709]
 evidenceTypes:

@@ -15,7 +15,7 @@ indexable: true
 image:
   src: /images/articles/ooni-energies-volt-2-1600.webp
   alt: "Six fours Ooni alignés pour représenter les modèles multi-combustibles, électriques et à gaz"
-  caption: "Illustration éditoriale de plusieurs fours Ooni d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2302
 evidenceIds: [EV-0001, EV-0010, EV-0020, EV-0061, EV-0070, EV-0090, EV-0091, EV-0260, EV-0262, EV-0340, EV-0370, EV-0371, EV-0373, EV-0409]
 evidenceTypes:

@@ -15,7 +15,7 @@ indexable: true
 image:
   src: /images/articles/gozney-gamme-1600.webp
   alt: "Four Gozney noir vu de face avec sa flamme latérale dans un décor en acier"
-  caption: "Illustration éditoriale de la gamme Gozney d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2400
 evidenceIds: [EV-0700, EV-0500, EV-0501, EV-0520, EV-0521, EV-0702, EV-0705, EV-0708, EV-0710, EV-0711, EV-0701, EV-0707, EV-0709, EV-0712]
 evidenceTypes:

@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-koda-12-1600.webp
   alt: "Four à gaz Ooni Koda 12 de première génération sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Koda 12 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2310
 evidenceIds: [EV-0040, EV-0041, EV-0042, EV-0403]
 evidenceTypes:

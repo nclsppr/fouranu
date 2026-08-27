@@ -131,15 +131,17 @@ const schema = {
       </div>
 
       <figure class="lead-feature__visual lead-feature__visual--documentary">
-        <img
-          src={lead.data.image.src}
-          srcset={`${lead.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image.src} 1600w`}
-          sizes="(max-width: 40rem) 100vw, 42vw"
-          alt={lead.data.image.alt}
-          width="1600"
-          height="900"
-          fetchpriority="high"
-        />
+        <div class="lead-feature__visual-frame">
+          <img
+            src={lead.data.image.src}
+            srcset={`${lead.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image.src} 1600w`}
+            sizes="(max-width: 40rem) 100vw, 42vw"
+            alt={lead.data.image.alt}
+            width="1600"
+            height="900"
+            fetchpriority="high"
+          />
+        </div>
         <figcaption>{lead.data.image.caption}</figcaption>
       </figure>
     </article>
@@ -507,11 +509,16 @@ const schema = {
   }
 
   .lead-feature__visual--documentary {
-    position: relative;
     padding: 0;
   }
 
-  .lead-feature__visual--documentary img {
+  .lead-feature__visual-frame {
+    flex: 1;
+    min-height: 30rem;
+    overflow: hidden;
+  }
+
+  .lead-feature__visual-frame img {
     width: 100%;
     height: 100%;
     min-height: 30rem;
@@ -521,13 +528,9 @@ const schema = {
   }
 
   .lead-feature__visual--documentary figcaption {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 0.65rem 0.8rem;
+    padding: 0.5rem 0.75rem;
     border: 0;
-    background: color-mix(in srgb, var(--color-carbon) 88%, transparent);
+    background: var(--color-carbon);
   }
 
   .lead-feature__visual figcaption {
@@ -536,8 +539,7 @@ const schema = {
     color: var(--color-carbon-muted);
     font-family: var(--font-data);
     font-size: 0.75rem;
-    line-height: 1.55;
-    text-transform: uppercase;
+    line-height: 1.45;
   }
 
   .hero-side {
@@ -1186,15 +1188,15 @@ const schema = {
       padding: 0;
     }
 
-    .lead-feature__visual--documentary img {
+    .lead-feature__visual-frame {
+      min-height: 0;
+      flex: none;
+    }
+
+    .lead-feature__visual-frame img {
       height: auto;
       min-height: 0;
       aspect-ratio: 16 / 9;
-    }
-
-    .lead-feature__visual--documentary figcaption {
-      position: static;
-      background: var(--color-carbon);
     }
 
     .hero-side,

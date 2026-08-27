@@ -62,6 +62,14 @@ const rangeSocialImages = new Map([
   ["/ooni/", `${canonicalOrigin}/images/articles/ooni-gamme-documentee-1600.webp`],
   ["/gozney/", `${canonicalOrigin}/images/articles/gozney-gamme-1600.webp`],
 ]);
+const editorialCaptionForBrand = (brand) =>
+  `Illustration éditoriale d’après une photographie officielle ${brand}.`;
+const editorialCaptionPatternForBrand = (brand) =>
+  new RegExp(
+    `^Illustration éditoriale d’après (?:une photographie officielle|des photographies officielles) ${brand}\\.$`,
+  );
+const editorialCaptionFromAsset = (asset) =>
+  `${asset.attribution.replace("d'après", "d’après")}.`;
 
 async function filesRecursively(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -690,8 +698,15 @@ test("les données structurées restent vérifiables et sans faux avis", async (
         attribute(`<figure${figure[1]}>`, "class") === "article-lead-media"
       );
       const imageCaption = visibleText(pairedElements(leadFigure?.[2] ?? "", "figcaption")[0]?.[2] ?? "");
+      const imageBrand = page.route.startsWith("/gozney/") ? "Gozney" : "Ooni";
       assert.ok(article, `${page.route}: Article JSON-LD absent`);
-      assert.ok(imageCaption.length >= 20, `${page.route}: légende documentaire absente`);
+      assert.match(
+        imageCaption,
+        editorialCaptionPatternForBrand(imageBrand),
+        `${page.route}: crédit d’en-tête trop long ou incohérent`,
+      );
+      assert.ok(imageCaption.length <= 90, `${page.route}: crédit d’en-tête trop long`);
+      assert.doesNotMatch(imageCaption, /utilisée avec autorisation|preuve de performance/i);
       assert.equal(article.url, `${canonicalOrigin}${page.route}`);
       assert.equal(visibleText(article.headline), h1);
       assert.equal(visibleText(metaContent(page.html, "og:title")), h1);
@@ -863,6 +878,11 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
       /^\s{2}caption:\s*"Illustration éditoriale .+photograph(?:ie|ies) officielle(?:s)? .+"$/m,
       `${slug}: statut public du hero absent`,
     );
+    assert.equal(
+      markdown.match(/^\s{2}caption:\s*"([^"]+)"$/m)?.[1],
+      editorialCaptionFromAsset(heroAsset),
+      `${slug}: crédit du hero trop long ou incohérent`,
+    );
     const expectedIds = [...new Set(markdown.match(/\bEV-\d{4}\b/g) ?? [])];
     assert.ok(expectedIds.length >= 1, `${slug}: aucune preuve citée`);
     for (const evidenceId of expectedIds) {
@@ -979,7 +999,14 @@ test("la photo documentaire de une est responsive, attribuée et légère", asyn
   assert.equal(attribute(image, "loading"), undefined, "le visuel LCP ne doit pas être chargé paresseusement");
 
   const caption = visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? "");
-  assert.ok(caption.length >= 20, "légende documentaire trop vague");
+  assert.equal(caption, editorialCaptionForBrand("Ooni"));
+  assert.ok(caption.length <= 90);
+  assert.ok(
+    pairedElements(figure[2], "div").some((element) =>
+      attribute(`<div${element[1]}>`, "class") === "lead-feature__visual-frame"
+    ),
+    "cadre de l’image de une absent",
+  );
 
   const smallVisual = await stat(join(dist, candidates[0][0].replace(/^\//, "")));
   const largeVisual = await stat(join(dist, candidates[1][0].replace(/^\//, "")));
@@ -1042,8 +1069,15 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     assert.match(attribute(image, "srcset") ?? "", new RegExp(`${escapeRegex(smallPath)} 960w`));
     assert.match(attribute(image, "srcset") ?? "", new RegExp(`${escapeRegex(imagePath)} 1600w`));
     assert.ok(
-      visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? "").length >= 20,
-      `${slug}: légende trop vague`,
+      pairedElements(figure[2], "div").some((element) =>
+        attribute(`<div${element[1]}>`, "class") === "article-lead-media__image"
+      ),
+      `${slug}: cadre d’image principal absent`,
+    );
+    assert.match(
+      visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? ""),
+      editorialCaptionPatternForBrand(brand === "gozney" ? "Gozney" : "Ooni"),
+      `${slug}: crédit principal trop long ou incohérent`,
     );
   }
 
@@ -1067,6 +1101,44 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
   assert.equal(gozneyThumbnails.length, 7, "la page Gozney doit illustrer ses sept dossiers");
+});
+
+test("les crédits des images de tête restent sous le visuel sans le masquer", async () => {
+  const articleSource = await readFile(join(siteRoot, "src/pages/[brand]/[slug].astro"), "utf8");
+  const homeSource = await readFile(join(siteRoot, "src/pages/index.astro"), "utf8");
+  const publicPages = await htmlPages();
+  const articlePages = publicPages.filter((page) => articleRoutePattern.test(page.route ?? ""));
+  const articleCaptionRule = articleSource.match(/\.article-lead-media figcaption\s*\{([^}]*)\}/s)?.[1];
+  const homeCaptionRule = homeSource.match(
+    /\.lead-feature__visual--documentary figcaption\s*\{([^}]*)\}/s,
+  )?.[1];
+
+  assert.ok(articleCaptionRule, "style du crédit d’article absent");
+  assert.ok(homeCaptionRule, "style du crédit de une absent");
+  assert.doesNotMatch(articleCaptionRule, /position:\s*absolute/);
+  assert.doesNotMatch(homeCaptionRule, /position:\s*absolute/);
+  assert.doesNotMatch(articleCaptionRule, /text-transform:\s*uppercase/);
+  assert.doesNotMatch(homeCaptionRule, /text-transform:\s*uppercase/);
+  assert.match(articleSource, /class="article-lead-media__image"/);
+  assert.match(homeSource, /class="lead-feature__visual-frame"/);
+  assert.match(
+    articleSource,
+    /L’image d’en-tête illustre le produit sans prouver ses performances\./,
+  );
+  for (const page of publicPages) {
+    assert.doesNotMatch(
+      visibleText(page.html),
+      /utilisées? avec autorisation|ne constitue pas une preuve de performance/i,
+      `${page.route ?? "/404"}: ancienne légende longue encore visible`,
+    );
+  }
+  for (const page of articlePages) {
+    assert.equal(
+      (visibleText(page.html).match(/L’image d’en-tête illustre le produit sans prouver ses performances\./g) ?? []).length,
+      1,
+      `${page.route}: la réserve sur la valeur de preuve doit apparaître une seule fois`,
+    );
+  }
 });
 
 test("chaque dossier répète un appel d’achat direct, visible et non rémunéré", async () => {

@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-koda-16-1600.webp
   alt: "Four à gaz Ooni Koda 16 de première génération sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Koda 16 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2312
 evidenceIds: [EV-0050, EV-0051, EV-0052, EV-0101, EV-0370, EV-0371, EV-0372, EV-0373, EV-0374, EV-0404]
 evidenceTypes: [FAB, T-MES, T-OBS, FAN-INF]

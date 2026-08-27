@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/gozney-roccbox-1600.webp
   alt: "Four à pizza Gozney Roccbox noir sur ses trois pieds rabattables"
-  caption: "Illustration éditoriale du Gozney Roccbox d’après une photographie officielle Gozney, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2408
 evidenceIds: [EV-0710, EV-0711, EV-0521, EV-0712]
 evidenceTypes:

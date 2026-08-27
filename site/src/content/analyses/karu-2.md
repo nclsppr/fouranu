@@ -16,7 +16,7 @@ indexable: true
 image:
   src: /images/articles/ooni-karu-2-1600.webp
   alt: "Four multi-combustible Ooni Karu 2 avec sa porte vitrée et sa cheminée sur une table en acier"
-  caption: "Illustration éditoriale du Ooni Karu 2 d’après une photographie officielle Ooni, utilisée avec autorisation. Elle ne constitue pas une preuve de performance."
+  caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2314
 evidenceIds: [EV-0060, EV-0061, EV-0062, EV-0063, EV-0102, EV-0240, EV-0241, EV-0242, EV-0243, EV-0244, EV-0301, EV-0402]
 evidenceTypes:

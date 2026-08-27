@@ -267,12 +267,19 @@ le statut de personne référente et les dossiers signés avant tout élément
 décoratif. Il conserve la même hiérarchie typographique, les mêmes fonds plans
 et les mêmes cibles de 44 px que les autres pages de confiance.
 
-Tant qu'aucune photographie réelle et publiable n'est fournie, un monogramme
-typographique sur fond acier occupe l'emplacement du portrait. Il est présenté
-comme un signe graphique, pas comme une ressemblance. Aucun visage, avatar
-réaliste ou portrait généré ne remplace la personne. Une future photographie
-reçoit une chaîne de droits, un texte alternatif, des dimensions explicites et
-une validation responsive avant de remplacer ce monogramme.
+Les photographies réelles fournies pour Nicolas, Florian et Magali remplacent
+les monogrammes après leur chaîne de droits et leur validation humaine. Elles
+restent carrées dans les actifs, utilisent un recadrage central compatible avec
+les profils et les petites signatures, puis partagent une correction mate et un
+grain discret. Aucun filtre CSS ne dépend du navigateur et aucune génération ne
+réinvente un trait du visage.
+
+Le profil affiche le portrait dans un cadre éditorial non circulaire. L'annuaire
+emploie sa version légère. Dans chaque article, le lien d'auteur place une bulle
+circulaire de 48 px avant le nom : elle garde une dimension intrinsèque, un
+contour orange et un texte alternatif vide puisque le nom visible porte déjà
+l'identité. Les profils conservent une alternative « Portrait de [prénom] »,
+des dimensions explicites et un rendu responsive sans décalage de mise en page.
 
 ### Actions et liens marchands
 
@@ -345,7 +352,7 @@ zéro. L'ordre d'affichage ne suggère pas un classement non autorisé.
 
 Chaque média public correspond à un type publiable du protocole éditorial. Le
 site présente ce statut en langage éditorial : image documentaire,
-illustration éditoriale, photographie originale ou lecteur officiel. Les
+illustration éditoriale, portrait d'auteur, photographie originale ou lecteur officiel. Les
 libellés techniques internes et les outils de production ne font pas partie de
 la copie publique. Le type `quarantine` n'entre jamais dans le site public.
 

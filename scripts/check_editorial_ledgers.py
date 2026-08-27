@@ -28,6 +28,8 @@ ASSET_PATH = ROOT / "research/assets.csv"
 QUESTION_PATH = ROOT / "research/questions.csv"
 PUBLIC_ARTICLE_MEDIA_ROOT = ROOT / "site/public/images/articles"
 PUBLIC_ARTICLE_MEDIA_PREFIX = "/images/articles/"
+PUBLIC_AUTHOR_MEDIA_ROOT = ROOT / "site/public/images/authors"
+PUBLIC_AUTHOR_MEDIA_PREFIX = "/images/authors/"
 
 EVIDENCE_FIELDS = (
     "evidence_id",
@@ -105,6 +107,7 @@ EVIDENCE_CLASSES = {"FAB", "T-MES", "T-OBS", "FAN-SYN", "FAN-INF"}
 CONFIDENCE_VALUES = {"low", "medium", "high"}
 ACQUISITION_MODES = {
     "rights-holder-file",
+    "owner-provided-photo",
     "authorized-frame-capture",
     "authorized-manufacturer-photo",
     "youtube-embed",
@@ -114,6 +117,7 @@ ACQUISITION_MODES = {
 }
 ASSET_TYPES = {
     "embed",
+    "author-portrait",
     "licensed-frame",
     "ai-illustration",
     "ai-original",
@@ -505,7 +509,11 @@ def check_assets(
 
         linked_evidence = split_ids(row["evidence_ids"])
         if (
-            row["asset_type"] not in {"fouranu-original", "ai-original"}
+            row["asset_type"] not in {
+                "fouranu-original",
+                "ai-original",
+                "author-portrait",
+            }
             and not linked_evidence
         ):
             errors.append(f"{prefix} : un média tiers exige au moins un evidence_id")
@@ -637,12 +645,58 @@ def check_assets(
             if row["human_validation"] != "approved":
                 errors.append(f"{prefix} : un original IA exige human_validation approved")
 
+        if row["asset_type"] == "author-portrait":
+            if row["acquisition_mode"] != "owner-provided-photo":
+                errors.append(
+                    f"{prefix} : un portrait d'auteur exige acquisition_mode owner-provided-photo"
+                )
+            if row["rights_status"] != "granted":
+                errors.append(f"{prefix} : un portrait d'auteur exige rights_status granted")
+            if row["commercial_use"] != "yes":
+                errors.append(f"{prefix} : un portrait d'auteur exige commercial_use yes")
+            if row["ai_transform"] != "no":
+                errors.append(f"{prefix} : un portrait d'auteur exige ai_transform no")
+            if row["identifiable_people"] != "yes":
+                errors.append(
+                    f"{prefix} : un portrait d'auteur exige identifiable_people yes"
+                )
+            if row["people_clearance"] != "granted":
+                errors.append(f"{prefix} : un portrait d'auteur exige people_clearance granted")
+            if not row["raw_sha256"] or not row["derived_sha256"]:
+                errors.append(
+                    f"{prefix} : un portrait d'auteur exige les SHA-256 source et dérivé"
+                )
+            if any(
+                row[field]
+                for field in ("ai_provider", "provider_training", "provider_retention")
+            ):
+                errors.append(
+                    f"{prefix} : un portrait traité sans IA ne doit pas déclarer de métadonnées fournisseur IA"
+                )
+            if row["human_validation"] != "approved":
+                errors.append(
+                    f"{prefix} : un portrait d'auteur exige human_validation approved"
+                )
+            if not row["publication_url"] or not urlparse(
+                row["publication_url"]
+            ).path.startswith(PUBLIC_AUTHOR_MEDIA_PREFIX):
+                errors.append(
+                    f"{prefix} : un portrait d'auteur doit être publié sous {PUBLIC_AUTHOR_MEDIA_PREFIX}"
+                )
+
         if (
             row["acquisition_mode"] == "ai-generated"
             and row["asset_type"] != "ai-original"
         ):
             errors.append(
                 f"{prefix} : acquisition_mode ai-generated est réservé aux originaux IA"
+            )
+        if (
+            row["acquisition_mode"] == "owner-provided-photo"
+            and row["asset_type"] != "author-portrait"
+        ):
+            errors.append(
+                f"{prefix} : acquisition_mode owner-provided-photo est réservé aux portraits d'auteur"
             )
 
         if row["asset_type"] == "embed" and row["acquisition_mode"] != "youtube-embed":
@@ -725,6 +779,40 @@ def check_public_article_media(
         )
 
 
+def check_public_author_media(
+    rows: list[dict[str, str]],
+    errors: list[str],
+    media_root: Path = PUBLIC_AUTHOR_MEDIA_ROOT,
+) -> None:
+    public_files = {
+        PUBLIC_AUTHOR_MEDIA_PREFIX + path.relative_to(media_root).as_posix()
+        for path in media_root.rglob("*")
+        if path.is_file()
+    } if media_root.is_dir() else set()
+    portrait_rows = {
+        urlparse(row["publication_url"]).path: row
+        for row in rows
+        if row["asset_type"] == "author-portrait" and row["publication_url"]
+    }
+    registered_files = set(portrait_rows)
+
+    for path in sorted(public_files - registered_files):
+        errors.append(
+            f"site/public{path} : portrait d'auteur public absent de research/assets.csv"
+        )
+    for path in sorted(registered_files - public_files):
+        errors.append(
+            f"research/assets.csv : portrait d'auteur enregistré mais fichier public absent : {path}"
+        )
+    for path in sorted(public_files & registered_files):
+        file_path = media_root / path.removeprefix(PUBLIC_AUTHOR_MEDIA_PREFIX)
+        digest = hashlib.sha256(file_path.read_bytes()).hexdigest()
+        if digest != portrait_rows[path]["derived_sha256"]:
+            errors.append(
+                f"site/public{path} : SHA-256 différent de research/assets.csv"
+            )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -746,6 +834,7 @@ def main() -> int:
         require_private_proofs=args.require_private_proofs,
     )
     check_public_article_media(asset_rows, errors)
+    check_public_author_media(asset_rows, errors)
 
     if errors:
         for error in errors:

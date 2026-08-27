@@ -131,6 +131,33 @@ class EditorialLedgerTests(unittest.TestCase):
         )
         return row
 
+    def author_portrait_asset(self) -> dict[str, str]:
+        row = {field: "" for field in ledger.ASSET_FIELDS}
+        row.update(
+            {
+                "asset_id": "AS-3000",
+                "acquisition_mode": "owner-provided-photo",
+                "asset_type": "author-portrait",
+                "rights_holder_label": "Four à Nu - fichier fourni pour publication",
+                "rights_status": "granted",
+                "commercial_use": "yes",
+                "ai_transform": "no",
+                "web_scope": "https://example.test",
+                "territory": "Monde",
+                "valid_from": date.today().isoformat(),
+                "attribution": "Portrait de Camille, fichier fourni à Four à Nu",
+                "identifiable_people": "yes",
+                "people_clearance": "granted",
+                "third_party_elements": "Décor extérieur et vêtements",
+                "raw_sha256": "a" * 64,
+                "derived_sha256": "b" * 64,
+                "human_validation": "approved",
+                "publication_url": "https://example.test/images/authors/camille-portrait-192.webp",
+                "checked_on": date.today().isoformat(),
+            }
+        )
+        return row
+
     def original_ai_asset(self) -> dict[str, str]:
         row = {field: "" for field in ledger.ASSET_FIELDS}
         row.update(
@@ -348,6 +375,58 @@ class EditorialLedgerTests(unittest.TestCase):
                 )
                 self.assertEqual([], errors)
 
+    def test_author_portrait_is_valid_without_evidence_or_permission_proof(self) -> None:
+        row = self.author_portrait_asset()
+        errors: list[str] = []
+        ledger.check_assets([row], set(), errors, require_private_proofs=True)
+        self.assertEqual("", row["evidence_ids"])
+        self.assertEqual("", row["permission_proof"])
+        self.assertEqual([], errors)
+
+    def test_incomplete_author_portrait_is_rejected(self) -> None:
+        row = self.author_portrait_asset()
+        row.update(
+            {
+                "acquisition_mode": "rights-holder-file",
+                "rights_status": "original",
+                "commercial_use": "no",
+                "ai_transform": "yes",
+                "identifiable_people": "no",
+                "people_clearance": "not-applicable",
+                "raw_sha256": "",
+                "derived_sha256": "",
+                "ai_provider": "Example AI",
+                "provider_training": "disabled",
+                "provider_retention": "zero days",
+                "human_validation": "pending",
+                "publication_url": "https://example.test/images/articles/camille.webp",
+            }
+        )
+        errors: list[str] = []
+        ledger.check_assets([row], set(), errors)
+        joined = "\n".join(errors)
+        self.assertIn("exige acquisition_mode owner-provided-photo", joined)
+        self.assertIn("exige rights_status granted", joined)
+        self.assertIn("exige commercial_use yes", joined)
+        self.assertIn("exige ai_transform no", joined)
+        self.assertIn("exige identifiable_people yes", joined)
+        self.assertIn("exige people_clearance granted", joined)
+        self.assertIn("exige les SHA-256 source et dérivé", joined)
+        self.assertIn("ne doit pas déclarer de métadonnées fournisseur IA", joined)
+        self.assertIn("exige human_validation approved", joined)
+        self.assertIn("doit être publié sous /images/authors/", joined)
+
+    def test_owner_provided_photo_is_reserved_for_author_portraits(self) -> None:
+        row = self.granted_frame_asset("owner-provided-photo")
+        errors: list[str] = []
+        ledger.check_assets([row], {"EV-0001"}, errors)
+        self.assertTrue(
+            any(
+                "owner-provided-photo est réservé aux portraits d'auteur" in item
+                for item in errors
+            )
+        )
+
     def test_authorized_frame_capture_requires_private_attestation(self) -> None:
         row = self.granted_frame_asset("authorized-frame-capture")
         row.update({"permission_proof": "", "permission_proof_sha256": ""})
@@ -527,6 +606,38 @@ class EditorialLedgerTests(unittest.TestCase):
             self.assertEqual(
                 [
                     "research/assets.csv : média d'article enregistré mais fichier public absent : /images/articles/oven.webp"
+                ],
+                errors,
+            )
+
+    def test_public_author_media_requires_registration_and_matching_sha(self) -> None:
+        payload = b"author portrait"
+        with tempfile.TemporaryDirectory() as temporary:
+            media_root = Path(temporary)
+            portrait_path = media_root / "camille-portrait-192.webp"
+            portrait_path.write_bytes(payload)
+            row = self.author_portrait_asset()
+            row["derived_sha256"] = hashlib.sha256(payload).hexdigest()
+            errors: list[str] = []
+
+            ledger.check_public_author_media([row], errors, media_root=media_root)
+            self.assertEqual([], errors)
+
+            row["derived_sha256"] = "c" * 64
+            errors = []
+            ledger.check_public_author_media([row], errors, media_root=media_root)
+            self.assertEqual(
+                [
+                    "site/public/images/authors/camille-portrait-192.webp : SHA-256 différent de research/assets.csv"
+                ],
+                errors,
+            )
+
+            errors = []
+            ledger.check_public_author_media([], errors, media_root=media_root)
+            self.assertEqual(
+                [
+                    "site/public/images/authors/camille-portrait-192.webp : portrait d'auteur public absent de research/assets.csv"
                 ],
                 errors,
             )

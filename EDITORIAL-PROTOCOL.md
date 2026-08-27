@@ -65,9 +65,14 @@ essai Four à Nu. Une expérience de première main ne soutient une conclusion
 éditoriale que lorsqu'elle entre dans le protocole, la taxonomie et les registres
 autorisés pour le programme d'essais.
 
-En l'absence de photographie fournie et publiable, le profil utilise un
-monogramme typographique. Aucun portrait réaliste ou substitut photographique
-n'est inventé.
+Une photographie d'auteur n'est publiée que lorsqu'elle est fournie pour cet
+usage, que l'usage commercial et l'accord à l'image sont enregistrés et que sa
+personne correspond à la signature. Le fichier source reste privé. Le dérivé
+public peut être recadré, corrigé en tonalité et recevoir un grain léger
+localement ; il ne modifie pas les traits et ne sert jamais de preuve produit.
+En l'absence de photographie publiable, le profil revient à un monogramme
+typographique. Aucun portrait réaliste ou substitut photographique n'est
+inventé.
 
 ## Taxonomie de preuve
 
@@ -124,6 +129,7 @@ périmètre.
 | `ai-illustration` | Dérivé autorisé et déclaré comme illustration, jamais comme preuve |
 | `fouranu-original` | Visuel créé intégralement par Four à Nu sans reprendre une composition tierce |
 | `ai-original` | Illustration générée à partir d'un prompt original, sans image tierce en entrée |
+| `author-portrait` | Portrait réel d'une signature, fourni pour publication et traité localement sans génération |
 | `quarantine` | Référence non autorisée, interdite de publication et de transmission à une IA |
 
 Les couples autorisés sont explicites :
@@ -135,6 +141,7 @@ Les couples autorisés sont explicites :
 | `ai-illustration` | `rights-holder-file`, `authorized-manufacturer-photo` ou `authorized-frame-capture` | `granted` |
 | `fouranu-original` | `fouranu-original` | `original` |
 | `ai-original` | `ai-generated` | `original` |
+| `author-portrait` | `owner-provided-photo` | `granted` |
 | `quarantine` | `not-acquired` | Aucun |
 
 La preuve reste la vidéo consultable, son timecode, son protocole déclaré et,
@@ -181,6 +188,14 @@ projet couvrant la reproduction et la transformation prévues. Le registre
 conserve l'URL exacte, la date de récupération, l'empreinte du fichier source,
 le périmètre et la preuve privée. Cette attestation décrit l'autorisation donnée
 au projet ; elle n'est jamais présentée comme une déclaration du fabricant.
+
+`owner-provided-photo` désigne une photographie personnelle remise au projet
+pour représenter une signature éditoriale. Avant publication, le registre
+confirme l'usage commercial, le périmètre web, l'accord de la personne
+identifiable, le crédit, les éléments tiers visibles et les empreintes du
+fichier source privé et de chaque dérivé. La remise au projet ne doit pas être
+présentée comme une preuve publique du droit du photographe ; toute pièce
+associée reste dans l'espace privé.
 
 Le statut de droit d'un média vaut `not-requested`, `requested`, `granted`,
 `denied`, `expired`, `service-permitted` pour un lecteur officiel, ou `original`
@@ -249,6 +264,13 @@ base légale, l'information des personnes, le rôle et le contrat du fournisseur
 la région de traitement, les transferts, la rétention et la suppression. Les
 [questions-réponses de la CNIL sur l'IA générative](https://www.cnil.fr/fr/les-questions-reponses-de-la-cnil-sur-lutilisation-dun-systeme-dia-generative)
 seront alors revérifiées.
+
+Pour un `author-portrait`, le traitement autorisé est local et non génératif :
+suppression des interfaces de capture, recadrage, correction mesurée de la
+luminosité et des couleurs, redimensionnement, compression et grain discret.
+Les métadonnées de prise de vue sont retirées du dérivé public. Une amélioration
+qui invente des détails du visage, des yeux, des vêtements ou du décor reste
+interdite.
 
 Mention publique minimale :
 
@@ -329,6 +351,8 @@ sont vraies :
   officiel stylisé décrit ci-dessus ;
 - chaque illustration est identifiée comme illustration éditoriale, sans citer
   son outil de production, et ne soutient aucune affirmation factuelle ;
+- chaque portrait public correspond à l'auteur visible, possède son accord à
+  l'image enregistré et n'est ni une preuve produit ni une identité inventée ;
 - l'accroche répond à une question d'achat en langage courant avant les données
   détaillées ;
 - l'auteur, la méthode, la date de vérification, les conflits et la politique de

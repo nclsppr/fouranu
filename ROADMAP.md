@@ -180,6 +180,9 @@ livré :
 - [x] Remplacer les trois signatures sans biographie par des profils individuels
   factuels, relier chaque dossier à son auteur et conserver une attribution
   équilibrée et stable dans les frontmatters.
+- [x] Remplacer les monogrammes par les trois portraits fournis, harmonisés
+  localement, puis afficher la bonne bulle d'auteur sur chacun des dix-neuf
+  dossiers sans changer leur attribution.
 
 ### Todo commerce éditorial et accessoires
 

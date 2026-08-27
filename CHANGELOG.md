@@ -6,6 +6,20 @@ importantes.
 
 ## Non publié
 
+- Les portraits réels fournis pour Nicolas, Florian et Magali remplacent les
+  monogrammes sur l'annuaire et les profils. Les captures sont recadrées hors de
+  toute interface, harmonisées localement par une correction sobre et un grain
+  léger, puis publiées en WebP 192 et 800 px sans métadonnée de prise de vue.
+- Chaque dossier montre désormais le visage de sa personne référente dans une
+  bulle de 48 px reliée à son profil. L'unique gabarit garantit la concordance
+  avec les dix-neuf attributions enregistrées ; les schémas `Person` reprennent
+  la même image canonique.
+- La taxonomie média ajoute `author-portrait` pour distinguer ces six dérivés
+  des preuves produit et des illustrations. La gate exige droits commerciaux,
+  accord à l'image, traitement sans IA générative, empreintes source et dérivé,
+  validation humaine et périmètre de publication. Le registre passe de 85 à
+  91 médias sans ajouter de preuve produit.
+
 ## 2026-08-27 - Profils individuels et signatures incarnées
 
 - Nicolas, Florian et Magali disposent chacun d'une page canonique avec leur

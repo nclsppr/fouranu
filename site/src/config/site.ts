@@ -17,6 +17,11 @@ export const SITE = {
     nicolas: {
       name: "Nicolas",
       url: "/auteurs/nicolas/",
+      portrait: {
+        small: "/images/authors/nicolas-portrait-192.webp",
+        large: "/images/authors/nicolas-portrait-800.webp",
+        alt: "Portrait de Nicolas.",
+      },
       role: "Fondateur de Four à Nu",
       description:
         "Fondateur de Four à Nu, Nicolas cuisine surtout des pizzas napolitaines au Gozney Dome (Gen 2) et regarde autant les gestes que le résultat.",
@@ -30,6 +35,11 @@ export const SITE = {
     florian: {
       name: "Florian",
       url: "/auteurs/florian/",
+      portrait: {
+        small: "/images/authors/florian-portrait-192.webp",
+        large: "/images/authors/florian-portrait-800.webp",
+        alt: "Portrait de Florian.",
+      },
       role: "Auteur et apprenti en CAP Cuisine",
       description:
         "Apprenti en CAP Cuisine, Florian veut devenir maître pizzaiolo et nourrit sa curiosité en essayant des fours et en parcourant les pizzerias italiennes.",
@@ -44,6 +54,11 @@ export const SITE = {
     magali: {
       name: "Magali",
       url: "/auteurs/magali/",
+      portrait: {
+        small: "/images/authors/magali-portrait-192.webp",
+        large: "/images/authors/magali-portrait-800.webp",
+        alt: "Portrait de Magali.",
+      },
       role: "Autrice",
       description:
         "Magali aime les pizzas de Detroit et romaines, puis les grandes tablées où elle cuisine pour ses collègues et sa famille.",

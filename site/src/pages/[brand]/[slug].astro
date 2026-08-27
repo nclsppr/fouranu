@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import CitedSources from "@/components/CitedSources.astro";
 import PurchaseCta from "@/components/PurchaseCta.astro";
+import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
 
@@ -84,8 +85,10 @@ const schema = {
   },
   author: {
     "@type": "Person",
+    "@id": `${canonicalAuthor}#person`,
     name: author.name,
     url: canonicalAuthor,
+    image: new URL(author.portrait.large, SITE.url).toString(),
   },
   publisher: {
     "@type": "Organization",
@@ -135,16 +138,19 @@ const schema = {
         <p class="article-header__summary">{entry.data.summary}</p>
 
         <div class="article-byline">
-          <p>
-            Par <a rel="author" href={author.url}>{author.name}</a>
-          </p>
-          <p>
-            Publié le <time datetime={entry.data.publishedAt.toISOString()}>{publishedAt}</time>
-          </p>
-          <p>
-            Mis à jour le <time datetime={entry.data.updatedAt.toISOString()}>{updatedAt}</time>
-          </p>
-          <p>{readingMinutes} min de lecture</p>
+          <a class="article-byline__author" rel="author" href={author.url}>
+            <AuthorPortrait portrait={author.portrait} variant="bubble" />
+            <span>Par <strong>{author.name}</strong></span>
+          </a>
+          <div class="article-byline__details">
+            <p>
+              Publié le <time datetime={entry.data.publishedAt.toISOString()}>{publishedAt}</time>
+            </p>
+            <p>
+              Mis à jour le <time datetime={entry.data.updatedAt.toISOString()}>{updatedAt}</time>
+            </p>
+            <p>{readingMinutes} min de lecture</p>
+          </div>
         </div>
       </header>
 
@@ -256,14 +262,18 @@ const schema = {
   .article-byline {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem 1.25rem;
+    gap: 0.75rem 1.25rem;
+    align-items: center;
     margin-top: 1.25rem;
     padding-top: 0.8rem;
     border-top: 1px solid var(--color-line);
   }
 
-  .article-byline p {
-    margin: 0;
+  .article-byline__author {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    gap: 0.625rem;
     color: var(--color-graphite);
     font-family: var(--font-data);
     font-size: 0.75rem;
@@ -271,9 +281,24 @@ const schema = {
     text-transform: uppercase;
   }
 
-  .article-byline a {
+  .article-byline__author strong {
     color: var(--color-probe);
-    font-weight: 500;
+    font-weight: 600;
+  }
+
+  .article-byline__details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1.25rem;
+  }
+
+  .article-byline__details p {
+    margin: 0;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
 
   .article-lead-media {

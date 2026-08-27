@@ -25,6 +25,18 @@ const editorialAuthors = new Map([
   ["Florian", "/auteurs/florian/"],
   ["Magali", "/auteurs/magali/"],
 ]);
+const editorialPortraits = new Map(
+  [...editorialAuthors].map(([name]) => {
+    const slug = name.toLocaleLowerCase("fr-FR");
+    return [
+      name,
+      {
+        small: `/images/authors/${slug}-portrait-192.webp`,
+        large: `/images/authors/${slug}-portrait-800.webp`,
+      },
+    ];
+  }),
+);
 const fixedIndexableRoutes = [
   "/",
   "/a-propos/",
@@ -88,6 +100,10 @@ function escapeRegex(value) {
 
 function attribute(tag, name) {
   return tag.match(new RegExp(`\\s${escapeRegex(name)}="([^"]*)"`, "i"))?.[1];
+}
+
+function hasClass(tag, className) {
+  return (attribute(tag, "class") ?? "").split(/\s+/).includes(className);
 }
 
 function tags(html, name) {
@@ -555,9 +571,28 @@ test("les données structurées restent vérifiables et sans faux avis", async (
     collection.mainEntity.itemListElement.map((item) => [item.item?.name, item.item?.url]),
     [...editorialAuthors].map(([name, route]) => [name, `${canonicalOrigin}${route}`]),
   );
+  const hubPortraits = tags(authorPage.html, "img")
+    .filter((tag) => hasClass(tag, "author-portrait--hub"));
+  assert.equal(hubPortraits.length, editorialAuthors.size, "le hub doit montrer les trois portraits");
+  for (const [name, route] of editorialAuthors) {
+    const portrait = editorialPortraits.get(name);
+    const portraitTag = hubPortraits.find((tag) => attribute(tag, "alt") === `Portrait de ${name}.`);
+    assert.ok(portraitTag, `portrait de ${name} absent du hub`);
+    assert.equal(attribute(portraitTag, "src"), portrait.small, `source du portrait de ${name} sur le hub`);
+    assert.equal(attribute(portraitTag, "width"), "192", `largeur du portrait de ${name} sur le hub`);
+    assert.equal(attribute(portraitTag, "height"), "192", `hauteur du portrait de ${name} sur le hub`);
+
+    const person = collection.mainEntity.itemListElement
+      .find((item) => item.item?.name === name)?.item;
+    assert.ok(person, `Person de ${name} absente du hub`);
+    assert.equal(person["@type"], "Person", `type de ${name} sur le hub`);
+    assert.equal(person["@id"], `${canonicalOrigin}${route}#person`, `identifiant de ${name} sur le hub`);
+    assert.equal(person.image, `${canonicalOrigin}${portrait.large}`, `image de ${name} sur le hub`);
+  }
 
   const authorProfilePages = new Map();
   for (const [name, route] of editorialAuthors) {
+    const portrait = editorialPortraits.get(name);
     const profilePage = pages.find((page) => page.route === route);
     assert.ok(profilePage, `profil de ${name} absent`);
     const profile = schemaNodes(jsonLdDocuments(profilePage.html))
@@ -567,10 +602,27 @@ test("les données structurées restent vérifiables et sans faux avis", async (
     assert.equal(profile.name, name);
     assert.equal(profile.description, decodeHtml(metaContent(profilePage.html, "description")));
     assert.equal(profile.mainEntity?.["@type"], "Person");
+    assert.equal(profile.mainEntity?.["@id"], `${canonicalOrigin}${route}#person`);
     assert.equal(profile.mainEntity?.name, name);
     assert.equal(profile.mainEntity?.url, `${canonicalOrigin}${route}`);
+    assert.equal(profile.mainEntity?.image, `${canonicalOrigin}${portrait.large}`);
     assert.ok(profile.mainEntity?.jobTitle?.length > 0, `rôle de ${name} absent`);
     assert.equal(profile.mainEntity?.worksFor?.["@id"], `${canonicalOrigin}/#organization`);
+
+    const profilePortraits = tags(profilePage.html, "img")
+      .filter((tag) => hasClass(tag, "author-portrait--profile"));
+    assert.equal(profilePortraits.length, 1, `un seul portrait de profil attendu pour ${name}`);
+    const profilePortrait = profilePortraits[0];
+    assert.equal(attribute(profilePortrait, "src"), portrait.large, `source du portrait de ${name}`);
+    assert.equal(
+      attribute(profilePortrait, "srcset"),
+      `${portrait.small} 192w, ${portrait.large} 800w`,
+      `srcset du portrait de ${name}`,
+    );
+    assert.ok(attribute(profilePortrait, "sizes")?.trim().length > 0, `sizes du portrait de ${name}`);
+    assert.equal(attribute(profilePortrait, "alt"), `Portrait de ${name}.`, `alternative du portrait de ${name}`);
+    assert.equal(attribute(profilePortrait, "width"), "800", `largeur du portrait de ${name}`);
+    assert.equal(attribute(profilePortrait, "height"), "800", `hauteur du portrait de ${name}`);
     assert.ok(
       tags(authorPage.html, "a").some((tag) => attribute(tag, "href") === route),
       `le hub ne relie pas le profil de ${name}`,
@@ -663,9 +715,15 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       authorArticleRoutes.get(article.author.name).push(page.route);
       assert.equal(article.author["@type"], "Person");
       assert.equal(
+        article.author["@id"],
+        `${canonicalOrigin}${editorialAuthors.get(article.author.name)}#person`,
+      );
+      assert.equal(
         article.author.url,
         `${canonicalOrigin}${editorialAuthors.get(article.author.name)}`,
       );
+      const portrait = editorialPortraits.get(article.author.name);
+      assert.equal(article.author.image, `${canonicalOrigin}${portrait.large}`);
       assert.equal(metaContent(page.html, "author"), article.author.name);
       assert.equal(metaContent(page.html, "article:author"), article.author.url);
       assert.equal(metaContent(page.html, "article:section"), article.articleSection);
@@ -673,13 +731,23 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.equal(article.dateModified, metaContent(page.html, "article:modified_time"));
       assert.equal(new Date(article.datePublished).toISOString(), article.datePublished);
       assert.equal(new Date(article.dateModified).toISOString(), article.dateModified);
-      assert.ok(
-        tags(page.html, "a").some((tag) =>
-          attribute(tag, "rel") === "author" &&
-          attribute(tag, "href") === editorialAuthors.get(article.author.name)
-        ),
-        `${page.route}: lien de signature visible absent`,
+      const visibleAuthorLinks = pairedElements(page.html, "a").filter((anchor) => {
+        const opening = `<a${anchor[1]}>`;
+        return attribute(opening, "rel") === "author" &&
+          attribute(opening, "href") === editorialAuthors.get(article.author.name);
+      });
+      assert.equal(
+        visibleAuthorLinks.length,
+        1,
+        `${page.route}: un seul lien de signature visible attendu`,
       );
+      const authorBubbles = tags(visibleAuthorLinks[0][2], "img")
+        .filter((tag) => hasClass(tag, "author-portrait--bubble"));
+      assert.equal(authorBubbles.length, 1, `${page.route}: une seule bulle auteur attendue`);
+      assert.equal(attribute(authorBubbles[0], "src"), portrait.small, `${page.route}: portrait auteur incohérent`);
+      assert.equal(attribute(authorBubbles[0], "alt"), "", `${page.route}: portrait redondant pour les lecteurs d'écran`);
+      assert.equal(attribute(authorBubbles[0], "width"), "192", `${page.route}: largeur intrinsèque de la bulle`);
+      assert.equal(attribute(authorBubbles[0], "height"), "192", `${page.route}: hauteur intrinsèque de la bulle`);
     }
   }
   assert.deepEqual(
@@ -699,6 +767,22 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       new RegExp(`${expectedArticleRoutes.length} dossiers`),
       `compteur de ${name}`,
     );
+  }
+});
+
+test("les portraits auteurs publiés restent légers et disponibles aux deux tailles", async () => {
+  for (const [name, portrait] of editorialPortraits) {
+    const smallFile = join(dist, portrait.small.replace(/^\//, ""));
+    const largeFile = join(dist, portrait.large.replace(/^\//, ""));
+    const smallStats = await stat(smallFile);
+    const largeStats = await stat(largeFile);
+
+    assert.ok(smallStats.isFile(), `petit portrait de ${name} absent`);
+    assert.ok(largeStats.isFile(), `grand portrait de ${name} absent`);
+    assert.ok(smallStats.size > 0, `petit portrait de ${name} vide`);
+    assert.ok(largeStats.size > 0, `grand portrait de ${name} vide`);
+    assert.ok(smallStats.size < 15_000, `petit portrait de ${name} trop lourd`);
+    assert.ok(largeStats.size < 130_000, `grand portrait de ${name} trop lourd`);
   }
 });
 
@@ -728,7 +812,20 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
       Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(assets.size, 85);
+  assert.equal(assets.size, 91);
+  const registeredPublicationUrls = new Set(
+    [...assets.values()].map((asset) => asset.publication_url),
+  );
+  for (const portrait of editorialPortraits.values()) {
+    assert.ok(
+      registeredPublicationUrls.has(`${canonicalOrigin}${portrait.small}`),
+      `petit portrait non inscrit au registre : ${portrait.small}`,
+    );
+    assert.ok(
+      registeredPublicationUrls.has(`${canonicalOrigin}${portrait.large}`),
+      `grand portrait non inscrit au registre : ${portrait.large}`,
+    );
+  }
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
     .sort();

@@ -1,0 +1,68 @@
+---
+interface Portrait {
+  small: string;
+  large: string;
+  alt: string;
+}
+
+interface Props {
+  portrait: Portrait;
+  variant?: "profile" | "hub" | "bubble";
+}
+
+const { portrait, variant = "hub" } = Astro.props;
+const isProfile = variant === "profile";
+const isBubble = variant === "bubble";
+---
+
+{isBubble ? (
+  <img
+    class="author-portrait author-portrait--bubble"
+    src={portrait.small}
+    alt=""
+    width="192"
+    height="192"
+    loading="eager"
+    decoding="async"
+  />
+) : (
+  <img
+    class={`author-portrait author-portrait--${variant}`}
+    src={isProfile ? portrait.large : portrait.small}
+    srcset={isProfile ? `${portrait.small} 192w, ${portrait.large} 800w` : undefined}
+    sizes={isProfile ? "(max-width: 48rem) calc(100vw - 2rem), 28vw" : undefined}
+    alt={portrait.alt}
+    width={isProfile ? "800" : "192"}
+    height={isProfile ? "800" : "192"}
+    loading={variant === "hub" ? "lazy" : "eager"}
+    decoding="async"
+    fetchpriority={isProfile ? "high" : undefined}
+  />
+)}
+
+<style>
+  .author-portrait {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    background: var(--color-steel-soft);
+  }
+
+  .author-portrait--profile {
+    width: 100%;
+    height: 100%;
+  }
+
+  .author-portrait--hub {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .author-portrait--bubble {
+    width: 3rem;
+    height: 3rem;
+    flex: none;
+    border: 2px solid var(--color-probe);
+    border-radius: 50%;
+  }
+</style>

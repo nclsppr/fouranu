@@ -67,7 +67,8 @@ qui est réellement vérifié.
 - un seul site francophone sous la marque Four à Nu ;
 - un parcours de choix par contraintes ;
 - une méthode publique, une politique de correction, un annuaire de la
-  rédaction et un profil individuel pour chaque auteur ;
+  rédaction et un profil individuel illustré par un portrait fourni et
+  enregistré pour chaque auteur ;
 - des analyses documentaires multi-marques dont la provenance est visible ;
 - des dossiers sur les fours, pétrins et matériels écrits comme des guides
   d'achat accessibles, avec un en-tête issu d'une photo officielle du fabricant
@@ -147,7 +148,8 @@ explicite avant son lancement.
    revendiquer d'essai propre absent du registre.
 3. Il compose l'en-tête à partir d'une photo officielle du produit publiée sur
    le site du fabricant ; les vues en situation viennent ensuite.
-4. La page référence les identifiants de preuve et de média nécessaires.
+4. La page référence les identifiants de preuve et de média nécessaires ; sa
+   signature reprend le portrait enregistré de la personne référente.
 5. La gate refuse une provenance absente, un média non publiable, une
    expérience tierce racontée à la première personne, une note, un balisage
    d'avis ou un lien rémunéré mal déclaré.

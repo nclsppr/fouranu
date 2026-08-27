@@ -6,11 +6,24 @@ importantes.
 
 ## Non publié
 
+## 2026-08-27 - Images de tête dégagées
+
 - Les légendes des dix-neuf images de tête et de la une ne recouvrent plus les
   fours. Une attribution courte reste immédiatement sous chaque visuel, en
   casse courante ; la réserve sur la valeur de preuve n'apparaît plus qu'une
   fois dans le bloc « Comment lire ce guide ». Les crédits et timecodes des
   photogrammes du corps restent inchangés.
+- Le crédit de chaque article est rapproché de l'attribution canonique de son
+  média. Le composite Halo Core ou Pro conserve ainsi le pluriel requis pour
+  ses photographies sources, sans rallonger les autres légendes.
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA
+  `2c087e39f3009f5aa7f6e853baa846f78c87b32a`. Le run GitHub Actions
+  [`33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492)
+  a vérifié puis déployé l'artefact exact.
+- `/release.json`, l'accueil et les dix-neuf articles ont été contrôlés sur le
+  domaine public. La page Gozney a été relue à 360 px : le four n'est plus
+  recouvert, le crédit commence après l'image, aucun débordement ni message
+  console n'apparaît.
 
 ## 2026-08-27 - Portraits réels dans les signatures
 

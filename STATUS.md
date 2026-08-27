@@ -21,14 +21,45 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Ambition de tests et promesse SEO publiées | SHA applicatif `e7a6223f9a9e61052b1a99e7bf60a037c8fb8e61` ; [run GitHub Actions `32979871986`](https://github.com/nclsppr/fouranu/actions/runs/32979871986) vert pour `Verify` et `deploy-cloudflare` |
 | Signature du footer publiée | SHA applicatif `9677694683644985180f96608a943f8adeb6cb2e` ; [run GitHub Actions `32982081071`](https://github.com/nclsppr/fouranu/actions/runs/32982081071) vert pour `Verify` et `deploy-cloudflare` |
 | Profils auteur et signatures incarnées publiés | SHA applicatif `80c2f76c1bd939b521e90f529b5e8d525c200990` ; [run GitHub Actions `33087428591`](https://github.com/nclsppr/fouranu/actions/runs/33087428591) vert pour `Verify` et `deploy-cloudflare` |
+| Portraits auteur publiés | SHA applicatif `6922c478743764574eed6080294d255f0c4d8170` ; [run GitHub Actions `33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Portraits auteur publiés
+
+Les photographies fournies pour Nicolas, Florian et Magali remplacent les
+monogrammes dans l'annuaire et les profils. Six dérivés WebP carrés, en 192 et
+800 px, ont été recadrés et harmonisés localement avec un grain léger, sans
+génération de traits ni métadonnée de prise de vue. Les trois fichiers sources
+restent privés et hors Git ; le registre public conserve seulement leur statut,
+leur périmètre, leurs empreintes et celles des dérivés.
+
+Chaque dossier affiche maintenant une bulle de 48 px reliée au profil de sa
+personne référente. La gate confirme les dix-neuf correspondances, l'attribution
+stable Nicolas 7, Florian 6 et Magali 6, ainsi que les mêmes identifiants et
+images `Person` dans l'annuaire, les profils et les schémas `Article`. Les
+registres comptent 168 preuves, 66 questions et 91 médias ; les portraits ne
+servent pas de preuve produit.
+
+Le SHA applicatif `6922c478743764574eed6080294d255f0c4d8170`
+construit 35 pages et passe les 30 tests Python, les 18 contrats du site, le
+check Astro, Compose, le contrôle Cloudflare à sec, Nimbus et la gate
+`./scripts/verify.sh`. Le run `33091288546` a vérifié puis déployé cet artefact
+exact. Le domaine public expose ce SHA dans `/release.json` ; les six médias
+répondent 200 en `image/webp` et correspondent octet pour octet aux empreintes
+enregistrées.
+
+L'annuaire, les trois profils et les dix-neuf articles ont été sondés en
+production. Chaque article public contient exactement le portrait 192 px de son
+auteur et renvoie vers son profil. Les vues locales à 320, 360, 768, 1 280 et
+1 440 px n'ont montré ni débordement horizontal ni erreur console ; les bulles
+restent lisibles à 48 px.
 
 ## Profils auteur et signatures incarnées publiés
 
 Nicolas, Florian et Magali disposent chacun d'une page canonique qui présente
 leur parcours à partir des éléments fournis pour publication par le propriétaire
-éditorial. En attendant les photographies annoncées, les trois profils utilisent
-un monogramme explicite et n'inventent aucun portrait. Le parcours personnel de
+éditorial. Cette première tranche utilisait un monogramme explicite avant la
+livraison des photographies enregistrée ci-dessus. Le parcours personnel de
 Florian reste distinct des essais Four à Nu, dont aucun n'est encore publié.
 
 Un tirage équilibré réalisé une seule fois attribue les dix-neuf dossiers à
@@ -197,7 +228,7 @@ Four à Nu est un média statique de 35 pages HTML. Sa V1 et ses tranches
 éditoriales et techniques sont publiques sur `fouranu.com`. Le site propose
 dix-neuf guides :
 onze guides de fours ou d'énergie Ooni, une comparaison de pétrins Ooni et sept
-guides Gozney. Les registres comptent 168 preuves, 66 questions et 85 médias.
+guides Gozney. Les registres comptent 168 preuves, 66 questions et 91 médias.
 Aucun JavaScript client n'est nécessaire au contenu. Un module progressif révèle
 seulement les capacités natives de partage et de copie disponibles. Le build de
 preview reste en `noindex` et la production ouvre 34 URL dans le sitemap.
@@ -218,8 +249,8 @@ Cloudflare Workers Static Assets sert la production. GitHub Actions construit
 puis transmet l'artefact exact produit par `Verify`, sans second build dans le
 job de déploiement. Le domaine personnalisé, le DNS, HTTPS et l'indexation sont
 actifs. Le contrôle public a retrouvé dans `/release.json` le SHA applicatif de
-la tranche la plus récente, consacrée aux trois profils auteur et à leurs
-signatures stables.
+la tranche la plus récente, consacrée aux portraits des trois auteurs et à leur
+présence sur chaque signature.
 
 La tranche post-V1 couvre les signatures Nicolas, Florian et Magali, une photo
 documentaire pour chacun des onze dossiers, une mise en page plus dense et des
@@ -234,10 +265,11 @@ L'harmonisation suivante a résorbé les onze anciens en-têtes et la réécritu
 générale de leur voix. La tranche suivante ajoute Arc Lite ou Tread et enrichit
 Halo Core ou Pro sans dupliquer artificiellement ces deux fiches. La couverture
 suivante complète la gamme Gozney actuelle et place deux accès marchands non
-rémunérés dans chaque article. La tranche la plus récente donne à Nicolas,
-Florian et Magali un profil canonique et répartit les dix-neuf dossiers entre
-leurs signatures stables. Les prochains dossiers restent conditionnés par une
-question d'achat et des sources suffisantes.
+rémunérés dans chaque article. Les tranches auteur donnent à Nicolas, Florian
+et Magali un profil canonique, répartissent les dix-neuf dossiers entre leurs
+signatures stables, puis ajoutent leurs portraits réels à chaque dossier. Les
+prochains dossiers restent conditionnés par une question d'achat et des sources
+suffisantes.
 
 ## Phases actives
 
@@ -254,16 +286,16 @@ question d'achat et des sources suffisantes.
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Application Astro | 35 pages HTML statiques ; contenu indépendant du seul module progressif de partage | `site/`, dix-sept tests de contrat, run `33087428591` et contrôle public | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
+| Application Astro | 35 pages HTML statiques ; contenu indépendant du seul module progressif de partage | `site/`, dix-huit tests de contrat, run `33091288546` et contrôle public | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
 | Guides | Douze guides Ooni et sept guides Gozney sous des routes par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Les prochains dossiers exigent leur propre recherche et publication |
-| Profils auteur | Un annuaire, trois profils canoniques et une attribution stable de 7/6/6 dossiers | `ProfilePage`/`Person`, run `33087428591` et contrôle public | Monogrammes en attente des photographies réelles et publiables |
-| Provenance | 168 preuves, 66 questions et 85 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
+| Profils auteur | Un annuaire, trois profils photographiques et une attribution stable de 7/6/6 dossiers ; une bulle exacte sur chacun des dix-neuf articles | `ProfilePage`/`Person`, run `33091288546` et contrôle public | Les fichiers source restent volontairement privés et hors Git |
+| Provenance | 168 preuves, 66 questions et 91 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
 | Accueil éditorial | Composition responsive issue du prototype et contenu réel | Contrats du build et revue navigateur | Les photos restent attribuées à leurs sources et ne deviennent pas des tests Four à Nu |
 | Identité | Logo optimisé, four compact, favicon SVG et icônes 180/192/512 px | `DESIGN.md`, `BRAND-SEO.md`, `AS-1002`, run `32886732924` et sondes publiques | La marque compacte reste réservée aux surfaces d'identité |
 | SEO conditionnel | RSS, robots, sitemap texte et image, canonicals, aperçus sociaux et données structurées | Build normal, build opt-in, 34 URL et 19 images contrôlées localement puis publiquement | L'affichage d'une miniature, l'exploration et le classement ne sont pas garantis |
 | Partage | Feuille native progressive, WhatsApp, e-mail et copie sur les 34 pages canoniques | Contrat du build et revue navigateur locale puis publique | Les destinations proposées dépendent du navigateur, du système et des applications installées |
 | Parcours local | Service statique avec healthcheck | `compose.yaml` | Aucun preview partagé |
-| Production Cloudflare | Artefact SEO, profils, partage et favicon servi par Workers Static Assets sur le domaine personnalisé | Run `33087428591`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
+| Production Cloudflare | Artefact SEO, profils, portraits, partage et favicon servi par Workers Static Assets sur le domaine personnalisé | Run `33091288546`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
 | Documentation interne | Nimbus reste séparé du site public | `docs-nimbus/` et catalogue | Le build Cloudflare pointe uniquement vers `site/dist/` |
 
 ## Revue d'interface SEO du 2026-08-25
@@ -301,7 +333,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
 | Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
 | Graphe CI | `deploy-cloudflare` dépend de `verify`, sur `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` ; il télécharge l'artefact exact construit par `verify` |
-| CI publique | Runs successifs consignés ci-dessus ; le dernier, [`33087428591`](https://github.com/nclsppr/fouranu/actions/runs/33087428591), est vert pour `Verify` et `deploy-cloudflare`. Chaque déploiement livre l'artefact exact construit par son job `verify` |
+| CI publique | Runs successifs consignés ci-dessus ; le dernier, [`33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546), est vert pour `Verify` et `deploy-cloudflare`. Chaque déploiement livre l'artefact exact construit par son job `verify` |
 | Paramètres de production | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
 | État Cloudflare observé | Worker Static Assets, domaine personnalisé et DNS de `fouranu.com` actifs |
 | Transport public | HTTP redirige vers HTTPS ; TLS 1.0 et 1.1 sont refusés, TLS 1.2 et 1.3 acceptés |

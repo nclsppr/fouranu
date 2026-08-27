@@ -6,6 +6,8 @@ importantes.
 
 ## Non publié
 
+## 2026-08-27 - Portraits réels dans les signatures
+
 - Les portraits réels fournis pour Nicolas, Florian et Magali remplacent les
   monogrammes sur l'annuaire et les profils. Les captures sont recadrées hors de
   toute interface, harmonisées localement par une correction sobre et un grain
@@ -19,6 +21,14 @@ importantes.
   accord à l'image, traitement sans IA générative, empreintes source et dérivé,
   validation humaine et périmètre de publication. Le registre passe de 85 à
   91 médias sans ajouter de preuve produit.
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `6922c478743764574eed6080294d255f0c4d8170`. Le run GitHub Actions
+  [`33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546)
+  a vérifié puis déployé l'artefact exact.
+- `/release.json`, les six fichiers WebP, l'annuaire, les trois profils et les
+  dix-neuf articles ont été contrôlés sur le domaine public. Chaque article
+  sert exactement le portrait 192 px de son auteur et renvoie vers son profil ;
+  les six empreintes publiques correspondent au registre.
 
 ## 2026-08-27 - Profils individuels et signatures incarnées
 

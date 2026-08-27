@@ -6,6 +6,22 @@ importantes.
 
 ## Non publié
 
+### Portraits auteur remplacés sans retouche
+
+- Nicolas, Florian et Magali utilisent les trois nouvelles photographies
+  fournies dans cet ordre par le propriétaire éditorial. Aucun filtre, grain,
+  recadrage, correction ou traitement génératif n'est appliqué : seule
+  l'optimisation de diffusion modifie les fichiers sources.
+- Les six dérivés publics conservent leurs URL et leurs dimensions de 192 et
+  800 px. Le redimensionnement, la compression WebP et le retrait des
+  métadonnées ramènent leur poids cumulé de 193 974 à 145 488 octets, soit une
+  baisse de 25 % sans changer les URL ni les attributions d'articles.
+- Les pages profil adoptent un cadre carré afin de montrer ces fichiers carrés
+  sans le recadrage 4:3 auparavant imposé par la mise en page. L'annuaire et les
+  bulles de 48 px conservent leur comportement.
+- Le registre média conserve uniquement les empreintes des trois sources
+  privées et des six dérivés publics ; les JPEG fournis restent hors Git.
+
 ## 2026-08-27 - Images de tête dégagées
 
 - Les légendes des dix-neuf images de tête et de la une ne recouvrent plus les

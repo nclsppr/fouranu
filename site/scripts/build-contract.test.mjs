@@ -37,6 +37,22 @@ const editorialPortraits = new Map(
     ];
   }),
 );
+
+function webpChunkTypes(bytes) {
+  assert.equal(bytes.subarray(0, 4).toString("ascii"), "RIFF", "conteneur RIFF attendu");
+  assert.equal(bytes.subarray(8, 12).toString("ascii"), "WEBP", "conteneur WebP attendu");
+
+  const chunks = [];
+  let offset = 12;
+  while (offset + 8 <= bytes.length) {
+    const type = bytes.subarray(offset, offset + 4).toString("ascii");
+    const size = bytes.readUInt32LE(offset + 4);
+    chunks.push(type);
+    offset += 8 + size + (size % 2);
+  }
+  return chunks;
+}
+
 const fixedIndexableRoutes = [
   "/",
   "/a-propos/",
@@ -798,6 +814,20 @@ test("les portraits auteurs publiés restent légers et disponibles aux deux tai
     assert.ok(largeStats.size > 0, `grand portrait de ${name} vide`);
     assert.ok(smallStats.size < 15_000, `petit portrait de ${name} trop lourd`);
     assert.ok(largeStats.size < 130_000, `grand portrait de ${name} trop lourd`);
+
+    for (const [label, file] of [["petit", smallFile], ["grand", largeFile]]) {
+      const chunkTypes = webpChunkTypes(await readFile(file));
+      assert.ok(
+        chunkTypes.includes("VP8 ") || chunkTypes.includes("VP8L"),
+        `${label} portrait de ${name} sans image WebP`,
+      );
+      for (const metadataChunk of ["EXIF", "XMP ", "ICCP"]) {
+        assert.ok(
+          !chunkTypes.includes(metadataChunk),
+          `${label} portrait de ${name} contient la métadonnée ${metadataChunk.trim()}`,
+        );
+      }
+    }
   }
 });
 

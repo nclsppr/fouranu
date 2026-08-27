@@ -269,17 +269,19 @@ et les mêmes cibles de 44 px que les autres pages de confiance.
 
 Les photographies réelles fournies pour Nicolas, Florian et Magali remplacent
 les monogrammes après leur chaîne de droits et leur validation humaine. Elles
-restent carrées dans les actifs, utilisent un recadrage central compatible avec
-les profils et les petites signatures, puis partagent une correction mate et un
-grain discret. Aucun filtre CSS ne dépend du navigateur et aucune génération ne
-réinvente un trait du visage.
+restent carrées dans les actifs et conservent le cadrage et le rendu visuel des
+fichiers validés par le propriétaire éditorial. Les dérivés publics ne reçoivent
+qu'un redimensionnement, une compression WebP et un retrait des métadonnées.
+Aucun filtre CSS ne dépend du navigateur et aucune génération ne réinvente un
+trait du visage.
 
-Le profil affiche le portrait dans un cadre éditorial non circulaire. L'annuaire
-emploie sa version légère. Dans chaque article, le lien d'auteur place une bulle
-circulaire de 48 px avant le nom : elle garde une dimension intrinsèque, un
-contour orange et un texte alternatif vide puisque le nom visible porte déjà
-l'identité. Les profils conservent une alternative « Portrait de [prénom] »,
-des dimensions explicites et un rendu responsive sans décalage de mise en page.
+Le profil affiche le portrait dans un cadre éditorial carré et non circulaire,
+sans couper les bords du fichier validé. L'annuaire emploie sa version légère.
+Dans chaque article, le lien d'auteur place une bulle circulaire de 48 px avant
+le nom : elle garde une dimension intrinsèque, un contour orange et un texte
+alternatif vide puisque le nom visible porte déjà l'identité. Les profils
+conservent une alternative « Portrait de [prénom] », des dimensions explicites
+et un rendu responsive sans décalage de mise en page.
 
 ### Actions et liens marchands
 

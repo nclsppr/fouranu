@@ -183,6 +183,9 @@ livré :
 - [x] Remplacer les monogrammes par les trois portraits fournis, harmonisés
   localement, puis afficher la bonne bulle d'auteur sur chacun des dix-neuf
   dossiers sans changer leur attribution.
+- [x] Remplacer ces premiers dérivés par les trois nouvelles photographies
+  carrées validées, sans filtre, grain, recadrage ni correction, puis les servir
+  aux mêmes URL en WebP 192 et 800 px allégés et sans métadonnées.
 - [x] Sortir les crédits des images de tête, les réduire à leur provenance
   utile et placer une seule fois la réserve sur la valeur de preuve dans le
   second niveau de lecture des dix-neuf dossiers.

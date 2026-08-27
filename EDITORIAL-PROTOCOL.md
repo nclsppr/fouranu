@@ -272,6 +272,12 @@ Les métadonnées de prise de vue sont retirées du dérivé public. Une amélio
 qui invente des détails du visage, des yeux, des vêtements ou du décor reste
 interdite.
 
+Cette liste fixe un maximum, pas un traitement obligatoire. Une instruction
+plus restrictive du propriétaire éditorial prévaut : un portrait demandé sans
+retouche conserve alors son cadrage, ses couleurs et sa texture, et ne reçoit
+que le redimensionnement, la compression et le retrait des métadonnées requis
+pour sa publication.
+
 Mention publique minimale, placée sous le visuel sans le recouvrir :
 
 > Illustration éditoriale d'après une photographie officielle [fabricant].

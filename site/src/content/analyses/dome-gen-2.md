@@ -8,10 +8,10 @@ description: Le Dome (Gen 2) coûte 1 999,99 € et pèse 62 kg. Notre analyse d
 summary: Le Dome (Gen 2) est déjà un très grand four. Il paraît plus cohérent que le XL pour une grande pizza ou deux petites, à condition d’avoir une installation fixe.
 status: publishable
 type: model
-author: magali
+author: nicolas
 model: Gozney Dome (Gen 2)
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/gozney-dome-gen-2-1600.webp

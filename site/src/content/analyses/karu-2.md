@@ -8,10 +8,10 @@ description: Le Karu 2 accepte bois, charbon et un brûleur gaz séparé. Notre 
 summary: Le Karu 2 est le petit multi-combustible que nous choisirions pour apprendre le feu. Ses temps de chauffe publiés sont trop différents pour devenir une promesse.
 status: publishable
 type: model
-author: magali
+author: florian
 model: Ooni Karu 2
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/ooni-karu-2-1600.webp

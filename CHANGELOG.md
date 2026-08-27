@@ -6,7 +6,23 @@ importantes.
 
 ## Non publié
 
-Rien pour le moment.
+### Profils individuels et signatures incarnées
+
+- Nicolas, Florian et Magali disposent chacun d'une page canonique avec leur
+  parcours, leur rôle éditorial et la liste des dossiers dont ils sont les
+  personnes référentes. L'annuaire collectif reste disponible et relie ces
+  profils.
+- Un tirage équilibré effectué une seule fois répartit les dix-neuf dossiers
+  entre Nicolas (7), Florian (6) et Magali (6). Les résultats sont enregistrés
+  dans les frontmatters ; aucun auteur n'est choisi aléatoirement pendant le
+  build.
+- La page de Florian distingue ses prises en main personnelles des analyses
+  documentaires de Four à Nu. Les profils utilisent des monogrammes tant que
+  les photographies réelles annoncées par le propriétaire ne sont pas fournies.
+- Les signatures visibles, métadonnées `article:author`, schémas `Article`,
+  profils `ProfilePage`/`Person`, RSS et sitemap utilisent les mêmes noms et URL.
+  Le candidat passe à 35 pages HTML et 34 URL canoniques, sans changer les
+  dix-neuf dossiers ni leur modèle de preuve.
 
 ## 2026-08-26 - Signature d'auteur publique dans le footer
 

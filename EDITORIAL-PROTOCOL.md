@@ -46,6 +46,29 @@ bibliographie. Les tableaux détaillés et les protocoles restent accessibles
 après une synthèse en langage courant. Le site ne termine pas ses dossiers par
 une note chiffrée, des étoiles ou un classement.
 
+## Signatures et biographies
+
+Une signature désigne la personne référente du dossier au sein de la rédaction.
+L'attribution est enregistrée dans son frontmatter et reste stable entre deux
+builds. Elle ne peut pas être tirée à nouveau au moment de la construction du
+site. Tant qu'aucune validation individuelle n'est enregistrée, les sources,
+les conclusions et les limites restent sous la responsabilité collective de la
+rédaction : la signature seule ne prouve pas une rédaction ou une relecture
+personnelle.
+
+Une biographie publique ne contient que des éléments explicitement fournis pour
+publication par le propriétaire éditorial ou validés par la personne concernée.
+Elle n'est pas présentée comme personnellement validée sans preuve de cet accord.
+Une pratique personnelle, une formation ou la prise en main de plusieurs fours
+peut expliquer un parcours ; elle ne devient ni une preuve du dossier, ni un
+essai Four à Nu. Une expérience de première main ne soutient une conclusion
+éditoriale que lorsqu'elle entre dans le protocole, la taxonomie et les registres
+autorisés pour le programme d'essais.
+
+En l'absence de photographie fournie et publiable, le profil utilise un
+monogramme typographique. Aucun portrait réaliste ou substitut photographique
+n'est inventé.
+
 ## Taxonomie de preuve
 
 Chaque affirmation importante porte un identifiant du registre

@@ -21,13 +21,16 @@ const editorialTeam = {
   route: "/auteurs/redaction-four-a-nu/",
 };
 const editorialAuthors = new Map([
-  ["Nicolas", `${editorialTeam.route}#nicolas`],
-  ["Florian", `${editorialTeam.route}#florian`],
-  ["Magali", `${editorialTeam.route}#magali`],
+  ["Nicolas", "/auteurs/nicolas/"],
+  ["Florian", "/auteurs/florian/"],
+  ["Magali", "/auteurs/magali/"],
 ]);
 const fixedIndexableRoutes = [
   "/",
   "/a-propos/",
+  "/auteurs/florian/",
+  "/auteurs/magali/",
+  "/auteurs/nicolas/",
   editorialTeam.route,
   "/contact/",
   "/corrections/",
@@ -237,7 +240,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, 32);
+  assert.equal(pages.length, fixedIndexableRoutes.length + 19 + 1);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -410,7 +413,7 @@ test("les surfaces de promesse distinguent l'ambition du corpus documentaire act
   }
 });
 
-test("le partage reste local sur les trente et une pages canoniques et absent de la 404", async () => {
+test("le partage reste local sur les pages canoniques et absent de la 404", async () => {
   const pages = await htmlPages();
   const moduleBodies = new Set();
   let shareRootCount = 0;
@@ -514,7 +517,7 @@ test("le partage reste local sur les trente et une pages canoniques et absent de
     );
   }
 
-  assert.equal(shareRootCount, 31);
+  assert.equal(shareRootCount, fixedIndexableRoutes.length + 19);
   assert.equal(moduleBodies.size, 1, "les pages doivent embarquer le même petit module local");
 });
 
@@ -553,9 +556,32 @@ test("les données structurées restent vérifiables et sans faux avis", async (
     [...editorialAuthors].map(([name, route]) => [name, `${canonicalOrigin}${route}`]),
   );
 
+  const authorProfilePages = new Map();
+  for (const [name, route] of editorialAuthors) {
+    const profilePage = pages.find((page) => page.route === route);
+    assert.ok(profilePage, `profil de ${name} absent`);
+    const profile = schemaNodes(jsonLdDocuments(profilePage.html))
+      .find((node) => node["@type"] === "ProfilePage");
+    assert.ok(profile, `ProfilePage de ${name} absente`);
+    assert.equal(profile.url, `${canonicalOrigin}${route}`);
+    assert.equal(profile.name, name);
+    assert.equal(profile.description, decodeHtml(metaContent(profilePage.html, "description")));
+    assert.equal(profile.mainEntity?.["@type"], "Person");
+    assert.equal(profile.mainEntity?.name, name);
+    assert.equal(profile.mainEntity?.url, `${canonicalOrigin}${route}`);
+    assert.ok(profile.mainEntity?.jobTitle?.length > 0, `rôle de ${name} absent`);
+    assert.equal(profile.mainEntity?.worksFor?.["@id"], `${canonicalOrigin}/#organization`);
+    assert.ok(
+      tags(authorPage.html, "a").some((tag) => attribute(tag, "href") === route),
+      `le hub ne relie pas le profil de ${name}`,
+    );
+    authorProfilePages.set(name, profilePage);
+  }
+
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   assert.equal(articlePages.length, 19);
   const authorAssignments = new Map([...editorialAuthors.keys()].map((name) => [name, 0]));
+  const authorArticleRoutes = new Map([...editorialAuthors.keys()].map((name) => [name, []]));
 
   for (const page of pages) {
     const documents = jsonLdDocuments(page.html);
@@ -634,6 +660,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.equal(article.isAccessibleForFree, true);
       assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
       authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
+      authorArticleRoutes.get(article.author.name).push(page.route);
       assert.equal(article.author["@type"], "Person");
       assert.equal(
         article.author.url,
@@ -660,6 +687,19 @@ test("les données structurées restent vérifiables et sans faux avis", async (
     [6, 6, 7],
     "les dix-neuf dossiers doivent rester répartis entre les trois signatures",
   );
+  for (const [name, profilePage] of authorProfilePages) {
+    const renderedArticleRoutes = tags(profilePage.html, "a")
+      .map((tag) => attribute(tag, "href"))
+      .filter((href) => articleRoutePattern.test(href ?? ""))
+      .sort();
+    const expectedArticleRoutes = authorArticleRoutes.get(name).sort();
+    assert.deepEqual(renderedArticleRoutes, expectedArticleRoutes, `dossiers de ${name}`);
+    assert.match(
+      visibleText(profilePage.html),
+      new RegExp(`${expectedArticleRoutes.length} dossiers`),
+      `compteur de ${name}`,
+    );
+  }
 });
 
 test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
@@ -1157,22 +1197,44 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       .filter((route) => articleRoutePattern.test(route ?? ""));
     assert.equal(articleRoutes.length, 19);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, 31);
+    assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + 19);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
-    assert.equal(urlEntries.length, 31);
-    assert.equal((sitemap.match(/<lastmod>2026-08-25<\/lastmod>/g) ?? []).length, 29);
-    assert.equal((sitemap.match(/<lastmod>2026-08-26<\/lastmod>/g) ?? []).length, 2);
-    const homeEntry = urlEntries.find((entry) =>
-      entry.includes(`<loc>${canonicalOrigin}/</loc>`)
+    assert.equal(urlEntries.length, fixedIndexableRoutes.length + 19);
+    const sitemapEntriesByRoute = new Map(
+      urlEntries.map((entry) => {
+        const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];
+        assert.ok(location, "URL absente d'une entrée sitemap");
+        return [new URL(location).pathname, entry];
+      }),
     );
-    assert.match(homeEntry ?? "", /<lastmod>2026-08-26<\/lastmod>/);
-    const aboutEntry = urlEntries.find((entry) =>
-      entry.includes(`<loc>${canonicalOrigin}/a-propos/<\/loc>`)
-    );
-    assert.match(aboutEntry ?? "", /<lastmod>2026-08-26<\/lastmod>/);
+    for (const route of fixedIndexableRoutes) {
+      const expectedModified = route === "/"
+        ? "2026-08-26"
+        : route === "/a-propos/" || route.startsWith("/auteurs/")
+          ? "2026-08-27"
+          : "2026-08-25";
+      assert.match(
+        sitemapEntriesByRoute.get(route) ?? "",
+        new RegExp(`<lastmod>${expectedModified}<\\/lastmod>`),
+        `${route}: date sitemap inattendue`,
+      );
+    }
+    for (const route of articleRoutes) {
+      const page = pages.find((candidate) => candidate.route === route);
+      const article = schemaNodes(jsonLdDocuments(page.html))
+        .find((node) => node["@type"] === "Article");
+      const expectedModified = [article.dateModified.slice(0, 10), "2026-08-25"]
+        .sort()
+        .at(-1);
+      assert.match(
+        sitemapEntriesByRoute.get(route) ?? "",
+        new RegExp(`<lastmod>${expectedModified}<\\/lastmod>`),
+        `${route}: date sitemap inattendue`,
+      );
+    }
 
     const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
       .map((match) => match[1]);

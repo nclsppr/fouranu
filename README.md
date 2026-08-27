@@ -13,7 +13,7 @@ affilié n'est actif.
 ## État du produit
 
 Le dépôt utilise le pack Foundation `full`. `site/` contient une application
-Astro statique distincte de Nimbus. Son build génère 32 pages HTML, dont dix-neuf
+Astro statique distincte de Nimbus. Son build génère 35 pages HTML, dont dix-neuf
 guides : douze sur les fours et pétrins Ooni, sept sur les Gozney. Four à Nu
 publie aujourd'hui un corpus documentaire : chaque page attribue ses sources,
 conserve leurs limites et ne publie ni note, ni étoile, ni balisage d'avis. La
@@ -47,7 +47,7 @@ plus récent, Node `22.12.0` ou plus récent, npm, Docker et Docker Compose
 | Action actuelle | Commande | Résultat attendu |
 | --- | --- | --- |
 | Vérifier le dépôt | `./scripts/verify.sh` | Contrôle les documents, registres, Compose, le site Astro et Nimbus |
-| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 32 pages et dix-sept tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 35 pages et dix-sept tests de contrat |
 | Vérifier le candidat Cloudflare | `npm run cloudflare:check --prefix site` | Valide le paquet Workers Static Assets sans déploiement |
 | Vérifier Compose | `python3 scripts/check_compose.py` | Valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Site Nimbus local généré depuis les Markdown classés |

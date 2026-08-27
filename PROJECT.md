@@ -66,7 +66,8 @@ qui est réellement vérifié.
 
 - un seul site francophone sous la marque Four à Nu ;
 - un parcours de choix par contraintes ;
-- une méthode publique, une politique de correction et une page auteur ;
+- une méthode publique, une politique de correction, un annuaire de la
+  rédaction et un profil individuel pour chaque auteur ;
 - des analyses documentaires multi-marques dont la provenance est visible ;
 - des dossiers sur les fours, pétrins et matériels écrits comme des guides
   d'achat accessibles, avec un en-tête issu d'une photo officielle du fabricant
@@ -132,7 +133,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 32 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
+| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 35 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -190,7 +191,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 32 pages HTML et exécute dix-sept tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 35 pages HTML et exécute dix-sept tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |

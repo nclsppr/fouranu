@@ -9,9 +9,9 @@ description: Halo Core ou Halo Pro ? Capacités, poids, prix datés et observati
 summary: Le Halo Core couvre deux à dix pâtons de 250 g et suffit à la plupart des soirées maison. Le Halo Pro devient cohérent si vous dépassez régulièrement 2,5 kg de pâte ou tenez à son minuteur.
 status: publishable
 type: decision
-author: magali
+author: nicolas
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/ooni-halo-core-ou-halo-pro-1600.webp

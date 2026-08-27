@@ -8,10 +8,10 @@ description: Le Karu 12 accepte bois, charbon et un brûleur propane séparé. N
 summary: Le Karu 12 reste séduisant si vous voulez apprendre à gérer un vrai feu dans un petit four. Son prix caché est le temps passé au combustible et au nettoyage.
 status: publishable
 type: model
-author: magali
+author: florian
 model: Ooni Karu 12
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/ooni-karu-12-1600.webp

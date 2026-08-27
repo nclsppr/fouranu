@@ -108,7 +108,8 @@ de Four à Nu.
 - les neuf fiches de la gamme France lorsque leur portée documentaire est
   explicite, y compris celles dont le corpus se limite au fabricant ;
 - bandeaux de provenance, sources, dates, limites et politique de correction ;
-- page auteur, À propos, mentions légales, confidentialité, contact et
+- annuaire de la rédaction, profils auteur individuels, À propos, mentions
+  légales, confidentialité, contact et
   transparence commerciale avec des informations exactes ;
 - cinq sessions avec des personnes ayant un projet d'achat.
 
@@ -176,6 +177,9 @@ livré :
 - [x] Reprendre les 31 pages canoniques pour leurs titres sociaux, images
   d'aperçu, données structurées, sitemap d'images et favicon, puis leur ajouter
   un partage progressif fondé sur l'URL canonique, sans SDK social ni traceur.
+- [x] Remplacer les trois signatures sans biographie par des profils individuels
+  factuels, relier chaque dossier à son auteur et conserver une attribution
+  équilibrée et stable dans les frontmatters.
 
 ### Todo commerce éditorial et accessoires
 
@@ -205,7 +209,8 @@ et le chemin GitHub Actions qui ne peut l'envoyer qu'après la gate `Verify`.
 
 ### Inclus
 
-- page auteur, méthode et politique de correction ;
+- annuaire de la rédaction, profils auteur individuels, méthode et politique de
+  correction ;
 - mentions légales et politique de confidentialité ;
 - choix de mesure d'audience minimisée ;
 - mécanisme d'acceptation, refus et retrait si des traceurs sont nécessaires ;

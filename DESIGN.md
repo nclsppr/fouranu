@@ -259,6 +259,21 @@ Une recherche textuelle n'apparaît que lorsqu'un index local fonctionnel existe
 Il n'intègre ni bande promotionnelle, ni carrousel, ni compte à rebours. La
 navigation active combine texte, épaisseur et règle basse.
 
+### Profils auteur
+
+L'annuaire de la rédaction présente les trois parcours dans la grille existante
+et relie chaque signature à un profil canonique. Le profil place la biographie,
+le statut de personne référente et les dossiers signés avant tout élément
+décoratif. Il conserve la même hiérarchie typographique, les mêmes fonds plans
+et les mêmes cibles de 44 px que les autres pages de confiance.
+
+Tant qu'aucune photographie réelle et publiable n'est fournie, un monogramme
+typographique sur fond acier occupe l'emplacement du portrait. Il est présenté
+comme un signe graphique, pas comme une ressemblance. Aucun visage, avatar
+réaliste ou portrait généré ne remplace la personne. Une future photographie
+reçoit une chaîne de droits, un texte alternatif, des dimensions explicites et
+une validation responsive avant de remplacer ce monogramme.
+
 ### Actions et liens marchands
 
 Une page d'article répète une action remplie en `--color-probe` à deux moments

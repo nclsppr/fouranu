@@ -8,9 +8,9 @@ description: "Koda au gaz, Karu au bois ou au charbon, Volt 2 électrique : les 
 summary: Le Volt 2 est prévu pour l'intérieur. Dehors, Koda donne une commande directe du gaz, tandis que Karu ajoute la gestion du bois ou du charbon et un brûleur gaz optionnel.
 status: publishable
 type: decision
-author: magali
+author: nicolas
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/ooni-energies-volt-2-1600.webp

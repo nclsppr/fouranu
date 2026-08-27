@@ -8,10 +8,10 @@ description: Le Dome XL (Gen 2) pèse 73 kg et annonce jusqu’à trois pizzas. 
 summary: Le Dome XL (Gen 2) est une cuisine extérieure de 73 kg, pas un four à sortir le week-end. Sa largeur se justifie pour plusieurs cuisiniers ou des repas complets.
 status: publishable
 type: model
-author: nicolas
+author: magali
 model: Gozney Dome XL (Gen 2)
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/gozney-dome-xl-gen-2-1600.webp

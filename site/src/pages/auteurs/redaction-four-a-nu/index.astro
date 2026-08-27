@@ -1,10 +1,17 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
 
 const canonical = new URL(SITE.editorialAuthor.url, SITE.url).toString();
-const authors = Object.values(SITE.authors);
+const analyses = (await getCollection("analyses"))
+  .filter((entry) => entry.data.status === "publishable" && entry.data.indexable);
+const authors = Object.entries(SITE.authors).map(([id, author]) => ({
+  id,
+  ...author,
+  articleCount: analyses.filter((entry) => entry.data.author === id).length,
+}));
 const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -40,23 +47,29 @@ const schema = {
         <p class="eyebrow">La rédaction</p>
         <h1>Nicolas, Florian & Magali.</h1>
         <p class="page-intro__lede">
-          Chaque dossier porte l'une de ces trois signatures. Elle indique qui
-          répond de la version publiée, de ses sources et de ses limites.
+          Trois parcours différents, une même méthode : chaque dossier indique
+          sa personne référente, tandis que ses sources et ses limites restent
+          relues collectivement.
         </p>
       </div>
-      <p class="page-intro__aside">Les dossiers sont répartis sans ordre fixe entre Nicolas, Florian et Magali. Aucun autre détail biographique n'est publié.</p>
+      <p class="page-intro__aside">Les signatures ne servent pas à décorer une page. Elles mènent à une personne, à son parcours et aux dossiers qu’elle suit au sein de la rédaction.</p>
     </header>
 
     <section class="author-scope" aria-labelledby="author-scope-title">
       <div>
         <p class="eyebrow">Trois signatures</p>
-        <h2 id="author-scope-title">Un même niveau d’exigence.</h2>
+        <h2 id="author-scope-title">Trois façons de regarder la soirée.</h2>
       </div>
       <div class="author-names">
-        {Object.entries(SITE.authors).map(([id, author]) => (
-          <article id={id}>
+        {authors.map((author) => (
+          <article id={author.id}>
             <span aria-hidden="true">{author.name.slice(0, 1)}</span>
+            <p>{author.role}</p>
             <h3>{author.name}</h3>
+            <p>{author.summary}</p>
+            <a href={author.url}>
+              Découvrir {author.name} · {author.articleCount} dossiers
+            </a>
           </article>
         ))}
       </div>
@@ -92,7 +105,7 @@ const schema = {
   }
 
   .author-scope > div:last-child {
-    max-width: 44rem;
+    max-width: none;
     color: var(--color-graphite);
     font-size: 1.04rem;
     line-height: 1.7;
@@ -105,7 +118,10 @@ const schema = {
   }
 
   .author-names article {
-    min-height: 8rem;
+    display: flex;
+    min-height: 21rem;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 1.1rem;
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
@@ -128,8 +144,31 @@ const schema = {
   }
 
   .author-names h3 {
-    margin: 1.25rem 0 0;
+    margin: 0.35rem 0 0.8rem;
     font-size: 2rem;
+  }
+
+  .author-names p {
+    margin: 0;
+    color: var(--color-graphite);
+  }
+
+  .author-names article > p:first-of-type {
+    margin-top: 1.25rem;
+    font-family: var(--font-data);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .author-names a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--color-probe);
+    font-weight: 600;
   }
 
   .author-controls {
@@ -193,6 +232,10 @@ const schema = {
     .author-names article {
       min-height: auto;
       border-right: 0;
+    }
+
+    .author-names a {
+      margin-top: 1rem;
     }
 
     .author-controls article {

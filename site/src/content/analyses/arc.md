@@ -8,10 +8,10 @@ description: Le Gozney Arc accepte des pizzas de 35 cm, pèse 21,5 kg et coûte 
 summary: Pour des pizzas de 30 à 32 cm, l’Arc offre déjà une bonne marge. L’Arc XL vaut surtout ses 200 € de plus si vous utilisez vraiment son espace supplémentaire.
 status: publishable
 type: model
-author: florian
+author: magali
 model: Gozney Arc
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/gozney-arc-1600.webp

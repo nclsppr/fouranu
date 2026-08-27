@@ -1,0 +1,359 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/config/site";
+
+type AuthorId = keyof typeof SITE.authors;
+type Author = (typeof SITE.authors)[AuthorId];
+
+export function getStaticPaths() {
+  const authorEntries = Object.entries(SITE.authors) as [AuthorId, Author][];
+  return authorEntries.map(([authorId, author]) => {
+    const slug = author.url.split("/").filter(Boolean).at(-1);
+    if (!slug) throw new Error(`URL de profil invalide pour ${authorId}`);
+
+    return {
+      params: { slug },
+      props: { authorId, author },
+    };
+  });
+}
+
+interface Props {
+  authorId: AuthorId;
+  author: Author;
+}
+
+const { authorId, author } = Astro.props;
+const articles = (await getCollection("analyses"))
+  .filter(
+    (entry) =>
+      entry.data.author === authorId &&
+      entry.data.status === "publishable" &&
+      entry.data.indexable,
+  )
+  .sort((left, right) => right.data.updatedAt.valueOf() - left.data.updatedAt.valueOf());
+const canonical = new URL(author.url, SITE.url).toString();
+const typeLabels = {
+  guide: "Guide d’achat",
+  decision: "Comparatif par usage",
+  model: "Analyse de modèle",
+};
+const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${canonical}#profile`,
+  url: canonical,
+  name: author.name,
+  description: author.description,
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${canonical}#person`,
+    name: author.name,
+    url: canonical,
+    jobTitle: author.role,
+    description: author.description,
+    worksFor: {
+      "@type": "Organization",
+      "@id": `${SITE.url}/#organization`,
+      name: SITE.name,
+      url: `${SITE.url}/`,
+    },
+  },
+};
+---
+
+<BaseLayout
+  title={`${author.name} | Rédaction Four à Nu`}
+  description={author.description}
+  indexable={true}
+  schema={schema}
+>
+  <div class="page-shell">
+    <Breadcrumbs
+      items={[
+        { label: "Accueil", href: "/" },
+        { label: "Rédaction", href: SITE.editorialAuthor.url },
+        { label: author.name },
+      ]}
+    />
+
+    <header class="author-profile">
+      <div class="author-profile__copy">
+        <p class="eyebrow">{author.role}</p>
+        <h1>{author.name}.</h1>
+        <p class="author-profile__lede">{author.summary}</p>
+      </div>
+      <div class="author-profile__monogram" aria-hidden="true">
+        <span>{author.name.slice(0, 1)}</span>
+      </div>
+    </header>
+
+    <section class="author-story" aria-labelledby="author-story-title">
+      <div>
+        <p class="eyebrow">Autour du four</p>
+        <h2 id="author-story-title">Son parcours.</h2>
+      </div>
+      <div class="author-story__copy">
+        {author.biography.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+
+    <aside class="author-responsibility" aria-labelledby="author-responsibility-title">
+      <div>
+        <p class="eyebrow">Ce que la signature engage</p>
+        <h2 id="author-responsibility-title">Une personne référente par dossier.</h2>
+      </div>
+      <div>
+        <p>
+          La signature indique qui porte le dossier au sein de la rédaction.
+          Les sources, les faits, les conclusions et les limites sont relus
+          ensemble : elle ne signifie pas que cette personne a essayé le four.
+          Les guides actuels restent des analyses documentaires, sauf mention
+          explicite d’un futur essai Four à Nu et de son protocole.
+        </p>
+        <a href="/corrections/">Lire la politique de correction</a>
+      </div>
+    </aside>
+
+    <section class="author-articles" aria-labelledby="author-articles-title">
+      <header>
+        <p class="eyebrow">{articles.length} dossiers</p>
+        <h2 id="author-articles-title">Les dossiers signés par {author.name}.</h2>
+      </header>
+      <div class="author-articles__list">
+        {articles.map((entry) => (
+          <article>
+            <p>{typeLabels[entry.data.type]} · {entry.data.brand === "gozney" ? "Gozney" : "Ooni"}</p>
+            <h3>
+              <a href={`/${entry.data.brand}/${entry.id}/`}>{entry.data.title}</a>
+            </h3>
+            <p>{entry.data.summary}</p>
+            <time datetime={entry.data.updatedAt.toISOString()}>
+              Mis à jour le {dateFormatter.format(entry.data.updatedAt)}
+            </time>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <nav class="author-links" aria-label="Liens de la rédaction">
+      <a href={SITE.editorialAuthor.url}>Voir toute la rédaction</a>
+      <a href="/methode/">Comprendre notre méthode</a>
+      <a href="/transparence/">Lire notre transparence commerciale</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .author-profile {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    gap: 1.5rem;
+    align-items: end;
+    padding-block: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .author-profile__copy {
+    max-width: 55rem;
+  }
+
+  .author-profile h1 {
+    max-width: 12ch;
+    margin-bottom: 1.5rem;
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    line-height: 0.9;
+  }
+
+  .author-profile__lede {
+    max-width: 48rem;
+    color: var(--color-graphite);
+    font-size: clamp(1.12rem, 2vw, 1.38rem);
+    line-height: 1.55;
+  }
+
+  .author-profile__monogram {
+    display: grid;
+    min-height: 18rem;
+    place-items: center;
+    border-top: 2px solid var(--color-probe);
+    border-bottom: 1px solid var(--color-carbon);
+    background: var(--color-steel-soft);
+  }
+
+  .author-profile__monogram span {
+    color: var(--color-probe);
+    font-family: var(--font-display);
+    font-size: clamp(7rem, 14vw, 12rem);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .author-story,
+  .author-responsibility {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: 2rem;
+    padding-block: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .author-story {
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .author-story h2,
+  .author-responsibility h2,
+  .author-articles h2 {
+    max-width: 13ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    line-height: 0.96;
+  }
+
+  .author-story__copy,
+  .author-responsibility > div:last-child {
+    max-width: 44rem;
+    color: var(--color-graphite);
+    font-size: 1.05rem;
+    line-height: 1.72;
+  }
+
+  .author-story__copy p:first-child,
+  .author-responsibility p:first-child {
+    margin-top: 0;
+  }
+
+  .author-responsibility {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .author-responsibility .eyebrow,
+  .author-responsibility a {
+    color: var(--color-reading);
+  }
+
+  .author-responsibility > div:last-child {
+    color: var(--color-carbon-muted);
+  }
+
+  .author-responsibility a,
+  .author-links a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  .author-articles {
+    padding-block: clamp(3.5rem, 6vw, 5.5rem);
+  }
+
+  .author-articles > header {
+    display: grid;
+    grid-template-columns: 3fr 8fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .author-articles__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .author-articles article {
+    min-width: 0;
+    padding: 1.5rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .author-articles article:nth-child(even) {
+    border-right: 0;
+  }
+
+  .author-articles article > p:first-child,
+  .author-articles time {
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .author-articles h3 {
+    margin: 1.25rem 0 0.8rem;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1;
+  }
+
+  .author-articles h3 a {
+    color: var(--color-carbon);
+    text-decoration-color: var(--color-probe);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.16em;
+  }
+
+  .author-articles article > p:not(:first-child) {
+    color: var(--color-graphite);
+    line-height: 1.6;
+  }
+
+  .author-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    padding: 1rem;
+    border-top: 2px solid var(--color-probe);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .author-links a {
+    color: var(--color-probe);
+  }
+
+  @media (max-width: 64rem) {
+    .author-profile {
+      grid-template-columns: 7fr 3fr;
+    }
+
+    .author-profile__monogram {
+      min-height: 14rem;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .author-profile,
+    .author-story,
+    .author-responsibility,
+    .author-articles > header,
+    .author-articles__list {
+      grid-template-columns: 1fr;
+    }
+
+    .author-profile {
+      align-items: stretch;
+    }
+
+    .author-profile__monogram {
+      min-height: 10rem;
+    }
+
+    .author-profile__monogram span {
+      font-size: 7rem;
+    }
+
+    .author-articles article {
+      border-right: 0;
+    }
+  }
+</style>

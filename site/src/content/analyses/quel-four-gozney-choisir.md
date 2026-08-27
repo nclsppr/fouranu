@@ -8,9 +8,9 @@ description: Les sept fours Gozney vendus en France, triés par place, poids, co
 summary: Arc Lite pour le prix, Tread pour voyager, Arc pour rester à la maison, Dome pour une vraie cuisine extérieure. Le bon modèle dépend surtout de l’endroit où il va vivre.
 status: publishable
 type: guide
-author: florian
+author: magali
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/gozney-gamme-1600.webp

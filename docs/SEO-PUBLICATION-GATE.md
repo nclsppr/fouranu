@@ -158,9 +158,13 @@ tranches séparées.
 - [ ] Les noms du fabricant, de la gamme, du modèle, de la génération, des
   combustibles et des instruments restent cohérents dans le titre, le texte et
   les métadonnées.
-- [ ] Les pages auteur, À propos, méthode, politique de correction, mentions
-  légales, confidentialité, contact et transparence commerciale sont accessibles
-  depuis le parcours public avant indexation.
+- [ ] L'annuaire de la rédaction, les profils auteur, À propos, méthode,
+  politique de correction, mentions légales, confidentialité, contact et
+  transparence commerciale sont accessibles depuis le parcours public avant
+  indexation.
+- [ ] Chaque profil auteur expose une URL canonique stable et un schéma
+  `ProfilePage` dont la `Person` correspond au nom et à l'URL publiés dans les
+  métadonnées et le schéma `Article` de ses dossiers.
 
 ## 8. Contrôle du rendu et des métadonnées
 

@@ -8,10 +8,10 @@ status: publishable
 type: model
 category: oven
 heroTreatment: official-stylized
-author: magali
+author: florian
 model: Gozney Arc XL
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/gozney-arc-xl-1600.webp

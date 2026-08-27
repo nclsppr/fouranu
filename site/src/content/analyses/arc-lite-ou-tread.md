@@ -9,10 +9,10 @@ description: Arc Lite ou Tread ? Prix, transport, chauffe et récupération publ
 summary: L’Arc Lite garde les 100 € si le four reste sur une table. Le Tread devient cohérent si vous le transportez souvent ou voulez rapprocher les pizzas.
 status: publishable
 type: decision
-author: nicolas
+author: magali
 model: Gozney Arc Lite et Tread
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/gozney-arc-lite-1600.webp

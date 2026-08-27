@@ -8,10 +8,10 @@ description: Le Koda 2 Max pèse 43 kg et possède deux zones gaz pour deux pizz
 summary: "Le Koda 2 Max répond à un besoin très précis : cuire deux pizzas à la fois. À 43 kg, nous ne le conseillerions que si vous comptez vraiment utiliser cette capacité."
 status: publishable
 type: model
-author: florian
+author: nicolas
 model: Ooni Koda 2 Max
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-27
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-max-1600.webp

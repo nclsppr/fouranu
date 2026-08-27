@@ -276,6 +276,10 @@ Mention publique minimale, placée sous le visuel sans le recouvrir :
 
 > Illustration éditoriale d'après une photographie officielle [fabricant].
 
+Lorsqu'un composite part de plusieurs sources, le pluriel reste explicite :
+
+> Illustration éditoriale d'après des photographies officielles [fabricant].
+
 La page explique une seule fois, dans son second niveau de lecture, que l'image
 d'en-tête illustre le produit sans constituer une preuve de performance. Cette
 réserve n'est pas répétée sur chaque visuel et ne masque jamais ses pixels.

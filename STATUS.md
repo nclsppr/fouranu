@@ -23,6 +23,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Profils auteur et signatures incarnées publiés | SHA applicatif `80c2f76c1bd939b521e90f529b5e8d525c200990` ; [run GitHub Actions `33087428591`](https://github.com/nclsppr/fouranu/actions/runs/33087428591) vert pour `Verify` et `deploy-cloudflare` |
 | Portraits auteur publiés | SHA applicatif `6922c478743764574eed6080294d255f0c4d8170` ; [run GitHub Actions `33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546) vert pour `Verify` et `deploy-cloudflare` |
 | Images de tête dégagées publiées | SHA livré `2c087e39f3009f5aa7f6e853baa846f78c87b32a` ; [run GitHub Actions `33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492) vert pour `Verify` et `deploy-cloudflare` |
+| Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
 ## Images de tête dégagées publiées
@@ -49,6 +50,33 @@ relus dans le navigateur. Après publication, les dix-neuf routes ont été
 sondées : chacune expose son crédit canonique, un seul rappel documentaire et
 aucune ancienne légende longue. La page Gozney publique à 360 px ne présente ni
 chevauchement, ni débordement, ni message console.
+
+## Portraits auteur remplacés sans retouche
+
+Les trois nouvelles photographies carrées fournies par le propriétaire
+éditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne
+reçoivent ni filtre, ni grain, ni correction, ni recadrage, ni traitement
+génératif : seuls le redimensionnement, la compression WebP et le retrait des
+métadonnées sont appliqués. Les JPEG sources restent privés et hors Git.
+
+Les mêmes six URL servent des versions 192 et 800 px dont le poids cumulé passe
+de 193 974 à 145 488 octets, soit 25 % de moins. Chaque fichier ne contient
+qu'un flux image VP8, sans bloc EXIF, XMP ou ICC. Le cadre des profils devient
+carré pour préserver le fichier validé ; l'annuaire et les bulles de 48 px
+conservent leurs dimensions et leurs liens d'auteur.
+
+Le SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37`
+construit 35 pages et passe les 30 tests Python, les 19 contrats du site, le
+check Astro, Compose, le contrôle Cloudflare à sec, Nimbus et la gate
+`./scripts/verify.sh`. Le run `33097444182` a vérifié puis déployé cet artefact
+exact ; `/release.json` a exposé le même SHA lors du contrôle public.
+
+Les six médias publics répondent 200 en `image/webp` et correspondent octet
+pour octet aux empreintes enregistrées. Les trois profils et un article par
+auteur ont été relus en production à 360 px : les portraits chargent, les
+bulles mènent au bon profil et aucun débordement ou message console n'apparaît.
+En local, les profils ont aussi été contrôlés à 768, 769, 1 024, 1 025 et
+1 440 px.
 
 ## Portraits auteur publiés
 

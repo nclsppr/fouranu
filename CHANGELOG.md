@@ -6,7 +6,7 @@ importantes.
 
 ## Non publié
 
-### Portraits auteur remplacés sans retouche
+## 2026-08-27 - Portraits auteur remplacés sans retouche
 
 - Nicolas, Florian et Magali utilisent les trois nouvelles photographies
   fournies dans cet ordre par le propriétaire éditorial. Aucun filtre, grain,
@@ -21,6 +21,14 @@ importantes.
   bulles de 48 px conservent leur comportement.
 - Le registre média conserve uniquement les empreintes des trois sources
   privées et des six dérivés publics ; les JPEG fournis restent hors Git.
+- Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
+  `27761ee6d9f3756891ddb3ed43c2e9452bebaf37`. Le run GitHub Actions
+  [`33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182)
+  a vérifié puis déployé l'artefact exact.
+- `/release.json`, les six fichiers WebP, les trois profils et une signature
+  d'article par auteur ont été contrôlés sur le domaine public. Les empreintes
+  servies correspondent au registre, les portraits chargent sans débordement et
+  la console reste vide à 360 px.
 
 ## 2026-08-27 - Images de tête dégagées
 

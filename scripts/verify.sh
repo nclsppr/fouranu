@@ -52,6 +52,7 @@ fi
 
 python3 "${SCRIPT_DIR}/documentation_catalog.py" --check
 python3 "${SCRIPT_DIR}/check_markdown.py"
+python3 "${SCRIPT_DIR}/check_no_ai_mentions.py"
 python3 "${SCRIPT_DIR}/check_editorial_ledgers.py"
 python3 "${SCRIPT_DIR}/test_check_editorial_ledgers.py"
 python3 "${SCRIPT_DIR}/check_compose.py"

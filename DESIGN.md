@@ -367,8 +367,8 @@ bloc « Comment lire ce guide ». Le crédit ou la source détaillée restent so
 les vues documentaires lorsqu'ils aident réellement le lecteur à comprendre
 l'image. La date, le statut de preuve et l'identifiant média restent dans le
 registre de traçabilité interne : ces libellés techniques ne surchargent pas la
-copie publique. Aucune copie visible ne cite un logiciel, un assistant de
-rédaction ou un procédé de génération.
+copie publique. Aucune copie visible ne détaille les outils ou procédés
+internes de production.
 
 L'image d'en-tête de tout nouvel article produit, ou de tout article produit
 substantiellement révisé, part obligatoirement d'une photographie officielle du

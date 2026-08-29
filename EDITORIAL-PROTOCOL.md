@@ -284,9 +284,9 @@ La page explique une seule fois, dans son second niveau de lecture, que l'image
 d'en-tête illustre le produit sans constituer une preuve de performance. Cette
 réserve n'est pas répétée sur chaque visuel et ne masque jamais ses pixels.
 
-La catégorie technique du registre, les outils de production et les assistants
-rédactionnels ne paraissent jamais dans la copie publique. La traçabilité
-détaillée reste interne. Le protocole ne suppose pas que cette présentation
+La catégorie technique du registre et les détails du processus de production
+ne paraissent jamais dans la copie publique. La traçabilité détaillée reste
+interne. Le protocole ne suppose pas que cette présentation
 épuise toutes les obligations applicables : leur périmètre est revérifié avant
 tout changement de technique ou de diffusion.
 

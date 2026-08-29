@@ -55,9 +55,9 @@ chevauchement, ni débordement, ni message console.
 
 Les trois nouvelles photographies carrées fournies par le propriétaire
 éditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne
-reçoivent ni filtre, ni grain, ni correction, ni recadrage, ni traitement
-génératif : seuls le redimensionnement, la compression WebP et le retrait des
-métadonnées sont appliqués. Les JPEG sources restent privés et hors Git.
+reçoivent aucun filtre, grain, correction, recadrage ou changement de contenu :
+seuls le redimensionnement, la compression WebP et le retrait des métadonnées
+sont appliqués. Les JPEG sources restent privés et hors Git.
 
 Les mêmes six URL servent des versions 192 et 800 px dont le poids cumulé passe
 de 193 974 à 145 488 octets, soit 25 % de moins. Chaque fichier ne contient

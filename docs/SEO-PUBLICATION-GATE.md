@@ -2,8 +2,8 @@
 
 Cette checklist s'applique à chaque article de Four à Nu. Elle protège la
 qualité éditoriale, la séparation entre sources, synthèses et inférences, ainsi
-que la lisibilité du site pour Google, Bing et les assistants qui citent des
-pages publiques. Les contrôles transversaux du rendu, des métadonnées, des
+que la lisibilité du site pour Google, Bing et les autres surfaces de
+recherche qui citent des pages publiques. Les contrôles transversaux du rendu, des métadonnées, des
 icônes et du partage s'appliquent aussi à chaque page structurelle incluse dans
 le candidat.
 

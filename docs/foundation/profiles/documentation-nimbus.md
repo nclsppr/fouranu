@@ -1,8 +1,7 @@
 # Profil obligatoire documentation Nimbus
 
 Ce profil est activé automatiquement dans tous les projets. Il transforme les
-Markdown classés en documentation navigable, recherchable et consommable par
-des humains ou des agents.
+Markdown classés en documentation navigable et recherchable par les équipes.
 
 ## Nature du profil
 
@@ -49,8 +48,7 @@ La commande documentaire canonique doit au minimum exécuter :
 7. une revue navigateur des audiences et routes concernées.
 
 Une sortie locale ne prouve pas la publication. Vérifier séparément l'URL, le
-chemin de base, l'indexation et les variantes Markdown ou `llms.txt` réellement
-livrées.
+chemin de base, l'indexation et les variantes Markdown réellement livrées.
 
 ## Mise à jour ou retrait
 

@@ -330,8 +330,8 @@ importantes.
   visuel. Le prototype reste une référence de composition, pas une source de
   contenu ou d'actifs.
 - Généralisation des routes d'analyse par marque, des canonicales, du RSS, du
-  sitemap, de `llms.txt` et des bibliographies depuis les `evidenceIds`
-  explicites, sans créer de dossier Gozney sans contenu réel.
+  sitemap et des bibliographies depuis les `evidenceIds` explicites, sans créer
+  de dossier Gozney sans contenu réel.
 - Correction du débordement des figures sur les articles longs mobiles et ajout
   d'un contrat automatisé sur le logo public.
 - Adoption de Cloudflare Workers Static Assets par l'ADR-0004. Wrangler est
@@ -355,8 +355,8 @@ importantes.
   commerciale et confidentialité, sans analytics, publicité ou lien rémunéré
   actif.
 - Extension du contrat SEO : 22 URL explicitement éligibles au build de
-  production, 404 seule hors index, RSS, `llms.txt`, canonicals, dates,
-  données structurées `Article`, `Organization`, `ProfilePage` et fils d'Ariane.
+  production, 404 seule hors index, RSS, canonicals, dates, données structurées
+  `Article`, `Organization`, `ProfilePage` et fils d'Ariane.
 - Ajout d'une illustration d'accueil originale, en esquisse
   d'atelier, avec deux WebP responsive, mention visible et enregistrement de
   provenance. Aucun média tiers n'a servi d'entrée.

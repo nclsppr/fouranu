@@ -68,7 +68,7 @@ Ces principes s'appliquent à tout projet, quelle que soit sa stack. Chaque prin
 
 ## P09. Rendre l'exécution reproductible
 
-**Règle.** Versions, dépendances, variables, commandes de lancement, arrêt, vérification et réinitialisation doivent être explicites. Les contrôles critiques vivent dans une commande neutre, utilisable par un humain, un agent et la CI.
+**Règle.** Versions, dépendances, variables, commandes de lancement, arrêt, vérification et réinitialisation doivent être explicites. Les contrôles critiques vivent dans une commande neutre, utilisable par une personne et par la CI.
 
 **Pourquoi.** Un hook propre à un outil ou une commande connue d'une seule personne ne constitue pas une protection.
 
@@ -120,7 +120,7 @@ Ces principes s'appliquent à tout projet, quelle que soit sa stack. Chaque prin
 
 **Pourquoi.** La connaissance cachée augmente le temps de reprise et le risque d'incident.
 
-**Preuve minimale.** Chaque zone critique a un propriétaire, une documentation de reprise et un chemin de vérification exécutable par une autre personne ou un autre agent.
+**Preuve minimale.** Chaque zone critique a un propriétaire, une documentation de reprise et un chemin de vérification exécutable par une autre personne.
 
 ## P16. Donner une place et une audience à chaque Markdown
 

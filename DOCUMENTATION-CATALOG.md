@@ -17,10 +17,10 @@ Moteur déclaré : `nimbus`.
 
 ## Documentation du projet
 
-- [AGENTS.md](AGENTS.md)
 - [BRAND-SEO.md](BRAND-SEO.md)
 - [BRIEF.md](BRIEF.md)
 - [CHANGELOG.md](CHANGELOG.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
 - [DESIGN.md](DESIGN.md)
 - [DOCUMENTATION-CATALOG.md](DOCUMENTATION-CATALOG.md)
 - [DOCUMENTATION.md](DOCUMENTATION.md)
@@ -81,7 +81,7 @@ Moteur déclaré : `nimbus`.
 
 ## Maintenance Nimbus
 
-- [docs-nimbus/AGENT.md](docs-nimbus/AGENT.md)
+- [docs-nimbus/MAINTENANCE.md](docs-nimbus/MAINTENANCE.md)
 
 ## Chemins ignorés
 

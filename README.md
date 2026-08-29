@@ -78,7 +78,7 @@ code, de la configuration et d'une vérification réelle.
 - [`FOUNDATION.md`](FOUNDATION.md) : release, pack, profils et dérogations.
 - [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) : catalogue généré des Markdown.
 - `docs-nimbus/` : documentation interne obligatoire, distincte du site public.
-- [`AGENTS.md`](AGENTS.md) : règles locales d'intervention.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) : règles locales d'intervention.
 - [`CHANGELOG.md`](CHANGELOG.md) : changements livrés et impact observable.
 
 Ce README oriente. Il ne duplique ni l'état courant, ni la roadmap, ni le

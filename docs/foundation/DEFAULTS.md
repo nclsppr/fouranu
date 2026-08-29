@@ -10,7 +10,7 @@ Ces choix accélèrent le démarrage. Ils ne sont pas universels. Un projet peut
 - Dates absolues au format `YYYY-MM-DD`. Éviter les dates relatives.
 - Pas de tiret cadratin ou demi-cadratin dans la prose.
 - Une commande canonique par opération. La documentation ne recopie pas son implémentation.
-- `README.md` oriente. `PROJECT.md` décrit le contrat stable. `STATUS.md` décrit l'état vérifié. `ROADMAP.md` porte le séquencement. `CHANGELOG.md` trace les changements livrés. `AGENTS.md` décrit le mode d'intervention. Les ADR portent les décisions.
+- `README.md` oriente. `PROJECT.md` décrit le contrat stable. `STATUS.md` décrit l'état vérifié. `ROADMAP.md` porte le séquencement. `CHANGELOG.md` trace les changements livrés. `CONTRIBUTING.md` décrit le mode d'intervention. Les ADR portent les décisions.
 
 ## D02. Git et livraison
 
@@ -56,7 +56,7 @@ stop      arrête proprement les services
 reset     réinitialise uniquement l'état de développement documenté
 ```
 
-Les noms peuvent varier. La capacité ne doit pas dépendre d'un outil d'agent particulier.
+Les noms peuvent varier. La capacité doit rester accessible par les commandes documentées.
 
 `dev`, `stop` et `reset` pilotent le `compose.yaml` canonique lorsqu'ils
 s'appliquent. `reset` nomme précisément les volumes ou données supprimés et ne

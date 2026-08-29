@@ -50,8 +50,7 @@ classements pseudo-scientifiques et données structurées d'avis.
 | Plusieurs micro-sites SEO affiliés | Beaucoup de surfaces théoriques | Chaque domaine repart de zéro et pousse vers des gabarits pauvres ou du contenu à grande échelle | Rejetée au lancement |
 | Un magazine de guides d'achat | Simple à publier | Facilement remplaçable par un marchand, un grand média ou une réponse automatique | Insuffisante seule |
 | Un média documentaire traçable | Corpus vérifiable, outils de décision, publication régulière et mesure de la demande | Dépendance à la qualité, la diversité et la pérennité des sources | Recommandé comme produit permanent |
-| Un bot X de prospection | Distribution automatique apparente | Non conforme s'il répond à des recherches ou posts non sollicités | Rejetée |
-| Un assistant X invoqué par mention | Intention explicite et réponse ciblée | Coût, approbations et audience encore inconnus | À tester plus tard, avec validation humaine |
+| Prospection automatisée sur X | Distribution automatique apparente | Non conforme si elle répond à des recherches ou posts non sollicités | Rejetée |
 | Génération de prospects professionnels | Valeur possible sur des achats de plusieurs milliers d'euros | Barème et partenaires non négociés | Deuxième monétisation à valider |
 
 Un second domaine ne sera envisagé qu'après six mois de contribution positive du premier et uniquement pour une audience, une promesse et une capacité de preuve réellement distinctes.
@@ -85,10 +84,9 @@ d'un seul canal d'acquisition.
 
 Les [règles d'automatisation X](https://help.x.com/en/rules-and-policies/x-automation?lang=browser) interdisent une réponse automatique fondée sur une simple recherche de mots-clés. Suivre le compte ou utiliser un hashtag ne vaut pas consentement. Une réponse unique peut être possible après mention explicite du compte, avec possibilité d'arrêt. Les [directives développeur X](https://docs.x.com/developer-guidelines) donnent comme cas acceptable une recommandation de produit demandée, et comme spam une réponse non sollicitée contenant des liens affiliés.
 
-Au lancement, Four à Nu utilise des réponses humaines. Un futur assistant devra
-être invoqué explicitement, répondre une seule fois, déclarer son automatisation
-et l'affiliation, employer l'API officielle et obtenir les accords écrits
-applicables.
+Au lancement, Four à Nu répond uniquement de façon humaine et manuelle. Toute
+évolution de la distribution sur X devra respecter l'API officielle, les règles
+de consentement, la déclaration de l'affiliation et les accords applicables.
 
 ### Sources YouTube et photogrammes
 

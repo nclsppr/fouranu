@@ -156,8 +156,7 @@ cas de refus doit être approuvée par le réseau concerné avant publication.
   jamais une performance.
 - Aucun message direct non sollicité, aucune réponse automatique issue d'une
   recherche, aucun faux compte et aucun achat de lien.
-- X reste un canal expérimental manuel. Un assistant invoqué par mention est
-  hors périmètre de cette expérience.
+- X reste un canal expérimental strictement manuel.
 
 ### Mesures de succès
 

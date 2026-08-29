@@ -28,13 +28,10 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq libimage-exiftool-perl
 
-      - name: Rename contributor documentation
+      - name: Apply final repository cleanup
         run: |
           git mv AGENTS.md CONTRIBUTING.md
           git mv docs-nimbus/AGENT.md docs-nimbus/MAINTENANCE.md
-
-      - name: Neutralize remaining wording and routes
-        run: |
           python3 - <<'PY'
           from __future__ import annotations
 
@@ -50,18 +47,16 @@ jobs:
                   raise SystemExit(f"Expected text not found in {path}: {old!r}")
               target.write_text(text.replace(old, new), encoding="utf-8")
 
-          # Keep contributor guidance, without tool-oriented naming or wording.
           replace(
               "CONTRIBUTING.md",
               "# AGENTS.md\n\nAdaptateur local pour toute intervention assistée sur Four à Nu.",
               "# Contribuer à Four à Nu\n\nGuide local pour toute contribution à Four à Nu.",
           )
 
-          # Update exact file references throughout maintained UTF-8 sources.
-          result = subprocess.run(
+          tracked = subprocess.run(
               ["git", "ls-files", "-z"], check=True, capture_output=True
-          )
-          for raw in result.stdout.split(b"\0"):
+          ).stdout.split(b"\0")
+          for raw in tracked:
               if not raw:
                   continue
               path = root / raw.decode("utf-8")
@@ -77,102 +72,93 @@ jobs:
               if updated != text:
                   path.write_text(updated, encoding="utf-8")
 
-          replace(
-              "CHANGELOG.md",
-              "- Généralisation des routes d'analyse par marque, des canonicales, du RSS, du\n  sitemap, de `llms.txt` et des bibliographies depuis les `evidenceIds`\n  explicites, sans créer de dossier Gozney sans contenu réel.",
-              "- Généralisation des routes d'analyse par marque, des canonicales, du RSS, du\n  sitemap et des bibliographies depuis les `evidenceIds` explicites, sans créer\n  de dossier Gozney sans contenu réel.",
-          )
-          replace(
-              "CHANGELOG.md",
-              "- Extension du contrat SEO : 22 URL explicitement éligibles au build de\n  production, 404 seule hors index, RSS, `llms.txt`, canonicals, dates,\n  données structurées `Article`, `Organization`, `ProfilePage` et fils d'Ariane.",
-              "- Extension du contrat SEO : 22 URL explicitement éligibles au build de\n  production, 404 seule hors index, RSS, canonicals, dates, données structurées\n  `Article`, `Organization`, `ProfilePage` et fils d'Ariane.",
-          )
-          replace(
-              "DESIGN.md",
-              "copie publique. Aucune copie visible ne cite un logiciel, un assistant de\nrédaction ou un procédé de génération.",
-              "copie publique. Aucune copie visible ne détaille les outils ou procédés\ninternes de production.",
-          )
-          replace(
-              "EDITORIAL-PROTOCOL.md",
-              "La catégorie technique du registre, les outils de production et les assistants\nrédactionnels ne paraissent jamais dans la copie publique. La traçabilité\ndétaillée reste interne.",
-              "La catégorie technique du registre et les détails du processus de production\nne paraissent jamais dans la copie publique. La traçabilité détaillée reste\ninterne.",
-          )
-          replace(
-              "EXPERIMENT.md",
-              "- X reste un canal expérimental manuel. Un assistant invoqué par mention est\n  hors périmètre de cette expérience.",
-              "- X reste un canal expérimental strictement manuel.",
-          )
-          replace(
-              "FEASIBILITY.md",
-              "| Un assistant X invoqué par mention | Intention explicite et réponse ciblée | Coût, approbations et audience encore inconnus | À tester plus tard, avec validation humaine |\n",
-              "",
-          )
-          replace(
-              "FEASIBILITY.md",
-              "Au lancement, Four à Nu utilise des réponses humaines. Un futur assistant devra\nêtre invoqué explicitement, répondre une seule fois, déclarer son automatisation\net l'affiliation, employer l'API officielle et obtenir les accords écrits\napplicables.",
-              "Au lancement, Four à Nu répond uniquement de façon humaine et manuelle. Toute\névolution de la distribution sur X devra respecter l'API officielle, les règles\nde consentement, la déclaration de l'affiliation et les accords applicables.",
-          )
-          replace(
-              "STATUS.md",
-              "Les trois nouvelles photographies carrées fournies par le propriétaire\néditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne\nreçoivent ni filtre, ni grain, ni correction, ni recadrage, ni traitement\ngénératif : seuls le redimensionnement, la compression WebP et le retrait des\nmétadonnées sont appliqués.",
-              "Les trois nouvelles photographies carrées fournies par le propriétaire\néditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne\nreçoivent aucun filtre, grain, correction, recadrage ou changement de contenu :\nseuls le redimensionnement, la compression WebP et le retrait des métadonnées\nsont appliqués.",
-          )
-          replace(
-              "docs-nimbus/src/content.config.ts",
-              "        // Nimbus docs are agent-friendly by default. Set `audience: human`\n        // to flag a page that's written primarily for human readers.\n",
-              "        // Pages may declare `audience: human` when they target readers rather\n        // than serving as a neutral project reference.\n",
-          )
-          replace(
-              "docs-nimbus/src/pages/[...slug]/index.md.ts",
-              "    \"> Documentation Index\",\n    `> Fetch the complete documentation index at: ${new URL(\"/llms.txt\", config.site).href}`,\n    \"> Use this file to discover all available pages before exploring further.\",\n    \"\",\n",
-              "",
-          )
-          replace(
-              "docs/SEO-PUBLICATION-GATE.md",
-              "que la lisibilité du site pour Google, Bing et les assistants qui citent des\npages publiques.",
-              "que la lisibilité du site pour Google, Bing et les autres surfaces de\nrecherche qui citent des pages publiques.",
-          )
-          replace(
-              "docs/decisions/0005-en-tete-officiel-et-voix-accessible.md",
-              "3. présente le résultat comme une « illustration éditoriale », sans citer dans\n   la copie publique l'outil de production ou l'assistant rédactionnel ;",
-              "3. présente le résultat comme une « illustration éditoriale », sans détailler\n   dans la copie publique son processus interne de production ;",
-          )
-          replace(
-              "docs/foundation/DEFAULTS.md",
-              "Les noms peuvent varier. La capacité ne doit pas dépendre d'un outil d'agent particulier.",
-              "Les noms peuvent varier. La capacité doit rester accessible par les commandes documentées.",
-          )
-          replace(
-              "docs/foundation/PRINCIPLES.md",
-              "**Règle.** Versions, dépendances, variables, commandes de lancement, arrêt, vérification et réinitialisation doivent être explicites. Les contrôles critiques vivent dans une commande neutre, utilisable par un humain, un agent et la CI.",
-              "**Règle.** Versions, dépendances, variables, commandes de lancement, arrêt, vérification et réinitialisation doivent être explicites. Les contrôles critiques vivent dans une commande neutre, utilisable par une personne et par la CI.",
-          )
-          replace(
-              "docs/foundation/PRINCIPLES.md",
-              "**Preuve minimale.** Chaque zone critique a un propriétaire, une documentation de reprise et un chemin de vérification exécutable par une autre personne ou un autre agent.",
-              "**Preuve minimale.** Chaque zone critique a un propriétaire, une documentation de reprise et un chemin de vérification exécutable par une autre personne.",
-          )
-          replace(
-              "docs/foundation/profiles/documentation-nimbus.md",
-              "Markdown classés en documentation navigable, recherchable et consommable par\ndes humains ou des agents.",
-              "Markdown classés en documentation navigable et recherchable par les équipes.",
-          )
-          replace(
-              "docs/foundation/profiles/documentation-nimbus.md",
-              "Une sortie locale ne prouve pas la publication. Vérifier séparément l'URL, le\nchemin de base, l'indexation et les variantes Markdown ou `llms.txt` réellement\nlivrées.",
-              "Une sortie locale ne prouve pas la publication. Vérifier séparément l'URL, le\nchemin de base, l'indexation et les variantes Markdown réellement livrées.",
-          )
-
-          # Keep the rejected automated outreach option, but remove product-like wording.
-          replace(
-              "FEASIBILITY.md",
-              "| Un bot X de prospection | Distribution automatique apparente | Non conforme s'il répond à des recherches ou posts non sollicités | Rejetée |",
-              "| Prospection automatisée sur X | Distribution automatique apparente | Non conforme si elle répond à des recherches ou posts non sollicités | Rejetée |",
-          )
+          replacements = {
+              "CHANGELOG.md": (
+                  (
+                      "- Généralisation des routes d'analyse par marque, des canonicales, du RSS, du\n  sitemap, de `llms.txt` et des bibliographies depuis les `evidenceIds`\n  explicites, sans créer de dossier Gozney sans contenu réel.",
+                      "- Généralisation des routes d'analyse par marque, des canonicales, du RSS, du\n  sitemap et des bibliographies depuis les `evidenceIds` explicites, sans créer\n  de dossier Gozney sans contenu réel.",
+                  ),
+                  (
+                      "- Extension du contrat SEO : 22 URL explicitement éligibles au build de\n  production, 404 seule hors index, RSS, `llms.txt`, canonicals, dates,\n  données structurées `Article`, `Organization`, `ProfilePage` et fils d'Ariane.",
+                      "- Extension du contrat SEO : 22 URL explicitement éligibles au build de\n  production, 404 seule hors index, RSS, canonicals, dates, données structurées\n  `Article`, `Organization`, `ProfilePage` et fils d'Ariane.",
+                  ),
+              ),
+              "DESIGN.md": ((
+                  "copie publique. Aucune copie visible ne cite un logiciel, un assistant de\nrédaction ou un procédé de génération.",
+                  "copie publique. Aucune copie visible ne détaille les outils ou procédés\ninternes de production.",
+              ),),
+              "EDITORIAL-PROTOCOL.md": ((
+                  "La catégorie technique du registre, les outils de production et les assistants\nrédactionnels ne paraissent jamais dans la copie publique. La traçabilité\ndétaillée reste interne.",
+                  "La catégorie technique du registre et les détails du processus de production\nne paraissent jamais dans la copie publique. La traçabilité détaillée reste\ninterne.",
+              ),),
+              "EXPERIMENT.md": ((
+                  "- X reste un canal expérimental manuel. Un assistant invoqué par mention est\n  hors périmètre de cette expérience.",
+                  "- X reste un canal expérimental strictement manuel.",
+              ),),
+              "FEASIBILITY.md": (
+                  (
+                      "| Un assistant X invoqué par mention | Intention explicite et réponse ciblée | Coût, approbations et audience encore inconnus | À tester plus tard, avec validation humaine |\n",
+                      "",
+                  ),
+                  (
+                      "Au lancement, Four à Nu utilise des réponses humaines. Un futur assistant devra\nêtre invoqué explicitement, répondre une seule fois, déclarer son automatisation\net l'affiliation, employer l'API officielle et obtenir les accords écrits\napplicables.",
+                      "Au lancement, Four à Nu répond uniquement de façon humaine et manuelle. Toute\névolution de la distribution sur X devra respecter l'API officielle, les règles\nde consentement, la déclaration de l'affiliation et les accords applicables.",
+                  ),
+                  (
+                      "| Un bot X de prospection | Distribution automatique apparente | Non conforme s'il répond à des recherches ou posts non sollicités | Rejetée |",
+                      "| Prospection automatisée sur X | Distribution automatique apparente | Non conforme si elle répond à des recherches ou posts non sollicités | Rejetée |",
+                  ),
+              ),
+              "STATUS.md": ((
+                  "Les trois nouvelles photographies carrées fournies par le propriétaire\néditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne\nreçoivent ni filtre, ni grain, ni correction, ni recadrage, ni traitement\ngénératif : seuls le redimensionnement, la compression WebP et le retrait des\nmétadonnées sont appliqués.",
+                  "Les trois nouvelles photographies carrées fournies par le propriétaire\néditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne\nreçoivent aucun filtre, grain, correction, recadrage ou changement de contenu :\nseuls le redimensionnement, la compression WebP et le retrait des métadonnées\nsont appliqués.",
+              ),),
+              "docs-nimbus/src/content.config.ts": ((
+                  "        // Nimbus docs are agent-friendly by default. Set `audience: human`\n        // to flag a page that's written primarily for human readers.\n",
+                  "        // Pages may declare `audience: human` when they target readers rather\n        // than serving as a neutral project reference.\n",
+              ),),
+              "docs-nimbus/src/pages/[...slug]/index.md.ts": ((
+                  "    \"> Documentation Index\",\n    `> Fetch the complete documentation index at: ${new URL(\"/llms.txt\", config.site).href}`,\n    \"> Use this file to discover all available pages before exploring further.\",\n    \"\",\n",
+                  "",
+              ),),
+              "docs/SEO-PUBLICATION-GATE.md": ((
+                  "que la lisibilité du site pour Google, Bing et les assistants qui citent des\npages publiques.",
+                  "que la lisibilité du site pour Google, Bing et les autres surfaces de\nrecherche qui citent des pages publiques.",
+              ),),
+              "docs/decisions/0005-en-tete-officiel-et-voix-accessible.md": ((
+                  "3. présente le résultat comme une « illustration éditoriale », sans citer dans\n   la copie publique l'outil de production ou l'assistant rédactionnel ;",
+                  "3. présente le résultat comme une « illustration éditoriale », sans détailler\n   dans la copie publique son processus interne de production ;",
+              ),),
+              "docs/foundation/DEFAULTS.md": ((
+                  "Les noms peuvent varier. La capacité ne doit pas dépendre d'un outil d'agent particulier.",
+                  "Les noms peuvent varier. La capacité doit rester accessible par les commandes documentées.",
+              ),),
+              "docs/foundation/PRINCIPLES.md": (
+                  (
+                      "**Règle.** Versions, dépendances, variables, commandes de lancement, arrêt, vérification et réinitialisation doivent être explicites. Les contrôles critiques vivent dans une commande neutre, utilisable par un humain, un agent et la CI.",
+                      "**Règle.** Versions, dépendances, variables, commandes de lancement, arrêt, vérification et réinitialisation doivent être explicites. Les contrôles critiques vivent dans une commande neutre, utilisable par une personne et par la CI.",
+                  ),
+                  (
+                      "**Preuve minimale.** Chaque zone critique a un propriétaire, une documentation de reprise et un chemin de vérification exécutable par une autre personne ou un autre agent.",
+                      "**Preuve minimale.** Chaque zone critique a un propriétaire, une documentation de reprise et un chemin de vérification exécutable par une autre personne.",
+                  ),
+              ),
+              "docs/foundation/profiles/documentation-nimbus.md": (
+                  (
+                      "Markdown classés en documentation navigable, recherchable et consommable par\ndes humains ou des agents.",
+                      "Markdown classés en documentation navigable et recherchable par les équipes.",
+                  ),
+                  (
+                      "Une sortie locale ne prouve pas la publication. Vérifier séparément l'URL, le\nchemin de base, l'indexation et les variantes Markdown ou `llms.txt` réellement\nlivrées.",
+                      "Une sortie locale ne prouve pas la publication. Vérifier séparément l'URL, le\nchemin de base, l'indexation et les variantes Markdown réellement livrées.",
+                  ),
+              ),
+          }
+          for path, pairs in replacements.items():
+              for old, new in pairs:
+                  replace(path, old, new)
           PY
-
-      - name: Refresh documentation catalog
-        run: python3 scripts/documentation_catalog.py --write
+          python3 scripts/documentation_catalog.py --write
 
       - name: Strip hidden metadata from source PNG files
         run: |
@@ -180,134 +166,103 @@ jobs:
             assets/brand/explorations/seo-name-logo-shortlist-bw.png
             assets/visuals/production/homepage-atelier-sketch-source.png
           )
-          exiftool -json -ImageWidth -ImageHeight -FileType "${files[@]}" > /tmp/dimensions-before.json
+          exiftool -json -ImageWidth -ImageHeight -FileType "${files[@]}" > /tmp/before.json
           exiftool -all= -overwrite_original "${files[@]}"
-          exiftool -json -ImageWidth -ImageHeight -FileType "${files[@]}" > /tmp/dimensions-after.json
+          exiftool -json -ImageWidth -ImageHeight -FileType "${files[@]}" > /tmp/after.json
           python3 - <<'PY'
           import json
 
-          with open('/tmp/dimensions-before.json', encoding='utf-8') as source:
-              before = json.load(source)
-          with open('/tmp/dimensions-after.json', encoding='utf-8') as source:
-              after = json.load(source)
-
           keys = ('SourceFile', 'ImageWidth', 'ImageHeight', 'FileType')
-          normalized_before = [{key: row.get(key) for key in keys} for row in before]
-          normalized_after = [{key: row.get(key) for key in keys} for row in after]
-          if normalized_before != normalized_after:
-              raise SystemExit(
-                  f'Image properties changed while stripping metadata: '
-                  f'{normalized_before!r} != {normalized_after!r}'
-              )
+          with open('/tmp/before.json', encoding='utf-8') as source:
+              before = [{key: row.get(key) for key in keys} for row in json.load(source)]
+          with open('/tmp/after.json', encoding='utf-8') as source:
+              after = [{key: row.get(key) for key in keys} for row in json.load(source)]
+          if before != after:
+              raise SystemExit(f'Image properties changed: {before!r} != {after!r}')
           print('Image dimensions and file types preserved.')
           PY
 
       - name: Remove temporary workflows before audit
         run: |
-          git rm .github/workflows/audit-assistance-traces.yml
-          git rm .github/workflows/final-ai-trace-cleanup.yml
+          git rm -f .github/workflows/audit-assistance-traces.yml
+          git rm -f .github/workflows/final-ai-trace-cleanup.yml
 
-      - name: Audit tracked text and filenames
+      - name: Audit tracked tree
         run: |
           python3 - <<'PY'
           from __future__ import annotations
 
+          import json
           import re
           import subprocess
           from pathlib import Path
 
           root = Path.cwd()
-          result = subprocess.run(
-              ["git", "ls-files", "-z"], check=True, capture_output=True
-          )
-          paths = [Path(raw.decode("utf-8")) for raw in result.stdout.split(b"\0") if raw]
-
-          text_suffixes = {
-              ".astro", ".css", ".csv", ".html", ".js", ".json", ".jsonc",
-              ".md", ".mdx", ".mjs", ".py", ".sh", ".svg", ".ts", ".tsx",
-              ".txt", ".xml", ".yaml", ".yml",
+          paths = [
+              Path(raw.decode('utf-8'))
+              for raw in subprocess.run(
+                  ['git', 'ls-files', '-z'], check=True, capture_output=True
+              ).stdout.split(b'\0')
+              if raw
+          ]
+          suffixes = {
+              '.astro', '.css', '.csv', '.html', '.js', '.json', '.jsonc',
+              '.md', '.mdx', '.mjs', '.py', '.sh', '.svg', '.ts', '.tsx',
+              '.txt', '.xml', '.yaml', '.yml',
           }
-          excluded_names = {"package-lock.json", "pnpm-lock.yaml", "yarn.lock"}
+          lockfiles = {'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'}
           patterns = (
-              re.compile(r"(?<![\w])(?:IA|AI|LLMs?)(?![\w])"),
-              re.compile(r"intelligence\s+artificielle", re.I),
-              re.compile(r"artificial\s+intelligence", re.I),
-              re.compile(r"machine\s+learning", re.I),
-              re.compile(r"mod[eè]les?\s+de\s+langage", re.I),
-              re.compile(r"large\s+language\s+models?", re.I),
-              re.compile(r"\b(?:OpenAI|ChatGPT|Claude|Gemini|Anthropic|Midjourney|DALL(?:-|·)?E|Stable\s+Diffusion|Copilot)\b", re.I),
-              re.compile(r"(?<![\w])prompts?(?![\w])", re.I),
-              re.compile(r"(?<![\w])assistants?(?![\w])", re.I),
-              re.compile(r"(?<![\w])agents?(?![\w])", re.I),
-              re.compile(r"\bassist[eé](?:e|es|s)?\b", re.I),
-              re.compile(r"\bg[eé]n[eé]rati(?:f|ve|fs|ves)\b", re.I),
-              re.compile(r"llms?\.txt", re.I),
+              re.compile(r'(?<![\w])(?:IA|AI|LLMs?)(?![\w])'),
+              re.compile(r'intelligence\s+artificielle|artificial\s+intelligence', re.I),
+              re.compile(r'machine\s+learning|mod[eè]les?\s+de\s+langage|large\s+language\s+models?', re.I),
+              re.compile(r'\b(?:OpenAI|ChatGPT|Claude|Gemini|Anthropic|Midjourney|DALL(?:-|·)?E|Stable\s+Diffusion|Copilot)\b', re.I),
+              re.compile(r'(?<![\w])prompts?(?![\w])', re.I),
+              re.compile(r'(?<![\w])(?:assistants?|agents?)(?![\w])', re.I),
+              re.compile(r'\bassist[eé](?:e|es|s)?\b|\bg[eé]n[eé]rati(?:f|ve|fs|ves)\b', re.I),
+              re.compile(r'llms?\.txt', re.I),
           )
-          filename_pattern = re.compile(r"(?:^|/)(?:agents?|llms?)(?:\.|/|$)", re.I)
-
-          findings: list[str] = []
+          filename_pattern = re.compile(r'(?:^|/)(?:agents?|llms?)(?:\.|/|$)', re.I)
+          findings = []
           for relative in paths:
-              rendered_path = relative.as_posix()
-              if filename_pattern.search(rendered_path):
-                  findings.append(f"filename: {rendered_path}")
+              rendered = relative.as_posix()
+              if filename_pattern.search(rendered):
+                  findings.append(f'filename: {rendered}')
               path = root / relative
-              if not path.exists() or path.name in excluded_names:
-                  continue
-              if path.suffix.lower() not in text_suffixes:
+              if not path.exists() or path.name in lockfiles or path.suffix.lower() not in suffixes:
                   continue
               try:
-                  text = path.read_text(encoding="utf-8")
+                  text = path.read_text(encoding='utf-8')
               except UnicodeDecodeError:
                   continue
               for number, line in enumerate(text.splitlines(), start=1):
-                  if re.search(r"user[- ]?agent", line, re.I):
+                  if re.search(r'user[- ]?agent', line, re.I):
                       continue
                   if any(pattern.search(line) for pattern in patterns):
-                      findings.append(f"{rendered_path}:{number}: {line.strip()}")
-
+                      findings.append(f'{rendered}:{number}: {line.strip()}')
           if findings:
-              print("Remaining production-method traces:")
-              print("\n".join(findings))
-              raise SystemExit(1)
-          print("No production-method traces found in tracked text or filenames.")
-          PY
-
-      - name: Audit raster metadata
-        run: |
-          mapfile -d '' media < <(git ls-files -z -- '*.png' '*.jpg' '*.jpeg' '*.webp' '*.ico')
-          exiftool -json "${media[@]}" > /tmp/media-metadata.json
-          python3 - <<'PY'
-          import json
-          import re
-
-          with open('/tmp/media-metadata.json', encoding='utf-8') as source:
-              records = json.load(source)
-
-          suspicious = re.compile(
-              r'(?i)(?:openai|chatgpt|anthropic|claude|gemini|midjourney|dall.?e|'
-              r'stable\s+diffusion|comfyui|automatic1111|adobe\s+firefly|'
-              r'generative|generated\s+by|\bprompt\b|\bseed\b|\bllm\b|'
-              r'artificial\s+intelligence|intelligence\s+artificielle)'
-          )
-          ignored_keys = {
-              'SourceFile', 'Directory', 'FileName', 'FileSize', 'FileModifyDate',
-              'FileAccessDate', 'FileInodeChangeDate', 'FilePermissions',
-          }
-          findings = []
-          for record in records:
-              source = record.get('SourceFile', '<unknown>')
-              for key, value in record.items():
-                  if key in ignored_keys:
-                      continue
-                  rendered = json.dumps(value, ensure_ascii=False) if not isinstance(value, str) else value
-                  if suspicious.search(rendered):
-                      findings.append(f'{source}: {key}={rendered}')
-
-          if findings:
-              print('Suspicious raster metadata:')
+              print('Remaining traces:')
               print('\n'.join(findings))
               raise SystemExit(1)
-          print('No suspicious raster metadata found.')
+
+          media = [str(path) for path in paths if path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.ico'}]
+          subprocess.run(['exiftool', '-json', *media], check=True, stdout=open('/tmp/metadata.json', 'w', encoding='utf-8'))
+          suspicious = re.compile(
+              r'(?i)(?:openai|chatgpt|anthropic|claude|gemini|midjourney|dall.?e|stable\s+diffusion|comfyui|automatic1111|adobe\s+firefly|generative|generated\s+by|\bprompt\b|\bseed\b|\bllm\b|artificial\s+intelligence|intelligence\s+artificielle)'
+          )
+          ignored = {'SourceFile', 'Directory', 'FileName', 'FileSize', 'FileModifyDate', 'FileAccessDate', 'FileInodeChangeDate', 'FilePermissions'}
+          metadata_findings = []
+          for record in json.load(open('/tmp/metadata.json', encoding='utf-8')):
+              for key, value in record.items():
+                  if key in ignored:
+                      continue
+                  rendered = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
+                  if suspicious.search(rendered):
+                      metadata_findings.append(f"{record.get('SourceFile')}: {key}={rendered}")
+          if metadata_findings:
+              print('Remaining raster metadata traces:')
+              print('\n'.join(metadata_findings))
+              raise SystemExit(1)
+          print('Tracked text, filenames and raster metadata are clean.')
           PY
 
       - name: Verify complete project
@@ -316,32 +271,25 @@ jobs:
       - name: Audit generated outputs
         run: |
           python3 - <<'PY'
-          from __future__ import annotations
-
           import re
           from pathlib import Path
 
-          roots = (Path('site/dist'), Path('docs-nimbus/dist'))
           patterns = (
-              re.compile(r"(?<![\w])(?:IA|AI|LLMs?)(?![\w])"),
-              re.compile(r"intelligence\s+artificielle", re.I),
-              re.compile(r"artificial\s+intelligence", re.I),
-              re.compile(r"machine\s+learning", re.I),
-              re.compile(r"mod[eè]les?\s+de\s+langage", re.I),
-              re.compile(r"large\s+language\s+models?", re.I),
-              re.compile(r"\b(?:OpenAI|ChatGPT|Claude|Gemini|Anthropic|Midjourney|DALL(?:-|·)?E|Stable\s+Diffusion|Copilot)\b", re.I),
-              re.compile(r"llms?\.txt", re.I),
+              re.compile(r'(?<![\w])(?:IA|AI|LLMs?)(?![\w])'),
+              re.compile(r'intelligence\s+artificielle|artificial\s+intelligence', re.I),
+              re.compile(r'machine\s+learning|mod[eè]les?\s+de\s+langage|large\s+language\s+models?', re.I),
+              re.compile(r'\b(?:OpenAI|ChatGPT|Claude|Gemini|Anthropic|Midjourney|DALL(?:-|·)?E|Stable\s+Diffusion|Copilot)\b', re.I),
+              re.compile(r'llms?\.txt', re.I),
           )
-          suffixes = {'.html', '.js', '.json', '.md', '.txt', '.xml'}
           findings = []
-          for root in roots:
+          for root in (Path('site/dist'), Path('docs-nimbus/dist')):
               for path in root.rglob('*'):
                   if not path.is_file():
                       continue
                   relative = path.relative_to(root).as_posix()
-                  if re.search(r"(?:^|/)llms?(?:\.|/|$)", relative, re.I):
+                  if re.search(r'(?:^|/)llms?(?:\.|/|$)', relative, re.I):
                       findings.append(f'{root}/{relative}: filename')
-                  if path.suffix.lower() not in suffixes:
+                  if path.suffix.lower() not in {'.html', '.js', '.json', '.md', '.txt', '.xml'}:
                       continue
                   try:
                       text = path.read_text(encoding='utf-8')
@@ -350,7 +298,7 @@ jobs:
                   if any(pattern.search(text) for pattern in patterns):
                       findings.append(f'{root}/{relative}: content')
           if findings:
-              print('Remaining traces in generated output:')
+              print('Remaining generated-output traces:')
               print('\n'.join(findings))
               raise SystemExit(1)
           print('Generated outputs are clean.')

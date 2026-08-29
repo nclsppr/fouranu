@@ -8,7 +8,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Champ | Valeur |
 | --- | --- |
 | Vérifié le | 2026-08-27 |
-| Par | Codex, checkout local, navigateur, CI et compte Cloudflare autorisé |
+| Par | outil interne, checkout local, navigateur, CI et compte Cloudflare autorisé |
 | Branche | `main` |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |

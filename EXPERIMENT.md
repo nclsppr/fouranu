@@ -50,7 +50,7 @@ ni étoile, ni classement pseudo-scientifique, ni donnée `Review` ou
 - 16 références destinées au lecteur YouTube officiel sont enregistrées dans
   `research/assets.csv`, sans URL de publication ; leur intégration devra être
   revérifiée avant usage. Le propriétaire déclare avoir obtenu l'accord des
-  créateurs du corpus courant pour la réutilisation et les dérivés IA. Aucun
+  créateurs du corpus courant pour la réutilisation et les dérivés éditoriaux. Aucun
   photogramme n'a été extrait ; chaque actif devra encore être rapproché de son
   périmètre exact et de sa preuve privée avant traitement ou publication ;
 - trois familles de décision émergent : taille et débit, énergie et polyvalence,
@@ -74,7 +74,7 @@ d'un partenaire direct.
 - Relever les conditions de mesure, conflits et divergences sans moyenner des
   protocoles incompatibles.
 - Préparer les storyboards à partir des timecodes, puis demander les fichiers
-  sources et les droits avant toute capture ou transformation IA.
+  sources et les droits avant toute capture ou transformation éditoriale.
 - Confirmer les règles et le barème effectif d'au moins un partenaire direct
   pertinent.
 - Relever la concurrence sur dix requêtes commerciales sans confondre présence
@@ -152,7 +152,7 @@ cas de refus doit être approuvée par le réseau concerné avant publication.
   est permise.
 - Lecteurs YouTube officiels, visuels Four à Nu originaux ou dérivés
   expressément autorisés, avec retour vers la preuve complète.
-- Toute illustration IA est déclarée et reste décorative. Elle ne documente
+- Toute illustration éditoriale est déclarée et reste décorative. Elle ne documente
   jamais une performance.
 - Aucun message direct non sollicité, aucune réponse automatique issue d'une
   recherche, aucun faux compte et aucun achat de lien.

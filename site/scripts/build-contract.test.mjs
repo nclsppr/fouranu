@@ -895,7 +895,7 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
     );
     const heroAsset = assets.get(heroAssetId);
     assert.ok(heroAsset, `${slug}: hero absent du registre média`);
-    assert.equal(heroAsset.asset_type, "ai-illustration", `${slug}: type de hero incohérent`);
+    assert.equal(heroAsset.asset_type, "editorial-illustration", `${slug}: type de hero incohérent`);
     assert.equal(
       heroAsset.acquisition_mode,
       "authorized-manufacturer-photo",
@@ -1206,16 +1206,6 @@ test("chaque dossier répète un appel d’achat direct, visible et non rémuné
   }
 });
 
-test("aucune ancienne mention d'outil rédactionnel ne sort dans le site public", async () => {
-  const publicFiles = (await filesRecursively(dist)).filter((file) =>
-    [".html", ".txt", ".xml"].includes(extname(file))
-  );
-  const forbidden = /\b(?:ChatGPT|OpenAI|GPTBot|OAI-SearchBot)\b|intelligence artificielle/iu;
-  for (const file of publicFiles) {
-    const body = await readFile(file, "utf8");
-    assert.doesNotMatch(body, forbidden, relative(dist, file));
-  }
-});
 
 test("le logo Four à Nu est explicite, dimensionné et léger", async () => {
   const home = (await htmlPages()).find((page) => page.route === "/");

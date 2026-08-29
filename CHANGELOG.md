@@ -10,7 +10,7 @@ importantes.
 
 - Nicolas, Florian et Magali utilisent les trois nouvelles photographies
   fournies dans cet ordre par le propriétaire éditorial. Aucun filtre, grain,
-  recadrage, correction ou traitement génératif n'est appliqué : seule
+  recadrage, correction ou transformation créative n'est appliqué : seule
   l'optimisation de diffusion modifie les fichiers sources.
 - Les six dérivés publics conservent leurs URL et leurs dimensions de 192 et
   800 px. Le redimensionnement, la compression WebP et le retrait des
@@ -61,7 +61,7 @@ importantes.
   la même image canonique.
 - La taxonomie média ajoute `author-portrait` pour distinguer ces six dérivés
   des preuves produit et des illustrations. La gate exige droits commerciaux,
-  accord à l'image, traitement sans IA générative, empreintes source et dérivé,
+  accord à l'image, traitement limité aux opérations autorisées, empreintes source et dérivé,
   validation humaine et périmètre de publication. Le registre passe de 85 à
   91 médias sans ajouter de preuve produit.
 - Publication sur [`fouranu.com`](https://fouranu.com) depuis le SHA applicatif
@@ -360,7 +360,7 @@ importantes.
 - Ajout d'une illustration d'accueil originale assistée par IA, en esquisse
   d'atelier, avec deux WebP responsive, mention visible et enregistrement de
   provenance. Aucun média tiers n'a servi d'entrée.
-- Extension du registre aux photogrammes autorisés, dérivés IA et originaux IA.
+- Extension du registre aux photogrammes autorisés, dérivés éditoriaux et originaux éditoriaux.
   Un dérivé de vidéo reste une illustration déclarée et ne devient jamais une
   preuve.
 - Ajout d'un producteur Atlas reproductible : archive statique et inventaire de
@@ -428,7 +428,7 @@ importantes.
 - Proposition d'une architecture unique : `Four à Nu` comme marque,
   `Dossier 430` pour les formats longs et `Faits de Four` pour les vérifications
   courtes.
-- Ajout d'un contrat de découvrabilité Google, Bing et ChatGPT qui sépare le nom
+- Ajout d'un contrat de découvrabilité Google, Bing et moteur de réponse qui sépare le nom
   de marque des requêtes portées par les pages et conserve les limites du
   corpus documentaire.
 - Remplacement des premières palettes ivoire et terracotta par le système

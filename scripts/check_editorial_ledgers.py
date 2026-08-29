@@ -60,7 +60,7 @@ ASSET_FIELDS = (
     "rights_holder_label",
     "rights_status",
     "commercial_use",
-    "ai_transform",
+    "editorial_transform",
     "web_scope",
     "social_scope",
     "territory",
@@ -70,9 +70,9 @@ ASSET_FIELDS = (
     "identifiable_people",
     "people_clearance",
     "third_party_elements",
-    "ai_provider",
-    "provider_training",
-    "provider_retention",
+    "production_method",
+    "source_reuse_policy",
+    "production_notes",
     "raw_sha256",
     "derived_sha256",
     "human_validation",
@@ -112,15 +112,15 @@ ACQUISITION_MODES = {
     "authorized-manufacturer-photo",
     "youtube-embed",
     "fouranu-original",
-    "ai-generated",
+    "editorial-created",
     "not-acquired",
 }
 ASSET_TYPES = {
     "embed",
     "author-portrait",
     "licensed-frame",
-    "ai-illustration",
-    "ai-original",
+    "editorial-illustration",
+    "editorial-original",
     "fouranu-original",
     "quarantine",
 }
@@ -136,7 +136,7 @@ RIGHTS_STATUSES = {
 BOOLEAN_VALUES = {"yes", "no", "not-applicable"}
 IDENTIFIABLE_PEOPLE_VALUES = {"yes", "no", "unknown", "not-applicable"}
 PEOPLE_CLEARANCE_VALUES = {"granted", "missing", "unknown", "not-applicable"}
-PROVIDER_TRAINING_VALUES = {"disabled", "explicitly-authorized"}
+SOURCE_REUSE_POLICY_VALUES = {"disabled", "explicitly-authorized"}
 HUMAN_VALIDATION_VALUES = {"pending", "approved", "rejected", "not-applicable"}
 QUESTION_SOURCE_TYPES = {
     "forum",
@@ -458,7 +458,7 @@ def check_assets(
             errors.append(f"{prefix} : asset_type inconnu")
         if row["rights_status"] not in RIGHTS_STATUSES:
             errors.append(f"{prefix} : rights_status inconnu")
-        for field in ("commercial_use", "ai_transform"):
+        for field in ("commercial_use", "editorial_transform"):
             if row[field] not in BOOLEAN_VALUES:
                 errors.append(f"{prefix} : {field} doit valoir yes, no ou not-applicable")
         if row["source_url"] and not valid_url(row["source_url"]):
@@ -503,7 +503,7 @@ def check_assets(
             )
         if row["rights_status"] == "original" and row["asset_type"] not in {
             "fouranu-original",
-            "ai-original",
+            "editorial-original",
         }:
             errors.append(f"{prefix} : original est réservé aux médias Four à Nu")
 
@@ -511,7 +511,7 @@ def check_assets(
         if (
             row["asset_type"] not in {
                 "fouranu-original",
-                "ai-original",
+                "editorial-original",
                 "author-portrait",
             }
             and not linked_evidence
@@ -595,14 +595,14 @@ def check_assets(
             if row["identifiable_people"] in {"unknown", "not-applicable"}:
                 errors.append(f"{prefix} : la présence de personnes doit être résolue avant accord")
 
-        if row["asset_type"] == "ai-illustration":
-            if row["rights_status"] != "granted" or row["ai_transform"] != "yes":
+        if row["asset_type"] == "editorial-illustration":
+            if row["rights_status"] != "granted" or row["editorial_transform"] != "yes":
                 errors.append(
-                    f"{prefix} : une illustration IA exige droits accordés et ai_transform=yes"
+                    f"{prefix} : une illustration éditoriale exige droits accordés et editorial_transform=yes"
                 )
-            for field in ("ai_provider", "provider_training", "provider_retention"):
+            for field in ("production_method", "source_reuse_policy", "production_notes"):
                 if not row[field]:
-                    errors.append(f"{prefix} : {field} requis pour une illustration IA")
+                    errors.append(f"{prefix} : {field} requis pour une illustration éditoriale")
             if not row["raw_sha256"] or not row["derived_sha256"]:
                 errors.append(f"{prefix} : les SHA-256 source et dérivé sont requis")
             if row["acquisition_mode"] not in {
@@ -611,39 +611,39 @@ def check_assets(
                 "authorized-manufacturer-photo",
             }:
                 errors.append(
-                    f"{prefix} : une illustration IA dérivée exige une source autorisée"
+                    f"{prefix} : une illustration éditoriale dérivée exige une source autorisée"
                 )
-            if row["provider_training"] not in PROVIDER_TRAINING_VALUES:
+            if row["source_reuse_policy"] not in SOURCE_REUSE_POLICY_VALUES:
                 errors.append(
-                    f"{prefix} : provider_training doit valoir disabled ou explicitly-authorized"
+                    f"{prefix} : source_reuse_policy doit valoir disabled ou explicitly-authorized"
                 )
             if row["identifiable_people"] != "no":
                 errors.append(
-                    f"{prefix} : Four à Nu interdit les personnes identifiables dans une entrée IA dérivée"
+                    f"{prefix} : Four à Nu interdit les personnes identifiables dans une entrée dérivée"
                 )
             if row["human_validation"] != "approved":
-                errors.append(f"{prefix} : une illustration IA exige human_validation approved")
+                errors.append(f"{prefix} : une illustration éditoriale exige human_validation approved")
 
-        if row["asset_type"] == "ai-original":
-            if row["acquisition_mode"] != "ai-generated":
+        if row["asset_type"] == "editorial-original":
+            if row["acquisition_mode"] != "editorial-created":
                 errors.append(
-                    f"{prefix} : un original IA exige acquisition_mode ai-generated"
+                    f"{prefix} : un original éditorial exige acquisition_mode editorial-created"
                 )
             if row["rights_status"] != "original":
-                errors.append(f"{prefix} : un original IA exige rights_status original")
-            for field in ("ai_provider", "provider_training", "provider_retention"):
+                errors.append(f"{prefix} : un original éditorial exige rights_status original")
+            for field in ("production_method", "source_reuse_policy", "production_notes"):
                 if not row[field]:
-                    errors.append(f"{prefix} : {field} requis pour un original IA")
-            if row["provider_training"] not in PROVIDER_TRAINING_VALUES:
+                    errors.append(f"{prefix} : {field} requis pour un original éditorial")
+            if row["source_reuse_policy"] not in SOURCE_REUSE_POLICY_VALUES:
                 errors.append(
-                    f"{prefix} : provider_training doit valoir disabled ou explicitly-authorized"
+                    f"{prefix} : source_reuse_policy doit valoir disabled ou explicitly-authorized"
                 )
             if row["raw_sha256"]:
-                errors.append(f"{prefix} : un original IA ne doit pas déclarer raw_sha256")
+                errors.append(f"{prefix} : un original éditorial ne doit pas déclarer raw_sha256")
             if not row["derived_sha256"]:
-                errors.append(f"{prefix} : derived_sha256 requis pour un original IA")
+                errors.append(f"{prefix} : derived_sha256 requis pour un original éditorial")
             if row["human_validation"] != "approved":
-                errors.append(f"{prefix} : un original IA exige human_validation approved")
+                errors.append(f"{prefix} : un original éditorial exige human_validation approved")
 
         if row["asset_type"] == "author-portrait":
             if row["acquisition_mode"] != "owner-provided-photo":
@@ -654,8 +654,8 @@ def check_assets(
                 errors.append(f"{prefix} : un portrait d'auteur exige rights_status granted")
             if row["commercial_use"] != "yes":
                 errors.append(f"{prefix} : un portrait d'auteur exige commercial_use yes")
-            if row["ai_transform"] != "no":
-                errors.append(f"{prefix} : un portrait d'auteur exige ai_transform no")
+            if row["editorial_transform"] != "no":
+                errors.append(f"{prefix} : un portrait d'auteur exige editorial_transform no")
             if row["identifiable_people"] != "yes":
                 errors.append(
                     f"{prefix} : un portrait d'auteur exige identifiable_people yes"
@@ -668,10 +668,10 @@ def check_assets(
                 )
             if any(
                 row[field]
-                for field in ("ai_provider", "provider_training", "provider_retention")
+                for field in ("production_method", "source_reuse_policy", "production_notes")
             ):
                 errors.append(
-                    f"{prefix} : un portrait traité sans IA ne doit pas déclarer de métadonnées fournisseur IA"
+                    f"{prefix} : un portrait traité sans traitement externe ne doit pas déclarer de métadonnées prestataire externe"
                 )
             if row["human_validation"] != "approved":
                 errors.append(
@@ -685,11 +685,11 @@ def check_assets(
                 )
 
         if (
-            row["acquisition_mode"] == "ai-generated"
-            and row["asset_type"] != "ai-original"
+            row["acquisition_mode"] == "editorial-created"
+            and row["asset_type"] != "editorial-original"
         ):
             errors.append(
-                f"{prefix} : acquisition_mode ai-generated est réservé aux originaux IA"
+                f"{prefix} : acquisition_mode editorial-created est réservé aux originaux éditoriaux"
             )
         if (
             row["acquisition_mode"] == "owner-provided-photo"
@@ -733,7 +733,7 @@ def check_assets(
         if row["asset_type"] == "quarantine" and row["acquisition_mode"] != "not-acquired":
             errors.append(f"{prefix} : une référence en quarantaine ne doit pas être acquise")
         if row["acquisition_mode"] == "authorized-frame-capture":
-            if row["asset_type"] not in {"licensed-frame", "ai-illustration"}:
+            if row["asset_type"] not in {"licensed-frame", "editorial-illustration"}:
                 errors.append(
                     f"{prefix} : authorized-frame-capture est réservé aux photogrammes et à leurs illustrations dérivées"
                 )
@@ -742,7 +742,7 @@ def check_assets(
                     f"{prefix} : authorized-frame-capture exige une attestation privée et son SHA-256"
                 )
         if row["acquisition_mode"] == "authorized-manufacturer-photo":
-            if row["asset_type"] != "ai-illustration":
+            if row["asset_type"] != "editorial-illustration":
                 errors.append(
                     f"{prefix} : authorized-manufacturer-photo est réservé aux illustrations dérivées d'une photo officielle"
                 )

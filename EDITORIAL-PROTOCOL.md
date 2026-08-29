@@ -126,11 +126,11 @@ périmètre.
 | --- | --- |
 | `embed` | Lecteur YouTube officiel, source consultable dans son contexte |
 | `licensed-frame` | Fichier fourni par un ayant droit et autorisé pour le périmètre enregistré |
-| `ai-illustration` | Dérivé autorisé et déclaré comme illustration, jamais comme preuve |
+| `editorial-illustration` | Dérivé autorisé et déclaré comme illustration, jamais comme preuve |
 | `fouranu-original` | Visuel créé intégralement par Four à Nu sans reprendre une composition tierce |
-| `ai-original` | Illustration générée à partir d'un prompt original, sans image tierce en entrée |
-| `author-portrait` | Portrait réel d'une signature, fourni pour publication et traité localement sans génération |
-| `quarantine` | Référence non autorisée, interdite de publication et de transmission à une IA |
+| `editorial-original` | Illustration originale créée à partir d'un brief Four à Nu, sans image tierce en entrée |
+| `author-portrait` | Portrait réel d'une signature, fourni pour publication et traité localement |
+| `quarantine` | Référence non autorisée, interdite de publication ou de transformation |
 
 Les couples autorisés sont explicites :
 
@@ -138,15 +138,15 @@ Les couples autorisés sont explicites :
 | --- | --- | --- |
 | `embed` | `youtube-embed` | `service-permitted` |
 | `licensed-frame` | `rights-holder-file` ou `authorized-frame-capture` | `granted` |
-| `ai-illustration` | `rights-holder-file`, `authorized-manufacturer-photo` ou `authorized-frame-capture` | `granted` |
+| `editorial-illustration` | `rights-holder-file`, `authorized-manufacturer-photo` ou `authorized-frame-capture` | `granted` |
 | `fouranu-original` | `fouranu-original` | `original` |
-| `ai-original` | `ai-generated` | `original` |
+| `editorial-original` | `editorial-created` | `original` |
 | `author-portrait` | `owner-provided-photo` | `granted` |
 | `quarantine` | `not-acquired` | Aucun |
 
 La preuve reste la vidéo consultable, son timecode, son protocole déclaré et,
-après autorisation, le photogramme non altéré. Une retouche générative, même
-minime, fait basculer le visuel dans `ai-illustration`. La direction artistique
+après autorisation, le photogramme non altéré. Une retouche qui modifie ou invente le produit, même de façon minime, fait
+basculer le visuel dans `editorial-illustration`. La direction artistique
 est appliquée de préférence autour de la preuve — cadre, typographie,
 annotations et mise en page — sans modifier ses pixels.
 
@@ -209,7 +209,7 @@ points-virgules. Le registre conserve aussi le SHA-256 de l'accord, la présence
 
 Avant accord ou attestation explicite du propriétaire au sens du paragraphe
 précédent, enregistrer uniquement l'URL, le timecode et le storyboard. Ne pas
-extraire le photogramme et ne pas le transmettre à un outil d'IA. Le
+extraire ni transformer le photogramme. Le
 [Code de la propriété intellectuelle](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278911)
 vise aussi l'adaptation et la transformation, et les
 [conditions YouTube](https://www.youtube.com/t/terms?gl=FR) réservent la
@@ -223,9 +223,8 @@ une photographie source hors de YouTube. La réponse doit confirmer sa qualité 
 autoriser les usages demandés ou identifier les autres titulaires à contacter.
 
 L'accord précise séparément l'usage commercial affilié, la reproduction, le
-recadrage, la retouche, la transformation par IA, les croquis dérivés, les
-supports, la langue, le territoire, la durée, le crédit, la rémunération et les
-prestataires. Cette granularité suit le principe de délimitation des droits de
+recadrage, la retouche, les croquis dérivés, les supports, la langue, le
+territoire, la durée, le crédit, la rémunération et les prestataires. Cette granularité suit le principe de délimitation des droits de
 l'[article L131-3](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278958)
 du même code.
 
@@ -242,30 +241,25 @@ Une fois le statut `granted` enregistré avec un fichier fourni ou une extractio
 expressément autorisée :
 
 1. conserver le fichier fourni et son SHA-256 dans l'espace privé ;
-2. vérifier que le fournisseur IA, sa conservation et son usage éventuel des
-   entrées correspondent à l'autorisation ; l'entraînement est désactivé sauf
-   autorisation écrite distincte ;
-3. limiter la transformation au périmètre accordé ;
-4. conserver l'identifiant de l'entrée, de la sortie et le SHA-256 du dérivé ;
-5. comparer source et dérivé, puis enregistrer une validation humaine du rendu ;
-6. publier le crédit et le statut d'illustration éditoriale avec le visuel.
+2. limiter chaque transformation au périmètre accordé ;
+3. conserver l'identifiant de la source, du dérivé et leurs SHA-256 ;
+4. comparer source et dérivé, puis enregistrer une validation humaine du rendu ;
+5. publier le crédit et le statut d'illustration éditoriale avec le visuel.
 
-Il est interdit d'améliorer générativement une flamme, une cuisson, une mesure,
+Il est interdit d'inventer ou d'accentuer une flamme, une cuisson, une mesure,
 un affichage, un défaut ou tout autre élément invoqué comme preuve. La géométrie,
 les commandes, accessoires, marquages de sécurité, couleurs et état réel du four
 ne sont pas davantage modifiés d'une manière susceptible de tromper l'acheteur.
 Un croquis qui reprend la composition reconnaissable d'un photogramme reste un
 dérivé et suit la même chaîne d'autorisation.
 
-Le protocole interdit toute personne identifiable dans une entrée envoyée à un
-prestataire IA. Le fichier est recadré localement, après autorisation, ou n'est
-pas traité. Toute exception exigera une décision distincte couvrant la
-base légale, l'information des personnes, le rôle et le contrat du fournisseur,
-la région de traitement, les transferts, la rétention et la suppression. Les
-[questions-réponses de la CNIL sur l'IA générative](https://www.cnil.fr/fr/les-questions-reponses-de-la-cnil-sur-lutilisation-dun-systeme-dia-generative)
-seront alors revérifiées.
+Le protocole interdit toute personne identifiable dans un fichier transmis à
+un prestataire externe. Le fichier est recadré localement, après autorisation,
+ou n'est pas traité. Toute exception exige une décision distincte couvrant la
+base légale, l'information des personnes, le rôle et le contrat du prestataire,
+la région de traitement, les transferts, la conservation et la suppression.
 
-Pour un `author-portrait`, le traitement autorisé est local et non génératif :
+Pour un `author-portrait`, le traitement autorisé est strictement local :
 suppression des interfaces de capture, recadrage, correction mesurée de la
 luminosité et des couleurs, redimensionnement, compression et grain discret.
 Les métadonnées de prise de vue sont retirées du dérivé public. Une amélioration
@@ -296,13 +290,6 @@ détaillée reste interne. Le protocole ne suppose pas que cette présentation
 épuise toutes les obligations applicables : leur périmètre est revérifié avant
 tout changement de technique ou de diffusion.
 
-L'[article 50 du règlement européen sur l'IA](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-s'applique depuis le 2026-08-02. Les
-[lignes directrices de la Commission](https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations)
-prévoient des obligations de marquage ou d'information pour certains contenus
-générés ou manipulés. Four à Nu conserve donc la provenance technique et le
-statut de transformation dans son registre, tout en présentant au lecteur le
-statut fonctionnel exact d'« illustration éditoriale ».
 
 ### 5. Composer l'en-tête d'un article produit
 

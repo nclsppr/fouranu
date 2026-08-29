@@ -66,7 +66,7 @@ class EditorialLedgerTests(unittest.TestCase):
                 "asset_type": "embed",
                 "rights_status": "service-permitted",
                 "commercial_use": "not-applicable",
-                "ai_transform": "not-applicable",
+                "editorial_transform": "not-applicable",
                 "publication_url": "https://example.test/article",
                 "checked_on": date.today().isoformat(),
             }
@@ -84,7 +84,7 @@ class EditorialLedgerTests(unittest.TestCase):
                 "acquisition_mode": acquisition_mode,
                 "rights_status": "granted",
                 "commercial_use": "yes",
-                "ai_transform": "no",
+                "editorial_transform": "no",
                 "rights_holder_label": "Example Studio",
                 "web_scope": "https://example.test",
                 "territory": "world",
@@ -119,12 +119,12 @@ class EditorialLedgerTests(unittest.TestCase):
         row = self.granted_frame_asset(acquisition_mode)
         row.update(
             {
-                "asset_type": "ai-illustration",
+                "asset_type": "editorial-illustration",
                 "acquisition_mode": acquisition_mode,
-                "ai_transform": "yes",
-                "ai_provider": "Example AI",
-                "provider_training": "disabled",
-                "provider_retention": "zero days",
+                "editorial_transform": "yes",
+                "production_method": "Example production",
+                "source_reuse_policy": "disabled",
+                "production_notes": "zero days",
                 "derived_sha256": "b" * 64,
                 "human_validation": "approved",
             }
@@ -141,7 +141,7 @@ class EditorialLedgerTests(unittest.TestCase):
                 "rights_holder_label": "Four à Nu - fichier fourni pour publication",
                 "rights_status": "granted",
                 "commercial_use": "yes",
-                "ai_transform": "no",
+                "editorial_transform": "no",
                 "web_scope": "https://example.test",
                 "territory": "Monde",
                 "valid_from": date.today().isoformat(),
@@ -163,14 +163,14 @@ class EditorialLedgerTests(unittest.TestCase):
         row.update(
             {
                 "asset_id": "AS-0001",
-                "acquisition_mode": "ai-generated",
-                "asset_type": "ai-original",
+                "acquisition_mode": "editorial-created",
+                "asset_type": "editorial-original",
                 "rights_status": "original",
                 "commercial_use": "yes",
-                "ai_transform": "not-applicable",
-                "ai_provider": "Example AI",
-                "provider_training": "disabled",
-                "provider_retention": "zero days",
+                "editorial_transform": "not-applicable",
+                "production_method": "Example production",
+                "source_reuse_policy": "disabled",
+                "production_notes": "zero days",
                 "derived_sha256": "b" * 64,
                 "human_validation": "approved",
                 "publication_url": "https://example.test/article",
@@ -390,14 +390,14 @@ class EditorialLedgerTests(unittest.TestCase):
                 "acquisition_mode": "rights-holder-file",
                 "rights_status": "original",
                 "commercial_use": "no",
-                "ai_transform": "yes",
+                "editorial_transform": "yes",
                 "identifiable_people": "no",
                 "people_clearance": "not-applicable",
                 "raw_sha256": "",
                 "derived_sha256": "",
-                "ai_provider": "Example AI",
-                "provider_training": "disabled",
-                "provider_retention": "zero days",
+                "production_method": "Example production",
+                "source_reuse_policy": "disabled",
+                "production_notes": "zero days",
                 "human_validation": "pending",
                 "publication_url": "https://example.test/images/articles/camille.webp",
             }
@@ -408,11 +408,11 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertIn("exige acquisition_mode owner-provided-photo", joined)
         self.assertIn("exige rights_status granted", joined)
         self.assertIn("exige commercial_use yes", joined)
-        self.assertIn("exige ai_transform no", joined)
+        self.assertIn("exige editorial_transform no", joined)
         self.assertIn("exige identifiable_people yes", joined)
         self.assertIn("exige people_clearance granted", joined)
         self.assertIn("exige les SHA-256 source et dérivé", joined)
-        self.assertIn("ne doit pas déclarer de métadonnées fournisseur IA", joined)
+        self.assertIn("ne doit pas déclarer de métadonnées prestataire externe", joined)
         self.assertIn("exige human_validation approved", joined)
         self.assertIn("doit être publié sous /images/authors/", joined)
 
@@ -459,9 +459,9 @@ class EditorialLedgerTests(unittest.TestCase):
             {
                 "acquisition_mode": "not-acquired",
                 "rights_status": "granted",
-                "ai_provider": "",
-                "provider_training": "",
-                "provider_retention": "",
+                "production_method": "",
+                "source_reuse_policy": "",
+                "production_notes": "",
                 "raw_sha256": "a" * 64,
                 "derived_sha256": "",
                 "human_validation": "pending",
@@ -470,11 +470,11 @@ class EditorialLedgerTests(unittest.TestCase):
         errors: list[str] = []
         ledger.check_assets([row], set(), errors)
         joined = "\n".join(errors)
-        self.assertIn("acquisition_mode ai-generated", joined)
+        self.assertIn("acquisition_mode editorial-created", joined)
         self.assertIn("rights_status original", joined)
-        self.assertIn("ai_provider requis", joined)
-        self.assertIn("provider_training requis", joined)
-        self.assertIn("provider_retention requis", joined)
+        self.assertIn("production_method requis", joined)
+        self.assertIn("source_reuse_policy requis", joined)
+        self.assertIn("production_notes requis", joined)
         self.assertIn("ne doit pas déclarer raw_sha256", joined)
         self.assertIn("derived_sha256 requis", joined)
         self.assertIn("human_validation approved", joined)
@@ -483,11 +483,11 @@ class EditorialLedgerTests(unittest.TestCase):
         row = self.embed_asset()
         row.update(
             {
-                "asset_type": "ai-illustration",
+                "asset_type": "editorial-illustration",
                 "acquisition_mode": "not-acquired",
                 "rights_status": "granted",
                 "commercial_use": "yes",
-                "ai_transform": "yes",
+                "editorial_transform": "yes",
                 "rights_holder_label": "Example Studio",
                 "web_scope": "no",
                 "territory": "world",
@@ -497,9 +497,9 @@ class EditorialLedgerTests(unittest.TestCase):
                 "identifiable_people": "unknown",
                 "people_clearance": "unknown",
                 "third_party_elements": "unknown",
-                "ai_provider": "Example AI",
-                "provider_training": "disabled",
-                "provider_retention": "zero days",
+                "production_method": "Example production",
+                "source_reuse_policy": "disabled",
+                "production_notes": "zero days",
                 "raw_sha256": "a" * 64,
                 "derived_sha256": "b" * 64,
                 "human_validation": "pending",
@@ -529,7 +529,7 @@ class EditorialLedgerTests(unittest.TestCase):
                 "acquisition_mode": "rights-holder-file",
                 "rights_status": "granted",
                 "commercial_use": "yes",
-                "ai_transform": "no",
+                "editorial_transform": "no",
                 "rights_holder_label": "Example Studio",
                 "web_scope": "https://example.test",
                 "territory": "world",

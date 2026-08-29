@@ -246,7 +246,7 @@ et le chemin GitHub Actions qui ne peut l'envoyer qu'après la gate `Verify`.
 - croire qu'un clic vaut consentement ;
 - charger un tiers avant le choix du visiteur ;
 - laisser une page `noindex` entrer dans le sitemap public ;
-- confondre autorisation d'un média et autorisation de sa transformation par IA.
+- confondre autorisation d'un média et autorisation de sa transformation éditoriale.
 
 ### Critère de sortie
 

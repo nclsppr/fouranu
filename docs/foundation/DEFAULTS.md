@@ -92,7 +92,7 @@ Un nouveau projet doit trancher explicitement :
 - exigences de disponibilité, sauvegarde, restauration et observabilité ;
 - matrice de tests ;
 - design system et contraintes de marque ;
-- licence, droits sur les données et usages de l'IA ;
+- licence, droits sur les données et transformations autorisées ;
 - propriétaire et procédure d'escalade.
 
 ## D08. Documentation navigable

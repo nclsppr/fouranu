@@ -357,7 +357,7 @@ importantes.
 - Extension du contrat SEO : 22 URL explicitement éligibles au build de
   production, 404 seule hors index, RSS, `llms.txt`, canonicals, dates,
   données structurées `Article`, `Organization`, `ProfilePage` et fils d'Ariane.
-- Ajout d'une illustration d'accueil originale assistée par IA, en esquisse
+- Ajout d'une illustration d'accueil originale, en esquisse
   d'atelier, avec deux WebP responsive, mention visible et enregistrement de
   provenance. Aucun média tiers n'a servi d'entrée.
 - Extension du registre aux photogrammes autorisés, dérivés éditoriaux et originaux éditoriaux.
@@ -403,9 +403,9 @@ importantes.
 - Adoption historique d'une Saison 0 documentaire, désormais remplacée comme
   autorité courante par le modèle permanent de l'ADR-0002.
 - Ajout d'une taxonomie de preuve, de registres vérifiés et d'une barrière de
-  droits avant extraction, traitement IA ou publication d'un visuel tiers.
+  droits avant extraction, transformation ou publication d'un visuel tiers.
 - Ajout d'un modèle de demande d'autorisation couvrant l'usage commercial,
-  l'IA, les dérivés, les supports, la durée et l'attribution.
+  les transformations, les dérivés, les supports, la durée et l'attribution.
 - Ajout d'une vérification locale des preuves privées, d'une garde contre leur
   commit et de tests adversariaux sur les registres de preuve et de droits.
 - Priorisation d'Ooni avec un inventaire daté des neuf fours France et une carte

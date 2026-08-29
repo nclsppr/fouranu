@@ -6,3 +6,5 @@ node_modules/
 dist/
 coverage/
 research/private/
+__pycache__/
+*.py[cod]

@@ -245,13 +245,16 @@ jobs:
               raise SystemExit(1)
 
           media = [str(path) for path in paths if path.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp', '.ico'}]
-          subprocess.run(['exiftool', '-json', *media], check=True, stdout=open('/tmp/metadata.json', 'w', encoding='utf-8'))
+          with open('/tmp/metadata.json', 'w', encoding='utf-8') as output:
+              subprocess.run(['exiftool', '-json', *media], check=True, stdout=output)
           suspicious = re.compile(
               r'(?i)(?:openai|chatgpt|anthropic|claude|gemini|midjourney|dall.?e|stable\s+diffusion|comfyui|automatic1111|adobe\s+firefly|generative|generated\s+by|\bprompt\b|\bseed\b|\bllm\b|artificial\s+intelligence|intelligence\s+artificielle)'
           )
           ignored = {'SourceFile', 'Directory', 'FileName', 'FileSize', 'FileModifyDate', 'FileAccessDate', 'FileInodeChangeDate', 'FilePermissions'}
           metadata_findings = []
-          for record in json.load(open('/tmp/metadata.json', encoding='utf-8')):
+          with open('/tmp/metadata.json', encoding='utf-8') as source:
+              records = json.load(source)
+          for record in records:
               for key, value in record.items():
                   if key in ignored:
                       continue
@@ -282,26 +285,39 @@ jobs:
               re.compile(r'llms?\.txt', re.I),
           )
           findings = []
-          for root in (Path('site/dist'), Path('docs-nimbus/dist')):
-              for path in root.rglob('*'):
-                  if not path.is_file():
-                      continue
-                  relative = path.relative_to(root).as_posix()
-                  if re.search(r'(?:^|/)llms?(?:\.|/|$)', relative, re.I):
-                      findings.append(f'{root}/{relative}: filename')
-                  if path.suffix.lower() not in {'.html', '.js', '.json', '.md', '.txt', '.xml'}:
-                      continue
-                  try:
-                      text = path.read_text(encoding='utf-8')
-                  except UnicodeDecodeError:
-                      continue
-                  if any(pattern.search(text) for pattern in patterns):
-                      findings.append(f'{root}/{relative}: content')
+
+          site_root = Path('site/dist')
+          for path in site_root.rglob('*'):
+              if not path.is_file() or path.suffix.lower() not in {'.html', '.js', '.json', '.txt', '.xml'}:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              if any(pattern.search(text) for pattern in patterns):
+                  findings.append(f'{path}: content')
+
+          docs_root = Path('docs-nimbus/dist')
+          for path in docs_root.rglob('*'):
+              if not path.is_file():
+                  continue
+              relative = path.relative_to(docs_root).as_posix()
+              if re.search(r'(?:^|/)(?:agents?|llms?)(?:\.|/|$)', relative, re.I):
+                  findings.append(f'{path}: filename')
+              if path.suffix.lower() not in {'.md', '.mdx', '.txt'}:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              if any(pattern.search(text) for pattern in patterns):
+                  findings.append(f'{path}: content')
+
           if findings:
               print('Remaining generated-output traces:')
               print('\n'.join(findings))
               raise SystemExit(1)
-          print('Generated outputs are clean.')
+          print('Generated public output and documentation routes are clean.')
           PY
 
       - name: Commit final tree

@@ -1,0 +1,76 @@
+name: Audit assistance traces
+
+on:
+  push:
+    branches:
+      - chore/remove-ai-mentions
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-assistance-traces
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Find textual traces
+        shell: bash
+        run: |
+          set +e
+          pattern='(^|[^[:alnum:]_])(IA|AI|LLM|LLMs|agent|agents|assistant|assistants)([^[:alnum:]_]|$)|intelligence[[:space:]]+artificielle|artificial[[:space:]]+intelligence|machine[[:space:]]+learning|mod[eè]le(s)?[[:space:]]+de[[:space:]]+langage|large[[:space:]]+language[[:space:]]+model|OpenAI|ChatGPT|Claude|Gemini|Anthropic|Midjourney|DALL.?E|Stable[[:space:]]+Diffusion|Copilot|prompt|g[eé]n[eé]rati(f|ve|fs|ves)|llms\.txt'
+          git grep -nIiE "$pattern" -- . \
+            ':!*.lock' \
+            ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.webp' ':!*.ico' \
+            ':!.github/workflows/audit-assistance-traces.yml' || true
+
+      - name: Inspect raster metadata
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libimage-exiftool-perl
+          mapfile -d '' media < <(git ls-files -z -- '*.png' '*.jpg' '*.jpeg' '*.webp' '*.ico')
+          if (( ${#media[@]} == 0 )); then
+            echo 'No raster media found.'
+            exit 0
+          fi
+          exiftool -json "${media[@]}" > /tmp/media-metadata.json
+          python3 - <<'PY'
+          import json
+          import re
+
+          with open('/tmp/media-metadata.json', encoding='utf-8') as source:
+              records = json.load(source)
+
+          suspicious = re.compile(
+              r'(?i)(?:openai|chatgpt|anthropic|claude|gemini|midjourney|dall.?e|'
+              r'stable\s+diffusion|comfyui|automatic1111|adobe\s+firefly|'
+              r'generative|generated\s+by|\bprompt\b|\bseed\b|\bllm\b|'
+              r'artificial\s+intelligence|intelligence\s+artificielle)'
+          )
+          ignored_keys = {
+              'SourceFile', 'Directory', 'FileName', 'FileSize', 'FileModifyDate',
+              'FileAccessDate', 'FileInodeChangeDate', 'FilePermissions',
+          }
+          findings = []
+          for record in records:
+              source = record.get('SourceFile', '<unknown>')
+              for key, value in record.items():
+                  if key in ignored_keys:
+                      continue
+                  rendered = json.dumps(value, ensure_ascii=False) if not isinstance(value, str) else value
+                  if suspicious.search(rendered):
+                      findings.append(f'{source}: {key}={rendered}')
+
+          if findings:
+              print('Suspicious raster metadata:')
+              print('\n'.join(findings))
+          else:
+              print('No suspicious raster metadata found.')
+          PY

@@ -15,7 +15,7 @@ le justifie.
 | Supports | `[site, newsletter, comptes sociaux nommés]` |
 | Territoire et langues | `[par exemple monde, français]` |
 | Durée | `[date de début et date de fin]` |
-| Prestataire IA | `[nom, conservation et entraînement des entrées]` |
+| Prestataire de transformation | `[nom et conditions de traitement]` |
 | Personnes visibles | `[aucune, ou autorisations supplémentaires nécessaires]` |
 | Éléments tiers | `[musique, décor, œuvre, marque ou aucun identifié]` |
 | Crédit proposé | `[nom, chaîne et lien]` |
@@ -43,17 +43,17 @@ exclusive limitée aux usages cochés ci-dessous :
 
 - `[oui/non]` reproduire et afficher le fichier fourni sur `[supports]` ;
 - `[oui/non]` recadrer, redimensionner et corriger légèrement la colorimétrie ;
-- `[oui/non]` transmettre le fichier à `[prestataire IA]` selon les conditions
-  de conservation et d'entraînement suivantes : `[conditions]` ;
-- `[oui/non]` créer et publier une variante assistée par IA ;
+- `[oui/non]` transmettre le fichier à `[prestataire de transformation]` selon
+  les conditions suivantes : `[conditions]` ;
+- `[oui/non]` créer et publier une variante éditoriale dérivée ;
 - `[oui/non]` créer et publier un croquis ou une illustration dérivée ;
 - `[oui/non]` utiliser ces éléments dans une page contenant des liens affiliés ;
 - `[oui/non]` relayer la page et les visuels sur `[comptes sociaux]`.
 
 Périmètre proposé : `[territoire]`, en `[langues]`, du `[début]` au `[fin]`,
 `[gratuitement/contre rémunération précisée]`. Crédit affiché : `[crédit exact]`.
-Les visuels assistés par IA seront signalés comme tels et ne seront jamais
-présentés comme la preuve d'une expérience réalisée par Four à Nu. `[Vous pourrez/devrez]`
+Les visuels dérivés seront présentés comme des illustrations et ne seront
+jamais utilisés comme preuve d'une expérience réalisée par Four à Nu. `[Vous pourrez/devrez]`
 valider le rendu final avant publication.
 
 Pouvez-vous également confirmer :
@@ -68,9 +68,9 @@ Pouvez-vous également confirmer :
 4. les contraintes à respecter pour le produit, les marques, le cadrage ou la
    transformation.
 
-Four à Nu n'enverra aucune personne identifiable à un prestataire IA durant cette
-phase. Si le fichier en contient, merci de confirmer si un recadrage local est
-autorisé ; à défaut, le fichier restera exclu du traitement IA.
+Four à Nu n'enverra aucune personne identifiable à un prestataire externe
+durant cette phase. Si le fichier en contient, merci de confirmer si un
+recadrage local est autorisé ; à défaut, le fichier restera exclu du traitement.
 
 Une absence de réponse ne sera pas considérée comme une autorisation. Le fichier
 et les échanges resteront privés ; seul le périmètre de l'autorisation sera

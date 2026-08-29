@@ -65,7 +65,7 @@ code, de la configuration et d'une vérification réelle.
 - [`DESIGN.md`](DESIGN.md) : direction visuelle, tokens, accessibilité et budgets du site.
 - [`BRAND-SEO.md`](BRAND-SEO.md) : marque, découvrabilité et premières URL.
 - [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) : corpus produit et ordre éditorial.
-- [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) : preuves, droits, IA et barrière de publication.
+- [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) : preuves, droits et barrière de publication.
 - [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) : contrôle SEO bloquant appliqué à chaque article avant indexation.
 - [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) : modèle du corpus documentaire actuel et indexation.
 - [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) : programme futur d'essais et couverture progressive du marché.
@@ -78,7 +78,7 @@ code, de la configuration et d'une vérification réelle.
 - [`FOUNDATION.md`](FOUNDATION.md) : release, pack, profils et dérogations.
 - [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) : catalogue généré des Markdown.
 - `docs-nimbus/` : documentation interne obligatoire, distincte du site public.
-- [`AGENTS.md`](AGENTS.md) : règles locales d'intervention.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) : règles locales d'intervention.
 - [`CHANGELOG.md`](CHANGELOG.md) : changements livrés et impact observable.
 
 Ce README oriente. Il ne duplique ni l'état courant, ni la roadmap, ni le

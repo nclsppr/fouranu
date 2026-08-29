@@ -39,7 +39,7 @@
       "id": "nimbus-maintenance",
       "title": "Maintenance Nimbus",
       "visibility": "reference",
-      "include": ["docs-nimbus/AGENT.md"]
+      "include": ["docs-nimbus/MAINTENANCE.md"]
     }
   ],
   "ignored": [

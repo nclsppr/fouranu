@@ -53,9 +53,9 @@ avec leurs incertitudes.
 - publier un site, des liens affiliés ou une automatisation X ;
 - produire en masse des pages ou des domaines ;
 - présenter des spécifications fabricant comme des tests indépendants ;
-- présenter une mesure tierce, une capture ou une illustration IA comme une
-  preuve de première main ;
-- extraire un photogramme YouTube ou le transmettre à une IA avant la chaîne
+- présenter une mesure tierce, une capture ou une illustration éditoriale
+  comme une preuve de première main ;
+- extraire ou transformer un photogramme YouTube avant la chaîne
   d'autorisation décrite dans `EDITORIAL-PROTOCOL.md` ;
 - garantir un revenu, une position Google ou une date de rentabilité.
 
@@ -70,7 +70,6 @@ avec leurs incertitudes.
 | Fait | YouTube autorise son lecteur embarqué mais ne donne pas par défaut le droit d'extraire, reproduire ou transformer un photogramme hors des fonctions du service. | [Conditions YouTube](https://www.youtube.com/t/terms?gl=FR), vérifiées le 2026-08-18 |
 | Fait | En droit français, le principe d'autorisation couvre aussi l'adaptation et la transformation ; une licence doit délimiter les usages accordés. | [CPI L122-4](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278911) et [CPI L131-3](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278958), vérifiés le 2026-08-18 |
 | Fait | Google demande qu'une synthèse de sources ajoute une valeur substantielle et réserve les recommandations de type « meilleur » à des preuves de première main. | [Contenu utile](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) et [avis de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews), vérifiés le 2026-08-18 |
-| Fait | L'article 50 du règlement européen sur l'IA s'applique depuis le 2026-08-02 et impose des obligations de transparence pour certains contenus générés ou manipulés. | [Commission européenne](https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations), vérifiée le 2026-08-18 |
 | Hypothèse | Des amateurs exigeants utiliseront un sélecteur fondé sur des mesures plutôt qu'un comparatif générique. | Tester avec les phases 1 et 2 de `EXPERIMENT.md` |
 | Hypothèse | Une synthèse documentaire structurée peut résoudre des décisions d'achat avant l'accès aux fours, malgré un plafond SEO inférieur à une preuve de première main. | Tester la Saison 0 et la compréhension des labels de provenance |
 | Hypothèse | Un accès réaliste à plusieurs fours permettra ensuite de produire des mesures, images et essais originaux. | Confirmer prêts, locations ou partenariats avant toute revendication `J-TEST` |

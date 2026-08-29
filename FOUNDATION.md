@@ -82,7 +82,7 @@ Les règles locales vivent dans leur document naturel. Cette table les référen
 | Question et conclusion de l'exploration d'origine | `BRIEF.md`, historique |
 | Faisabilité et décision stratégique | `FEASIBILITY.md` |
 | Expérience et critères de sortie | `EXPERIMENT.md` |
-| Sources, droits, IA et publication | `EDITORIAL-PROTOCOL.md` |
+| Sources, droits et publication | `EDITORIAL-PROTOCOL.md` |
 | Contrôle SEO bloquant avant indexation | `docs/SEO-PUBLICATION-GATE.md` |
 | Demande d'autorisation visuelle | `PERMISSION-TEMPLATE.md` |
 | Modèle du corpus documentaire actuel | `docs/decisions/0002-media-documentaire-permanent.md` |

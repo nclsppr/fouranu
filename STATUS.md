@@ -8,7 +8,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Champ | Valeur |
 | --- | --- |
 | Vérifié le | 2026-08-27 |
-| Par | Codex, checkout local, navigateur, CI et compte Cloudflare autorisé |
+| Par | outil interne, checkout local, navigateur, CI et compte Cloudflare autorisé |
 | Branche | `main` |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
@@ -55,9 +55,9 @@ chevauchement, ni débordement, ni message console.
 
 Les trois nouvelles photographies carrées fournies par le propriétaire
 éditorial servent respectivement Nicolas, Florian et Magali. Les dérivés ne
-reçoivent ni filtre, ni grain, ni correction, ni recadrage, ni traitement
-génératif : seuls le redimensionnement, la compression WebP et le retrait des
-métadonnées sont appliqués. Les JPEG sources restent privés et hors Git.
+reçoivent aucun filtre, grain, correction, recadrage ou changement de contenu :
+seuls le redimensionnement, la compression WebP et le retrait des métadonnées
+sont appliqués. Les JPEG sources restent privés et hors Git.
 
 Les mêmes six URL servent des versions 192 et 800 px dont le poids cumulé passe
 de 193 974 à 145 488 octets, soit 25 % de moins. Chaque fichier ne contient

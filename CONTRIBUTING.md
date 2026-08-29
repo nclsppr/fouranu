@@ -1,6 +1,6 @@
-# AGENTS.md
+# Contribuer à Four à Nu
 
-Adaptateur local pour toute intervention assistée sur Four à Nu. Le socle
+Guide local pour toute contribution à Four à Nu. Le socle
 épinglé vit dans [`FOUNDATION.md`](FOUNDATION.md) et sous `docs/foundation/`.
 
 ## Ordre de lecture

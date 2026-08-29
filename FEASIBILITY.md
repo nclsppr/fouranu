@@ -34,7 +34,7 @@ Pour la première tranche, l'utilisateur est un amateur francophone exigeant qui
 3. des mesures tierces attribuées et contextualisées, sans moyenner des
    protocoles incompatibles ;
 4. des lecteurs source, des visuels autorisés ou originaux, et des illustrations
-   IA clairement séparées de la preuve ;
+   éditoriales clairement séparées de la preuve ;
 5. les limites, pièces, garantie et coût total ;
 6. plusieurs options marchandes, identifiées comme rémunérées lorsqu'elles le sont.
 
@@ -48,10 +48,9 @@ classements pseudo-scientifiques et données structurées d'avis.
 | Option | Potentiel | Faiblesse principale | Décision |
 | --- | --- | --- | --- |
 | Plusieurs micro-sites SEO affiliés | Beaucoup de surfaces théoriques | Chaque domaine repart de zéro et pousse vers des gabarits pauvres ou du contenu à grande échelle | Rejetée au lancement |
-| Un magazine de guides d'achat | Simple à publier | Facilement remplaçable par un marchand, un grand média ou une réponse IA | Insuffisante seule |
+| Un magazine de guides d'achat | Simple à publier | Facilement remplaçable par un marchand, un grand média ou une réponse automatique | Insuffisante seule |
 | Un média documentaire traçable | Corpus vérifiable, outils de décision, publication régulière et mesure de la demande | Dépendance à la qualité, la diversité et la pérennité des sources | Recommandé comme produit permanent |
-| Un bot X de prospection | Distribution automatique apparente | Non conforme s'il répond à des recherches ou posts non sollicités | Rejetée |
-| Un assistant X invoqué par mention | Intention explicite et réponse ciblée | Coût, approbations et audience encore inconnus | À tester plus tard, avec validation humaine |
+| Prospection automatisée sur X | Distribution automatique apparente | Non conforme si elle répond à des recherches ou posts non sollicités | Rejetée |
 | Génération de prospects professionnels | Valeur possible sur des achats de plusieurs milliers d'euros | Barème et partenaires non négociés | Deuxième monétisation à valider |
 
 Un second domaine ne sera envisagé qu'après six mois de contribution positive du premier et uniquement pour une audience, une promesse et une capacité de preuve réellement distinctes.
@@ -62,7 +61,9 @@ Un second domaine ne sera envisagé qu'après six mois de contribution positive 
 
 L'affiliation n'est pas interdite. Les [politiques antispam de Google](https://developers.google.com/search/docs/essentials/spam-policies) distinguent les bons sites affiliés, avec essais et comparaisons originaux, des affiliés pauvres qui recopient les marchands. Les mêmes politiques couvrent les pages satellites et le contenu créé à grande échelle pour manipuler les résultats, y compris lorsqu'il est réparti sur plusieurs domaines.
 
-Google autorise l'assistance par IA, mais sa [documentation sur le contenu génératif](https://developers.google.com/search/docs/fundamentals/using-gen-ai-content) demande exactitude, pertinence et valeur. Son [guide pour les fonctions de recherche générative](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) privilégie le contenu non interchangeable et l'expérience directe. Pour les avis, Google recommande des mesures, preuves visuelles, avantages, défauts et comparaisons dans son [guide des avis de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews).
+Pour les avis, Google recommande des mesures, des preuves visuelles, des
+avantages, des défauts et des comparaisons dans son
+[guide des avis de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews).
 
 Une analyse documentaire peut être utile si elle normalise les conditions,
 montre les contradictions, réalise des calculs reproductibles et aide à une
@@ -75,15 +76,19 @@ n'emploie ni note, ni étoile, ni données structurées `Review` ou
 
 Les liens rémunérés doivent porter `rel="sponsored"` selon la [documentation des liens sortants](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links).
 
-Le SEO reste lent et non garanti. Il subit aussi une pression de clic : une [étude Pew sur des utilisateurs américains en mars 2025](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/) a observé un clic vers un résultat dans 8 % des visites avec résumé IA contre 15 % sans résumé. Cette étude ne mesure ni la France ni la niche pizza, mais elle renforce le besoin d'outils, de données et d'une audience directe.
+Le SEO reste lent et non garanti. Four à Nu doit donc construire des outils
+utiles, des données vérifiables et une audience directe plutôt que dépendre
+d'un seul canal d'acquisition.
 
 ### X
 
 Les [règles d'automatisation X](https://help.x.com/en/rules-and-policies/x-automation?lang=browser) interdisent une réponse automatique fondée sur une simple recherche de mots-clés. Suivre le compte ou utiliser un hashtag ne vaut pas consentement. Une réponse unique peut être possible après mention explicite du compte, avec possibilité d'arrêt. Les [directives développeur X](https://docs.x.com/developer-guidelines) donnent comme cas acceptable une recommandation de produit demandée, et comme spam une réponse non sollicitée contenant des liens affiliés.
 
-Une réponse entièrement générée par IA ou une campagne commerciale automatisée nécessite les approbations prévues par X. Au lancement, Four à Nu utilisera donc des réponses humaines. Un futur assistant devra être invoqué explicitement, répondre une seule fois, déclarer son automatisation et l'affiliation, employer l'API officielle et obtenir les accords écrits applicables.
+Au lancement, Four à Nu répond uniquement de façon humaine et manuelle. Toute
+évolution de la distribution sur X devra respecter l'API officielle, les règles
+de consentement, la déclaration de l'affiliation et les accords applicables.
 
-### Sources YouTube, photogrammes et IA
+### Sources YouTube et photogrammes
 
 Les vidéos de test peuvent alimenter la recherche documentaire. Chaque mesure
 reste attribuée au testeur, avec modèle, conditions,
@@ -109,20 +114,15 @@ l'exception de courte citation : une image décorative, un hero ou un croquis
 dérivé n'est pas nécessairement justifié par la critique du passage précis.
 
 L'autorisation doit couvrir séparément la reproduction, l'usage commercial et
-affilié, la retouche, le traitement par le prestataire IA, les dérivés, les
-supports, le territoire, la durée, le crédit et la rémunération. L'accord de la
+affilié, la retouche, les dérivés, les supports, le territoire, la durée, le
+crédit et la rémunération. L'accord de la
 chaîne peut ne pas couvrir le producteur, le cadreur, les personnes visibles, la
 musique ou les œuvres présentes dans le décor. La chaîne de droits est donc
 enregistrée avant traitement, pas seulement avant publication.
 
-Une image générativement améliorée ou un croquis dérivé est une illustration,
-jamais une preuve de cuisson, de flamme, de température ou de défaut. L'original
-autorisé et son SHA-256 sont conservés séparément. Depuis le 2026-08-02,
-l'[article 50 du règlement européen sur l'IA](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-et les
-[lignes directrices de la Commission](https://digital-strategy.ec.europa.eu/en/policies/guidelines-ai-transparency-obligations)
-renforcent la transparence applicable à certains contenus générés ou manipulés.
-Four à Nu déclare systématiquement les visuels assistés par IA.
+Une image retouchée ou un croquis dérivé reste une illustration, jamais une
+preuve de cuisson, de flamme, de température ou de défaut. L'original autorisé
+et son SHA-256 sont conservés séparément.
 
 Le protocole opérationnel, ses registres vérifiés et le modèle de demande vivent dans
 [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) et
@@ -226,8 +226,8 @@ Lancer l'expérience décrite dans [`EXPERIMENT.md`](EXPERIMENT.md), avec ces in
 - aucun avis, note, étoile, classement pseudo-scientifique, `Review` ou
   `AggregateRating` ;
 - toute page produit présentée comme une analyse documentaire attribuée ;
-- aucune capture ou transformation IA avant autorisation couvrant cet usage ;
-- aucune illustration IA utilisée comme preuve ;
+- aucune capture ou transformation éditoriale avant autorisation couvrant cet usage ;
+- aucune illustration éditoriale utilisée comme preuve ;
 - aucun bot de prospection ;
 - Amazon comme complément, pas comme dépendance unique ;
 - un partenaire direct avant mise à l'échelle ;

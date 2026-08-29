@@ -2,8 +2,8 @@
 
 Cette checklist s'applique à chaque article de Four à Nu. Elle protège la
 qualité éditoriale, la séparation entre sources, synthèses et inférences, ainsi
-que la lisibilité du site pour Google, Bing et les assistants qui citent des
-pages publiques. Les contrôles transversaux du rendu, des métadonnées, des
+que la lisibilité du site pour Google, Bing et les autres surfaces de
+recherche qui citent des pages publiques. Les contrôles transversaux du rendu, des métadonnées, des
 icônes et du partage s'appliquent aussi à chaque page structurelle incluse dans
 le candidat.
 
@@ -123,8 +123,8 @@ tranches séparées.
   ambition future seulement si le même bloc visible indique que le corpus
   actuel reste documentaire et qu'aucun essai Four à Nu n'est encore publié.
 - [ ] Les photos, captures et illustrations disposent d'une autorisation ou
-  d'une licence vérifiable avant toute publication. Une transformation par IA
-  ne remplace pas cette autorisation.
+  d'une licence vérifiable avant toute publication. Une transformation ne
+  remplace pas cette autorisation.
 
 ## 6. Valeur originale et langage
 
@@ -267,7 +267,6 @@ structurées, le manifeste et le partage ont été revérifiées le 25 août 202
 - [Google Search Central, rédiger des avis de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews)
 - [Google Search Essentials, règles concernant le spam](https://developers.google.com/search/docs/essentials/spam-policies)
 - [Bing Webmaster Guidelines](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a)
-- [Bing Webmaster Tools, AI Performance](https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c)
 - [Open Graph protocol](https://ogp.me/)
 - [W3C, Web Application Manifest](https://www.w3.org/TR/appmanifest/)
 - [W3C, Web Share API](https://www.w3.org/TR/web-share/)

@@ -239,7 +239,7 @@ le projet crée des produits téléchargeables ou imprimés.
 
 Source méthodologique : [recherche de marque INPI](https://www.inpi.fr/ressources/propriete-intellectuelle/rechercher-une-marque-base-marques).
 
-## Contrat SEO et visibilité IA
+## Contrat SEO et visibilité
 
 Le nom ne compensera jamais une preuve faible. Four à Nu conserve une séparation
 permanente entre donnée fabricant, mesure ou observation tierce, synthèse
@@ -295,20 +295,12 @@ Sources : [contenu utile Google](https://developers.google.com/search/docs/funda
 - relier le sitemap depuis `robots.txt` ;
 - connecter Google Search Console et Bing Webmaster Tools après publication ;
 - envoyer les créations, mises à jour et suppressions à IndexNow ;
-- autoriser Googlebot, Bingbot et `OAI-SearchBot` sur les contenus publics ;
-- décider séparément de GPTBot, qui concerne l'entraînement et non l'éligibilité
-  aux réponses de recherche ChatGPT.
 
-OpenAI indique que `OAI-SearchBot` sert à faire apparaître des sites dans les
-fonctionnalités de recherche de ChatGPT et que son réglage est indépendant de
-GPTBot. Bing indique que les mêmes fondations de crawl, d'indexation, de clarté,
-d'autorité et de structure servent la recherche classique, Copilot et les
-citations de grounding. Bing recommande aussi IndexNow pour signaler rapidement
-les changements.
+Bing recommande de conserver des fondations de crawl, d'indexation, de clarté,
+d'autorité et de structure solides. IndexNow peut signaler rapidement les
+changements aux moteurs compatibles.
 
-Sources : [robots OpenAI](https://developers.openai.com/api/docs/bots),
-[règles Bing Webmaster](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a),
-[IndexNow dans Bing](https://www.bing.com/webmasters/help/indexnow-0z209wby).
+Source : [IndexNow dans Bing](https://www.bing.com/webmasters/help/indexnow-0z209wby).
 
 Ces mesures rendent les pages explorables et éligibles. Elles ne garantissent ni
 classement, ni citation, ni trafic.

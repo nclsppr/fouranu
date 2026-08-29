@@ -69,7 +69,7 @@ n'autorise pas à créer, déployer, effectuer la rotation ou révoquer un secre
 
 ## Vérification
 
-- `AGENTS.md` référence cette décision et impose la coordination.
+- `CONTRIBUTING.md` référence cette décision et impose la coordination.
 - `documentation.json` classe cette ADR dans la collection `decisions`.
 - Le catalogue documentaire et la commande `./scripts/verify.sh` restent
   valides.

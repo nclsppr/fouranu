@@ -25,8 +25,8 @@ Chaque nouvel article produit et chaque révision éditoriale substantielle :
 2. transforme cette source dans le système visuel Four à Nu sans modifier
    la géométrie, les commandes, les couleurs, les accessoires ou les marquages
    du produit ;
-3. présente le résultat comme une « illustration éditoriale », sans citer dans
-   la copie publique l'outil de production ou l'assistant rédactionnel ;
+3. présente le résultat comme une « illustration éditoriale », sans détailler
+   dans la copie publique son processus interne de production ;
 4. place seulement ensuite les photographies en situation, photogrammes et
    autres vues documentaires, stylisés ou non selon leurs droits ;
 5. répond d'abord à la question d'achat en mots courants, traduit le jargon et

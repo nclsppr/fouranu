@@ -135,7 +135,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique et candidat éditorial autorisé | Build, service local et production | `site/`, 40 pages HTML dans le candidat dont quatre guides et un hub accessoires publiables et indexables ; production exacte dans `STATUS.md` |
+| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique | Build, service local et production | `site/`, 40 pages HTML dont quatre guides et un hub accessoires publics et indexables ; production exacte dans `STATUS.md` |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -173,7 +173,7 @@ explicite avant son lancement.
 | Dépendance | Usage prévu | Données transmises | État et mode d'échec |
 | --- | --- | --- | --- |
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
-| Marchands et programmes partenaires | Liens fabricants directs ; liens Amazon.fr attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | L’affiliation Amazon est autorisée, intégrée et déclarée dans le candidat ; les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
+| Marchands et programmes partenaires | Liens fabricants directs ; liens Amazon.fr attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | L’affiliation Amazon est autorisée, publique et déclarée ; les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
 | Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |

@@ -6,11 +6,11 @@ importantes.
 
 ## Non publié
 
-## 2026-08-30 - Quatre guides accessoires autorisés à la publication
+## 2026-08-30 - Quatre guides accessoires publiés
 
-- Le candidat ajoute un hub `/accessoires-pizza/` et quatre guides sur la pelle
+- Le site ajoute un hub `/accessoires-pizza/` et quatre guides sur la pelle
   à pizza, les ciseaux à pizza, le thermomètre infrarouge et les bacs à pâtons.
-  Les cinq routes sont publiables et indexables ; l'artefact attendu contient
+  Les cinq routes sont publiques et indexables ; l'artefact contient
   39 URL dans le sitemap, 23 entrées RSS et 23 images d'article indexables.
 - Chaque guide compare quatre produits commandables sur Amazon.fr lors de la
   vérification du 30 août 2026. Les seize destinations du catalogue sont
@@ -45,7 +45,25 @@ importantes.
   seize nouveaux WebP possèdent leur URL de publication. Le site construit 40
   pages et ses 20 contrats sont verts. Le propriétaire a donné son feu vert
   explicite au paquet exact, à son indexation, au push sur `main` et au
-  déploiement ; la preuve CI et la vérification publique restent à consigner.
+  déploiement.
+- Le SHA applicatif `cdda6ea5031ece85df4bd12e611b39b1ce8f60c1` est publié par
+  le [run GitHub Actions `33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810),
+  vert pour `verify` et `deploy-cloudflare`. `/release.json`, les cinq routes,
+  les seize WebP, les 58 liens Amazon, les quatre favicons versionnées et leurs
+  replis ont été contrôlés sur `fouranu.com`.
+- Le domaine public sert 39 URL de sitemap, 23 entrées RSS et 23 images de
+  sitemap. La revue navigateur à 360 et 1 280 px ne relève ni débordement, ni
+  image cassée, ni erreur console. Les quatre guides sont marqués « Publié » et
+  leurs déclarations Amazon sont visibles.
+- L'audit des images produit confirme que les vignettes Amazon ne peuvent être
+  ajoutées que comme Contenu du Programme fourni par SiteStripe ou Creators API,
+  servi par Amazon, lié au produit et non transformé. Aucun fichier Amazon n'est
+  téléchargé, mis en cache, committé ou envoyé à une IA dans cette tranche ; une
+  future activation devra aussi réviser la promesse « aucun appel avant clic ».
+- Les dates visibles et structurées restent factuelles : dix-neuf dossiers ont
+  été publiés le 24 août 2026 et les quatre guides accessoires le 30 août. Elles
+  ne sont pas antidatées au hasard ; une variation de mise en avant relève d'un
+  ordre éditorial distinct.
 
 ## 2026-08-27 - Portraits auteur remplacés sans retouche
 

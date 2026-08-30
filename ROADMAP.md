@@ -182,9 +182,10 @@ livré :
   l’ancienne image sous les URL remplacées en place.
 - [x] Préparer des URL versionnées pour le favicon SVG, l’icône Apple et les
   icônes PWA tout en conservant les anciennes URL comme replis compatibles.
-- [ ] Après autorisation et déploiement du candidat, vérifier les nouveaux
-  actifs publics puis demander une réindexation unique de l’accueil dans Search
-  Console ; le rafraîchissement du résultat Google reste asynchrone.
+- [x] Après autorisation et déploiement du candidat, vérifier les nouvelles URL
+  de favicon et d'icônes sur le domaine public.
+- [ ] Demander une réindexation unique de l’accueil dans Search Console ; le
+  rafraîchissement du résultat Google reste asynchrone et non garanti.
 - [x] Remplacer les trois signatures sans biographie par des profils individuels
   factuels, relier chaque dossier à son auteur et conserver une attribution
   équilibrée et stable dans les frontmatters.
@@ -231,6 +232,16 @@ livré :
 - [x] Faire relire les quatre guides et valider humainement leurs visuels, puis
   obtenir le feu vert explicite du propriétaire sur le paquet exact avant leur
   passage en `publishable`, leur indexation et leur livraison.
+- [ ] Si des vignettes exactes restent nécessaires pour reconnaître les seize
+  produits, obtenir leurs blocs image officiels avec SiteStripe ou leur URL via
+  Creators API. Ne jamais télécharger, mettre en cache ou transformer ces images ;
+  renouveler les URL API au plus tard sous 24 heures, faire accepter une nouvelle
+  décision sur l'appel réseau Amazon avant le clic, puis adapter confidentialité,
+  registres, tests et retrait des contenus expirés.
+- [x] Conserver les dates de publication réelles : dix-neuf dossiers ont été
+  publiés le 24 août 2026 et les quatre guides accessoires le 30 août 2026.
+  L'ordre éditorial peut varier séparément, mais `publishedAt` et `updatedAt` ne
+  sont jamais antidatés pour simuler un historique.
 - [ ] Étendre ensuite les dossiers seulement quand une question et des preuves
   suffisantes le justifient : pelle de rotation et balance précise restent les
   prochains sujets envisagés.

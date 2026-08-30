@@ -8,8 +8,8 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Champ | Valeur |
 | --- | --- |
 | Vérifié le | 2026-08-30 |
-| Par | checkout local pour le candidat accessoires ; CI, navigateur et compte Cloudflare autorisé pour la production consignée |
-| Branche | `codex/accessoires-amazon-fr` pour le candidat local ; `main` pour la production |
+| Par | checkout de livraison, CI du SHA exact, sondes HTTP et navigateur sur le domaine public |
+| Branche | `main` pour la production ; préparation conservée sur `codex/accessoires-amazon-fr` |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche post-V1 publiée | SHA applicatif `eb12619007191c82d963017f598b462ca54bdc51` ; [run GitHub Actions `32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541) vert pour `Verify` et `deploy-cloudflare` |
@@ -24,16 +24,16 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Portraits auteur publiés | SHA applicatif `6922c478743764574eed6080294d255f0c4d8170` ; [run GitHub Actions `33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546) vert pour `Verify` et `deploy-cloudflare` |
 | Images de tête dégagées publiées | SHA livré `2c087e39f3009f5aa7f6e853baa846f78c87b32a` ; [run GitHub Actions `33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492) vert pour `Verify` et `deploy-cloudflare` |
 | Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
-| Paquet accessoires autorisé | Quatre guides et un hub publiables/indexables, affiliation Amazon `fouranu-21` déclarée, seize WebP approuvés et feu vert explicite du propriétaire ; livraison publique à vérifier |
+| Guides accessoires et affiliation Amazon publiés | SHA applicatif `cdda6ea5031ece85df4bd12e611b39b1ce8f60c1` ; [run GitHub Actions `33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Paquet accessoires autorisé à la publication
+## Guides accessoires publiés
 
-Le candidat local ajoute quatre guides documentaires : pelle à pizza, ciseaux
+La production ajoute quatre guides documentaires : pelle à pizza, ciseaux
 à pizza, thermomètre infrarouge et bacs à pâtons. Chacun compare quatre produits
 qui étaient commandables sur Amazon.fr lors de la vérification du 30 août 2026.
 Les seize destinations Amazon du catalogue portent l’identifiant partenaire
-`fouranu-21` dans le candidat. Les articles déclarent la rémunération possible
+`fouranu-21`. Les articles déclarent la rémunération possible
 et rappellent que prix, vendeur et stock peuvent changer.
 
 Le tirage d'auteur a été réalisé une fois puis enregistré dans les contenus :
@@ -43,26 +43,28 @@ essais Four à Nu. Quatre compositions de tête et quatre planches comparatives
 sont des illustrations génériques originales, déclinées en seize WebP et
 rattachées au registre média.
 
-Le build local contient désormais 40 pages HTML : les 35 surfaces déjà
-publiques, quatre guides accessoires et leur hub. Les cinq nouvelles routes
-sont indexables, les guides portent `status: publishable`, le sitemap contient
-39 URL, le RSS 23 entrées et le sitemap d'images 23 visuels. Les registres
-comptent 205 preuves, 66 questions et 107 entrées média.
+La production contient désormais 40 pages HTML : les 35 surfaces précédentes,
+quatre guides accessoires et leur hub. Les cinq nouvelles routes sont
+indexables, les guides portent `status: publishable`, le sitemap contient 39
+URL, le RSS 23 entrées et le sitemap d'images 23 visuels. Les registres comptent
+205 preuves, 66 questions et 107 entrées média.
 
 Le propriétaire a explicitement autorisé le paquet exact, son indexation, son
 push sur `main` et son déploiement le 30 août 2026. Une seconde passe des huit
 compositions originales ne relève ni marque, ni copie Amazon, ni modèle
 commercial exact ; les seize dérivés WebP sont `approved` et possèdent leur URL
-de publication. La CI du SHA livré et les sondes publiques restent à acquérir.
+de publication.
 
 La gate complète `./scripts/verify.sh` est verte le 30 août 2026 : 32 tests de
 registres, 20 contrats du site, 40 pages Astro, contrôle Cloudflare à sec et
-Nimbus passent ensemble. La revue navigateur mobile des appels Amazon et du
-cas mixte Halo Core / Halo Pro ne montre ni débordement ni erreur console.
+Nimbus passent ensemble. Le run `33319240810` vérifie puis déploie l'artefact du
+SHA exact. `/release.json`, les cinq routes, les seize WebP, les liens Amazon et
+les métadonnées ont été sondés publiquement ; la revue navigateur à 360 et
+1 280 px ne montre ni débordement, ni image cassée, ni erreur console.
 
-## Affiliation Amazon et cache favicon prêts à livrer
+## Affiliation Amazon et favicons versionnées publiques
 
-Le candidat transforme les URL Amazon visibles au rendu, sans modifier les URL
+La production transforme les URL Amazon visibles au rendu, sans modifier les URL
 canoniques de `research/evidence.csv` ni leur copie applicative. Les seize ASIN
 du catalogue reçoivent `tag=fouranu-21`. Le lien court Halo Pro fourni par le
 propriétaire, `https://amzn.to/4y8lFcC`, redirige vers l’ASIN `B0FPXDMSFZ` avec
@@ -71,20 +73,17 @@ ce même tag ; Halo Core conserve sa destination fabricant Ooni. Le build compte
 portent toutes `rel="sponsored external noopener"` et une annonce d’affiliation
 à proximité. Aucun script, prix automatique ou pixel Amazon n’est chargé.
 
-L’audit de production a retrouvé les mêmes octets pour le favicon SVG, le repli
-ICO, l’icône Apple, les icônes PWA et le manifeste dans le checkout,
-`origin/main`, le build et `fouranu.com`. Le service favicon de Google renvoie
-pourtant encore l’ancien pictogramme noir et blanc, alors que l’URL publique sert
-le nouveau four orange. Un client utilisant l’agent Safari reçoit également le
-bon fichier ; le cache persistant connu de Safari est donc le diagnostic le plus
-probable chez le propriétaire. Aucun élément ne met en cause Cloudflare ou le
-déploiement actuel.
+Le domaine sert désormais `/favicon-fouranu-v2.svg`,
+`/apple-touch-icon-v2.png` et les deux icônes PWA versionnées avec leur type MIME
+attendu. L'accueil référence ces URL ; les anciennes icônes et `/favicon.ico`
+restent disponibles en repli. Leurs octets ont été rapprochés du checkout.
 
-Le candidat déclare désormais `/favicon-fouranu-v2.svg`,
-`/apple-touch-icon-v2.png` et les deux icônes PWA versionnées. Les anciennes URL
-et `/favicon.ico` restent présentes en repli. Rien de cela n’est encore public :
-après un éventuel déploiement autorisé et vérifié, l’accueil devra être soumis
-une fois à l’inspection d’URL Google, sans promettre un rafraîchissement immédiat.
+Le service favicon de Google renvoyait encore l’ancien pictogramme noir et blanc
+avant cette publication, alors que les actifs publics historiques contenaient
+déjà le nouveau four orange. Les nouvelles URL sortent des caches remplacés en
+place, mais l’accueil doit encore être soumis une fois à l’inspection d’URL
+Google. Le délai de rafraîchissement de Safari et des résultats Google reste
+externe, asynchrone et non garanti.
 
 ## Images de tête dégagées publiées
 
@@ -338,22 +337,21 @@ quatre médias nouveaux, les 25 URL du sitemap et les treize entrées RSS.
 
 ## Résumé
 
-Four à Nu sert publiquement un média statique de 35 pages HTML. Sa V1 et ses
-tranches éditoriales et techniques sont publiques sur `fouranu.com`. Le site propose
-dix-neuf guides :
-onze guides de fours ou d'énergie Ooni, une comparaison de pétrins Ooni et sept
-guides Gozney. Les registres comptent 168 preuves, 66 questions et 91 médias.
-Aucun JavaScript client n'est nécessaire au contenu. Un module progressif révèle
+Four à Nu sert publiquement un média statique de 40 pages HTML. Sa V1 et ses
+tranches éditoriales et techniques sont publiques sur `fouranu.com`. Le site
+propose vingt-trois guides : onze guides de fours ou d'énergie Ooni, une
+comparaison de pétrins Ooni, sept guides Gozney et quatre guides accessoires.
+Les registres comptent 205 preuves, 66 questions et 107 entrées média. Aucun
+JavaScript client n'est nécessaire au contenu. Un module progressif révèle
 seulement les capacités natives de partage et de copie disponibles. Le build de
-preview reste en `noindex` et la production ouvre 34 URL dans le sitemap.
+preview reste en `noindex` et la production ouvre 39 URL dans le sitemap.
 
-Le candidat autorisé porte ce build à 40 pages avec un hub et quatre guides
-accessoires publiables et indexables. Il compte 205 preuves et 107 entrées média ;
-le sitemap candidat contient 39 URL, le RSS 23 entrées et le sitemap d'images 23
-visuels. La page d’accueil donne accès à ce rayon, et les dix-neuf dossiers
-historiques portent 31 liens contextuels vers les guides qui répondent réellement
-à leur passage. Quatre planches génériques illustrent en plus les familles
-d’objets comparées dans les guides, sans reprendre d’image Amazon.fr.
+Le rayon accessoires réunit un hub et quatre guides publics. La page d’accueil
+y donne accès, et les dix-neuf dossiers historiques portent 31 liens contextuels
+vers les guides qui répondent réellement à leur passage. Quatre compositions de
+tête et quatre planches génériques illustrent les familles d’objets comparées,
+sans reprendre d’image Amazon.fr. Le RSS contient 23 entrées et le sitemap
+d'images 23 visuels.
 
 L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
 8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
@@ -370,9 +368,9 @@ l'acier et la grille, avec deux oranges accessibles à la place du bleu.
 Cloudflare Workers Static Assets sert la production. GitHub Actions construit
 puis transmet l'artefact exact produit par `Verify`, sans second build dans le
 job de déploiement. Le domaine personnalisé, le DNS, HTTPS et l'indexation sont
-actifs. Le contrôle public a retrouvé dans `/release.json` le SHA de la tranche
-applicative la plus récente, qui dégage les images de tête et raccourcit leur
-crédit visible.
+actifs. Le contrôle public a retrouvé dans `/release.json` le SHA applicatif
+`cdda6ea5031ece85df4bd12e611b39b1ce8f60c1`, qui publie le rayon accessoires,
+l'affiliation Amazon et les favicons versionnées.
 
 La tranche post-V1 couvre les signatures Nicolas, Florian et Magali, une photo
 documentaire pour chacun des onze dossiers, une mise en page plus dense et des
@@ -395,15 +393,14 @@ provenance utile, sans retirer les crédits documentaires détaillés. Les quatr
 premiers dossiers accessoires répondent chacun à une question d'achat et
 possèdent leurs sources, leurs liens affiliés déclarés, leur accès depuis la page
 d’accueil et leurs visuels originaux de tête et de comparaison. Leur paquet
-exact est validé et autorisé ; la CI et la vérification publique restent à
-acquérir avant de les déclarer livrés.
+exact est validé, autorisé, déployé et vérifié publiquement.
 
 ## Phases actives
 
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
 | F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
-| F02, corpus documentaire publiable | `in_progress` | Dix-neuf guides publics ; quatre guides accessoires publiables, visuellement approuvés et autorisés ; pages de confiance, provenance et politique de correction | CI et contrôle public du paquet accessoires ; cinq sessions restent à mener, avec dérogation déjà accordée pour la V1 publique | nclsppr |
+| F02, corpus documentaire publiable | `in_progress` | Vingt-trois guides publics ; paquet accessoires visuellement approuvé, autorisé et vérifié ; pages de confiance, provenance et politique de correction | Cinq sessions restent à mener, avec dérogation déjà accordée pour la V1 publique | nclsppr |
 | F03, candidat Cloudflare | `done` | Paquet approuvé, preuves privées, gate locale, CI du même SHA et environnement GitHub protégé | Aucune pour la V1 | nclsppr |
 | F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
 | F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
@@ -411,22 +408,21 @@ acquérir avant de les déclarer livrés.
 
 ## Livré et vérifié en production
 
-Le tableau suivant décrit uniquement la production. Le paquet accessoires
-local documenté ci-dessus n'en fait pas encore partie.
+Le tableau suivant décrit uniquement la production.
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
-| Application Astro | 35 pages HTML statiques ; contenu indépendant du seul module progressif de partage | `site/`, dix-neuf tests de contrat, run `33094600492` et contrôle public | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
-| Guides | Douze guides Ooni et sept guides Gozney sous des routes par marque | `site/src/content/analyses/` et `site/src/pages/[brand]/` | Les prochains dossiers exigent leur propre recherche et publication |
-| Profils auteur | Un annuaire, trois profils photographiques et une attribution stable de 7/6/6 dossiers ; une bulle exacte sur chacun des dix-neuf articles | `ProfilePage`/`Person`, run `33091288546` et contrôle public | Les fichiers source restent volontairement privés et hors Git |
-| Provenance | 168 preuves, 66 questions et 91 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
+| Application Astro | 40 pages HTML statiques ; contenu indépendant du seul module progressif de partage | `site/`, vingt tests de contrat, run `33319240810` et contrôle public | Les prochains dossiers restent une tranche séparée jusqu'à leur propre publication |
+| Guides | Douze guides Ooni, sept guides Gozney et quatre guides accessoires sous des routes thématiques | `site/src/content/analyses/`, run `33319240810` et cinq routes accessoires sondées | Les prochains dossiers exigent leur propre recherche et publication |
+| Profils auteur | Un annuaire, trois profils photographiques et une attribution stable de 9/7/7 dossiers ; une bulle exacte sur chacun des vingt-trois articles | `ProfilePage`/`Person`, contrats du build et contrôle public | Les fichiers source restent volontairement privés et hors Git |
+| Provenance | 205 preuves, 66 questions et 107 entrées média | `research/` et contrôles de registre | Les preuves privées restent volontairement hors CI et Git |
 | Accueil éditorial | Composition responsive issue du prototype et contenu réel | Contrats du build et revue navigateur | Les photos restent attribuées à leurs sources et ne deviennent pas des tests Four à Nu |
-| Images de tête | Une attribution courte sous la une et chacun des dix-neuf visuels, sans superposition | Registre média, run `33094600492`, sondes des dix-neuf routes et revue mobile publique | Les crédits détaillés des vues documentaires restent dans le corps des dossiers |
-| Identité | Logo optimisé, four compact, favicon SVG et icônes 180/192/512 px | `DESIGN.md`, `BRAND-SEO.md`, `AS-1002`, run `32886732924` et sondes publiques | La marque compacte reste réservée aux surfaces d'identité |
-| SEO conditionnel | RSS, robots, sitemap texte et image, canonicals, aperçus sociaux et données structurées | Build normal, build opt-in, 34 URL et 19 images contrôlées localement puis publiquement | L'affichage d'une miniature, l'exploration et le classement ne sont pas garantis |
-| Partage | Feuille native progressive, WhatsApp, e-mail et copie sur les 34 pages canoniques | Contrat du build et revue navigateur locale puis publique | Les destinations proposées dépendent du navigateur, du système et des applications installées |
+| Images de tête | Une attribution courte sous la une et chacun des vingt-trois visuels, sans superposition | Registre média, seize nouveaux WebP sondés octet pour octet et revue mobile publique | Les crédits détaillés des vues documentaires restent dans le corps des dossiers |
+| Identité | Logo optimisé, four compact, favicon SVG et icônes 180/192/512 px avec URL versionnées | `DESIGN.md`, `BRAND-SEO.md`, `AS-1002`, run `33319240810` et six sondes publiques | La marque compacte reste réservée aux surfaces d'identité ; les caches Google et Safari restent externes |
+| SEO conditionnel | RSS, robots, sitemap texte et image, canonicals, aperçus sociaux et données structurées | Build normal, build opt-in, 39 URL et 23 images contrôlées localement puis publiquement | L'affichage d'une miniature, l'exploration et le classement ne sont pas garantis |
+| Partage | Feuille native progressive, WhatsApp, e-mail et copie sur les 39 pages canoniques | Contrat du build et revue navigateur locale puis publique | Les destinations proposées dépendent du navigateur, du système et des applications installées |
 | Parcours local | Service statique avec healthcheck | `compose.yaml` | Aucun preview partagé |
-| Production Cloudflare | Artefact SEO, profils, portraits, images dégagées, partage et favicon servi par Workers Static Assets sur le domaine personnalisé | Run `33094600492`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
+| Production Cloudflare | Artefact SEO, profils, guides accessoires, affiliation déclarée, partage et favicons servi par Workers Static Assets sur le domaine personnalisé | Run `33319240810`, `/release.json` et contrôles HTTP | Le retour arrière vise le précédent déploiement d'un SHA vérifié |
 | Documentation interne | Nimbus reste séparé du site public | `docs-nimbus/` et catalogue | Le build Cloudflare pointe uniquement vers `site/dist/` |
 
 ## Revue d'interface SEO du 2026-08-25
@@ -464,13 +460,13 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
 | Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
 | Graphe CI | `deploy-cloudflare` dépend de `verify`, sur `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` ; il télécharge l'artefact exact construit par `verify` |
-| CI publique | Runs applicatifs successifs consignés ci-dessus ; la livraison applicative la plus récente, [`33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492), est verte pour `Verify` et `deploy-cloudflare`. Chaque déploiement livre l'artefact exact construit par son job `verify` |
+| CI publique | Runs applicatifs successifs consignés ci-dessus ; la livraison applicative la plus récente, [`33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810), est verte pour `Verify` et `deploy-cloudflare`. Chaque déploiement livre l'artefact exact construit par son job `verify` |
 | Paramètres de production | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
 | État Cloudflare observé | Worker Static Assets, domaine personnalisé et DNS de `fouranu.com` actifs |
 | Transport public | HTTP redirige vers HTTPS ; TLS 1.0 et 1.1 sont refusés, TLS 1.2 et 1.3 acceptés |
 | Certificats | Packs universel et avancé actifs pour `fouranu.com` et `*.fouranu.com` |
 | Contrat public | `/` répond 200, `/health` répond `ok` et `/release.json` suit le dernier SHA déployé de `main` ; accueil, profils, articles, sitemap, 404, favicon, icônes et carte sociale ont été contrôlés |
-| Indexation | 34 URL du sitemap répondent 200 avec canonical et sans `noindex` |
+| Indexation | 39 URL du sitemap répondent 200 avec canonical et sans `noindex` |
 | Ancienne cible Atlas | Workflow producteur retiré ; OCI et preuves du 2026-08-23 restent historiques, plus chemin courant |
 
 ## Dettes après le lancement V1
@@ -478,9 +474,9 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Condition | Impact | Preuve attendue |
 | --- | --- | --- |
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
-| Accessoires encore absents de la production | Quatre guides sont autorisés et indexables dans le candidat, mais le fonds public n'aide pas encore à choisir ces outils | Déployer le paquet exact après sa gate puis vérifier les routes publiques |
+| Produits encore difficiles à reconnaître dans les guides accessoires | Les illustrations décrivent correctement les familles d'objets, pas les seize modèles commerciaux exacts | Obtenir les blocs image officiels SiteStripe ou l'accès Creators API, décider le chargement Amazon avant clic, puis intégrer sans télécharger ni transformer les images |
 | Aucun essai de première main | La nouvelle ambition ne possède encore ni protocole ni résultat propre | Accepter le protocole, étendre les registres puis vérifier les trois pilotes de F06 sans réécrire le passé documentaire |
-| Affiliation Amazon non publiée et état du compte non vérifié | Aucun revenu attribuable au candidat ; acceptation finale, fiscalité et paiement restent hors dépôt | Publier le paquet autorisé, puis contrôler séparément `fouranu.com`, le statut de validation, les informations fiscales et le paiement dans le compte |
+| État administratif du compte Amazon non vérifié | Les liens affiliés sont publics, mais l'acceptation finale, la fiscalité, le paiement et l'accès éventuel à Creators API restent hors dépôt | Contrôler séparément `fouranu.com`, le statut de validation, les informations fiscales, le paiement et l'éligibilité API dans le compte |
 
 ## Prochaines preuves
 
@@ -488,7 +484,6 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
 | Médias d'article | Gate | Chaque en-tête suit l'ADR-0005 ou l'exception multi-produits de l'ADR-0008, possède une entrée exacte dans `research/assets.csv` et reçoit sa validation humaine avant publication | F02/F03 |
-| Paquet accessoires | Gate | Validation éditoriale et visuelle acquise pour les quatre guides et seize WebP ; feu vert explicite reçu sur le paquet exact | F02/F03 |
-| Publication accessoires | Activation | Run GitHub Actions vert, `/release.json`, cinq routes, seize médias, liens Amazon et métadonnées contrôlés | F04 |
+| Vignettes produit exactes | Activation conditionnelle | Blocs image officiels SiteStripe ou accès Creators API ; nouvelle décision sur la confidentialité, aucun stockage local et aucune transformation IA | F02/F03 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |
 | Premiers essais Four à Nu | Capacité future | Inventaire français daté, décision de protocole, sessions enregistrées et pilotes vérifiés sur un four, un accessoire et un pétrin | F06 |

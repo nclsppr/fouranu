@@ -379,6 +379,9 @@ sont vraies :
   détaillées ;
 - l'auteur, la méthode, la date de vérification, les conflits et la politique de
   correction sont visibles ;
+- `publishedAt` correspond à la première publication publique réelle et
+  `updatedAt` à une modification éditoriale significative ; ces dates ne sont
+  ni tirées au hasard ni antidatées pour fabriquer de l'ancienneté ;
 - les liens rémunérés sont déclarés, portent `rel="sponsored"` et plusieurs
   vendeurs sont proposés lorsque cela aide réellement le lecteur ;
 - le propriétaire donne un feu vert explicite sur le paquet de publication.

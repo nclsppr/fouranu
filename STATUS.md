@@ -460,7 +460,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Configuration | `workers_dev=false`, `preview_urls=false`, répertoire `site/dist/`, 404 statique et slash final forcé |
 | Vérification locale | `npm run cloudflare:check --prefix site`, succès sans identifiant ni mutation distante |
 | Graphe CI | `deploy-cloudflare` dépend de `verify`, sur `main` et si `CLOUDFLARE_DEPLOY_ENABLED == true` ; il télécharge l'artefact exact construit par `verify` |
-| CI publique | Runs applicatifs successifs consignés ci-dessus ; la livraison applicative la plus récente, [`33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810), est verte pour `Verify` et `deploy-cloudflare`. Chaque déploiement livre l'artefact exact construit par son job `verify` |
+| CI publique | Runs applicatifs successifs consignés ci-dessus ; la tranche accessoires, [`33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810), est verte pour `Verify` et `deploy-cloudflare`. Les commits documentaires postérieurs repassent par le même graphe ; `/release.json` reste la source du SHA actif. Chaque déploiement livre l'artefact exact construit par son job `verify` |
 | Paramètres de production | Jeton minimal dans l'environnement GitHub `cloudflare-production`, identifiant de compte en variable |
 | État Cloudflare observé | Worker Static Assets, domaine personnalisé et DNS de `fouranu.com` actifs |
 | Transport public | HTTP redirige vers HTTPS ; TLS 1.0 et 1.1 sont refusés, TLS 1.2 et 1.3 acceptés |

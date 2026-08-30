@@ -68,7 +68,9 @@ tout cet espace de travail.
 Ooni annonce une température maximale de 500 °C, 450 °C en 15 minutes et une
 pizza en 60 secondes. Ce sont des repères fabricant, pas un résultat garanti à
 la maison. Ils ne précisent ni la quantité de bois, ni la météo, ni le point de
-mesure, ni la pâte utilisée.
+mesure de la pierre, ni la pâte utilisée. Un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+permet au moins de retrouver chez vous le même point avant chaque lancement.
 
 | Donnée utile | Valeur publiée | Ce qu'elle ne dit pas |
 | --- | --- | --- |

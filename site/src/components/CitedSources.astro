@@ -1,5 +1,10 @@
 ---
 import evidenceCsv from "@/data/evidence.csv?raw";
+import {
+  affiliateRel,
+  isAmazonLink,
+  toAmazonAffiliateUrl,
+} from "@/lib/amazon-affiliate.mjs";
 
 interface Props {
   evidenceIds: string[];
@@ -110,6 +115,7 @@ const citedEvidence = uniqueIds.map((evidenceId) => {
   if (!record) throw new Error(`Preuve citée mais absente du registre : ${evidenceId}.`);
   return record;
 });
+const hasAmazonSource = citedEvidence.some((record) => isAmazonLink(record.source_url));
 
 const classLabels: Record<string, string> = {
   FAB: "Donnée fabricant",
@@ -180,7 +186,9 @@ function sourceHref(record: Evidence) {
   ) {
     url.searchParams.set("t", `${timecodeInSeconds(record.timecode_start)}s`);
   }
-  return url.toString();
+  return isAmazonLink(url.toString())
+    ? toAmazonAffiliateUrl(url.toString())
+    : url.toString();
 }
 
 function sourceTitle(record: Evidence) {
@@ -226,11 +234,19 @@ function relationships(record: Evidence) {
 
       <p class="cited-sources__intro">
         Ouvrez une référence pour retrouver le lien, le passage relevé et ses conditions.
+        {hasAmazonSource && (
+          <span>
+            {" "}Les références Amazon.fr sont ouvertes via un lien affilié :
+            un achat éligible peut rémunérer Four à Nu, sans modifier la source
+            enregistrée ni notre lecture.
+          </span>
+        )}
       </p>
 
       <ol class="cited-sources__list">
         {citedEvidence.map((record) => {
           const href = sourceHref(record);
+          const affiliate = href ? isAmazonLink(href) : false;
           const publisher = sourcePublisher(record);
           const relationshipNotes = relationships(record);
           return (
@@ -265,8 +281,14 @@ function relationships(record: Evidence) {
                     </p>
                   )}
                   {href && (
-                    <a class="cited-source__link" href={href} rel="external">
-                      Ouvrir la source <span aria-hidden="true">↗</span>
+                    <a
+                      class="cited-source__link"
+                      href={href}
+                      rel={affiliateRel(href)}
+                      data-affiliate={affiliate ? "amazon" : undefined}
+                    >
+                      {affiliate ? "Ouvrir sur Amazon.fr — lien affilié" : "Ouvrir la source"}
+                      {" "}<span aria-hidden="true">↗</span>
                     </a>
                   )}
                 </div>

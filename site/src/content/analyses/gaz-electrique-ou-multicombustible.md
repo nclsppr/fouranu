@@ -108,7 +108,9 @@ l'équivalence gustative du bois et du gaz.
 Sur le Volt 2, Got2EatPizza montre des préréglages napolitain, new-yorkais et
 pan pizza, puis une utilisation manuelle
 ([à 2 min 54](https://www.youtube.com/watch?v=IyRNCq67iTA&t=174s)).
-Elle utilise aussi un thermomètre infrarouge et montre des cuissons avec peu de
+Elle utilise aussi un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+et montre des cuissons avec peu de
 rotations ([à 4 min 17](https://www.youtube.com/watch?v=IyRNCq67iTA&t=257s)).
 La source utilise des liens affiliés et ne précise pas l'origine de son unité.
 Aucune mesure d'uniformité n'est disponible dans cette vidéo.

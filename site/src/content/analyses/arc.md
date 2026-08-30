@@ -54,7 +54,8 @@ agréable s’il garde sa place entre deux cuissons.
 ## Le format de 35 cm est surtout une marge de travail
 
 Une pizza de 35 cm correspond au maximum annoncé. Pour un usage courant, une
-pizza de 30 à 32 cm laisse davantage de place pour la pelle et les rotations.
+pizza de 30 à 32 cm laisse davantage de place pour
+[la pelle et les rotations](/accessoires-pizza/accessoires-pelle-pizza/).
 Cette marge compte devant une flamme latérale, surtout quand la pâte est encore
 souple au début de la cuisson.
 

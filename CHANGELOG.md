@@ -13,9 +13,14 @@ importantes.
   pâtons. Les cinq nouvelles routes restent en `noindex` ; les guides portent
   le statut `review` et n'entrent ni dans le sitemap ni dans le RSS publics.
 - Chaque guide compare quatre produits commandables sur Amazon.fr lors de la
-  vérification du 30 août 2026. Les seize destinations sont des liens directs,
-  sans paramètre de suivi, rémunération ni programme marchand actif ; prix,
-  vendeurs et stocks restent explicitement variables.
+  vérification du 30 août 2026. Les seize destinations du catalogue sont
+  préparées avec `tag=fouranu-21` ; prix, vendeurs et stocks restent
+  explicitement variables.
+- Les appels d’achat, liens Markdown et sources Amazon visibles sont normalisés
+  au rendu : les 58 occurrences du build portent `rel="sponsored"` et une
+  déclaration proche. Le registre de preuves conserve ses URL canoniques sans
+  suivi. Le Halo Pro utilise le lien court affilié fourni par le propriétaire,
+  tandis que le Halo Core garde sa destination Ooni non rémunérée.
 - Un tirage réalisé une seule fois puis figé dans les frontmatters attribue la
   pelle à Florian, les ciseaux à Magali, et le thermomètre comme les bacs à
   Nicolas. Chaque texte conserve une voix personnelle sans revendiquer d'essai
@@ -24,10 +29,24 @@ importantes.
   1 600 × 900 et 960 × 540. L'ADR-0008 encadre cette exception réservée aux
   guides multi-produits ; leur validation humaine reste `pending` et bloque
   toute publication.
-- Les registres locaux passent de 168 à 205 preuves et de 91 à 99 médias. Le
-  paquet exact doit encore recevoir sa validation éditoriale et visuelle, le
-  feu vert explicite du propriétaire, puis ses gates techniques avant tout
-  passage en `publishable`, indexation, push sur `main` ou déploiement.
+- La page d’accueil ouvre désormais un accès immédiatement visible au rayon et
+  à ses quatre guides. Les dix-neuf dossiers historiques reçoivent 31 liens
+  contextuels vers la pelle, le thermomètre ou les bacs ; le guide des ciseaux
+  n’est pas greffé artificiellement à un texte qui ne parle pas de découpe.
+- Quatre planches comparatives originales ajoutent les familles d’objets dans
+  le corps des guides, sans pixel Amazon, marque ou modèle commercial exact.
+  Leurs huit dérivés responsive restent soumis à la même validation humaine.
+- Le favicon et les icônes installables reçoivent des URL `v2` afin de sortir
+  des caches persistants de Safari et Google. Les actifs actuellement publics
+  étaient déjà corrects octet pour octet ; les anciennes URL et le fichier ICO
+  racine restent disponibles comme replis, et aucune purge Cloudflare n’est
+  nécessaire.
+- Les registres locaux passent de 168 à 205 preuves et de 91 à 107 médias. Le
+  site construit 40 pages et ses 20 contrats, la gate complète et le contrôle
+  Cloudflare à sec sont verts. Le paquet exact doit encore recevoir sa
+  validation éditoriale et visuelle ainsi que le feu vert explicite du
+  propriétaire avant tout passage en `publishable`, indexation, push sur `main`
+  ou déploiement.
 
 ## 2026-08-27 - Portraits auteur remplacés sans retouche
 

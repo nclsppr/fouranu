@@ -873,7 +873,7 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
       Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(assets.size, 99);
+  assert.equal(assets.size, 107);
   const registeredPublicationUrls = new Set(
     [...assets.values()].map((asset) => asset.publication_url),
   );
@@ -1168,7 +1168,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
   const homeArticleImages = tags(home.html, "img")
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
-  assert.equal(homeArticleImages.length, 14, "la une doit illustrer le guide, les neuf fours et quatre dossiers Gozney");
+  assert.equal(homeArticleImages.length, 18, "la une doit illustrer le guide, les neuf fours, quatre dossiers Gozney et quatre guides accessoires");
 
   const ooni = pages.find((page) => page.route === "/ooni/");
   const ooniThumbnails = tags(ooni.html, "img")
@@ -1189,6 +1189,63 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/accessoires-.+-1600\.webp$/.test(src ?? ""));
   assert.equal(accessoryThumbnails.length, 4, "le hub accessoires doit illustrer ses quatre guides");
+
+  for (const slug of [
+    "accessoires-pelle-pizza",
+    "accessoires-ciseaux-pizza",
+    "accessoires-thermometre-infrarouge",
+    "accessoires-bacs-patons",
+  ]) {
+    const guide = pages.find(
+      (page) => page.route === `/accessoires-pizza/${slug}/`,
+    );
+    assert.ok(guide, `${slug}: guide absent`);
+    const comparisonPath = `/images/articles/${slug}-comparatif-1600.webp`;
+    const comparisonImage = tags(guide.html, "img").find(
+      (image) => attribute(image, "src") === comparisonPath,
+    );
+    assert.ok(comparisonImage, `${slug}: illustration comparative absente`);
+    assert.match(
+      attribute(comparisonImage, "srcset") ?? "",
+      new RegExp(`${escapeRegex(`/images/articles/${slug}-comparatif-960.webp`)} 960w`),
+      `${slug}: dérivé comparatif 960 px absent`,
+    );
+    assert.equal(attribute(comparisonImage, "width"), "1600");
+    assert.equal(attribute(comparisonImage, "height"), "900");
+    assert.ok((attribute(comparisonImage, "alt") ?? "").length >= 40);
+    assert.doesNotMatch(guide.html, /m\.media-amazon\.com|images-na\.ssl-images-amazon\.com/);
+    assert.match(guide.html, /les formes représentent les\s+types comparés, pas les modèles commerciaux/i);
+  }
+});
+
+test("les dix-neuf dossiers historiques orientent vers les guides accessoires pertinents", async () => {
+  const analysisDirectory = join(siteRoot, "src/content/analyses");
+  const historicalFiles = (await readdir(analysisDirectory))
+    .filter((file) => file.endsWith(".md") && !file.startsWith("accessoires-"))
+    .sort();
+  assert.equal(historicalFiles.length, 19);
+
+  const destinations = {
+    "/accessoires-pizza/accessoires-pelle-pizza/": 0,
+    "/accessoires-pizza/accessoires-thermometre-infrarouge/": 0,
+    "/accessoires-pizza/accessoires-bacs-patons/": 0,
+  };
+  for (const file of historicalFiles) {
+    const markdown = await readFile(join(analysisDirectory, file), "utf8");
+    const links = [...markdown.matchAll(/\]\((\/accessoires-pizza\/[^)]+\/)\)/g)]
+      .map((match) => match[1]);
+    assert.ok(links.length > 0, `${file}: aucun guide accessoire relié`);
+    for (const destination of links) {
+      assert.ok(destination in destinations, `${file}: destination inattendue ${destination}`);
+      destinations[destination] += 1;
+    }
+  }
+
+  assert.deepEqual(destinations, {
+    "/accessoires-pizza/accessoires-pelle-pizza/": 12,
+    "/accessoires-pizza/accessoires-thermometre-infrarouge/": 16,
+    "/accessoires-pizza/accessoires-bacs-patons/": 3,
+  });
 });
 
 test("les crédits des images de tête restent sous le visuel sans le masquer", async () => {
@@ -1229,7 +1286,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   }
 });
 
-test("chaque dossier répète un appel d’achat direct, visible et non rémunéré", async () => {
+test("chaque dossier répète un appel d’achat dont la rémunération est explicite", async () => {
   const articlePages = (await htmlPages()).filter((page) => articleRoutePattern.test(page.route ?? ""));
   assert.equal(articlePages.length, 23);
 
@@ -1240,11 +1297,6 @@ test("chaque dossier répète un appel d’achat direct, visible et non rémuné
     assert.equal(callouts.length, 2, `${page.route}: deux emplacements d’achat attendus`);
 
     for (const callout of callouts) {
-      assert.match(
-        visibleText(callout[2]),
-        /Liens directs non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui\./,
-        `${page.route}: déclaration non rémunérée absente`,
-      );
       const merchantLinks = pairedElements(callout[2], "a");
       assert.ok(merchantLinks.length >= 1, `${page.route}: lien marchand absent`);
       if (reviewArticleRoutePattern.test(page.route)) {
@@ -1255,27 +1307,92 @@ test("chaque dossier répète un appel d’achat direct, visible et non rémuné
           `${page.route}: destination Amazon.fr non annoncée`,
         );
       }
+      const amazonLinks = merchantLinks.filter((link) => {
+        const href = attribute(`<a${link[1]}>`, "href");
+        return href && [/^(?:.+\.)?amazon\.fr$/, /^amzn\.to$/].some((pattern) =>
+          pattern.test(new URL(href).hostname)
+        );
+      });
+      if (amazonLinks.length > 0) {
+        assert.match(
+          visibleText(callout[2]),
+          /En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises\./,
+          `${page.route}: déclaration Amazon Partenaire absente`,
+        );
+      } else {
+        assert.match(
+          visibleText(callout[2]),
+          /Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui\./,
+          `${page.route}: déclaration fabricant non rémunérée absente`,
+        );
+      }
       for (const link of merchantLinks) {
         const opening = `<a${link[1]}>`;
         const href = attribute(opening, "href");
         assert.ok(href, `${page.route}: destination marchande absente`);
         const merchantUrl = new URL(href);
         assert.ok(
-          ["eu.gozney.com", "eu.ooni.com", "www.amazon.fr"].includes(merchantUrl.hostname),
+          ["eu.gozney.com", "eu.ooni.com", "www.amazon.fr", "amzn.to"].includes(merchantUrl.hostname),
           `${page.route}: marchand direct inattendu`,
         );
-        assert.equal(merchantUrl.search, "", `${page.route}: paramètre de suivi inattendu`);
         assert.equal(merchantUrl.hash, "", `${page.route}: fragment marchand inattendu`);
-        assert.equal(attribute(opening, "rel"), "external noopener");
-        assert.doesNotMatch(attribute(opening, "rel") ?? "", /sponsored/);
         if (merchantUrl.hostname === "www.amazon.fr") {
           assert.match(merchantUrl.pathname, /^\/dp\/[A-Z0-9]{10}$/);
+          assert.equal(merchantUrl.searchParams.get("tag"), "fouranu-21");
+          assert.deepEqual([...merchantUrl.searchParams.keys()], ["tag"]);
+          assert.equal(attribute(opening, "rel"), "sponsored external noopener");
+          assert.equal(attribute(opening, "data-affiliate"), "amazon");
+          assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
+        } else if (merchantUrl.hostname === "amzn.to") {
+          assert.equal(href, "https://amzn.to/4y8lFcC");
+          assert.equal(attribute(opening, "rel"), "sponsored external noopener");
+          assert.equal(attribute(opening, "data-affiliate"), "amazon");
           assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
         } else {
+          assert.equal(merchantUrl.search, "", `${page.route}: paramètre fabricant inattendu`);
+          assert.equal(attribute(opening, "rel"), "external noopener");
+          assert.equal(attribute(opening, "data-affiliate"), undefined);
           assert.match(visibleText(link[2]), /Gozney|Ooni/, `${page.route}: marchand absent du bouton`);
         }
       }
     }
+  }
+});
+
+test("tout lien Amazon rendu est affilié, qualifié et annoncé sans altérer le registre", async () => {
+  let amazonLinkCount = 0;
+  for (const page of await htmlPages()) {
+    const amazonLinks = pairedElements(page.html, "a").filter((link) => {
+      const href = attribute(`<a${link[1]}>`, "href");
+      if (!href) return false;
+      return [/^(?:.+\.)?amazon\.fr$/, /^amzn\.to$/].some((pattern) =>
+        pattern.test(new URL(href, canonicalOrigin).hostname)
+      );
+    });
+    if (amazonLinks.length === 0) continue;
+
+    amazonLinkCount += amazonLinks.length;
+    assert.match(visibleText(page.html), /lien(?:s)? affilié(?:s)?/i, `${page.route}: affiliation non annoncée`);
+    for (const link of amazonLinks) {
+      const opening = `<a${link[1]}>`;
+      const href = attribute(opening, "href");
+      const url = new URL(href);
+      assert.equal(attribute(opening, "rel"), "sponsored external noopener", `${page.route}: rel Amazon incomplet`);
+      assert.equal(attribute(opening, "data-affiliate"), "amazon", `${page.route}: marqueur Amazon absent`);
+      if (url.hostname === "www.amazon.fr") {
+        assert.equal(url.searchParams.get("tag"), "fouranu-21", `${page.route}: tag Amazon absent`);
+      } else {
+        assert.equal(href, "https://amzn.to/4y8lFcC", `${page.route}: lien court Amazon non vérifié`);
+      }
+    }
+  }
+  assert.equal(amazonLinkCount, 58, "inventaire inattendu des liens Amazon rendus");
+
+  const canonicalEvidence = await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8");
+  const renderedEvidenceSource = await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8");
+  assert.equal(renderedEvidenceSource, canonicalEvidence, "la copie de preuve doit rester canonique");
+  for (const csv of [canonicalEvidence, renderedEvidenceSource]) {
+    assert.doesNotMatch(csv, /amazon\.fr[^,\r\n]*[?&]tag=fouranu-21/i, "le tracking ne doit pas entrer dans le registre de preuve");
   }
 });
 
@@ -1298,19 +1415,19 @@ test("le logo Four à Nu est explicite, dimensionné et léger", async () => {
   assert.ok(logoFile.size < 200_000, "le logo d'en-tête dépasse 200 Ko");
 });
 
-test("le four du logo équipe favicon, icônes installables et miniature sociale", async () => {
+test("le four du logo équipe des favicons versionnées et la miniature sociale", async () => {
   for (const page of await htmlPages()) {
     const label = page.route ?? "404";
     const favicon = tags(page.html, "link").filter((link) => attribute(link, "rel") === "icon");
     assert.equal(favicon.length, 1, `${label}: favicon ambigu`);
-    assert.equal(attribute(favicon[0], "href"), "/favicon.svg", label);
+    assert.equal(attribute(favicon[0], "href"), "/favicon-fouranu-v2.svg", label);
     assert.equal(attribute(favicon[0], "type"), "image/svg+xml", label);
     assert.equal(attribute(favicon[0], "sizes"), "any", label);
 
     const appleIcons = tags(page.html, "link")
       .filter((link) => attribute(link, "rel") === "apple-touch-icon");
     assert.equal(appleIcons.length, 1, `${label}: icône Apple ambiguë`);
-    assert.equal(attribute(appleIcons[0], "href"), "/apple-touch-icon.png", label);
+    assert.equal(attribute(appleIcons[0], "href"), "/apple-touch-icon-v2.png", label);
     assert.equal(attribute(appleIcons[0], "sizes"), "180x180", label);
     assert.deepEqual(linkHref(page.html, "manifest"), ["/site.webmanifest"], label);
   }
@@ -1322,18 +1439,18 @@ test("le four du logo équipe favicon, icônes installables et miniature sociale
   assert.equal(manifest.display, "standalone");
   assert.deepEqual(manifest.icons, [
     {
-      src: "/favicon.svg",
+      src: "/favicon-fouranu-v2.svg",
       sizes: "any",
       type: "image/svg+xml",
     },
     {
-      src: "/icons/icon-192.png",
+      src: "/icons/icon-fouranu-v2-192.png",
       sizes: "192x192",
       type: "image/png",
       purpose: "any",
     },
     {
-      src: "/icons/icon-512.png",
+      src: "/icons/icon-fouranu-v2-512.png",
       sizes: "512x512",
       type: "image/png",
       purpose: "any",
@@ -1343,12 +1460,13 @@ test("le four du logo équipe favicon, icônes installables et miniature sociale
     assert.equal(await routeExists(icon.src), true, `icône du manifeste absente: ${icon.src}`);
   }
 
-  const favicon = await readFile(join(dist, "favicon.svg"));
+  const favicon = await readFile(join(dist, "favicon-fouranu-v2.svg"));
   const faviconMarkup = favicon.toString("utf8");
   assert.match(faviconMarkup, /viewBox="0 0 128 128"/);
   assert.match(faviconMarkup, /Le four du logo Four à Nu/);
   assert.match(faviconMarkup, /#FF5A24/);
   assert.ok(favicon.byteLength < 5_000, "le favicon SVG dépasse 5 Ko");
+  assert.equal(await routeExists("/favicon.svg"), true, "ancienne URL favicon de repli absente");
 
   const fallbackFavicon = await readFile(join(dist, "favicon.ico"));
   assert.equal(
@@ -1369,9 +1487,9 @@ test("le four du logo équipe favicon, icônes installables et miniature sociale
   assert.equal(await routeExists("/favicon.ico"), true, "fallback favicon.ico absent du build");
 
   const rasterAssets = [
-    ["apple-touch-icon.png", 180, 180, 25_000],
-    ["icons/icon-192.png", 192, 192, 25_000],
-    ["icons/icon-512.png", 512, 512, 50_000],
+    ["apple-touch-icon-v2.png", 180, 180, 25_000],
+    ["icons/icon-fouranu-v2-192.png", 192, 192, 25_000],
+    ["icons/icon-fouranu-v2-512.png", 512, 512, 50_000],
     ["og/four-a-nu-default-v2.jpg", 1200, 630, 100_000],
   ];
   for (const [path, width, height, byteBudget] of rasterAssets) {

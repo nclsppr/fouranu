@@ -1,4 +1,4 @@
-# ADR-0008 : en-tête original pour les guides multi-produits
+# ADR-0008 : visuels originaux pour les guides multi-produits
 
 - Statut : accepté
 - Date : 2026-08-30
@@ -21,7 +21,8 @@ lancer, couper, lire la sole ou ranger des pâtons — plutôt qu’un produit.
 ## Décision
 
 Un guide multi-produits peut employer une illustration éditoriale originale en
-en-tête lorsque toutes les conditions suivantes sont réunies :
+en-tête ou comme repère comparatif dans le corps lorsque toutes les conditions
+suivantes sont réunies :
 
 1. aucune image tierce n’entre dans sa création ;
 2. les objets restent génériques, sans marque, emballage, texte ni détail qui
@@ -30,7 +31,9 @@ en-tête lorsque toutes les conditions suivantes sont réunies :
    caractéristique, mesure, compatibilité ou conclusion ;
 4. le registre emploie `editorial-created`, `editorial-original` et le droit
    `original`, avec les empreintes exactes des dérivés ;
-5. la légende visible reste « Illustration éditoriale originale Four à Nu. » ;
+5. la légende visible contient « Illustration éditoriale originale Four à Nu. » ;
+   un visuel comparatif précise en plus qu’il représente des types et non les
+   modèles commerciaux exacts ;
 6. la validation humaine du visuel et du paquet exact reste requise avant le
    passage à `publishable`, l’indexation ou le déploiement.
 
@@ -41,8 +44,8 @@ dossier, pas de la disponibilité plus ou moins pratique d’une photo.
 ## Conséquences
 
 - Les quatre guides d’accessoires restent en `review`, `noindex` et hors
-  publication tant que leurs visuels sont enregistrés avec une validation
-  humaine `pending`.
+  publication tant que leurs visuels de tête et de corps sont enregistrés avec
+  une validation humaine `pending`.
 - Le schéma de contenu et la gate distinguent deux chemins explicites :
   `official-stylized` pour un produit identifié et `editorial-original` pour un
   guide multi-produits.

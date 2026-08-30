@@ -67,7 +67,8 @@ donc pas la table au centimètre près.
 
 Ooni annonce 450 °C en 15 minutes, 500 °C au maximum et une pizza en 60 secondes.
 Ces chiffres ne précisent ni la masse de bois, ni le vent, ni l'endroit où la
-température de la pierre est relevée. Gardez-les comme repères fabricant.
+[température de la pierre est relevée](/accessoires-pizza/accessoires-thermometre-infrarouge/).
+Gardez-les comme repères fabricant.
 
 ## Ne cherchez pas un chrono universel
 

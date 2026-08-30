@@ -192,7 +192,8 @@ volume. T3 rapporte qu'une pâte pour trois pizzas approchait déjà le haut de 
 cuve après fermentation. La page contient des liens affiliés et ne donne ni la
 quantité exacte ni le protocole.
 
-Prévoyez donc un bac assez grand, surtout pour une pâte longue ou une fournée
+Prévoyez donc un
+[bac assez grand](/accessoires-pizza/accessoires-bacs-patons/), surtout pour une pâte longue ou une fournée
 proche de la limite. La cuve amovible facilite le transfert, mais elle n'a pas à
 contenir tout le volume d'une pâte levée.
 

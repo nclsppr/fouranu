@@ -55,7 +55,8 @@ déplace pas volontiers un appareil de 30 kg entre deux cuissons.
 
 La flamme enveloppe l'arrière et les deux côtés. Les séances publiées montrent
 qu'elle colore rapidement le bord. Il faut toujours tourner la pizza. Le centre
-de la pierre reste la zone la plus simple à lire avec un thermomètre infrarouge.
+de la pierre reste la zone la plus simple à lire avec un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/).
 
 Une seule molette pilote les deux branches du brûleur. Le réglage est plus
 simple qu'une double zone, mais il ne permet pas de corriger un côté séparément.
@@ -93,7 +94,8 @@ moins de 32 cm ou si la priorité est la cuisson simultanée. Le
 
 - Choisissez une table capable de porter 30 kg avec une marge de sécurité.
 - Mesurez la profondeur totale, tuyau et gestes de service compris.
-- Comparez la taille réelle de votre pelle et de vos pâtons.
+- Comparez la taille réelle de votre
+  [pelle](/accessoires-pizza/accessoires-pelle-pizza/) et de vos pâtons.
 - Ajoutez au budget la housse et les accessoires adaptés.
 - Demandez-vous combien de fois le format de 45 cm servira vraiment.
 

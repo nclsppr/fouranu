@@ -73,6 +73,24 @@ surface intérieure indique ce qui reste aux pâtons. HENDI est le seul des quat
 48 × 28 × 8,5 cm à l’intérieur. Cette différence suffit à rappeler qu’un format
 annoncé ne devient jamais toute la surface utile.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-bacs-patons-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-bacs-patons-comparatif-960.webp 960w, /images/articles/accessoires-bacs-patons-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Quatre formats génériques de bacs à pâtons disposés du plus compact au plus large"
+  />
+  <figcaption>
+    <strong>Le bon format commence par la place disponible.</strong>
+    Illustration éditoriale originale Four à Nu ; les formes représentent les
+    types comparés, pas les modèles commerciaux.
+  </figcaption>
+</figure>
+
 ## Commencez avec un mètre, porte ouverte
 
 Mesurer la clayette au fond du frigo ne suffit pas. Il faut aussi franchir la
@@ -185,6 +203,10 @@ plus large si le frigo l’accepte réellement. Cette progression coûte moins d
 place au quotidien qu’un bac professionnel acheté pour deux grandes soirées par
 an.
 
+Une fois les pâtons sortis, le
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+reprend le relais : le bac organise la pâte, il ne dit pas si la sole est prête.
+
 ## Le modèle que je choisirais selon la fournée
 
 Le ZiiPa est le choix le plus lisible pour une première boîte domestique avec
@@ -199,11 +221,11 @@ la capacité utile est celle qui laisse prendre un pâton sans coller au
 suivant ni déplacer tout le réfrigérateur.
 
 Les quatre références étaient proposées à la vente sur Amazon.fr lors de notre
-vérification du 30 août 2026. Les deux encarts d’achat de cette page utilisent
-des liens directs et non rémunérés aujourd’hui : Four à Nu ne reçoit aucune
-commission. Le prix, le vendeur, la présence du couvercle et le stock peuvent
-changer ; contrôlez le
-contenu exact de l’offre avant de commander.
+vérification du 30 août 2026. Les liens Amazon.fr de cette page sont affiliés :
+un achat éligible après un clic peut rémunérer Four à Nu, sans surcoût pour
+vous. Cette rémunération éventuelle ne change ni la sélection ni les limites du
+guide. Le prix, le vendeur, la présence du couvercle et le stock peuvent
+changer ; contrôlez le contenu exact de l’offre avant de commander.
 
 ## Ce que les fiches ne permettent pas de départager
 

@@ -9,88 +9,88 @@ export const PURCHASE_LINKS_BY_ARTICLE: Record<string, PurchaseLink[]> = {
     {
       label: "Voir la pelle Ooni perforée sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0G8KQW3ZW",
+      url: "https://www.amazon.fr/dp/B0G8KQW3ZW?tag=fouranu-21",
     },
     {
       label: "Voir la pelle Ooni classique sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B08BCP36HF",
+      url: "https://www.amazon.fr/dp/B08BCP36HF?tag=fouranu-21",
     },
     {
       label: "Voir la pelle Ooni en bambou sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B07TB9LBHR",
+      url: "https://www.amazon.fr/dp/B07TB9LBHR?tag=fouranu-21",
     },
     {
       label: "Voir la pelle Weber 6691 sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B00MBVA64Q",
+      url: "https://www.amazon.fr/dp/B00MBVA64Q?tag=fouranu-21",
     },
   ],
   "ACC-002": [
     {
       label: "Voir les ciseaux Dreamfarm Scizza sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B00164DYPM",
+      url: "https://www.amazon.fr/dp/B00164DYPM?tag=fouranu-21",
     },
     {
       label: "Voir les ciseaux Triangle 50491 sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B005GB8LZE",
+      url: "https://www.amazon.fr/dp/B005GB8LZE?tag=fouranu-21",
     },
     {
       label: "Voir les ciseaux GEFU Pezzo sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B07N7RGL8H",
+      url: "https://www.amazon.fr/dp/B07N7RGL8H?tag=fouranu-21",
     },
     {
       label: "Voir les ciseaux Fackelmann sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B07N242DNY",
+      url: "https://www.amazon.fr/dp/B07N242DNY?tag=fouranu-21",
     },
   ],
   "ACC-003": [
     {
       label: "Voir le thermomètre Ooni sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0GGSFJWD3",
+      url: "https://www.amazon.fr/dp/B0GGSFJWD3?tag=fouranu-21",
     },
     {
       label: "Voir le Bosch UniversalTemp sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0CFVZQFZ5",
+      url: "https://www.amazon.fr/dp/B0CFVZQFZ5?tag=fouranu-21",
     },
     {
       label: "Voir le ThermoPro TP30 sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0BGGJH3G2",
+      url: "https://www.amazon.fr/dp/B0BGGJH3G2?tag=fouranu-21",
     },
     {
       label: "Voir le Tilswall W301 sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0D2R4GGF5",
+      url: "https://www.amazon.fr/dp/B0D2R4GGF5?tag=fouranu-21",
     },
   ],
   "ACC-004": [
     {
       label: "Voir le bac ZiiPa Minola sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0CWPKL3JW",
+      url: "https://www.amazon.fr/dp/B0CWPKL3JW?tag=fouranu-21",
     },
     {
       label: "Voir le bac Gilac compact sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B08XY4JPKH",
+      url: "https://www.amazon.fr/dp/B08XY4JPKH?tag=fouranu-21",
     },
     {
       label: "Voir le bac HENDI GN 1/1 sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B0CQMFMYVS",
+      url: "https://www.amazon.fr/dp/B0CQMFMYVS?tag=fouranu-21",
     },
     {
       label: "Voir le bac Gilac 15 litres sur Amazon.fr",
       merchant: "Amazon.fr",
-      url: "https://www.amazon.fr/dp/B08XY4CQQR",
+      url: "https://www.amazon.fr/dp/B08XY4CQQR?tag=fouranu-21",
     },
   ],
   "GOZNEY-001": [
@@ -241,9 +241,9 @@ export const PURCHASE_LINKS_BY_ARTICLE: Record<string, PurchaseLink[]> = {
       url: "https://eu.ooni.com/fr-fr/products/ooni-halo-core-spiral-mixer",
     },
     {
-      label: "Voir le Halo Pro chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-halo-pro-spiral-mixer",
+      label: "Voir le Halo Pro sur Amazon.fr",
+      merchant: "Amazon.fr",
+      url: "https://amzn.to/4y8lFcC",
     },
   ],
 };

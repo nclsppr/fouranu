@@ -8,7 +8,8 @@ import {
   articlePath,
 } from "@/data/article-taxonomy";
 
-const analyses = (await getCollection("analyses"))
+const allAnalyses = await getCollection("analyses");
+const analyses = allAnalyses
   .filter((entry) => entry.data.status === "publishable")
   .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
 const lead = analyses.find(
@@ -34,6 +35,22 @@ const newDossiers = newDossierRefs
     (entry) => entry.data.brand === reference.brand && entry.id === reference.id,
   ))
   .filter((entry) => entry !== undefined);
+const accessoryGuideRefs = [
+  { id: "accessoires-pelle-pizza", label: "Choisir sa pelle" },
+  { id: "accessoires-ciseaux-pizza", label: "Choisir ses ciseaux" },
+  { id: "accessoires-thermometre-infrarouge", label: "Mesurer la pierre" },
+  { id: "accessoires-bacs-patons", label: "Faire pousser les pâtons" },
+] as const;
+const accessoryGuides = accessoryGuideRefs
+  .map((reference) => {
+    const entry = allAnalyses.find(
+      (candidate) =>
+        candidate.data.brand === "accessoires" && candidate.id === reference.id,
+    );
+
+    return entry ? { entry, label: reference.label } : undefined;
+  })
+  .filter((guide) => guide !== undefined);
 const featuredModelIds = ["koda-2", "volt-2", "karu-2", "koda-2-max"];
 const featuredModels = featuredModelIds
   .map((id) => models.find((entry) => entry.id === id))
@@ -64,7 +81,8 @@ if (
   !lead ||
   !energyGuide ||
   featuredModels.length !== featuredModelIds.length ||
-  newDossiers.length !== newDossierRefs.length
+  newDossiers.length !== newDossierRefs.length ||
+  accessoryGuides.length !== accessoryGuideRefs.length
 ) {
   throw new Error("Les dossiers mis en avant sur l'accueil sont requis.");
 }
@@ -182,6 +200,49 @@ const schema = {
     <div>
       <strong>{longDateFormatter.format(latestUpdate)}</strong>
       <span>dernière mise à jour</span>
+    </div>
+  </section>
+
+  <section class="accessories-doorway" aria-labelledby="accessories-doorway-title">
+    <div class="accessories-doorway__grid page-shell">
+      <header class="accessories-doorway__intro">
+        <p class="feature-kicker">Nouveau · Accessoires pizza</p>
+        <h2 id="accessories-doorway-title">Les bons outils autour du four.</h2>
+        <p>
+          Une pelle à la bonne largeur, une pierre vraiment chaude et des pâtons
+          qui ne collent pas changent davantage la soirée qu’un gadget de plus.
+          Voici nos premiers guides pour choisir sans acheter au hasard.
+        </p>
+        <a class="feature-action" href="/accessoires-pizza/">
+          Ouvrir le guide des accessoires
+          <span aria-hidden="true">→</span>
+        </a>
+      </header>
+
+      <nav class="accessories-doorway__list" aria-label="Guides des accessoires pizza">
+        {accessoryGuides.map(({ entry, label }, index) => (
+          <a href={articlePath(entry.data.brand, entry.id)}>
+            <span class="accessories-doorway__media">
+              <img
+                src={entry.data.image.src}
+                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                sizes="(max-width: 40rem) 7rem, (max-width: 56rem) 9rem, 10rem"
+                alt=""
+                width="960"
+                height="540"
+                loading="lazy"
+              />
+            </span>
+            <span class="accessories-doorway__copy">
+              <small>{String(index + 1).padStart(2, "0")} · Guide pratique</small>
+              <strong>{label}</strong>
+              <span>{entry.data.summary}</span>
+              <b>Par {SITE.authors[entry.data.author].name}</b>
+            </span>
+            <span class="accessories-doorway__arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </nav>
     </div>
   </section>
 
@@ -652,6 +713,125 @@ const schema = {
     padding-block: clamp(2.5rem, 3.5vw, 3rem);
   }
 
+  .accessories-doorway {
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .accessories-doorway__grid {
+    display: grid;
+    grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-block: clamp(2.5rem, 4vw, 4rem);
+  }
+
+  .accessories-doorway .feature-kicker {
+    color: var(--color-reading);
+  }
+
+  .accessories-doorway__intro {
+    align-self: center;
+  }
+
+  .accessories-doorway__intro h2 {
+    max-width: 10ch;
+    margin: 1.5rem 0 1rem;
+    font-size: clamp(3rem, 4.8vw, 4.8rem);
+    line-height: 0.91;
+  }
+
+  .accessories-doorway__intro > p:not(.feature-kicker) {
+    max-width: 34rem;
+    color: var(--color-carbon-muted);
+    line-height: 1.6;
+  }
+
+  .accessories-doorway__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: center;
+    border-top: 1px solid var(--color-carbon-line);
+  }
+
+  .accessories-doorway__list > a {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 10rem) minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    min-height: 10rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-carbon-line);
+    text-decoration: none;
+  }
+
+  .accessories-doorway__list > a:nth-child(odd) {
+    padding-inline-end: 1.25rem;
+  }
+
+  .accessories-doorway__list > a:nth-child(even) {
+    padding-inline-start: 1.25rem;
+    border-inline-start: 1px solid var(--color-carbon-line);
+  }
+
+  .accessories-doorway__media {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-steel-soft);
+  }
+
+  .accessories-doorway__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease-out;
+  }
+
+  .accessories-doorway__copy {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .accessories-doorway__copy small,
+  .accessories-doorway__copy b {
+    color: var(--color-reading);
+    font-family: var(--font-data);
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .accessories-doorway__copy strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.1vw, 2.1rem);
+    line-height: 0.98;
+  }
+
+  .accessories-doorway__copy > span {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--color-carbon-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .accessories-doorway__arrow {
+    color: var(--color-reading);
+    font-size: 1.25rem;
+  }
+
+  .accessories-doorway__list > a:hover strong {
+    color: var(--color-reading);
+  }
+
+  .accessories-doorway__list > a:hover img {
+    transform: scale(1.025);
+  }
+
   .new-dossiers {
     display: grid;
     grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
@@ -1111,6 +1291,7 @@ const schema = {
 
   .lead-feature :focus-visible,
   .side-story--dark:focus-visible,
+  .accessories-doorway :focus-visible,
   .choice-guide :focus-visible,
   .rss-panel :focus-visible,
   .dossier-card:first-child:focus-visible {
@@ -1119,6 +1300,7 @@ const schema = {
 
   @media (max-width: 56rem) {
     .editorial-hero,
+    .accessories-doorway__grid,
     .new-dossiers,
     .reading-desk {
       grid-template-columns: 1fr;
@@ -1126,6 +1308,11 @@ const schema = {
 
     .new-dossiers > header h2,
     .new-dossiers > header > p:last-child {
+      max-width: 35rem;
+    }
+
+    .accessories-doorway__intro h2,
+    .accessories-doorway__intro > p:not(.feature-kicker) {
       max-width: 35rem;
     }
 
@@ -1220,6 +1407,21 @@ const schema = {
       min-height: 8rem;
     }
 
+    .accessories-doorway__list {
+      grid-template-columns: 1fr;
+    }
+
+    .accessories-doorway__list > a:nth-child(odd),
+    .accessories-doorway__list > a:nth-child(even) {
+      padding-inline: 0;
+      border-inline-start: 0;
+    }
+
+    .accessories-doorway__list > a {
+      grid-template-columns: 7rem minmax(0, 1fr) auto;
+      min-height: 8.5rem;
+    }
+
     .new-dossiers__copy > span {
       display: -webkit-box;
       overflow: hidden;
@@ -1238,6 +1440,10 @@ const schema = {
     }
 
     .choice-guide__intro h2 {
+      font-size: clamp(3.2rem, 14vw, 4.6rem);
+    }
+
+    .accessories-doorway__intro h2 {
       font-size: clamp(3.2rem, 14vw, 4.6rem);
     }
 
@@ -1302,12 +1508,20 @@ const schema = {
       transition: none;
     }
 
+    .accessories-doorway__media img {
+      transition: none;
+    }
+
     .feature-action:hover,
     .side-story:hover {
       transform: none;
     }
 
     .dossier-card:hover .dossier-card__media img {
+      transform: none;
+    }
+
+    .accessories-doorway__list > a:hover img {
       transform: none;
     }
   }

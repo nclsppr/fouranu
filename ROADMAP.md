@@ -172,11 +172,19 @@ livré :
   2026-08-24 : guide de gamme, Dome XL (Gen 2), Dome (Gen 2), Arc XL, Arc,
   Arc Lite, Tread et Roccbox, sans créer de page artificielle par couleur ou pack.
 - [x] Ajouter à chacun des dix-neuf articles deux appels d'achat très visibles,
-  séparés par le contenu, avec produit, marchand et statut
-  non rémunéré explicitement visibles.
+  séparés par le contenu, avec produit, marchand et statut de rémunération
+  explicitement visibles.
 - [x] Reprendre les 31 pages canoniques pour leurs titres sociaux, images
   d'aperçu, données structurées, sitemap d'images et favicon, puis leur ajouter
   un partage progressif fondé sur l'URL canonique, sans SDK social ni traceur.
+- [x] Diagnostiquer l’ancienne favicon encore affichée par Safari et Google :
+  la production sert bien les nouveaux octets, mais les clients conservent
+  l’ancienne image sous les URL remplacées en place.
+- [x] Préparer des URL versionnées pour le favicon SVG, l’icône Apple et les
+  icônes PWA tout en conservant les anciennes URL comme replis compatibles.
+- [ ] Après autorisation et déploiement du candidat, vérifier les nouveaux
+  actifs publics puis demander une réindexation unique de l’accueil dans Search
+  Console ; le rafraîchissement du résultat Google reste asynchrone.
 - [x] Remplacer les trois signatures sans biographie par des profils individuels
   factuels, relier chaque dossier à son auteur et conserver une attribution
   équilibrée et stable dans les frontmatters.
@@ -192,23 +200,34 @@ livré :
 
 ### Todo commerce éditorial et accessoires
 
-- [ ] Sélectionner puis faire approuver les programmes Amazon, Gozney et Ooni
-  avant toute candidature ou substitution de lien.
-- [ ] Remplacer les liens directs uniquement après acceptation des programmes,
-  avec déclaration visible, `rel="sponsored"`, suivi minimal documenté et
-  contrôle qu'aucun prix périmé ne devient une promesse.
+- [x] Enregistrer l’autorisation explicite du propriétaire d’utiliser son compte
+  Partenaires Amazon et l’identifiant public `fouranu-21` dans le candidat local.
+- [ ] Vérifier dans le compte Amazon que `fouranu.com` est déclaré, que le
+  questionnaire fiscal et le paiement sont complets, et relever le statut de
+  validation après les premières ventes éligibles.
+- [ ] Sélectionner et faire approuver séparément les éventuels programmes
+  Gozney et Ooni avant toute substitution de leurs liens directs.
+- [x] Rendre tous les liens Amazon visibles affiliés, déclarés et qualifiés par
+  `rel="sponsored"`, sans ajouter le suivi aux URL canoniques des registres ni
+  transformer un prix périmé en promesse.
 - [ ] Préserver un choix de marchand lorsque cela aide réellement le lecteur ;
   ne pas dissimuler les destinations et ne pas faire dépendre une conclusion du
   niveau de commission.
 - [x] Préparer en `review` et `noindex` quatre premiers guides ouverts par un
   problème concret : pelle d'enfournement, ciseaux à pizza, thermomètre
-  infrarouge et bacs à pâtons. Comparer quatre produits par guide et conserver
-  seize liens Amazon.fr directs, non rémunérés et sans suivi.
+  infrarouge et bacs à pâtons. Comparer quatre produits par guide et attribuer
+  leurs seize destinations Amazon.fr à `fouranu-21` dans le rendu public.
 - [x] Enregistrer le tirage d'auteur stable Florian, Magali, Nicolas, Nicolas et
   donner à chaque guide une voix personnelle sans revendiquer d'essai physique.
 - [x] Produire quatre en-têtes génériques originaux selon l'ADR-0008, leurs huit
   dérivés WebP et leurs entrées de registre, sans reprendre d'image produit
   tierce.
+- [x] Rendre le rayon accessoires immédiatement visible depuis l'accueil et
+  relier les dix-neuf dossiers historiques aux guides pertinents, sans fabriquer
+  d'ancre ciseaux dans un passage qui ne parle pas de découpe.
+- [x] Ajouter dans chaque guide une planche originale des quatre familles
+  comparées, ses deux dérivés responsive et sa légende de non-reproduction des
+  modèles commerciaux.
 - [ ] Faire relire les quatre guides et valider humainement leurs visuels, puis
   obtenir le feu vert explicite du propriétaire sur le paquet exact avant tout
   passage en `publishable`, indexation ou publication.

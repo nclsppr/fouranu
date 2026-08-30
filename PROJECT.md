@@ -173,7 +173,7 @@ explicite avant son lancement.
 | Dépendance | Usage prévu | Données transmises | État et mode d'échec |
 | --- | --- | --- | --- |
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
-| Marchands et futurs programmes | Liens directs non rémunérés ; attribution rémunérée seulement après activation autorisée | Navigation vers le marchand, puis éventuels traceurs uniquement selon consentement et contrat | Seuls des liens directs sans suivi sont présents ; aucun programme actif et le contenu reste accessible sans eux |
+| Marchands et programmes partenaires | Liens fabricants directs ; liens Amazon.fr attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | L’affiliation Amazon est préparée et déclarée dans le candidat local ; les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
 | Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |
@@ -196,7 +196,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 40 pages HTML et exécute dix-huit tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 40 pages HTML et exécute vingt tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |

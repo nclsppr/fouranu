@@ -72,7 +72,10 @@ Cette forme ne garantit pas une température uniforme sur toute la pierre.
 Dans une séance publiée, le Koda démarre plus vite qu'un four à bois. Après
 trois minutes, les températures centrales annoncées sont d'environ 155 °C pour
 le gaz et 93 °C pour le bois. Plus tard, les deux soles se rapprochent autour
-de 233 à 241 °C. Le four à bois demande davantage de surveillance du combustible.
+de 233 à 241 °C. Un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+sert précisément à refaire ce contrôle sur la surface. Le four à bois demande
+davantage de surveillance du combustible.
 
 La même séance montre une pizza cuite dans chaque four avec la même pâte. Les
 colorations sont jugées proches et les dégustateurs ne signalent pas de
@@ -85,7 +88,8 @@ relevé isolé ne prouve pas la supériorité d'un modèle.
 
 ## Qui profitera vraiment de l'ouverture
 
-Le Koda 16 a du sens pour de grandes pizzas, une pelle large ou davantage de
+Le Koda 16 a du sens pour de grandes pizzas, une
+[pelle large](/accessoires-pizza/accessoires-pelle-pizza/) ou davantage de
 marge pendant les rotations. Le gaz demande moins de gestion du combustible
 que le bois, et ce four reste moins lourd que les grands Koda de deuxième
 génération.

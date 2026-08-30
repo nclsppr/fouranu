@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
 import rehypeAccessibleTables from "./plugins/rehype-accessible-tables.mjs";
+import rehypeAmazonAffiliateLinks from "./plugins/rehype-amazon-affiliate-links.mjs";
 
 export default defineConfig({
   site: "https://fouranu.com",
@@ -11,7 +12,7 @@ export default defineConfig({
   },
   markdown: {
     processor: unified({
-      rehypePlugins: [rehypeAccessibleTables],
+      rehypePlugins: [rehypeAccessibleTables, rehypeAmazonAffiliateLinks],
     }),
   },
   server: {

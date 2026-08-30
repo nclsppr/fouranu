@@ -50,7 +50,8 @@ personnes, une petite famille ou quelques pizzas de temps en temps, cette
 simplicité peut suffire.
 
 Son format impose aussi le principal compromis. Une pizza de 30 cm laisse peu
-de place à la pelle et aux rotations. Pour une grande tablée, nous regarderions
+de place à [la pelle et aux rotations](/accessoires-pizza/accessoires-pelle-pizza/).
+Pour une grande tablée, nous regarderions
 d'abord le [Koda 16](/ooni/koda-16/) ou le [Koda 2](/ooni/koda-2/).
 
 ## Ce que les chiffres changent à la maison
@@ -75,8 +76,10 @@ décrivent la capacité visée par le fabricant. Ils ne garantissent pas le ryth
 de votre première soirée.
 
 La température extérieure, le vent, l'endroit où la pierre est mesurée et la
-pâte peuvent tous changer le résultat. Les sources disponibles ne contiennent aucune
-mesure tierce rattachée à ce modèle.
+pâte peuvent tous changer le résultat. Pour répéter ce dernier repère, un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+est plus utile que l'afficheur d'air. Les sources disponibles ne contiennent
+aucune mesure tierce rattachée à ce modèle.
 
 ## Il convient surtout si le petit format est voulu
 

@@ -58,8 +58,11 @@ deux dessous, deux corniches et plusieurs rotations pendant que les suivantes
 sont préparées.
 
 La sole amovible de 30 mm et l’affichage des températures d’air et de pierre
-sont intéressants sur le papier. Sans protocole indépendant commun, nous ne
-transformons pas ces caractéristiques en promesse de récupération ou de débit.
+sont intéressants sur le papier. Un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+reste le moyen le plus direct de viser la surface juste avant le lancement.
+Sans protocole indépendant commun, nous ne transformons pas ces caractéristiques
+en promesse de récupération ou de débit.
 
 ## Les trois combustibles changent l’organisation
 

@@ -45,9 +45,11 @@ est plus simple. Le GEFU Pezzo ajoute une pelle de service. Le Fackelmann répon
 à un petit budget, avec une documentation moins détaillée.
 
 > **Transparence.** Ce guide est une analyse documentaire. Four à Nu n’a pas
-> soumis ces ciseaux à un essai comparatif. Les liens Amazon.fr sont directs et
-> non rémunérés à ce jour. Les produits étaient commandables lors de notre
-> vérification du 30 août 2026 ; prix, vendeurs et stocks restent variables.
+> soumis ces ciseaux à un essai comparatif. Les liens Amazon.fr sont affiliés :
+> un achat éligible après un clic peut rémunérer Four à Nu, sans surcoût pour
+> vous. Cela ne change ni la sélection ni les limites de ce guide. Les produits
+> étaient commandables lors de notre vérification du 30 août 2026 ; prix,
+> vendeurs et stocks restent variables.
 
 ## Quatre réponses, pas quatre marches d’un podium
 
@@ -62,6 +64,24 @@ Une grande tablée change la question. Je ne cherche pas seulement une première
 coupe nette : je veux que la huitième part ressemble encore à une part, que la
 garniture reste dessus et que l’outil ne devienne pas une corvée à nettoyer une
 fois tout le monde assis.
+
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-ciseaux-pizza-comparatif-960.webp 960w, /images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Quatre formes génériques de ciseaux à pizza, avec sabot, poignées relevées, pelle de service et poignées noires"
+  />
+  <figcaption>
+    <strong>La géométrie change le geste.</strong>
+    Illustration éditoriale originale Four à Nu ; les formes représentent les
+    types comparés, pas les modèles commerciaux.
+  </figcaption>
+</figure>
 
 ## Dreamfarm Scizza : le sabot protecteur le plus clairement documenté
 
@@ -99,8 +119,9 @@ fabricant, pas comme résultat Four à Nu.
 
 Il manque une pelle intégrée. Ce n’est pas forcément un défaut : dans une
 grande tablée, je préfère parfois couper toutes les parts avec un outil, puis
-servir avec une vraie pelle assez large plutôt que de faire les deux gestes avec
-la même main.
+servir avec une
+[vraie pelle assez large](/accessoires-pizza/accessoires-pelle-pizza/) plutôt que
+de faire les deux gestes avec la même main.
 
 ## GEFU Pezzo 12641 : couper et servir avec le même ustensile
 

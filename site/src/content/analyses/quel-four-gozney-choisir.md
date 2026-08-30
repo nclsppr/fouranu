@@ -59,8 +59,10 @@ packs, supports et coloris ne sont pas des modèles supplémentaires.
 | [Dome XL (Gen 2)](/gozney/dome-xl-gen-2/) | 2 499,99 € | 73 kg | une 45 cm, deux 30 cm ou trois 25 cm | Bois, charbon, propane |
 
 Les prix sont des repères datés, pas des promesses. Une promotion sur le
-Roccbox peut disparaître. Le support adapté, la housse, les pelles et le
-thermomètre infrarouge peuvent aussi déplacer sérieusement le budget final.
+Roccbox peut disparaître. Le support adapté, la housse, les
+[pelles](/accessoires-pizza/accessoires-pelle-pizza/) et le
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+peuvent aussi déplacer sérieusement le budget final.
 
 ## Pour moins de 500 €, choisissez votre forme de mobilité
 
@@ -71,8 +73,8 @@ se paie en détails de transport et en récupération entre deux pizzas.
 
 Le Tread ajoute des prises supérieures, un flexible plus facile à ranger et un
 écosystème prévu pour partir. Il ne devient intéressant que si ces sorties
-existent vraiment. Sinon, les 100 € restent mieux dans une pelle ou des bacs à
-pâte.
+existent vraiment. Sinon, les 100 € restent mieux dans une pelle ou des
+[bacs à pâte](/accessoires-pizza/accessoires-bacs-patons/).
 
 Le Roccbox joue une autre carte. Ses pieds se replient, le brûleur gaz et une
 pelle sont annoncés dans la boîte, et un brûleur bois existe en option. Mais

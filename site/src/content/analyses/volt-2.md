@@ -96,7 +96,9 @@ qu'un mode manuel
 fenêtre et l'éclairage permettent à la créatrice de suivre plusieurs zones de
 la pizza sans ouvrir régulièrement la porte
 ([à 3 min 35](https://www.youtube.com/watch?v=IyRNCq67iTA&t=215s)). Elle
-utilise aussi un thermomètre infrarouge et montre des cuissons avec peu ou pas
+utilise aussi un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+et montre des cuissons avec peu ou pas
 de rotation
 ([à 4 min 17](https://www.youtube.com/watch?v=IyRNCq67iTA&t=257s)).
 

@@ -135,7 +135,10 @@ référence.
 - la capacité à enchaîner plusieurs pizzas préparées de la même façon ;
 - la consommation de gaz, de bois ou d'électricité dans des conditions
   comparables ;
-- le coût complet avec table, pelle, thermomètre, housse et brûleur éventuel ;
+- le coût complet avec table,
+  [pelle](/accessoires-pizza/accessoires-pelle-pizza/),
+  [thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/),
+  housse et brûleur éventuel ;
 - la fiabilité et la disponibilité des pièces sur plusieurs années.
 
 ## Ce que ce guide ne peut pas décider pour vous

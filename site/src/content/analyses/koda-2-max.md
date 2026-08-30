@@ -60,7 +60,8 @@ Chaque moitié possède sa commande. Vous pouvez viser deux températures ou
 Elles prouvent que le geste est possible, pas que vous servirez deux fois plus
 de pizzas pendant toute une soirée.
 
-Deux pizzas demandent aussi deux pelles, deux rythmes de rotation et beaucoup
+Deux pizzas demandent aussi
+[deux pelles](/accessoires-pizza/accessoires-pelle-pizza/), deux rythmes de rotation et beaucoup
 d'attention. Dans une séance, elles ne terminent pas exactement en même temps.
 La pâte, l'étalage et la position sur la pierre varient d'une pizza à l'autre.
 
@@ -69,8 +70,10 @@ La pâte, l'étalage et la position sur la pierre varient d'une pizza à l'autre
 Une journée très venteuse montre une montée en température difficile. Lors
 d'une seconde journée annoncée sans vent, les deux pierres atteignent environ
 440 °C et 412 °C après 25 minutes. Une autre session affiche 400 °C après
-23 min 40 s. Ces relevés ne suivent pas le même protocole et ne donnent pas un
-chrono de référence.
+23 min 40 s. Un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+permet de surveiller séparément ces deux zones. Ces relevés ne suivent pas le
+même protocole et ne donnent pas un chrono de référence.
 
 Une pizza documentée cuit en 60 secondes après un lancement autour de 488 °C,
 avec plusieurs rotations. Une seconde cuisson, lancée à une température plus

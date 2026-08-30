@@ -24,7 +24,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Portraits auteur publiés | SHA applicatif `6922c478743764574eed6080294d255f0c4d8170` ; [run GitHub Actions `33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546) vert pour `Verify` et `deploy-cloudflare` |
 | Images de tête dégagées publiées | SHA livré `2c087e39f3009f5aa7f6e853baa846f78c87b32a` ; [run GitHub Actions `33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492) vert pour `Verify` et `deploy-cloudflare` |
 | Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
-| Paquet accessoires local | Quatre guides et un hub en `review`/`noindex` ; validation humaine et feu vert sur le paquet exact encore requis ; aucune publication |
+| Paquet accessoires local | Quatre guides et un hub en `review`/`noindex`, affiliation Amazon `fouranu-21` déclarée dans le candidat ; validation humaine et feu vert sur le paquet exact encore requis ; aucune publication |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
 ## Paquet accessoires local en revue
@@ -32,27 +32,59 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 Le candidat local ajoute quatre guides documentaires : pelle à pizza, ciseaux
 à pizza, thermomètre infrarouge et bacs à pâtons. Chacun compare quatre produits
 qui étaient commandables sur Amazon.fr lors de la vérification du 30 août 2026.
-Les seize liens sont directs, sans paramètre de suivi, rémunération ni programme
-marchand actif. Les articles rappellent que prix, vendeur et stock peuvent
-changer.
+Les seize destinations Amazon du catalogue portent l’identifiant partenaire
+`fouranu-21` dans le candidat. Les articles déclarent la rémunération possible
+et rappellent que prix, vendeur et stock peuvent changer.
 
 Le tirage d'auteur a été réalisé une fois puis enregistré dans les contenus :
 Florian signe la pelle, Magali les ciseaux, Nicolas le thermomètre et les bacs.
 Les quatre voix restent personnelles mais ne transforment pas les sources en
-essais Four à Nu. Les quatre compositions de tête sont des illustrations
-génériques originales, déclinées en huit WebP et rattachées au registre média.
+essais Four à Nu. Quatre compositions de tête et quatre planches comparatives
+sont des illustrations génériques originales, déclinées en seize WebP et
+rattachées au registre média.
 
 Le build local contient désormais 40 pages HTML : les 35 surfaces du paquet
 public, quatre guides accessoires et leur hub. Les cinq nouvelles routes sont
 en `noindex`, les guides portent `status: review`, et aucune ne rejoint le RSS
 ou le sitemap public. Les registres locaux comptent 205 preuves, 66 questions
-et 99 médias.
+et 107 médias.
 
 Cette tranche n'est ni publiée ni autorisée à l'être. La validation humaine des
-quatre visuels reste `pending`. Le propriétaire doit relire et approuver le
+huit compositions reste `pending`. Le propriétaire doit relire et approuver le
 paquet exact ; les statuts, directives d'indexation et registres ne pourront
 ensuite changer qu'avec les gates éditoriale, visuelle et technique vertes sur
 le même SHA.
+
+La gate complète `./scripts/verify.sh` est verte le 30 août 2026 : 32 tests de
+registres, 20 contrats du site, 40 pages Astro, contrôle Cloudflare à sec et
+Nimbus passent ensemble. La revue navigateur mobile des appels Amazon et du
+cas mixte Halo Core / Halo Pro ne montre ni débordement ni erreur console.
+
+## Affiliation Amazon et cache favicon préparés localement
+
+Le candidat transforme les URL Amazon visibles au rendu, sans modifier les URL
+canoniques de `research/evidence.csv` ni leur copie applicative. Les seize ASIN
+du catalogue reçoivent `tag=fouranu-21`. Le lien court Halo Pro fourni par le
+propriétaire, `https://amzn.to/4y8lFcC`, redirige vers l’ASIN `B0FPXDMSFZ` avec
+ce même tag ; Halo Core conserve sa destination fabricant Ooni. Le build compte
+58 occurrences Amazon issues des appels d’achat, tableaux et références : elles
+portent toutes `rel="sponsored external noopener"` et une annonce d’affiliation
+à proximité. Aucun script, prix automatique ou pixel Amazon n’est chargé.
+
+L’audit de production a retrouvé les mêmes octets pour le favicon SVG, le repli
+ICO, l’icône Apple, les icônes PWA et le manifeste dans le checkout,
+`origin/main`, le build et `fouranu.com`. Le service favicon de Google renvoie
+pourtant encore l’ancien pictogramme noir et blanc, alors que l’URL publique sert
+le nouveau four orange. Un client utilisant l’agent Safari reçoit également le
+bon fichier ; le cache persistant connu de Safari est donc le diagnostic le plus
+probable chez le propriétaire. Aucun élément ne met en cause Cloudflare ou le
+déploiement actuel.
+
+Le candidat déclare désormais `/favicon-fouranu-v2.svg`,
+`/apple-touch-icon-v2.png` et les deux icônes PWA versionnées. Les anciennes URL
+et `/favicon.ico` restent présentes en repli. Rien de cela n’est encore public :
+après un éventuel déploiement autorisé et vérifié, l’accueil devra être soumis
+une fois à l’inspection d’URL Google, sans promettre un rafraîchissement immédiat.
 
 ## Images de tête dégagées publiées
 
@@ -316,8 +348,12 @@ seulement les capacités natives de partage et de copie disponibles. Le build de
 preview reste en `noindex` et la production ouvre 34 URL dans le sitemap.
 
 Le candidat local séparé porte ce build à 40 pages avec un hub et quatre guides
-accessoires en revue. Il compte 205 preuves et 99 médias, sans changer les 35
-pages, 34 URL de sitemap, 19 entrées RSS ni 91 médias actuellement publiés.
+accessoires en revue. Il compte 205 preuves et 107 médias, sans changer les 35
+pages, 34 URL de sitemap, 19 entrées RSS ni 91 médias actuellement publiés. La
+page d’accueil donne accès à ce rayon dans le candidat, et les dix-neuf dossiers
+historiques portent 31 liens contextuels vers les guides qui répondent réellement
+à leur passage. Quatre planches génériques illustrent en plus les familles
+d’objets comparées dans les guides, sans reprendre d’image Amazon.fr.
 
 L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
 8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
@@ -357,9 +393,10 @@ signatures stables, puis ajoutent leurs portraits réels à chaque dossier. Les
 crédits des images de tête ont ensuite été sortis des visuels et ramenés à leur
 provenance utile, sans retirer les crédits documentaires détaillés. Les quatre
 premiers dossiers accessoires répondent chacun à une question d'achat et
-possèdent leurs sources, leurs liens directs et leurs visuels originaux. Ils
-restent toutefois séparés de la production tant que leur paquet exact n'a pas
-été validé puis autorisé.
+possèdent leurs sources, leurs liens directs, leur accès depuis la page d’accueil
+et leurs visuels originaux de tête et de comparaison. Ils restent toutefois
+séparés de la production tant que leur paquet exact n'a pas été validé puis
+autorisé.
 
 ## Phases actives
 
@@ -443,7 +480,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
 | Accessoires encore absents de la production | Quatre guides existent localement, mais le fonds public n'aide pas encore à choisir ces outils | Valider le paquet exact, passer ses gates, autoriser sa publication puis vérifier les routes publiques |
 | Aucun essai de première main | La nouvelle ambition ne possède encore ni protocole ni résultat propre | Accepter le protocole, étendre les registres puis vérifier les trois pilotes de F06 sans réécrire le passé documentaire |
-| Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
+| Affiliation Amazon non publiée et état du compte non vérifié | Aucun revenu attribuable au candidat ; acceptation finale, fiscalité et paiement restent hors dépôt | Contrôler `fouranu.com`, le statut de validation, les informations fiscales et le paiement dans le compte, puis publier seulement avec le paquet autorisé |
 
 ## Prochaines preuves
 
@@ -451,7 +488,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
 | Médias d'article | Gate | Chaque en-tête suit l'ADR-0005 ou l'exception multi-produits de l'ADR-0008, possède une entrée exacte dans `research/assets.csv` et reçoit sa validation humaine avant publication | F02/F03 |
-| Paquet accessoires local | Gate | Validation éditoriale et visuelle des quatre guides et huit WebP, feu vert sur le paquet exact, gate complète et `Verify` vert sur le même SHA | F02/F03 |
+| Paquet accessoires local | Gate | Validation éditoriale et visuelle des quatre guides et seize WebP, puis feu vert sur le paquet exact ; la gate complète locale est déjà verte | F02/F03 |
 | Publication suivante | Activation | Run GitHub Actions vert, `/release.json`, routes, médias et métadonnées contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |
 | Premiers essais Four à Nu | Capacité future | Inventaire français daté, décision de protocole, sessions enregistrées et pilotes vérifiés sur un four, un accessoire et un pétrin | F06 |

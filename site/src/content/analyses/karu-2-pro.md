@@ -75,7 +75,8 @@ passerez pas du gaz au bois au milieu d'une cuisson. Il faut attendre que le
 four soit froid avant de manipuler les pièces.
 
 Le thermomètre intégré mesure l'air du four. Pour connaître la température de
-la pierre, il faut encore un thermomètre infrarouge. Une belle valeur sur
+la pierre, il faut encore un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/). Une belle valeur sur
 l'afficheur ne garantit pas que la surface de cuisson soit prête au centre et
 sur les bords.
 
@@ -109,7 +110,8 @@ vous voulez un format simple. Pour cuisiner surtout au gaz, le
 
 - La profondeur et la résistance de la table.
 - Les dégagements autour de la cheminée et de la porte.
-- Le coût total avec brûleur gaz, pelle, housse et thermomètre infrarouge.
+- Le coût total avec brûleur gaz,
+  [pelle](/accessoires-pizza/accessoires-pelle-pizza/), housse et thermomètre infrarouge.
 - Le combustible principal que vous utiliserez réellement.
 - L'espace nécessaire pour nettoyer et stocker les pièces de conversion.
 

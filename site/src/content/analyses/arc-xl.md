@@ -89,7 +89,8 @@ mois avec des pizzas de 30 à 40 cm, l’auteur explique que les plus grandes
 s’approchent beaucoup de la flamme. Il faut les tourner tôt, alors que la base
 peut encore manquer de tenue et se déchirer.
 
-Si le format de 40 cm est votre priorité, prévoyez une pelle adaptée et un peu
+Si le format de 40 cm est votre priorité, prévoyez une
+[pelle adaptée](/accessoires-pizza/accessoires-pelle-pizza/) et un peu
 d’apprentissage. Pour un usage familial plus courant, nous choisirions l’Arc
 XL pour la marge qu’il offre autour d’une pizza de 30 à 35 cm. C’est là que son
 grand format devient vraiment confortable.
@@ -124,7 +125,9 @@ chaleur. Tom’s Guide le lit comme une température ambiante. Dans la vidéo, p
 infrarouges sur la sole s’écartent nettement de la valeur affichée.
 
 Nous garderions donc l’écran pour suivre la montée en température. Avant de
-lancer la pizza, un thermomètre infrarouge vous dit directement ce qui se passe
+lancer la pizza, un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+vous dit directement ce qui se passe
 à l’endroit où la pâte va toucher la pierre.
 
 ## La flamme latérale ne vous laisse pas partir

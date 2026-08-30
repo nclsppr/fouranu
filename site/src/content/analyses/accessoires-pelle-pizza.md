@@ -45,9 +45,11 @@ me plaît dans le travail de la pizza : l’outil le plus spectaculaire n’est 
 forcément celui qui rend le mouvement le plus propre.
 
 > **Transparence.** Ce guide est une analyse documentaire. Four à Nu n’a pas
-> soumis ces pelles à un essai comparatif. Les liens Amazon.fr sont directs et
-> non rémunérés à ce jour. Les produits étaient commandables lors de notre
-> vérification du 30 août 2026 ; prix, vendeurs et stocks restent variables.
+> soumis ces pelles à un essai comparatif. Les liens Amazon.fr sont affiliés :
+> un achat éligible après un clic peut rémunérer Four à Nu, sans surcoût pour
+> vous. Cela ne change ni la sélection ni les limites de ce guide. Les produits
+> étaient commandables lors de notre vérification du 30 août 2026 ; prix,
+> vendeurs et stocks restent variables.
 
 ## Les quatre modèles que nous garderions dans la comparaison
 
@@ -61,6 +63,24 @@ forcément celui qui rend le mouvement le plus propre.
 Ce tableau ne forme pas un podium. Il sépare quatre problèmes d’acheteur qui
 sont souvent mélangés : enlever la farine, apprendre le lancement, servir à
 table et trouver une place à l’ustensile une fois la soirée terminée.
+
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-pelle-pizza-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-pelle-pizza-comparatif-960.webp 960w, /images/articles/accessoires-pelle-pizza-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Quatre pelles à pizza génériques alignées : perforée, pleine, en bambou et compacte en inox"
+  />
+  <figcaption>
+    <strong>Quatre formats, quatre contraintes.</strong>
+    Illustration éditoriale originale Four à Nu ; les formes représentent les
+    types comparés, pas les modèles commerciaux.
+  </figcaption>
+</figure>
 
 ## Ooni perforée 30 cm : pour limiter la farine qui tombe sur la pierre
 
@@ -104,7 +124,8 @@ on lui donne l’occasion de coller.
 
 La [planche-pelle en bambou Ooni](https://eu.ooni.com/fr-fr/products/ooni-wooden-pizza-peel)
 mesure 50,5 × 30,5 × 1,2 cm et pèse 717 g dans sa version 30 cm. Ooni la décrit
-comme une surface de lancement, de service et de découpe. Le bambou est annoncé
+comme une surface de lancement, de service et de
+[découpe](/accessoires-pizza/accessoires-ciseaux-pizza/). Le bambou est annoncé
 comme résistant à l’humidité.
 
 Son intérêt est évident dans une petite cuisine : elle peut accueillir la pâte,
@@ -149,7 +170,8 @@ colore un côté plus vite ou que plusieurs pizzas doivent s’enchaîner.
 Pour un premier équipement, je garderais malgré tout l’ordre suivant :
 
 1. une pelle large qui permet réellement d’enfourner et de sortir la pizza ;
-2. un thermomètre adapté si le four ne mesure pas la sole ;
+2. un [thermomètre adapté](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+   si le four ne mesure pas la sole ;
 3. une pelle de rotation lorsque le besoin apparaît dans le geste.
 
 Acheter les deux pelles immédiatement n’est pas obligatoire. Se retrouver avec

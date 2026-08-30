@@ -234,12 +234,16 @@ aux dimensions d'un favicon.
 La seule dérivation compacte autorisée simplifie le four du logo en SVG :
 cheminée, voûte, ouverture et flamme restent solidaires, sans pizza, pelle ni
 lettrage. `assets/brand/production/four-a-nu-app-icon.svg` en est la source ;
-`site/public/favicon.svg`, `site/public/brand/four-a-nu-mark.svg`, l'icône Apple
-180 px et les icônes de manifeste 192 et 512 px en sont les consommateurs. Cette
-exception sert uniquement l'identification du site et de l'application. Elle
-n'autorise ni un motif de four dans les pages, ni l'extraction isolée de la
-flamme. Les nuances claires, le jaune interne et l'arrondi de fond propres à cet
-actif ne créent aucun nouveau token, rayon ou composant d'interface.
+`site/public/favicon-fouranu-v2.svg`,
+`site/public/brand/four-a-nu-mark.svg`,
+`site/public/apple-touch-icon-v2.png` et les icônes de manifeste
+`icon-fouranu-v2-192.png` et `icon-fouranu-v2-512.png` en sont les consommateurs
+actifs. Les anciennes URL, dont `/favicon.svg`, et le `favicon.ico` racine
+restent uniquement des replis de compatibilité. Cette exception sert seulement
+l'identification du site et de l'application. Elle n'autorise ni un motif de
+four dans les pages, ni l'extraction isolée de la flamme. Les nuances claires,
+le jaune interne et l'arrondi de fond propres à cet actif ne créent aucun
+nouveau token, rayon ou composant d'interface.
 
 L'ancien signe géométrique ouvert dans un angle est retiré des surfaces actives.
 Son tracé provisoire reste seulement une trace historique sous

@@ -124,7 +124,8 @@ minutes à 850 °F avant une pizza cuite 90 secondes. Après la cuisson, le Trea
 revient au seuil en 2 min 45 ; l’Arc Lite met 7 minutes
 ([voir à partir de 05:12](https://www.youtube.com/watch?v=KhqmMgbv_SY&t=312s)).
 
-C’est un écart utile si quatre pâtons attendent déjà sur la table. Mais il vient
+C’est un écart utile si quatre pâtons attendent déjà dans des
+[bacs adaptés](/accessoires-pizza/accessoires-bacs-patons/) sur la table. Mais il vient
 d’une seule pizza par four. La pâte, la météo et la répétabilité de la série ne
 sont pas assez décrites pour annoncer le même délai chez vous.
 
@@ -146,7 +147,7 @@ diamètre le plus facile à tourner dès la première soirée.
 
 Sur l’Arc Lite, The Barbecue Lab juge les pizzas de 25 à 28 cm plus simples à
 manipuler. Les plus grandes de sa série demandent de ressortir la pizza avec la
-pelle de lancement pour la tourner à la main. Ce retour porte sur un auteur, une
+[pelle de lancement](/accessoires-pizza/accessoires-pelle-pizza/) pour la tourner à la main. Ce retour porte sur un auteur, une
 pâte à 63 % d’hydratation et un four. Nous en faisons un conseil de prise en main,
 pas une nouvelle limite du produit.
 
@@ -187,7 +188,7 @@ session. C’est assez pour changer l’organisation d’un service, pas pour d�
 le four meilleur dans l’absolu.
 
 Avant de commander, ajoutez au budget une pelle de lancement, une pelle à
-tourner, un thermomètre infrarouge, une housse et une table stable. Pour le
+tourner, un [thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/), une housse et une table stable. Pour le
 Tread, ajoutez seulement les accessoires de transport que vous utiliserez
 vraiment. Un four « aventure » qui ne quitte jamais le jardin est surtout un
 Arc Lite payé plus cher.

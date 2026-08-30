@@ -74,6 +74,24 @@ moyenne une grande surface. Pour chercher un point précis de la sole, mieux vau
 donc rester à une distance raisonnable et garder à peu près la même position à
 chaque relevé.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-thermometre-infrarouge-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-thermometre-infrarouge-comparatif-960.webp 960w, /images/articles/accessoires-thermometre-infrarouge-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Quatre thermomètres infrarouges génériques alignés, dont un avec réglage et un accompagné d’une sonde"
+  />
+  <figcaption>
+    <strong>Les fonctions se voient avant les chiffres.</strong>
+    Illustration éditoriale originale Four à Nu ; les formes représentent les
+    types comparés, pas les modèles commerciaux.
+  </figcaption>
+</figure>
+
 ## La température de la sole n’est pas celle du four
 
 Un thermomètre infrarouge lit le rayonnement d’une surface. Il ne mesure pas
@@ -161,6 +179,10 @@ plus chaud ? La sole a-t-elle récupéré avant la pizza suivante ? Elle aide au
 à distinguer un four réellement prêt d’un brûleur simplement arrivé à pleine
 flamme.
 
+Une fois la zone prête, une
+[pelle adaptée à l’ouverture](/accessoires-pizza/accessoires-pelle-pizza/)
+permet de lancer sans improviser le dernier geste.
+
 Le pointeur laser sert à visualiser la direction de visée, pas à mesurer. Il ne
 doit jamais être dirigé vers les yeux. Les surfaces brillantes et réfléchissantes
 réclament par ailleurs davantage de prudence que la cordiérite mate ; suivez le
@@ -180,11 +202,11 @@ le four, mais je n’achèterais pas 600 °C uniquement parce que 600 est supér
 reprendre la même mesure au même endroit pèseront davantage dans une soirée.
 
 Les quatre références étaient proposées à la vente sur Amazon.fr lors de notre
-vérification du 30 août 2026. Les deux encarts d’achat de cette page utilisent
-des liens directs et non rémunérés aujourd’hui : Four à Nu ne reçoit aucune
-commission. Le prix, le vendeur, le contenu exact de l’offre et le stock peuvent
-changer ; relisez
-la fiche Amazon avant de commander.
+vérification du 30 août 2026. Les liens Amazon.fr de cette page sont affiliés :
+un achat éligible après un clic peut rémunérer Four à Nu, sans surcoût pour
+vous. Cette rémunération éventuelle ne change ni la sélection ni les limites du
+guide. Le prix, le vendeur, le contenu exact de l’offre et le stock peuvent
+changer ; relisez la fiche Amazon avant de commander.
 
 ## Ce que les fiches ne permettent pas de départager
 

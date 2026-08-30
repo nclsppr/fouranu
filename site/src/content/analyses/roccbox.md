@@ -52,7 +52,8 @@ oui ; à porter longtemps, beaucoup moins.
 
 ## Ce qui est inclus réduit le premier achat
 
-La fiche Gozney annonce le four, le brûleur propane amovible, une pelle et le
+La fiche Gozney annonce le four, le brûleur propane amovible, une
+[pelle](/accessoires-pizza/accessoires-pelle-pizza/) et le
 manuel dans la boîte. Cette composition est utile face à un modèle vendu nu,
 car une pelle de lancement n’est pas un accessoire facultatif.
 

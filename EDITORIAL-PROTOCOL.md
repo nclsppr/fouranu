@@ -144,6 +144,13 @@ Les couples autorisés sont explicites :
 | `author-portrait` | `owner-provided-photo` | `granted` |
 | `quarantine` | `not-acquired` | Aucun |
 
+Pour un guide multi-produits, l’ADR-0008 autorise aussi un visuel original de
+comparaison dans le corps : aucune image tierce ne sert d’entrée, les objets
+restent génériques et la légende dit explicitement qu’ils représentent des
+types plutôt que les produits commerciaux exacts. Cette illustration aide à
+lire les familles d’objets ; elle ne prouve ni mesure, ni compatibilité, ni
+résultat d’essai.
+
 La preuve reste la vidéo consultable, son timecode, son protocole déclaré et,
 après autorisation, le photogramme non altéré. Une retouche qui modifie ou invente le produit, même de façon minime, fait
 basculer le visuel dans `editorial-illustration`. La direction artistique
@@ -375,6 +382,15 @@ sont vraies :
 - les liens rémunérés sont déclarés, portent `rel="sponsored"` et plusieurs
   vendeurs sont proposés lorsque cela aide réellement le lecteur ;
 - le propriétaire donne un feu vert explicite sur le paquet de publication.
+
+Pour Amazon.fr, le registre `research/evidence.csv` conserve l’URL canonique de
+la source sans identifiant partenaire. La couche de rendu ajoute
+`tag=fouranu-21` aux URL directes, limite les liens courts à ceux dont la
+redirection affiliée a été vérifiée, ajoute `rel="sponsored"` et annonce la
+rémunération avant le clic. La page de transparence reprend aussi la déclaration
+Amazon exigée. Aucun prix, stock ou avantage commercial Amazon n’est recopié
+comme une donnée durable, et aucune image Amazon n’est téléchargée, transformée
+ou réutilisée hors des outils et licences prévus par le programme.
 
 Bandeau minimal :
 

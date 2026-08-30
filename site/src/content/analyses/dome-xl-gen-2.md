@@ -69,10 +69,12 @@ démarrage et le réglage. Le bois et le charbon ajoutent l’entretien du feu, 
 cendres et de la cheminée. Cette polyvalence a de la valeur seulement si vous
 comptez réellement changer de combustible.
 
-La console annonce les températures de l’air et de la sole, un minuteur et
-deux sondes à viande. Ce sont des repères pratiques pour des cuissons longues.
-Ils ne remplacent pas l’apprentissage des zones chaudes ni le contrôle direct
-de la pierre avant une pizza.
+La console annonce les températures de l’air et de la sole, un minuteur et deux
+sondes à viande. Ce sont des repères pratiques pour des cuissons longues. Ils ne
+remplacent pas l’apprentissage des zones chaudes ni le contrôle direct de la
+pierre avec un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/)
+avant une pizza.
 
 ## Les 500 € face au Dome standard
 

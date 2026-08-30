@@ -73,8 +73,10 @@ avant l'achat.
 
 ## Trois chronos et aucune moyenne honnête
 
-Trois vidéos publiées dépassent 400 °C sur la sole. Elles ne suivent pas le
-même protocole.
+Trois vidéos publiées dépassent 400 °C sur la sole. Pour surveiller ce point à
+la maison, le repère utile reste un
+[thermomètre infrarouge](/accessoires-pizza/accessoires-thermometre-infrarouge/).
+Ces vidéos ne suivent pas le même protocole.
 
 | Conditions publiées | Relevé observé | Ce que l'on peut en retenir |
 | --- | --- | --- |
@@ -116,7 +118,8 @@ une autre envie.
 - Mesurez la profondeur de la table et gardez une marge pour le tuyau.
 - Contrôlez les dégagements de sécurité autour et au-dessus du four.
 - Vérifiez le raccordement propane livré pour la France.
-- Laissez assez de place à une pelle et à une pizza de 35 cm en rotation.
+- Laissez assez de place à une
+  [pelle](/accessoires-pizza/accessoires-pelle-pizza/) et à une pizza de 35 cm en rotation.
 - Décidez où ranger un appareil de 16 kg entre deux usages.
 
 ## Notre conclusion

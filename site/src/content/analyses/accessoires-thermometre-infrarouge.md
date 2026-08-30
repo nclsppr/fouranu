@@ -7,12 +7,12 @@ title: "Quel thermomètre infrarouge choisir pour un four à pizza ?"
 seoTitle: "Thermomètre infrarouge pour four à pizza : lequel choisir ?"
 description: Un thermomètre infrarouge sert à lire la sole, pas l’air du four. Quatre modèles vendus sur Amazon.fr comparés selon leur plage, leur visée et leur simplicité.
 summary: Le bon thermomètre ne rend pas le four plus chaud. Il permet de savoir où lancer la pizza, puis quand laisser la sole récupérer entre deux cuissons.
-status: review
+status: publishable
 type: guide
 author: nicolas
 publishedAt: 2026-08-30
 updatedAt: 2026-08-30
-indexable: false
+indexable: true
 image:
   src: /images/articles/accessoires-thermometre-infrarouge-1600.webp
   alt: "Thermomètre infrarouge pointé vers la sole claire d’un four à pizza"

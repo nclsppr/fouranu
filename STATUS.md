@@ -24,10 +24,10 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Portraits auteur publiés | SHA applicatif `6922c478743764574eed6080294d255f0c4d8170` ; [run GitHub Actions `33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546) vert pour `Verify` et `deploy-cloudflare` |
 | Images de tête dégagées publiées | SHA livré `2c087e39f3009f5aa7f6e853baa846f78c87b32a` ; [run GitHub Actions `33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492) vert pour `Verify` et `deploy-cloudflare` |
 | Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
-| Paquet accessoires local | Quatre guides et un hub en `review`/`noindex`, affiliation Amazon `fouranu-21` déclarée dans le candidat ; validation humaine et feu vert sur le paquet exact encore requis ; aucune publication |
+| Paquet accessoires autorisé | Quatre guides et un hub publiables/indexables, affiliation Amazon `fouranu-21` déclarée, seize WebP approuvés et feu vert explicite du propriétaire ; livraison publique à vérifier |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Paquet accessoires local en revue
+## Paquet accessoires autorisé à la publication
 
 Le candidat local ajoute quatre guides documentaires : pelle à pizza, ciseaux
 à pizza, thermomètre infrarouge et bacs à pâtons. Chacun compare quatre produits
@@ -43,24 +43,24 @@ essais Four à Nu. Quatre compositions de tête et quatre planches comparatives
 sont des illustrations génériques originales, déclinées en seize WebP et
 rattachées au registre média.
 
-Le build local contient désormais 40 pages HTML : les 35 surfaces du paquet
-public, quatre guides accessoires et leur hub. Les cinq nouvelles routes sont
-en `noindex`, les guides portent `status: review`, et aucune ne rejoint le RSS
-ou le sitemap public. Les registres locaux comptent 205 preuves, 66 questions
-et 107 médias.
+Le build local contient désormais 40 pages HTML : les 35 surfaces déjà
+publiques, quatre guides accessoires et leur hub. Les cinq nouvelles routes
+sont indexables, les guides portent `status: publishable`, le sitemap contient
+39 URL, le RSS 23 entrées et le sitemap d'images 23 visuels. Les registres
+comptent 205 preuves, 66 questions et 107 entrées média.
 
-Cette tranche n'est ni publiée ni autorisée à l'être. La validation humaine des
-huit compositions reste `pending`. Le propriétaire doit relire et approuver le
-paquet exact ; les statuts, directives d'indexation et registres ne pourront
-ensuite changer qu'avec les gates éditoriale, visuelle et technique vertes sur
-le même SHA.
+Le propriétaire a explicitement autorisé le paquet exact, son indexation, son
+push sur `main` et son déploiement le 30 août 2026. Une seconde passe des huit
+compositions originales ne relève ni marque, ni copie Amazon, ni modèle
+commercial exact ; les seize dérivés WebP sont `approved` et possèdent leur URL
+de publication. La CI du SHA livré et les sondes publiques restent à acquérir.
 
 La gate complète `./scripts/verify.sh` est verte le 30 août 2026 : 32 tests de
 registres, 20 contrats du site, 40 pages Astro, contrôle Cloudflare à sec et
 Nimbus passent ensemble. La revue navigateur mobile des appels Amazon et du
 cas mixte Halo Core / Halo Pro ne montre ni débordement ni erreur console.
 
-## Affiliation Amazon et cache favicon préparés localement
+## Affiliation Amazon et cache favicon prêts à livrer
 
 Le candidat transforme les URL Amazon visibles au rendu, sans modifier les URL
 canoniques de `research/evidence.csv` ni leur copie applicative. Les seize ASIN
@@ -347,10 +347,10 @@ Aucun JavaScript client n'est nécessaire au contenu. Un module progressif rév�
 seulement les capacités natives de partage et de copie disponibles. Le build de
 preview reste en `noindex` et la production ouvre 34 URL dans le sitemap.
 
-Le candidat local séparé porte ce build à 40 pages avec un hub et quatre guides
-accessoires en revue. Il compte 205 preuves et 107 médias, sans changer les 35
-pages, 34 URL de sitemap, 19 entrées RSS ni 91 médias actuellement publiés. La
-page d’accueil donne accès à ce rayon dans le candidat, et les dix-neuf dossiers
+Le candidat autorisé porte ce build à 40 pages avec un hub et quatre guides
+accessoires publiables et indexables. Il compte 205 preuves et 107 entrées média ;
+le sitemap candidat contient 39 URL, le RSS 23 entrées et le sitemap d'images 23
+visuels. La page d’accueil donne accès à ce rayon, et les dix-neuf dossiers
 historiques portent 31 liens contextuels vers les guides qui répondent réellement
 à leur passage. Quatre planches génériques illustrent en plus les familles
 d’objets comparées dans les guides, sans reprendre d’image Amazon.fr.
@@ -393,17 +393,17 @@ signatures stables, puis ajoutent leurs portraits réels à chaque dossier. Les
 crédits des images de tête ont ensuite été sortis des visuels et ramenés à leur
 provenance utile, sans retirer les crédits documentaires détaillés. Les quatre
 premiers dossiers accessoires répondent chacun à une question d'achat et
-possèdent leurs sources, leurs liens directs, leur accès depuis la page d’accueil
-et leurs visuels originaux de tête et de comparaison. Ils restent toutefois
-séparés de la production tant que leur paquet exact n'a pas été validé puis
-autorisé.
+possèdent leurs sources, leurs liens affiliés déclarés, leur accès depuis la page
+d’accueil et leurs visuels originaux de tête et de comparaison. Leur paquet
+exact est validé et autorisé ; la CI et la vérification publique restent à
+acquérir avant de les déclarer livrés.
 
 ## Phases actives
 
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
 | F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
-| F02, corpus documentaire publiable | `in_progress` | Dix-neuf guides publics ; quatre guides accessoires locaux en revue ; pages de confiance, provenance et politique de correction | Validation humaine et feu vert du paquet accessoires ; cinq sessions restent à mener, avec dérogation déjà accordée pour la V1 publique | nclsppr |
+| F02, corpus documentaire publiable | `in_progress` | Dix-neuf guides publics ; quatre guides accessoires publiables, visuellement approuvés et autorisés ; pages de confiance, provenance et politique de correction | CI et contrôle public du paquet accessoires ; cinq sessions restent à mener, avec dérogation déjà accordée pour la V1 publique | nclsppr |
 | F03, candidat Cloudflare | `done` | Paquet approuvé, preuves privées, gate locale, CI du même SHA et environnement GitHub protégé | Aucune pour la V1 | nclsppr |
 | F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
 | F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
@@ -478,9 +478,9 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Condition | Impact | Preuve attendue |
 | --- | --- | --- |
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
-| Accessoires encore absents de la production | Quatre guides existent localement, mais le fonds public n'aide pas encore à choisir ces outils | Valider le paquet exact, passer ses gates, autoriser sa publication puis vérifier les routes publiques |
+| Accessoires encore absents de la production | Quatre guides sont autorisés et indexables dans le candidat, mais le fonds public n'aide pas encore à choisir ces outils | Déployer le paquet exact après sa gate puis vérifier les routes publiques |
 | Aucun essai de première main | La nouvelle ambition ne possède encore ni protocole ni résultat propre | Accepter le protocole, étendre les registres puis vérifier les trois pilotes de F06 sans réécrire le passé documentaire |
-| Affiliation Amazon non publiée et état du compte non vérifié | Aucun revenu attribuable au candidat ; acceptation finale, fiscalité et paiement restent hors dépôt | Contrôler `fouranu.com`, le statut de validation, les informations fiscales et le paiement dans le compte, puis publier seulement avec le paquet autorisé |
+| Affiliation Amazon non publiée et état du compte non vérifié | Aucun revenu attribuable au candidat ; acceptation finale, fiscalité et paiement restent hors dépôt | Publier le paquet autorisé, puis contrôler séparément `fouranu.com`, le statut de validation, les informations fiscales et le paiement dans le compte |
 
 ## Prochaines preuves
 
@@ -488,7 +488,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
 | Médias d'article | Gate | Chaque en-tête suit l'ADR-0005 ou l'exception multi-produits de l'ADR-0008, possède une entrée exacte dans `research/assets.csv` et reçoit sa validation humaine avant publication | F02/F03 |
-| Paquet accessoires local | Gate | Validation éditoriale et visuelle des quatre guides et seize WebP, puis feu vert sur le paquet exact ; la gate complète locale est déjà verte | F02/F03 |
-| Publication suivante | Activation | Run GitHub Actions vert, `/release.json`, routes, médias et métadonnées contrôlés | F04 |
+| Paquet accessoires | Gate | Validation éditoriale et visuelle acquise pour les quatre guides et seize WebP ; feu vert explicite reçu sur le paquet exact | F02/F03 |
+| Publication accessoires | Activation | Run GitHub Actions vert, `/release.json`, cinq routes, seize médias, liens Amazon et métadonnées contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |
 | Premiers essais Four à Nu | Capacité future | Inventaire français daté, décision de protocole, sessions enregistrées et pilotes vérifiés sur un four, un accessoire et un pétrin | F06 |

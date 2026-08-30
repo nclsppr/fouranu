@@ -6,12 +6,12 @@ importantes.
 
 ## Non publié
 
-## 2026-08-30 - Quatre guides accessoires préparés en revue
+## 2026-08-30 - Quatre guides accessoires autorisés à la publication
 
-- Le candidat local ajoute un hub `/accessoires-pizza/` et quatre guides sur la
-  pelle à pizza, les ciseaux à pizza, le thermomètre infrarouge et les bacs à
-  pâtons. Les cinq nouvelles routes restent en `noindex` ; les guides portent
-  le statut `review` et n'entrent ni dans le sitemap ni dans le RSS publics.
+- Le candidat ajoute un hub `/accessoires-pizza/` et quatre guides sur la pelle
+  à pizza, les ciseaux à pizza, le thermomètre infrarouge et les bacs à pâtons.
+  Les cinq routes sont publiables et indexables ; l'artefact attendu contient
+  39 URL dans le sitemap, 23 entrées RSS et 23 images d'article indexables.
 - Chaque guide compare quatre produits commandables sur Amazon.fr lors de la
   vérification du 30 août 2026. Les seize destinations du catalogue sont
   préparées avec `tag=fouranu-21` ; prix, vendeurs et stocks restent
@@ -27,8 +27,8 @@ importantes.
   physique absent du registre.
 - Quatre compositions génériques originales fournissent huit WebP aux formats
   1 600 × 900 et 960 × 540. L'ADR-0008 encadre cette exception réservée aux
-  guides multi-produits ; leur validation humaine reste `pending` et bloque
-  toute publication.
+  guides multi-produits ; la seconde passe visuelle est acquise et leur statut
+  de validation humaine est `approved`.
 - La page d’accueil ouvre désormais un accès immédiatement visible au rayon et
   à ses quatre guides. Les dix-neuf dossiers historiques reçoivent 31 liens
   contextuels vers la pelle, le thermomètre ou les bacs ; le guide des ciseaux
@@ -41,12 +41,11 @@ importantes.
   étaient déjà corrects octet pour octet ; les anciennes URL et le fichier ICO
   racine restent disponibles comme replis, et aucune purge Cloudflare n’est
   nécessaire.
-- Les registres locaux passent de 168 à 205 preuves et de 91 à 107 médias. Le
-  site construit 40 pages et ses 20 contrats, la gate complète et le contrôle
-  Cloudflare à sec sont verts. Le paquet exact doit encore recevoir sa
-  validation éditoriale et visuelle ainsi que le feu vert explicite du
-  propriétaire avant tout passage en `publishable`, indexation, push sur `main`
-  ou déploiement.
+- Les registres passent de 168 à 205 preuves et de 91 à 107 entrées média. Les
+  seize nouveaux WebP possèdent leur URL de publication. Le site construit 40
+  pages et ses 20 contrats sont verts. Le propriétaire a donné son feu vert
+  explicite au paquet exact, à son indexation, au push sur `main` et au
+  déploiement ; la preuve CI et la vérification publique restent à consigner.
 
 ## 2026-08-27 - Portraits auteur remplacés sans retouche
 

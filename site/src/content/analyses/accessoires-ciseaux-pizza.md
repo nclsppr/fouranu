@@ -7,12 +7,12 @@ title: "Quels ciseaux à pizza choisir pour couper sans tout déplacer ?"
 seoTitle: "Quels ciseaux à pizza choisir ?"
 description: "Sabot protecteur, lames démontables ou pelle intégrée : quatre ciseaux à pizza comparés selon la découpe, le service et le nettoyage."
 summary: Les bons ciseaux à pizza gardent les garnitures en place et se nettoient sans recoins oubliés. Le choix dépend surtout de la surface et du service.
-status: review
+status: publishable
 type: guide
 author: magali
 publishedAt: 2026-08-30
 updatedAt: 2026-08-30
-indexable: false
+indexable: true
 image:
   src: /images/articles/accessoires-ciseaux-pizza-1600.webp
   alt: "Ciseaux à pizza ouverts près de plusieurs parts disposées sur une grande planche de service"

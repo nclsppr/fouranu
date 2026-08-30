@@ -7,12 +7,12 @@ title: "Quel bac à pâtons choisir pour le frigo et la prochaine fournée ?"
 seoTitle: "Bac à pâtons : lequel choisir pour son frigo ? | Four à Nu"
 description: Quatre bacs à pâtons vendus sur Amazon.fr comparés selon leur format, leur couvercle et la place réellement disponible dans un réfrigérateur domestique.
 summary: Le bon bac n’est pas celui qui contient le plus de pâtons. C’est celui qui entre à plat dans le frigo, se ferme correctement et laisse organiser la fournée sans bataille.
-status: review
+status: publishable
 type: guide
 author: nicolas
 publishedAt: 2026-08-30
 updatedAt: 2026-08-30
-indexable: false
+indexable: true
 image:
   src: /images/articles/accessoires-bacs-patons-1600.webp
   alt: "Six pâtons espacés dans un bac alimentaire rectangulaire, à côté de trois bacs fermés au réfrigérateur"

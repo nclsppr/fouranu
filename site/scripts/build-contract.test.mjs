@@ -55,6 +55,7 @@ function webpChunkTypes(bytes) {
 
 const fixedIndexableRoutes = [
   "/",
+  "/accessoires-pizza/",
   "/a-propos/",
   "/auteurs/florian/",
   "/auteurs/magali/",
@@ -73,7 +74,7 @@ const fixedIndexableRoutes = [
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 const articleRoutePattern = /^\/(?:ooni|gozney|accessoires-pizza)\/[^/]+\/$/;
-const reviewArticleRoutePattern = /^\/accessoires-pizza\/[^/]+\/$/;
+const accessoryArticleRoutePattern = /^\/accessoires-pizza\/[^/]+\/$/;
 const routeSegmentForBrand = (brand) =>
   brand === "accessoires" ? "accessoires-pizza" : brand;
 const defaultSocialImage = `${canonicalOrigin}/og/four-a-nu-default-v2.jpg`;
@@ -288,7 +289,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, fixedIndexableRoutes.length + 23 + 2);
+  assert.equal(pages.length, fixedIndexableRoutes.length + 23 + 1);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -567,7 +568,7 @@ test("le partage reste local sur les pages canoniques et absent de la 404", asyn
     );
   }
 
-  assert.equal(shareRootCount, fixedIndexableRoutes.length + 23 + 1);
+  assert.equal(shareRootCount, fixedIndexableRoutes.length + 23);
   assert.equal(moduleBodies.size, 1, "les pages doivent embarquer le même petit module local");
 });
 
@@ -756,10 +757,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       );
       assert.equal(article.isAccessibleForFree, true);
       assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
-      if (!reviewArticleRoutePattern.test(page.route)) {
-        authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
-        authorArticleRoutes.get(article.author.name).push(page.route);
-      }
+      authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
+      authorArticleRoutes.get(article.author.name).push(page.route);
       assert.equal(article.author["@type"], "Person");
       assert.equal(
         article.author["@id"],
@@ -799,8 +798,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
   assert.deepEqual(
     [...authorAssignments.values()].sort((left, right) => left - right),
-    [6, 6, 7],
-    "les dix-neuf dossiers doivent rester répartis entre les trois signatures",
+    [7, 7, 9],
+    "les vingt-trois dossiers doivent rester répartis entre les trois signatures",
   );
   for (const [name, profilePage] of authorProfilePages) {
     const renderedArticleRoutes = tags(profilePage.html, "a")
@@ -916,12 +915,12 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
     if (heroTreatment === "editorial-original") {
       assert.equal(brand, "accessoires", `${slug}: illustration originale hors guide accessoires`);
       assert.equal(category, "accessoires", `${slug}: catégorie incohérente pour le guide accessoires`);
-      assert.match(markdown, /^status:\s*review$/m, `${slug}: illustration en attente hors revue`);
-      assert.match(markdown, /^indexable:\s*false$/m, `${slug}: illustration en attente indexable`);
+      assert.match(markdown, /^status:\s*publishable$/m, `${slug}: illustration originale non publiable`);
+      assert.match(markdown, /^indexable:\s*true$/m, `${slug}: illustration originale non indexable`);
       assert.equal(heroAsset.asset_type, "editorial-original", `${slug}: type de hero incohérent`);
       assert.equal(heroAsset.acquisition_mode, "editorial-created", `${slug}: mode de création incohérent`);
       assert.equal(heroAsset.rights_status, "original", `${slug}: droits du hero incohérents`);
-      assert.equal(heroAsset.human_validation, "pending", `${slug}: validation de revue inattendue`);
+      assert.equal(heroAsset.human_validation, "approved", `${slug}: validation humaine absente`);
       assert.equal(heroAsset.third_party_elements, "aucun", `${slug}: élément tiers dans le hero original`);
       assert.match(
         markdown,
@@ -991,23 +990,21 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
   }
 });
 
-test("le RSS expose exactement les dix-neuf dossiers publiables et indexables", async () => {
+test("le RSS expose exactement les vingt-trois dossiers publiables et indexables", async () => {
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  const publishedArticlePages = articlePages.filter(
-    (page) => !reviewArticleRoutePattern.test(page.route ?? ""),
-  );
+  const publishedArticlePages = articlePages;
   assert.equal(articlePages.length, 23);
   const articleRoutes = publishedArticlePages
     .map((page) => page.route)
     .sort();
-  assert.equal(articleRoutes.length, 19);
+  assert.equal(articleRoutes.length, 23);
 
   const rss = await readFile(join(dist, "rss.xml"), "utf8");
   assert.match(rss, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.match(rss, /<rss version="2\.0" xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
   const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
-  assert.equal(rssItems.length, 19);
+  assert.equal(rssItems.length, 23);
   const rssRoutes = [];
   for (const item of rssItems) {
     assert.match(item, /<title>[^<]+<\/title>/);
@@ -1034,8 +1031,8 @@ test("le RSS expose exactement les dix-neuf dossiers publiables et indexables", 
       join(siteRoot, "src/content/analyses", `${slug}.md`),
       "utf8",
     );
-    assert.match(markdown, /^brand:\s*(ooni|gozney)$/m, `${pathname}: marque source absente`);
-    assert.equal(markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1], brand, pathname);
+    assert.match(markdown, /^brand:\s*(ooni|gozney|accessoires)$/m, `${pathname}: marque source absente`);
+    assert.equal(routeSegmentForBrand(markdown.match(/^brand:\s*(ooni|gozney|accessoires)$/m)?.[1]), brand, pathname);
     assert.match(markdown, /^status:\s*publishable$/m, `${pathname}: dossier non publiable dans le RSS`);
     assert.match(markdown, /^indexable:\s*true$/m, `${pathname}: dossier non indexable dans le RSS`);
     rssRoutes.push(pathname);
@@ -1299,7 +1296,7 @@ test("chaque dossier répète un appel d’achat dont la rémunération est expl
     for (const callout of callouts) {
       const merchantLinks = pairedElements(callout[2], "a");
       assert.ok(merchantLinks.length >= 1, `${page.route}: lien marchand absent`);
-      if (reviewArticleRoutePattern.test(page.route)) {
+      if (accessoryArticleRoutePattern.test(page.route)) {
         assert.equal(merchantLinks.length, 4, `${page.route}: quatre références Amazon.fr attendues`);
         assert.match(
           visibleText(callout[2]),
@@ -1576,17 +1573,15 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       .map((page) => page.route)
       .filter((route) => articleRoutePattern.test(route ?? ""));
     assert.equal(allArticleRoutes.length, 23);
-    const articleRoutes = allArticleRoutes.filter(
-      (route) => !reviewArticleRoutePattern.test(route ?? ""),
-    );
-    assert.equal(articleRoutes.length, 19);
+    const articleRoutes = allArticleRoutes;
+    assert.equal(articleRoutes.length, 23);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + 19);
+    assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + 23);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
-    assert.equal(urlEntries.length, fixedIndexableRoutes.length + 19);
+    assert.equal(urlEntries.length, fixedIndexableRoutes.length + 23);
     const sitemapEntriesByRoute = new Map(
       urlEntries.map((entry) => {
         const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];
@@ -1595,8 +1590,11 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       }),
     );
     for (const route of fixedIndexableRoutes) {
-      const expectedModified = route === "/"
-        ? "2026-08-26"
+      const expectedModified = route === "/" ||
+          route === "/accessoires-pizza/" ||
+          route === "/confidentialite/" ||
+          route === "/transparence/"
+        ? "2026-08-30"
         : route === "/a-propos/" || route.startsWith("/auteurs/")
           ? "2026-08-27"
           : "2026-08-25";
@@ -1622,8 +1620,8 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
 
     const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
       .map((match) => match[1]);
-    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 19);
-    assert.equal(sitemapImages.length, 19);
+    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 23);
+    assert.equal(sitemapImages.length, 23);
     const expectedArticleImages = pages
       .filter((page) => articleRoutes.includes(page.route))
       .map((page) => metaContent(page.html, "og:image"))
@@ -1644,9 +1642,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     }
 
     for (const page of pages) {
-      const expected = page.route === null ||
-          page.route === "/accessoires-pizza/" ||
-          reviewArticleRoutePattern.test(page.route ?? "")
+      const expected = page.route === null
         ? "noindex, follow"
         : indexableRobots;
       assert.equal(metaContent(page.html, "robots"), expected, page.route ?? "404");

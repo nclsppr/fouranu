@@ -7,12 +7,12 @@ title: "Quelle pelle à pizza choisir : perforée, pleine ou en bambou ?"
 seoTitle: "Quelle pelle à pizza choisir pour son four ?"
 description: Une pelle perforée ne répond pas au même besoin qu’une pelle pleine ou en bambou. Formats, gestes, rangement et limites avant de choisir.
 summary: Pour un premier achat, nous privilégions une pelle en aluminium adaptée à l’ouverture du four. Le bon modèle dépend ensuite du geste, du rangement et de la farine utilisée.
-status: review
+status: publishable
 type: guide
 author: florian
 publishedAt: 2026-08-30
 updatedAt: 2026-08-30
-indexable: false
+indexable: true
 image:
   src: /images/articles/accessoires-pelle-pizza-1600.webp
   alt: "Deux pelles à pizza génériques, l’une en aluminium perforé et l’autre en bois, près d’un pâton"

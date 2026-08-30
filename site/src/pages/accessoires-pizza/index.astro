@@ -10,21 +10,21 @@ const articles = (await getCollection("analyses"))
   .sort((left, right) => left.data.articleId.localeCompare(right.data.articleId));
 
 if (articles.length !== 4) {
-  throw new Error(`Le paquet de revue accessoires exige quatre guides, ${articles.length} trouvé(s).`);
+  throw new Error(`Le rayon accessoires exige quatre guides, ${articles.length} trouvé(s).`);
 }
 ---
 
 <BaseLayout
   title="Accessoires pour four à pizza : guides de choix | Four à Nu"
   description="Pelles, ciseaux, thermomètres infrarouges et bacs à pâtons : quatre guides sourcés pour choisir selon les gestes, la place et la fournée."
-  indexable={false}
+  indexable={true}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Accessoires pizza" }]} />
 
     <header class="page-intro accessories-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Paquet éditorial en revue</p>
+        <p class="eyebrow">Guides accessoires</p>
         <h1>Les outils qui rendent la soirée plus simple.</h1>
         <p class="page-intro__lede">
           Une pelle doit passer dans le four. Un bac doit entrer dans le frigo.

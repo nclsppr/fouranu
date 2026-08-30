@@ -7,9 +7,9 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-08-30 |
+| Vérifié le | 2026-08-31 |
 | Par | checkout de livraison, CI du SHA exact, sondes HTTP et navigateur sur le domaine public |
-| Branche | `main` pour la production ; préparation conservée sur `codex/accessoires-amazon-fr` |
+| Branche | `main` pour la production |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche post-V1 publiée | SHA applicatif `eb12619007191c82d963017f598b462ca54bdc51` ; [run GitHub Actions `32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541) vert pour `Verify` et `deploy-cloudflare` |
@@ -25,7 +25,43 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Images de tête dégagées publiées | SHA livré `2c087e39f3009f5aa7f6e853baa846f78c87b32a` ; [run GitHub Actions `33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492) vert pour `Verify` et `deploy-cloudflare` |
 | Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
 | Guides accessoires et affiliation Amazon publiés | SHA applicatif `cdda6ea5031ece85df4bd12e611b39b1ce8f60c1` ; [run GitHub Actions `33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
+| Passe SEO globale et couverture Amazon par objet publiées | SHA applicatif `d9df7a8418c2b676fe232b177a29bda56be7eca6` ; [run GitHub Actions `33342690035`](https://github.com/nclsppr/fouranu/actions/runs/33342690035) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Passe SEO globale et couverture Amazon par objet publiées
+
+Le header place `Accessoires` en premier sur les quarante pages, puis `Fours`,
+Ooni, Gozney, Méthode et À propos. L’état actif distingue les hubs de leurs
+sous-pages. Les H1 des cinq principales surfaces nomment désormais clairement
+leur sujet et tous les titres HTML gardent la marque dans une longueur bornée.
+Le hub Accessoires expose `CollectionPage` et `ItemList`, les pages fixes une
+date de modification, et le sitemap public contient toujours 39 URL avec
+désormais 25 images. `/llms.txt` présente les parcours, la méthode et les 23
+dossiers publiés sans destination affiliée.
+
+Le registre commercial couvre 34 produits exacts. Vingt-six offres Amazon.fr
+ont une fiche exacte contrôlée — seize accessoires et dix produits Ooni — et
+huit recherches restent `not_found` : Koda 2 Max et sept modèles Gozney. Ce
+dernier statut ne vaut pas indisponibilité et ne produit ni lien de recherche,
+ni substitution. Chaque contrôle conserve le territoire France, sa date, son
+statut et une preuve versionnée ; les registres comptent désormais 223 preuves,
+66 questions et 107 médias.
+
+Les huit fours Ooni retrouvés et le Halo Core ajoutent un lien Amazon exact à
+leur dossier canonique, en plus du lien fabricant. Les 26 objets disponibles
+produisent 52 liens dans les deux CTA de leur page ; avec les références déjà
+visibles, le build public compte 76 liens Amazon. Tous sont attribués à
+`fouranu-21`, portent `rel="sponsored"` et sont précédés par la déclaration
+Partenaire Amazon. Les prix et stocks Amazon historiques restent dans le
+registre interne et ne sont pas recopiés dans le HTML.
+
+La gate complète `./scripts/verify.sh` est verte le 31 août 2026 : 32 tests des
+registres, 22 contrats du site, 40 pages Astro, Compose, le candidat Cloudflare
+et Nimbus passent ensemble. La QA navigateur a couvert six pages à 320, 360,
+769, 1 024 et 1 280 px sans débordement, ressource cassée ni erreur console. Le
+run `33342690035` a vérifié puis déployé le SHA exact ; `/release.json`, les
+headers de `/health` et `/release.json`, le header, les CTA, le sitemap et
+`/llms.txt` ont ensuite été contrôlés sur `fouranu.com`.
 
 ## Guides accessoires publiés
 

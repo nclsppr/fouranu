@@ -6,7 +6,7 @@ importantes.
 
 ## Non publié
 
-### 2026-08-31 - Passe SEO globale et couverture Amazon par objet
+## 2026-08-31 - Passe SEO globale et couverture Amazon par objet
 
 - Le header place désormais `Accessoires` en première position sur les quarante
   pages, renomme l’entrée ambiguë `Guides` en `Fours` et rend l’état actif

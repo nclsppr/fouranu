@@ -9,8 +9,9 @@ summary: Le Volt 2 est prévu pour l'intérieur. Dehors, Koda donne une commande
 status: publishable
 type: decision
 author: nicolas
+commercialObjects: [ooni-koda-2, ooni-karu-2, ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/ooni-energies-volt-2-1600.webp

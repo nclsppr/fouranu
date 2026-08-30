@@ -16,7 +16,10 @@ const escapeXml = (value: string) =>
 export const GET: APIRoute = async () => {
   const analyses = (await getCollection("analyses"))
     .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
-    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+    .sort((a, b) =>
+      b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf() ||
+      a.data.articleId.localeCompare(b.data.articleId)
+    );
   const lastBuildDate = new Date(
     Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
   );

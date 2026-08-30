@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: nicolas
 model: Ooni Karu 2 Pro
+commercialObjects: [ooni-karu-2-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/ooni-karu-2-pro-1600.webp

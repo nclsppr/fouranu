@@ -11,7 +11,10 @@ import {
 const allAnalyses = await getCollection("analyses");
 const analyses = allAnalyses
   .filter((entry) => entry.data.status === "publishable")
-  .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+  .sort((a, b) =>
+    b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf() ||
+    a.data.articleId.localeCompare(b.data.articleId)
+  );
 const lead = analyses.find(
   (entry) => entry.data.brand === "ooni" && entry.id === "quel-four-ooni-choisir",
 );
@@ -130,7 +133,7 @@ const schema = {
     <article class="lead-feature">
       <div class="lead-feature__copy">
         <p class="feature-kicker">Notre ambition</p>
-        <h1 id="home-title">Tester tous les fours à pizza vendus en France.</h1>
+        <h1 id="home-title">Four à Nu veut tester tous les fours à pizza vendus en France.</h1>
         <p class="lead-feature__mission">
           Nous voulons couvrir les modèles des marques de référence, les
           accessoires qui comptent vraiment et différents pétrins. Aujourd’hui,

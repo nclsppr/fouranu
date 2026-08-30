@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: florian
 model: Ooni Koda 16
+commercialObjects: [ooni-koda-16]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/ooni-koda-16-1600.webp

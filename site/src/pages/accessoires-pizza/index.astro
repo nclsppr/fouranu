@@ -12,12 +12,41 @@ const articles = (await getCollection("analyses"))
 if (articles.length !== 4) {
   throw new Error(`Le rayon accessoires exige quatre guides, ${articles.length} trouvé(s).`);
 }
+const canonical = new URL("/accessoires-pizza/", SITE.url).toString();
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${canonical}#collection`,
+      url: canonical,
+      name: "Guides des accessoires pour four à pizza",
+      description:
+        "Guides sourcés pour choisir pelles, ciseaux, thermomètres infrarouges et bacs à pâtons selon l’usage.",
+      inLanguage: SITE.language,
+      isPartOf: { "@id": `${SITE.url}/#website` },
+      mainEntity: { "@id": `${canonical}#articles` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonical}#articles`,
+      numberOfItems: articles.length,
+      itemListElement: articles.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
+        name: entry.data.title,
+      })),
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="Accessoires pour four à pizza : guides de choix | Four à Nu"
   description="Pelles, ciseaux, thermomètres infrarouges et bacs à pâtons : quatre guides sourcés pour choisir selon les gestes, la place et la fournée."
   indexable={true}
+  schema={schema}
 >
   <div class="page-shell">
     <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Accessoires pizza" }]} />
@@ -25,7 +54,7 @@ if (articles.length !== 4) {
     <header class="page-intro accessories-intro">
       <div class="page-intro__copy">
         <p class="eyebrow">Guides accessoires</p>
-        <h1>Les outils qui rendent la soirée plus simple.</h1>
+        <h1>Quels accessoires choisir pour son four à pizza&nbsp;?</h1>
         <p class="page-intro__lede">
           Une pelle doit passer dans le four. Un bac doit entrer dans le frigo.
           Un thermomètre doit lire la sole, et des ciseaux doivent mieux servir
@@ -34,9 +63,9 @@ if (articles.length !== 4) {
         </p>
       </div>
       <p class="page-intro__aside">
-        Quatre guides documentaires, sans note ni faux podium. Les références
-        étaient vendues sur Amazon.fr le 30 août 2026 ; vendeurs, prix et stocks
-        peuvent changer.
+        Quatre guides documentaires, sans note ni faux podium. Les fiches
+        Amazon.fr exactes ont été contrôlées le 30 août 2026 ; modèle, vendeur
+        et contenu de l’offre doivent être relus avant une commande.
       </p>
     </header>
 
@@ -83,8 +112,8 @@ if (articles.length !== 4) {
       <p class="eyebrow">Ce que ces pages sont</p>
       <h2>Des décisions par usage, pas des tests déguisés.</h2>
       <p>
-        Les caractéristiques sont attribuées aux fabricants et la disponibilité
-        Amazon.fr est datée. Four à Nu n’a pas encore comparé physiquement ces
+        Les caractéristiques sont attribuées aux fabricants et la correspondance
+        entre modèle et fiche Amazon.fr est datée. Four à Nu n’a pas encore comparé physiquement ces
         produits. Les liens Amazon.fr sont affiliés : un achat éligible peut
         rémunérer Four à Nu, sans surcoût pour vous ni influence sur la sélection.
       </p>

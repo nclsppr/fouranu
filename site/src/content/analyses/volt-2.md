@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: florian
 model: Ooni Volt 2
+commercialObjects: [ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp

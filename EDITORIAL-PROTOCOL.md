@@ -395,6 +395,44 @@ Amazon exigée. Aucun prix, stock ou avantage commercial Amazon n’est recopié
 comme une donnée durable, et aucune image Amazon n’est téléchargée, transformée
 ou réutilisée hors des outils et licences prévus par le programme.
 
+### Couverture Amazon des objets commerciaux
+
+Tout produit commercial identifiable présenté comme une option d’achat doit
+être déclaré par son identifiant dans `commercialObjects` et exister dans le
+registre canonique `site/src/data/commercial-objects.mjs`. Avant la première
+publication du produit, puis avant toute révision commerciale substantielle,
+la rédaction recherche le modèle exact sur Amazon.fr et consigne au minimum le
+territoire, la date, le statut, l’identifiant de preuve et, lorsqu’une fiche
+correspond sans ambiguïté, son ASIN. La preuve liée vit dans
+`research/evidence.csv` : elle conserve la fiche `/dp/ASIN` exacte pour
+`available`, ou la requête datée qui n’a pas abouti pour `not_found`, sans
+identifiant partenaire.
+
+- `available` signifie qu’une offre du modèle exact a été contrôlée à la date
+  consignée ; le dossier canonique de cet objet reçoit alors un lien direct
+  `/dp/ASIN` attribué à `fouranu-21`, ou un lien court déjà résolu et autorisé ;
+- `not_found` signifie seulement que la recherche datée n’a pas retrouvé de
+  fiche exacte ; ce statut ne prouve jamais une indisponibilité et n’autorise
+  ni un lien de recherche générique ni un produit voisin ;
+- chaque objet disponible possède un seul point de couverture éditoriale
+  canonique, même s’il est aussi cité dans un comparatif ou un guide de gamme ;
+- les objets génériques, ingrédients, pièces incidentes et simples mentions ne
+  reçoivent pas automatiquement un lien marchand. Une pelle, un thermomètre ou
+  un bac renvoie d’abord vers son guide interne ; un modèle commercial précis
+  nouvellement recommandé doit, lui, entrer dans le registre ;
+- aucun prix, stock, délai, promotion, note ou avis Amazon du relevé interne
+  n’est rendu dans le HTML statique. Le lecteur relit toujours la fiche exacte,
+  son vendeur, sa variante et son contenu avant de commander.
+
+La gate rapproche exactement, article par article, les objets déclarés, leur
+couverture dans le registre, les preuves et les appels d’achat. Chaque lien
+vers une fiche produit fabricant ou Amazon porte l’identifiant de l’objet ; un
+lien de gamme est explicitement marqué comme collection. La gate bloque un
+identifiant inconnu, une couverture divergente, une preuve ou un territoire
+absent, une offre `available` sans lien dédié, un ASIN non canonique, un statut
+`not_found` présenté comme une indisponibilité ou une donnée commerciale Amazon
+volatile rendue publiquement.
+
 Bandeau minimal :
 
 > **Analyse documentaire.** Ce dossier confronte des données fabricant, des

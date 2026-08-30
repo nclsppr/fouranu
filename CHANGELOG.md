@@ -6,6 +6,55 @@ importantes.
 
 ## Non publié
 
+### 2026-08-31 - Passe SEO globale et couverture Amazon par objet
+
+- Le header place désormais `Accessoires` en première position sur les quarante
+  pages, renomme l’entrée ambiguë `Guides` en `Fours` et rend l’état actif
+  visible sur les hubs comme sur leurs sous-pages. À 320 px, les six liens
+  conservent leur largeur et défilent dans la navigation sans se chevaucher.
+- Les titres SEO des quatre guides accessoires sont harmonisés avec la marque ;
+  l’accueil et les hubs Accessoires, Fours, Ooni et Gozney nomment leur sujet
+  principal dans le H1. Le hub Accessoires expose le même couple
+  `CollectionPage` et `ItemList` que les deux hubs de marque.
+- Les dates éditoriales et techniques reflètent les modifications réelles. Les
+  pages fixes exposent `dateModified`, le sitemap cesse d’appliquer un plancher
+  artificiel aux articles et ajoute les images propres des hubs Ooni et Gozney,
+  pour 39 URL et 25 images dans le build indexable.
+- Un registre canonique couvre les 34 produits commerciaux précis du corpus.
+  Seize accessoires et dix produits Ooni ont une offre Amazon.fr exacte
+  contrôlée ; le Koda 2 Max et les sept fours Gozney restent `not_found`, sans
+  être présentés comme indisponibles ni remplacés par un produit voisin.
+- Les dix-huit nouveaux contrôles Amazon sont inscrits dans le registre de
+  preuves, portant celui-ci à 223 entrées. Chaque objet conserve désormais le
+  territoire France, la date, le statut et son identifiant de preuve ; la gate
+  rapproche exactement les 23 frontmatters et la couverture multi-article.
+- Huit fours Ooni et le Halo Core reçoivent un nouveau lien Amazon.fr exact dans
+  leur dossier canonique, en complément du lien fabricant. Les vingt-six objets
+  vérifiés produisent 52 liens de CTA contrôlés ; tous utilisent
+  `fouranu-21`, `rel="sponsored"` et la déclaration Partenaire Amazon.
+- Les prix, stocks et quantités Amazon du registre de preuve restent conservés
+  en interne, mais ne sont plus recopiés dans le HTML statique. Le texte public
+  demande de relire modèle, vendeur, variante et contenu de l’offre au moment
+  de commander.
+- La déclaration Partenaire Amazon précède désormais les boutons dans le DOM.
+  Les liens produit fabricant et Amazon portent l’objet exact, les liens de
+  gamme sont qualifiés comme collections et la comparaison Halo parle bien de
+  deux pétrins distincts.
+- Le protocole éditorial et la gate exigent désormais `commercialObjects` pour
+  tout produit identifiable présenté comme option d’achat, un contrôle Amazon
+  daté et un lien exact lorsque l’offre est retrouvée. Les objets génériques et
+  mentions incidentes ne sont pas transformés automatiquement en affiliation.
+- La mise en page des figures d’article est bornée entre 769 et 1 024 px ; les
+  grands tableaux gardent leur propre défilement sans provoquer de débordement
+  du document. Les endpoints `/health` et `/release.json` reçoivent aussi
+  `X-Robots-Tag: noindex, nofollow`.
+- La suite du site passe de 20 à 22 contrats : ordre et états du header, marque
+  dans tous les titres, H1 des hubs, collection Accessoires, dates, images de
+  sitemap, inventaire commercial, liens Amazon exacts et absence de données
+  marchandes volatiles publiques sont désormais verrouillés.
+- `/llms.txt` décrit les parcours publics, la méthode et les 23 dossiers
+  indexables sans recopier de lien affilié ; la preview masque cette liste.
+
 ## 2026-08-30 - Quatre guides accessoires publiés
 
 - Le site ajoute un hub `/accessoires-pizza/` et quatre guides sur la pelle

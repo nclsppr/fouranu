@@ -11,8 +11,9 @@ status: publishable
 type: decision
 author: magali
 model: Gozney Arc Lite et Tread
+commercialObjects: [gozney-arc-lite, gozney-tread]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-arc-lite-1600.webp

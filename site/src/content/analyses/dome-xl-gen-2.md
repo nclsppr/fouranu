@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: magali
 model: Gozney Dome XL (Gen 2)
+commercialObjects: [gozney-dome-xl-gen-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-dome-xl-gen-2-1600.webp

@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: magali
 model: Gozney Roccbox
+commercialObjects: [gozney-roccbox]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-roccbox-1600.webp

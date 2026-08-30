@@ -9,8 +9,9 @@ summary: Pour l'intérieur, le Volt 2 est le seul modèle prévu. Dehors, choisi
 status: publishable
 type: guide
 author: nicolas
+commercialObjects: [ooni-koda-2, ooni-koda-2-pro, ooni-koda-2-max, ooni-koda-12, ooni-koda-16, ooni-karu-2, ooni-karu-2-pro, ooni-karu-12, ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/ooni-gamme-documentee-1600.webp

@@ -24,6 +24,7 @@ const analyses = defineCollection({
     type: z.enum(["guide", "decision", "model"]),
     author: z.enum(["nicolas", "florian", "magali"]),
     model: z.string().optional(),
+    commercialObjects: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).min(1),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     indexable: z.boolean().default(false),
@@ -67,6 +68,28 @@ const analyses = defineCollection({
         code: "custom",
         message: "Le traitement visuel doit correspondre au type de dossier.",
         path: ["heroTreatment"],
+      });
+    }
+    if (new Set(entry.commercialObjects).size !== entry.commercialObjects.length) {
+      context.addIssue({
+        code: "custom",
+        message: "Un objet commercial ne peut être déclaré qu’une fois par dossier.",
+        path: ["commercialObjects"],
+      });
+    }
+    const fullSeoTitle = entry.seoTitle ?? `${entry.title} | Four à Nu`;
+    if (!fullSeoTitle.endsWith(" | Four à Nu")) {
+      context.addIssue({
+        code: "custom",
+        message: "Le titre SEO doit se terminer par « | Four à Nu ».",
+        path: ["seoTitle"],
+      });
+    }
+    if (fullSeoTitle.length > 65) {
+      context.addIssue({
+        code: "custom",
+        message: "Le titre SEO complet ne doit pas dépasser 65 caractères.",
+        path: ["seoTitle"],
       });
     }
   }),

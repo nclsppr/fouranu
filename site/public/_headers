@@ -9,6 +9,8 @@
 
 /health
   Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
 
 /release.json
   Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow

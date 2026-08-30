@@ -35,7 +35,10 @@ const articles = (await getCollection("analyses"))
       entry.data.status === "publishable" &&
       entry.data.indexable,
   )
-  .sort((left, right) => right.data.updatedAt.valueOf() - left.data.updatedAt.valueOf());
+  .sort((left, right) =>
+    right.data.updatedAt.valueOf() - left.data.updatedAt.valueOf() ||
+    left.data.articleId.localeCompare(right.data.articleId)
+  );
 const canonical = new URL(author.url, SITE.url).toString();
 const portraitUrl = new URL(author.portrait.large, SITE.url).toString();
 const typeLabels = {

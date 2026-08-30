@@ -7,6 +7,7 @@ import PurchaseCta from "@/components/PurchaseCta.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
+import { commercialObject } from "@/data/commercial-objects.mjs";
 import {
   ARTICLE_BRANDS,
   ARTICLE_CATEGORY_LABELS,
@@ -62,6 +63,7 @@ const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
 if (!purchaseLinks?.length) {
   throw new Error(`Liens d’achat absents pour ${entry.data.articleId}`);
 }
+for (const objectId of entry.data.commercialObjects) commercialObject(objectId);
 const schema = {
   "@context": "https://schema.org",
   "@type": "Article",

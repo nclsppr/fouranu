@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: nicolas
 model: Ooni Koda 12
+commercialObjects: [ooni-koda-12]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-24
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/ooni-koda-12-1600.webp

@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: nicolas
 model: Ooni Koda 2 Max
+commercialObjects: [ooni-koda-2-max]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-max-1600.webp

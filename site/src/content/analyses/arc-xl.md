@@ -10,8 +10,9 @@ category: oven
 heroTreatment: official-stylized
 author: florian
 model: Gozney Arc XL
+commercialObjects: [gozney-arc-xl]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-arc-xl-1600.webp

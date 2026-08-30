@@ -10,8 +10,9 @@ summary: Le Halo Core couvre deux à dix pâtons de 250 g et suffit à la plupar
 status: publishable
 type: decision
 author: nicolas
+commercialObjects: [ooni-halo-core, ooni-halo-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/ooni-halo-core-ou-halo-pro-1600.webp

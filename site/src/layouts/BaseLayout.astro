@@ -11,7 +11,7 @@ import "@/styles/global.css";
 import SiteHeader from "@/components/SiteHeader.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
 import ShareActions from "@/components/ShareActions.astro";
-import { INDEXING_ENABLED, SITE } from "@/config/site";
+import { FIXED_INDEXABLE_ROUTES, INDEXING_ENABLED, SITE } from "@/config/site";
 
 interface Props {
   title?: string;
@@ -47,7 +47,7 @@ const {
   authorUrl,
   articleSection,
   publishedAt,
-  modifiedAt,
+  modifiedAt: modifiedAtOverride,
   schema,
 } = Astro.props;
 
@@ -68,6 +68,10 @@ const allowIndexing = INDEXING_ENABLED && indexable;
 const robots = allowIndexing
   ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   : "noindex, follow";
+const fixedRouteModifiedAt = FIXED_INDEXABLE_ROUTES.find(
+  (route) => route.path === Astro.url.pathname,
+)?.modified;
+const modifiedAt = modifiedAtOverride ?? fixedRouteModifiedAt;
 const articleModifiedTime = modifiedAt
   ? new Date(modifiedAt).toISOString()
   : undefined;

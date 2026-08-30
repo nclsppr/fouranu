@@ -188,6 +188,9 @@ tranches séparées.
   dépendent pas d'une interaction ou d'un script fragile.
 - [ ] Les liens internes répondent, les sources externes décisives sont encore
   accessibles et la page finale répond en HTTP 200.
+- [ ] Le fichier public `/llms.txt` présente les parcours, la méthode, les
+  dossiers indexables et les index publics sans exposer de brouillon, de donnée
+  Amazon volatile ni de lien affilié.
 - [ ] Les données structurées décrivent uniquement le contenu visible. Aucun
   balisage `Review` ou `AggregateRating` n'est présent.
 - [ ] Un dossier éditorial expose un objet `Article` et une page structurelle un
@@ -217,6 +220,18 @@ tranches séparées.
 - [ ] Une éventuelle relation commerciale n'altère ni les limites ni l'ordre
   des conclusions.
 - [ ] Le lecteur peut distinguer un lien de preuve d'un lien marchand.
+- [ ] Chaque produit commercial identifiable présenté comme option d’achat est
+  déclaré dans `commercialObjects` et possède un contrôle Amazon.fr daté dans
+  `site/src/data/commercial-objects.mjs`, relié à une preuve sans tracking dans
+  `research/evidence.csv` avec territoire, statut et dossier canonique.
+- [ ] La liste `commercialObjects` de chaque article correspond exactement à
+  sa couverture déclarée dans le registre ; toute fiche produit marchande porte
+  son identifiant d’objet et tout lien de gamme est qualifié comme collection.
+- [ ] Un statut Amazon `available` mène au modèle exact via `/dp/ASIN` ou un
+  lien court déjà résolu ; `not_found` n’est jamais transformé en
+  « indisponible », en lien de recherche ou en produit voisin.
+- [ ] Aucun prix, stock, délai, promotion, note ou avis Amazon issu du relevé
+  interne n’est rendu dans le HTML statique.
 - [ ] Le détenteur de droits, l'autorisation, les transformations et le crédit
   de chaque média sont enregistrés.
 
@@ -255,6 +270,9 @@ tranches séparées.
 | L'aperçu social emploie une image absente, inaccessible ou incohérente avec son canonique | Bloqué |
 | Le favicon, l'icône tactile ou le manifeste annonce un fichier absent ou des dimensions fausses | Bloqué |
 | Une action de partage diffuse une URL non canonique ou promet une destination que le navigateur ne garantit pas | Bloqué |
+| Un produit commercial déclaré manque au registre Amazon, ou une offre `available` n’a pas de lien exact et qualifié | Bloqué |
+| La couverture article–objet diverge du registre ou une vérification Amazon n’a pas de preuve datée et territorialisée | Bloqué |
+| Le rendu public recopie un prix, un stock, une promotion, une note ou un avis Amazon statique | Bloqué |
 | La construction Astro échoue | Bloqué |
 
 ## Références officielles

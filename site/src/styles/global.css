@@ -178,8 +178,12 @@ li {
 }
 
 .site-nav a:hover::after,
-.site-nav a[aria-current="page"]::after {
+.site-nav a[aria-current]::after {
   transform: scaleX(1);
+}
+
+.site-nav a[aria-current] {
+  font-weight: 600;
 }
 
 .site-footer {
@@ -660,6 +664,13 @@ li {
   color: var(--color-probe);
 }
 
+@media (min-width: 48.01rem) and (max-width: 64rem) {
+  .article-body .article-media {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 48rem) {
   .article-media figcaption {
     grid-template-columns: 1fr;
@@ -799,6 +810,7 @@ li {
   }
 
   .site-nav a {
+    flex: 0 0 auto;
     min-height: 2.9rem;
     font-size: 0.82rem;
   }

@@ -233,7 +233,8 @@ function relationships(record: Evidence) {
       </summary>
 
       <p class="cited-sources__intro">
-        Ouvrez une référence pour retrouver le lien, le passage relevé et ses conditions.
+        Ouvrez une référence pour retrouver son lien, sa date de contrôle et,
+        selon la nature de la source, l’observation publiable ou ses conditions.
         {hasAmazonSource && (
           <span>
             {" "}Les références Amazon.fr sont ouvertes via un lien affilié :
@@ -247,6 +248,7 @@ function relationships(record: Evidence) {
         {citedEvidence.map((record) => {
           const href = sourceHref(record);
           const affiliate = href ? isAmazonLink(href) : false;
+          const amazonSource = isAmazonLink(record.source_url);
           const publisher = sourcePublisher(record);
           const relationshipNotes = relationships(record);
           return (
@@ -271,8 +273,16 @@ function relationships(record: Evidence) {
                     )}
                     <span> · {confidenceLabels[record.confidence] ?? record.confidence}</span>
                   </p>
-                  <p class="cited-source__observation">{record.observation}</p>
-                  {record.conditions && (
+                  {amazonSource ? (
+                    <p class="cited-source__observation">
+                      Référence et fiche exacte contrôlées à la date indiquée.
+                      Relisez l’offre Amazon.fr avant toute commande : vendeur,
+                      variante, contenu et disponibilité peuvent évoluer.
+                    </p>
+                  ) : (
+                    <p class="cited-source__observation">{record.observation}</p>
+                  )}
+                  {!amazonSource && record.conditions && (
                     <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
                   )}
                   {relationshipNotes.length > 0 && (

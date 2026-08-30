@@ -10,6 +10,11 @@ import test from "node:test";
 import { promisify } from "node:util";
 import { execFile } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import {
+  COMMERCIAL_OBJECT_IDS,
+  COMMERCIAL_OBJECTS,
+  amazonAffiliateUrlForObject,
+} from "../src/data/commercial-objects.mjs";
 
 const execFileAsync = promisify(execFile);
 const siteRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -82,6 +87,14 @@ const rangeSocialImages = new Map([
   ["/ooni/", `${canonicalOrigin}/images/articles/ooni-gamme-documentee-1600.webp`],
   ["/gozney/", `${canonicalOrigin}/images/articles/gozney-gamme-1600.webp`],
 ]);
+const primaryNavigation = [
+  ["/accessoires-pizza/", "Accessoires"],
+  ["/fours-a-pizza/", "Fours"],
+  ["/ooni/", "Ooni"],
+  ["/gozney/", "Gozney"],
+  ["/methode/", "Méthode"],
+  ["/a-propos/", "À propos"],
+];
 const editorialCaptionForBrand = (brand) =>
   `Illustration éditoriale d’après une photographie officielle ${brand}.`;
 const editorialCaptionPatternForBrand = (brand) =>
@@ -311,6 +324,8 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     const title = visibleText(pairedElements(page.html, "title")[0][2]);
     const description = decodeHtml(metaContent(page.html, "description"));
     assert.ok(title.length >= 15, `${label}: titre trop vague`);
+    assert.ok(title.length <= 65, `${label}: titre trop long`);
+    assert.match(title, /Four à Nu/, `${label}: marque absente du titre`);
     assert.ok(description.length >= 45, `${label}: description trop vague`);
     assert.ok(!titles.has(title), `${label}: titre dupliqué`);
     assert.ok(!descriptions.has(description), `${label}: description dupliquée`);
@@ -322,6 +337,30 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     assert.match(page.html, /<a class="skip-link" href="#contenu">Aller au contenu<\/a>/, label);
     assert.match(page.html, /<header class="site-header">/, label);
     assert.match(page.html, /<footer class="site-footer">/, label);
+    const primaryNav = pairedElements(page.html, "nav").find(
+      (candidate) => attribute(`<nav${candidate[1]}>`, "aria-label") === "Navigation principale",
+    );
+    assert.ok(primaryNav, `${label}: navigation principale absente`);
+    const primaryLinks = pairedElements(primaryNav[2], "a");
+    assert.deepEqual(
+      primaryLinks.map((link) => [attribute(`<a${link[1]}>`, "href"), visibleText(link[2])]),
+      primaryNavigation,
+      `${label}: ordre du header incohérent`,
+    );
+    const currentLinks = primaryLinks.filter((link) => attribute(`<a${link[1]}>`, "aria-current"));
+    const expectedCurrent = page.route
+      ? primaryNavigation.find(([href]) => page.route === href || page.route.startsWith(href))
+      : undefined;
+    assert.equal(currentLinks.length, expectedCurrent ? 1 : 0, `${label}: état actif ambigu`);
+    if (expectedCurrent) {
+      const opening = `<a${currentLinks[0][1]}>`;
+      assert.equal(attribute(opening, "href"), expectedCurrent[0], `${label}: destination active incohérente`);
+      assert.equal(
+        attribute(opening, "aria-current"),
+        page.route === expectedCurrent[0] ? "page" : "location",
+        `${label}: type d’état actif incohérent`,
+      );
+    }
     const footer = pairedElements(page.html, "footer")
       .find((candidate) => attribute(`<footer${candidate[1]}>`, "class") === "site-footer");
     assert.ok(footer, `${label}: pied de page absent`);
@@ -443,6 +482,10 @@ test("les surfaces de promesse distinguent l'ambition du corpus documentaire act
     visibleText(metaContent(home.html, "og:title")),
     "Notre ambition : tester tous les fours à pizza vendus en France",
   );
+  assert.equal(
+    visibleText(pairedElements(home.html, "h1")[0][2]),
+    "Four à Nu veut tester tous les fours à pizza vendus en France.",
+  );
   assert.match(
     visibleText(home.html),
     /Aujourd’hui, nos guides sont des analyses documentaires sourcées ; chaque futur essai mené par Four à Nu sera clairement signalé\./,
@@ -461,6 +504,21 @@ test("les surfaces de promesse distinguent l'ambition du corpus documentaire act
   const falseFirstPartyClaim = /(?:nous avons testé|nous testons|nos tests|notre test|notre mesure|après notre essai|testé par Four à Nu)/i;
   for (const page of [home, about]) {
     assert.doesNotMatch(visibleText(page.html), falseFirstPartyClaim, page.route);
+  }
+});
+
+test("les hubs nomment clairement leur sujet principal", async () => {
+  const pages = await htmlPages();
+  const expectations = new Map([
+    ["/accessoires-pizza/", /accessoires.*four à pizza/i],
+    ["/fours-a-pizza/", /choisir un four à pizza/i],
+    ["/gozney/", /fours Gozney/i],
+    ["/ooni/", /fours et pétrins Ooni/i],
+  ]);
+  for (const [route, pattern] of expectations) {
+    const page = pages.find((candidate) => candidate.route === route);
+    assert.ok(page, `${route}: hub absent`);
+    assert.match(visibleText(pairedElements(page.html, "h1")[0][2]), pattern, route);
   }
 });
 
@@ -590,6 +648,32 @@ test("les données structurées restent vérifiables et sans faux avis", async (
     height: 172,
   });
 
+  const accessoriesPage = pages.find((page) => page.route === "/accessoires-pizza/");
+  assert.ok(accessoriesPage, "hub accessoires absent");
+  const accessoriesNodes = schemaNodes(jsonLdDocuments(accessoriesPage.html));
+  const accessoriesCollection = accessoriesNodes.find((node) => node["@type"] === "CollectionPage");
+  const accessoriesList = accessoriesNodes.find((node) => node["@type"] === "ItemList");
+  assert.ok(accessoriesCollection, "CollectionPage accessoires absente");
+  assert.ok(accessoriesList, "ItemList accessoires absente");
+  assert.equal(accessoriesCollection.url, `${canonicalOrigin}/accessoires-pizza/`);
+  assert.deepEqual(accessoriesCollection.mainEntity, {
+    "@id": `${canonicalOrigin}/accessoires-pizza/#articles`,
+  });
+  assert.equal(accessoriesList.numberOfItems, 4);
+  assert.deepEqual(
+    accessoriesList.itemListElement.map((item) => item.position),
+    [1, 2, 3, 4],
+  );
+  assert.deepEqual(
+    accessoriesList.itemListElement.map((item) => item.url),
+    [
+      `${canonicalOrigin}/accessoires-pizza/accessoires-pelle-pizza/`,
+      `${canonicalOrigin}/accessoires-pizza/accessoires-ciseaux-pizza/`,
+      `${canonicalOrigin}/accessoires-pizza/accessoires-thermometre-infrarouge/`,
+      `${canonicalOrigin}/accessoires-pizza/accessoires-bacs-patons/`,
+    ],
+  );
+
   const authorPage = pages.find((page) => page.route === editorialTeam.route);
   assert.ok(authorPage, "page de signature éditoriale absente");
   const collection = schemaNodes(jsonLdDocuments(authorPage.html))
@@ -690,6 +774,13 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.equal(webPage.description, decodeHtml(metaContent(page.html, "description")), page.route);
       assert.equal(webPage.inLanguage, "fr", page.route);
       assert.deepEqual(webPage.isPartOf, { "@id": `${canonicalOrigin}/#website` }, page.route);
+      if (fixedIndexableRoutes.includes(page.route)) {
+        assert.equal(
+          webPage.dateModified,
+          "2026-08-31T00:00:00.000Z",
+          `${page.route}: dateModified de surface incohérente`,
+        );
+      }
       assert.deepEqual(
         webPage.primaryImageOfPage,
         {
@@ -860,7 +951,7 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 205);
+  assert.equal(records.size, 223);
 
   const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
   const assetRows = parseCsv(assetCsv);
@@ -1311,6 +1402,12 @@ test("chaque dossier répète un appel d’achat dont la rémunération est expl
         );
       });
       if (amazonLinks.length > 0) {
+        const disclosurePosition = callout[2].indexOf("purchase-cta__disclosure");
+        const firstLinkPosition = callout[2].indexOf("<a");
+        assert.ok(
+          disclosurePosition >= 0 && disclosurePosition < firstLinkPosition,
+          `${page.route}: déclaration Amazon attendue avant le premier clic`,
+        );
         assert.match(
           visibleText(callout[2]),
           /En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises\./,
@@ -1323,6 +1420,11 @@ test("chaque dossier répète un appel d’achat dont la rémunération est expl
           `${page.route}: déclaration fabricant non rémunérée absente`,
         );
       }
+      assert.doesNotMatch(
+        visibleText(callout[2]),
+        /proposées pour le même objet/,
+        `${page.route}: plusieurs produits ne doivent pas être présentés comme un même objet`,
+      );
       for (const link of merchantLinks) {
         const opening = `<a${link[1]}>`;
         const href = attribute(opening, "href");
@@ -1333,26 +1435,206 @@ test("chaque dossier répète un appel d’achat dont la rémunération est expl
           `${page.route}: marchand direct inattendu`,
         );
         assert.equal(merchantUrl.hash, "", `${page.route}: fragment marchand inattendu`);
+        const objectId = attribute(opening, "data-commercial-object");
+        const scope = attribute(opening, "data-commercial-scope");
+        assert.notEqual(Boolean(objectId), Boolean(scope), `${page.route}: portée marchande ambiguë`);
+        if (objectId) {
+          assert.ok(COMMERCIAL_OBJECTS[objectId], `${page.route}: objet marchand inconnu`);
+        } else {
+          assert.equal(scope, "collection", `${page.route}: collection marchande non qualifiée`);
+          assert.match(merchantUrl.pathname, /\/collections\//, `${page.route}: portée collection invalide`);
+        }
         if (merchantUrl.hostname === "www.amazon.fr") {
           assert.match(merchantUrl.pathname, /^\/dp\/[A-Z0-9]{10}$/);
           assert.equal(merchantUrl.searchParams.get("tag"), "fouranu-21");
           assert.deepEqual([...merchantUrl.searchParams.keys()], ["tag"]);
           assert.equal(attribute(opening, "rel"), "sponsored external noopener");
           assert.equal(attribute(opening, "data-affiliate"), "amazon");
+          assert.ok(objectId, `${page.route}: lien Amazon sans objet exact`);
           assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
         } else if (merchantUrl.hostname === "amzn.to") {
           assert.equal(href, "https://amzn.to/4y8lFcC");
           assert.equal(attribute(opening, "rel"), "sponsored external noopener");
           assert.equal(attribute(opening, "data-affiliate"), "amazon");
+          assert.ok(objectId, `${page.route}: lien court Amazon sans objet exact`);
           assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
         } else {
           assert.equal(merchantUrl.search, "", `${page.route}: paramètre fabricant inattendu`);
           assert.equal(attribute(opening, "rel"), "external noopener");
           assert.equal(attribute(opening, "data-affiliate"), undefined);
+          if (merchantUrl.pathname.includes("/products/")) {
+            assert.ok(objectId, `${page.route}: fiche fabricant sans objet exact`);
+          }
           assert.match(visibleText(link[2]), /Gozney|Ooni/, `${page.route}: marchand absent du bouton`);
         }
       }
     }
+  }
+});
+
+test("chaque produit commercial déclaré possède un contrôle Amazon et une couverture exacte", async () => {
+  assert.equal(COMMERCIAL_OBJECT_IDS.length, 34, "inventaire commercial inattendu");
+  const objects = Object.values(COMMERCIAL_OBJECTS);
+  const availableObjects = objects.filter((object) => object.amazon.status === "available");
+  const notFoundObjects = objects.filter((object) => object.amazon.status === "not_found");
+  assert.equal(availableObjects.length, 26, "offres Amazon.fr vérifiées inattendues");
+  assert.equal(notFoundObjects.length, 8, "recherches Amazon.fr sans résultat inattendues");
+
+  const analysisDirectory = join(siteRoot, "src/content/analyses");
+  const articleRecords = new Map();
+  const declaredObjectIds = new Set();
+  for (const file of (await readdir(analysisDirectory)).filter((entry) => entry.endsWith(".md"))) {
+    const markdown = await readFile(join(analysisDirectory, file), "utf8");
+    const frontmatter = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
+    assert.ok(frontmatter, `${file}: frontmatter absent`);
+    const articleId = frontmatter.match(/^articleId:\s*(\S+)$/m)?.[1];
+    const brand = frontmatter.match(/^brand:\s*(\S+)$/m)?.[1];
+    const declaration = frontmatter.match(/^commercialObjects:\s*\[([^\]]+)\]$/m)?.[1];
+    assert.ok(articleId, `${file}: articleId absent`);
+    assert.ok(brand, `${file}: marque absente`);
+    assert.ok(declaration, `${file}: objets commerciaux absents`);
+    const objectIds = declaration.split(",").map((value) => value.trim()).filter(Boolean);
+    assert.equal(new Set(objectIds).size, objectIds.length, `${file}: objet commercial dupliqué`);
+    for (const objectId of objectIds) {
+      assert.ok(COMMERCIAL_OBJECTS[objectId], `${file}: objet commercial inconnu ${objectId}`);
+      declaredObjectIds.add(objectId);
+    }
+    articleRecords.set(articleId, {
+      objectIds,
+      route: `/${routeSegmentForBrand(brand)}/${file.replace(/\.md$/, "")}/`,
+    });
+  }
+  assert.equal(articleRecords.size, 23, "vingt-trois déclarations commerciales attendues");
+  assert.deepEqual([...declaredObjectIds].sort(), [...COMMERCIAL_OBJECT_IDS].sort());
+
+  const expectedObjectsByArticle = new Map(
+    [...articleRecords.keys()].map((articleId) => [articleId, []]),
+  );
+  for (const object of objects) {
+    assert.ok(
+      object.articleIds.includes(object.canonicalArticleId),
+      `${object.id}: dossier canonique absent de la couverture déclarée`,
+    );
+    for (const articleId of object.articleIds) {
+      assert.ok(articleRecords.has(articleId), `${object.id}: dossier déclaré inconnu ${articleId}`);
+      expectedObjectsByArticle.get(articleId).push(object.id);
+    }
+  }
+  for (const [articleId, article] of articleRecords) {
+    assert.deepEqual(
+      article.objectIds.slice().sort(),
+      expectedObjectsByArticle.get(articleId).sort(),
+      `${articleId}: le frontmatter et la couverture canonique ont dérivé`,
+    );
+  }
+
+  const evidenceRows = parseCsv(
+    await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8"),
+  );
+  const evidenceHeaders = evidenceRows.shift();
+  const evidenceById = new Map(
+    evidenceRows.map((values) => [
+      values[0],
+      Object.fromEntries(evidenceHeaders.map((header, index) => [header, values[index]])),
+    ]),
+  );
+
+  const pages = await htmlPages();
+  const allObjectLinks = pages.flatMap((page) =>
+    pairedElements(page.html, "a")
+      .filter((link) => attribute(`<a${link[1]}>`, "data-commercial-object"))
+      .map((link) => ({ page, link })),
+  );
+  const amazonObjectLinks = allObjectLinks.filter(({ link }) =>
+    attribute(`<a${link[1]}>`, "data-affiliate") === "amazon"
+  );
+  assert.equal(
+    amazonObjectLinks.length,
+    availableObjects.length * 2,
+    "chaque offre exacte doit apparaître dans les deux appels d’achat de son dossier canonique",
+  );
+
+  const articleByRoute = new Map(
+    [...articleRecords].map(([articleId, article]) => [article.route, { articleId, ...article }]),
+  );
+  for (const { page, link } of allObjectLinks) {
+    const objectId = attribute(`<a${link[1]}>`, "data-commercial-object");
+    const object = COMMERCIAL_OBJECTS[objectId];
+    const article = articleByRoute.get(page.route);
+    assert.ok(article, `${page.route}: lien d’objet hors dossier`);
+    assert.ok(object, `${page.route}: objet rendu inconnu ${objectId}`);
+    assert.ok(
+      object.articleIds.includes(article.articleId),
+      `${page.route}: ${objectId} n’est pas déclaré dans la couverture de l’article`,
+    );
+  }
+
+  for (const object of objects) {
+    assert.equal(object.amazon.marketplace, "amazon.fr", `${object.id}: place de marché invalide`);
+    assert.equal(object.amazon.territory, "FR", `${object.id}: territoire Amazon absent`);
+    assert.match(object.amazon.checkedAt, /^\d{4}-\d{2}-\d{2}$/, `${object.id}: date de contrôle invalide`);
+    const checkedTimestamp = Date.parse(`${object.amazon.checkedAt}T00:00:00Z`);
+    assert.ok(Number.isFinite(checkedTimestamp), `${object.id}: date de contrôle impossible`);
+    assert.equal(
+      new Date(checkedTimestamp).toISOString().slice(0, 10),
+      object.amazon.checkedAt,
+      `${object.id}: date de contrôle normalisée invalide`,
+    );
+    const article = articleRecords.get(object.canonicalArticleId);
+    assert.ok(article, `${object.id}: dossier canonique absent`);
+    assert.ok(article.objectIds.includes(object.id), `${object.id}: absent de son dossier canonique`);
+    const evidence = evidenceById.get(object.amazon.evidenceId);
+    assert.ok(evidence, `${object.id}: preuve Amazon absente ${object.amazon.evidenceId}`);
+    assert.equal(evidence.publisher, "Amazon.fr", `${object.id}: éditeur de preuve inattendu`);
+    assert.equal(evidence.source_type, "merchant", `${object.id}: type de preuve inattendu`);
+    assert.equal(evidence.checked_on, object.amazon.checkedAt, `${object.id}: date de preuve incohérente`);
+    assert.match(
+      evidence.conditions,
+      /territoire France|Paris 75001/,
+      `${object.id}: territoire absent de la preuve`,
+    );
+    assert.ok(
+      evidence.article_ids.split(";").includes(object.canonicalArticleId),
+      `${object.id}: preuve non reliée au dossier canonique`,
+    );
+    assert.doesNotMatch(evidence.source_url, /[?&]tag=/, `${object.id}: tracking dans la preuve`);
+    const evidenceUrl = new URL(evidence.source_url);
+    assert.equal(evidenceUrl.hostname, "www.amazon.fr", `${object.id}: source hors Amazon.fr`);
+    const matches = amazonObjectLinks.filter(({ link }) =>
+      attribute(`<a${link[1]}>`, "data-commercial-object") === object.id
+    );
+    if (object.amazon.status === "available") {
+      assert.match(object.amazon.asin ?? "", /^[A-Z0-9]{10}$/, `${object.id}: ASIN invalide`);
+      assert.equal(evidenceUrl.pathname, `/dp/${object.amazon.asin}`, `${object.id}: preuve ASIN incohérente`);
+      assert.equal(matches.length, 2, `${object.id}: lien Amazon dédié absent ou dupliqué`);
+      for (const { page, link } of matches) {
+        const opening = `<a${link[1]}>`;
+        assert.equal(page.route, article.route, `${object.id}: lien rendu hors du dossier canonique`);
+        assert.equal(decodeHtml(attribute(opening, "href")), amazonAffiliateUrlForObject(object.id));
+        assert.equal(attribute(opening, "rel"), "sponsored external noopener");
+        assert.equal(attribute(opening, "data-affiliate"), "amazon");
+      }
+    } else {
+      assert.equal(object.amazon.asin, undefined, `${object.id}: ASIN ne doit pas être inventé`);
+      assert.equal(evidenceUrl.pathname, "/s", `${object.id}: recherche Amazon absente`);
+      assert.match(evidence.observation, /n’a pas retrouvé de fiche correspondant sans ambiguïté/);
+      assert.equal(matches.length, 0, `${object.id}: not_found ne doit pas produire de lien Amazon`);
+    }
+  }
+
+  for (const page of pages.filter((candidate) => articleRoutePattern.test(candidate.route ?? ""))) {
+    assert.doesNotMatch(
+      visibleText(page.html),
+      /commandable à|indiqué en stock|exemplaires? affichés?/i,
+      `${page.route}: donnée Amazon volatile rendue publiquement`,
+    );
+  }
+  for (const page of pages.filter((candidate) => accessoryArticleRoutePattern.test(candidate.route ?? ""))) {
+    assert.doesNotMatch(
+      visibleText(page.html),
+      /\b\d+[,.]\d{2}\s*€/,
+      `${page.route}: prix Amazon statique rendu publiquement`,
+    );
   }
 });
 
@@ -1383,7 +1665,11 @@ test("tout lien Amazon rendu est affilié, qualifié et annoncé sans altérer l
       }
     }
   }
-  assert.equal(amazonLinkCount, 58, "inventaire inattendu des liens Amazon rendus");
+  assert.ok(
+    amazonLinkCount >= Object.values(COMMERCIAL_OBJECTS)
+      .filter((object) => object.amazon.status === "available").length * 2,
+    "les liens Amazon rendus ne couvrent pas toutes les offres vérifiées",
+  );
 
   const canonicalEvidence = await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8");
   const renderedEvidenceSource = await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8");
@@ -1511,11 +1797,19 @@ test("le four du logo équipe des favicons versionnées et la miniature sociale"
     /^  Permissions-Policy: camera=\(\), geolocation=\(\), microphone=\(\), web-share=\(self\)$/m,
     "la politique de permissions doit autoriser le partage natif uniquement sur le site",
   );
+  for (const route of ["/health", "/release.json"]) {
+    assert.match(
+      headers,
+      new RegExp(`${escapeRegex(route)}\\n  Cache-Control: no-store\\n  X-Robots-Tag: noindex, nofollow`),
+      `${route}: protection d’indexation absente`,
+    );
+  }
 });
 
 test("robots et sitemap gardent la preview hors index", async () => {
   const robots = await readFile(join(dist, "robots.txt"), "utf8");
   const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
+  const llms = await readFile(join(dist, "llms.txt"), "utf8");
   assert.equal(
     robots,
     [
@@ -1528,6 +1822,9 @@ test("robots et sitemap gardent la preview hors index", async () => {
   assert.match(sitemap, /xmlns:image="http:\/\/www\.google\.com\/schemas\/sitemap-image\/1\.1"/);
   assert.doesNotMatch(sitemap, /<url>/);
   assert.doesNotMatch(sitemap, /<image:image>/);
+  assert.match(llms, /^# Four à Nu$/m);
+  assert.match(llms, /Prépublication non indexable/);
+  assert.doesNotMatch(llms, /\/ooni\/koda-2\//);
 });
 
 test("les sondes statiques exposent la santé et la révision du build", async () => {
@@ -1561,6 +1858,14 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       ].join("\n"),
     );
 
+    const llms = await readFile(join(temporaryOutput, "llms.txt"), "utf8");
+    assert.match(llms, /^# Four à Nu$/m);
+    assert.match(llms, /## Parcours principaux/);
+    assert.match(llms, /## Méthode et confiance/);
+    assert.match(llms, /## Dossiers publiés/);
+    assert.match(llms, /## Index publics/);
+    assert.doesNotMatch(llms, /https:\/\/(?:www\.)?amazon\.fr|https:\/\/amzn\.to|tag=fouranu-21/i);
+
     const sitemap = await readFile(join(temporaryOutput, "sitemap.xml"), "utf8");
     assert.match(
       sitemap,
@@ -1581,6 +1886,14 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
     );
+    for (const route of articleRoutes) {
+      assert.match(
+        llms,
+        new RegExp(`\\(${escapeRegex(new URL(route, canonicalOrigin).toString())}\\)`),
+        `${route}: dossier absent de llms.txt`,
+      );
+    }
+    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + 23 + 2);
     assert.equal(urlEntries.length, fixedIndexableRoutes.length + 23);
     const sitemapEntriesByRoute = new Map(
       urlEntries.map((entry) => {
@@ -1590,17 +1903,9 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       }),
     );
     for (const route of fixedIndexableRoutes) {
-      const expectedModified = route === "/" ||
-          route === "/accessoires-pizza/" ||
-          route === "/confidentialite/" ||
-          route === "/transparence/"
-        ? "2026-08-30"
-        : route === "/a-propos/" || route.startsWith("/auteurs/")
-          ? "2026-08-27"
-          : "2026-08-25";
       assert.match(
         sitemapEntriesByRoute.get(route) ?? "",
-        new RegExp(`<lastmod>${expectedModified}<\\/lastmod>`),
+        /<lastmod>2026-08-31<\/lastmod>/,
         `${route}: date sitemap inattendue`,
       );
     }
@@ -1608,9 +1913,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       const page = pages.find((candidate) => candidate.route === route);
       const article = schemaNodes(jsonLdDocuments(page.html))
         .find((node) => node["@type"] === "Article");
-      const expectedModified = [article.dateModified.slice(0, 10), "2026-08-25"]
-        .sort()
-        .at(-1);
+      const expectedModified = article.dateModified.slice(0, 10);
       assert.match(
         sitemapEntriesByRoute.get(route) ?? "",
         new RegExp(`<lastmod>${expectedModified}<\\/lastmod>`),
@@ -1620,11 +1923,12 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
 
     const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
       .map((match) => match[1]);
-    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 23);
-    assert.equal(sitemapImages.length, 23);
+    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 25);
+    assert.equal(sitemapImages.length, 25);
     const expectedArticleImages = pages
       .filter((page) => articleRoutes.includes(page.route))
       .map((page) => metaContent(page.html, "og:image"))
+      .concat([...rangeSocialImages.values()])
       .sort();
     assert.deepEqual(sitemapImages.sort(), expectedArticleImages);
 
@@ -1633,11 +1937,12 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       assert.ok(location, "URL absente d'une entrée sitemap");
       const imageLocations = [...entry.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
         .map((match) => match[1]);
-      if (articleRoutePattern.test(new URL(location).pathname)) {
+      const route = new URL(location).pathname;
+      if (articleRoutePattern.test(route) || rangeSocialImages.has(route)) {
         assert.equal(imageLocations.length, 1, `${location}: une image sitemap attendue`);
         assert.equal(await routeExists(imageLocations[0], temporaryOutput), true, `${location}: image absente`);
       } else {
-        assert.deepEqual(imageLocations, [], `${location}: image sitemap réservée aux articles`);
+        assert.deepEqual(imageLocations, [], `${location}: image sitemap inattendue`);
       }
     }
 

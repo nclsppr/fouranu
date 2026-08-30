@@ -4,14 +4,15 @@ brand: accessoires
 category: accessoires
 heroTreatment: editorial-original
 title: "Quel thermomètre infrarouge choisir pour un four à pizza ?"
-seoTitle: "Thermomètre infrarouge pour four à pizza : lequel choisir ?"
-description: Un thermomètre infrarouge sert à lire la sole, pas l’air du four. Quatre modèles vendus sur Amazon.fr comparés selon leur plage, leur visée et leur simplicité.
+seoTitle: "Thermomètre infrarouge pour pizza | Four à Nu"
+description: Un thermomètre infrarouge sert à lire la sole, pas l’air du four. Quatre modèles repérés sur Amazon.fr comparés selon leur plage, leur visée et leur simplicité.
 summary: Le bon thermomètre ne rend pas le four plus chaud. Il permet de savoir où lancer la pizza, puis quand laisser la sole récupérer entre deux cuissons.
 status: publishable
 type: guide
 author: nicolas
+commercialObjects: [ooni-infrared-thermometer, bosch-universaltemp, thermopro-tp30, tilswall-w301]
 publishedAt: 2026-08-30
-updatedAt: 2026-08-30
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/accessoires-thermometre-infrarouge-1600.webp
@@ -26,7 +27,7 @@ evidenceTypes:
 limitations:
   - Les caractéristiques comparées viennent des fabricants ; Four à Nu n’a pas mesuré la précision de ces quatre appareils.
   - La température infrarouge décrit une surface et ne remplace ni une sonde d’ambiance, ni une sonde à cœur.
-  - Les offres Amazon.fr, leur composition, leur prix et leur disponibilité peuvent changer après notre vérification du 30 août 2026.
+  - La fiche Amazon.fr, le vendeur et la composition de l’offre peuvent évoluer après leur vérification.
 ---
 
 ## Notre lecture en bref
@@ -201,12 +202,12 @@ le four, mais je n’achèterais pas 600 °C uniquement parce que 600 est supér
 à 550. La lisibilité de l’écran, les piles disponibles et la possibilité de
 reprendre la même mesure au même endroit pèseront davantage dans une soirée.
 
-Les quatre références étaient proposées à la vente sur Amazon.fr lors de notre
-vérification du 30 août 2026. Les liens Amazon.fr de cette page sont affiliés :
+Les quatre fiches exactes ont été contrôlées sur Amazon.fr le 30 août 2026. Les
+liens Amazon.fr de cette page sont affiliés :
 un achat éligible après un clic peut rémunérer Four à Nu, sans surcoût pour
 vous. Cette rémunération éventuelle ne change ni la sélection ni les limites du
-guide. Le prix, le vendeur, le contenu exact de l’offre et le stock peuvent
-changer ; relisez la fiche Amazon avant de commander.
+guide. Le vendeur, la variante et le contenu exact de l’offre peuvent changer ;
+relisez la fiche Amazon avant de commander.
 
 ## Ce que les fiches ne permettent pas de départager
 

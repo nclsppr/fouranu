@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
+import { articlePath } from "@/data/article-taxonomy";
 
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.brand === "gozney" && entry.data.status === "publishable")
@@ -37,7 +38,7 @@ const schema = {
       itemListElement: analyses.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(`/gozney/${entry.id}/`, SITE.url).toString(),
+        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -61,7 +62,7 @@ const schema = {
     <header class="gozney-intro">
       <div>
         <p class="eyebrow">Gozney · guides d’achat</p>
-        <h1>Le bon four dépend d’abord de l’endroit où il va vivre.</h1>
+        <h1>Tous nos dossiers sur les fours Gozney.</h1>
       </div>
       <div class="gozney-intro__copy">
         <p>

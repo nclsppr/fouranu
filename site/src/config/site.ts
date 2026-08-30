@@ -75,12 +75,12 @@ export const SITE = {
 export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
-export const SITE_SURFACE_UPDATED_AT = "2026-08-25";
-export const SITE_HOME_UPDATED_AT = "2026-08-30";
-export const SITE_ABOUT_UPDATED_AT = "2026-08-27";
-export const SITE_AUTHORS_UPDATED_AT = "2026-08-27";
-export const SITE_ACCESSORIES_UPDATED_AT = "2026-08-30";
-export const SITE_COMMERCE_UPDATED_AT = "2026-08-30";
+export const SITE_SURFACE_UPDATED_AT = "2026-08-31";
+export const SITE_HOME_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
+export const SITE_ABOUT_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
+export const SITE_AUTHORS_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
+export const SITE_ACCESSORIES_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
+export const SITE_COMMERCE_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
 
 export const FIXED_INDEXABLE_ROUTES = [
   { path: "/", modified: SITE_HOME_UPDATED_AT },
@@ -94,15 +94,24 @@ export const FIXED_INDEXABLE_ROUTES = [
   { path: "/corrections/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/confidentialite/", modified: SITE_COMMERCE_UPDATED_AT },
   { path: "/fours-a-pizza/", modified: SITE_SURFACE_UPDATED_AT },
-  { path: "/gozney/", modified: SITE_SURFACE_UPDATED_AT },
+  {
+    path: "/gozney/",
+    modified: SITE_SURFACE_UPDATED_AT,
+    image: "/images/articles/gozney-gamme-1600.webp",
+  },
   { path: "/methode/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/mentions-legales/", modified: SITE_SURFACE_UPDATED_AT },
-  { path: "/ooni/", modified: SITE_SURFACE_UPDATED_AT },
+  {
+    path: "/ooni/",
+    modified: SITE_SURFACE_UPDATED_AT,
+    image: "/images/articles/ooni-gamme-documentee-1600.webp",
+  },
   { path: "/transparence/", modified: SITE_COMMERCE_UPDATED_AT },
 ] as const;
 
 export const PRIMARY_NAV = [
-  { href: "/fours-a-pizza/", label: "Guides" },
+  { href: "/accessoires-pizza/", label: "Accessoires" },
+  { href: "/fours-a-pizza/", label: "Fours" },
   { href: "/ooni/", label: "Ooni" },
   { href: "/gozney/", label: "Gozney" },
   { href: "/methode/", label: "Méthode" },

@@ -9,8 +9,9 @@ summary: Arc Lite pour le prix, Tread pour voyager, Arc pour rester à la maison
 status: publishable
 type: guide
 author: magali
+commercialObjects: [gozney-arc-lite, gozney-tread, gozney-arc, gozney-arc-xl, gozney-roccbox, gozney-dome-gen-2, gozney-dome-xl-gen-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-gamme-1600.webp

@@ -4,7 +4,6 @@ import {
   FIXED_INDEXABLE_ROUTES,
   INDEXING_ENABLED,
   SITE,
-  SITE_SURFACE_UPDATED_AT,
 } from "@/config/site";
 import { articlePath } from "@/data/article-taxonomy";
 
@@ -19,9 +18,7 @@ export const GET: APIRoute = async () => {
         .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
         .map((entry) => ({
           path: articlePath(entry.data.brand, entry.id),
-          modified: [entry.data.updatedAt.toISOString().slice(0, 10), SITE_SURFACE_UPDATED_AT]
-            .sort()
-            .at(-1) ?? SITE_SURFACE_UPDATED_AT,
+          modified: entry.data.updatedAt.toISOString().slice(0, 10),
           image: new URL(entry.data.image.src, SITE.url).toString(),
         }))
     : [];
@@ -30,7 +27,7 @@ export const GET: APIRoute = async () => {
   const urls = routes
     .map(
       ({ path, modified, image }: { path: string; modified: string; image?: string }) =>
-        `  <url><loc>${escapeXml(new URL(path, SITE.url).toString())}</loc><lastmod>${modified}</lastmod>${image ? `<image:image><image:loc>${escapeXml(image)}</image:loc></image:image>` : ""}</url>`,
+        `  <url><loc>${escapeXml(new URL(path, SITE.url).toString())}</loc><lastmod>${modified}</lastmod>${image ? `<image:image><image:loc>${escapeXml(new URL(image, SITE.url).toString())}</image:loc></image:image>` : ""}</url>`,
     )
     .join("\n");
   const body = [

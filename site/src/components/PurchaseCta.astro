@@ -13,9 +13,11 @@ interface Props {
 
 const { links, variant } = Astro.props;
 const multiple = links.length > 1;
-const amazonOnly = links.every((link) => link.merchant === "Amazon.fr");
-const hasAmazon = links.some((link) => link.merchant === "Amazon.fr");
+const amazonOnly = links.every((link) => isAmazonLink(link.url));
+const hasAmazon = links.some((link) => isAmazonLink(link.url));
 const mixed = hasAmazon && !amazonOnly;
+const objectCount = new Set(links.flatMap((link) => link.objectId ? [link.objectId] : [])).size;
+const comparesSeveralObjects = objectCount > 1;
 const titles = amazonOnly
   ? {
       primary: multiple ? "Comparer les modèles sur Amazon.fr" : "Voir le modèle sur Amazon.fr",
@@ -23,7 +25,7 @@ const titles = amazonOnly
     }
   : mixed
     ? {
-        primary: "Comparer les offres Ooni et Amazon.fr",
+        primary: "Comparer la boutique officielle et Amazon.fr",
         closing: "Votre choix est fait ?",
       }
     : {
@@ -39,8 +41,15 @@ const titles = amazonOnly
     {amazonOnly
       ? "Vous partez vers Amazon.fr. Vérifiez le vendeur, le prix, le modèle exact, les accessoires inclus et le stock avant de commander."
       : mixed
-        ? "Le Halo Core ouvre la boutique Ooni ; le Halo Pro, Amazon.fr. Vérifiez le prix, le modèle exact, les accessoires inclus et les conditions de livraison avant de commander."
+        ? comparesSeveralObjects
+          ? "Les boutiques officielles et Amazon.fr sont proposées pour les objets de ce dossier. Vérifiez le vendeur, le modèle exact, la variante, les accessoires inclus et les conditions de livraison avant de commander."
+          : "La boutique du fabricant et Amazon.fr sont proposées pour cet objet. Vérifiez le vendeur, la variante, les accessoires inclus et les conditions de livraison avant de commander."
         : "Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur, les accessoires inclus et les conditions de livraison avant de commander."}
+  </p>
+  <p class="purchase-cta__disclosure">
+    {hasAmazon
+      ? `Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.${mixed ? " Les liens fabricant ne sont pas rémunérés." : ""}`
+      : "Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui."}
   </p>
   <div class="purchase-cta__actions">
     {links.map((link) => (
@@ -48,17 +57,14 @@ const titles = amazonOnly
         href={isAmazonLink(link.url) ? toAmazonAffiliateUrl(link.url) : link.url}
         rel={affiliateRel(link.url)}
         data-affiliate={isAmazonLink(link.url) ? "amazon" : undefined}
+        data-commercial-object={link.objectId}
+        data-commercial-scope={link.scope}
       >
         {link.label}
         <span aria-hidden="true">→</span>
       </a>
     ))}
   </div>
-  <p class="purchase-cta__disclosure">
-    {hasAmazon
-      ? `Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.${mixed ? " Le lien Ooni n’est pas rémunéré." : ""}`
-      : "Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui."}
-  </p>
 </section>
 
 <style>

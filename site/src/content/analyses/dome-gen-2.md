@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: nicolas
 model: Gozney Dome (Gen 2)
+commercialObjects: [gozney-dome-gen-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-dome-gen-2-1600.webp

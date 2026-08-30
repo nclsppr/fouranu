@@ -10,8 +10,9 @@ status: publishable
 type: model
 author: magali
 model: Gozney Arc
+commercialObjects: [gozney-arc]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-27
+updatedAt: 2026-08-30
 indexable: true
 image:
   src: /images/articles/gozney-arc-1600.webp

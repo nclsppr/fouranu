@@ -211,6 +211,10 @@ livré :
 - [x] Rendre tous les liens Amazon visibles affiliés, déclarés et qualifiés par
   `rel="sponsored"`, sans ajouter le suivi aux URL canoniques des registres ni
   transformer un prix périmé en promesse.
+- [x] Déclarer les 34 produits commerciaux exacts du corpus dans un registre
+  contrôlé, vérifier Amazon.fr pour chacun, ajouter le lien dédié aux offres
+  exactes retrouvées et conserver `not_found` lorsque la recherche ne prouve
+  rien. La gate doit empêcher tout futur produit éditorial oublié.
 - [ ] Préserver un choix de marchand lorsque cela aide réellement le lecteur ;
   ne pas dissimuler les destinations et ne pas faire dépendre une conclusion du
   niveau de commission.
@@ -332,7 +336,7 @@ Publier uniquement les URL approuvées et établir leur disponibilité réelle.
 - activation séparée du domaine personnalisé et du DNS de `fouranu.com` ;
 - passage séparé du paquet autorisé en indexable ;
 - contrôles HTTP, visuels, console et réseau ;
-- `robots.txt`, sitemap, canonical et données structurées ;
+- `robots.txt`, `llms.txt`, sitemap, canonical et données structurées ;
 - Search Console, Bing Webmaster Tools et IndexNow après autorisation ;
 - accès des robots d'exploration aux seules pages publiques.
 

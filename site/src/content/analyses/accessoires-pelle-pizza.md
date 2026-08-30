@@ -4,14 +4,15 @@ brand: accessoires
 category: accessoires
 heroTreatment: editorial-original
 title: "Quelle pelle à pizza choisir : perforée, pleine ou en bambou ?"
-seoTitle: "Quelle pelle à pizza choisir pour son four ?"
+seoTitle: "Pelle à pizza : laquelle choisir ? | Four à Nu"
 description: Une pelle perforée ne répond pas au même besoin qu’une pelle pleine ou en bambou. Formats, gestes, rangement et limites avant de choisir.
 summary: Pour un premier achat, nous privilégions une pelle en aluminium adaptée à l’ouverture du four. Le bon modèle dépend ensuite du geste, du rangement et de la farine utilisée.
 status: publishable
 type: guide
 author: florian
+commercialObjects: [ooni-peel-perforated-30, ooni-peel-classic-30, ooni-peel-bamboo-30, weber-peel-6691]
 publishedAt: 2026-08-30
-updatedAt: 2026-08-30
+updatedAt: 2026-08-31
 indexable: true
 image:
   src: /images/articles/accessoires-pelle-pizza-1600.webp
@@ -25,7 +26,7 @@ evidenceTypes:
   - FAN-INF
 limitations:
   - Four à Nu n’a pas réalisé d’essai comparatif physique de ces pelles.
-  - Les prix, vendeurs et stocks Amazon.fr peuvent changer après la vérification du 30 août 2026.
+  - La fiche Amazon.fr, le vendeur et la composition de l’offre peuvent évoluer après leur vérification.
   - Les dimensions et compatibilités dépendent de la taille exacte sélectionnée sur chaque fiche.
   - La durabilité, la déformation et le confort ne sont pas comparés dans un protocole commun.
 ---
@@ -47,9 +48,9 @@ forcément celui qui rend le mouvement le plus propre.
 > **Transparence.** Ce guide est une analyse documentaire. Four à Nu n’a pas
 > soumis ces pelles à un essai comparatif. Les liens Amazon.fr sont affiliés :
 > un achat éligible après un clic peut rémunérer Four à Nu, sans surcoût pour
-> vous. Cela ne change ni la sélection ni les limites de ce guide. Les produits
-> étaient commandables lors de notre vérification du 30 août 2026 ; prix,
-> vendeurs et stocks restent variables.
+> vous. Cela ne change ni la sélection ni les limites de ce guide. Les fiches
+> exactes ont été contrôlées le 30 août 2026 ; vérifiez toujours le modèle, le
+> vendeur et le contenu de l’offre avant de commander.
 
 ## Les quatre modèles que nous garderions dans la comparaison
 

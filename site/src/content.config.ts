@@ -12,10 +12,10 @@ const articleImage = z.object({
 const analyses = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/analyses" }),
   schema: z.object({
-    articleId: z.string().regex(/^(OONI|GOZNEY)-\d{3}$/),
-    brand: z.enum(["ooni", "gozney"]),
-    category: z.enum(["oven", "mixer"]),
-    heroTreatment: z.literal("official-stylized"),
+    articleId: z.string().regex(/^(OONI|GOZNEY|ACC)-\d{3}$/),
+    brand: z.enum(["ooni", "gozney", "accessoires"]),
+    category: z.enum(["oven", "mixer", "accessoires"]),
+    heroTreatment: z.enum(["official-stylized", "editorial-original"]),
     title: z.string(),
     seoTitle: z.string().max(65).optional(),
     description: z.string(),
@@ -37,6 +37,36 @@ const analyses = defineCollection({
         code: "custom",
         message: "Un dossier indexable doit être publiable.",
         path: ["indexable"],
+      });
+    }
+    const expectedPrefix = {
+      ooni: "OONI",
+      gozney: "GOZNEY",
+      accessoires: "ACC",
+    }[entry.brand];
+    if (!entry.articleId.startsWith(`${expectedPrefix}-`)) {
+      context.addIssue({
+        code: "custom",
+        message: "L’identifiant du dossier doit correspondre à sa famille éditoriale.",
+        path: ["articleId"],
+      });
+    }
+    const expectedCategory = entry.brand === "accessoires" ? "accessoires" : undefined;
+    if (expectedCategory && entry.category !== expectedCategory) {
+      context.addIssue({
+        code: "custom",
+        message: "Un dossier accessoires doit appartenir à la catégorie accessoires.",
+        path: ["category"],
+      });
+    }
+    const expectedHero = entry.brand === "accessoires"
+      ? "editorial-original"
+      : "official-stylized";
+    if (entry.heroTreatment !== expectedHero) {
+      context.addIssue({
+        code: "custom",
+        message: "Le traitement visuel doit correspondre au type de dossier.",
+        path: ["heroTreatment"],
       });
     }
   }),

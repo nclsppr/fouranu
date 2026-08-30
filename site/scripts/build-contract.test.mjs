@@ -72,7 +72,10 @@ const fixedIndexableRoutes = [
 ];
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
-const articleRoutePattern = /^\/(?:ooni|gozney)\/[^/]+\/$/;
+const articleRoutePattern = /^\/(?:ooni|gozney|accessoires-pizza)\/[^/]+\/$/;
+const reviewArticleRoutePattern = /^\/accessoires-pizza\/[^/]+\/$/;
+const routeSegmentForBrand = (brand) =>
+  brand === "accessoires" ? "accessoires-pizza" : brand;
 const defaultSocialImage = `${canonicalOrigin}/og/four-a-nu-default-v2.jpg`;
 const rangeSocialImages = new Map([
   ["/ooni/", `${canonicalOrigin}/images/articles/ooni-gamme-documentee-1600.webp`],
@@ -85,7 +88,12 @@ const editorialCaptionPatternForBrand = (brand) =>
     `^Illustration éditoriale d’après (?:une photographie officielle|des photographies officielles) ${brand}\\.$`,
   );
 const editorialCaptionFromAsset = (asset) =>
-  `${asset.attribution.replace("d'après", "d’après")}.`;
+  asset.attribution.replace("d'après", "d’après").replace(/\.?$/, ".");
+const editorialOriginalCaption = "Illustration éditoriale originale Four à Nu.";
+const editorialCaptionPatternForArticle = (brand) =>
+  brand === "accessoires"
+    ? new RegExp(`^${escapeRegex(editorialOriginalCaption)}$`)
+    : editorialCaptionPatternForBrand(brand === "gozney" ? "Gozney" : "Ooni");
 
 async function filesRecursively(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -280,7 +288,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, fixedIndexableRoutes.length + 19 + 1);
+  assert.equal(pages.length, fixedIndexableRoutes.length + 23 + 2);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -335,8 +343,10 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
 
     for (const anchor of pairedElements(page.html, "a")) {
       const opening = `<a${anchor[1]}>`;
+      const hasNamedImage = tags(anchor[2], "img")
+        .some((image) => (attribute(image, "alt") ?? "").trim().length > 0);
       assert.ok(
-        visibleText(anchor[2]).length > 0 || Boolean(attribute(opening, "aria-label")),
+        visibleText(anchor[2]).length > 0 || Boolean(attribute(opening, "aria-label")) || hasNamedImage,
         `${label}: lien sans nom accessible`,
       );
       const href = attribute(opening, "href");
@@ -557,7 +567,7 @@ test("le partage reste local sur les pages canoniques et absent de la 404", asyn
     );
   }
 
-  assert.equal(shareRootCount, fixedIndexableRoutes.length + 19);
+  assert.equal(shareRootCount, fixedIndexableRoutes.length + 23 + 1);
   assert.equal(moduleBodies.size, 1, "les pages doivent embarquer le même petit module local");
 });
 
@@ -655,7 +665,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, 19);
+  assert.equal(articlePages.length, 23);
   const authorAssignments = new Map([...editorialAuthors.keys()].map((name) => [name, 0]));
   const authorArticleRoutes = new Map([...editorialAuthors.keys()].map((name) => [name, []]));
 
@@ -714,11 +724,15 @@ test("les données structurées restent vérifiables et sans faux avis", async (
         attribute(`<figure${figure[1]}>`, "class") === "article-lead-media"
       );
       const imageCaption = visibleText(pairedElements(leadFigure?.[2] ?? "", "figcaption")[0]?.[2] ?? "");
-      const imageBrand = page.route.startsWith("/gozney/") ? "Gozney" : "Ooni";
+      const imageBrand = page.route.startsWith("/accessoires-pizza/")
+        ? "accessoires"
+        : page.route.startsWith("/gozney/")
+          ? "gozney"
+          : "ooni";
       assert.ok(article, `${page.route}: Article JSON-LD absent`);
       assert.match(
         imageCaption,
-        editorialCaptionPatternForBrand(imageBrand),
+        editorialCaptionPatternForArticle(imageBrand),
         `${page.route}: crédit d’en-tête trop long ou incohérent`,
       );
       assert.ok(imageCaption.length <= 90, `${page.route}: crédit d’en-tête trop long`);
@@ -727,7 +741,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.equal(visibleText(article.headline), h1);
       assert.equal(visibleText(metaContent(page.html, "og:title")), h1);
       assert.equal(article.inLanguage, "fr");
-      assert.ok(["Fours à pizza", "Pétrins"].includes(article.articleSection));
+      assert.ok(["Fours à pizza", "Pétrins", "Accessoires pizza"].includes(article.articleSection));
       assert.deepEqual(
         article.image,
         {
@@ -742,8 +756,10 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       );
       assert.equal(article.isAccessibleForFree, true);
       assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
-      authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
-      authorArticleRoutes.get(article.author.name).push(page.route);
+      if (!reviewArticleRoutePattern.test(page.route)) {
+        authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
+        authorArticleRoutes.get(article.author.name).push(page.route);
+      }
       assert.equal(article.author["@type"], "Person");
       assert.equal(
         article.author["@id"],
@@ -831,7 +847,7 @@ test("les portraits auteurs publiés restent légers et disponibles aux deux tai
   }
 });
 
-test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
+test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
   const canonicalCsv = await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8");
   const componentCsv = await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8");
   assert.equal(componentCsv, canonicalCsv, "la copie de build du registre a dérivé de research/evidence.csv");
@@ -845,7 +861,7 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 168);
+  assert.equal(records.size, 205);
 
   const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
   const assetRows = parseCsv(assetCsv);
@@ -857,7 +873,7 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
       Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(assets.size, 91);
+  assert.equal(assets.size, 99);
   const registeredPublicationUrls = new Set(
     [...assets.values()].map((asset) => asset.publication_url),
   );
@@ -874,15 +890,17 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
     .sort();
-  assert.equal(markdownFiles.length, 19);
+  assert.equal(markdownFiles.length, 23);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(siteRoot, "src/content/analyses", markdownFile), "utf8");
-    const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY)-\d{3})$/m)?.[1];
-    const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
-    const category = markdown.match(/^category:\s*(oven|mixer)$/m)?.[1];
-    const heroTreatment = markdown.match(/^heroTreatment:\s*(official-stylized)$/m)?.[1];
+    const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY|ACC)-\d{3})$/m)?.[1];
+    const brand = markdown.match(/^brand:\s*(ooni|gozney|accessoires)$/m)?.[1];
+    const category = markdown.match(/^category:\s*(oven|mixer|accessoires)$/m)?.[1];
+    const heroTreatment = markdown.match(
+      /^heroTreatment:\s*(official-stylized|editorial-original)$/m,
+    )?.[1];
     const heroAssetId = markdown.match(/^\s{2}assetId:\s*(AS-\d{4})$/m)?.[1];
     assert.ok(articleId, `${slug}: articleId absent ou invalide`);
     assert.ok(brand, `${slug}: marque absente ou invalide`);
@@ -890,24 +908,42 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
     assert.ok(heroTreatment, `${slug}: traitement de hero absent ou invalide`);
     assert.ok(heroAssetId, `${slug}: identifiant du hero absent ou invalide`);
     assert.ok(
-      articleId.startsWith(`${brand.toUpperCase()}-`),
+      articleId.startsWith(`${brand === "accessoires" ? "ACC" : brand.toUpperCase()}-`),
       `${slug}: articleId incohérent avec la marque`,
     );
     const heroAsset = assets.get(heroAssetId);
     assert.ok(heroAsset, `${slug}: hero absent du registre média`);
-    assert.equal(heroAsset.asset_type, "editorial-illustration", `${slug}: type de hero incohérent`);
-    assert.equal(
-      heroAsset.acquisition_mode,
-      "authorized-manufacturer-photo",
-      `${slug}: le hero doit partir d'une photo officielle fabricant`,
-    );
-    assert.equal(heroAsset.human_validation, "approved", `${slug}: hero non validé`);
+    if (heroTreatment === "editorial-original") {
+      assert.equal(brand, "accessoires", `${slug}: illustration originale hors guide accessoires`);
+      assert.equal(category, "accessoires", `${slug}: catégorie incohérente pour le guide accessoires`);
+      assert.match(markdown, /^status:\s*review$/m, `${slug}: illustration en attente hors revue`);
+      assert.match(markdown, /^indexable:\s*false$/m, `${slug}: illustration en attente indexable`);
+      assert.equal(heroAsset.asset_type, "editorial-original", `${slug}: type de hero incohérent`);
+      assert.equal(heroAsset.acquisition_mode, "editorial-created", `${slug}: mode de création incohérent`);
+      assert.equal(heroAsset.rights_status, "original", `${slug}: droits du hero incohérents`);
+      assert.equal(heroAsset.human_validation, "pending", `${slug}: validation de revue inattendue`);
+      assert.equal(heroAsset.third_party_elements, "aucun", `${slug}: élément tiers dans le hero original`);
+      assert.match(
+        markdown,
+        /^\s{2}caption:\s*"Illustration éditoriale originale Four à Nu\."$/m,
+        `${slug}: statut public du hero original absent`,
+      );
+    } else {
+      assert.notEqual(brand, "accessoires", `${slug}: guide accessoires sans illustration originale`);
+      assert.equal(heroAsset.asset_type, "editorial-illustration", `${slug}: type de hero incohérent`);
+      assert.equal(
+        heroAsset.acquisition_mode,
+        "authorized-manufacturer-photo",
+        `${slug}: le hero doit partir d'une photo officielle fabricant`,
+      );
+      assert.equal(heroAsset.human_validation, "approved", `${slug}: hero non validé`);
+      assert.match(
+        markdown,
+        /^\s{2}caption:\s*"Illustration éditoriale .+photograph(?:ie|ies) officielle(?:s)? .+"$/m,
+        `${slug}: statut public du hero absent`,
+      );
+    }
     assert.equal(heroAsset.identifiable_people, "no", `${slug}: personne dans la source du hero`);
-    assert.match(
-      markdown,
-      /^\s{2}caption:\s*"Illustration éditoriale .+photograph(?:ie|ies) officielle(?:s)? .+"$/m,
-      `${slug}: statut public du hero absent`,
-    );
     assert.equal(
       markdown.match(/^\s{2}caption:\s*"([^"]+)"$/m)?.[1],
       editorialCaptionFromAsset(heroAsset),
@@ -923,7 +959,10 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
       );
     }
 
-    const html = await readFile(join(dist, brand, slug, "index.html"), "utf8");
+    const html = await readFile(
+      join(dist, routeSegmentForBrand(brand), slug, "index.html"),
+      "utf8",
+    );
     const renderedIds = [...html.matchAll(/data-evidence-id="(EV-\d{4})"/g)].map((match) => match[1]);
     assert.deepEqual(renderedIds, expectedIds, `${slug}: bibliographie incomplète ou réordonnée`);
     assert.ok(
@@ -955,7 +994,11 @@ test("les dix-neuf analyses rendent toutes leurs preuves citées depuis le regis
 test("le RSS expose exactement les dix-neuf dossiers publiables et indexables", async () => {
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  const articleRoutes = articlePages
+  const publishedArticlePages = articlePages.filter(
+    (page) => !reviewArticleRoutePattern.test(page.route ?? ""),
+  );
+  assert.equal(articlePages.length, 23);
+  const articleRoutes = publishedArticlePages
     .map((page) => page.route)
     .sort();
   assert.equal(articleRoutes.length, 19);
@@ -978,7 +1021,7 @@ test("le RSS expose exactement les dix-neuf dossiers publiables et indexables", 
     assert.ok(link);
     const pathname = new URL(link).pathname;
     assert.match(pathname, articleRoutePattern);
-    const articlePage = articlePages.find((page) => page.route === pathname);
+    const articlePage = publishedArticlePages.find((page) => page.route === pathname);
     assert.ok(articlePage, `page absente pour l'item RSS ${pathname}`);
     const article = schemaNodes(jsonLdDocuments(articlePage.html))
       .find((node) => node["@type"] === "Article");
@@ -1053,16 +1096,16 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   const imagePaths = new Set();
   const assetIds = new Set();
-  const categoryCounts = { ooniOvens: 0, ooniMixers: 0, gozneyOvens: 0 };
+  const categoryCounts = { ooniOvens: 0, ooniMixers: 0, gozneyOvens: 0, accessories: 0 };
 
-  assert.equal(markdownFiles.length, 19);
-  assert.equal(articlePages.length, 19);
+  assert.equal(markdownFiles.length, 23);
+  assert.equal(articlePages.length, 23);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(markdownDirectory, markdownFile), "utf8");
-    const brand = markdown.match(/^brand:\s*(ooni|gozney)$/m)?.[1];
-    const category = markdown.match(/^category:\s*(oven|mixer)$/m)?.[1];
+    const brand = markdown.match(/^brand:\s*(ooni|gozney|accessoires)$/m)?.[1];
+    const category = markdown.match(/^category:\s*(oven|mixer|accessoires)$/m)?.[1];
     const imagePath = markdown.match(
       /^\s{2}src:\s*(\/images\/articles\/[a-z0-9-]+-1600\.webp)$/m,
     )?.[1];
@@ -1072,6 +1115,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     if (brand === "ooni" && category === "oven") categoryCounts.ooniOvens += 1;
     if (brand === "ooni" && category === "mixer") categoryCounts.ooniMixers += 1;
     if (brand === "gozney" && category === "oven") categoryCounts.gozneyOvens += 1;
+    if (brand === "accessoires" && category === "accessoires") categoryCounts.accessories += 1;
     assert.ok(imagePath, `${slug}: image 1600 px absente du frontmatter`);
     assert.ok(assetId, `${slug}: assetId absent du frontmatter`);
     assert.equal(imagePaths.has(imagePath), false, `${slug}: photo dupliquée ${imagePath}`);
@@ -1085,7 +1129,9 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     assert.ok((await stat(join(dist, imagePath.replace(/^\//, "")))).size < 200_000);
     assert.ok((await stat(join(dist, smallPath.replace(/^\//, "")))).size < 100_000);
 
-    const page = articlePages.find((candidate) => candidate.route === `/${brand}/${slug}/`);
+    const page = articlePages.find(
+      (candidate) => candidate.route === `/${routeSegmentForBrand(brand)}/${slug}/`,
+    );
     assert.ok(page, `${slug}: page article absente`);
     const figure = pairedElements(page.html, "figure").find((match) =>
       attribute(`<figure${match[1]}>`, "class") === "article-lead-media"
@@ -1106,12 +1152,17 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     );
     assert.match(
       visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? ""),
-      editorialCaptionPatternForBrand(brand === "gozney" ? "Gozney" : "Ooni"),
+      editorialCaptionPatternForArticle(brand),
       `${slug}: crédit principal trop long ou incohérent`,
     );
   }
 
-  assert.deepEqual(categoryCounts, { ooniOvens: 11, ooniMixers: 1, gozneyOvens: 7 });
+  assert.deepEqual(categoryCounts, {
+    ooniOvens: 11,
+    ooniMixers: 1,
+    gozneyOvens: 7,
+    accessories: 4,
+  });
 
   const home = pages.find((page) => page.route === "/");
   const homeArticleImages = tags(home.html, "img")
@@ -1131,6 +1182,13 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
   assert.equal(gozneyThumbnails.length, 7, "la page Gozney doit illustrer ses sept dossiers");
+
+  const accessories = pages.find((page) => page.route === "/accessoires-pizza/");
+  assert.ok(accessories, "hub accessoires absent");
+  const accessoryThumbnails = tags(accessories.html, "img")
+    .map((image) => attribute(image, "src"))
+    .filter((src) => /^\/images\/articles\/accessoires-.+-1600\.webp$/.test(src ?? ""));
+  assert.equal(accessoryThumbnails.length, 4, "le hub accessoires doit illustrer ses quatre guides");
 });
 
 test("les crédits des images de tête restent sous le visuel sans le masquer", async () => {
@@ -1153,7 +1211,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   assert.match(homeSource, /class="lead-feature__visual-frame"/);
   assert.match(
     articleSource,
-    /L’image d’en-tête illustre le produit sans prouver ses performances\./,
+    /L’image d’en-tête illustre le sujet sans prouver les performances des produits\./,
   );
   for (const page of publicPages) {
     assert.doesNotMatch(
@@ -1164,7 +1222,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   }
   for (const page of articlePages) {
     assert.equal(
-      (visibleText(page.html).match(/L’image d’en-tête illustre le produit sans prouver ses performances\./g) ?? []).length,
+      (visibleText(page.html).match(/L’image d’en-tête illustre le sujet sans prouver les performances des produits\./g) ?? []).length,
       1,
       `${page.route}: la réserve sur la valeur de preuve doit apparaître une seule fois`,
     );
@@ -1173,7 +1231,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
 
 test("chaque dossier répète un appel d’achat direct, visible et non rémunéré", async () => {
   const articlePages = (await htmlPages()).filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, 19);
+  assert.equal(articlePages.length, 23);
 
   for (const page of articlePages) {
     const callouts = pairedElements(page.html, "section").filter((match) =>
@@ -1189,18 +1247,33 @@ test("chaque dossier répète un appel d’achat direct, visible et non rémuné
       );
       const merchantLinks = pairedElements(callout[2], "a");
       assert.ok(merchantLinks.length >= 1, `${page.route}: lien marchand absent`);
+      if (reviewArticleRoutePattern.test(page.route)) {
+        assert.equal(merchantLinks.length, 4, `${page.route}: quatre références Amazon.fr attendues`);
+        assert.match(
+          visibleText(callout[2]),
+          /Vous partez vers Amazon\.fr\./,
+          `${page.route}: destination Amazon.fr non annoncée`,
+        );
+      }
       for (const link of merchantLinks) {
         const opening = `<a${link[1]}>`;
         const href = attribute(opening, "href");
         assert.ok(href, `${page.route}: destination marchande absente`);
+        const merchantUrl = new URL(href);
         assert.ok(
-          ["eu.gozney.com", "eu.ooni.com"].includes(new URL(href).hostname),
+          ["eu.gozney.com", "eu.ooni.com", "www.amazon.fr"].includes(merchantUrl.hostname),
           `${page.route}: marchand direct inattendu`,
         );
-        assert.equal(new URL(href).search, "", `${page.route}: paramètre de suivi inattendu`);
+        assert.equal(merchantUrl.search, "", `${page.route}: paramètre de suivi inattendu`);
+        assert.equal(merchantUrl.hash, "", `${page.route}: fragment marchand inattendu`);
         assert.equal(attribute(opening, "rel"), "external noopener");
         assert.doesNotMatch(attribute(opening, "rel") ?? "", /sponsored/);
-        assert.match(visibleText(link[2]), /Gozney|Ooni/, `${page.route}: marchand absent du bouton`);
+        if (merchantUrl.hostname === "www.amazon.fr") {
+          assert.match(merchantUrl.pathname, /^\/dp\/[A-Z0-9]{10}$/);
+          assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
+        } else {
+          assert.match(visibleText(link[2]), /Gozney|Ooni/, `${page.route}: marchand absent du bouton`);
+        }
       }
     }
   }
@@ -1381,9 +1454,13 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
     const urlEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
     const pages = await htmlPages(temporaryOutput);
-    const articleRoutes = pages
+    const allArticleRoutes = pages
       .map((page) => page.route)
       .filter((route) => articleRoutePattern.test(route ?? ""));
+    assert.equal(allArticleRoutes.length, 23);
+    const articleRoutes = allArticleRoutes.filter(
+      (route) => !reviewArticleRoutePattern.test(route ?? ""),
+    );
     assert.equal(articleRoutes.length, 19);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
     assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + 19);
@@ -1430,7 +1507,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 19);
     assert.equal(sitemapImages.length, 19);
     const expectedArticleImages = pages
-      .filter((page) => articleRoutePattern.test(page.route ?? ""))
+      .filter((page) => articleRoutes.includes(page.route))
       .map((page) => metaContent(page.html, "og:image"))
       .sort();
     assert.deepEqual(sitemapImages.sort(), expectedArticleImages);
@@ -1449,7 +1526,11 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     }
 
     for (const page of pages) {
-      const expected = page.route === null ? "noindex, follow" : indexableRobots;
+      const expected = page.route === null ||
+          page.route === "/accessoires-pizza/" ||
+          reviewArticleRoutePattern.test(page.route ?? "")
+        ? "noindex, follow"
+        : indexableRobots;
       assert.equal(metaContent(page.html, "robots"), expected, page.route ?? "404");
     }
   } finally {

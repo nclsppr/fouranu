@@ -9,9 +9,9 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 6 |
+| Décisions | `internal` | 7 |
 | Barrières de publication | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 19 |
+| Brouillons éditoriaux du site | `internal` | 23 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -43,6 +43,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0004-cloudflare-workers-static-assets.md](docs/decisions/0004-cloudflare-workers-static-assets.md)
 - [docs/decisions/0005-en-tete-officiel-et-voix-accessible.md](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md)
 - [docs/decisions/0006-programme-essais-et-couverture-du-marche.md](docs/decisions/0006-programme-essais-et-couverture-du-marche.md)
+- [docs/decisions/0008-en-tete-original-guides-multi-produits.md](docs/decisions/0008-en-tete-original-guides-multi-produits.md)
 
 ## Barrières de publication
 
@@ -50,6 +51,10 @@ Moteur déclaré : `nimbus`.
 
 ## Brouillons éditoriaux du site
 
+- [site/src/content/analyses/accessoires-bacs-patons.md](site/src/content/analyses/accessoires-bacs-patons.md)
+- [site/src/content/analyses/accessoires-ciseaux-pizza.md](site/src/content/analyses/accessoires-ciseaux-pizza.md)
+- [site/src/content/analyses/accessoires-pelle-pizza.md](site/src/content/analyses/accessoires-pelle-pizza.md)
+- [site/src/content/analyses/accessoires-thermometre-infrarouge.md](site/src/content/analyses/accessoires-thermometre-infrarouge.md)
 - [site/src/content/analyses/arc-lite-ou-tread.md](site/src/content/analyses/arc-lite-ou-tread.md)
 - [site/src/content/analyses/arc-xl.md](site/src/content/analyses/arc-xl.md)
 - [site/src/content/analyses/arc.md](site/src/content/analyses/arc.md)

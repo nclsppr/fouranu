@@ -125,6 +125,10 @@ tranches séparées.
 - [ ] Les photos, captures et illustrations disposent d'une autorisation ou
   d'une licence vérifiable avant toute publication. Une transformation ne
   remplace pas cette autorisation.
+- [ ] L'en-tête suit le chemin adapté au dossier : photographie officielle
+  stylisée pour un produit identifié, ou illustration originale neutre conforme
+  à l'ADR-0008 pour un guide multi-produits. Sa validation humaine est
+  enregistrée avant indexation.
 
 ## 6. Valeur originale et langage
 

@@ -6,6 +6,7 @@ import {
   SITE,
   SITE_SURFACE_UPDATED_AT,
 } from "@/config/site";
+import { articlePath } from "@/data/article-taxonomy";
 
 export const prerender = true;
 
@@ -17,7 +18,7 @@ export const GET: APIRoute = async () => {
     ? (await getCollection("analyses"))
         .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
         .map((entry) => ({
-          path: `/${entry.data.brand}/${entry.id}/`,
+          path: articlePath(entry.data.brand, entry.id),
           modified: [entry.data.updatedAt.toISOString().slice(0, 10), SITE_SURFACE_UPDATED_AT]
             .sort()
             .at(-1) ?? SITE_SURFACE_UPDATED_AT,

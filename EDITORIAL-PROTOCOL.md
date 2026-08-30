@@ -280,6 +280,15 @@ Lorsqu'un composite part de plusieurs sources, le pluriel reste explicite :
 
 > Illustration éditoriale d'après des photographies officielles [fabricant].
 
+Pour un guide de catégorie qui compare plusieurs produits sans ériger un
+modèle en sujet de la page, l'[ADR-0008](docs/decisions/0008-en-tete-original-guides-multi-produits.md)
+autorise un second chemin : une illustration éditoriale originale, créée sans
+image tierce en entrée, montrant seulement le geste ou des outils génériques.
+Elle ne reproduit ni marque, ni emballage, ni détail distinctif d'un candidat
+et porte la mention suivante :
+
+> Illustration éditoriale originale Four à Nu.
+
 La page explique une seule fois, dans son second niveau de lecture, que l'image
 d'en-tête illustre le produit sans constituer une preuve de performance. Cette
 réserve n'est pas répétée sur chaque visuel et ne masque jamais ses pixels.
@@ -291,13 +300,18 @@ interne. Le protocole ne suppose pas que cette présentation
 tout changement de technique ou de diffusion.
 
 
-### 5. Composer l'en-tête d'un article produit
+### 5. Composer l'en-tête d'un article produit ou multi-produits
 
 Tout nouvel article consacré à un four, un pétrin ou un autre matériel, ainsi
 que toute révision éditoriale substantielle d'un tel article, commence par une
 photo officielle du modèle publiée sur le site du fabricant puis stylisée dans
 le système visuel Four à Nu. Cette image devient l'en-tête obligatoire et
 reste une illustration, jamais une preuve.
+
+Un guide multi-produits dont la question porte sur une famille d'outils peut
+utiliser à la place une illustration `editorial-original` conforme à
+l'ADR-0008. Cette exception ne s'applique pas à une fiche de modèle ni à un
+face-à-face dont les produits identifiés forment le sujet visuel.
 
 La transformation peut changer le fond, la lumière, le cadrage et la matière
 environnante. Elle préserve sans invention la silhouette, les proportions, les
@@ -348,7 +362,8 @@ sont vraies :
   `granted` ou `original`, cohérent avec son type, son acquisition, son périmètre
   et sa provenance ;
 - chaque article produit nouveau ou substantiellement révisé possède l'en-tête
-  officiel stylisé décrit ci-dessus ;
+  officiel stylisé décrit ci-dessus, ou l'en-tête original neutre autorisé par
+  l'ADR-0008 pour un guide multi-produits ;
 - chaque illustration est identifiée comme illustration éditoriale, sans citer
   son outil de production, et ne soutient aucune affirmation factuelle ;
 - chaque portrait public correspond à l'auteur visible, possède son accord à

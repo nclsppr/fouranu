@@ -7,11 +7,19 @@ import PurchaseCta from "@/components/PurchaseCta.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
+import {
+  ARTICLE_BRANDS,
+  ARTICLE_CATEGORY_LABELS,
+  articlePath,
+} from "@/data/article-taxonomy";
 
 export async function getStaticPaths() {
   const analyses = await getCollection("analyses");
   return analyses.map((entry) => ({
-    params: { brand: entry.data.brand, slug: entry.id },
+    params: {
+      brand: ARTICLE_BRANDS[entry.data.brand].routeSegment,
+      slug: entry.id,
+    },
     props: { entry },
   }));
 }
@@ -31,9 +39,9 @@ const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
 });
 const publishedAt = dateFormatter.format(entry.data.publishedAt);
 const updatedAt = dateFormatter.format(entry.data.updatedAt);
-const canonical = new URL(`/${entry.data.brand}/${entry.id}/`, SITE.url).toString();
+const canonical = new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString();
 const evidenceIds = entry.data.evidenceIds;
-const brandLabel = entry.data.brand === "gozney" ? "Gozney" : "Ooni";
+const articleBrand = ARTICLE_BRANDS[entry.data.brand];
 const words = (entry.body ?? "")
   .replace(/```[\s\S]*?```/g, " ")
   .replace(/<[^>]*>/g, " ")
@@ -48,10 +56,6 @@ const typeLabels = {
   decision: "Comparatif par usage",
   model: "Analyse de modèle",
 };
-const categoryLabels = {
-  oven: "Fours à pizza",
-  mixer: "Pétrins",
-};
 const author = SITE.authors[entry.data.author];
 const canonicalAuthor = new URL(author.url, SITE.url).toString();
 const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
@@ -65,7 +69,7 @@ const schema = {
   url: canonical,
   headline: entry.data.title,
   description: entry.data.description,
-  articleSection: categoryLabels[entry.data.category],
+  articleSection: ARTICLE_CATEGORY_LABELS[entry.data.category],
   image: {
     "@type": "ImageObject",
     url: articleImage,
@@ -117,7 +121,7 @@ const schema = {
   pageType="article"
   authorName={author.name}
   authorUrl={canonicalAuthor}
-  articleSection={categoryLabels[entry.data.category]}
+  articleSection={ARTICLE_CATEGORY_LABELS[entry.data.category]}
   publishedAt={entry.data.publishedAt}
   modifiedAt={entry.data.updatedAt}
   schema={schema}
@@ -126,7 +130,7 @@ const schema = {
     <Breadcrumbs
       items={[
         { label: "Accueil", href: "/" },
-        { label: brandLabel, href: `/${entry.data.brand}/` },
+        { label: articleBrand.label, href: articleBrand.hubPath },
         { label: entry.data.title },
       ]}
     />
@@ -171,7 +175,7 @@ const schema = {
 
       <aside class="article-facts" aria-label="Repères éditoriaux">
         <dl>
-          <div><dt>Catégorie</dt><dd>{categoryLabels[entry.data.category]}</dd></div>
+          <div><dt>Catégorie</dt><dd>{ARTICLE_CATEGORY_LABELS[entry.data.category]}</dd></div>
           <div><dt>Sources citées</dt><dd><a href="#cited-sources-title">{evidenceIds.length}</a></dd></div>
           {entry.data.model && <div><dt>Produit</dt><dd>{entry.data.model}</dd></div>}
         </dl>
@@ -192,7 +196,7 @@ const schema = {
           <div class="documentary-notice">
             <strong>Comment lire ce guide</strong>
             <span>
-              L’image d’en-tête illustre le produit sans prouver ses performances.
+              L’image d’en-tête illustre le sujet sans prouver les performances des produits.
               Les promesses du fabricant, les mesures publiées et notre lecture
               restent séparées ; les conditions et relations commerciales utiles
               sont précisées dans les sources.

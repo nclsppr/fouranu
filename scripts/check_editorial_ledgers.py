@@ -642,8 +642,14 @@ def check_assets(
                 errors.append(f"{prefix} : un original éditorial ne doit pas déclarer raw_sha256")
             if not row["derived_sha256"]:
                 errors.append(f"{prefix} : derived_sha256 requis pour un original éditorial")
-            if row["human_validation"] != "approved":
-                errors.append(f"{prefix} : un original éditorial exige human_validation approved")
+            if public and row["human_validation"] != "approved":
+                errors.append(
+                    f"{prefix} : un original éditorial publié exige human_validation approved"
+                )
+            if not public and row["human_validation"] not in {"pending", "approved"}:
+                errors.append(
+                    f"{prefix} : un original éditorial en revue exige human_validation pending ou approved"
+                )
 
         if row["asset_type"] == "author-portrait":
             if row["acquisition_mode"] != "owner-provided-photo":
@@ -768,11 +774,19 @@ def check_public_article_media(
         if row["publication_url"]
         and urlparse(row["publication_url"]).path.startswith(PUBLIC_ARTICLE_MEDIA_PREFIX)
     }
+    staged_hashes = {
+        row["derived_sha256"]
+        for row in rows
+        if row["derived_sha256"] and not row["publication_url"]
+    }
 
     for path in sorted(public_files - registered_files):
-        errors.append(
-            f"site/public{path} : média d'article public absent de research/assets.csv"
-        )
+        file_path = media_root / path.removeprefix(PUBLIC_ARTICLE_MEDIA_PREFIX)
+        digest = hashlib.sha256(file_path.read_bytes()).hexdigest()
+        if digest not in staged_hashes:
+            errors.append(
+                f"site/public{path} : média d'article public absent de research/assets.csv"
+            )
     for path in sorted(registered_files - public_files):
         errors.append(
             f"research/assets.csv : média d'article enregistré mais fichier public absent : {path}"

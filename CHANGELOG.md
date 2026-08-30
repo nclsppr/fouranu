@@ -6,6 +6,29 @@ importantes.
 
 ## Non publié
 
+## 2026-08-30 - Quatre guides accessoires préparés en revue
+
+- Le candidat local ajoute un hub `/accessoires-pizza/` et quatre guides sur la
+  pelle à pizza, les ciseaux à pizza, le thermomètre infrarouge et les bacs à
+  pâtons. Les cinq nouvelles routes restent en `noindex` ; les guides portent
+  le statut `review` et n'entrent ni dans le sitemap ni dans le RSS publics.
+- Chaque guide compare quatre produits commandables sur Amazon.fr lors de la
+  vérification du 30 août 2026. Les seize destinations sont des liens directs,
+  sans paramètre de suivi, rémunération ni programme marchand actif ; prix,
+  vendeurs et stocks restent explicitement variables.
+- Un tirage réalisé une seule fois puis figé dans les frontmatters attribue la
+  pelle à Florian, les ciseaux à Magali, et le thermomètre comme les bacs à
+  Nicolas. Chaque texte conserve une voix personnelle sans revendiquer d'essai
+  physique absent du registre.
+- Quatre compositions génériques originales fournissent huit WebP aux formats
+  1 600 × 900 et 960 × 540. L'ADR-0008 encadre cette exception réservée aux
+  guides multi-produits ; leur validation humaine reste `pending` et bloque
+  toute publication.
+- Les registres locaux passent de 168 à 205 preuves et de 91 à 99 médias. Le
+  paquet exact doit encore recevoir sa validation éditoriale et visuelle, le
+  feu vert explicite du propriétaire, puis ses gates techniques avant tout
+  passage en `publishable`, indexation, push sur `main` ou déploiement.
+
 ## 2026-08-27 - Portraits auteur remplacés sans retouche
 
 - Nicolas, Florian et Magali utilisent les trois nouvelles photographies

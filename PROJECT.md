@@ -119,6 +119,7 @@ explicite avant son lancement.
 | Modèle documentaire | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
 | Programme d'essais et couverture du marché | [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) | Décision acceptée ; non activée |
 | En-tête produit et voix éditoriale | [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) | Décision acceptée |
+| En-tête original des guides multi-produits | [`docs/decisions/0008-en-tete-original-guides-multi-produits.md`](docs/decisions/0008-en-tete-original-guides-multi-produits.md) | Décision acceptée ; validation humaine obligatoire avant publication |
 | Cible d'hébergement et chemin de déploiement | [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
 | Design system | [`DESIGN.md`](DESIGN.md) | Actuel |
@@ -134,7 +135,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 35 pages HTML dans le candidat local ; état public exact dans `STATUS.md` |
+| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique et candidat éditorial local | Build, service local et production | `site/`, 40 pages HTML dans le candidat local dont quatre guides et un hub accessoires en `noindex` ; production exacte dans `STATUS.md` |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -146,8 +147,10 @@ explicite avant son lancement.
 1. L'auteur part d'une question d'achat et des registres versionnés.
 2. Il formule d'abord la réponse et les compromis en langage courant, sans
    revendiquer d'essai propre absent du registre.
-3. Il compose l'en-tête à partir d'une photo officielle du produit publiée sur
-   le site du fabricant ; les vues en situation viennent ensuite.
+3. Pour une fiche produit, il compose l'en-tête à partir d'une photo officielle
+   publiée par le fabricant. Un guide multi-produits peut utiliser une
+   illustration générique originale selon l'ADR-0008 ; les vues documentaires
+   viennent ensuite lorsqu'elles sont nécessaires et autorisées.
 4. La page référence les identifiants de preuve et de média nécessaires ; sa
    signature reprend le portrait enregistré de la personne référente.
 5. La gate refuse une provenance absente, un média non publiable, une
@@ -170,7 +173,7 @@ explicite avant son lancement.
 | Dépendance | Usage prévu | Données transmises | État et mode d'échec |
 | --- | --- | --- | --- |
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
-| Programmes marchands | Liens rémunérés et attribution | Navigation vers le marchand, puis traceurs uniquement selon consentement et contrat | Aucun compte actif ; le contenu reste accessible sans lien suivi |
+| Marchands et futurs programmes | Liens directs non rémunérés ; attribution rémunérée seulement après activation autorisée | Navigation vers le marchand, puis éventuels traceurs uniquement selon consentement et contrat | Seuls des liens directs sans suivi sont présents ; aucun programme actif et le contenu reste accessible sans eux |
 | Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |
@@ -193,7 +196,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 35 pages HTML et exécute dix-neuf tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 40 pages HTML et exécute dix-huit tests de contrat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |

@@ -200,12 +200,24 @@ livré :
 - [ ] Préserver un choix de marchand lorsque cela aide réellement le lecteur ;
   ne pas dissimuler les destinations et ne pas faire dépendre une conclusion du
   niveau de commission.
-- [ ] Ouvrir les dossiers d'accessoires par un problème concret, puis seulement
-  avec assez de preuves et de valeur originale : thermomètre infrarouge, pelle
-  d'enfournement, pelle de rotation, bac à pâtons et balance précise en premier.
-- [ ] Pour chaque accessoire, expliquer la compatibilité, le geste utile, les
-  limites, le coût complet et les alternatives ; refuser les pages minces faites
-  uniquement pour viser une requête Amazon.
+- [x] Préparer en `review` et `noindex` quatre premiers guides ouverts par un
+  problème concret : pelle d'enfournement, ciseaux à pizza, thermomètre
+  infrarouge et bacs à pâtons. Comparer quatre produits par guide et conserver
+  seize liens Amazon.fr directs, non rémunérés et sans suivi.
+- [x] Enregistrer le tirage d'auteur stable Florian, Magali, Nicolas, Nicolas et
+  donner à chaque guide une voix personnelle sans revendiquer d'essai physique.
+- [x] Produire quatre en-têtes génériques originaux selon l'ADR-0008, leurs huit
+  dérivés WebP et leurs entrées de registre, sans reprendre d'image produit
+  tierce.
+- [ ] Faire relire les quatre guides et valider humainement leurs visuels, puis
+  obtenir le feu vert explicite du propriétaire sur le paquet exact avant tout
+  passage en `publishable`, indexation ou publication.
+- [ ] Étendre ensuite les dossiers seulement quand une question et des preuves
+  suffisantes le justifient : pelle de rotation et balance précise restent les
+  prochains sujets envisagés.
+- [ ] Pour chaque futur accessoire, expliquer la compatibilité, le geste utile,
+  les limites, le coût complet et les alternatives ; refuser les pages minces
+  faites uniquement pour viser une requête Amazon.
 
 ## Phase F03 : candidat Cloudflare et paquet publiable
 

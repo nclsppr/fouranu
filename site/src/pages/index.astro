@@ -2,6 +2,11 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/config/site";
+import {
+  ARTICLE_BRANDS,
+  ARTICLE_CATEGORY_LABELS,
+  articlePath,
+} from "@/data/article-taxonomy";
 
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.status === "publishable")
@@ -54,8 +59,6 @@ const longDateFormatter = new Intl.DateTimeFormat("fr-FR", {
   year: "numeric",
   timeZone: "UTC",
 });
-const brandLabels = { ooni: "Ooni", gozney: "Gozney" } as const;
-const categoryLabels = { oven: "Four à pizza", mixer: "Pétrins" } as const;
 
 if (
   !lead ||
@@ -124,7 +127,7 @@ const schema = {
           <span>Format</span>
           <span>Poids</span>
         </div>
-        <a class="feature-action" href={`/${lead.data.brand}/${lead.id}/`}>
+        <a class="feature-action" href={articlePath(lead.data.brand, lead.id)}>
           Lire le guide
           <span aria-hidden="true">→</span>
         </a>
@@ -147,7 +150,7 @@ const schema = {
     </article>
 
     <div class="hero-side">
-      <a class="side-story" href={`/${energyGuide.data.brand}/${energyGuide.id}/`}>
+      <a class="side-story" href={articlePath(energyGuide.data.brand, energyGuide.id)}>
         <span class="side-story__meta">Comparatif par usage · 01</span>
         <h2>{energyGuide.data.title}</h2>
         <p>{energyGuide.data.summary}</p>
@@ -195,7 +198,7 @@ const schema = {
 
       <div class="new-dossiers__list">
         {newDossiers.map((entry) => (
-          <a href={`/${entry.data.brand}/${entry.id}/`}>
+          <a href={articlePath(entry.data.brand, entry.id)}>
             <span class="new-dossiers__media">
               <img
                 src={entry.data.image.src}
@@ -208,7 +211,7 @@ const schema = {
               />
             </span>
             <span class="new-dossiers__copy">
-              <small>{brandLabels[entry.data.brand]} · {categoryLabels[entry.data.category]}</small>
+              <small>{ARTICLE_BRANDS[entry.data.brand].label} · {ARTICLE_CATEGORY_LABELS[entry.data.category]}</small>
               <strong>{entry.data.title}</strong>
               <span>{entry.data.summary}</span>
               <b>Par {SITE.authors[entry.data.author].name} · Lire →</b>
@@ -227,7 +230,7 @@ const schema = {
 
     <div class="dossier-grid">
       {featuredModels.map((entry, index) => (
-        <a class="dossier-card" href={`/${entry.data.brand}/${entry.id}/`}>
+        <a class="dossier-card" href={articlePath(entry.data.brand, entry.id)}>
           <span class="dossier-card__media">
             <img
               src={entry.data.image.src}
@@ -305,7 +308,7 @@ const schema = {
 
       <div class="compact-list">
         {remainingModels.map((entry) => (
-          <a href={`/${entry.data.brand}/${entry.id}/`}>
+          <a href={articlePath(entry.data.brand, entry.id)}>
             <span class="compact-list__media">
               <img
                 src={entry.data.image.src}

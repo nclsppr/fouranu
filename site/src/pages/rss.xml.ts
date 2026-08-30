@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { SITE } from "@/config/site";
+import { articlePath } from "@/data/article-taxonomy";
 
 export const prerender = true;
 
@@ -20,7 +21,7 @@ export const GET: APIRoute = async () => {
     Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
   );
   const items = analyses.map((entry) => {
-    const url = `${SITE.url}/${entry.data.brand}/${entry.id}/`;
+    const url = new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString();
     const author = SITE.authors[entry.data.author];
     return [
       "    <item>",

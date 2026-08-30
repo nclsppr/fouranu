@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
+import { ARTICLE_BRANDS, articlePath } from "@/data/article-taxonomy";
 
 type AuthorId = keyof typeof SITE.authors;
 type Author = (typeof SITE.authors)[AuthorId];
@@ -134,9 +135,9 @@ const schema = {
       <div class="author-articles__list">
         {articles.map((entry) => (
           <article>
-            <p>{typeLabels[entry.data.type]} · {entry.data.brand === "gozney" ? "Gozney" : "Ooni"}</p>
+            <p>{typeLabels[entry.data.type]} · {ARTICLE_BRANDS[entry.data.brand].label}</p>
             <h3>
-              <a href={`/${entry.data.brand}/${entry.id}/`}>{entry.data.title}</a>
+              <a href={articlePath(entry.data.brand, entry.id)}>{entry.data.title}</a>
             </h3>
             <p>{entry.data.summary}</p>
             <time datetime={entry.data.updatedAt.toISOString()}>

@@ -8,18 +8,25 @@ interface Props {
 
 const { links, variant } = Astro.props;
 const multiple = links.length > 1;
-const titles = {
-  primary: multiple ? "Comparer les offres officielles" : "Voir l’offre officielle",
-  closing: multiple ? "Prêt à comparer les deux ?" : "Ce modèle vous convient ?",
-};
+const amazonOnly = links.every((link) => link.merchant === "Amazon.fr");
+const titles = amazonOnly
+  ? {
+      primary: multiple ? "Comparer les modèles sur Amazon.fr" : "Voir le modèle sur Amazon.fr",
+      closing: "Votre choix est fait ?",
+    }
+  : {
+      primary: multiple ? "Comparer les offres officielles" : "Voir l’offre officielle",
+      closing: multiple ? "Prêt à comparer les deux ?" : "Ce modèle vous convient ?",
+    };
 ---
 
 <section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label="Liens d’achat directs">
   <p class="purchase-cta__eyebrow">Où l’acheter</p>
   <p class="purchase-cta__title">{titles[variant]}</p>
   <p class="purchase-cta__copy">
-    Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur,
-    les accessoires inclus et les conditions de livraison avant de commander.
+    {amazonOnly
+      ? "Vous partez vers Amazon.fr. Vérifiez le vendeur, le prix, le modèle exact, les accessoires inclus et le stock avant de commander."
+      : "Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur, les accessoires inclus et les conditions de livraison avant de commander."}
   </p>
   <div class="purchase-cta__actions">
     {links.map((link) => (

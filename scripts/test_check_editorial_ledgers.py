@@ -453,6 +453,15 @@ class EditorialLedgerTests(unittest.TestCase):
         self.assertEqual("original", row["rights_status"])
         self.assertEqual([], errors)
 
+    def test_unpublished_ai_original_can_wait_for_human_validation(self) -> None:
+        row = self.original_ai_asset()
+        row.update({"publication_url": "", "human_validation": "pending"})
+        errors: list[str] = []
+
+        ledger.check_assets([row], set(), errors)
+
+        self.assertEqual([], errors)
+
     def test_incomplete_ai_original_is_rejected(self) -> None:
         row = self.original_ai_asset()
         row.update(
@@ -609,6 +618,20 @@ class EditorialLedgerTests(unittest.TestCase):
                 ],
                 errors,
             )
+
+    def test_review_article_media_can_be_staged_by_exact_hash(self) -> None:
+        payload = b"staged review image"
+        row = self.original_ai_asset()
+        row["publication_url"] = ""
+        row["derived_sha256"] = hashlib.sha256(payload).hexdigest()
+        with tempfile.TemporaryDirectory() as temporary:
+            media_root = Path(temporary)
+            (media_root / "review.webp").write_bytes(payload)
+            errors: list[str] = []
+
+            ledger.check_public_article_media([row], errors, media_root=media_root)
+
+            self.assertEqual([], errors)
 
     def test_public_author_media_requires_registration_and_matching_sha(self) -> None:
         payload = b"author portrait"

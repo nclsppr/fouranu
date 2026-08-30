@@ -1,0 +1,260 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SITE } from "@/config/site";
+import { articlePath } from "@/data/article-taxonomy";
+
+const articles = (await getCollection("analyses"))
+  .filter((entry) => entry.data.brand === "accessoires")
+  .sort((left, right) => left.data.articleId.localeCompare(right.data.articleId));
+
+if (articles.length !== 4) {
+  throw new Error(`Le paquet de revue accessoires exige quatre guides, ${articles.length} trouvé(s).`);
+}
+---
+
+<BaseLayout
+  title="Accessoires pour four à pizza : guides de choix | Four à Nu"
+  description="Pelles, ciseaux, thermomètres infrarouges et bacs à pâtons : quatre guides sourcés pour choisir selon les gestes, la place et la fournée."
+  indexable={false}
+>
+  <div class="page-shell">
+    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Accessoires pizza" }]} />
+
+    <header class="page-intro accessories-intro">
+      <div class="page-intro__copy">
+        <p class="eyebrow">Paquet éditorial en revue</p>
+        <h1>Les outils qui rendent la soirée plus simple.</h1>
+        <p class="page-intro__lede">
+          Une pelle doit passer dans le four. Un bac doit entrer dans le frigo.
+          Un thermomètre doit lire la sole, et des ciseaux doivent mieux servir
+          votre pizza qu’un couteau déjà dans le tiroir. Nous partons de ces
+          gestes avant de regarder les marques.
+        </p>
+      </div>
+      <p class="page-intro__aside">
+        Quatre guides documentaires, sans note ni faux podium. Les références
+        étaient vendues sur Amazon.fr le 30 août 2026 ; vendeurs, prix et stocks
+        peuvent changer.
+      </p>
+    </header>
+
+    <section class="accessories-list" aria-labelledby="accessories-list-title">
+      <header>
+        <p class="eyebrow">Première sélection</p>
+        <h2 id="accessories-list-title">Partir du problème à résoudre.</h2>
+      </header>
+
+      <div>
+        {articles.map((entry, index) => (
+          <article>
+            <a class="accessory-media" href={articlePath(entry.data.brand, entry.id)}>
+              <img
+                src={entry.data.image.src}
+                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                sizes="(max-width: 48rem) 100vw, 16rem"
+                alt={entry.data.image.alt}
+                width="960"
+                height="540"
+                loading="lazy"
+              />
+            </a>
+            <div class="accessory-copy">
+              <p>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{entry.data.status === "review" ? "En revue" : "Publié"}</span>
+                <span>Par {SITE.authors[entry.data.author].name}</span>
+              </p>
+              <h3>
+                <a href={articlePath(entry.data.brand, entry.id)}>{entry.data.title}</a>
+              </h3>
+              <p>{entry.data.summary}</p>
+              <a class="accessory-link" href={articlePath(entry.data.brand, entry.id)}>
+                Lire le guide <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <aside class="accessories-method">
+      <p class="eyebrow">Ce que ces pages sont</p>
+      <h2>Des décisions par usage, pas des tests déguisés.</h2>
+      <p>
+        Les caractéristiques sont attribuées aux fabricants et la disponibilité
+        Amazon.fr est datée. Four à Nu n’a pas encore comparé physiquement ces
+        produits. Les liens d’achat sont directs et non rémunérés aujourd’hui.
+      </p>
+      <a href="/methode/">Comprendre notre méthode</a>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .accessories-intro h1 {
+    max-width: 14ch;
+  }
+
+  .accessories-list {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 1.5rem;
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--color-carbon);
+  }
+
+  .accessories-list > header h2 {
+    max-width: 10ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    line-height: 0.96;
+  }
+
+  .accessories-list > div {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .accessories-list article {
+    display: grid;
+    grid-template-columns: minmax(12rem, 2fr) minmax(0, 3fr);
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .accessory-media {
+    display: block;
+    min-height: 13rem;
+    overflow: hidden;
+    background: var(--color-steel-soft);
+  }
+
+  .accessory-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .accessory-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .accessory-copy > p:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    margin: 0 0 0.6rem;
+    color: var(--color-graphite);
+    font-family: var(--font-data);
+    font-size: 0.7rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .accessory-copy h3 {
+    margin: 0;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1;
+  }
+
+  .accessory-copy h3 a {
+    color: var(--color-carbon);
+    text-decoration: none;
+  }
+
+  .accessory-copy h3 a:hover {
+    color: var(--color-probe);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .accessory-copy > p:nth-of-type(2) {
+    max-width: 46rem;
+    margin: 0.8rem 0 1rem;
+    color: var(--color-graphite);
+    line-height: 1.6;
+  }
+
+  .accessory-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: auto;
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
+  .accessories-method {
+    display: grid;
+    grid-template-columns: 3fr 4fr 4fr;
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+    padding: 2rem;
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .accessories-method .eyebrow {
+    grid-column: 1 / -1;
+    color: var(--color-reading);
+  }
+
+  .accessories-method h2,
+  .accessories-method p {
+    margin: 0;
+  }
+
+  .accessories-method h2 {
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .accessories-method p {
+    color: var(--color-carbon-muted);
+    line-height: 1.6;
+  }
+
+  .accessories-method > a {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    color: var(--color-carbon);
+    background: var(--color-reading);
+    font-weight: 600;
+  }
+
+  @media (max-width: 64rem) {
+    .accessories-list,
+    .accessories-method {
+      grid-template-columns: 1fr;
+    }
+
+    .accessories-method .eyebrow {
+      grid-column: 1;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .accessories-list article {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .accessory-media {
+      min-height: 12rem;
+    }
+
+    .accessories-method {
+      padding: 1.5rem;
+    }
+  }
+</style>

@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
+import { articlePath } from "@/data/article-taxonomy";
 
 const analyses = (await getCollection("analyses"))
   .filter((entry) => entry.data.brand === "ooni" && entry.data.status === "publishable");
@@ -83,7 +84,7 @@ const schema = {
       itemListElement: equipmentEntries.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(`/${entry.data.brand}/${entry.id}/`, SITE.url).toString(),
+        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -94,7 +95,7 @@ const schema = {
       itemListElement: ranges.flatMap((range) => range.models).map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(`/${entry.data.brand}/${entry.id}/`, SITE.url).toString(),
+        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -159,7 +160,7 @@ const schema = {
 
       <div class="equipment__list">
         {equipmentEntries.map((entry) => (
-          <a href={`/${entry.data.brand}/${entry.id}/`}>
+          <a href={articlePath(entry.data.brand, entry.id)}>
             <span class="equipment__image">
               <img
                 src={entry.data.image.src}
@@ -197,7 +198,7 @@ const schema = {
           </header>
           <div class="range__models">
             {range.models.map((entry: CollectionEntry<"analyses">) => (
-              <a href={`/${entry.data.brand}/${entry.id}/`}>
+              <a href={articlePath(entry.data.brand, entry.id)}>
                 <span class="range__model-image">
                   <img
                     src={entry.data.image.src}

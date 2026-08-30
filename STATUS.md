@@ -7,9 +7,9 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-08-27 |
-| Par | outil interne, checkout local, navigateur, CI et compte Cloudflare autorisé |
-| Branche | `main` |
+| Vérifié le | 2026-08-30 |
+| Par | checkout local pour le candidat accessoires ; CI, navigateur et compte Cloudflare autorisé pour la production consignée |
+| Branche | `codex/accessoires-amazon-fr` pour le candidat local ; `main` pour la production |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche post-V1 publiée | SHA applicatif `eb12619007191c82d963017f598b462ca54bdc51` ; [run GitHub Actions `32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541) vert pour `Verify` et `deploy-cloudflare` |
@@ -24,7 +24,35 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Portraits auteur publiés | SHA applicatif `6922c478743764574eed6080294d255f0c4d8170` ; [run GitHub Actions `33091288546`](https://github.com/nclsppr/fouranu/actions/runs/33091288546) vert pour `Verify` et `deploy-cloudflare` |
 | Images de tête dégagées publiées | SHA livré `2c087e39f3009f5aa7f6e853baa846f78c87b32a` ; [run GitHub Actions `33094600492`](https://github.com/nclsppr/fouranu/actions/runs/33094600492) vert pour `Verify` et `deploy-cloudflare` |
 | Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
+| Paquet accessoires local | Quatre guides et un hub en `review`/`noindex` ; validation humaine et feu vert sur le paquet exact encore requis ; aucune publication |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Paquet accessoires local en revue
+
+Le candidat local ajoute quatre guides documentaires : pelle à pizza, ciseaux
+à pizza, thermomètre infrarouge et bacs à pâtons. Chacun compare quatre produits
+qui étaient commandables sur Amazon.fr lors de la vérification du 30 août 2026.
+Les seize liens sont directs, sans paramètre de suivi, rémunération ni programme
+marchand actif. Les articles rappellent que prix, vendeur et stock peuvent
+changer.
+
+Le tirage d'auteur a été réalisé une fois puis enregistré dans les contenus :
+Florian signe la pelle, Magali les ciseaux, Nicolas le thermomètre et les bacs.
+Les quatre voix restent personnelles mais ne transforment pas les sources en
+essais Four à Nu. Les quatre compositions de tête sont des illustrations
+génériques originales, déclinées en huit WebP et rattachées au registre média.
+
+Le build local contient désormais 40 pages HTML : les 35 surfaces du paquet
+public, quatre guides accessoires et leur hub. Les cinq nouvelles routes sont
+en `noindex`, les guides portent `status: review`, et aucune ne rejoint le RSS
+ou le sitemap public. Les registres locaux comptent 205 preuves, 66 questions
+et 99 médias.
+
+Cette tranche n'est ni publiée ni autorisée à l'être. La validation humaine des
+quatre visuels reste `pending`. Le propriétaire doit relire et approuver le
+paquet exact ; les statuts, directives d'indexation et registres ne pourront
+ensuite changer qu'avec les gates éditoriale, visuelle et technique vertes sur
+le même SHA.
 
 ## Images de tête dégagées publiées
 
@@ -278,14 +306,18 @@ quatre médias nouveaux, les 25 URL du sitemap et les treize entrées RSS.
 
 ## Résumé
 
-Four à Nu est un média statique de 35 pages HTML. Sa V1 et ses tranches
-éditoriales et techniques sont publiques sur `fouranu.com`. Le site propose
+Four à Nu sert publiquement un média statique de 35 pages HTML. Sa V1 et ses
+tranches éditoriales et techniques sont publiques sur `fouranu.com`. Le site propose
 dix-neuf guides :
 onze guides de fours ou d'énergie Ooni, une comparaison de pétrins Ooni et sept
 guides Gozney. Les registres comptent 168 preuves, 66 questions et 91 médias.
 Aucun JavaScript client n'est nécessaire au contenu. Un module progressif révèle
 seulement les capacités natives de partage et de copie disponibles. Le build de
 preview reste en `noindex` et la production ouvre 34 URL dans le sitemap.
+
+Le candidat local séparé porte ce build à 40 pages avec un hub et quatre guides
+accessoires en revue. Il compte 205 preuves et 99 médias, sans changer les 35
+pages, 34 URL de sitemap, 19 entrées RSS ni 91 médias actuellement publiés.
 
 L'accueil suit désormais la hiérarchie du prototype : un sujet principal en
 8/4, des entrées secondaires, des dossiers modèles, un guide par contraintes et
@@ -323,22 +355,27 @@ rémunérés dans chaque article. Les tranches auteur donnent à Nicolas, Floria
 et Magali un profil canonique, répartissent les dix-neuf dossiers entre leurs
 signatures stables, puis ajoutent leurs portraits réels à chaque dossier. Les
 crédits des images de tête ont ensuite été sortis des visuels et ramenés à leur
-provenance utile, sans retirer les crédits documentaires détaillés. Les
-prochains dossiers restent conditionnés par une question d'achat et des sources
-suffisantes.
+provenance utile, sans retirer les crédits documentaires détaillés. Les quatre
+premiers dossiers accessoires répondent chacun à une question d'achat et
+possèdent leurs sources, leurs liens directs et leurs visuels originaux. Ils
+restent toutefois séparés de la production tant que leur paquet exact n'a pas
+été validé puis autorisé.
 
 ## Phases actives
 
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
 | F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
-| F02, corpus documentaire publiable | `in_progress` | Dix-neuf guides, pages de confiance, provenance et politique de correction | Cinq sessions restent à mener ; le propriétaire autorise la publication sans attendre cette preuve d'utilité | nclsppr |
+| F02, corpus documentaire publiable | `in_progress` | Dix-neuf guides publics ; quatre guides accessoires locaux en revue ; pages de confiance, provenance et politique de correction | Validation humaine et feu vert du paquet accessoires ; cinq sessions restent à mener, avec dérogation déjà accordée pour la V1 publique | nclsppr |
 | F03, candidat Cloudflare | `done` | Paquet approuvé, preuves privées, gate locale, CI du même SHA et environnement GitHub protégé | Aucune pour la V1 | nclsppr |
 | F04, lancement public | `done` | Déploiement, domaine personnalisé, DNS, indexation et contrôles publics du SHA V1 | Aucune pour la V1 | nclsppr |
 | F05, mesure et décision | `planned` | Aucune mesure d'audience ou de conversion active | Protocole minimisé et résultats observés | nclsppr |
 | F06, banc d'essai et premiers pilotes | `planned` | Ambition et limites décidées ; aucun essai physique publié | Inventaire daté, protocole accepté et pilotes vérifiés sur un four, un accessoire et un pétrin | nclsppr |
 
 ## Livré et vérifié en production
+
+Le tableau suivant décrit uniquement la production. Le paquet accessoires
+local documenté ci-dessus n'en fait pas encore partie.
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |
@@ -404,7 +441,7 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Condition | Impact | Preuve attendue |
 | --- | --- | --- |
 | Cinq sessions non réalisées | L'utilité observée de F02 reste inconnue | Mener les sessions après la V1 ; cette dette n'est pas présentée comme une preuve acquise |
-| Accessoires encore absents | Le fonds n'aide pas encore à choisir les petits outils autour du four | Ouvrir chaque dossier depuis un geste ou un problème concret, avec compatibilité, limites, coût complet et alternatives |
+| Accessoires encore absents de la production | Quatre guides existent localement, mais le fonds public n'aide pas encore à choisir ces outils | Valider le paquet exact, passer ses gates, autoriser sa publication puis vérifier les routes publiques |
 | Aucun essai de première main | La nouvelle ambition ne possède encore ni protocole ni résultat propre | Accepter le protocole, étendre les registres puis vérifier les trois pilotes de F06 sans réécrire le passé documentaire |
 | Aucun programme marchand actif | Aucun revenu affilié | Choisir et autoriser les partenaires, puis appliquer `rel="sponsored"` |
 
@@ -413,8 +450,8 @@ fichier source de prototype ou logo brut n'entre dans l'artefact public.
 | Sujet | Type | Prochaine preuve | Phase |
 | --- | --- | --- | --- |
 | Utilité du parcours | Hypothèse | Cinq sessions décrites dans `EXPERIMENT.md` | F02 |
-| Médias d'article | Gate | Tout nouvel en-tête produit part d'une photo officielle stylisée et possède une entrée exacte dans `research/assets.csv` | F02/F03 |
-| Prochains dossiers d'accessoires | Gate | Problème d'usage réel, sources actuelles, média publiable, compatibilité et alternatives, revue éditoriale et visuelle, gate complète et `Verify` vert sur leur SHA | F02/F03 |
+| Médias d'article | Gate | Chaque en-tête suit l'ADR-0005 ou l'exception multi-produits de l'ADR-0008, possède une entrée exacte dans `research/assets.csv` et reçoit sa validation humaine avant publication | F02/F03 |
+| Paquet accessoires local | Gate | Validation éditoriale et visuelle des quatre guides et huit WebP, feu vert sur le paquet exact, gate complète et `Verify` vert sur le même SHA | F02/F03 |
 | Publication suivante | Activation | Run GitHub Actions vert, `/release.json`, routes, médias et métadonnées contrôlés | F04 |
 | Économie du modèle | Hypothèse | Trafic, clics et ventes d'un lancement autorisé | F05 |
 | Premiers essais Four à Nu | Capacité future | Inventaire français daté, décision de protocole, sessions enregistrées et pilotes vérifiés sur un four, un accessoire et un pétrin | F06 |

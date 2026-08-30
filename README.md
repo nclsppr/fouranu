@@ -13,20 +13,22 @@ affilié n'est actif.
 ## État du produit
 
 Le dépôt utilise le pack Foundation `full`. `site/` contient une application
-Astro statique distincte de Nimbus. Son build génère 35 pages HTML, dont dix-neuf
-guides : douze sur les fours et pétrins Ooni, sept sur les Gozney. Four à Nu
-publie aujourd'hui un corpus documentaire : chaque page attribue ses sources,
-conserve leurs limites et ne publie ni note, ni étoile, ni balisage d'avis. La
-phase F06 vise ensuite des essais de première main sur les fours vendus en
-France, les accessoires et différents pétrins, sans les présenter comme acquis
-avant leur protocole et leurs sessions.
+Astro statique distincte de Nimbus. La production sert 35 pages HTML, dont
+dix-neuf guides : douze sur les fours et pétrins Ooni, sept sur les Gozney. Le
+candidat local en construit 40 avec un hub et quatre guides accessoires encore
+en `review` et `noindex` : pelle, ciseaux, thermomètre infrarouge et bacs à
+pâtons. Four à Nu publie aujourd'hui un corpus documentaire : chaque page
+attribue ses sources, conserve leurs limites et ne publie ni note, ni étoile,
+ni balisage d'avis. La phase F06 vise ensuite des essais de première main sur
+les fours vendus en France, les accessoires et différents pétrins, sans les
+présenter comme acquis avant leur protocole et leurs sessions.
 
 La preview reste en `noindex` par défaut. Une page ne devient indexable qu'après
 sa barrière éditoriale et une autorisation de publication. Le paquet V1 de
 production est indexable et son déploiement GitHub Actions, son domaine
 personnalisé, son DNS et son HTTPS sont actifs.
 
-La suite locale compte dix-sept tests de contrat. Le service Compose répond avec
+La suite locale compte dix-huit tests de contrat. Le service Compose répond avec
 un healthcheck sain. Le run GitHub Actions de la V1 et les contrôles publics sont
 consignés dans [`STATUS.md`](STATUS.md). Les signatures, photos documentaires,
 sources compactes et ajustements de densité de la tranche post-V1 sont actifs
@@ -47,7 +49,7 @@ plus récent, Node `22.12.0` ou plus récent, npm, Docker et Docker Compose
 | Action actuelle | Commande | Résultat attendu |
 | --- | --- | --- |
 | Vérifier le dépôt | `./scripts/verify.sh` | Contrôle les documents, registres, Compose, le site Astro et Nimbus |
-| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 35 pages et dix-sept tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Typecheck, build statique de 40 pages et dix-huit tests de contrat |
 | Vérifier le candidat Cloudflare | `npm run cloudflare:check --prefix site` | Valide le paquet Workers Static Assets sans déploiement |
 | Vérifier Compose | `python3 scripts/check_compose.py` | Valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Site Nimbus local généré depuis les Markdown classés |
@@ -71,6 +73,7 @@ code, de la configuration et d'une vérification réelle.
 - [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) : programme futur d'essais et couverture progressive du marché.
 - [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) : cible Cloudflare et chemin de déploiement.
 - [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) : photo officielle stylisée en tête et voix accessible.
+- [`docs/decisions/0008-en-tete-original-guides-multi-produits.md`](docs/decisions/0008-en-tete-original-guides-multi-produits.md) : illustration originale générique pour les guides multi-produits, avec validation humaine avant publication.
 - [`EXPERIMENT.md`](EXPERIMENT.md) : métriques, limites et décision du pilote documentaire.
 - [`FEASIBILITY.md`](FEASIBILITY.md) : modèle économique et options rejetées.
 - [`BRIEF.md`](BRIEF.md) : question et conclusion de l'exploration d'origine.

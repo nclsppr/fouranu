@@ -11,7 +11,8 @@ Moteur déclaré : `nimbus`.
 | Documentation du projet | `internal` | 17 |
 | Décisions | `internal` | 7 |
 | Barrières de publication | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 23 |
+| Notes de recherche | `internal` | 1 |
+| Brouillons éditoriaux du site | `internal` | 28 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -49,6 +50,10 @@ Moteur déclaré : `nimbus`.
 
 - [docs/SEO-PUBLICATION-GATE.md](docs/SEO-PUBLICATION-GATE.md)
 
+## Notes de recherche
+
+- [research/amazon-pizza-ovens-2026-08-31.md](research/amazon-pizza-ovens-2026-08-31.md)
+
 ## Brouillons éditoriaux du site
 
 - [site/src/content/analyses/accessoires-bacs-patons.md](site/src/content/analyses/accessoires-bacs-patons.md)
@@ -58,8 +63,10 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/arc-lite-ou-tread.md](site/src/content/analyses/arc-lite-ou-tread.md)
 - [site/src/content/analyses/arc-xl.md](site/src/content/analyses/arc-xl.md)
 - [site/src/content/analyses/arc.md](site/src/content/analyses/arc.md)
+- [site/src/content/analyses/cuisinart-cpz120e.md](site/src/content/analyses/cuisinart-cpz120e.md)
 - [site/src/content/analyses/dome-gen-2.md](site/src/content/analyses/dome-gen-2.md)
 - [site/src/content/analyses/dome-xl-gen-2.md](site/src/content/analyses/dome-xl-gen-2.md)
+- [site/src/content/analyses/g3-ferrari-delizia-g10006.md](site/src/content/analyses/g3-ferrari-delizia-g10006.md)
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
 - [site/src/content/analyses/halo-core-ou-halo-pro.md](site/src/content/analyses/halo-core-ou-halo-pro.md)
 - [site/src/content/analyses/karu-12.md](site/src/content/analyses/karu-12.md)
@@ -70,10 +77,13 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/koda-2-max.md](site/src/content/analyses/koda-2-max.md)
 - [site/src/content/analyses/koda-2-pro.md](site/src/content/analyses/koda-2-pro.md)
 - [site/src/content/analyses/koda-2.md](site/src/content/analyses/koda-2.md)
+- [site/src/content/analyses/ninja-woodfire-oo101eu.md](site/src/content/analyses/ninja-woodfire-oo101eu.md)
 - [site/src/content/analyses/quel-four-gozney-choisir.md](site/src/content/analyses/quel-four-gozney-choisir.md)
 - [site/src/content/analyses/quel-four-ooni-choisir.md](site/src/content/analyses/quel-four-ooni-choisir.md)
 - [site/src/content/analyses/roccbox.md](site/src/content/analyses/roccbox.md)
+- [site/src/content/analyses/sage-pizzaiolo-bpz820.md](site/src/content/analyses/sage-pizzaiolo-bpz820.md)
 - [site/src/content/analyses/volt-2.md](site/src/content/analyses/volt-2.md)
+- [site/src/content/analyses/witt-etna-rotante.md](site/src/content/analyses/witt-etna-rotante.md)
 
 ## Socle vendorisé
 

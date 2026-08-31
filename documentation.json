@@ -24,6 +24,12 @@
       "include": ["docs/SEO-PUBLICATION-GATE.md"]
     },
     {
+      "id": "research-notes",
+      "title": "Notes de recherche",
+      "visibility": "internal",
+      "include": ["research/**/*.md"]
+    },
+    {
       "id": "site-content",
       "title": "Brouillons éditoriaux du site",
       "visibility": "internal",

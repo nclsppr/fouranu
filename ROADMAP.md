@@ -29,7 +29,7 @@ racontée à la première personne.
 | Ordre | ID | Phase | Résultat observable | État | Critère de sortie |
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
-| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et vingt-trois guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
+| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et vingt-huit guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
@@ -211,10 +211,27 @@ livré :
 - [x] Rendre tous les liens Amazon visibles affiliés, déclarés et qualifiés par
   `rel="sponsored"`, sans ajouter le suivi aux URL canoniques des registres ni
   transformer un prix périmé en promesse.
-- [x] Déclarer les 34 produits commerciaux exacts du corpus dans un registre
+- [x] Déclarer les 39 produits commerciaux exacts du corpus dans un registre
   contrôlé, vérifier Amazon.fr pour chacun, ajouter le lien dédié aux offres
   exactes retrouvées et conserver `not_found` lorsque la recherche ne prouve
   rien. La gate doit empêcher tout futur produit éditorial oublié.
+- [x] Mener une étude Amazon.fr sérieuse sans transformer le catalogue en
+  classement : identité exacte, ASIN, génération, territoire, état de l'offre,
+  preuves fabricant et mesures tierces doivent converger avant toute sélection.
+- [x] Préparer cinq dossiers publiables pour Sage Pizzaiolo BPZ820, Cuisinart
+  CPZ120E, G3 Ferrari Delizia G10006 noir, Ninja Woodfire OO101EU et Witt ETNA
+  Rotante d'origine, chacun avec une décision d'achat propre et sans faux essai
+  Four à Nu.
+- [x] Produire pour ces cinq dossiers un en-tête fidèle à la photographie
+  officielle du modèle exact, dix dérivés WebP sans métadonnées, un crédit court
+  et les empreintes nécessaires à leur contrôle.
+- [x] Faire comparer et valider humainement les cinq dérivés exacts, puis
+  enregistrer ce contrôle dans le registre média avant leur publication.
+- [x] Relier chaque dossier à son offre Amazon.fr exacte avec `fouranu-21`,
+  déclaration avant clic, contrôle de l'état neuf ou d'occasion et aucune donnée
+  volatile rendue statiquement.
+- [x] Obtenir le feu vert explicite du propriétaire sur le périmètre, son
+  indexation, son push sur `main` et sa publication après passage des barrières.
 - [ ] Préserver un choix de marchand lorsque cela aide réellement le lecteur ;
   ne pas dissimuler les destinations et ne pas faire dépendre une conclusion du
   niveau de commission.
@@ -243,7 +260,9 @@ livré :
   décision sur l'appel réseau Amazon avant le clic, puis adapter confidentialité,
   registres, tests et retrait des contenus expirés.
 - [x] Conserver les dates de publication réelles : dix-neuf dossiers ont été
-  publiés le 24 août 2026 et les quatre guides accessoires le 30 août 2026.
+  publiés le 24 août 2026 et les quatre guides accessoires le 30 août.
+  Enregistrer le 31 août 2026 pour les cinq dossiers multimarques seulement si
+  leur déploiement public intervient effectivement à cette date.
   L'ordre éditorial peut varier séparément, mais `publishedAt` et `updatedAt` ne
   sont jamais antidatés pour simuler un historique.
 - [ ] Étendre ensuite les dossiers seulement quand une question et des preuves

@@ -16,11 +16,16 @@ export const GET: APIRoute = async () => {
   const analyses = INDEXING_ENABLED
     ? (await getCollection("analyses"))
         .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
-        .map((entry) => ({
-          path: articlePath(entry.data.brand, entry.id),
-          modified: entry.data.updatedAt.toISOString().slice(0, 10),
-          image: new URL(entry.data.image.src, SITE.url).toString(),
-        }))
+        .map((entry) => {
+          if (!entry.data.image) {
+            throw new Error(`Visuel publiable absent pour ${entry.data.articleId}`);
+          }
+          return {
+            path: articlePath(entry.data.brand, entry.id),
+            modified: entry.data.updatedAt.toISOString().slice(0, 10),
+            image: new URL(entry.data.image.src, SITE.url).toString(),
+          };
+        })
     : [];
 
   const routes = INDEXING_ENABLED ? [...FIXED_INDEXABLE_ROUTES, ...analyses] : [];

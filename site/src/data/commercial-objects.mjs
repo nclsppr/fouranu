@@ -211,6 +211,36 @@ const objects = [
     canonicalArticleId: "GOZNEY-007",
     amazon: { status: "not_found", checkedAt: "2026-08-31", evidenceId: "EV-0857" },
   },
+  {
+    id: "sage-smart-oven-pizzaiolo-bpz820",
+    name: "Sage the Smart Oven Pizzaiolo BPZ820",
+    canonicalArticleId: "FOUR-001",
+    amazon: { status: "available", checkedAt: "2026-08-31", evidenceId: "EV-0860", asin: "B08Q6662GK" },
+  },
+  {
+    id: "cuisinart-cpz120e",
+    name: "Cuisinart Pizza Oven CPZ120E",
+    canonicalArticleId: "FOUR-002",
+    amazon: { status: "available", checkedAt: "2026-08-31", evidenceId: "EV-0870", asin: "B0D9C2J4LJ" },
+  },
+  {
+    id: "g3-ferrari-delizia-g10006-black",
+    name: "G3 Ferrari Delizia G10006 noir",
+    canonicalArticleId: "FOUR-003",
+    amazon: { status: "available", checkedAt: "2026-08-31", evidenceId: "EV-0880", asin: "B07PZQ55PC" },
+  },
+  {
+    id: "ninja-woodfire-oo101eu",
+    name: "Ninja Woodfire Outdoor Oven OO101EU",
+    canonicalArticleId: "FOUR-004",
+    amazon: { status: "available", checkedAt: "2026-08-31", evidenceId: "EV-0890", asin: "B0CNQ82K3Y" },
+  },
+  {
+    id: "witt-etna-rotante-16",
+    name: "Witt ETNA Rotante 16 noir",
+    canonicalArticleId: "FOUR-005",
+    amazon: { status: "available", checkedAt: "2026-08-31", evidenceId: "EV-0900", asin: "B0C4PY8QBV" },
+  },
 ];
 
 const articleCoverage = {

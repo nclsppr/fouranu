@@ -6,11 +6,12 @@ import {
   ARTICLE_BRANDS,
   ARTICLE_CATEGORY_LABELS,
   articlePath,
+  isPublishedAnalysis,
 } from "@/data/article-taxonomy";
 
 const allAnalyses = await getCollection("analyses");
 const analyses = allAnalyses
-  .filter((entry) => entry.data.status === "publishable")
+  .filter(isPublishedAnalysis)
   .sort((a, b) =>
     b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf() ||
     a.data.articleId.localeCompare(b.data.articleId)
@@ -46,7 +47,7 @@ const accessoryGuideRefs = [
 ] as const;
 const accessoryGuides = accessoryGuideRefs
   .map((reference) => {
-    const entry = allAnalyses.find(
+    const entry = analyses.find(
       (candidate) =>
         candidate.data.brand === "accessoires" && candidate.id === reference.id,
     );

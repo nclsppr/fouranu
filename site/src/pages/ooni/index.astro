@@ -1,12 +1,13 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
-import { articlePath } from "@/data/article-taxonomy";
+import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
 
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.brand === "ooni" && entry.data.status === "publishable");
+  .filter(isPublishedAnalysis)
+  .filter((entry) => entry.data.brand === "ooni");
 const modelEntries = analyses.filter(
   (entry) => entry.data.category === "oven" && entry.data.type === "model",
 );
@@ -197,7 +198,7 @@ const schema = {
             <p>{range.energy}</p>
           </header>
           <div class="range__models">
-            {range.models.map((entry: CollectionEntry<"analyses">) => (
+            {range.models.map((entry) => (
               <a href={articlePath(entry.data.brand, entry.id)}>
                 <span class="range__model-image">
                   <img

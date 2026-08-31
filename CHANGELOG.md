@@ -6,6 +6,51 @@ importantes.
 
 ## Non publié
 
+## 2026-08-31 - Cinq dossiers multimarques issus de l'étude Amazon.fr
+
+- Une étude Amazon.fr datée sélectionne cinq modèles dont l'identité, la
+  génération et l'ASIN convergent : Sage Pizzaiolo BPZ820 (`B08Q6662GK`),
+  Cuisinart CPZ120E (`B0D9C2J4LJ`), G3 Ferrari Delizia G10006 noir
+  (`B07PZQ55PC`), Ninja Woodfire OO101EU (`B0CNQ82K3Y`) et Witt ETNA Rotante
+  d'origine (`B0C4PY8QBV`). Les modèles écartés et les ambiguïtés de version
+  restent consignés au lieu d'être remplacés silencieusement.
+- Les cinq dossiers répondent chacun à une décision d'achat distincte, séparent
+  annonces fabricant, mesures tierces, observations et inférences Four à Nu,
+  et répètent qu'aucun essai physique Four à Nu n'a été réalisé. Aucun prix,
+  stock, vendeur, classement, note ou étoile Amazon n'est rendu statiquement.
+- La passe source finale expose les divergences au lieu de les lisser : puissance
+  et poids Ninja incompatibles entre documents officiels, variantes tierces G3
+  non noires, poids et axes Witt normalisés sans moyenne, notice Cuisinart exacte
+  pour l'entretien. Les modalités d'acquisition non publiées restent inconnues.
+- Chaque dossier possède deux CTA Amazon.fr vers l'ASIN exact avec
+  `fouranu-21`, `rel="sponsored"` et la déclaration Partenaire Amazon avant le
+  clic. Le G3 Ferrari demande explicitement de contrôler l'état neuf ou
+  d'occasion ; tous demandent de relire variante, vendeur et contenu de l'offre.
+- Cinq photographies officielles du modèle exact servent de sources à des
+  illustrations éditoriales fidèles dans la direction « Ligne de sole ». Les
+  dix WebP 1 600 × 900 et 960 × 540 restent sous 200 et 100 Ko, ne contiennent
+  ni EXIF, XMP ou ICC, et sont rapprochés de leurs empreintes et de l'attestation
+  privée du propriétaire.
+- Le hub `/fours-a-pizza/` liste les cinq dossiers dans l'ordre de leurs
+  identifiants, avec image, résumé, signature et lien canonique. Il expose aussi
+  un couple `CollectionPage` et `ItemList` à cinq positions sans remplacer son
+  guide par contraintes.
+- Le corpus atteint 28 dossiers publiables, 268 preuves, 117 médias et 39 objets
+  commerciaux : 31 offres Amazon.fr exactes et huit recherches `not_found`.
+  L'artefact construit 45 pages ; le build indexable contient 44 URL, 28
+  entrées RSS, 30 images de sitemap et 38 liens éditoriaux dans `/llms.txt`.
+- La note de recherche datée entre dans le catalogue documentaire interne
+  Nimbus, sans être importée dans l'artefact public.
+- Les signatures restent enregistrées dans les contenus : Nicolas porte onze
+  dossiers, Florian dix et Magali sept. Les 22 contrats du site couvrent les
+  nouveaux médias, le hub, le RSS, le sitemap, les données structurées et les
+  CTA exacts.
+- Le propriétaire a validé humainement les cinq rendus exacts et leurs dix
+  déclinaisons après génération le 31 août 2026, puis confirmé l'indexation, le
+  push sur `main` et la publication. La gate locale complète, le candidat
+  Cloudflare et le démarrage Compose sain sont verts ; la CI, le déploiement et
+  les sondes publiques seront consignés après livraison du SHA exact.
+
 ## 2026-08-31 - Passe SEO globale et couverture Amazon par objet
 
 - Le header place désormais `Accessoires` en première position sur les quarante

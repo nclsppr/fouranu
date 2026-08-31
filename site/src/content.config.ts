@@ -12,8 +12,8 @@ const articleImage = z.object({
 const analyses = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/analyses" }),
   schema: z.object({
-    articleId: z.string().regex(/^(OONI|GOZNEY|ACC)-\d{3}$/),
-    brand: z.enum(["ooni", "gozney", "accessoires"]),
+    articleId: z.string().regex(/^(OONI|GOZNEY|ACC|FOUR)-\d{3}$/),
+    brand: z.enum(["ooni", "gozney", "accessoires", "fours"]),
     category: z.enum(["oven", "mixer", "accessoires"]),
     heroTreatment: z.enum(["official-stylized", "editorial-original"]),
     title: z.string(),
@@ -44,6 +44,7 @@ const analyses = defineCollection({
       ooni: "OONI",
       gozney: "GOZNEY",
       accessoires: "ACC",
+      fours: "FOUR",
     }[entry.brand];
     if (!entry.articleId.startsWith(`${expectedPrefix}-`)) {
       context.addIssue({
@@ -57,6 +58,13 @@ const analyses = defineCollection({
       context.addIssue({
         code: "custom",
         message: "Un dossier accessoires doit appartenir à la catégorie accessoires.",
+        path: ["category"],
+      });
+    }
+    if (entry.brand === "fours" && entry.category !== "oven") {
+      context.addIssue({
+        code: "custom",
+        message: "Un dossier de four multimarque doit appartenir à la catégorie fours.",
         path: ["category"],
       });
     }

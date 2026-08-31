@@ -78,10 +78,15 @@ const fixedIndexableRoutes = [
 ];
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
-const articleRoutePattern = /^\/(?:ooni|gozney|accessoires-pizza)\/[^/]+\/$/;
+const articleCount = 28;
+const articleRoutePattern = /^\/(?:ooni|gozney|accessoires-pizza|fours-a-pizza)\/[^/]+\/$/;
 const accessoryArticleRoutePattern = /^\/accessoires-pizza\/[^/]+\/$/;
 const routeSegmentForBrand = (brand) =>
-  brand === "accessoires" ? "accessoires-pizza" : brand;
+  brand === "accessoires"
+    ? "accessoires-pizza"
+    : brand === "fours"
+      ? "fours-a-pizza"
+      : brand;
 const defaultSocialImage = `${canonicalOrigin}/og/four-a-nu-default-v2.jpg`;
 const rangeSocialImages = new Map([
   ["/ooni/", `${canonicalOrigin}/images/articles/ooni-gamme-documentee-1600.webp`],
@@ -104,10 +109,14 @@ const editorialCaptionPatternForBrand = (brand) =>
 const editorialCaptionFromAsset = (asset) =>
   asset.attribution.replace("d'après", "d’après").replace(/\.?$/, ".");
 const editorialOriginalCaption = "Illustration éditoriale originale Four à Nu.";
+const multiBrandOvenCaptionPattern =
+  /^Illustration éditoriale d’après une photographie officielle (?:Sage|Cuisinart|G3 Ferrari|Ninja|Witt)\.$/;
 const editorialCaptionPatternForArticle = (brand) =>
   brand === "accessoires"
     ? new RegExp(`^${escapeRegex(editorialOriginalCaption)}$`)
-    : editorialCaptionPatternForBrand(brand === "gozney" ? "Gozney" : "Ooni");
+    : brand === "fours"
+      ? multiBrandOvenCaptionPattern
+      : editorialCaptionPatternForBrand(brand === "gozney" ? "Gozney" : "Ooni");
 
 async function filesRecursively(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -302,7 +311,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
-  assert.equal(pages.length, fixedIndexableRoutes.length + 23 + 1);
+  assert.equal(pages.length, fixedIndexableRoutes.length + articleCount + 1);
   const titles = new Set();
   const descriptions = new Set();
 
@@ -626,7 +635,7 @@ test("le partage reste local sur les pages canoniques et absent de la 404", asyn
     );
   }
 
-  assert.equal(shareRootCount, fixedIndexableRoutes.length + 23);
+  assert.equal(shareRootCount, fixedIndexableRoutes.length + articleCount);
   assert.equal(moduleBodies.size, 1, "les pages doivent embarquer le même petit module local");
 });
 
@@ -671,6 +680,33 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       `${canonicalOrigin}/accessoires-pizza/accessoires-ciseaux-pizza/`,
       `${canonicalOrigin}/accessoires-pizza/accessoires-thermometre-infrarouge/`,
       `${canonicalOrigin}/accessoires-pizza/accessoires-bacs-patons/`,
+    ],
+  );
+
+  const ovensPage = pages.find((page) => page.route === "/fours-a-pizza/");
+  assert.ok(ovensPage, "hub fours à pizza absent");
+  const ovensNodes = schemaNodes(jsonLdDocuments(ovensPage.html));
+  const ovensCollection = ovensNodes.find((node) => node["@type"] === "CollectionPage");
+  const ovensList = ovensNodes.find((node) => node["@type"] === "ItemList");
+  assert.ok(ovensCollection, "CollectionPage fours à pizza absente");
+  assert.ok(ovensList, "ItemList fours à pizza absente");
+  assert.equal(ovensCollection.url, `${canonicalOrigin}/fours-a-pizza/`);
+  assert.deepEqual(ovensCollection.mainEntity, {
+    "@id": `${canonicalOrigin}/fours-a-pizza/#dossiers`,
+  });
+  assert.equal(ovensList.numberOfItems, 5);
+  assert.deepEqual(
+    ovensList.itemListElement.map((item) => item.position),
+    [1, 2, 3, 4, 5],
+  );
+  assert.deepEqual(
+    ovensList.itemListElement.map((item) => item.url),
+    [
+      `${canonicalOrigin}/fours-a-pizza/sage-pizzaiolo-bpz820/`,
+      `${canonicalOrigin}/fours-a-pizza/cuisinart-cpz120e/`,
+      `${canonicalOrigin}/fours-a-pizza/g3-ferrari-delizia-g10006/`,
+      `${canonicalOrigin}/fours-a-pizza/ninja-woodfire-oo101eu/`,
+      `${canonicalOrigin}/fours-a-pizza/witt-etna-rotante/`,
     ],
   );
 
@@ -750,7 +786,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
 
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, 23);
+  assert.equal(articlePages.length, articleCount);
   const authorAssignments = new Map([...editorialAuthors.keys()].map((name) => [name, 0]));
   const authorArticleRoutes = new Map([...editorialAuthors.keys()].map((name) => [name, []]));
 
@@ -818,6 +854,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       const imageCaption = visibleText(pairedElements(leadFigure?.[2] ?? "", "figcaption")[0]?.[2] ?? "");
       const imageBrand = page.route.startsWith("/accessoires-pizza/")
         ? "accessoires"
+        : page.route.startsWith("/fours-a-pizza/")
+          ? "fours"
         : page.route.startsWith("/gozney/")
           ? "gozney"
           : "ooni";
@@ -829,11 +867,6 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       );
       assert.ok(imageCaption.length <= 90, `${page.route}: crédit d’en-tête trop long`);
       assert.doesNotMatch(imageCaption, /utilisée avec autorisation|preuve de performance/i);
-      assert.equal(article.url, `${canonicalOrigin}${page.route}`);
-      assert.equal(visibleText(article.headline), h1);
-      assert.equal(visibleText(metaContent(page.html, "og:title")), h1);
-      assert.equal(article.inLanguage, "fr");
-      assert.ok(["Fours à pizza", "Pétrins", "Accessoires pizza"].includes(article.articleSection));
       assert.deepEqual(
         article.image,
         {
@@ -846,6 +879,11 @@ test("les données structurées restent vérifiables et sans faux avis", async (
         },
         `${page.route}: ImageObject de l'article incohérent`,
       );
+      assert.equal(article.url, `${canonicalOrigin}${page.route}`);
+      assert.equal(visibleText(article.headline), h1);
+      assert.equal(visibleText(metaContent(page.html, "og:title")), h1);
+      assert.equal(article.inLanguage, "fr");
+      assert.ok(["Fours à pizza", "Pétrins", "Accessoires pizza"].includes(article.articleSection));
       assert.equal(article.isAccessibleForFree, true);
       assert.ok(editorialAuthors.has(article.author.name), `${page.route}: auteur éditorial inconnu`);
       authorAssignments.set(article.author.name, authorAssignments.get(article.author.name) + 1);
@@ -864,10 +902,10 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       assert.equal(metaContent(page.html, "author"), article.author.name);
       assert.equal(metaContent(page.html, "article:author"), article.author.url);
       assert.equal(metaContent(page.html, "article:section"), article.articleSection);
-      assert.equal(article.datePublished, metaContent(page.html, "article:published_time"));
       assert.equal(article.dateModified, metaContent(page.html, "article:modified_time"));
-      assert.equal(new Date(article.datePublished).toISOString(), article.datePublished);
       assert.equal(new Date(article.dateModified).toISOString(), article.dateModified);
+      assert.equal(article.datePublished, metaContent(page.html, "article:published_time"));
+      assert.equal(new Date(article.datePublished).toISOString(), article.datePublished);
       const visibleAuthorLinks = pairedElements(page.html, "a").filter((anchor) => {
         const opening = `<a${anchor[1]}>`;
         return attribute(opening, "rel") === "author" &&
@@ -889,8 +927,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
   assert.deepEqual(
     [...authorAssignments.values()].sort((left, right) => left - right),
-    [7, 7, 9],
-    "les vingt-trois dossiers doivent rester répartis entre les trois signatures",
+    [7, 10, 11],
+    "les vingt-huit dossiers doivent rester répartis entre les trois signatures",
   );
   for (const [name, profilePage] of authorProfilePages) {
     const renderedArticleRoutes = tags(profilePage.html, "a")
@@ -937,7 +975,7 @@ test("les portraits auteurs publiés restent légers et disponibles aux deux tai
   }
 });
 
-test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le registre synchronisé", async () => {
+test("les analyses publiables et candidates rendent toutes leurs preuves depuis le registre synchronisé", async () => {
   const canonicalCsv = await readFile(join(repositoryRoot, "research/evidence.csv"), "utf8");
   const componentCsv = await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8");
   assert.equal(componentCsv, canonicalCsv, "la copie de build du registre a dérivé de research/evidence.csv");
@@ -951,7 +989,7 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 223);
+  assert.equal(records.size, 268);
 
   const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
   const assetRows = parseCsv(assetCsv);
@@ -963,7 +1001,7 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
       Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(assets.size, 107);
+  assert.equal(assets.size, 117);
   const registeredPublicationUrls = new Set(
     [...assets.values()].map((asset) => asset.publication_url),
   );
@@ -980,13 +1018,13 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
   const markdownFiles = (await readdir(join(siteRoot, "src/content/analyses")))
     .filter((file) => file.endsWith(".md"))
     .sort();
-  assert.equal(markdownFiles.length, 23);
+  assert.equal(markdownFiles.length, articleCount);
 
   for (const markdownFile of markdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(siteRoot, "src/content/analyses", markdownFile), "utf8");
-    const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY|ACC)-\d{3})$/m)?.[1];
-    const brand = markdown.match(/^brand:\s*(ooni|gozney|accessoires)$/m)?.[1];
+    const articleId = markdown.match(/^articleId:\s*((?:OONI|GOZNEY|ACC|FOUR)-\d{3})$/m)?.[1];
+    const brand = markdown.match(/^brand:\s*(ooni|gozney|accessoires|fours)$/m)?.[1];
     const category = markdown.match(/^category:\s*(oven|mixer|accessoires)$/m)?.[1];
     const heroTreatment = markdown.match(
       /^heroTreatment:\s*(official-stylized|editorial-original)$/m,
@@ -996,11 +1034,23 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
     assert.ok(brand, `${slug}: marque absente ou invalide`);
     assert.ok(category, `${slug}: catégorie absente ou invalide`);
     assert.ok(heroTreatment, `${slug}: traitement de hero absent ou invalide`);
-    assert.ok(heroAssetId, `${slug}: identifiant du hero absent ou invalide`);
+    const expectedPrefix = {
+      accessoires: "ACC",
+      fours: "FOUR",
+      gozney: "GOZNEY",
+      ooni: "OONI",
+    }[brand];
     assert.ok(
-      articleId.startsWith(`${brand === "accessoires" ? "ACC" : brand.toUpperCase()}-`),
+      articleId.startsWith(`${expectedPrefix}-`),
       `${slug}: articleId incohérent avec la marque`,
     );
+    if (brand === "fours") {
+      assert.equal(category, "oven", `${slug}: catégorie de four multimarque incohérente`);
+    }
+    assert.match(markdown, /^status:\s*publishable$/m, `${slug}: dossier non publiable`);
+    assert.match(markdown, /^indexable:\s*true$/m, `${slug}: dossier non indexable`);
+    assert.match(markdown, /^publishedAt:\s*2026-\d{2}-\d{2}$/m, `${slug}: date de publication absente`);
+    assert.ok(heroAssetId, `${slug}: identifiant du hero absent ou invalide`);
     const heroAsset = assets.get(heroAssetId);
     assert.ok(heroAsset, `${slug}: hero absent du registre média`);
     if (heroTreatment === "editorial-original") {
@@ -1081,21 +1131,21 @@ test("les vingt-trois analyses rendent toutes leurs preuves citées depuis le re
   }
 });
 
-test("le RSS expose exactement les vingt-trois dossiers publiables et indexables", async () => {
+test("le RSS expose exactement les vingt-huit dossiers publiables et indexables", async () => {
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
   const publishedArticlePages = articlePages;
-  assert.equal(articlePages.length, 23);
+  assert.equal(articlePages.length, articleCount);
   const articleRoutes = publishedArticlePages
     .map((page) => page.route)
     .sort();
-  assert.equal(articleRoutes.length, 23);
+  assert.equal(articleRoutes.length, articleCount);
 
   const rss = await readFile(join(dist, "rss.xml"), "utf8");
   assert.match(rss, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
   assert.match(rss, /<rss version="2\.0" xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
   const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
-  assert.equal(rssItems.length, 23);
+  assert.equal(rssItems.length, articleCount);
   const rssRoutes = [];
   for (const item of rssItems) {
     assert.match(item, /<title>[^<]+<\/title>/);
@@ -1122,8 +1172,8 @@ test("le RSS expose exactement les vingt-trois dossiers publiables et indexables
       join(siteRoot, "src/content/analyses", `${slug}.md`),
       "utf8",
     );
-    assert.match(markdown, /^brand:\s*(ooni|gozney|accessoires)$/m, `${pathname}: marque source absente`);
-    assert.equal(routeSegmentForBrand(markdown.match(/^brand:\s*(ooni|gozney|accessoires)$/m)?.[1]), brand, pathname);
+    assert.match(markdown, /^brand:\s*(ooni|gozney|accessoires|fours)$/m, `${pathname}: marque source absente`);
+    assert.equal(routeSegmentForBrand(markdown.match(/^brand:\s*(ooni|gozney|accessoires|fours)$/m)?.[1]), brand, pathname);
     assert.match(markdown, /^status:\s*publishable$/m, `${pathname}: dossier non publiable dans le RSS`);
     assert.match(markdown, /^indexable:\s*true$/m, `${pathname}: dossier non indexable dans le RSS`);
     rssRoutes.push(pathname);
@@ -1175,24 +1225,38 @@ test("la photo documentaire de une est responsive, attribuée et légère", asyn
   assert.ok(largeVisual.size < 200_000, "le visuel 1600 px dépasse 200 Ko");
 });
 
-test("chaque dossier possède une photo documentaire et ses deux rendus", async () => {
+test("chaque dossier publiable possède une photo documentaire et ses deux rendus", async () => {
   const markdownDirectory = join(siteRoot, "src/content/analyses");
   const markdownFiles = (await readdir(markdownDirectory))
     .filter((file) => file.endsWith(".md"))
     .sort();
+  const publishedMarkdownFiles = [];
+  for (const markdownFile of markdownFiles) {
+    const markdown = await readFile(join(markdownDirectory, markdownFile), "utf8");
+    if (/^status:\s*publishable$/m.test(markdown)) publishedMarkdownFiles.push(markdownFile);
+  }
   const pages = await htmlPages();
   const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
+  const publishedArticlePages = articlePages;
   const imagePaths = new Set();
   const assetIds = new Set();
-  const categoryCounts = { ooniOvens: 0, ooniMixers: 0, gozneyOvens: 0, accessories: 0 };
+  const categoryCounts = {
+    ooniOvens: 0,
+    ooniMixers: 0,
+    gozneyOvens: 0,
+    foursOvens: 0,
+    accessories: 0,
+  };
 
-  assert.equal(markdownFiles.length, 23);
-  assert.equal(articlePages.length, 23);
+  assert.equal(markdownFiles.length, articleCount);
+  assert.equal(publishedMarkdownFiles.length, articleCount);
+  assert.equal(articlePages.length, articleCount);
+  assert.equal(publishedArticlePages.length, articleCount);
 
-  for (const markdownFile of markdownFiles) {
+  for (const markdownFile of publishedMarkdownFiles) {
     const slug = markdownFile.replace(/\.md$/, "");
     const markdown = await readFile(join(markdownDirectory, markdownFile), "utf8");
-    const brand = markdown.match(/^brand:\s*(ooni|gozney|accessoires)$/m)?.[1];
+    const brand = markdown.match(/^brand:\s*(ooni|gozney|accessoires|fours)$/m)?.[1];
     const category = markdown.match(/^category:\s*(oven|mixer|accessoires)$/m)?.[1];
     const imagePath = markdown.match(
       /^\s{2}src:\s*(\/images\/articles\/[a-z0-9-]+-1600\.webp)$/m,
@@ -1203,6 +1267,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     if (brand === "ooni" && category === "oven") categoryCounts.ooniOvens += 1;
     if (brand === "ooni" && category === "mixer") categoryCounts.ooniMixers += 1;
     if (brand === "gozney" && category === "oven") categoryCounts.gozneyOvens += 1;
+    if (brand === "fours" && category === "oven") categoryCounts.foursOvens += 1;
     if (brand === "accessoires" && category === "accessoires") categoryCounts.accessories += 1;
     assert.ok(imagePath, `${slug}: image 1600 px absente du frontmatter`);
     assert.ok(assetId, `${slug}: assetId absent du frontmatter`);
@@ -1217,7 +1282,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     assert.ok((await stat(join(dist, imagePath.replace(/^\//, "")))).size < 200_000);
     assert.ok((await stat(join(dist, smallPath.replace(/^\//, "")))).size < 100_000);
 
-    const page = articlePages.find(
+    const page = publishedArticlePages.find(
       (candidate) => candidate.route === `/${routeSegmentForBrand(brand)}/${slug}/`,
     );
     assert.ok(page, `${slug}: page article absente`);
@@ -1249,6 +1314,7 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     ooniOvens: 11,
     ooniMixers: 1,
     gozneyOvens: 7,
+    foursOvens: 5,
     accessories: 4,
   });
 
@@ -1277,6 +1343,13 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/accessoires-.+-1600\.webp$/.test(src ?? ""));
   assert.equal(accessoryThumbnails.length, 4, "le hub accessoires doit illustrer ses quatre guides");
+
+  const ovens = pages.find((page) => page.route === "/fours-a-pizza/");
+  assert.ok(ovens, "hub fours à pizza absent");
+  const ovenThumbnails = tags(ovens.html, "img")
+    .map((image) => attribute(image, "src"))
+    .filter((src) => /^\/images\/articles\/(?:sage|cuisinart|g3-ferrari|ninja|witt)-.+-1600\.webp$/.test(src ?? ""));
+  assert.equal(ovenThumbnails.length, 5, "le hub fours doit illustrer ses cinq dossiers multimarques");
 
   for (const slug of [
     "accessoires-pelle-pizza",
@@ -1308,9 +1381,17 @@ test("chaque dossier possède une photo documentaire et ses deux rendus", async 
 
 test("les dix-neuf dossiers historiques orientent vers les guides accessoires pertinents", async () => {
   const analysisDirectory = join(siteRoot, "src/content/analyses");
-  const historicalFiles = (await readdir(analysisDirectory))
-    .filter((file) => file.endsWith(".md") && !file.startsWith("accessoires-"))
-    .sort();
+  const historicalFiles = [];
+  for (const file of (await readdir(analysisDirectory)).sort()) {
+    if (!file.endsWith(".md") || file.startsWith("accessoires-")) continue;
+    const markdown = await readFile(join(analysisDirectory, file), "utf8");
+    if (
+      /^status:\s*publishable$/m.test(markdown) &&
+      /^brand:\s*(?:ooni|gozney)$/m.test(markdown)
+    ) {
+      historicalFiles.push(file);
+    }
+  }
   assert.equal(historicalFiles.length, 19);
 
   const destinations = {
@@ -1340,7 +1421,9 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   const articleSource = await readFile(join(siteRoot, "src/pages/[brand]/[slug].astro"), "utf8");
   const homeSource = await readFile(join(siteRoot, "src/pages/index.astro"), "utf8");
   const publicPages = await htmlPages();
-  const articlePages = publicPages.filter((page) => articleRoutePattern.test(page.route ?? ""));
+  const articlePages = publicPages.filter((page) =>
+    articleRoutePattern.test(page.route ?? "")
+  );
   const articleCaptionRule = articleSource.match(/\.article-lead-media figcaption\s*\{([^}]*)\}/s)?.[1];
   const homeCaptionRule = homeSource.match(
     /\.lead-feature__visual--documentary figcaption\s*\{([^}]*)\}/s,
@@ -1376,7 +1459,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
 
 test("chaque dossier répète un appel d’achat dont la rémunération est explicite", async () => {
   const articlePages = (await htmlPages()).filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, 23);
+  assert.equal(articlePages.length, articleCount);
 
   for (const page of articlePages) {
     const callouts = pairedElements(page.html, "section").filter((match) =>
@@ -1473,11 +1556,11 @@ test("chaque dossier répète un appel d’achat dont la rémunération est expl
 });
 
 test("chaque produit commercial déclaré possède un contrôle Amazon et une couverture exacte", async () => {
-  assert.equal(COMMERCIAL_OBJECT_IDS.length, 34, "inventaire commercial inattendu");
+  assert.equal(COMMERCIAL_OBJECT_IDS.length, 39, "inventaire commercial inattendu");
   const objects = Object.values(COMMERCIAL_OBJECTS);
   const availableObjects = objects.filter((object) => object.amazon.status === "available");
   const notFoundObjects = objects.filter((object) => object.amazon.status === "not_found");
-  assert.equal(availableObjects.length, 26, "offres Amazon.fr vérifiées inattendues");
+  assert.equal(availableObjects.length, 31, "offres Amazon.fr vérifiées inattendues");
   assert.equal(notFoundObjects.length, 8, "recherches Amazon.fr sans résultat inattendues");
 
   const analysisDirectory = join(siteRoot, "src/content/analyses");
@@ -1504,7 +1587,7 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
       route: `/${routeSegmentForBrand(brand)}/${file.replace(/\.md$/, "")}/`,
     });
   }
-  assert.equal(articleRecords.size, 23, "vingt-trois déclarations commerciales attendues");
+  assert.equal(articleRecords.size, articleCount, "inventaire des déclarations commerciales inattendu");
   assert.deepEqual([...declaredObjectIds].sort(), [...COMMERCIAL_OBJECT_IDS].sort());
 
   const expectedObjectsByArticle = new Map(
@@ -1877,11 +1960,11 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const allArticleRoutes = pages
       .map((page) => page.route)
       .filter((route) => articleRoutePattern.test(route ?? ""));
-    assert.equal(allArticleRoutes.length, 23);
+    assert.equal(allArticleRoutes.length, articleCount);
     const articleRoutes = allArticleRoutes;
-    assert.equal(articleRoutes.length, 23);
+    assert.equal(articleRoutes.length, articleCount);
     const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + 23);
+    assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + articleCount);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
@@ -1893,8 +1976,8 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
         `${route}: dossier absent de llms.txt`,
       );
     }
-    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + 23 + 2);
-    assert.equal(urlEntries.length, fixedIndexableRoutes.length + 23);
+    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + articleCount + 2);
+    assert.equal(urlEntries.length, fixedIndexableRoutes.length + articleCount);
     const sitemapEntriesByRoute = new Map(
       urlEntries.map((entry) => {
         const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];
@@ -1923,8 +2006,8 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
 
     const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
       .map((match) => match[1]);
-    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 25);
-    assert.equal(sitemapImages.length, 25);
+    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 30);
+    assert.equal(sitemapImages.length, 30);
     const expectedArticleImages = pages
       .filter((page) => articleRoutes.includes(page.route))
       .map((page) => metaContent(page.html, "og:image"))
@@ -1947,9 +2030,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     }
 
     for (const page of pages) {
-      const expected = page.route === null
-        ? "noindex, follow"
-        : indexableRobots;
+      const expected = page.route === null ? "noindex, follow" : indexableRobots;
       assert.equal(metaContent(page.html, "robots"), expected, page.route ?? "404");
     }
   } finally {

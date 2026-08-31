@@ -3,10 +3,11 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
-import { articlePath } from "@/data/article-taxonomy";
+import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
 
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.brand === "gozney" && entry.data.status === "publishable")
+  .filter(isPublishedAnalysis)
+  .filter((entry) => entry.data.brand === "gozney")
   .sort((a, b) =>
     Number(b.id === "quel-four-gozney-choisir") - Number(a.id === "quel-four-gozney-choisir") ||
     b.data.updatedAt.getTime() - a.data.updatedAt.getTime() ||

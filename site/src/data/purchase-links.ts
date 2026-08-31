@@ -21,6 +21,33 @@ function amazonLink(objectId: string, label: string): PurchaseLink {
 }
 
 export const PURCHASE_LINKS_BY_ARTICLE: Record<string, PurchaseLink[]> = {
+  "FOUR-001": [
+    amazonLink(
+      "sage-smart-oven-pizzaiolo-bpz820",
+      "Voir le Sage Pizzaiolo BPZ820 sur Amazon.fr",
+    ),
+  ],
+  "FOUR-002": [
+    amazonLink("cuisinart-cpz120e", "Voir le Cuisinart CPZ120E sur Amazon.fr"),
+  ],
+  "FOUR-003": [
+    amazonLink(
+      "g3-ferrari-delizia-g10006-black",
+      "Voir le G3 Ferrari Delizia noir sur Amazon.fr",
+    ),
+  ],
+  "FOUR-004": [
+    amazonLink(
+      "ninja-woodfire-oo101eu",
+      "Voir le Ninja Woodfire OO101EU sur Amazon.fr",
+    ),
+  ],
+  "FOUR-005": [
+    amazonLink(
+      "witt-etna-rotante-16",
+      "Voir le Witt ETNA Rotante noir sur Amazon.fr",
+    ),
+  ],
   "ACC-001": [
     amazonLink("ooni-peel-perforated-30", "Voir la pelle Ooni perforée sur Amazon.fr"),
     amazonLink("ooni-peel-classic-30", "Voir la pelle Ooni classique sur Amazon.fr"),

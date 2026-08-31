@@ -17,13 +17,16 @@ export const GET: APIRoute = async () => {
   const analyses = (await getCollection("analyses"))
     .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
     .sort((a, b) =>
-      b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf() ||
+      (b.data.publishedAt?.valueOf() ?? 0) - (a.data.publishedAt?.valueOf() ?? 0) ||
       a.data.articleId.localeCompare(b.data.articleId)
     );
   const lastBuildDate = new Date(
     Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
   );
   const items = analyses.map((entry) => {
+    if (!entry.data.publishedAt) {
+      throw new Error(`Date de publication absente pour ${entry.data.articleId}`);
+    }
     const url = new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString();
     const author = SITE.authors[entry.data.author];
     return [

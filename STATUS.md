@@ -29,6 +29,47 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Cinq dossiers multimarques Amazon publiés | SHA applicatif `1092e63da3cd84a88148e3360ce1082622371c07` ; [run GitHub Actions `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
+## Candidat trilingue local non publié
+
+La production sert encore uniquement la version française : `/en/`, `/de/` et
+leurs routes descendantes répondent `404`. Le candidat isolé
+`codex/i18n-fr-en-de-20260831` prépare le français sans préfixe, l'anglais sous
+`/en/` et l'allemand sous `/de/`, sans redirection automatique ni changement de
+marché.
+
+Le corpus du candidat contient 28 dossiers par langue, soit 84 articles reliés
+par le même `articleId`, et 16 pages fixes par langue. Son artefact HTML compte
+135 pages : 132 URL indexables et trois 404 localisées. Le sitemap indexable
+contient 132 URL et leurs alternates réciproques ; chacun des trois flux RSS
+contient 28 entrées et chacun des trois `llms.txt` 38 liens éditoriaux. Les
+canonical, `hreflang`, `x-default`, Open Graph et données structurées sont
+contrôlés sur les trois contreparties.
+
+Les pages anglaises et allemandes gardent le marché France, Amazon.fr, les
+objets commerciaux, les preuves et les limites du dossier français. Elles
+n'affichent aucun média éditorial tiers lorsque sa permission linguistique
+n'est pas établie et utilisent seulement la carte sociale originale Four à Nu.
+Les observations et conditions canoniques conservées en français sont annoncées
+comme telles dans le rendu.
+
+Le typage, le build et les 24 contrats du site sont verts. La QA navigateur a
+couvert l'accueil allemand, les articles Witt allemand et Sage anglais, la
+contrepartie française et une 404 allemande à 320, 360, 768, 1 280 et 1 440 px.
+Elle ne relève ni débordement du document, ni image cassée, ni erreur console ;
+le sélecteur est visible, nommé, focalisable et relie la page exacte dans les
+trois langues.
+
+La gate complète `./scripts/verify.sh` est verte : 32 tests des registres,
+catalogue et Markdown, build indexable, candidat Cloudflare à sec et Nimbus
+passent ensemble. Le service Compose isolé est sain ; `/health`, `/en/`, `/de/`
+et deux articles représentatifs répondent `200`, tandis qu'une route allemande
+inconnue répond `404` avec la page localisée.
+
+Ce constat ne vaut pas publication. La relecture humaine de langue et le feu
+vert explicite du propriétaire sur le SHA, les 132 URL, les textes, les liens
+Amazon.fr, les omissions média et les métadonnées exacts restent les barrières
+avant push sur `main`, CI, déploiement, indexation et sondes publiques.
+
 ## Cinq dossiers multimarques publiés
 
 La version publiée ajoute cinq dossiers documentaires distincts : Sage Pizzaiolo

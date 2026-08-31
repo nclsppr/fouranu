@@ -55,7 +55,13 @@ const canonical = new URL(articleRoute(articleId, locale), SITE.url).toString();
 const evidenceIds = entry.data.evidenceIds;
 const articleBrandLabel = ARTICLE_BRAND_LABELS[locale][entry.data.brand];
 const articleHub = staticRoute(
-  entry.data.brand === "ooni" ? "ooni" : entry.data.brand === "gozney" ? "gozney" : "accessories",
+  entry.data.brand === "ooni"
+    ? "ooni"
+    : entry.data.brand === "gozney"
+      ? "gozney"
+      : entry.data.brand === "fours"
+        ? "ovens"
+        : "accessories",
   locale,
 );
 const words = (entry.body ?? "")

@@ -153,6 +153,26 @@ export const ARTICLE_ROUTES = {
       de: "teigboxen-ratgeber",
     },
   },
+  "FOUR-001": {
+    brand: "fours",
+    slug: { fr: "sage-pizzaiolo-bpz820", en: "sage-pizzaiolo-bpz820", de: "sage-pizzaiolo-bpz820" },
+  },
+  "FOUR-002": {
+    brand: "fours",
+    slug: { fr: "cuisinart-cpz120e", en: "cuisinart-cpz120e", de: "cuisinart-cpz120e" },
+  },
+  "FOUR-003": {
+    brand: "fours",
+    slug: { fr: "g3-ferrari-delizia-g10006", en: "g3-ferrari-delizia-g10006", de: "g3-ferrari-delizia-g10006" },
+  },
+  "FOUR-004": {
+    brand: "fours",
+    slug: { fr: "ninja-woodfire-oo101eu", en: "ninja-woodfire-oo101eu", de: "ninja-woodfire-oo101eu" },
+  },
+  "FOUR-005": {
+    brand: "fours",
+    slug: { fr: "witt-etna-rotante", en: "witt-etna-rotante", de: "witt-etna-rotante" },
+  },
   "GOZNEY-001": {
     brand: "gozney",
     slug: { fr: "arc-xl", en: "arc-xl", de: "arc-xl" },
@@ -250,7 +270,7 @@ export const ARTICLE_ROUTES = {
     },
   },
 } as const satisfies Record<string, {
-  brand: "ooni" | "gozney" | "accessoires";
+  brand: "ooni" | "gozney" | "accessoires" | "fours";
   slug: Record<Locale, string>;
 }>;
 
@@ -265,6 +285,7 @@ const ARTICLE_BRAND_SEGMENTS = {
     en: "pizza-accessories",
     de: "pizzazubehoer",
   },
+  fours: { fr: "fours-a-pizza", en: "pizza-ovens", de: "pizzaoefen" },
 } as const satisfies Record<ArticleBrand, Record<Locale, string>>;
 
 export function isLocale(value: string | undefined): value is Locale {

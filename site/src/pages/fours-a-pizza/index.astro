@@ -7,7 +7,12 @@ import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
 
 const modelDossiers = (await getCollection("analyses"))
   .filter(isPublishedAnalysis)
-  .filter((entry) => entry.data.brand === "fours" && entry.data.category === "oven")
+  .filter(
+    (entry) =>
+      entry.data.locale === "fr" &&
+      entry.data.brand === "fours" &&
+      entry.data.category === "oven",
+  )
   .sort((a, b) => a.data.articleId.localeCompare(b.data.articleId));
 
 if (modelDossiers.length !== 5) {

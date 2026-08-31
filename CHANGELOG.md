@@ -71,6 +71,24 @@ importantes.
   des pages anglaises et allemandes, y compris de l'en-tête et de l'aperçu
   social. La QA couvre aussi les chaînes allemandes longues, le mobile, le
   bureau, le clavier, les 404 et toutes les sorties de découverte.
+- Le candidat couvre désormais les vingt-huit dossiers dans chaque langue,
+  dont les cinq dossiers multimarques Amazon.fr ajoutés après sa première
+  préparation. Il construit 135 pages HTML : 132 URL indexables en grappes
+  réciproques et trois 404 localisées. Chaque flux RSS contient 28 dossiers et
+  chaque `llms.txt` 38 liens éditoriaux.
+- Les versions anglaises et allemandes des articles restent textuelles : aucun
+  média éditorial tiers n'est rendu lorsque sa portée linguistique n'est pas
+  établie ; la carte sociale originale Four à Nu sert de repli. Les preuves,
+  ASIN, objets commerciaux, dates, unités et limites restent identiques aux
+  versions françaises.
+- La gate du site passe le typage, le build et 24 contrats. La QA navigateur à
+  320, 360, 768, 1 280 et 1 440 px ne relève ni débordement de page, ni image
+  cassée, ni erreur console. Le sélecteur conserve des liens nommés, un focus
+  visible et la contrepartie exacte de l'article courant.
+- La gate complète du dépôt, le build indexable, le candidat Cloudflare à sec,
+  Nimbus et le démarrage Compose sain sont verts. Les racines `/en/` et `/de/`
+  ainsi que deux dossiers représentatifs répondent `200` dans le conteneur ; une
+  route allemande inconnue conserve un vrai statut `404`.
 - Cette extension reste un candidat local non publié. Cette documentation ne
   constitue ni un déploiement, ni une indexation, ni une soumission aux moteurs ;
   le propriétaire doit encore autoriser le SHA et le paquet exacts.

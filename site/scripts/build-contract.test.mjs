@@ -502,7 +502,7 @@ test("les trois langues gardent une parité de routes, de métadonnées et de na
   ];
   const expectedNotFoundRoutes = [null, "/en/404/", "/de/404/"];
 
-  assert.equal(expectedIndexableRoutes.length, 117);
+  assert.equal(expectedIndexableRoutes.length, fixedRouteIds.length * LOCALES.length + articleCount * LOCALES.length);
   assert.equal(pages.length, expectedIndexableRoutes.length + expectedNotFoundRoutes.length);
   assert.equal(new Set(expectedIndexableRoutes).size, expectedIndexableRoutes.length);
 
@@ -687,7 +687,7 @@ test("les traductions conservent les identifiants, preuves et frontières édito
   ];
 
   const frenchFiles = await markdownFiles(analysisRoot);
-  assert.equal(frenchFiles.length, 23);
+  assert.equal(frenchFiles.length, articleCount);
   const frenchByArticleId = new Map();
   for (const file of frenchFiles) {
     const markdown = await readFile(join(analysisRoot, file), "utf8");
@@ -698,7 +698,7 @@ test("les traductions conservent les identifiants, preuves et frontières édito
   for (const locale of ["en", "de"]) {
     const directory = join(analysisRoot, locale);
     const files = await markdownFiles(directory);
-    assert.equal(files.length, 23, `${locale}: 23 traductions attendues`);
+    assert.equal(files.length, articleCount, `${locale}: ${articleCount} traductions attendues`);
     const seenArticleIds = new Set();
 
     for (const file of files) {
@@ -2191,14 +2191,14 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const allArticleRoutes = pages
       .map((page) => page.route)
       .filter((route) => expectedArticleRoutes.includes(route));
-    assert.equal(allArticleRoutes.length, 69);
+    assert.equal(allArticleRoutes.length, articleCount * LOCALES.length);
     const articleRoutes = allArticleRoutes.filter((route) => articleRoutePattern.test(route ?? ""));
-    assert.equal(articleRoutes.length, 23);
+    assert.equal(articleRoutes.length, articleCount);
     const expectedFixedRoutes = Object.keys(STATIC_ROUTES)
       .filter((routeId) => routeId !== "notFound")
       .flatMap((routeId) => LOCALES.map((locale) => STATIC_ROUTES[routeId][locale]));
     const expectedRoutes = [...expectedFixedRoutes, ...expectedArticleRoutes].sort();
-    assert.equal(expectedRoutes.length, 117);
+    assert.equal(expectedRoutes.length, expectedFixedRoutes.length + articleCount * LOCALES.length);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
@@ -2210,14 +2210,14 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
         `${route}: dossier absent de llms.txt`,
       );
     }
-    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + 23 + 2);
+    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + articleCount + 2);
     for (const locale of LOCALES) {
       const localeLlms = await readFile(
         join(temporaryOutput, locale === "fr" ? "llms.txt" : `${locale}/llms.txt`),
         "utf8",
       );
       const localeRoutes = Object.keys(ARTICLE_ROUTES).map((articleId) => articleRoute(articleId, locale));
-      assert.equal((localeLlms.match(/^\- \[/gm) ?? []).length, 33, `${locale}: compte llms.txt`);
+      assert.equal((localeLlms.match(/^\- \[/gm) ?? []).length, 4 + 4 + articleCount + 2, `${locale}: compte llms.txt`);
       assert.doesNotMatch(localeLlms, /https:\/\/(?:www\.)?amazon\.fr|https:\/\/amzn\.to|tag=fouranu-21/i);
       for (const route of localeRoutes) {
         assert.match(localeLlms, new RegExp(`\\(${escapeRegex(`${canonicalOrigin}${route}`)}\\)`), `${locale}: ${route} absent de llms.txt`);
@@ -2229,7 +2229,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       );
       assert.match(rss, new RegExp(`<language>${locale}<\\/language>`));
       const items = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
-      assert.equal(items.length, 23, `${locale}: 23 items RSS attendus`);
+      assert.equal(items.length, articleCount, `${locale}: ${articleCount} items RSS attendus`);
       const itemRoutes = items.map((item) => {
         const link = item.match(/<link>([^<]+)<\/link>/)?.[1];
         const guid = item.match(/<guid isPermaLink="true">([^<]+)<\/guid>/)?.[1];
@@ -2239,7 +2239,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       });
       assert.deepEqual(itemRoutes.sort(), localeRoutes.sort(), `${locale}: parité RSS incomplète`);
     }
-    assert.equal(urlEntries.length, 117);
+    assert.equal(urlEntries.length, expectedRoutes.length);
     const sitemapEntriesByRoute = new Map(
       urlEntries.map((entry) => {
         const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];

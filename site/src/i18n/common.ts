@@ -266,9 +266,9 @@ export const SHELL_COPY = {
 } as const;
 
 export const ARTICLE_BRAND_LABELS = {
-  fr: { ooni: "Ooni", gozney: "Gozney", accessoires: "Accessoires pizza" },
-  en: { ooni: "Ooni", gozney: "Gozney", accessoires: "Pizza accessories" },
-  de: { ooni: "Ooni", gozney: "Gozney", accessoires: "Pizzazubehör" },
+  fr: { ooni: "Ooni", gozney: "Gozney", accessoires: "Accessoires pizza", fours: "Fours à pizza" },
+  en: { ooni: "Ooni", gozney: "Gozney", accessoires: "Pizza accessories", fours: "Pizza ovens" },
+  de: { ooni: "Ooni", gozney: "Gozney", accessoires: "Pizzazubehör", fours: "Pizzaöfen" },
 } as const;
 
 export const ARTICLE_CATEGORY_LABELS = {

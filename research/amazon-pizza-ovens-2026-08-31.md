@@ -175,6 +175,9 @@ la session datée. Typage, build indexable, affiliation, schémas, liens, poids,
 métadonnées, gate locale complète, candidat Cloudflare et démarrage Compose
 réussissent. Les vingt-deux contrats du site et les deux variantes de la gate
 éditoriale sont verts : les dix médias sont `approved`, preuve privée comprise,
-après la validation humaine postérieure à leur génération. La CI, le
-déploiement du SHA exact et les sondes publiques restent les preuves à acquérir
-avant de déclarer cette livraison effectivement en production.
+après la validation humaine postérieure à leur génération. Le SHA applicatif
+`1092e63da3cd84a88148e3360ce1082622371c07` a passé `Verify` et
+`deploy-cloudflare` dans le run `33351620936`. `/release.json` sert ce SHA exact ;
+le hub, les cinq routes, les dix médias, les CTA, le sitemap, le RSS et
+`/llms.txt` ont été sondés publiquement avec succès. Cette tranche est donc
+effectivement en production.

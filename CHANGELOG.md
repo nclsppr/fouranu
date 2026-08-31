@@ -48,8 +48,11 @@ importantes.
 - Le propriétaire a validé humainement les cinq rendus exacts et leurs dix
   déclinaisons après génération le 31 août 2026, puis confirmé l'indexation, le
   push sur `main` et la publication. La gate locale complète, le candidat
-  Cloudflare et le démarrage Compose sain sont verts ; la CI, le déploiement et
-  les sondes publiques seront consignés après livraison du SHA exact.
+  Cloudflare et le démarrage Compose sain sont verts. Le SHA applicatif
+  `1092e63da3cd84a88148e3360ce1082622371c07` a passé `Verify` et
+  `deploy-cloudflare` dans le [run `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) ;
+  `/release.json`, les cinq routes, les dix médias, les CTA, le sitemap, le RSS
+  et `/llms.txt` ont été sondés publiquement sur cette révision.
 
 ## 2026-08-31 - Passe SEO globale et couverture Amazon par objet
 

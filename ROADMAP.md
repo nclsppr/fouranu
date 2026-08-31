@@ -261,8 +261,8 @@ livré :
   registres, tests et retrait des contenus expirés.
 - [x] Conserver les dates de publication réelles : dix-neuf dossiers ont été
   publiés le 24 août 2026 et les quatre guides accessoires le 30 août.
-  Enregistrer le 31 août 2026 pour les cinq dossiers multimarques seulement si
-  leur déploiement public intervient effectivement à cette date.
+  Les cinq dossiers multimarques enregistrent le 31 août 2026, date à laquelle
+  leur déploiement public est effectivement intervenu.
   L'ordre éditorial peut varier séparément, mais `publishedAt` et `updatedAt` ne
   sont jamais antidatés pour simuler un historique.
 - [ ] Étendre ensuite les dossiers seulement quand une question et des preuves

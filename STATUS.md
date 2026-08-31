@@ -26,18 +26,18 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Portraits auteur remplacés sans retouche | SHA applicatif `27761ee6d9f3756891ddb3ed43c2e9452bebaf37` ; [run GitHub Actions `33097444182`](https://github.com/nclsppr/fouranu/actions/runs/33097444182) vert pour `Verify` et `deploy-cloudflare` |
 | Guides accessoires et affiliation Amazon publiés | SHA applicatif `cdda6ea5031ece85df4bd12e611b39b1ce8f60c1` ; [run GitHub Actions `33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Passe SEO globale et couverture Amazon par objet publiées | SHA applicatif `d9df7a8418c2b676fe232b177a29bda56be7eca6` ; [run GitHub Actions `33342690035`](https://github.com/nclsppr/fouranu/actions/runs/33342690035) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
-| Cinq dossiers multimarques Amazon candidats | Paquet exact et dix dérivés validés humainement le 31 août 2026 ; gate locale complète et Compose verts ; SHA public et run encore à acquérir |
+| Cinq dossiers multimarques Amazon publiés | SHA applicatif `1092e63da3cd84a88148e3360ce1082622371c07` ; [run GitHub Actions `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Cinq dossiers multimarques candidats à la publication
+## Cinq dossiers multimarques publiés
 
-Le candidat ajoute cinq dossiers documentaires distincts : Sage Pizzaiolo
+La version publiée ajoute cinq dossiers documentaires distincts : Sage Pizzaiolo
 BPZ820, Cuisinart CPZ120E, G3 Ferrari Delizia G10006 noir, Ninja Woodfire
 OO101EU et Witt ETNA Rotante d'origine. Chaque route est `publishable` et
 indexable, conserve ses limites, n'emploie ni note ni balisage d'avis et ne
 revendique aucun essai physique Four à Nu. Les cinq ASIN exacts sont enregistrés
 avec leur contrôle Amazon.fr daté ; prix, stock et vendeur ne sont pas reproduits
-dans le HTML du candidat. L'état d'occasion observé pour le G3 est, lui, signalé
+dans le HTML public. L'état d'occasion observé pour le G3 est, lui, signalé
 parce qu'il change directement la décision d'achat et doit être relu.
 
 La passe source finale rend visibles les limites de rattachement : le G3 mesuré
@@ -65,8 +65,14 @@ indexable et les 22 contrats du site sont verts. Les deux variantes de la gate
 comprise. Le propriétaire a confirmé son approbation après présentation des
 cinq rendus exacts le 31 août 2026. La gate locale complète, le candidat
 Cloudflare et le démarrage Compose sain sont acquis ; le hub et les cinq routes
-répondent localement en `200`. La CI, le déploiement et les sondes publiques du
-même SHA restent à acquérir avant de passer cette section au statut publié.
+répondent localement en `200`. Le SHA applicatif
+`1092e63da3cd84a88148e3360ce1082622371c07` a ensuite passé les jobs `Verify` et
+`deploy-cloudflare` du run `33351620936`. `/release.json` sert ce SHA exact ; le
+hub et les cinq routes répondent en `200`, avec canonical indexable et deux CTA
+Amazon exacts par dossier. Les dix WebP publics ont le type `image/webp` et le
+même SHA-256 que leurs sources locales. Le sitemap contient 44 URL et 30 images,
+le RSS 28 entrées et `/llms.txt` 38 liens ; aucun balisage `Review` ou
+`AggregateRating` n'est rendu.
 
 ## Passe SEO globale et couverture Amazon par objet publiées
 

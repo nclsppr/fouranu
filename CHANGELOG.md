@@ -53,7 +53,8 @@ importantes.
   `deploy-cloudflare` dans le [run `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) ;
   `/release.json`, les cinq routes, les dix médias, les CTA, le sitemap, le RSS
   et `/llms.txt` ont été sondés publiquement sur cette révision.
-## 2026-08-31 - Décision trilingue FR/EN/DE, candidat local
+
+## 2026-08-31 - Site trilingue français, anglais et allemand
 
 - L'ADR-0009 remplace la seule décision monolingue de l'ADR-0001 et fixe un site
   unique : français sans préfixe, anglais sous `/en/` et allemand sous `/de/`,
@@ -89,9 +90,16 @@ importantes.
   Nimbus et le démarrage Compose sain sont verts. Les racines `/en/` et `/de/`
   ainsi que deux dossiers représentatifs répondent `200` dans le conteneur ; une
   route allemande inconnue conserve un vrai statut `404`.
-- Cette extension reste un candidat local non publié. Cette documentation ne
-  constitue ni un déploiement, ni une indexation, ni une soumission aux moteurs ;
-  le propriétaire doit encore autoriser le SHA et le paquet exacts.
+- Le propriétaire a approuvé le paquet exact
+  `41e060f8644c755b289b881ff6c91fff1583795d`, sa publication et son
+  indexation. Ce SHA applicatif a passé `Verify` et `deploy-cloudflare` dans le
+  [run `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991).
+  `/release.json` l'a exposé à la mise en ligne ; les 132 URL du sitemap
+  répondent `200`, les trois jeux de canonical et `hreflang` sont réciproques,
+  chaque flux RSS contient 28 dossiers et chaque `llms.txt` 38 liens. Les
+  racines `/en/` et `/de/`, les dossiers représentatifs et une vraie 404
+  allemande ont aussi été contrôlés publiquement. Le passage EN vers DE dans le
+  navigateur conserve la page localisée et ne produit aucune erreur console.
 
 ## 2026-08-31 - Passe SEO globale et couverture Amazon par objet
 

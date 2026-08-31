@@ -27,17 +27,18 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Guides accessoires et affiliation Amazon publiés | SHA applicatif `cdda6ea5031ece85df4bd12e611b39b1ce8f60c1` ; [run GitHub Actions `33319240810`](https://github.com/nclsppr/fouranu/actions/runs/33319240810) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Passe SEO globale et couverture Amazon par objet publiées | SHA applicatif `d9df7a8418c2b676fe232b177a29bda56be7eca6` ; [run GitHub Actions `33342690035`](https://github.com/nclsppr/fouranu/actions/runs/33342690035) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Cinq dossiers multimarques Amazon publiés | SHA applicatif `1092e63da3cd84a88148e3360ce1082622371c07` ; [run GitHub Actions `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
+| Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Candidat trilingue local non publié
+## Site trilingue publié
 
-La production sert encore uniquement la version française : `/en/`, `/de/` et
-leurs routes descendantes répondent `404`. Le candidat isolé
-`codex/i18n-fr-en-de-20260831` prépare le français sans préfixe, l'anglais sous
-`/en/` et l'allemand sous `/de/`, sans redirection automatique ni changement de
-marché.
+La production sert le français sans préfixe, l'anglais sous `/en/` et l'allemand
+sous `/de/`, sans redirection automatique ni changement de marché. Le SHA
+applicatif `41e060f8644c755b289b881ff6c91fff1583795d` a passé les jobs `Verify` et
+`deploy-cloudflare` du run `33405895991` après l'approbation explicite du
+propriétaire sur le paquet, sa publication et son indexation.
 
-Le corpus du candidat contient 28 dossiers par langue, soit 84 articles reliés
+Le corpus publié contient 28 dossiers par langue, soit 84 articles reliés
 par le même `articleId`, et 16 pages fixes par langue. Son artefact HTML compte
 135 pages : 132 URL indexables et trois 404 localisées. Le sitemap indexable
 contient 132 URL et leurs alternates réciproques ; chacun des trois flux RSS
@@ -65,10 +66,12 @@ passent ensemble. Le service Compose isolé est sain ; `/health`, `/en/`, `/de/`
 et deux articles représentatifs répondent `200`, tandis qu'une route allemande
 inconnue répond `404` avec la page localisée.
 
-Ce constat ne vaut pas publication. La relecture humaine de langue et le feu
-vert explicite du propriétaire sur le SHA, les 132 URL, les textes, les liens
-Amazon.fr, les omissions média et les métadonnées exacts restent les barrières
-avant push sur `main`, CI, déploiement, indexation et sondes publiques.
+Les sondes publiques confirment `/release.json` sur le SHA applicatif, les 132
+URL du sitemap en `200`, les alternates réciproques, 28 entrées dans chaque RSS
+et 38 liens dans chaque `llms.txt`. Les racines `/en/` et `/de/`, les dossiers
+Witt en français, anglais et allemand ainsi qu'une vraie 404 allemande ont été
+contrôlés. Le navigateur public passe de l'anglais à l'allemand sur la
+contrepartie attendue, avec navigation localisée et sans erreur console.
 
 ## Cinq dossiers multimarques publiés
 

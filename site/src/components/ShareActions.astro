@@ -1,12 +1,56 @@
 ---
+import type { Locale } from "@/i18n/config";
+
 interface Props {
+  locale?: Locale;
   title: string;
   description: string;
   url: string;
 }
 
-const { title, description, url } = Astro.props;
-const emailSubject = encodeURIComponent(`À lire : ${title}`);
+const { locale = "fr", title, description, url } = Astro.props;
+const copy = {
+  fr: {
+    emailSubject: `À lire : ${title}`,
+    eyebrow: "À faire circuler",
+    heading: "Partager cette page",
+    intro: "Le menu de partage peut proposer Messages, Messenger, Instagram ou d’autres apps compatibles installées sur votre appareil.",
+    options: "Options de partage",
+    share: "Partager…",
+    email: "Par e-mail",
+    copy: "Copier le lien",
+    shareError: "Le partage n’a pas abouti. Vous pouvez copier le lien ou l’envoyer par e-mail.",
+    copied: "Lien copié.",
+    copyError: "La copie a échoué. Vous pouvez envoyer la page par e-mail.",
+  },
+  en: {
+    emailSubject: `Worth reading: ${title}`,
+    eyebrow: "Pass it on",
+    heading: "Share this page",
+    intro: "Your device’s share menu may offer Messages, Messenger, Instagram or other compatible apps you have installed.",
+    options: "Sharing options",
+    share: "Share…",
+    email: "Email",
+    copy: "Copy link",
+    shareError: "Sharing did not work. You can copy the link or send it by email.",
+    copied: "Link copied.",
+    copyError: "The link could not be copied. You can send the page by email.",
+  },
+  de: {
+    emailSubject: `Lesenswert: ${title}`,
+    eyebrow: "Weitersagen",
+    heading: "Diese Seite teilen",
+    intro: "Das Teilen-Menü deines Geräts kann Nachrichten, Messenger, Instagram oder andere installierte Apps anbieten.",
+    options: "Optionen zum Teilen",
+    share: "Teilen…",
+    email: "Per E-Mail",
+    copy: "Link kopieren",
+    shareError: "Das Teilen hat nicht funktioniert. Du kannst den Link kopieren oder per E-Mail senden.",
+    copied: "Link kopiert.",
+    copyError: "Der Link konnte nicht kopiert werden. Du kannst die Seite per E-Mail senden.",
+  },
+}[locale];
+const emailSubject = encodeURIComponent(copy.emailSubject);
 const emailBody = encodeURIComponent(`${description}\n\n${url}`);
 const whatsappText = encodeURIComponent(`${title}\n${url}`);
 ---
@@ -18,20 +62,20 @@ const whatsappText = encodeURIComponent(`${title}\n${url}`);
   data-share-title={title}
   data-share-text={description}
   data-share-url={url}
+  data-share-error={copy.shareError}
+  data-copy-success={copy.copied}
+  data-copy-error={copy.copyError}
 >
   <div class="share-actions__inner">
     <div class="share-actions__copy">
-      <p class="eyebrow">À faire circuler</p>
-      <h2 id="share-actions-title">Partager cette page</h2>
-      <p>
-        Le menu de partage peut proposer Messages, Messenger, Instagram ou
-        d’autres apps compatibles installées sur votre appareil.
-      </p>
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h2 id="share-actions-title">{copy.heading}</h2>
+      <p>{copy.intro}</p>
     </div>
 
-    <div class="share-actions__controls" role="group" aria-label="Options de partage">
+    <div class="share-actions__controls" role="group" aria-label={copy.options}>
       <button class="button-link" type="button" hidden data-share-native>
-        Partager…
+        {copy.share}
       </button>
       <a
         class="button-link button-link--quiet"
@@ -44,10 +88,10 @@ const whatsappText = encodeURIComponent(`${title}\n${url}`);
         class="button-link button-link--quiet"
         href={`mailto:?subject=${emailSubject}&body=${emailBody}`}
       >
-        Par e-mail
+        {copy.email}
       </a>
       <button class="button-link button-link--quiet" type="button" hidden data-share-copy>
-        Copier le lien
+        {copy.copy}
       </button>
       <p
         class="share-actions__status"
@@ -67,6 +111,9 @@ const whatsappText = encodeURIComponent(`${title}\n${url}`);
     const title = root.dataset.shareTitle ?? document.title;
     const text = root.dataset.shareText ?? "";
     const url = root.dataset.shareUrl ?? window.location.href;
+    const shareError = root.dataset.shareError ?? "Sharing failed.";
+    const copySuccess = root.dataset.copySuccess ?? "Link copied.";
+    const copyError = root.dataset.copyError ?? "Copy failed.";
     const status = root.querySelector<HTMLElement>("[data-share-status]");
     const nativeButton = root.querySelector<HTMLButtonElement>("[data-share-native]");
     const copyButton = root.querySelector<HTMLButtonElement>("[data-share-copy]");
@@ -80,7 +127,7 @@ const whatsappText = encodeURIComponent(`${title}\n${url}`);
         } catch (error) {
           if (error instanceof DOMException && error.name === "AbortError") return;
           if (status) {
-            status.textContent = "Le partage n’a pas abouti. Vous pouvez copier le lien ou l’envoyer par e-mail.";
+            status.textContent = shareError;
           }
         }
       });
@@ -91,9 +138,9 @@ const whatsappText = encodeURIComponent(`${title}\n${url}`);
       copyButton.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(url);
-          if (status) status.textContent = "Lien copié.";
+          if (status) status.textContent = copySuccess;
         } catch {
-          if (status) status.textContent = "La copie a échoué. Vous pouvez envoyer la page par e-mail.";
+          if (status) status.textContent = copyError;
         }
       });
     }

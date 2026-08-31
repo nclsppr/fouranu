@@ -1,5 +1,6 @@
 ---
 import { SITE } from "@/config/site";
+import type { Locale } from "@/i18n/config";
 
 interface Item {
   label: string;
@@ -7,10 +8,16 @@ interface Item {
 }
 
 interface Props {
+  locale?: Locale;
   items: Item[];
 }
 
-const { items } = Astro.props;
+const { locale = "fr", items } = Astro.props;
+const ariaLabel = {
+  fr: "Fil d'Ariane",
+  en: "Breadcrumb",
+  de: "Brotkrümelnavigation",
+}[locale];
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const schema = {
   "@context": "https://schema.org",
@@ -25,7 +32,7 @@ const schema = {
 const serializedSchema = JSON.stringify(schema).replaceAll("<", "\\u003c");
 ---
 
-<nav class="breadcrumbs" aria-label="Fil d'Ariane">
+<nav class="breadcrumbs" aria-label={ariaLabel}>
   <ol>
     {items.map((item, index) => (
       <li>

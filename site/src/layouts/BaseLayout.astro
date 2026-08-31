@@ -12,6 +12,17 @@ import SiteHeader from "@/components/SiteHeader.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
 import ShareActions from "@/components/ShareActions.astro";
 import { FIXED_INDEXABLE_ROUTES, INDEXING_ENABLED, SITE } from "@/config/site";
+import {
+  LOCALES,
+  LOCALE_INFO,
+  alternatePathsForCurrentPath,
+  feedPath,
+  localeFromPath,
+  staticRoute,
+  staticRouteIdFromPath,
+  type Locale,
+} from "@/i18n/config";
+import { SHELL_COPY, localizedSite } from "@/i18n/common";
 
 interface Props {
   title?: string;
@@ -30,25 +41,31 @@ interface Props {
   publishedAt?: Date | string;
   modifiedAt?: Date | string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
+  alternatePaths?: Record<Locale, string> | false;
 }
 
+const locale = localeFromPath(Astro.url.pathname);
+const localeInfo = LOCALE_INFO[locale];
+const localized = localizedSite(locale);
+const shellCopy = SHELL_COPY[locale];
 const {
-  title = SITE.title,
+  title = localized.title,
   socialTitle: socialTitleOverride,
-  description = SITE.description,
+  description = localized.description,
   image = SITE.socialImage,
-  imageAlt = "Four à Nu, fours à pizza sources à l'appui",
+  imageAlt = shellCopy.defaultImageAlt,
   imageWidth = 1200,
   imageHeight = 630,
   canonical: canonicalOverride,
   indexable = false,
   pageType = "website",
-  authorName = SITE.editorialAuthor.name,
+  authorName = localized.editorialAuthor.name,
   authorUrl,
   articleSection,
   publishedAt,
   modifiedAt: modifiedAtOverride,
   schema,
+  alternatePaths: alternatePathsOverride,
 } = Astro.props;
 
 if (!title.trim()) throw new Error("BaseLayout exige un titre non vide.");
@@ -57,6 +74,17 @@ if (!description.trim()) throw new Error("BaseLayout exige une description non v
 const canonical = canonicalOverride === false
   ? undefined
   : new URL(canonicalOverride ?? Astro.url.pathname, SITE.url).toString();
+const alternatePaths = alternatePathsOverride === false
+  ? false
+  : alternatePathsOverride ?? alternatePathsForCurrentPath(Astro.url.pathname);
+const alternateUrls = alternatePaths === false
+  ? undefined
+  : Object.fromEntries(
+      LOCALES.map((alternateLocale) => [
+        alternateLocale,
+        new URL(alternatePaths[alternateLocale], SITE.url).toString(),
+      ]),
+    ) as Record<Locale, string>;
 const socialImage = new URL(image, SITE.url).toString();
 const socialTitle = socialTitleOverride ?? title.replace(/\s+\|\s+Four à Nu$/, "");
 const socialImageType = image.endsWith(".webp")
@@ -68,9 +96,12 @@ const allowIndexing = INDEXING_ENABLED && indexable;
 const robots = allowIndexing
   ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   : "noindex, follow";
-const fixedRouteModifiedAt = FIXED_INDEXABLE_ROUTES.find(
-  (route) => route.path === Astro.url.pathname,
-)?.modified;
+const fixedRouteId = staticRouteIdFromPath(Astro.url.pathname);
+const fixedRouteModifiedAt = fixedRouteId
+  ? FIXED_INDEXABLE_ROUTES.find(
+      (route) => route.path === staticRoute(fixedRouteId, "fr"),
+    )?.modified
+  : undefined;
 const modifiedAt = modifiedAtOverride ?? fixedRouteModifiedAt;
 const articleModifiedTime = modifiedAt
   ? new Date(modifiedAt).toISOString()
@@ -89,7 +120,7 @@ const pageSchema = canonical
       url: canonical,
       name: socialTitle,
       description,
-      inLanguage: SITE.language,
+      inLanguage: localeInfo.htmlLanguage,
       isPartOf: { "@id": `${SITE.url}/#website` },
       primaryImageOfPage: {
         "@type": "ImageObject",
@@ -109,7 +140,7 @@ const serializedPageSchema = pageSchema
 ---
 
 <!doctype html>
-<html lang={SITE.language} prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+<html lang={localeInfo.htmlLanguage} prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -120,17 +151,28 @@ const serializedPageSchema = pageSchema
     <meta name="description" content={description} />
     <meta name="author" content={authorName} />
     {canonical && <link rel="canonical" href={canonical} />}
+    {alternateUrls && LOCALES.map((alternateLocale) => (
+      <link
+        rel="alternate"
+        hreflang={LOCALE_INFO[alternateLocale].htmlLanguage}
+        href={alternateUrls[alternateLocale]}
+      />
+    ))}
+    {alternateUrls && <link rel="alternate" hreflang="x-default" href={alternateUrls.fr} />}
     <link rel="icon" href="/favicon-fouranu-v2.svg" type="image/svg+xml" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon-v2.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="image_src" href={socialImage} />
-    <link rel="alternate" type="application/rss+xml" title="Four à Nu" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Four à Nu" href={feedPath(locale)} />
     <link rel="preload" href={sansRegularWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={condensedSemiboldWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
 
     <meta property="og:type" content={pageType} />
     <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:locale" content={localeInfo.openGraphLocale} />
+    {LOCALES.filter((alternateLocale) => alternateLocale !== locale).map((alternateLocale) => (
+      <meta property="og:locale:alternate" content={LOCALE_INFO[alternateLocale].openGraphLocale} />
+    ))}
     <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
@@ -147,7 +189,7 @@ const serializedPageSchema = pageSchema
       <meta property="article:published_time" content={articlePublishedTime} />
     )}
     {pageType === "article" && (
-      <meta property="article:author" content={authorUrl ?? new URL(SITE.editorialAuthor.url, SITE.url).toString()} />
+      <meta property="article:author" content={authorUrl ?? new URL(localized.editorialAuthor.url, SITE.url).toString()} />
     )}
     {pageType === "article" && articleSection && (
       <meta property="article:section" content={articleSection} />
@@ -163,12 +205,12 @@ const serializedPageSchema = pageSchema
     {serializedSchema && <script is:inline type="application/ld+json" set:html={serializedSchema} />}
   </head>
   <body>
-    <a class="skip-link" href="#contenu">Aller au contenu</a>
-    <SiteHeader />
+    <a class="skip-link" href="#contenu">{shellCopy.skipLink}</a>
+    <SiteHeader locale={locale} alternatePaths={alternatePaths || alternatePathsForCurrentPath(Astro.url.pathname)} />
     <main id="contenu">
       <slot />
-      {canonical && <ShareActions title={socialTitle} description={description} url={canonical} />}
+      {canonical && <ShareActions locale={locale} title={socialTitle} description={description} url={canonical} />}
     </main>
-    <SiteFooter />
+    <SiteFooter locale={locale} alternatePaths={alternatePaths || alternatePathsForCurrentPath(Astro.url.pathname)} />
   </body>
 </html>

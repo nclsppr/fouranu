@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticAlternates, staticRoute, type Locale } from "@/i18n/config";
+
+interface Props {
+  locale: Exclude<Locale, "fr">;
+}
+
+const { locale } = Astro.props;
+const copy = locale === "en"
+  ? {
+      title: "Page not found | Four à Nu",
+      description: "This page does not exist or has moved.",
+      heading: "This page is not on the workbench.",
+      body: "The address may be incorrect, or the guide has not been opened yet.",
+      nav: "Shortcuts after the error",
+      home: "Return home",
+      ooni: "Explore Ooni guides",
+      gozney: "View Gozney guides",
+    }
+  : {
+      title: "Seite nicht gefunden | Four à Nu",
+      description: "Diese Seite existiert nicht oder wurde verschoben.",
+      heading: "Diese Seite liegt nicht auf der Werkbank.",
+      body: "Die Adresse ist möglicherweise falsch, oder der Ratgeber wurde noch nicht angelegt.",
+      nav: "Weiterführende Links nach dem Fehler",
+      home: "Zur Startseite",
+      ooni: "Ooni-Ratgeber ansehen",
+      gozney: "Gozney-Ratgeber ansehen",
+    };
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonical={false}
+  alternatePaths={staticAlternates("notFound")}
+  indexable={false}
+>
+  <section class="not-found page-shell">
+    <p class="eyebrow">Error 404</p>
+    <h1>{copy.heading}</h1>
+    <p>{copy.body}</p>
+    <nav class="not-found__links" aria-label={copy.nav}>
+      <a class="button-link" href={staticRoute("home", locale)}>{copy.home}</a>
+      <a class="button-link button-link--quiet" href={staticRoute("ooni", locale)}>{copy.ooni}</a>
+      <a class="button-link button-link--quiet" href={staticRoute("gozney", locale)}>{copy.gozney}</a>
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { min-height: 60vh; padding-block: clamp(5rem, 12vw, 10rem); }
+  .not-found h1 { max-width: 12ch; margin-bottom: 1.5rem; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.9; }
+  .not-found p:not(.eyebrow) { max-width: 36rem; margin-bottom: 2rem; color: var(--color-graphite); font-size: 1.1rem; line-height: 1.6; }
+  .not-found__links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+</style>

@@ -1,11 +1,39 @@
 ---
+import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
+import {
+  staticRoute,
+  type Locale,
+  type StaticRouteId,
+} from "@/i18n/config";
+import { SHELL_COPY } from "@/i18n/common";
+
+interface Props {
+  locale: Locale;
+  alternatePaths: Record<Locale, string>;
+}
+
+const { locale, alternatePaths } = Astro.props;
+const copy = SHELL_COPY[locale];
 const year = 2026;
+const footerLinks = [
+  { routeId: "method", label: copy.footerLinks.method },
+  { routeId: "corrections", label: copy.footerLinks.corrections },
+  { routeId: "transparency", label: copy.footerLinks.transparency },
+  { routeId: "privacy", label: copy.footerLinks.privacy },
+  { routeId: "legal", label: copy.footerLinks.legal },
+  { routeId: "contact", label: copy.footerLinks.contact },
+  { routeId: "about", label: copy.footerLinks.about },
+] as const satisfies readonly { routeId: StaticRouteId; label: string }[];
 ---
 
 <footer class="site-footer">
   <div class="page-shell site-footer__grid">
-    <div>
-      <a class="site-footer__brand" href="/" aria-label="Four à Nu, accueil">
+    <div class="site-footer__identity">
+      <a
+        class="site-footer__brand"
+        href={staticRoute("home", locale)}
+        aria-label={copy.homeAria}
+      >
         <img
           src="/brand/logo-fouranu.png"
           width="480"
@@ -14,30 +42,28 @@ const year = 2026;
           loading="lazy"
         />
       </a>
+      <LanguageSwitcher
+        locale={locale}
+        alternatePaths={alternatePaths}
+        variant="footer"
+      />
     </div>
 
     <div class="site-footer__state">
       <span class="proof-dot" aria-hidden="true"></span>
-      <p>
-        Média indépendant. Les données fabricant, mesures publiées et
-        observations tierces restent attribuées à leurs sources.
-      </p>
+      <p>{copy.footerState}</p>
     </div>
 
-    <nav class="site-footer__links" aria-label="Informations éditoriales">
-      <a href="/methode/">Méthode</a>
-      <a href="/corrections/">Corrections</a>
-      <a href="/transparence/">Transparence</a>
-      <a href="/confidentialite/">Confidentialité</a>
-      <a href="/mentions-legales/">Mentions légales</a>
-      <a href="/contact/">Contact</a>
-      <a href="/a-propos/">À propos</a>
+    <nav class="site-footer__links" aria-label={copy.footerNavAria}>
+      {footerLinks.map((item) => (
+        <a href={staticRoute(item.routeId, locale)}>{item.label}</a>
+      ))}
     </nav>
 
     <div class="site-footer__bottom">
-      <p class="site-footer__legal">© {year} Four à Nu · Média indépendant consacré aux fours à pizza et à leur matériel.</p>
+      <p class="site-footer__legal">© {year} Four à Nu · {copy.footerLegal}</p>
       <p class="site-footer__credit">
-        Édité avec amour du pâton par{" "}
+        {copy.footerCreditPrefix}{" "}
         <a href="https://nicolaspieper.com/" rel="author">NicolasPieper.com</a>
       </p>
     </div>

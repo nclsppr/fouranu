@@ -31,6 +31,7 @@ const { authorId, author } = Astro.props;
 const articles = (await getCollection("analyses"))
   .filter(
     (entry) =>
+      entry.data.locale === "fr" &&
       entry.data.author === authorId &&
       entry.data.status === "publishable" &&
       entry.data.indexable,
@@ -59,6 +60,8 @@ const schema = {
   url: canonical,
   name: author.name,
   description: author.description,
+  inLanguage: SITE.language,
+  isPartOf: { "@id": `${SITE.url}/#website` },
   mainEntity: {
     "@type": "Person",
     "@id": `${canonical}#person`,

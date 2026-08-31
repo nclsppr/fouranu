@@ -5,8 +5,11 @@ import {
   isAmazonLink,
   toAmazonAffiliateUrl,
 } from "@/lib/amazon-affiliate.mjs";
+import { LOCALE_INFO, type Locale } from "@/i18n/config";
+import { PROOF_COPY } from "@/i18n/common";
 
 interface Props {
+  locale?: Locale;
   evidenceIds: string[];
 }
 
@@ -102,7 +105,48 @@ for (const [index, values] of rows.entries()) {
   evidenceById.set(record.evidence_id, record);
 }
 
-const { evidenceIds } = Astro.props;
+const { locale = "fr", evidenceIds } = Astro.props;
+const copy = {
+  fr: {
+    eyebrow: "Références", title: "Sources de cet article", references: "références",
+    show: "Voir la liste", hide: "Masquer la liste",
+    intro: "Ouvrez une référence pour retrouver son lien, sa date de contrôle et, selon la nature de la source, l’observation publiable ou ses conditions.",
+    amazonIntro: "Les références Amazon.fr sont ouvertes via un lien affilié : un achat éligible peut rémunérer Four à Nu, sans modifier la source enregistrée ni notre lecture.",
+    checked: "Vérifié le", passage: "Passage", conditions: "Conditions :", relationships: "Relations signalées :",
+    source: "Ouvrir la source", amazonSource: "Ouvrir sur Amazon.fr — lien affilié",
+    amazonObservation: "Référence et fiche exacte contrôlées à la date indiquée. Relisez l’offre Amazon.fr avant toute commande : vendeur, variante, contenu et disponibilité peuvent évoluer.",
+    registryObservation: "",
+    originalObservation: "Observation :",
+    originalConditions: "Conditions :",
+    conclusion: (product: string) => `Conclusion sur ${product}`,
+  },
+  en: {
+    eyebrow: "References", title: "Sources for this article", references: "references",
+    show: "Show list", hide: "Hide list",
+    intro: "Open a reference to find its link, verification date, source class, confidence level and any recorded commercial relationship.",
+    amazonIntro: "Amazon.fr references open through an affiliate link: an eligible purchase may support Four à Nu without changing the recorded source or our interpretation.",
+    checked: "Checked", passage: "Passage", conditions: "Conditions:", relationships: "Disclosed relationships:",
+    source: "Open source", amazonSource: "Open on Amazon.fr — affiliate link",
+    amazonObservation: "The exact reference and listing were checked on the stated date. Recheck the Amazon.fr offer before ordering: seller, variant, contents and availability may change.",
+    registryObservation: "The source record and its original French observation remain preserved in the canonical evidence register. We do not silently translate that evidence note; this page translates the editorial analysis and links back to the source.",
+    originalObservation: "Original French observation:",
+    originalConditions: "Original French conditions:",
+    conclusion: (product: string) => `Conclusion about ${product}`,
+  },
+  de: {
+    eyebrow: "Referenzen", title: "Quellen dieses Artikels", references: "Referenzen",
+    show: "Liste anzeigen", hide: "Liste ausblenden",
+    intro: "Öffnen Sie eine Referenz, um Link, Prüfdatum, Quellenklasse, Vertrauensniveau und dokumentierte Geschäftsbeziehungen nachzuvollziehen.",
+    amazonIntro: "Referenzen zu Amazon.fr werden über einen Partnerlink geöffnet: Ein qualifizierter Kauf kann Four à Nu unterstützen, ohne die gespeicherte Quelle oder unsere Einordnung zu verändern.",
+    checked: "Geprüft am", passage: "Stelle", conditions: "Bedingungen:", relationships: "Offengelegte Beziehungen:",
+    source: "Quelle öffnen", amazonSource: "Auf Amazon.fr öffnen — Partnerlink",
+    amazonObservation: "Die genaue Referenz und das Angebot wurden am genannten Datum geprüft. Prüfen Sie vor einer Bestellung bei Amazon.fr erneut Verkäufer, Variante, Inhalt und Verfügbarkeit.",
+    registryObservation: "Der Quelldatensatz und seine ursprüngliche französische Beobachtung bleiben im kanonischen Evidenzregister erhalten. Diese Evidenznotiz wird nicht stillschweigend übersetzt; diese Seite übersetzt die redaktionelle Analyse und verlinkt die Quelle.",
+    originalObservation: "Französische Originalbeobachtung:",
+    originalConditions: "Französische Originalbedingungen:",
+    conclusion: (product: string) => `Schlussfolgerung zu ${product}`,
+  },
+}[locale];
 const uniqueIds = [...new Set(evidenceIds)];
 for (const evidenceId of uniqueIds) {
   if (!/^EV-\d{4}$/.test(evidenceId)) {
@@ -117,17 +161,11 @@ const citedEvidence = uniqueIds.map((evidenceId) => {
 });
 const hasAmazonSource = citedEvidence.some((record) => isAmazonLink(record.source_url));
 
-const classLabels: Record<string, string> = {
-  FAB: "Donnée fabricant",
-  "T-MES": "Mesure tierce",
-  "T-OBS": "Observation tierce",
-  "FAN-SYN": "Synthèse Four à Nu",
-  "FAN-INF": "Conclusion Four à Nu",
-};
-const confidenceLabels: Record<string, string> = {
-  high: "confiance haute",
-  medium: "confiance moyenne",
-  low: "confiance faible",
+const classLabels: Record<string, string> = PROOF_COPY[locale].names;
+const confidenceLabels: Record<string, Record<string, string>> = {
+  fr: { high: "confiance haute", medium: "confiance moyenne", low: "confiance faible" },
+  en: { high: "high confidence", medium: "medium confidence", low: "low confidence" },
+  de: { high: "hohe Sicherheit", medium: "mittlere Sicherheit", low: "geringe Sicherheit" },
 };
 const relationshipLabels: Record<string, string> = {
   affiliate: "liens affiliés",
@@ -156,7 +194,7 @@ const relationshipLabels: Record<string, string> = {
   "tread-purchased-by-publisher": "Tread acheté par la source",
   "unit-origin-not-disclosed": "origine de l'unité non précisée",
 };
-const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
+const dateFormatter = new Intl.DateTimeFormat(LOCALE_INFO[locale].intlLocale, {
   day: "2-digit",
   month: "long",
   year: "numeric",
@@ -194,7 +232,7 @@ function sourceHref(record: Evidence) {
 function sourceTitle(record: Evidence) {
   if (record.source_title) return record.source_title;
   if (record.source_type === "fouranu") {
-    return `Conclusion sur ${record.product_version}`;
+    return copy.conclusion(record.product_version);
   }
   return record.product_version;
 }
@@ -210,6 +248,17 @@ function relationships(record: Evidence) {
     .split(";")
     .filter(Boolean)
     .map((value) => {
+      if (locale === "en") return value.replaceAll("-", " ");
+      if (locale === "de") {
+        if (/self-purchased|purchased-by/.test(value)) return "von der Quelle gekauftes Gerät";
+        if (/not-disclosed/.test(value)) return "Bereitstellung oder Sponsoring nicht offengelegt";
+        if (/no-loan|not-detected/.test(value)) return "kein Darlehen oder Sponsoring festgestellt";
+        if (/paid|promotion/.test(value)) return "bezahlte Partnerschaft oder Werbung";
+        if (/supplied|loaned|review-unit/.test(value)) return "vom Hersteller bereitgestelltes oder geliehenes Gerät";
+        if (/ambassador|collaboration/.test(value)) return "Zusammenarbeit oder Markenbeziehung";
+        if (/affiliate|merchant|promo-code|tracked/.test(value)) return "kommerzielle Links oder Aktivität";
+        if (value === "launch-exclusivity") return "kommerzielle Exklusivität zum Marktstart";
+      }
       const label = relationshipLabels[value];
       if (!label) throw new Error(`Relation éditoriale sans libellé public : ${value}.`);
       return label;
@@ -222,24 +271,21 @@ function relationships(record: Evidence) {
     <details class="cited-sources__disclosure">
       <summary class="cited-sources__summary">
         <span class="cited-sources__heading">
-          <span class="eyebrow">Références</span>
-          <h2 id="cited-sources-title">Sources de cet article</h2>
+          <span class="eyebrow">{copy.eyebrow}</span>
+          <h2 id="cited-sources-title">{copy.title}</h2>
         </span>
         <span class="cited-sources__toggle">
-          <span>{citedEvidence.length} références</span>
-          <span class="cited-sources__action cited-sources__action--closed">Voir la liste</span>
-          <span class="cited-sources__action cited-sources__action--open">Masquer la liste</span>
+          <span>{citedEvidence.length} {copy.references}</span>
+          <span class="cited-sources__action cited-sources__action--closed">{copy.show}</span>
+          <span class="cited-sources__action cited-sources__action--open">{copy.hide}</span>
         </span>
       </summary>
 
       <p class="cited-sources__intro">
-        Ouvrez une référence pour retrouver son lien, sa date de contrôle et,
-        selon la nature de la source, l’observation publiable ou ses conditions.
+        {copy.intro}
         {hasAmazonSource && (
           <span>
-            {" "}Les références Amazon.fr sont ouvertes via un lien affilié :
-            un achat éligible peut rémunérer Four à Nu, sans modifier la source
-            enregistrée ni notre lecture.
+            {" "}{copy.amazonIntro}
           </span>
         )}
       </p>
@@ -264,30 +310,44 @@ function relationships(record: Evidence) {
                 </summary>
                 <div class="cited-source__detail">
                   <p class="cited-source__checked">
-                    Vérifié le <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
+                    {copy.checked} <time datetime={record.checked_on}>{formatDate(record.checked_on)}</time>
                     {record.timecode_start && (
                       <span>
-                        · Passage {record.timecode_start}
+                        · {copy.passage} {record.timecode_start}
                         {record.timecode_end && `–${record.timecode_end}`}
                       </span>
                     )}
-                    <span> · {confidenceLabels[record.confidence] ?? record.confidence}</span>
+                    <span> · {confidenceLabels[locale][record.confidence] ?? record.confidence}</span>
                   </p>
                   {amazonSource ? (
                     <p class="cited-source__observation">
-                      Référence et fiche exacte contrôlées à la date indiquée.
-                      Relisez l’offre Amazon.fr avant toute commande : vendeur,
-                      variante, contenu et disponibilité peuvent évoluer.
+                      {copy.amazonObservation}
                     </p>
+                  ) : locale !== "fr" ? (
+                    <>
+                      <p class="cited-source__registry-note">{copy.registryObservation}</p>
+                      {record.observation && (
+                        <p class="cited-source__observation" lang="fr">
+                          <strong>{copy.originalObservation}</strong> {record.observation}
+                        </p>
+                      )}
+                      {record.conditions && (
+                        <p class="cited-source__conditions" lang="fr">
+                          <strong>{copy.originalConditions}</strong> {record.conditions}
+                        </p>
+                      )}
+                    </>
                   ) : (
-                    <p class="cited-source__observation">{record.observation}</p>
+                    <p class="cited-source__observation">
+                      {record.observation}
+                    </p>
                   )}
-                  {!amazonSource && record.conditions && (
-                    <p class="cited-source__conditions"><strong>Conditions :</strong> {record.conditions}</p>
+                  {locale === "fr" && !amazonSource && record.conditions && (
+                    <p class="cited-source__conditions"><strong>{copy.conditions}</strong> {record.conditions}</p>
                   )}
                   {relationshipNotes.length > 0 && (
                     <p class="cited-source__relationships">
-                      <strong>Relations signalées :</strong> {relationshipNotes.join(" · ")}
+                      <strong>{copy.relationships}</strong> {relationshipNotes.join(" · ")}
                     </p>
                   )}
                   {href && (
@@ -297,7 +357,7 @@ function relationships(record: Evidence) {
                       rel={affiliateRel(href)}
                       data-affiliate={affiliate ? "amazon" : undefined}
                     >
-                      {affiliate ? "Ouvrir sur Amazon.fr — lien affilié" : "Ouvrir la source"}
+                      {affiliate ? copy.amazonSource : copy.source}
                       {" "}<span aria-hidden="true">↗</span>
                     </a>
                   )}
@@ -482,6 +542,7 @@ function relationships(record: Evidence) {
   }
 
   .cited-source__observation,
+  .cited-source__registry-note,
   .cited-source__conditions,
   .cited-source__relationships {
     grid-column: 2;
@@ -493,8 +554,14 @@ function relationships(record: Evidence) {
   }
 
   .cited-source__conditions,
+  .cited-source__registry-note,
   .cited-source__relationships {
     font-size: 0.75rem;
+  }
+
+  .cited-source__registry-note {
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--color-probe);
   }
 
   .cited-source__conditions strong,

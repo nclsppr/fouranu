@@ -12,10 +12,19 @@ justifiée dans le dossier de l'article. La validation éditoriale n'autorise ni
 la mise en production, ni le DNS, ni l'affiliation : ces activations restent des
 tranches séparées.
 
+L'extension française, anglaise et allemande est actuellement un candidat local
+non publié. Une gate verte ne vaut pas feu vert : la publication et l'indexation
+restent soumises à l'autorisation du paquet et du SHA exacts.
+
 ## Fiche de contrôle
 
 - Article ID :
+- Identifiant stable de la page ou de la grappe :
+- Langue contrôlée : `fr`, `en` ou `de`
 - URL canonique prévue :
+- URL des contreparties FR, EN et DE :
+- Destination `x-default` : version française sans préfixe
+- Portée linguistique de chaque média :
 - Responsable éditorial :
 - Relecteur :
 - Date de contrôle :
@@ -44,6 +53,9 @@ tranches séparées.
   redirection sont décidées avant rédaction.
 - [ ] L'URL est courte, descriptive, stable et sans année sauf nécessité
   éditoriale durable.
+- [ ] Une traduction partage l'identifiant stable, l'intention et les preuves de
+  sa page source. Elle est traitée comme une contrepartie linguistique et non
+  comme une page concurrente lorsque ses alternates réciproques sont complets.
 
 ## 2. Titre, H1 et description
 
@@ -103,6 +115,12 @@ tranches séparées.
   visibles. Aucun écart n'est corrigé silencieusement.
 - [ ] Le catalogue, la génération du produit et les liens externes ont été
   revérifiés à la date inscrite dans l'article.
+- [ ] Les trois versions conservent les mêmes identifiants de preuve, valeurs,
+  unités, dates, URLs, timecodes, attributions et limites. Le registre canonique
+  n'est ni dupliqué ni réécrit pour produire une traduction.
+- [ ] Une `observation` ou des `conditions` canoniques ne sont pas traduites
+  silencieusement. Hors français, elles restent dans leur langue enregistrée et
+  une note visible explique que le relevé canonique est conservé en français.
 
 ## 5. Frontière documentaire actuelle et ambition future
 
@@ -145,6 +163,12 @@ tranches séparées.
   parce qu'un outil peut le générer à grande échelle.
 - [ ] L'article a été relu pour la langue, les unités, la cohérence des noms et
   l'absence de promesse dépassant le niveau de preuve.
+- [ ] La traduction a été relue comme un texte naturel dans sa langue et comparée
+  à la version française pour exclure tout test, expérience, mesure, notation ou
+  portée territoriale ajoutés.
+- [ ] L'anglais et l'allemand parlent du marché français ; ils ne transforment pas
+  une langue en disponibilité au Royaume-Uni, en Allemagne ou dans un autre
+  territoire.
 
 ## 7. Maillage, entités et confiance
 
@@ -152,6 +176,9 @@ tranches séparées.
   descriptive.
 - [ ] Elle renvoie vers les pages internes qui résolvent une étape voisine de la
   décision, sans multiplier les liens artificiels.
+- [ ] Les liens internes ciblent la route de la langue courante. Le sélecteur est
+  le seul passage systématique entre langues et vise la contrepartie exacte,
+  jamais l'accueil comme repli.
 - [ ] Les ancres indiquent le sujet de la destination. Les formulations comme
   « cliquez ici » sont exclues.
 - [ ] Chaque page importante reçoit au moins un lien HTML contextuel depuis une
@@ -175,15 +202,25 @@ tranches séparées.
 - [ ] La page rend un seul H1 et une hiérarchie d'intertitres valide.
 - [ ] Le titre HTML, la description, l'URL canonique et les directives robots
   ont été vérifiés dans le HTML construit, pas seulement dans le Markdown.
+- [ ] Le document porte le bon `lang` ; son canonical est auto-référent et ne
+  canonise pas une traduction vers le français.
+- [ ] Chaque page d'une grappe complète déclare réciproquement les alternates
+  `fr`, `en` et `de`, y compris elle-même, et `x-default` cible la version
+  française sans préfixe.
 - [ ] L'aperçu social reprend le titre, la description et l'URL canonique de la
   page. Son image est pertinente pour cette URL, accessible sur une URL HTTPS
   absolue de l'origine canonique et déclarée avec son type, ses dimensions
   réelles et un texte alternatif descriptif.
+- [ ] `og:locale`, les `og:locale:alternate` et `og:url` correspondent à la
+  langue, aux contreparties et au canonical rendus.
 - [ ] Le favicon carré reste lisible aux petites tailles et utilise une URL
   stable. Les déclarations `rel="icon"`, `apple-touch-icon` et le manifeste web
   pointent vers des fichiers accessibles dont les types et dimensions annoncés
   correspondent aux fichiers servis.
 - [ ] Pendant la prépublication, la page reste `noindex` et absente du sitemap.
+- [ ] Le sélecteur de langue contient des liens HTML exacts et reste utilisable
+  sans JavaScript. Aucun cookie, stockage client, `Accept-Language`, adresse IP
+  ou géolocalisation ne déclenche de redirection automatique.
 - [ ] Le contenu principal et les liens sont présents dans le HTML rendu et ne
   dépendent pas d'une interaction ou d'un script fragile.
 - [ ] Les liens internes répondent, les sources externes décisives sont encore
@@ -191,12 +228,19 @@ tranches séparées.
 - [ ] Le fichier public `/llms.txt` présente les parcours, la méthode, les
   dossiers indexables et les index publics sans exposer de brouillon, de donnée
   Amazon volatile ni de lien affilié.
+- [ ] `/llms.txt`, `/en/llms.txt` et `/de/llms.txt` ne listent que les parcours
+  publics de leur langue ; `/rss.xml`, `/en/rss.xml` et `/de/rss.xml` utilisent
+  les titres et canonical de leur langue et ne contiennent aucun article en
+  preview.
 - [ ] Les données structurées décrivent uniquement le contenu visible. Aucun
   balisage `Review` ou `AggregateRating` n'est présent.
 - [ ] Un dossier éditorial expose un objet `Article` et une page structurelle un
   objet `WebPage` ou un sous-type adapté. Leur URL, `mainEntityOfPage`, auteur,
   dates et image, lorsqu'ils s'appliquent, concordent avec le canonique, les
   métadonnées sociales et le contenu visible.
+- [ ] Les schémas portent le bon `inLanguage`. Le sitemap unique ne contient que
+  les URL indexables et déclare des alternates réciproques pour les grappes
+  complètes ; `robots.txt` annonce ce sitemap et respecte le mode preview.
 - [ ] Les actions de partage transmettent strictement l'URL canonique absolue,
   sans paramètres ni fragment. La feuille native n'est proposée que comme une
   amélioration progressive lorsque le navigateur la prend en charge ; un repli
@@ -224,6 +268,9 @@ tranches séparées.
   déclaré dans `commercialObjects` et possède un contrôle Amazon.fr daté dans
   `site/src/data/commercial-objects.mjs`, relié à une preuve sans tracking dans
   `research/evidence.csv` avec territoire, statut et dossier canonique.
+- [ ] Dans les trois langues, le territoire reste la France et les liens
+  autorisés restent ceux des fabricants et d'Amazon.fr. Aucun lien Amazon UK,
+  Amazon.de ou autre marchand local n'est substitué en fonction de la langue.
 - [ ] La liste `commercialObjects` de chaque article correspond exactement à
   sa couverture déclarée dans le registre ; toute fiche produit marchande porte
   son identifiant d’objet et tout lien de gamme est qualifié comme collection.
@@ -234,6 +281,10 @@ tranches séparées.
   interne n’est rendu dans le HTML statique.
 - [ ] Le détenteur de droits, l'autorisation, les transformations et le crédit
   de chaque média sont enregistrés.
+- [ ] La permission enregistrée couvre explicitement la langue de la page. Un
+  média limité au français est absent des pages anglaises et allemandes, y
+  compris de leur en-tête et aperçu social ; aucun cadre, légende ou texte
+  alternatif orphelin ne reste dans le rendu.
 
 ## 10. Autorisation finale
 
@@ -243,13 +294,17 @@ tranches séparées.
   après la dernière modification.
 - [ ] Le propriétaire du projet a autorisé explicitement le passage de cette URL
   au statut `publishable` et son inclusion dans le candidat Cloudflare exact.
+- [ ] Pour une grappe traduite, l'autorisation nomme les trois URL, les textes,
+  les médias, les liens marchands, les métadonnées et le SHA exacts. Le feu vert
+  d'une ancienne URL française ne couvre pas automatiquement EN ou DE.
 - [ ] `indexable: true` n'apparaît que sur une page `publishable`. Le mode preview
   continue de produire `noindex` et de l'exclure du sitemap.
 - [ ] Le candidat Cloudflare, son SHA et la liste exacte des URL autorisées sont
   consignés. Le premier déploiement, le domaine personnalisé, le DNS et
   l'indexation restent quatre décisions séparées.
-- [ ] Après publication, le canonique, les robots, le sitemap, le statut HTTP et
-  le contenu public ont été contrôlés sur l'URL réelle.
+- [ ] Après publication, le canonical, les hreflang, Open Graph, les schémas, les
+  robots, le sitemap, les trois RSS, les trois `llms.txt`, le statut HTTP et le
+  contenu public ont été contrôlés sur les URL réelles.
 - [ ] Toute soumission à Google, Bing ou IndexNow intervient seulement après ces
   contrôles et dans une activation autorisée.
 
@@ -265,13 +320,21 @@ tranches séparées.
 | Une page contient une note, `Review` ou `AggregateRating` | Bloqué |
 | `indexable: true` apparaît sur une page qui n'est pas `publishable` | Bloqué |
 | Une source décisive, un lien interne ou le canonique est cassé | Bloqué |
+| Un identifiant n'a pas exactement une route FR, EN et DE, ou le sélecteur ne cible pas la contrepartie exacte | Bloqué |
+| Le changement de langue dépend de JavaScript, redirige automatiquement ou retombe sur un accueil sans contrepartie | Bloqué |
+| Les hreflang ne sont pas réciproques, `x-default` ne cible pas le français ou une traduction canonise vers une autre langue | Bloqué |
+| Open Graph, `inLanguage`, sitemap, RSS, `llms.txt` ou robots contredisent la langue, le canonical ou l'état d'indexation | Bloqué |
+| Une traduction modifie les identifiants, valeurs, URLs, timecodes, observation ou conditions canoniques sans mécanisme attesté | Bloqué |
+| Une observation ou des conditions conservées en français sont affichées hors français sans note transparente | Bloqué |
 | Un média tiers n'a pas d'autorisation ou de licence vérifiable | Bloqué |
+| Un média est publié dans une langue non couverte par sa permission enregistrée | Bloqué |
 | Une donnée structurée ne correspond pas au contenu visible | Bloqué |
 | L'aperçu social emploie une image absente, inaccessible ou incohérente avec son canonique | Bloqué |
 | Le favicon, l'icône tactile ou le manifeste annonce un fichier absent ou des dimensions fausses | Bloqué |
 | Une action de partage diffuse une URL non canonique ou promet une destination que le navigateur ne garantit pas | Bloqué |
 | Un produit commercial déclaré manque au registre Amazon, ou une offre `available` n’a pas de lien exact et qualifié | Bloqué |
 | La couverture article–objet diverge du registre ou une vérification Amazon n’a pas de preuve datée et territorialisée | Bloqué |
+| Une page EN ou DE change le territoire France ou substitue Amazon UK, Amazon.de ou un autre marchand | Bloqué |
 | Le rendu public recopie un prix, un stock, une promotion, une note ou un avis Amazon statique | Bloqué |
 | La construction Astro échoue | Bloqué |
 

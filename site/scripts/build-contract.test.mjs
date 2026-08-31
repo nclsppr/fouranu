@@ -15,6 +15,13 @@ import {
   COMMERCIAL_OBJECTS,
   amazonAffiliateUrlForObject,
 } from "../src/data/commercial-objects.mjs";
+import {
+  ARTICLE_ROUTES,
+  LOCALES,
+  LOCALE_INFO,
+  STATIC_ROUTES,
+  articleRoute,
+} from "../src/i18n/config.ts";
 
 const execFileAsync = promisify(execFile);
 const siteRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -130,8 +137,15 @@ async function filesRecursively(directory) {
 }
 
 async function htmlPages(directory = dist) {
+  return (await allHtmlPages(directory)).filter(
+    (page) => !page.route?.startsWith("/en/") && !page.route?.startsWith("/de/"),
+  );
+}
+
+async function allHtmlPages(directory = dist) {
   const files = (await filesRecursively(directory))
     .filter((file) => file.endsWith(".html"))
+    .filter((file) => !/^(?:en|de)\/404\.html$/.test(relative(directory, file).split(sep).join("/")))
     .sort();
   return Promise.all(
     files.map(async (file) => ({
@@ -400,7 +414,10 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
       );
       const href = attribute(opening, "href");
       if (href?.startsWith("/")) {
-        assert.equal(await routeExists(href), true, `${label}: lien interne cassé ${href}`);
+        const reservedNotFoundTarget = page.route === null && Object.values(STATIC_ROUTES.notFound).includes(href);
+        if (!reservedNotFoundTarget) {
+          assert.equal(await routeExists(href), true, `${label}: lien interne cassé ${href}`);
+        }
       }
     }
     for (const image of tags(page.html, "img")) {
@@ -470,6 +487,252 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     );
     assert.ok(Buffer.byteLength(page.html) < 80_000, `${label}: HTML supérieur à 80 Ko`);
 
+  }
+});
+
+test("les trois langues gardent une parité de routes, de métadonnées et de navigation", async () => {
+  const pages = await allHtmlPages();
+  const pageByRoute = new Map(pages.map((page) => [page.route, page]));
+  const fixedRouteIds = Object.keys(STATIC_ROUTES).filter((routeId) => routeId !== "notFound");
+  const expectedIndexableRoutes = [
+    ...fixedRouteIds.flatMap((routeId) => LOCALES.map((locale) => STATIC_ROUTES[routeId][locale])),
+    ...Object.keys(ARTICLE_ROUTES).flatMap((articleId) =>
+      LOCALES.map((locale) => articleRoute(articleId, locale))
+    ),
+  ];
+  const expectedNotFoundRoutes = [null, "/en/404/", "/de/404/"];
+
+  assert.equal(expectedIndexableRoutes.length, 117);
+  assert.equal(pages.length, expectedIndexableRoutes.length + expectedNotFoundRoutes.length);
+  assert.equal(new Set(expectedIndexableRoutes).size, expectedIndexableRoutes.length);
+
+  for (const route of [...expectedIndexableRoutes, ...expectedNotFoundRoutes]) {
+    assert.ok(pageByRoute.has(route), `${route ?? "/404.html"}: page localisée absente`);
+  }
+
+  const clusters = [
+    ...fixedRouteIds.map((routeId) => STATIC_ROUTES[routeId]),
+    ...Object.keys(ARTICLE_ROUTES).map((articleId) =>
+      Object.fromEntries(LOCALES.map((locale) => [locale, articleRoute(articleId, locale)]))
+    ),
+  ];
+
+  for (const cluster of clusters) {
+    for (const locale of LOCALES) {
+      const route = cluster[locale];
+      const page = pageByRoute.get(route);
+      assert.ok(page, `${route}: contrepartie absente`);
+      const label = route;
+      assert.match(
+        page.html,
+        new RegExp(`<html lang="${LOCALE_INFO[locale].htmlLanguage}"`),
+        `${label}: langue HTML incorrecte`,
+      );
+      assert.deepEqual(linkHref(page.html, "canonical"), [`${canonicalOrigin}${route}`], label);
+      assert.equal(metaContent(page.html, "og:locale"), LOCALE_INFO[locale].openGraphLocale, label);
+
+      const languageAlternates = tags(page.html, "link")
+        .filter((tag) => attribute(tag, "rel") === "alternate" && attribute(tag, "hreflang"))
+        .map((tag) => [attribute(tag, "hreflang"), attribute(tag, "href")]);
+      assert.deepEqual(
+        languageAlternates,
+        [
+          ["fr", `${canonicalOrigin}${cluster.fr}`],
+          ["en", `${canonicalOrigin}${cluster.en}`],
+          ["de", `${canonicalOrigin}${cluster.de}`],
+          ["x-default", `${canonicalOrigin}${cluster.fr}`],
+        ],
+        `${label}: cluster hreflang incomplet ou non réciproque`,
+      );
+
+      const ogAlternates = tags(page.html, "meta")
+        .filter((tag) => attribute(tag, "property") === "og:locale:alternate")
+        .map((tag) => attribute(tag, "content"));
+      assert.deepEqual(
+        ogAlternates,
+        LOCALES.filter((candidate) => candidate !== locale)
+          .map((candidate) => LOCALE_INFO[candidate].openGraphLocale),
+        `${label}: alternates Open Graph incorrects`,
+      );
+
+      const switchers = pairedElements(page.html, "nav").filter((nav) =>
+        hasClass(`<nav${nav[1]}>`, "language-switcher")
+      );
+      assert.equal(switchers.length, 2, `${label}: switcher attendu dans header et footer`);
+      for (const switcher of switchers) {
+        const links = pairedElements(switcher[2], "a");
+        assert.deepEqual(
+          links.map((link) => [
+            visibleText(link[2]),
+            attribute(`<a${link[1]}>`, "href"),
+            attribute(`<a${link[1]}>`, "hreflang"),
+            attribute(`<span${pairedElements(link[2], "span")[0]?.[1] ?? ""}>`, "lang"),
+          ]),
+          LOCALES.map((candidate) => [
+            candidate.toUpperCase(),
+            cluster[candidate],
+            LOCALE_INFO[candidate].htmlLanguage,
+            LOCALE_INFO[candidate].htmlLanguage,
+          ]),
+          `${label}: le switcher ne conserve pas la page équivalente`,
+        );
+        const current = links.filter((link) => attribute(`<a${link[1]}>`, "aria-current") === "page");
+        assert.equal(current.length, 1, `${label}: langue active ambiguë`);
+        assert.equal(visibleText(current[0][2]), locale.toUpperCase(), label);
+      }
+
+      const feedLinks = tags(page.html, "link")
+        .filter((tag) => attribute(tag, "rel") === "alternate" && attribute(tag, "type") === "application/rss+xml")
+        .map((tag) => attribute(tag, "href"));
+      assert.deepEqual(feedLinks, [locale === "fr" ? "/rss.xml" : `/${locale}/rss.xml`], label);
+
+      const relevantSchemas = schemaNodes(jsonLdDocuments(page.html)).filter((node) =>
+        ["WebPage", "CollectionPage", "ProfilePage", "Article"].includes(node["@type"])
+      );
+      assert.ok(relevantSchemas.length >= 1, `${label}: schéma principal absent`);
+      assert.ok(
+        relevantSchemas.every((node) => node.inLanguage === locale),
+        `${label}: langue du schéma incohérente`,
+      );
+      const pageSchemas = relevantSchemas.filter((node) =>
+        ["WebPage", "CollectionPage", "ProfilePage"].includes(node["@type"])
+      );
+      const webPages = pageSchemas.filter((node) => node["@type"] === "WebPage");
+      assert.equal(webPages.length, 1, `${label}: schéma WebPage absent ou dupliqué`);
+      assert.equal(webPages[0]["@id"], `${canonicalOrigin}${route}`, `${label}: identité WebPage incohérente`);
+      assert.equal(
+        new Set(pageSchemas.map((node) => node["@id"])).size,
+        pageSchemas.length,
+        `${label}: identités de page structurée dupliquées`,
+      );
+      for (const pageSchema of pageSchemas) {
+        assert.equal(pageSchema.isPartOf?.["@id"], `${canonicalOrigin}/#website`, `${label}: WebSite parent incohérent`);
+      }
+
+      const htmlWithoutSwitchers = page.html.replace(
+        /<nav\b[^>]*class="[^"]*language-switcher[^"]*"[^>]*>[\s\S]*?<\/nav>/gi,
+        "",
+      );
+      if (locale !== "fr") {
+        for (const anchor of pairedElements(htmlWithoutSwitchers, "a")) {
+          const href = attribute(`<a${anchor[1]}>`, "href");
+          if (!href?.startsWith("/") || href.startsWith("/_astro/") || href.startsWith("/images/")) continue;
+          assert.ok(
+            href.startsWith(`/${locale}/`) || href === `/${locale}/`,
+            `${label}: fuite de lien interne vers une autre langue (${href})`,
+          );
+        }
+        assert.doesNotMatch(
+          visibleText(page.html),
+          /Aller au contenu|Navigation principale|Partager cette page|Sources de cet article|Où l’acheter/,
+          `${label}: copie d’interface française résiduelle`,
+        );
+      }
+    }
+  }
+
+  for (const locale of ["en", "de"]) {
+    for (const articleId of Object.keys(ARTICLE_ROUTES)) {
+      const route = articleRoute(articleId, locale);
+      const page = pageByRoute.get(route);
+      assert.ok(page, route);
+      assert.doesNotMatch(page.html, /class="article-lead-media"/, `${route}: média éditorial non autorisé`);
+      assert.equal(metaContent(page.html, "og:image"), defaultSocialImage, route);
+      assert.match(page.html, /class="cited-source__registry-note"/, `${route}: note sur la preuve canonique absente`);
+      assert.match(page.html, /class="cited-source__observation" lang="fr"/, `${route}: observation canonique française masquée`);
+    }
+    assert.equal(await routeExists(`/${locale}/404.html`), true, `/${locale}/404.html: repli Cloudflare absent`);
+    const notFound = pageByRoute.get(`/${locale}/404/`);
+    assert.deepEqual(linkHref(notFound.html, "canonical"), [], `/${locale}/404/: canonique interdit`);
+    assert.equal(pairedElements(notFound.html, "section").some((section) => /data-share-root/.test(section[1])), false);
+  }
+
+  const notFoundPages = {
+    fr: pageByRoute.get(null),
+    en: pageByRoute.get("/en/404/"),
+    de: pageByRoute.get("/de/404/"),
+  };
+  for (const locale of LOCALES) {
+    const page = notFoundPages[locale];
+    assert.ok(page, `${locale}: 404 localisée absente`);
+    const switchers = pairedElements(page.html, "nav").filter((nav) =>
+      hasClass(`<nav${nav[1]}>`, "language-switcher")
+    );
+    assert.equal(switchers.length, 2, `${locale}: switchers 404 absents`);
+    for (const switcher of switchers) {
+      assert.deepEqual(
+        pairedElements(switcher[2], "a").map((link) => attribute(`<a${link[1]}>`, "href")),
+        LOCALES.map((candidate) => STATIC_ROUTES.notFound[candidate]),
+        `${locale}: le switcher 404 doit conserver un statut 404`,
+      );
+    }
+  }
+});
+
+test("les traductions conservent les identifiants, preuves et frontières éditoriales", async () => {
+  const analysisRoot = join(siteRoot, "src/content/analyses");
+  const markdownFiles = async (directory) =>
+    (await readdir(directory)).filter((file) => file.endsWith(".md")).sort();
+  const frontmatter = (markdown, label) => {
+    const value = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
+    assert.ok(value, `${label}: frontmatter absent`);
+    return value;
+  };
+  const scalar = (yaml, field) => yaml.match(new RegExp(`^${field}:\\s*(.+)$`, "m"))?.[1]?.trim();
+  const nestedScalar = (yaml, field) => yaml.match(new RegExp(`^  ${field}:\\s*(.+)$`, "m"))?.[1]?.trim();
+  const listBlock = (yaml, field) => yaml.match(new RegExp(`^${field}:\\s*\\n((?:  - .+(?:\\n|$))+)`, "m"))?.[1]?.trim();
+  const immutableScalars = [
+    "articleId", "brand", "category", "heroTreatment", "status", "type", "author",
+    "commercialObjects", "publishedAt", "updatedAt", "indexable", "evidenceIds",
+  ];
+
+  const frenchFiles = await markdownFiles(analysisRoot);
+  assert.equal(frenchFiles.length, 23);
+  const frenchByArticleId = new Map();
+  for (const file of frenchFiles) {
+    const markdown = await readFile(join(analysisRoot, file), "utf8");
+    const yaml = frontmatter(markdown, file);
+    frenchByArticleId.set(scalar(yaml, "articleId"), { file, yaml, markdown });
+  }
+
+  for (const locale of ["en", "de"]) {
+    const directory = join(analysisRoot, locale);
+    const files = await markdownFiles(directory);
+    assert.equal(files.length, 23, `${locale}: 23 traductions attendues`);
+    const seenArticleIds = new Set();
+
+    for (const file of files) {
+      const markdown = await readFile(join(directory, file), "utf8");
+      const yaml = frontmatter(markdown, `${locale}/${file}`);
+      const articleId = scalar(yaml, "articleId");
+      assert.ok(frenchByArticleId.has(articleId), `${locale}/${file}: articleId inconnu`);
+      assert.equal(seenArticleIds.has(articleId), false, `${locale}: articleId dupliqué ${articleId}`);
+      seenArticleIds.add(articleId);
+      assert.equal(scalar(yaml, "locale"), locale, `${locale}/${file}: locale incorrecte`);
+      const french = frenchByArticleId.get(articleId);
+
+      for (const field of immutableScalars) {
+        assert.equal(
+          scalar(yaml, field),
+          scalar(french.yaml, field),
+          `${locale}/${file}: invariant ${field} modifié`,
+        );
+      }
+      assert.equal(Boolean(scalar(yaml, "model")), Boolean(scalar(french.yaml, "model")), `${locale}/${file}: présence du modèle modifiée`);
+      assert.equal(nestedScalar(yaml, "src"), nestedScalar(french.yaml, "src"), `${locale}/${file}: image source modifiée`);
+      assert.equal(nestedScalar(yaml, "assetId"), nestedScalar(french.yaml, "assetId"), `${locale}/${file}: assetId modifié`);
+      assert.equal(listBlock(yaml, "evidenceTypes"), listBlock(french.yaml, "evidenceTypes"), `${locale}/${file}: classes de preuve modifiées`);
+
+      const body = markdown.replace(/^---\r?\n[\s\S]*?\r?\n---/, "");
+      assert.doesNotMatch(body, /<(?:figure|figcaption|img)\b/i, `${locale}/${file}: média tiers republié`);
+      for (const match of body.matchAll(/\]\((\/[^)\s#]+)(?:#[^)]+)?\)/g)) {
+        assert.ok(
+          match[1] === `/${locale}/` || match[1].startsWith(`/${locale}/`),
+          `${locale}/${file}: lien interne non localisé ${match[1]}`,
+        );
+      }
+    }
+    assert.deepEqual(seenArticleIds, new Set(frenchByArticleId.keys()), `${locale}: parité articleId incomplète`);
   }
 });
 
@@ -1131,55 +1394,19 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
   }
 });
 
-test("le RSS expose exactement les vingt-huit dossiers publiables et indexables", async () => {
-  const pages = await htmlPages();
-  const articlePages = pages.filter((page) => articleRoutePattern.test(page.route ?? ""));
-  const publishedArticlePages = articlePages;
-  assert.equal(articlePages.length, articleCount);
-  const articleRoutes = publishedArticlePages
-    .map((page) => page.route)
-    .sort();
-  assert.equal(articleRoutes.length, articleCount);
-
-  const rss = await readFile(join(dist, "rss.xml"), "utf8");
-  assert.match(rss, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
-  assert.match(rss, /<rss version="2\.0" xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
-  const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
-  assert.equal(rssItems.length, articleCount);
-  const rssRoutes = [];
-  for (const item of rssItems) {
-    assert.match(item, /<title>[^<]+<\/title>/);
-    assert.match(item, /<description>[^<]+<\/description>/);
-    assert.match(item, /<pubDate>[^<]+<\/pubDate>/);
-    const creator = item.match(/<dc:creator>([^<]+)<\/dc:creator>/)?.[1];
-    assert.ok(editorialAuthors.has(creator), `auteur RSS inconnu : ${creator}`);
-    const link = item.match(/<link>([^<]+)<\/link>/)?.[1];
-    const guid = item.match(/<guid isPermaLink="true">([^<]+)<\/guid>/)?.[1];
-    assert.equal(guid, link, "le GUID RSS doit être l'URL canonique du dossier");
-    assert.ok(link);
-    const pathname = new URL(link).pathname;
-    assert.match(pathname, articleRoutePattern);
-    const articlePage = publishedArticlePages.find((page) => page.route === pathname);
-    assert.ok(articlePage, `page absente pour l'item RSS ${pathname}`);
-    const article = schemaNodes(jsonLdDocuments(articlePage.html))
-      .find((node) => node["@type"] === "Article");
-    assert.ok(article, `Article JSON-LD absent pour l'item RSS ${pathname}`);
-    assert.equal(creator, article.author.name);
-    assert.equal(metaContent(articlePage.html, "article:author"), article.author.url);
-
-    const [, brand, slug] = pathname.split("/");
-    const markdown = await readFile(
-      join(siteRoot, "src/content/analyses", `${slug}.md`),
-      "utf8",
+test("les flux RSS de preview restent masqués dans les trois langues", async () => {
+  for (const locale of LOCALES) {
+    const path = locale === "fr" ? "rss.xml" : `${locale}/rss.xml`;
+    const rss = await readFile(join(dist, path), "utf8");
+    assert.match(rss, /^<\?xml version="1\.0" encoding="UTF-8"\?>/);
+    assert.match(rss, /<rss version="2\.0"[^>]*xmlns:atom="http:\/\/www\.w3\.org\/2005\/Atom"[^>]*xmlns:dc="http:\/\/purl\.org\/dc\/elements\/1\.1\/">/);
+    assert.match(rss, new RegExp(`<language>${locale}<\\/language>`));
+    assert.equal((rss.match(/<item>/g) ?? []).length, 0, `${locale}: articles RSS visibles en preview`);
+    assert.match(
+      rss,
+      new RegExp(`<atom:link href="${escapeRegex(`${canonicalOrigin}${locale === "fr" ? "/rss.xml" : `/${locale}/rss.xml`}`)}" rel="self" type="application/rss\\+xml"\/>`),
     );
-    assert.match(markdown, /^brand:\s*(ooni|gozney|accessoires|fours)$/m, `${pathname}: marque source absente`);
-    assert.equal(routeSegmentForBrand(markdown.match(/^brand:\s*(ooni|gozney|accessoires|fours)$/m)?.[1]), brand, pathname);
-    assert.match(markdown, /^status:\s*publishable$/m, `${pathname}: dossier non publiable dans le RSS`);
-    assert.match(markdown, /^indexable:\s*true$/m, `${pathname}: dossier non indexable dans le RSS`);
-    rssRoutes.push(pathname);
   }
-  assert.deepEqual(rssRoutes.sort(), articleRoutes);
-
 });
 
 test("la photo documentaire de une est responsive, attribuée et légère", async () => {
@@ -1419,6 +1646,7 @@ test("les dix-neuf dossiers historiques orientent vers les guides accessoires pe
 
 test("les crédits des images de tête restent sous le visuel sans le masquer", async () => {
   const articleSource = await readFile(join(siteRoot, "src/pages/[brand]/[slug].astro"), "utf8");
+  const i18nCommonSource = await readFile(join(siteRoot, "src/i18n/common.ts"), "utf8");
   const homeSource = await readFile(join(siteRoot, "src/pages/index.astro"), "utf8");
   const publicPages = await htmlPages();
   const articlePages = publicPages.filter((page) =>
@@ -1438,7 +1666,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   assert.match(articleSource, /class="article-lead-media__image"/);
   assert.match(homeSource, /class="lead-feature__visual-frame"/);
   assert.match(
-    articleSource,
+    `${articleSource}\n${i18nCommonSource}`,
     /L’image d’en-tête illustre le sujet sans prouver les performances des produits\./,
   );
   for (const page of publicPages) {
@@ -1952,19 +2180,25 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     const sitemap = await readFile(join(temporaryOutput, "sitemap.xml"), "utf8");
     assert.match(
       sitemap,
-      /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9" xmlns:image="http:\/\/www\.google\.com\/schemas\/sitemap-image\/1\.1">/,
+      /<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9" xmlns:image="http:\/\/www\.google\.com\/schemas\/sitemap-image\/1\.1" xmlns:xhtml="http:\/\/www\.w3\.org\/1999\/xhtml">/,
     );
     const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
     const urlEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
-    const pages = await htmlPages(temporaryOutput);
+    const pages = await allHtmlPages(temporaryOutput);
+    const expectedArticleRoutes = Object.keys(ARTICLE_ROUTES).flatMap((articleId) =>
+      LOCALES.map((locale) => articleRoute(articleId, locale))
+    );
     const allArticleRoutes = pages
       .map((page) => page.route)
-      .filter((route) => articleRoutePattern.test(route ?? ""));
-    assert.equal(allArticleRoutes.length, articleCount);
-    const articleRoutes = allArticleRoutes;
-    assert.equal(articleRoutes.length, articleCount);
-    const expectedRoutes = [...fixedIndexableRoutes, ...articleRoutes].sort();
-    assert.equal(expectedRoutes.length, fixedIndexableRoutes.length + articleCount);
+      .filter((route) => expectedArticleRoutes.includes(route));
+    assert.equal(allArticleRoutes.length, 69);
+    const articleRoutes = allArticleRoutes.filter((route) => articleRoutePattern.test(route ?? ""));
+    assert.equal(articleRoutes.length, 23);
+    const expectedFixedRoutes = Object.keys(STATIC_ROUTES)
+      .filter((routeId) => routeId !== "notFound")
+      .flatMap((routeId) => LOCALES.map((locale) => STATIC_ROUTES[routeId][locale]));
+    const expectedRoutes = [...expectedFixedRoutes, ...expectedArticleRoutes].sort();
+    assert.equal(expectedRoutes.length, 117);
     assert.deepEqual(
       locations.map((location) => new URL(location).pathname).sort(),
       expectedRoutes,
@@ -1976,8 +2210,36 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
         `${route}: dossier absent de llms.txt`,
       );
     }
-    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + articleCount + 2);
-    assert.equal(urlEntries.length, fixedIndexableRoutes.length + articleCount);
+    assert.equal((llms.match(/^\- \[/gm) ?? []).length, 4 + 4 + 23 + 2);
+    for (const locale of LOCALES) {
+      const localeLlms = await readFile(
+        join(temporaryOutput, locale === "fr" ? "llms.txt" : `${locale}/llms.txt`),
+        "utf8",
+      );
+      const localeRoutes = Object.keys(ARTICLE_ROUTES).map((articleId) => articleRoute(articleId, locale));
+      assert.equal((localeLlms.match(/^\- \[/gm) ?? []).length, 33, `${locale}: compte llms.txt`);
+      assert.doesNotMatch(localeLlms, /https:\/\/(?:www\.)?amazon\.fr|https:\/\/amzn\.to|tag=fouranu-21/i);
+      for (const route of localeRoutes) {
+        assert.match(localeLlms, new RegExp(`\\(${escapeRegex(`${canonicalOrigin}${route}`)}\\)`), `${locale}: ${route} absent de llms.txt`);
+      }
+
+      const rss = await readFile(
+        join(temporaryOutput, locale === "fr" ? "rss.xml" : `${locale}/rss.xml`),
+        "utf8",
+      );
+      assert.match(rss, new RegExp(`<language>${locale}<\\/language>`));
+      const items = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
+      assert.equal(items.length, 23, `${locale}: 23 items RSS attendus`);
+      const itemRoutes = items.map((item) => {
+        const link = item.match(/<link>([^<]+)<\/link>/)?.[1];
+        const guid = item.match(/<guid isPermaLink="true">([^<]+)<\/guid>/)?.[1];
+        assert.equal(guid, link, `${locale}: GUID RSS non canonique`);
+        assert.match(item, /<dc:creator>(?:Nicolas|Florian|Magali)<\/dc:creator>/);
+        return new URL(link).pathname;
+      });
+      assert.deepEqual(itemRoutes.sort(), localeRoutes.sort(), `${locale}: parité RSS incomplète`);
+    }
+    assert.equal(urlEntries.length, 117);
     const sitemapEntriesByRoute = new Map(
       urlEntries.map((entry) => {
         const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];
@@ -2001,6 +2263,34 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
         sitemapEntriesByRoute.get(route) ?? "",
         new RegExp(`<lastmod>${expectedModified}<\\/lastmod>`),
         `${route}: date sitemap inattendue`,
+      );
+    }
+
+    const sitemapClusters = [
+      ...Object.keys(STATIC_ROUTES)
+        .filter((routeId) => routeId !== "notFound")
+        .map((routeId) => STATIC_ROUTES[routeId]),
+      ...Object.keys(ARTICLE_ROUTES).map((articleId) =>
+        Object.fromEntries(LOCALES.map((locale) => [locale, articleRoute(articleId, locale)]))
+      ),
+    ];
+    const clusterByRoute = new Map(
+      sitemapClusters.flatMap((cluster) => LOCALES.map((locale) => [cluster[locale], cluster])),
+    );
+    for (const [route, entry] of sitemapEntriesByRoute) {
+      const cluster = clusterByRoute.get(route);
+      assert.ok(cluster, `${route}: cluster sitemap absent`);
+      const alternates = [...entry.matchAll(/<xhtml:link rel="alternate" hreflang="([^"]+)" href="([^"]+)"\/>/g)]
+        .map((match) => [match[1], match[2]]);
+      assert.deepEqual(
+        alternates,
+        [
+          ["fr", `${canonicalOrigin}${cluster.fr}`],
+          ["en", `${canonicalOrigin}${cluster.en}`],
+          ["de", `${canonicalOrigin}${cluster.de}`],
+          ["x-default", `${canonicalOrigin}${cluster.fr}`],
+        ],
+        `${route}: alternates sitemap incomplets`,
       );
     }
 
@@ -2030,7 +2320,9 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     }
 
     for (const page of pages) {
-      const expected = page.route === null ? "noindex, follow" : indexableRobots;
+      const expected = page.route === null || /\/404\/$/.test(page.route)
+        ? "noindex, follow"
+        : indexableRobots;
       assert.equal(metaContent(page.html, "robots"), expected, page.route ?? "404");
     }
   } finally {
@@ -2122,6 +2414,18 @@ test("la preview sert une vraie 404 et stabilise les URL de referral", async () 
       "Cette page n'est pas sur l'établi.",
     );
     assert.deepEqual(linkHref(missingHtml, "canonical"), []);
+
+    for (const [locale, pathname, heading] of [
+      ["fr", STATIC_ROUTES.notFound.fr, "Cette page n'est pas sur l'établi."],
+      ["en", STATIC_ROUTES.notFound.en, "This page is not on the workbench."],
+      ["de", STATIC_ROUTES.notFound.de, "Diese Seite liegt nicht auf der Werkbank."],
+    ]) {
+      const localizedMissing = await fetch(`http://127.0.0.1:${port}${pathname}`);
+      const localizedMissingHtml = await localizedMissing.text();
+      assert.equal(localizedMissing.status, 404, `${locale}: le switcher ne doit pas créer de soft 404`);
+      assert.match(localizedMissingHtml, new RegExp(`<html lang="${locale}"`));
+      assert.equal(visibleText(pairedElements(localizedMissingHtml, "h1")[0][2]), heading);
+    }
 
     const referral = await fetch(
       `http://127.0.0.1:${port}/?utm_source=example.com&utm_medium=referral`,

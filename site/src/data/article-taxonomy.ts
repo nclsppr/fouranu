@@ -55,3 +55,9 @@ export function isPublishedAnalysis(
 export function articlePath(brand: ArticleBrand, slug: string): string {
   return `/${ARTICLE_BRANDS[brand].routeSegment}/${slug}/`;
 }
+
+export {
+  articleAlternates,
+  articleRoute as localizedArticlePath,
+  type ArticleId,
+} from "@/i18n/config";

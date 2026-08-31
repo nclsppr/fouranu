@@ -9,7 +9,7 @@ import {
   isPublishedAnalysis,
 } from "@/data/article-taxonomy";
 
-const allAnalyses = await getCollection("analyses");
+const allAnalyses = (await getCollection("analyses")).filter((entry) => entry.data.locale === "fr");
 const analyses = allAnalyses
   .filter(isPublishedAnalysis)
   .sort((a, b) =>

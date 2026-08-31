@@ -8,18 +8,27 @@ import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
 import { commercialObject } from "@/data/commercial-objects.mjs";
+import { ARTICLE_BRANDS } from "@/data/article-taxonomy";
 import {
-  ARTICLE_BRANDS,
+  articleAlternates,
+  articleRoute,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+} from "@/i18n/config";
+import {
+  ARTICLE_BRAND_LABELS,
   ARTICLE_CATEGORY_LABELS,
-  articlePath,
-} from "@/data/article-taxonomy";
+  ARTICLE_COPY,
+  localizedSite,
+} from "@/i18n/common";
 
 export async function getStaticPaths() {
   const analyses = await getCollection("analyses");
-  return analyses.map((entry) => ({
+  return analyses.filter((entry) => entry.data.locale === "fr").map((entry) => ({
     params: {
       brand: ARTICLE_BRANDS[entry.data.brand].routeSegment,
-      slug: entry.id,
+      slug: articleRoute(entry.data.articleId as ArticleId, "fr").split("/").filter(Boolean).at(-1),
     },
     props: { entry },
   }));
@@ -29,20 +38,26 @@ interface Props {
   entry: CollectionEntry<"analyses">;
 }
 
-const { entry } = Astro.props;
+const { entry }: Props = Astro.props;
+const locale = entry.data.locale as Locale;
+const localeCopy = ARTICLE_COPY[locale];
+const localized = localizedSite(locale);
 const { Content, headings } = await render(entry);
 const articleHeadings = headings.filter((heading) => heading.depth === 2);
-const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
-  day: "2-digit",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
+const dateFormatter = new Intl.DateTimeFormat(
+  locale === "fr" ? "fr-FR" : locale === "en" ? "en-GB" : "de-DE",
+  { day: "2-digit", month: "long", year: "numeric", timeZone: "UTC" },
+);
 const publishedAt = dateFormatter.format(entry.data.publishedAt);
 const updatedAt = dateFormatter.format(entry.data.updatedAt);
-const canonical = new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString();
+const articleId = entry.data.articleId as ArticleId;
+const canonical = new URL(articleRoute(articleId, locale), SITE.url).toString();
 const evidenceIds = entry.data.evidenceIds;
-const articleBrand = ARTICLE_BRANDS[entry.data.brand];
+const articleBrandLabel = ARTICLE_BRAND_LABELS[locale][entry.data.brand];
+const articleHub = staticRoute(
+  entry.data.brand === "ooni" ? "ooni" : entry.data.brand === "gozney" ? "gozney" : "accessories",
+  locale,
+);
 const words = (entry.body ?? "")
   .replace(/```[\s\S]*?```/g, " ")
   .replace(/<[^>]*>/g, " ")
@@ -50,14 +65,13 @@ const words = (entry.body ?? "")
   .split(/\s+/)
   .filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(words / 220));
-const articleImage = new URL(entry.data.image.src, SITE.url).toString();
+const useEditorialImage = locale === "fr";
+const articleImage = new URL(
+  useEditorialImage ? entry.data.image.src : localized.socialImage,
+  SITE.url,
+).toString();
 const articleMetaTitle = entry.data.seoTitle ?? `${entry.data.title} | Four à Nu`;
-const typeLabels = {
-  guide: "Guide d'achat",
-  decision: "Comparatif par usage",
-  model: "Analyse de modèle",
-};
-const author = SITE.authors[entry.data.author];
+const author = localized.authors[entry.data.author];
 const canonicalAuthor = new URL(author.url, SITE.url).toString();
 const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
 if (!purchaseLinks?.length) {
@@ -71,20 +85,22 @@ const schema = {
   url: canonical,
   headline: entry.data.title,
   description: entry.data.description,
-  articleSection: ARTICLE_CATEGORY_LABELS[entry.data.category],
-  image: {
-    "@type": "ImageObject",
-    url: articleImage,
-    contentUrl: articleImage,
-    width: 1600,
-    height: 900,
-    caption: entry.data.image.caption,
-  },
+  articleSection: ARTICLE_CATEGORY_LABELS[locale][entry.data.category],
+  image: useEditorialImage
+    ? {
+        "@type": "ImageObject",
+        url: articleImage,
+        contentUrl: articleImage,
+        width: 1600,
+        height: 900,
+        caption: entry.data.image.caption,
+      }
+    : articleImage,
   wordCount: words,
   timeRequired: `PT${readingMinutes}M`,
   datePublished: entry.data.publishedAt.toISOString(),
   dateModified: entry.data.updatedAt.toISOString(),
-  inLanguage: SITE.language,
+  inLanguage: localized.language,
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id": canonical,
@@ -106,7 +122,7 @@ const schema = {
     "@type": "WebSite",
     "@id": `${SITE.url}/#website`,
   },
-  publishingPrinciples: `${SITE.url}/methode/`,
+  publishingPrinciples: new URL(staticRoute("method", locale), SITE.url).toString(),
   isAccessibleForFree: true,
 };
 ---
@@ -115,52 +131,55 @@ const schema = {
   title={articleMetaTitle}
   socialTitle={entry.data.title}
   description={entry.data.description}
-  image={entry.data.image.src}
-  imageAlt={entry.data.image.alt}
-  imageWidth={1600}
-  imageHeight={900}
+  image={useEditorialImage ? entry.data.image.src : localized.socialImage}
+  imageAlt={useEditorialImage ? entry.data.image.alt : undefined}
+  imageWidth={useEditorialImage ? 1600 : 1200}
+  imageHeight={useEditorialImage ? 900 : 630}
+  canonical={canonical}
+  alternatePaths={articleAlternates(articleId)}
   indexable={entry.data.indexable}
   pageType="article"
   authorName={author.name}
   authorUrl={canonicalAuthor}
-  articleSection={ARTICLE_CATEGORY_LABELS[entry.data.category]}
+  articleSection={ARTICLE_CATEGORY_LABELS[locale][entry.data.category]}
   publishedAt={entry.data.publishedAt}
   modifiedAt={entry.data.updatedAt}
   schema={schema}
 >
   <div class="page-shell">
     <Breadcrumbs
+      locale={locale}
       items={[
-        { label: "Accueil", href: "/" },
-        { label: articleBrand.label, href: articleBrand.hubPath },
+        { label: localeCopy.home, href: staticRoute("home", locale) },
+        { label: articleBrandLabel, href: articleHub },
         { label: entry.data.title },
       ]}
     />
 
-    <article class="article-shell">
+    <article class:list={["article-shell", !useEditorialImage && "article-shell--text-first"]}>
       <header class="article-header">
-        <p class="eyebrow">{typeLabels[entry.data.type]}</p>
+        <p class="eyebrow">{localeCopy.type[entry.data.type]}</p>
         <h1>{entry.data.title}</h1>
         <p class="article-header__summary">{entry.data.summary}</p>
 
         <div class="article-byline">
           <a class="article-byline__author" rel="author" href={author.url}>
             <AuthorPortrait portrait={author.portrait} variant="bubble" />
-            <span>Par <strong>{author.name}</strong></span>
+            <span>{localeCopy.by} <strong>{author.name}</strong></span>
           </a>
           <div class="article-byline__details">
             <p>
-              Publié le <time datetime={entry.data.publishedAt.toISOString()}>{publishedAt}</time>
+              {localeCopy.published} <time datetime={entry.data.publishedAt.toISOString()}>{publishedAt}</time>
             </p>
             <p>
-              Mis à jour le <time datetime={entry.data.updatedAt.toISOString()}>{updatedAt}</time>
+              {localeCopy.updated} <time datetime={entry.data.updatedAt.toISOString()}>{updatedAt}</time>
             </p>
-            <p>{readingMinutes} min de lecture</p>
+            <p>{localeCopy.readingTime(readingMinutes)}</p>
           </div>
         </div>
       </header>
 
-      <figure class="article-lead-media">
+      {useEditorialImage && <figure class="article-lead-media">
         <div class="article-lead-media__image">
           <img
             src={entry.data.image.src}
@@ -173,45 +192,40 @@ const schema = {
           />
         </div>
         <figcaption>{entry.data.image.caption}</figcaption>
-      </figure>
+      </figure>}
 
-      <aside class="article-facts" aria-label="Repères éditoriaux">
+      <aside class="article-facts" aria-label={localeCopy.factsAria}>
         <dl>
-          <div><dt>Catégorie</dt><dd>{ARTICLE_CATEGORY_LABELS[entry.data.category]}</dd></div>
-          <div><dt>Sources citées</dt><dd><a href="#cited-sources-title">{evidenceIds.length}</a></dd></div>
-          {entry.data.model && <div><dt>Produit</dt><dd>{entry.data.model}</dd></div>}
+          <div><dt>{localeCopy.category}</dt><dd>{ARTICLE_CATEGORY_LABELS[locale][entry.data.category]}</dd></div>
+          <div><dt>{localeCopy.citedSources}</dt><dd><a href="#cited-sources-title">{evidenceIds.length}</a></dd></div>
+          {entry.data.model && <div><dt>{localeCopy.product}</dt><dd>{entry.data.model}</dd></div>}
         </dl>
       </aside>
 
       <div class="article-reading-grid">
         <aside class="article-toc" aria-labelledby="article-toc-title">
-          <p id="article-toc-title">Dans ce dossier</p>
+          <p id="article-toc-title">{localeCopy.toc}</p>
           <ol>
             {articleHeadings.map((heading) => (
               <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
             ))}
           </ol>
-          <a class="article-toc__method" href="/methode/">Comment nous travaillons</a>
+          <a class="article-toc__method" href={staticRoute("method", locale)}>{localeCopy.method}</a>
         </aside>
 
         <div class="article-body">
           <div class="documentary-notice">
-            <strong>Comment lire ce guide</strong>
-            <span>
-              L’image d’en-tête illustre le sujet sans prouver les performances des produits.
-              Les promesses du fabricant, les mesures publiées et notre lecture
-              restent séparées ; les conditions et relations commerciales utiles
-              sont précisées dans les sources.
-            </span>
-            <a href="#cited-sources-title">Voir les sources</a>
+            <strong>{localeCopy.noticeTitle}</strong>
+            <span>{localeCopy.notice}</span>
+            <a href="#cited-sources-title">{localeCopy.sourcesLink}</a>
           </div>
-          <PurchaseCta links={purchaseLinks} variant="primary" />
+          <PurchaseCta locale={locale} links={purchaseLinks} variant="primary" />
           <Content />
 
-          <PurchaseCta links={purchaseLinks} variant="closing" />
+          <PurchaseCta locale={locale} links={purchaseLinks} variant="closing" />
 
           <aside class="article-limitations" aria-labelledby="limitations-title">
-            <h2 id="limitations-title">Ce qu’on ne sait pas encore</h2>
+            <h2 id="limitations-title">{localeCopy.limitations}</h2>
             <ul>
               {entry.data.limitations.map((limitation) => <li>{limitation}</li>)}
             </ul>
@@ -219,22 +233,17 @@ const schema = {
         </div>
       </div>
 
-      <CitedSources evidenceIds={evidenceIds} />
+      <CitedSources locale={locale} evidenceIds={evidenceIds} />
 
       <footer class="article-author">
         <div>
-          <p class="eyebrow">Personne référente</p>
+          <p class="eyebrow">{localeCopy.referencePerson}</p>
           <h2>{author.name}</h2>
         </div>
         <div>
-          <p>
-            {author.name} est la personne référente de cette version au sein de
-            la rédaction. Les sources, les conclusions et les limites sont
-            relues ensemble ; toute correction importante reste datée et
-            expliquée.
-          </p>
-          <a href={author.url}>Découvrir le parcours de {author.name}</a>
-          <a href="/corrections/">Consulter la politique de correction</a>
+          <p>{localeCopy.authorNote(author.name)}</p>
+          <a href={author.url}>{localeCopy.authorProfile(author.name)}</a>
+          <a href={staticRoute("corrections", locale)}>{localeCopy.corrections}</a>
         </div>
       </footer>
     </article>
@@ -252,13 +261,20 @@ const schema = {
   .article-header {
     grid-column: 1 / span 7;
     grid-row: 1;
+    min-width: 0;
+  }
+
+  .article-shell--text-first .article-header {
+    grid-column: 2 / span 10;
   }
 
   .article-header h1 {
     max-width: 15ch;
     margin-bottom: 1.5rem;
     font-size: clamp(3.2rem, 5.6vw, 5.7rem);
+    hyphens: auto;
     line-height: 0.94;
+    overflow-wrap: anywhere;
   }
 
   .article-header__summary {
@@ -564,6 +580,10 @@ const schema = {
       grid-column: 1 / span 7;
     }
 
+    .article-shell--text-first .article-header {
+      grid-column: 1 / -1;
+    }
+
     .article-lead-media {
       grid-column: 8 / -1;
     }
@@ -599,6 +619,7 @@ const schema = {
     }
 
     .article-header,
+    .article-shell--text-first .article-header,
     .article-lead-media,
     .article-facts,
     .article-reading-grid,

@@ -7,7 +7,7 @@ import { SITE } from "@/config/site";
 
 const canonical = new URL(SITE.editorialAuthor.url, SITE.url).toString();
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.status === "publishable" && entry.data.indexable);
+  .filter((entry) => entry.data.locale === "fr" && entry.data.status === "publishable" && entry.data.indexable);
 const authors = Object.entries(SITE.authors).map(([id, author]) => ({
   id,
   ...author,
@@ -16,9 +16,11 @@ const authors = Object.entries(SITE.authors).map(([id, author]) => ({
 const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": `${canonical}#profile`,
+  "@id": `${canonical}#collection`,
   url: canonical,
   name: SITE.editorialAuthor.name,
+  inLanguage: SITE.language,
+  isPartOf: { "@id": `${SITE.url}/#website` },
   mainEntity: {
     "@type": "ItemList",
     itemListElement: authors.map((author, index) => ({

@@ -1,0 +1,29 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import ArticlePage from "../../[brand]/[slug].astro";
+import { articleRoute, type ArticleId, type Locale } from "@/i18n/config";
+
+export async function getStaticPaths() {
+  const analyses = await getCollection("analyses");
+  return analyses
+    .filter((entry) => entry.data.locale === "en" || entry.data.locale === "de")
+    .map((entry) => {
+      const locale = entry.data.locale as Locale;
+      const segments = articleRoute(entry.data.articleId as ArticleId, locale)
+        .split("/")
+        .filter(Boolean);
+      return {
+        params: { locale, brand: segments[1], slug: segments[2] },
+        props: { entry },
+      };
+    });
+}
+
+interface Props {
+  entry: CollectionEntry<"analyses">;
+}
+
+const { entry } = Astro.props;
+---
+
+<ArticlePage entry={entry} />

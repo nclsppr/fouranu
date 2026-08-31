@@ -1,0 +1,421 @@
+import type { Locale, StaticRouteId } from "@/i18n/config";
+
+export interface PageSection {
+  heading: string;
+  paragraphs: readonly string[];
+  items?: readonly string[];
+}
+
+export interface LocalizedPageCopy {
+  title: string;
+  description: string;
+  eyebrow: string;
+  heading: string;
+  lead: string;
+  aside?: string;
+  sections: readonly PageSection[];
+}
+
+type LocalizedContentLocale = Exclude<Locale, "fr">;
+type ContentRouteId = Exclude<StaticRouteId, "notFound">;
+
+export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRouteId, LocalizedPageCopy>> = {
+  en: {
+    home: {
+      title: "Four à Nu | Pizza ovens, accessories and dough mixers",
+      description: "Independent, source-backed guidance to pizza ovens, useful accessories and dough mixers sold in France.",
+      eyebrow: "Independent editorial publication",
+      heading: "Choose the oven that fits the way you actually cook.",
+      lead: "Four à Nu separates manufacturer claims, published third-party measurements and our editorial conclusions. The current guides document products sold in France; first-hand Four à Nu testing will always be labelled when it begins.",
+      aside: "English makes the research easier to read. It does not change the French market, merchant destinations or the limits of the evidence.",
+      sections: [
+        { heading: "Start with use, not a ranking", paragraphs: ["Location, energy, baking pace, format and total budget eliminate more unsuitable choices than a universal score."], items: ["Indoor or outdoor use", "Gas, electric or multi-fuel", "One pizza or a full table", "Oven, cover, stand, peel and fuel"] },
+        { heading: "Sources stay visible", paragraphs: ["Every material claim keeps its source class, verification date, confidence level and known commercial relationship. A video remains a source; it never becomes a Four à Nu test."], items: ["Manufacturer data", "Third-party measurements", "Third-party observations", "Four à Nu synthesis and inference"] },
+        { heading: "A France-focused buying scope", paragraphs: ["Products, availability and purchase links are checked for France. Amazon links point to Amazon.fr and may be affiliate links; manufacturer links are currently direct and unpaid."] },
+      ],
+    },
+    accessories: {
+      title: "Pizza accessories | Four à Nu",
+      description: "Source-backed guides to pizza peels, scissors, infrared thermometers and dough boxes available in France.",
+      eyebrow: "Accessories",
+      heading: "The small tools that change the whole workflow.",
+      lead: "A peel, thermometer, pair of scissors or dough box earns its place by solving a real step: launching, checking the stone, portioning or serving.",
+      aside: "The current selection is sold in France. Amazon.fr availability, sellers and prices can change after our verification date.",
+      sections: [
+        { heading: "Choose by task", paragraphs: ["The translated guides compare formats and constraints without turning catalogue claims into tests."], items: ["Peels for preparing, launching and turning", "Scissors for clean serving", "Infrared thermometers for the baking surface", "Dough boxes for fermentation and transport"] },
+        { heading: "Commercial scope", paragraphs: ["Accessory links may be Amazon.fr affiliate links. The answer and its limitations always come before the offer."] },
+      ],
+    },
+    ovens: {
+      title: "Choose a pizza oven by use | Four à Nu",
+      description: "Start with location, energy, baking pace and total budget before comparing pizza-oven brands.",
+      eyebrow: "Choosing an oven",
+      heading: "Choose a pizza oven by use, not by league table.",
+      lead: "Four constraints remove more poor fits than a general ranking: where the oven can operate, how much attention the fuel demands, how fast pizzas must follow one another and what the complete setup costs.",
+      aside: "Local housing, connection and manufacturer safety rules take priority over any fuel preference.",
+      sections: [
+        { heading: "1. Location", paragraphs: ["Indoor, balcony, terrace and garden use do not allow the same equipment. Check ventilation, electricity, gas rules and storage first."] },
+        { heading: "2. Energy", paragraphs: ["Gas simplifies repeatable outdoor baking, electric models suit compatible indoor use, and multi-fuel ovens trade convenience for fire management."] },
+        { heading: "3. Pace and format", paragraphs: ["Chamber size, opening and stone recovery matter more when serving several people than when baking one pizza."] },
+        { heading: "4. Complete budget", paragraphs: ["Count the stand, cover, peel, regulator or cable, fuel and storage—not only the oven’s ticket price."] },
+      ],
+    },
+    ooni: {
+      title: "Ooni pizza ovens documented | Four à Nu",
+      description: "Choose among Ooni ovens sold in France using format, energy, space and published evidence.",
+      eyebrow: "Ooni range",
+      heading: "Reduce the Ooni range before comparing models.",
+      lead: "Start with indoor or outdoor use, gas, electric or multi-fuel operation, then the pizza format and the number of guests.",
+      aside: "These are source-backed guides, not first-hand Four à Nu tests. The model pages state what remains unknown.",
+      sections: [
+        { heading: "Three useful branches", paragraphs: ["Koda covers gas ovens, Karu covers multi-fuel ovens and Volt covers electric indoor use where installation rules permit it."], items: ["Koda 12, 16, 2, 2 Pro and 2 Max", "Karu 12, 2 and 2 Pro", "Volt 2", "Halo Core and Halo Pro dough mixers"] },
+        { heading: "Keep the generation exact", paragraphs: ["Names close to one another can hide different generations. Every guide identifies the exact product version and links the sources it used."] },
+      ],
+    },
+    gozney: {
+      title: "Gozney pizza ovens documented | Four à Nu",
+      description: "Choose among Gozney ovens sold in France using space, mobility, capacity and published evidence.",
+      eyebrow: "Gozney range",
+      heading: "Choose the Gozney family before the finish.",
+      lead: "Roccbox and Tread prioritise mobility; Arc and Arc XL simplify gas baking; Dome and Dome XL (Gen 2) target a more permanent, larger installation.",
+      aside: "No current model guide is presented as a first-hand Four à Nu test. Manufacturer data and third-party observations remain labelled.",
+      sections: [
+        { heading: "From portable to permanent", paragraphs: ["Weight, footprint, opening, cooking area and storage are decision criteria before appearance."], items: ["Roccbox and Tread for transport", "Arc Lite, Arc and Arc XL for gas", "Dome (Gen 2) and Dome XL (Gen 2) for a fixed setup"] },
+        { heading: "French purchasing scope", paragraphs: ["Links lead to the French storefronts recorded in the guide. Verify the exact variant and delivery terms before ordering."] },
+      ],
+    },
+    method: {
+      title: "Editorial method and evidence levels | Four à Nu",
+      description: "How Four à Nu separates manufacturer data, third-party measurements, observations, synthesis and editorial inference.",
+      eyebrow: "Editorial method",
+      heading: "A source is not a test, and a conclusion is not a measurement.",
+      lead: "We attribute each measurement to the person who made it, preserve useful conditions and state what the available material cannot establish.",
+      aside: "We have not yet published a first-hand Four à Nu product test. When that changes, the protocol, measurements and limits will be explicit.",
+      sections: [
+        { heading: "Five evidence labels", paragraphs: ["FAB is manufacturer data; T-MES is a published third-party measurement; T-OBS is a published third-party observation; FAN-SYN combines compatible sources; FAN-INF is our reasoned editorial conclusion."], items: ["Claims stay attributed", "Timecodes and conditions stay attached", "Incompatible methods are not merged", "Uncertainty remains visible"] },
+        { heading: "Independent comparison", paragraphs: ["A solid general comparison needs at least two independent, compatible sources. With only one source, we describe an example rather than a universal rule."] },
+        { heading: "Images and commercial links", paragraphs: ["An image illustrates; it does not prove performance. Loans, sponsorships, affiliate links and merchant relationships are disclosed without automatically validating or invalidating a source."] },
+        { heading: "Corrections", paragraphs: ["Material corrections are dated and explain their effect on the buying conclusion. Catalogue data and links are rechecked when an article is updated."] },
+      ],
+    },
+    about: {
+      title: "About Four à Nu",
+      description: "Why Four à Nu documents pizza ovens today and intends to add clearly labelled first-hand tests over time.",
+      eyebrow: "The project",
+      heading: "A publication for making choices, not manufacturing rankings.",
+      lead: "Four à Nu documents the constraints that genuinely change an oven purchase: location, energy, format, pace, equipment and complete cost.",
+      aside: "No first-hand Four à Nu test has been published yet. Future tests will state their protocol, measurements and limits.",
+      sections: [
+        { heading: "Why it exists", paragraphs: ["Specification sheets describe claims. Videos show use under varying protocols and commercial relationships. We keep those layers separate, compare compatible sources and say what they cannot prove."] },
+        { heading: "Three commitments", paragraphs: ["Answer before monetising; attribute instead of appropriating; correct important changes without erasing their history."], items: ["The short answer comes before purchase links", "Published measurements remain attributed", "Buying-impacting corrections are dated"] },
+        { heading: "Who signs", paragraphs: ["Nicolas, Florian and Magali each bring a different perspective. The byline names the responsible editor while sources, conclusions and limitations are reviewed collectively."] },
+      ],
+    },
+    authors: {
+      title: "Nicolas, Florian & Magali | Four à Nu editorial team",
+      description: "Meet the three responsible editors behind Four à Nu guides: Nicolas, Florian and Magali.",
+      eyebrow: "Editorial team",
+      heading: "Nicolas, Florian & Magali.",
+      lead: "Three different paths, one shared method: every guide identifies its responsible editor while sources and limitations are reviewed collectively.",
+      aside: "A byline leads to a person, their background and the guides they follow. It is not decorative authority.",
+      sections: [
+        { heading: "Before publication", paragraphs: ["Sources, numbers, links, commercial relationships and limitations are checked before a guide goes online."] },
+        { heading: "When updating", paragraphs: ["The exact product generation, dated prices, external links and conclusion are reviewed together."] },
+        { heading: "After a report", paragraphs: ["We verify the source and scope of the error. A material correction states its date, reason and effect."] },
+      ],
+    },
+    authorNicolas: {
+      title: "Nicolas | Four à Nu",
+      description: "Nicolas, founder of Four à Nu and responsible editor for source-backed pizza-oven guides.",
+      eyebrow: "Responsible editor",
+      heading: "Nicolas",
+      lead: "Nicolas mainly cooks Neapolitan pizza with a Gozney Dome (Gen 2), paying attention to both the plate and the space, equipment and organisation the oven demands.",
+      aside: "His personal practice informs his questions; it does not turn a source-backed guide into a Four à Nu test.",
+      sections: [{ heading: "His perspective", paragraphs: ["He created Four à Nu to help people choose from real use rather than the length of a specification sheet. Around his oven, he is as interested in dough and baking as in keeping the evening simple."] }],
+    },
+    authorFlorian: {
+      title: "Florian | Four à Nu",
+      description: "Florian, culinary apprentice and responsible editor for Four à Nu pizza-oven guides.",
+      eyebrow: "Responsible editor",
+      heading: "Florian",
+      lead: "Florian is training as a cook with the ambition of becoming a master pizzaiolo. He explores ovens, dough styles and pizzerias in Italy.",
+      aside: "That experience feeds his curiosity but never replaces the sources and limits stated in each current guide.",
+      sections: [{ heading: "His perspective", paragraphs: ["He looks closely at gestures, repeatability and the practical rhythm of baking. Conclusions still rest on the published evidence attached to the article."] }],
+    },
+    authorMagali: {
+      title: "Magali | Four à Nu",
+      description: "Magali, responsible editor at Four à Nu with a focus on shared meals and practical serving pace.",
+      eyebrow: "Responsible editor",
+      heading: "Magali",
+      lead: "Magali loves Detroit-style and Roman pizza, especially when she cooks for colleagues and family.",
+      aside: "She keeps real gatherings in view: how many pizzas must be served, the pace to maintain and the space the oven occupies afterwards.",
+      sections: [{ heading: "Her perspective", paragraphs: ["Her guides focus on what a product changes during a full shared meal, while keeping personal preference separate from documented evidence."] }],
+    },
+    contact: {
+      title: "Contact | Four à Nu",
+      description: "Report an error, request a correction or exercise a right of reply with Four à Nu.",
+      eyebrow: "Contact",
+      heading: "A useful report starts with a precise URL.",
+      lead: "Include the page, passage and source that can verify the issue. Never publish personal data in a GitHub issue.",
+      aside: "For a factual correction, the public repository is the fastest channel.",
+      sections: [
+        { heading: "Error or correction", paragraphs: ["The public repository keeps the report and its source traceable. Use it only for information that may remain public."] },
+        { heading: "Right of reply", paragraphs: ["The non-professional publisher preserves public anonymity. A legally valid right-of-reply request may be sent to Cloudflare, which can forward it under the applicable framework."] },
+      ],
+    },
+    corrections: {
+      title: "Corrections policy | Four à Nu",
+      description: "How Four à Nu corrects data, attribution or conclusions and records material changes.",
+      eyebrow: "Editorial policy",
+      heading: "Correct what changed without erasing it.",
+      lead: "A material correction states the date, reason and effect on the conclusion. A simple typo may be fixed without a public log entry.",
+      aside: "A change that affects a buying conclusion or confidence level enters the public log.",
+      sections: [
+        { heading: "1. Verify", paragraphs: ["Find the source, model, date and exact scope of the reported error."] },
+        { heading: "2. Correct", paragraphs: ["Update the sentence, table or conclusion in the article’s canonical source."] },
+        { heading: "3. Record", paragraphs: ["Add a dated note when the change affects a purchase decision or confidence level."] },
+        { heading: "Current log", paragraphs: ["No material correction has been recorded to date. The log will begin with the first change to important data, a limitation or a conclusion."] },
+      ],
+    },
+    privacy: {
+      title: "Privacy and technical data | Four à Nu",
+      description: "Technical data received when visiting Four à Nu, with no advertising trackers or audience analytics.",
+      eyebrow: "Privacy",
+      heading: "Read without being tracked by an advertising network.",
+      lead: "Four à Nu is static. It installs no cookie, loads no analytics tool and runs no advertising script in your browser.",
+      aside: "Policy checked on 30 August 2026. Any future measurement tool would require this page to be updated first.",
+      sections: [
+        { heading: "What the page does not collect", paragraphs: ["No account, form, comment, advertising profile, cookie or local identifier. Third-party videos do not load automatically."] },
+        { heading: "What the server receives", paragraphs: ["As with any web server, hosting receives the IP address, date, requested path, declared browser and HTTP status needed to transmit and secure the page."] },
+        { heading: "Hosting and security", paragraphs: ["Cloudflare serves the files and processes the technical data needed for delivery and network security. Four à Nu enables neither audience analytics nor application logging."] },
+        { heading: "External links", paragraphs: ["A click to YouTube, a manufacturer, GitHub or a merchant opens that service under its own policy. Amazon.fr links contain public partner identifier fouranu-21; no Amazon request occurs before the click."] },
+      ],
+    },
+    legal: {
+      title: "Legal notice | Four à Nu",
+      description: "Four à Nu legal notice: non-professional publisher, Cloudflare hosting, contact and third-party attribution.",
+      eyebrow: "Legal information",
+      heading: "Publishing and hosting.",
+      lead: "Four à Nu is published on a non-professional basis. The publisher preserves public anonymity under Article 1-1 II of the French law on confidence in the digital economy.",
+      aside: "Page updated on 24 August 2026.",
+      sections: [
+        { heading: "Publisher — Four à Nu", paragraphs: ["An online public communication service published on a non-professional basis. Correction and right-of-reply requests follow the channels on the contact page."] },
+        { heading: "Hosting — Cloudflare, Inc.", paragraphs: ["101 Townsend Street, San Francisco, CA 94107, United States. Telephone: +1 (650) 319-8930. Email: support@cloudflare.com."] },
+        { heading: "Content and trademarks", paragraphs: ["Four à Nu texts remain protected by copyright. Cited trademarks, product names and third-party content belong to their owners. A citation or link does not constitute partnership or endorsement."] },
+      ],
+    },
+    transparency: {
+      title: "Commercial transparency and affiliation | Four à Nu",
+      description: "How Four à Nu separates editorial choices, source relationships and Amazon.fr affiliate links.",
+      eyebrow: "Editorial independence",
+      heading: "Commerce does not rewrite the evidence.",
+      lead: "Four à Nu may earn from an eligible purchase after a reader follows an Amazon.fr link. This does not change source selection or the order of conclusions.",
+      aside: "As of 30 August 2026, Amazon.fr links use partner identifier fouranu-21. Manufacturer links remain direct and unpaid. No advertising placement is sold.",
+      sections: [
+        { heading: "Declare before the click", paragraphs: ["Every area with a paid Amazon link discloses it nearby. The source list also announces the affiliate destination without changing the evidence URL on record."] },
+        { heading: "Answer before the offer", paragraphs: ["The short answer precedes the first merchant block. A promotion never becomes a reason to recommend."] },
+        { heading: "Keep conflicts visible", paragraphs: ["Loans, gifts, collaborations, promo codes and affiliation disclosed by a source stay attached to the relevant observation."] },
+        { heading: "Never sell the ranking", paragraphs: ["No brand can buy a score, position, conclusion or the removal of a limitation. The static site loads no advertising network, price comparison service or merchant script."] },
+      ],
+    },
+  },
+  de: {
+    home: {
+      title: "Four à Nu | Pizzaöfen, Zubehör und Teigknetmaschinen",
+      description: "Unabhängige, quellenbasierte Orientierung zu Pizzaöfen, sinnvollem Zubehör und Teigknetmaschinen für den französischen Markt.",
+      eyebrow: "Unabhängiges redaktionelles Medium",
+      heading: "Wählen Sie den Ofen, der zu Ihrem tatsächlichen Alltag passt.",
+      lead: "Four à Nu trennt Herstellerangaben, veröffentlichte Messungen Dritter und redaktionelle Schlussfolgerungen. Die heutigen Ratgeber dokumentieren in Frankreich verkaufte Produkte; eigene Tests von Four à Nu werden später immer eindeutig gekennzeichnet.",
+      aside: "Die deutsche Fassung macht die Recherche leichter zugänglich. Markt, Händlerziele und Grenzen der Quellen bleiben französisch.",
+      sections: [
+        { heading: "Mit der Nutzung beginnen, nicht mit einer Rangliste", paragraphs: ["Ort, Energie, Backrhythmus, Format und Gesamtbudget schließen mehr Fehlkäufe aus als eine universelle Punktzahl."], items: ["Innen- oder Außenbereich", "Gas, Strom oder mehrere Brennstoffe", "Eine Pizza oder eine ganze Runde", "Ofen, Abdeckung, Untergestell, Schieber und Brennstoff"] },
+        { heading: "Quellen bleiben sichtbar", paragraphs: ["Jede wesentliche Aussage behält Quellenklasse, Prüfdatum, Vertrauensniveau und bekannte Geschäftsbeziehungen. Ein Video bleibt eine Quelle und wird nie zu einem Test von Four à Nu."], items: ["Herstellerangaben", "Messungen und Beobachtungen Dritter", "Synthese von Four à Nu", "Redaktionelle Schlussfolgerung"] },
+        { heading: "Kaufberatung für Frankreich", paragraphs: ["Produkte, Verfügbarkeit und Kauflinks werden für Frankreich geprüft. Amazon-Links führen zu Amazon.fr und können Partnerlinks sein; Herstellerlinks sind derzeit direkt und unbezahlt."] },
+      ],
+    },
+    accessories: {
+      title: "Pizzazubehör | Four à Nu",
+      description: "Quellenbasierte Ratgeber zu Pizzaschiebern, Pizzascheren, Infrarotthermometern und Teigboxen in Frankreich.",
+      eyebrow: "Zubehör",
+      heading: "Kleine Werkzeuge, die den ganzen Ablauf verändern.",
+      lead: "Ein Schieber, Thermometer, eine Schere oder Teigbox verdient seinen Platz, wenn das Werkzeug einen echten Schritt löst: Einschießen, Stein prüfen, Portionieren oder Servieren.",
+      aside: "Die Auswahl wird in Frankreich verkauft. Verfügbarkeit, Verkäufer und Preise auf Amazon.fr können sich nach unserem Prüfdatum ändern.",
+      sections: [
+        { heading: "Nach Aufgabe auswählen", paragraphs: ["Die übersetzten Ratgeber vergleichen Formate und Grenzen, ohne Katalogangaben als Tests auszugeben."], items: ["Schieber zum Vorbereiten, Einschießen und Drehen", "Scheren zum sauberen Servieren", "Infrarotthermometer für die Backfläche", "Teigboxen für Gare und Transport"] },
+        { heading: "Kommerzieller Rahmen", paragraphs: ["Zubehörlinks können Partnerlinks zu Amazon.fr sein. Antwort und Grenzen stehen immer vor dem Angebot."] },
+      ],
+    },
+    ovens: {
+      title: "Pizzaofen nach Nutzung wählen | Four à Nu",
+      description: "Vor dem Markenvergleich zählen Ort, Energie, Backrhythmus und Gesamtbudget.",
+      eyebrow: "Ofenwahl",
+      heading: "Wählen Sie einen Pizzaofen nach Nutzung, nicht nach Rangliste.",
+      lead: "Vier Grenzen verhindern mehr Fehlkäufe als ein allgemeines Ranking: möglicher Standort, Aufwand der Energie, nötiger Backrhythmus und Kosten des vollständigen Aufbaus.",
+      aside: "Sicherheitsregeln von Wohnung, Anschluss und Hersteller gehen jeder Brennstoffvorliebe vor.",
+      sections: [
+        { heading: "1. Standort", paragraphs: ["Innenraum, Balkon, Terrasse und Garten erlauben nicht dieselben Geräte. Prüfen Sie zuerst Lüftung, Strom, Gasregeln und Lagerung."] },
+        { heading: "2. Energie", paragraphs: ["Gas vereinfacht wiederholbares Backen draußen, Elektro passt bei geeigneter Installation nach innen, mehrere Brennstoffe verlangen mehr Feuerführung."] },
+        { heading: "3. Rhythmus und Format", paragraphs: ["Größe der Kammer, Öffnung und Erholung des Steins zählen bei mehreren Gästen stärker als bei einer einzelnen Pizza."] },
+        { heading: "4. Gesamtbudget", paragraphs: ["Rechnen Sie Untergestell, Abdeckung, Schieber, Regler oder Kabel, Brennstoff und Lagerung mit ein – nicht nur den Ofenpreis."] },
+      ],
+    },
+    ooni: {
+      title: "Dokumentierte Ooni-Pizzaöfen | Four à Nu",
+      description: "Ooni-Öfen in Frankreich nach Format, Energie, Platz und veröffentlichten Quellen auswählen.",
+      eyebrow: "Ooni-Sortiment",
+      heading: "Grenzen Sie das Ooni-Sortiment ein, bevor Sie Modelle vergleichen.",
+      lead: "Beginnen Sie mit Innen- oder Außenbereich, Gas, Strom oder mehreren Brennstoffen und danach mit Pizzaformat und Gästezahl.",
+      aside: "Das sind quellenbasierte Ratgeber, keine eigenen Tests von Four à Nu. Jede Modellseite nennt offene Fragen.",
+      sections: [
+        { heading: "Drei sinnvolle Zweige", paragraphs: ["Koda steht für Gasöfen, Karu für mehrere Brennstoffe und Volt für den Innenbetrieb mit Strom, sofern die Installation geeignet ist."], items: ["Koda 12, 16, 2, 2 Pro und 2 Max", "Karu 12, 2 und 2 Pro", "Volt 2", "Teigknetmaschinen Halo Core und Halo Pro"] },
+        { heading: "Generation genau prüfen", paragraphs: ["Ähnliche Namen können unterschiedliche Generationen verbergen. Jeder Ratgeber nennt die genaue Produktversion und verlinkt seine Quellen."] },
+      ],
+    },
+    gozney: {
+      title: "Dokumentierte Gozney-Pizzaöfen | Four à Nu",
+      description: "Gozney-Öfen in Frankreich nach Platz, Mobilität, Kapazität und veröffentlichten Quellen auswählen.",
+      eyebrow: "Gozney-Sortiment",
+      heading: "Wählen Sie zuerst die Gozney-Familie, dann die Ausführung.",
+      lead: "Roccbox und Tread setzen auf Mobilität; Arc und Arc XL vereinfachen Gasbetrieb; Dome und Dome XL (Gen 2) verlangen mehr Platz und eine dauerhafte Installation.",
+      aside: "Kein aktueller Modellratgeber wird als eigener Test von Four à Nu dargestellt. Herstellerangaben und Beobachtungen Dritter bleiben gekennzeichnet.",
+      sections: [
+        { heading: "Von mobil bis dauerhaft", paragraphs: ["Gewicht, Stellfläche, Öffnung, Backfläche und Lagerung zählen vor der Optik."], items: ["Roccbox und Tread für Transport", "Arc Lite, Arc und Arc XL für Gas", "Dome (Gen 2) und Dome XL (Gen 2) für einen festen Aufbau"] },
+        { heading: "Kaufrahmen Frankreich", paragraphs: ["Links führen zu den im Ratgeber dokumentierten französischen Shops. Prüfen Sie vor der Bestellung Variante und Lieferbedingungen."] },
+      ],
+    },
+    method: {
+      title: "Redaktionelle Methode und Evidenzstufen | Four à Nu",
+      description: "So trennt Four à Nu Herstellerangaben, Messungen, Beobachtungen, Synthesen und Schlussfolgerungen.",
+      eyebrow: "Redaktionelle Methode",
+      heading: "Eine Quelle ist kein Test, eine Schlussfolgerung keine Messung.",
+      lead: "Wir ordnen jede Messung der Person zu, die sie durchgeführt hat, bewahren nützliche Bedingungen und nennen klar, was das Material nicht belegen kann.",
+      aside: "Noch gibt es keinen eigenen Produkttest von Four à Nu. Wenn sich das ändert, werden Protokoll, Messungen und Grenzen eindeutig sein.",
+      sections: [
+        { heading: "Fünf Evidenzstufen", paragraphs: ["FAB ist eine Herstellerangabe, T-MES eine veröffentlichte Messung Dritter, T-OBS eine veröffentlichte Beobachtung Dritter, FAN-SYN verbindet kompatible Quellen und FAN-INF ist unsere begründete redaktionelle Schlussfolgerung."], items: ["Aussagen bleiben zugeordnet", "Timecodes und Bedingungen bleiben verbunden", "Unvereinbare Methoden werden nicht vermischt", "Unsicherheit bleibt sichtbar"] },
+        { heading: "Unabhängiger Vergleich", paragraphs: ["Ein belastbarer allgemeiner Vergleich braucht mindestens zwei unabhängige, kompatible Quellen. Bei nur einer Quelle beschreiben wir ein Beispiel, keine allgemeine Regel."] },
+        { heading: "Bilder und kommerzielle Links", paragraphs: ["Ein Bild illustriert und beweist keine Leistung. Leihgaben, Sponsoring, Partnerlinks und Händlerbeziehungen werden offengelegt, ohne eine Quelle automatisch richtig oder falsch zu machen."] },
+        { heading: "Korrekturen", paragraphs: ["Wesentliche Korrekturen werden datiert und erklären ihre Wirkung auf die Kaufentscheidung. Katalogdaten und Links werden bei Aktualisierungen erneut geprüft."] },
+      ],
+    },
+    about: {
+      title: "Über Four à Nu",
+      description: "Warum Four à Nu Pizzaöfen dokumentiert und später klar gekennzeichnete eigene Tests ergänzen will.",
+      eyebrow: "Das Projekt",
+      heading: "Ein Medium für Entscheidungen, keine Ranglistenmaschine.",
+      lead: "Four à Nu dokumentiert Grenzen, die einen Ofenkauf wirklich verändern: Ort, Energie, Format, Rhythmus, Ausstattung und Gesamtkosten.",
+      aside: "Noch wurde kein eigener Test von Four à Nu veröffentlicht. Künftige Tests nennen Protokoll, Messungen und Grenzen.",
+      sections: [
+        { heading: "Warum es die Seite gibt", paragraphs: ["Datenblätter nennen Versprechen. Videos zeigen Nutzungen mit unterschiedlichen Protokollen und Geschäftsbeziehungen. Wir trennen diese Ebenen, vergleichen kompatible Quellen und sagen, was sie nicht belegen."] },
+        { heading: "Drei Verpflichtungen", paragraphs: ["Antwort vor Monetarisierung; Zuordnung statt Aneignung; wichtige Änderungen korrigieren, ohne ihre Geschichte zu löschen."], items: ["Die kurze Antwort steht vor Kauflinks", "Messungen bleiben ihren Urhebern zugeordnet", "Kaufrelevante Korrekturen werden datiert"] },
+        { heading: "Wer zeichnet", paragraphs: ["Nicolas, Florian und Magali bringen unterschiedliche Blickwinkel ein. Die Signatur nennt die verantwortliche Person; Quellen, Schlussfolgerungen und Grenzen werden gemeinsam geprüft."] },
+      ],
+    },
+    authors: {
+      title: "Nicolas, Florian & Magali | Redaktion Four à Nu",
+      description: "Die drei verantwortlichen Personen hinter den Ratgebern von Four à Nu.",
+      eyebrow: "Redaktion",
+      heading: "Nicolas, Florian & Magali.",
+      lead: "Drei unterschiedliche Wege, eine gemeinsame Methode: Jeder Ratgeber nennt seine verantwortliche Person, Quellen und Grenzen werden gemeinsam geprüft.",
+      aside: "Eine Signatur führt zu einer Person, ihrem Hintergrund und ihren Ratgebern. Sie ist keine dekorative Autorität.",
+      sections: [
+        { heading: "Vor Veröffentlichung", paragraphs: ["Quellen, Zahlen, Links, Geschäftsbeziehungen und Grenzen werden geprüft, bevor ein Ratgeber online geht."] },
+        { heading: "Bei Aktualisierung", paragraphs: ["Genaue Produktgeneration, datierte Preise, externe Links und Schlussfolgerung werden gemeinsam geprüft."] },
+        { heading: "Nach einem Hinweis", paragraphs: ["Quelle und Tragweite des Fehlers werden geprüft. Eine wesentliche Korrektur nennt Datum, Grund und Wirkung."] },
+      ],
+    },
+    authorNicolas: {
+      title: "Nicolas | Four à Nu",
+      description: "Nicolas, Gründer von Four à Nu und verantwortlicher Autor quellenbasierter Pizzaofen-Ratgeber.",
+      eyebrow: "Verantwortlicher Autor",
+      heading: "Nicolas",
+      lead: "Nicolas backt vor allem neapolitanische Pizza mit einem Gozney Dome (Gen 2) und achtet auf Ergebnis, Platz, Ausstattung und Organisation.",
+      aside: "Seine eigene Praxis prägt seine Fragen, macht einen quellenbasierten Ratgeber aber nicht zu einem Test von Four à Nu.",
+      sections: [{ heading: "Sein Blick", paragraphs: ["Er hat Four à Nu gegründet, damit reale Nutzung statt Datenblattlänge entscheidet. Rund um seinen Ofen interessieren ihn Teig, Backen und ein unkomplizierter Abend gleichermaßen."] }],
+    },
+    authorFlorian: {
+      title: "Florian | Four à Nu",
+      description: "Florian, Koch in Ausbildung und verantwortlicher Autor bei Four à Nu.",
+      eyebrow: "Verantwortlicher Autor",
+      heading: "Florian",
+      lead: "Florian absolviert eine Kochausbildung mit dem Ziel, Pizzaiolo-Meister zu werden. Er erkundet Öfen, Teigstile und Pizzerien in Italien.",
+      aside: "Diese Erfahrung nährt seine Neugier, ersetzt aber nie Quellen und Grenzen der aktuellen Ratgeber.",
+      sections: [{ heading: "Sein Blick", paragraphs: ["Er achtet auf Handgriffe, Wiederholbarkeit und den praktischen Backrhythmus. Schlussfolgerungen beruhen weiterhin auf den veröffentlichten Quellen des Artikels."] }],
+    },
+    authorMagali: {
+      title: "Magali | Four à Nu",
+      description: "Magali, verantwortliche Autorin bei Four à Nu mit Blick auf gemeinsame Essen und Servierrhythmus.",
+      eyebrow: "Verantwortliche Autorin",
+      heading: "Magali",
+      lead: "Magali liebt Detroit- und römische Pizza, besonders wenn sie für Kolleginnen, Kollegen und Familie kocht.",
+      aside: "Sie denkt an echte Runden: Anzahl der Pizzen, nötiges Tempo und Platzbedarf des Ofens nach dem Essen.",
+      sections: [{ heading: "Ihr Blick", paragraphs: ["Ihre Ratgeber fragen, was ein Produkt während eines ganzen gemeinsamen Essens verändert, und trennen persönliche Vorliebe von dokumentierter Evidenz."] }],
+    },
+    contact: {
+      title: "Kontakt | Four à Nu",
+      description: "Fehler melden, Korrektur anfordern oder ein Recht auf Gegendarstellung gegenüber Four à Nu ausüben.",
+      eyebrow: "Kontakt",
+      heading: "Ein nützlicher Hinweis beginnt mit einer genauen URL.",
+      lead: "Nennen Sie Seite, betroffene Stelle und prüfbare Quelle. Veröffentlichen Sie niemals personenbezogene Daten in einem GitHub-Issue.",
+      aside: "Für eine sachliche Korrektur ist das öffentliche Repository der schnellste Kanal.",
+      sections: [
+        { heading: "Fehler oder Korrektur", paragraphs: ["Im öffentlichen Repository bleiben Hinweis und Quelle nachvollziehbar. Nutzen Sie es nur für Informationen, die öffentlich bleiben dürfen."] },
+        { heading: "Recht auf Gegendarstellung", paragraphs: ["Der nichtprofessionelle Herausgeber wahrt seine öffentliche Anonymität. Eine rechtlich gültige Anfrage kann an Cloudflare gerichtet und im anwendbaren Rahmen weitergeleitet werden."] },
+      ],
+    },
+    corrections: {
+      title: "Korrekturgrundsätze | Four à Nu",
+      description: "So korrigiert Four à Nu Daten, Zuordnungen oder Schlussfolgerungen und dokumentiert wesentliche Änderungen.",
+      eyebrow: "Redaktionelle Grundsätze",
+      heading: "Änderungen korrigieren, ohne ihre Geschichte zu löschen.",
+      lead: "Eine wesentliche Korrektur nennt Datum, Grund und Wirkung auf die Schlussfolgerung. Ein Tippfehler kann ohne öffentlichen Eintrag behoben werden.",
+      aside: "Ändert sich eine Kaufentscheidung oder das Vertrauensniveau, erscheint die Änderung im öffentlichen Protokoll.",
+      sections: [
+        { heading: "1. Prüfen", paragraphs: ["Quelle, Modell, Datum und genaue Tragweite des gemeldeten Fehlers ermitteln."] },
+        { heading: "2. Korrigieren", paragraphs: ["Satz, Tabelle oder Schlussfolgerung in der kanonischen Artikelquelle ändern."] },
+        { heading: "3. Dokumentieren", paragraphs: ["Eine datierte Notiz ergänzen, wenn sich Kaufentscheidung oder Vertrauensniveau ändern."] },
+        { heading: "Aktuelles Protokoll", paragraphs: ["Bisher ist keine wesentliche Korrektur verzeichnet. Das Protokoll beginnt mit der ersten Änderung wichtiger Daten, Grenzen oder Schlussfolgerungen."] },
+      ],
+    },
+    privacy: {
+      title: "Datenschutz und technische Daten | Four à Nu",
+      description: "Technische Daten beim Besuch von Four à Nu, ohne Werbetracker oder Reichweitenanalyse.",
+      eyebrow: "Datenschutz",
+      heading: "Lesen ohne Verfolgung durch ein Werbenetzwerk.",
+      lead: "Four à Nu ist statisch. Die Seite setzt keine Cookies, lädt keine Analysewerkzeuge und führt keine Werbeskripte im Browser aus.",
+      aside: "Grundsätze geprüft am 30. August 2026. Ein späteres Messwerkzeug würde zuerst eine Aktualisierung dieser Seite verlangen.",
+      sections: [
+        { heading: "Was die Seite nicht sammelt", paragraphs: ["Kein Konto, Formular, Kommentar, Werbeprofil, Cookie oder lokaler Identifikator. Videos Dritter laden nicht automatisch."] },
+        { heading: "Was der Server erhält", paragraphs: ["Wie jeder Webserver erhält das Hosting IP-Adresse, Datum, angeforderten Pfad, angegebenen Browser und HTTP-Status für Übertragung und Sicherheit."] },
+        { heading: "Hosting und Sicherheit", paragraphs: ["Cloudflare liefert die Dateien und verarbeitet notwendige technische Daten. Four à Nu aktiviert weder Reichweitenanalyse noch Anwendungsprotokollierung."] },
+        { heading: "Externe Links", paragraphs: ["Ein Klick zu YouTube, Hersteller, GitHub oder Händler öffnet deren Dienst. Amazon.fr-Links enthalten die öffentliche Partnerkennung fouranu-21; vor dem Klick erfolgt keine Anfrage an Amazon."] },
+      ],
+    },
+    legal: {
+      title: "Impressum | Four à Nu",
+      description: "Impressum von Four à Nu: nichtprofessioneller Herausgeber, Hosting bei Cloudflare, Kontakt und Zuordnung fremder Inhalte.",
+      eyebrow: "Rechtliche Informationen",
+      heading: "Herausgabe und Hosting.",
+      lead: "Four à Nu wird nichtprofessionell herausgegeben. Der Herausgeber wahrt seine öffentliche Anonymität gemäß Artikel 1-1 II des französischen Gesetzes über das Vertrauen in die digitale Wirtschaft.",
+      aside: "Seite aktualisiert am 24. August 2026.",
+      sections: [
+        { heading: "Herausgeber — Four à Nu", paragraphs: ["Nichtprofessionell herausgegebener Online-Kommunikationsdienst. Korrekturen und Gegendarstellungen folgen den Kanälen der Kontaktseite."] },
+        { heading: "Hosting — Cloudflare, Inc.", paragraphs: ["101 Townsend Street, San Francisco, CA 94107, USA. Telefon: +1 (650) 319-8930. E-Mail: support@cloudflare.com."] },
+        { heading: "Inhalte und Marken", paragraphs: ["Texte von Four à Nu bleiben urheberrechtlich geschützt. Genannte Marken, Produktnamen und fremde Inhalte gehören ihren Rechteinhabern. Zitat oder Link bedeuten keine Partnerschaft oder Empfehlung."] },
+      ],
+    },
+    transparency: {
+      title: "Kommerzielle Transparenz und Partnerlinks | Four à Nu",
+      description: "So trennt Four à Nu redaktionelle Entscheidungen, Quellenbeziehungen und Partnerlinks zu Amazon.fr.",
+      eyebrow: "Redaktionelle Unabhängigkeit",
+      heading: "Handel schreibt die Evidenz nicht um.",
+      lead: "Four à Nu kann an einem qualifizierten Kauf verdienen, nachdem jemand einem Link zu Amazon.fr gefolgt ist. Das verändert weder Quellenauswahl noch Reihenfolge der Schlussfolgerungen.",
+      aside: "Seit 30. August 2026 verwenden Amazon.fr-Links die Partnerkennung fouranu-21. Herstellerlinks bleiben direkt und unbezahlt. Werbeplätze werden nicht verkauft.",
+      sections: [
+        { heading: "Vor dem Klick offenlegen", paragraphs: ["Jeder Bereich mit vergütetem Amazon-Link kennzeichnet ihn in unmittelbarer Nähe. Auch die Quellenliste nennt das Partnerziel, ohne die gespeicherte Evidenz-URL zu verändern."] },
+        { heading: "Antwort vor Angebot", paragraphs: ["Die kurze Antwort steht vor dem ersten Händlerblock. Eine Aktion wird nie zum Empfehlungsgrund."] },
+        { heading: "Konflikte sichtbar halten", paragraphs: ["Leihgaben, Geschenke, Zusammenarbeit, Rabattcodes und Partnerlinks einer Quelle bleiben mit der betreffenden Beobachtung verbunden."] },
+        { heading: "Ranglisten nicht verkaufen", paragraphs: ["Keine Marke kann Note, Platz, Schlussfolgerung oder das Entfernen einer Grenze kaufen. Die statische Seite lädt kein Werbenetzwerk, keinen Preisvergleich und kein Händlerskript."] },
+      ],
+    },
+  },
+};

@@ -6,7 +6,7 @@ import { SITE } from "@/config/site";
 import { articlePath } from "@/data/article-taxonomy";
 
 const articles = (await getCollection("analyses"))
-  .filter((entry) => entry.data.brand === "accessoires")
+  .filter((entry) => entry.data.locale === "fr" && entry.data.brand === "accessoires")
   .sort((left, right) => left.data.articleId.localeCompare(right.data.articleId));
 
 if (articles.length !== 4) {

@@ -1,7 +1,6 @@
 {
   "name": "Four à Nu",
   "short_name": "Four à Nu",
-  "description": "Fours à pizza, accessoires et pétrins, sources à l'appui",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",

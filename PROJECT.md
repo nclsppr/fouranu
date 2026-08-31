@@ -12,23 +12,24 @@ reste consignée dans [`BRIEF.md`](BRIEF.md).
 | Nom de code du dépôt | Jupiter |
 | Propriétaire | nclsppr |
 | Classe | Produit |
-| Langue initiale | Français |
+| Langues publiques cibles | Français sans préfixe, anglais sous `/en/` et allemand sous `/de/` ; extension trilingue au stade de candidat local non publié |
 | Domaine | `fouranu.com`, acquisition confirmée par le propriétaire le 2026-08-23 |
 | Surface de production | Cloudflare Workers Static Assets via GitHub Actions après la gate `Verify` ; l'état d'activation vérifié vit dans `STATUS.md` |
 | Socle adopté | [`FOUNDATION.md`](FOUNDATION.md) |
 
 ## Problème
 
-Un acheteur francophone de four à pizza doit rapprocher des dimensions, des
-énergies, des accessoires, des coûts et des essais publiés selon des protocoles
-différents. Les pages marchandes et les comparatifs génériques rendent cette
-décision difficile à vérifier.
+Un acheteur de four à pizza qui commande en France doit rapprocher des
+dimensions, des énergies, des accessoires, des coûts et des essais publiés selon
+des protocoles différents, qu'il lise en français, en anglais ou en allemand.
+Les pages marchandes et les comparatifs génériques rendent cette décision
+difficile à vérifier.
 
 ## Utilisateur principal
 
 | Utilisateur | Situation | Besoin | Risque principal |
 | --- | --- | --- | --- |
-| Amateur francophone déjà en intention d'achat | Il choisit un four domestique entre 300 et 1 500 euros, avec des contraintes de place, d'énergie, de débit et de budget | Comparer les compromis et retrouver la provenance de chaque affirmation | Confondre une donnée fabricant, une observation tierce et une conclusion éditoriale de Four à Nu |
+| Amateur lisant le français, l'anglais ou l'allemand, déjà en intention d'achat sur le marché français | Il choisit un four domestique entre 300 et 1 500 euros, avec des contraintes de place, d'énergie, de débit et de budget | Comparer les compromis et retrouver la provenance de chaque affirmation dans sa langue de lecture | Confondre une donnée fabricant, une observation tierce et une conclusion éditoriale de Four à Nu |
 
 Le matériel professionnel reste une extension possible. Il n'entre pas dans la
 promesse du premier produit.
@@ -64,7 +65,9 @@ qui est réellement vérifié.
 
 ### Inclus
 
-- un seul site francophone sous la marque Four à Nu ;
+- un seul site trilingue sous la marque Four à Nu : français sans préfixe,
+  anglais sous `/en/` et allemand sous `/de/`, avec des identifiants stables et
+  des contreparties exactes définies par manifeste ;
 - un parcours de choix par contraintes ;
 - une méthode publique, une politique de correction, un annuaire de la
   rédaction et un profil individuel illustré par un portrait fourni et
@@ -116,6 +119,7 @@ explicite avant son lancement.
 | Contenus prioritaires | [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) | Actuel |
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
+| Locales, routes, SEO et frontières de traduction | [`docs/decisions/0009-site-trilingue-fr-en-de.md`](docs/decisions/0009-site-trilingue-fr-en-de.md) | Décision acceptée ; candidat local non publié |
 | Modèle documentaire | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
 | Programme d'essais et couverture du marché | [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) | Décision acceptée ; non activée |
 | En-tête produit et voix éditoriale | [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) | Décision acceptée |
@@ -123,7 +127,7 @@ explicite avant son lancement.
 | Cible d'hébergement et chemin de déploiement | [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
 | Design system | [`DESIGN.md`](DESIGN.md) | Actuel |
-| Code du site | `site/` | Actuel ; la V1 issue de ce dépôt est publiée sur `fouranu.com` |
+| Code du site | `site/` | V1 française publique ; extension anglaise et allemande au stade de candidat local non publié |
 | Registres éditoriaux | `research/evidence.csv`, `research/questions.csv`, `research/assets.csv` | Actuel |
 | Configuration locale intégrée | `compose.yaml` | Actuelle, service `site` et healthcheck vérifiés localement |
 | Documentation interne | `documentation.json`, `docs-nimbus/` et [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) | Actuel |
@@ -135,7 +139,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique | Production publique | Build, service local et production | `site/`, 40 pages HTML dont quatre guides et un hub accessoires publics et indexables, plus robots, sitemap, RSS et `llms.txt` ; production exacte dans `STATUS.md` |
+| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique dans trois langues | Production française publique ; candidat anglais et allemand local non publié | Build, service local et production | `site/` ; la production française exacte vit dans `STATUS.md`, la parité FR/EN/DE et ses sorties de découverte restent des gates du candidat local |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -153,16 +157,25 @@ explicite avant son lancement.
    viennent ensuite lorsqu'elles sont nécessaires et autorisées.
 4. La page référence les identifiants de preuve et de média nécessaires ; sa
    signature reprend le portrait enregistré de la personne référente.
-5. La gate refuse une provenance absente, un média non publiable, une
-   expérience tierce racontée à la première personne, une note, un balisage
-   d'avis ou un lien rémunéré mal déclaré.
-6. Astro génère un artefact statique avec métadonnées, images sociales,
-   favicon, canonical, sitemap texte et image, puis directives d'indexation
-   cohérentes. Le partage progressif réutilise strictement l'URL canonique.
-7. Chaque nouveau paquet reste en preview locale et `noindex` jusqu'aux
+5. Les versions française, anglaise et allemande gardent le même identifiant,
+   les mêmes preuves canoniques, dates, objets commerciaux et liens destinés au
+   marché français. La voix éditoriale est traduite ; une observation ou une
+   condition du registre conservée en français reçoit une note transparente.
+6. Un média dont la permission enregistrée ne couvre que le français est omis
+   des pages anglaises et allemandes, sans cadre vide ni réemploi comme aperçu
+   social.
+7. La gate refuse une provenance absente, un média non publiable dans la langue
+   concernée, une expérience tierce racontée à la première personne, une note,
+   un balisage d'avis ou un lien rémunéré mal déclaré.
+8. Astro génère un artefact statique avec `lang`, canonical auto-référent,
+   hreflang réciproques et `x-default` français, Open Graph, données structurées,
+   sitemap, RSS et `llms.txt` localisés, puis directives robots cohérentes. Le
+   sélecteur relie les contreparties exactes sans JavaScript ni redirection
+   automatique ; le partage réutilise strictement l'URL canonique courante.
+9. Chaque nouveau paquet reste en preview locale et `noindex` jusqu'aux
    contrôles éditoriaux, visuels et techniques, puis jusqu'au feu vert explicite
    du propriétaire.
-8. GitHub Actions ne peut déployer ce SHA vers Workers Static Assets qu'après
+10. GitHub Actions ne peut déployer ce SHA vers Workers Static Assets qu'après
    la réussite de `Verify` et l'activation explicite du chemin de déploiement.
    La V1 a reçu séparément les autorisations de premier déploiement, de domaine,
    de DNS et d'indexation. Toute nouvelle mutation de ces éléments garde sa
@@ -173,7 +186,7 @@ explicite avant son lancement.
 | Dépendance | Usage prévu | Données transmises | État et mode d'échec |
 | --- | --- | --- | --- |
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
-| Marchands et programmes partenaires | Liens fabricants directs ; registre exhaustif des produits commerciaux éditoriaux ; liens Amazon.fr exacts attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | L’affiliation Amazon est autorisée, publique et déclarée ; chaque objet est contrôlé, `not_found` ne signifie pas indisponible, les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
+| Marchands et programmes partenaires | Liens fabricants directs ; registre exhaustif des produits commerciaux éditoriaux ; liens Amazon.fr exacts attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | Le marché et les marchands restent la France dans les trois langues ; l’affiliation Amazon.fr est autorisée, publique et déclarée ; chaque objet est contrôlé, `not_found` ne signifie pas indisponible, les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
 | Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
 | Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |
@@ -185,8 +198,8 @@ explicite avant son lancement.
 | --- | --- | --- | --- |
 | Développement | `compose.yaml` | `http://127.0.0.1:4321` | Build et healthcheck vérifiés localement |
 | CI | `.github/workflows/verify.yml` | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` exécuté avec succès sur `main` |
-| Preview | Artefact statique local avec `noindex` ; éventuel accès Cloudflare à autoriser séparément | Aucun | Candidat reproductible, aucune preview distante activée par défaut |
-| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | [`https://fouranu.com`](https://fouranu.com) | V1 active, indexable et servie en HTTPS avec TLS 1.2 ou plus récent |
+| Preview | Artefact statique local avec `noindex` ; éventuel accès Cloudflare à autoriser séparément | Aucun | Extension FR/EN/DE au stade de candidat local non publié ; aucune preview distante activée par défaut |
+| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | [`https://fouranu.com`](https://fouranu.com) | V1 française active, indexable et servie en HTTPS avec TLS 1.2 ou plus récent ; routes EN/DE non publiées |
 
 ## Commandes canoniques
 
@@ -196,7 +209,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit 40 pages HTML et exécute vingt tests de contrat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit le site statique et exécute les tests de contrat, dont la parité linguistique du candidat |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |
@@ -210,6 +223,9 @@ explicite avant son lancement.
   ni fichiers médias tiers.
 - Les preuves d'autorisation et coordonnées restent sous `research/private/`,
   hors Git. La CI ne peut pas les lire.
+- La portée linguistique enregistrée avec une permission média est contraignante :
+  un droit limité au français entraîne l'omission du média en anglais et en
+  allemand.
 - Aucun secret, compte marchand, identifiant analytics, SDK social ou clé d'API
   n'est requis pour la vérification locale. Le déploiement Cloudflare utilise un
   jeton minimal conservé dans l'environnement GitHub protégé, jamais dans le
@@ -225,6 +241,7 @@ explicite avant son lancement.
 | Contenu sans provenance | Registres, références croisées et tests de contrat | Lecture des sources et limites avec la barrière SEO par article |
 | Confusion entre source et conclusion | Refus de la première personne pour une expérience tierce, des notes et des schémas d'avis | Vérification du bandeau documentaire et des attributions avant la première recommandation |
 | Régression SEO | Build, liens, canonical, sitemap, robots et données structurées | Inspection de l'HTML et des aperçus sociaux |
+| Rupture de parité linguistique | Identifiants et routes uniques, liens de langue exacts, champs protégés, canonical, hreflang, Open Graph, schémas, sitemap, RSS et `llms.txt` contrôlés pour FR/EN/DE | Relecture EN/DE, portée France et Amazon.fr, note sur les preuves canoniques, droits médias, contenu allemand long, mobile, bureau et clavier |
 | Interface inaccessible | Typecheck, tests et contrôles statiques applicables | Mobile, bureau, clavier, focus, contraste et mouvement réduit |
 | Publication interne accidentelle | Séparation entre `site/` et `docs-nimbus/` | Inspection de l'artefact public |
 
@@ -244,7 +261,10 @@ explicite avant son lancement.
   le passage d'un paquet en indexable.
 - Rollback cible : précédent déploiement correspondant à un SHA vérifié.
 - Vérification finale d'une publication : checks CI, contrôle HTTP, rendu
-  mobile et bureau, console, routes, robots, sitemap et empreinte de l'artefact.
+  mobile et bureau, console, routes, contreparties exactes, canonical, hreflang,
+  Open Graph, schémas, robots, sitemap, RSS, `llms.txt` et empreinte de
+  l'artefact. Le candidat trilingue reste non publié jusqu'au feu vert explicite
+  sur ce paquet et ce SHA exacts.
 
 ## Responsabilités
 

@@ -6,6 +6,7 @@ import { SITE } from "@/config/site";
 import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
 
 const analyses = (await getCollection("analyses"))
+  .filter((entry) => entry.data.locale === "fr")
   .filter(isPublishedAnalysis)
   .filter((entry) => entry.data.brand === "gozney")
   .sort((a, b) =>

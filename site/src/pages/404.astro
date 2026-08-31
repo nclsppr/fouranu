@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticAlternates } from "@/i18n/config";
 ---
 
 <BaseLayout
   title="Page introuvable | Four à Nu"
   description="Cette page n'existe pas ou a changé d'adresse."
   canonical={false}
+  alternatePaths={staticAlternates("notFound")}
   indexable={false}
 >
   <section class="not-found page-shell">

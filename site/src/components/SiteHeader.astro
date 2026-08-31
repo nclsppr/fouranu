@@ -1,10 +1,32 @@
 ---
-import { PRIMARY_NAV } from "@/config/site";
+import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
+import {
+  staticRoute,
+  type Locale,
+  type StaticRouteId,
+} from "@/i18n/config";
+import { SHELL_COPY } from "@/i18n/common";
 
+interface Props {
+  locale: Locale;
+  alternatePaths: Record<Locale, string>;
+}
+
+const { locale, alternatePaths } = Astro.props;
+const copy = SHELL_COPY[locale];
 const currentPath = Astro.url.pathname;
+const homePath = staticRoute("home", locale);
+const navItems = [
+  { routeId: "accessories", label: copy.nav.accessories },
+  { routeId: "ovens", label: copy.nav.ovens },
+  { routeId: "ooni", label: copy.nav.ooni },
+  { routeId: "gozney", label: copy.nav.gozney },
+  { routeId: "method", label: copy.nav.method },
+  { routeId: "about", label: copy.nav.about },
+] as const satisfies readonly { routeId: StaticRouteId; label: string }[];
 const currentState = (href: string) => {
   if (currentPath === href) return "page";
-  if (href !== "/" && currentPath.startsWith(href)) return "location";
+  if (href !== homePath && currentPath.startsWith(href)) return "location";
   return undefined;
 };
 ---
@@ -13,9 +35,9 @@ const currentState = (href: string) => {
   <div class="site-header__inner page-shell">
     <a
       class="brand-lockup"
-      href="/"
-      aria-label="Four à Nu, accueil"
-      aria-current={currentPath === "/" ? "page" : undefined}
+      href={homePath}
+      aria-label={copy.homeAria}
+      aria-current={currentPath === homePath ? "page" : undefined}
     >
       <img
         src="/brand/logo-fouranu.png"
@@ -25,15 +47,25 @@ const currentState = (href: string) => {
       />
     </a>
 
-    <nav class="site-nav" aria-label="Navigation principale">
-      {PRIMARY_NAV.map((item) => (
+    <LanguageSwitcher
+      locale={locale}
+      alternatePaths={alternatePaths}
+      variant="header"
+    />
+
+    <nav class="site-nav" aria-label={copy.primaryNavAria}>
+      {navItems.map((item) => {
+        const href = staticRoute(item.routeId, locale);
+
+        return (
         <a
-          href={item.href}
-          aria-current={currentState(item.href)}
+          href={href}
+          aria-current={currentState(href)}
         >
           {item.label}
         </a>
-      ))}
+        );
+      })}
     </nav>
   </div>
 </header>

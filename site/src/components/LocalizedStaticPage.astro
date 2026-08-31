@@ -1,0 +1,327 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import AuthorPortrait from "@/components/AuthorPortrait.astro";
+import { SITE } from "@/config/site";
+import {
+  articleRoute,
+  staticAlternates,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+  type StaticRouteId,
+} from "@/i18n/config";
+import { ARTICLE_BRAND_LABELS, ARTICLE_COPY, localizedSite } from "@/i18n/common";
+import { STATIC_PAGE_COPY } from "@/i18n/pages";
+
+interface Props {
+  locale: Exclude<Locale, "fr">;
+  routeId: Exclude<StaticRouteId, "notFound">;
+}
+
+const { locale, routeId } = Astro.props;
+const copy = STATIC_PAGE_COPY[locale][routeId];
+const localized = localizedSite(locale);
+const articleCopy = ARTICLE_COPY[locale];
+const allEntries = (await getCollection("analyses"))
+  .filter((entry) => entry.data.locale === locale && entry.data.status === "publishable" && entry.data.indexable)
+  .sort((left, right) => right.data.updatedAt.getTime() - left.data.updatedAt.getTime());
+const authorId = routeId === "authorNicolas"
+  ? "nicolas"
+  : routeId === "authorFlorian"
+    ? "florian"
+    : routeId === "authorMagali"
+      ? "magali"
+      : undefined;
+const topicEntries = routeId === "accessories"
+  ? allEntries.filter((entry) => entry.data.brand === "accessoires")
+  : routeId === "ooni"
+    ? allEntries.filter((entry) => entry.data.brand === "ooni")
+    : routeId === "gozney"
+      ? allEntries.filter((entry) => entry.data.brand === "gozney")
+      : routeId === "ovens"
+        ? allEntries.filter((entry) => entry.data.category === "oven")
+        : routeId === "home"
+        ? allEntries.slice(0, 8)
+          : [];
+const listingEntries = authorId
+  ? allEntries.filter((entry) => entry.data.author === authorId)
+  : topicEntries;
+const author = authorId ? localized.authors[authorId] : undefined;
+const authors = Object.entries(localized.authors);
+const isTeam = routeId === "authors";
+const isArticleListing = ["home", "accessories", "ovens", "ooni", "gozney"].includes(routeId);
+const canonical = new URL(staticRoute(routeId, locale), SITE.url).toString();
+const articleItemList = listingEntries.length > 0
+  ? {
+      "@type": "ItemList",
+      itemListElement: listingEntries.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: new URL(articleRoute(entry.data.articleId as ArticleId, locale), SITE.url).toString(),
+        name: entry.data.title,
+      })),
+    }
+  : undefined;
+const schemaType = author
+  ? "ProfilePage"
+  : isArticleListing || isTeam
+    ? "CollectionPage"
+    : undefined;
+const schema = schemaType ? {
+  "@context": "https://schema.org",
+  "@type": schemaType,
+  "@id": `${canonical}${author ? "#profile" : "#collection"}`,
+  url: canonical,
+  name: copy.heading,
+  description: copy.description,
+  inLanguage: locale,
+  isPartOf: { "@id": `${SITE.url}/#website` },
+  ...(author
+    ? {
+        mainEntity: {
+          "@type": "Person",
+          "@id": `${canonical}#person`,
+          name: author.name,
+          url: canonical,
+          description: author.description,
+          jobTitle: author.role,
+          image: new URL(author.portrait.large, SITE.url).toString(),
+        },
+        ...(articleItemList ? { hasPart: articleItemList } : {}),
+      }
+    : articleItemList
+      ? { mainEntity: articleItemList }
+      : {}),
+} : undefined;
+const actionLinks: Partial<Record<typeof routeId, { href: string; label: string; external?: boolean }[]>> = {
+  about: [
+    { href: staticRoute("method", locale), label: locale === "en" ? "Read the method" : "Methode lesen" },
+    { href: staticRoute("authors", locale), label: locale === "en" ? "Meet the editorial team" : "Redaktion kennenlernen" },
+  ],
+  contact: [
+    { href: "https://github.com/nclsppr/fouranu/issues/new", label: locale === "en" ? "Open a GitHub issue" : "GitHub-Issue öffnen", external: true },
+    { href: "https://www.cloudflare.com/trust-hub/reporting-abuse/", label: locale === "en" ? "Contact Cloudflare" : "Cloudflare kontaktieren", external: true },
+  ],
+  corrections: [
+    { href: "https://github.com/nclsppr/fouranu/issues/new", label: locale === "en" ? "Report an error on GitHub" : "Fehler auf GitHub melden", external: true },
+  ],
+  privacy: [
+    { href: "https://www.cloudflare.com/policies/privacy/", label: locale === "en" ? "Read Cloudflare’s privacy policy" : "Datenschutz von Cloudflare lesen", external: true },
+  ],
+  legal: [
+    { href: staticRoute("contact", locale), label: locale === "en" ? "Contact Four à Nu" : "Four à Nu kontaktieren" },
+    { href: "https://www.legifrance.gouv.fr/codes/section_lc/JORFTEXT000000801164/LEGISCTA000006117684/", label: locale === "en" ? "Read the applicable French law" : "Anwendbares französisches Gesetz lesen", external: true },
+  ],
+  transparency: [
+    { href: staticRoute("method", locale), label: locale === "en" ? "See how source relationships are recorded" : "Erfassung von Quellenbeziehungen ansehen" },
+  ],
+};
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonical={canonical}
+  alternatePaths={staticAlternates(routeId)}
+  indexable={true}
+  schema={schema}
+>
+  <div class="page-shell localized-page">
+    <Breadcrumbs
+      locale={locale}
+      items={[
+        { label: articleCopy.home, href: staticRoute("home", locale) },
+        { label: copy.eyebrow },
+      ]}
+    />
+
+    <header class="localized-page__intro">
+      <div>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="localized-page__lead">{copy.lead}</p>
+      </div>
+      {copy.aside && <p class="localized-page__aside">{copy.aside}</p>}
+    </header>
+
+    {authorId && (
+      <section class="localized-page__author" aria-label={copy.heading}>
+        <AuthorPortrait portrait={localized.authors[authorId].portrait} variant="hub" />
+        <div>
+          <p>{localized.authors[authorId].role}</p>
+          {localized.authors[authorId].biography.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </section>
+    )}
+
+    {isTeam && (
+      <section class="localized-page__authors" aria-label={locale === "en" ? "Editorial team" : "Redaktion"}>
+        {authors.map(([, author]) => (
+          <article>
+            <AuthorPortrait portrait={author.portrait} variant="hub" />
+            <p class="eyebrow">{author.role}</p>
+            <h2>{author.name}</h2>
+            <p>{author.summary}</p>
+            <a href={author.url}>{locale === "en" ? `Read more about ${author.name}` : `Mehr über ${author.name}`}</a>
+          </article>
+        ))}
+      </section>
+    )}
+
+    {copy.sections.length > 0 && (
+      <div class="localized-page__sections">
+        {copy.sections.map((section, index) => (
+          <section>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h2>{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              {section.items && <ul>{section.items.map((item) => <li>{item}</li>)}</ul>}
+            </div>
+          </section>
+        ))}
+      </div>
+    )}
+
+    {listingEntries.length > 0 && (
+      <section class="localized-page__dossiers" aria-labelledby="localized-dossiers-title">
+        <header>
+          <p class="eyebrow">{locale === "en" ? "Published guides" : "Veröffentlichte Ratgeber"}</p>
+          <h2 id="localized-dossiers-title">
+            {author
+              ? locale === "en"
+                ? `${listingEntries.length} guides by ${author.name}`
+                : `${listingEntries.length} Ratgeber von ${author.name}`
+              : locale === "en"
+                ? `${listingEntries.length} guides in English`
+                : `${listingEntries.length} Ratgeber auf Deutsch`}
+          </h2>
+        </header>
+        <div>
+          {listingEntries.map((entry) => (
+            <article>
+              <p>{ARTICLE_BRAND_LABELS[locale][entry.data.brand]} · {articleCopy.type[entry.data.type]}</p>
+              <h3><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{entry.data.title}</a></h3>
+              <p>{entry.data.summary}</p>
+              <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>
+                {locale === "en" ? "Read the guide" : "Ratgeber lesen"} <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {actionLinks[routeId] && (
+      <nav class="localized-page__actions" aria-label={locale === "en" ? "Related links" : "Weiterführende Links"}>
+        {actionLinks[routeId]?.map((link) => (
+          <a href={link.href} rel={link.external ? "external" : undefined}>{link.label}</a>
+        ))}
+      </nav>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .localized-page__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(16rem, 4fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    padding-block: clamp(2.5rem, 7vw, 7rem);
+    border-bottom: 1px solid var(--color-carbon);
+  }
+
+  .localized-page__intro > * {
+    min-width: 0;
+  }
+
+  .localized-page__intro h1 {
+    max-width: 14ch;
+    margin: 0;
+    font-size: clamp(3.2rem, 7vw, 7.5rem);
+    hyphens: auto;
+    line-height: 0.91;
+    overflow-wrap: anywhere;
+  }
+
+  .localized-page__lead {
+    max-width: 52rem;
+    margin: 1.5rem 0 0;
+    color: var(--color-graphite);
+    font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+    line-height: 1.55;
+  }
+
+  .localized-page__aside {
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--color-probe);
+    color: var(--color-graphite);
+    line-height: 1.65;
+  }
+
+  .localized-page__sections {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .localized-page__sections > section {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .localized-page__sections > section:last-child { border-bottom: 1px solid var(--color-line); }
+  .localized-page__sections > section > span { color: var(--color-probe); font-family: var(--font-data); font-size: 0.75rem; }
+  .localized-page__sections h2 { max-width: 22ch; margin: 0 0 0.75rem; font-size: clamp(2rem, 4vw, 4rem); line-height: 0.98; }
+  .localized-page__sections p,
+  .localized-page__sections li { max-width: 68ch; color: var(--color-graphite); line-height: 1.65; }
+
+  .localized-page__dossiers { padding-block: clamp(2.5rem, 6vw, 5rem); }
+  .localized-page__dossiers > header { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+  .localized-page__dossiers h2 { margin: 0; font-size: clamp(2.4rem, 5vw, 5rem); line-height: 0.95; }
+  .localized-page__dossiers > div,
+  .localized-page__authors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--color-carbon); }
+  .localized-page__dossiers article,
+  .localized-page__authors article { display: flex; min-height: 19rem; flex-direction: column; padding: 1.25rem; border-right: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
+  .localized-page__dossiers article:nth-child(3n),
+  .localized-page__authors article:nth-child(3n) { border-right: 0; }
+  .localized-page__dossiers article > p:first-child { color: var(--color-probe); font-family: var(--font-data); font-size: 0.72rem; text-transform: uppercase; }
+  .localized-page__dossiers h3,
+  .localized-page__authors h2 { margin: 1rem 0; font-size: clamp(1.8rem, 3vw, 2.7rem); line-height: 1; }
+  .localized-page__dossiers article > p,
+  .localized-page__authors article > p { color: var(--color-graphite); line-height: 1.6; }
+  .localized-page__dossiers article > a:last-child,
+  .localized-page__authors article > a { display: inline-flex; min-height: 2.75rem; align-items: center; margin-top: auto; color: var(--color-probe); font-weight: 600; }
+
+  .localized-page__author { display: grid; grid-template-columns: auto minmax(0, 44rem); gap: 2rem; align-items: start; padding-block: 3rem; }
+  .localized-page__author p { color: var(--color-graphite); line-height: 1.65; }
+  .localized-page__authors { margin-block: 3rem; }
+  .localized-page__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; padding-block: 2rem 4rem; }
+  .localized-page__actions a { display: inline-flex; min-height: 2.75rem; align-items: center; padding: 0.65rem 0.9rem; border: 1px solid var(--color-carbon); color: var(--color-carbon); font-weight: 600; }
+
+  @media (max-width: 64rem) {
+    .localized-page__dossiers > div,
+    .localized-page__authors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .localized-page__dossiers article:nth-child(3n),
+    .localized-page__authors article:nth-child(3n) { border-right: 1px solid var(--color-line); }
+    .localized-page__dossiers article:nth-child(2n),
+    .localized-page__authors article:nth-child(2n) { border-right: 0; }
+  }
+
+  @media (max-width: 48rem) {
+    .localized-page__intro,
+    .localized-page__dossiers > header,
+    .localized-page__dossiers > div,
+    .localized-page__authors,
+    .localized-page__author { grid-template-columns: 1fr; }
+    .localized-page__intro h1 { font-size: clamp(3rem, 15vw, 5rem); }
+    .localized-page__dossiers article,
+    .localized-page__authors article { min-height: 0; border-right: 0; }
+    .localized-page__sections > section { grid-template-columns: 2rem minmax(0, 1fr); }
+  }
+</style>

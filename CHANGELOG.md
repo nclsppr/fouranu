@@ -53,6 +53,27 @@ importantes.
   `deploy-cloudflare` dans le [run `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) ;
   `/release.json`, les cinq routes, les dix médias, les CTA, le sitemap, le RSS
   et `/llms.txt` ont été sondés publiquement sur cette révision.
+## 2026-08-31 - Décision trilingue FR/EN/DE, candidat local
+
+- L'ADR-0009 remplace la seule décision monolingue de l'ADR-0001 et fixe un site
+  unique : français sans préfixe, anglais sous `/en/` et allemand sous `/de/`,
+  avec des identifiants stables et un sélecteur vers la contrepartie exacte sans
+  JavaScript ni redirection automatique.
+- Le contrat produit, la roadmap, le design system et la barrière SEO rendent
+  obligatoires les canonical auto-référents, hreflang réciproques avec
+  `x-default` français, Open Graph, données structurées, sitemap, RSS,
+  `llms.txt`, robots et gates de parité cohérents dans les trois langues.
+- La langue ne change pas le marché : les preuves, objets commerciaux, portée
+  France et marchands autorisés, dont Amazon.fr, restent canoniques. Une
+  observation ou des conditions conservées en français reçoivent une note
+  transparente au lieu d'une traduction silencieuse.
+- Un média dont la permission enregistrée ne couvre que le français est omis
+  des pages anglaises et allemandes, y compris de l'en-tête et de l'aperçu
+  social. La QA couvre aussi les chaînes allemandes longues, le mobile, le
+  bureau, le clavier, les 404 et toutes les sorties de découverte.
+- Cette extension reste un candidat local non publié. Cette documentation ne
+  constitue ni un déploiement, ni une indexation, ni une soumission aux moteurs ;
+  le propriétaire doit encore autoriser le SHA et le paquet exacts.
 
 ## 2026-08-31 - Passe SEO globale et couverture Amazon par objet
 

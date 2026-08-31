@@ -1,0 +1,42 @@
+---
+import {
+  LOCALES,
+  LOCALE_INFO,
+  type Locale,
+} from "@/i18n/config";
+import { SHELL_COPY } from "@/i18n/common";
+
+interface Props {
+  locale: Locale;
+  alternatePaths: Record<Locale, string>;
+  variant?: "header" | "footer";
+}
+
+const {
+  locale,
+  alternatePaths,
+  variant = "header",
+} = Astro.props;
+const copy = SHELL_COPY[locale];
+---
+
+<nav
+  class:list={["language-switcher", `language-switcher--${variant}`]}
+  aria-label={copy.languageNavAria}
+>
+  {LOCALES.map((targetLocale) => {
+    const language = LOCALE_INFO[targetLocale];
+
+    return (
+      <a
+        href={alternatePaths[targetLocale]}
+        hreflang={language.htmlLanguage}
+        rel="alternate"
+        aria-label={copy.switchTo(language.languageName)}
+        aria-current={targetLocale === locale ? "page" : undefined}
+      >
+        <span lang={language.htmlLanguage}>{targetLocale.toUpperCase()}</span>
+      </a>
+    );
+  })}
+</nav>

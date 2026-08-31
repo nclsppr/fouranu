@@ -9,10 +9,10 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 7 |
+| Décisions | `internal` | 8 |
 | Barrières de publication | `internal` | 1 |
 | Notes de recherche | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 28 |
+| Brouillons éditoriaux du site | `internal` | 74 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -45,6 +45,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0005-en-tete-officiel-et-voix-accessible.md](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md)
 - [docs/decisions/0006-programme-essais-et-couverture-du-marche.md](docs/decisions/0006-programme-essais-et-couverture-du-marche.md)
 - [docs/decisions/0008-en-tete-original-guides-multi-produits.md](docs/decisions/0008-en-tete-original-guides-multi-produits.md)
+- [docs/decisions/0009-site-trilingue-fr-en-de.md](docs/decisions/0009-site-trilingue-fr-en-de.md)
 
 ## Barrières de publication
 
@@ -67,6 +68,54 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/dome-gen-2.md](site/src/content/analyses/dome-gen-2.md)
 - [site/src/content/analyses/dome-xl-gen-2.md](site/src/content/analyses/dome-xl-gen-2.md)
 - [site/src/content/analyses/g3-ferrari-delizia-g10006.md](site/src/content/analyses/g3-ferrari-delizia-g10006.md)
+- [site/src/content/analyses/de/arc-lite-oder-tread.md](site/src/content/analyses/de/arc-lite-oder-tread.md)
+- [site/src/content/analyses/de/arc-xl.md](site/src/content/analyses/de/arc-xl.md)
+- [site/src/content/analyses/de/arc.md](site/src/content/analyses/de/arc.md)
+- [site/src/content/analyses/de/dome-gen-2.md](site/src/content/analyses/de/dome-gen-2.md)
+- [site/src/content/analyses/de/dome-xl-gen-2.md](site/src/content/analyses/de/dome-xl-gen-2.md)
+- [site/src/content/analyses/de/gas-elektro-oder-multibrennstoff.md](site/src/content/analyses/de/gas-elektro-oder-multibrennstoff.md)
+- [site/src/content/analyses/de/halo-core-oder-halo-pro.md](site/src/content/analyses/de/halo-core-oder-halo-pro.md)
+- [site/src/content/analyses/de/infrarotthermometer-ratgeber.md](site/src/content/analyses/de/infrarotthermometer-ratgeber.md)
+- [site/src/content/analyses/de/karu-12.md](site/src/content/analyses/de/karu-12.md)
+- [site/src/content/analyses/de/karu-2-pro.md](site/src/content/analyses/de/karu-2-pro.md)
+- [site/src/content/analyses/de/karu-2.md](site/src/content/analyses/de/karu-2.md)
+- [site/src/content/analyses/de/koda-12.md](site/src/content/analyses/de/koda-12.md)
+- [site/src/content/analyses/de/koda-16.md](site/src/content/analyses/de/koda-16.md)
+- [site/src/content/analyses/de/koda-2-max.md](site/src/content/analyses/de/koda-2-max.md)
+- [site/src/content/analyses/de/koda-2-pro.md](site/src/content/analyses/de/koda-2-pro.md)
+- [site/src/content/analyses/de/koda-2.md](site/src/content/analyses/de/koda-2.md)
+- [site/src/content/analyses/de/pizzascheren-ratgeber.md](site/src/content/analyses/de/pizzascheren-ratgeber.md)
+- [site/src/content/analyses/de/pizzaschieber-ratgeber.md](site/src/content/analyses/de/pizzaschieber-ratgeber.md)
+- [site/src/content/analyses/de/roccbox.md](site/src/content/analyses/de/roccbox.md)
+- [site/src/content/analyses/de/teigboxen-ratgeber.md](site/src/content/analyses/de/teigboxen-ratgeber.md)
+- [site/src/content/analyses/de/volt-2.md](site/src/content/analyses/de/volt-2.md)
+- [site/src/content/analyses/de/welcher-gozney-ofen.md](site/src/content/analyses/de/welcher-gozney-ofen.md)
+- [site/src/content/analyses/de/welcher-ooni-ofen.md](site/src/content/analyses/de/welcher-ooni-ofen.md)
+- [site/src/content/analyses/dome-gen-2.md](site/src/content/analyses/dome-gen-2.md)
+- [site/src/content/analyses/dome-xl-gen-2.md](site/src/content/analyses/dome-xl-gen-2.md)
+- [site/src/content/analyses/en/arc-lite-or-tread.md](site/src/content/analyses/en/arc-lite-or-tread.md)
+- [site/src/content/analyses/en/arc-xl.md](site/src/content/analyses/en/arc-xl.md)
+- [site/src/content/analyses/en/arc.md](site/src/content/analyses/en/arc.md)
+- [site/src/content/analyses/en/dome-gen-2.md](site/src/content/analyses/en/dome-gen-2.md)
+- [site/src/content/analyses/en/dome-xl-gen-2.md](site/src/content/analyses/en/dome-xl-gen-2.md)
+- [site/src/content/analyses/en/dough-boxes-guide.md](site/src/content/analyses/en/dough-boxes-guide.md)
+- [site/src/content/analyses/en/gas-electric-or-multi-fuel.md](site/src/content/analyses/en/gas-electric-or-multi-fuel.md)
+- [site/src/content/analyses/en/halo-core-or-halo-pro.md](site/src/content/analyses/en/halo-core-or-halo-pro.md)
+- [site/src/content/analyses/en/infrared-thermometer-guide.md](site/src/content/analyses/en/infrared-thermometer-guide.md)
+- [site/src/content/analyses/en/karu-12.md](site/src/content/analyses/en/karu-12.md)
+- [site/src/content/analyses/en/karu-2-pro.md](site/src/content/analyses/en/karu-2-pro.md)
+- [site/src/content/analyses/en/karu-2.md](site/src/content/analyses/en/karu-2.md)
+- [site/src/content/analyses/en/koda-12.md](site/src/content/analyses/en/koda-12.md)
+- [site/src/content/analyses/en/koda-16.md](site/src/content/analyses/en/koda-16.md)
+- [site/src/content/analyses/en/koda-2-max.md](site/src/content/analyses/en/koda-2-max.md)
+- [site/src/content/analyses/en/koda-2-pro.md](site/src/content/analyses/en/koda-2-pro.md)
+- [site/src/content/analyses/en/koda-2.md](site/src/content/analyses/en/koda-2.md)
+- [site/src/content/analyses/en/pizza-peel-guide.md](site/src/content/analyses/en/pizza-peel-guide.md)
+- [site/src/content/analyses/en/pizza-scissors-guide.md](site/src/content/analyses/en/pizza-scissors-guide.md)
+- [site/src/content/analyses/en/roccbox.md](site/src/content/analyses/en/roccbox.md)
+- [site/src/content/analyses/en/volt-2.md](site/src/content/analyses/en/volt-2.md)
+- [site/src/content/analyses/en/which-gozney-oven.md](site/src/content/analyses/en/which-gozney-oven.md)
+- [site/src/content/analyses/en/which-ooni-oven.md](site/src/content/analyses/en/which-ooni-oven.md)
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
 - [site/src/content/analyses/halo-core-ou-halo-pro.md](site/src/content/analyses/halo-core-ou-halo-pro.md)
 - [site/src/content/analyses/karu-12.md](site/src/content/analyses/karu-12.md)

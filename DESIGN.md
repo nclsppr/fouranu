@@ -196,6 +196,11 @@ deux colonnes. Sur mobile, le titre, le rail, le corps, les figures et les
 actions reprennent les quatre colonnes dans l'ordre de lecture. Aucun rail ne
 reste fixe sur mobile.
 
+Les libellés anglais et, surtout, allemands peuvent être plus longs que leurs
+équivalents français. La navigation, le sélecteur de langue, les boutons, les
+tableaux et les plaques s'agrandissent ou passent à la ligne sans troncature,
+sans réduction arbitraire de la taille du texte et sans débordement du document.
+
 Les tableaux conservent toutes leurs colonnes. Sous 768 px, un conteneur annoncé
 comme défilable permet le déplacement horizontal au clavier et au toucher. Le
 premier intitulé reste visible si cela n'occulte pas les valeurs. Une vue mobile
@@ -263,6 +268,19 @@ Une recherche textuelle n'apparaît que lorsqu'un index local fonctionnel existe
 Il n'intègre ni bande promotionnelle, ni carrousel, ni compte à rebours. La
 navigation active combine texte, épaisseur et règle basse.
 
+Un sélecteur textuel compact affiche `FR`, `EN` et `DE`. Le nom complet
+`Français`, `English` ou `Deutsch` reste exposé dans le nom accessible de chaque
+lien. Chaque lien vise la contrepartie exacte de la page courante dans le
+manifeste, indique la langue de destination et marque la langue active avec
+`aria-current`. Il n'utilise pas
+de drapeau : les langues ne représentent pas trois marchés. Les liens existent
+dans le HTML statique et ne dépendent ni de JavaScript, ni d'un cookie, ni d'une
+géolocalisation, ni d'une redirection selon le navigateur. Une contrepartie
+absente n'est jamais remplacée par l'accueil de cette langue.
+
+La coque trilingue décrite ici reste un candidat local non publié tant que le
+paquet exact n'a pas reçu son feu vert de publication.
+
 ### Profils auteur
 
 L'annuaire de la rédaction présente les trois parcours dans la grille existante
@@ -321,6 +339,12 @@ n'ajoute aucun paramètre de campagne à l'URL partagée.
 Le rail affiche la nature de la preuve, la source, la date de vérification, les
 conditions connues, le niveau de confiance et les conflits déclarés. Il ne
 réduit jamais ces données à une note, une étoile ou un badge coloré.
+
+Sur une page anglaise ou allemande, une `observation` ou des `conditions`
+conservées en français sont précédées d'une note courte et visible indiquant que
+le relevé canonique reste en français. Le style distingue cette note d'une
+alerte et d'une conclusion ; il ne masque, ne résume ni ne traduit
+silencieusement la preuve.
 
 La bibliographie de fin d'article reste fermée au premier chargement derrière
 une ligne « Sources de cet article ». Son ouverture révèle une liste compacte,
@@ -388,6 +412,13 @@ originale sans image tierce en entrée, outils génériques non marqués et gest
 de catégorie seulement. Elle ne ressemble pas à un catalogue, ne privilégie
 aucun candidat et ne sert jamais de preuve factuelle.
 
+La présence d'un média dans la page française ne l'autorise pas dans une autre
+langue. Si la permission enregistrée couvre seulement le français, le média est
+omis des versions anglaise et allemande, qu'il serve d'en-tête, de figure ou
+d'aperçu social. Le flux se referme sans cadre, légende ou texte alternatif
+orphelin. Une carte de marque originale générique peut prendre le relais pour
+l'aperçu social ; le média tiers n'est jamais réutilisé comme repli.
+
 Les photographies en situation arrivent seulement après cet en-tête, dans le
 corps de l'article. Elles peuvent rester documentaires ou recevoir un traitement
 éditorial autorisé. Elles gardent une légende et un crédit exacts et ne servent
@@ -425,6 +456,9 @@ comme aperçu social, avec dimensions, type et alternative explicites.
 - La couleur, la position ou une icône seule ne portent jamais un verdict.
 - Les actions de partage conservent un libellé textuel, un parcours clavier et
   le même focus visible que les autres actions.
+- Le sélecteur de langue conserve des liens HTML de 44 px au minimum, un nom de
+  langue explicite, `lang`, `hreflang`, un état courant annoncé et un ordre
+  stable au clavier.
 - Le succès ou l'échec de la copie et les erreurs de partage sont annoncés dans
   une région `role="status"` polie et atomique. L'annulation volontaire du menu
   natif ne produit pas de message d'erreur.
@@ -445,6 +479,9 @@ lecteurs tiers, menu de partage natif et copie du lien. Il détecte une capacit�
 avant de révéler son contrôle et n'appelle aucune bibliothèque sociale tierce.
 Le contenu, les sources, les tableaux et les chemins WhatsApp ou e-mail restent
 lisibles et utilisables sans JavaScript.
+
+Le changement de langue n'entre pas dans ces améliorations : il repose sur des
+liens statiques exacts et ne lit ni n'écrit aucune préférence côté client.
 
 Les images réservent leur ratio avant chargement. Les animations n'utilisent
 que `transform` et `opacity`. La recette de build doit viser, au 75e centile,
@@ -513,13 +550,18 @@ propriétaire du projet avant implémentation :
    verdict d'essai ;
 9. `site/src/styles/global.css` comme unique emplacement des tokens CSS
    exécutables ;
-10. les exclusions anti-slop de la section précédente.
+10. les exclusions anti-slop de la section précédente ;
 11. l'en-tête officiel stylisé pour un produit identifié, ou l'en-tête original
     neutre défini par l'ADR-0008 pour un guide multi-produits, avant toute photo
     en situation dans un article nouveau ou substantiellement révisé ;
-12. une voix accessible de guide d'achat, sans prétention d'essai propre.
+12. une voix accessible de guide d'achat, sans prétention d'essai propre ;
 13. un partage progressif fondé sur l'URL canonique, sans SDK social, traceur ni
-    dépendance du contenu à JavaScript.
+    dépendance du contenu à JavaScript ;
+14. un sélecteur FR/EN/DE textuel vers la contrepartie exacte, sans drapeau,
+    JavaScript ni redirection automatique ;
+15. l'omission en anglais et en allemand de tout média dont la permission ne
+    couvre que le français, et la note transparente devant une observation ou
+    des conditions canoniques conservées en français.
 
 Le choix des premières photographies originales et le cadrage exact de chaque
 gabarit restent ouverts. Leur validation ne peut pas contredire une zone gelée
@@ -533,12 +575,14 @@ ni altérer le lockup ou sa dérivation compacte adoptés.
 | Couleurs | Mesurer chaque paire réellement rendue, dans tous ses états | WCAG AA pour texte et contrôles, rôles de couleur respectés |
 | Typographie | Vérifier les fichiers WOFF2, les graisses chargées, les replis et les chiffres tabulaires | Aucun appel de police tiers, aucun texte important rasterisé |
 | Logo et icônes | Rendre le lockup au ratio d'origine, puis inspecter séparément la marque compacte et les sorties 16, 32, 180, 192 et 512 px sur fonds clair et sombre | Aucun recadrage du lockup ; four compact reconnaissable, sans ancien signe, détail coupé ni nouveau motif d'interface |
-| Responsive | Capturer et parcourir au clavier à 360, 768, 1280 et 1440 px | Aucun débordement de page, rail replacé, tableaux accessibles |
+| Responsive | Capturer et parcourir au clavier à 360, 768, 1280 et 1440 px dans les trois langues, avec les chaînes allemandes les plus longues | Aucun débordement de page, libellé tronqué ou réduction illisible ; rail replacé, tableaux accessibles |
 | Structure | Inspecter H1, ordre des titres, landmarks, lien d'évitement et ordre DOM | Lecture cohérente sans CSS et au zoom 200 % |
 | Focus | Parcourir toutes les actions au clavier sur fond clair et carbone | Focus visible, cible de 44 px, aucun piège clavier |
 | Partage | Tester avec et sans Web Share et Clipboard, au clavier, puis vérifier WhatsApp, e-mail, URL canonique et annonces de statut | Aucun bouton inerte, aucune erreur sur annulation, aucun SDK ou paramètre de suivi ; repli HTML utilisable sans JavaScript |
-| Preuves | Rapprocher chaque valeur, graphique et plaque de son registre | Aucun chiffre public sans source et identifiant autorisés |
-| Médias | Vérifier type, droit, fidélité du produit ou neutralité du guide multi-produits, ordre, légende, texte alternatif, source et statut éditorial visible | En-tête officiel stylisé ou original neutre autorisé avant les vues en situation ; aucun média `quarantine`, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
+| Langues et routes | Contrôler chaque identifiant et ses trois routes, les liens du sélecteur avec JavaScript désactivé, la langue active et les 404 localisées | Contrepartie exacte FR/EN/DE, aucune redirection automatique ou chute vers l'accueil, liens et ordre clavier cohérents |
+| Preuves | Rapprocher chaque valeur, graphique et plaque de son registre dans les trois langues | Aucun chiffre public sans source et identifiant autorisés ; observation et conditions canoniques inchangées, avec note transparente hors français |
+| Médias | Vérifier type, droit et langues couvertes, fidélité du produit ou neutralité du guide multi-produits, ordre, légende, texte alternatif, source et statut éditorial visible | En-tête officiel stylisé ou original neutre autorisé avant les vues en situation ; aucun média `quarantine` ou hors portée linguistique, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
+| SEO localisé | Inspecter `lang`, canonical, hreflang et `x-default`, Open Graph, schémas, sitemap, RSS, `llms.txt` et robots dans l'artefact preview puis indexable | Signaux auto-référents et réciproques, URLs et langues concordantes, aucune grappe incomplète dans le sitemap |
 | Voix | Relire accroche, intertitres, jargon, tableaux et conclusion comme un parcours d'achat | Réponse et compromis compris avant la méthode ; aucun ton de notice ni fausse expérience personnelle |
 | Affiliation | Inspecter déclaration, libellé et attribut des liens rémunérés | `rel="sponsored"`, réserve éditoriale au moins aussi visible que l'action |
 | Mouvement | Tester le comportement normal et `prefers-reduced-motion` | Aucun contenu dépendant du mouvement, aucune translation résiduelle requise |

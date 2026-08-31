@@ -12,6 +12,7 @@ const articleImage = z.object({
 const analyses = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/analyses" }),
   schema: z.object({
+    locale: z.enum(["fr", "en", "de"]).default("fr"),
     articleId: z.string().regex(/^(OONI|GOZNEY|ACC|FOUR)-\d{3}$/),
     brand: z.enum(["ooni", "gozney", "accessoires", "fours"]),
     category: z.enum(["oven", "mixer", "accessoires"]),

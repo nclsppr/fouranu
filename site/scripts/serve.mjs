@@ -77,7 +77,19 @@ const server = createServer((request, response) => {
   }
   const asset = resolveAsset(pathname);
   if (!asset) {
-    const fallback = join(root, "404.html");
+    const localizedFallback = pathname.startsWith("/en/")
+      ? join(root, "en", "404.html")
+      : pathname.startsWith("/de/")
+        ? join(root, "de", "404.html")
+        : undefined;
+    let fallback = join(root, "404.html");
+    if (localizedFallback) {
+      try {
+        if (statSync(localizedFallback).isFile()) fallback = localizedFallback;
+      } catch {
+        // The root 404 remains the safe fallback for incomplete preview builds.
+      }
+    }
     response.writeHead(404, {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "no-cache",

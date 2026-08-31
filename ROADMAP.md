@@ -5,11 +5,11 @@ réel de la phase active.
 
 ## Résultat produit
 
-Servir sur un domaine unique un média francophone qui aide à choisir un four à
-pizza, sépare clairement les types de preuve, puis construit un programme
-progressif d'essais sur les fours, accessoires et pétrins du marché domestique
-français sans contenu de masse, note, balisage d'avis ou expérience tierce
-racontée à la première personne.
+Servir sur un domaine unique un média en français, anglais et allemand qui aide
+à choisir un four à pizza sur le marché domestique français, sépare clairement
+les types de preuve, puis construit un programme progressif d'essais sur les
+fours, accessoires et pétrins sans contenu de masse, note, balisage d'avis ou
+expérience tierce racontée à la première personne.
 
 ## Principes de séquencement
 
@@ -17,6 +17,10 @@ racontée à la première personne.
 - La provenance et les droits précèdent l'indexation et la monétisation.
 - Une preview n'est ni une publication, ni une preuve de demande.
 - La production reste sur un seul domaine.
+- Le français reste sans préfixe ; l'anglais utilise `/en/` et l'allemand
+  `/de/`. La langue ne change ni le marché France, ni les marchands autorisés.
+- Un sélecteur de langue relie uniquement les contreparties exactes et reste
+  utilisable sans JavaScript ni redirection automatique.
 - Un déploiement ne peut suivre qu'une gate `Verify` verte sur le même SHA.
 - Préparation, premier déploiement, domaine personnalisé, DNS et indexation
   restent des autorisations distinctes.
@@ -32,6 +36,7 @@ racontée à la première personne.
 | 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et vingt-huit guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
+| 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus possède un candidat local dans trois langues, sans nouvelle surface publique | `in_progress` | Parité, QA éditoriale, droits, sorties SEO et artefact exact vérifiés, puis feu vert explicite distinct |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 | 6 | F06 | Banc d'essai et premiers pilotes | Four à Nu peut publier des essais de première main reproductibles sans les confondre avec son corpus documentaire | `planned` | Protocole accepté, inventaire daté et trois pilotes vérifiés : un four, un accessoire et un pétrin |
 
@@ -39,7 +44,9 @@ La V1 a franchi F03 et F04 le 2026-08-24. F02 reste ouverte jusqu'aux cinq
 sessions prévues. La tranche éditoriale post-V1 a été vérifiée, poussée et
 publiée le même jour sans changer cette dette d'observation.
 F06 porte la nouvelle ambition de couverture du marché. Aucun essai Four à Nu
-n'est encore inclus dans le produit public.
+n'est encore inclus dans le produit public. F04-I18N est un candidat local non
+publié : les routes anglaises et allemandes ne sont ni déployées, ni indexées,
+ni soumises aux moteurs.
 
 ## Phase F01 : socle produit local
 
@@ -385,6 +392,73 @@ dans le sitemap.
 Revenir au précédent déploiement correspondant à un SHA vérifié, restaurer ou
 détacher séparément le domaine et le DNS selon l'incident, retirer des moteurs
 les URL fautives et ne jamais rediriger vers une surface non contrôlée.
+
+## Tranche F04-I18N : candidat trilingue FR/EN/DE
+
+### Objectif
+
+Décliner le produit documentaire existant en anglais et en allemand sans casser
+les URL françaises, dupliquer les preuves, changer de marché ou publier avant
+validation du paquet exact.
+
+### Dépendances
+
+- ADR-0009 acceptée ;
+- manifeste stable des pages fixes et des articles ;
+- corpus français canonique, registres de preuves, objets commerciaux et portée
+  des permissions média à jour ;
+- gate SEO et matrice de design étendues aux trois langues.
+
+### Inclus
+
+- français sans préfixe, anglais sous `/en/` et allemand sous `/de/` ;
+- même identifiant par page et par article, avec une route exacte par langue ;
+- sélecteur HTML vers la contrepartie exacte, sans JavaScript, préférence
+  persistée ou redirection automatique ;
+- traduction naturelle de la voix éditoriale et conservation des chiffres,
+  URLs, timecodes, limites, preuves et états canoniques ;
+- note transparente lorsque les champs `observation` ou `conditions` restent en
+  français afin de ne pas modifier silencieusement la preuve ;
+- marché et marchands France dans les trois langues, notamment Amazon.fr ;
+- omission en anglais et en allemand de tout média dont la permission
+  enregistrée ne couvre que le français ;
+- `lang`, canonical auto-référents, hreflang réciproques et `x-default`
+  français, Open Graph, données structurées, sitemap, flux RSS et `llms.txt`
+  localisés, robots cohérents ;
+- QA des routes, contenus, liens, 404, mobile, tablette, bureau, clavier, focus,
+  zoom, chaînes allemandes longues, console et réseau.
+
+### Exclu
+
+- nouveau territoire commercial, nouveau programme marchand ou remplacement
+  d'Amazon.fr par Amazon UK ou Amazon.de ;
+- traduction silencieuse ou duplication indépendante du registre de preuves ;
+- extension supposée d'une permission média ;
+- déploiement, indexation, soumission aux moteurs ou redirection linguistique
+  automatique ;
+- contenu produit en masse, test, expérience ou notation absent du corpus
+  canonique.
+
+### Critère de sortie
+
+Les gates prouvent une correspondance FR/EN/DE strictement un pour un entre les
+identifiants, routes, champs protégés, liens internes, preuves, objets
+commerciaux et états. L'artefact construit prouve les canonical, hreflang, Open
+Graph, schémas, sitemap, RSS, `llms.txt` et robots attendus dans les deux modes
+d'indexation. Une relecture humaine couvre l'anglais, l'allemand, les notes de
+preuve, les omissions média et la portée France.
+
+Même après ces contrôles, le résultat reste un candidat local non publié. Le
+propriétaire doit autoriser explicitement le SHA, les URL, les textes, les
+médias, les liens marchands et les métadonnées exacts avant déploiement et avant
+tout changement d'indexation.
+
+### Retour arrière
+
+Écarter le candidat local sans toucher à la production française. Si une
+publication ultérieure est autorisée puis défectueuse, revenir au précédent SHA
+vérifié et retirer les alternates fautifs plutôt que rediriger une traduction
+vers l'accueil ou vers le français.
 
 ## Phase F05 : mesure et décision
 

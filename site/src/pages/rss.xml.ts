@@ -1,7 +1,16 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
-import { SITE } from "@/config/site";
-import { articlePath } from "@/data/article-taxonomy";
+import { INDEXING_ENABLED, SITE_SURFACE_UPDATED_AT } from "@/config/site";
+import {
+  ARTICLE_ROUTES,
+  LOCALE_INFO,
+  articleRoute,
+  feedPath,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+} from "@/i18n/config";
+import { localizedSite } from "@/i18n/common";
 
 export const prerender = true;
 
@@ -13,22 +22,36 @@ const escapeXml = (value: string) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
 
-export const GET: APIRoute = async () => {
-  const analyses = (await getCollection("analyses"))
-    .filter((entry) => entry.data.status === "publishable" && entry.data.indexable)
-    .sort((a, b) =>
-      (b.data.publishedAt?.valueOf() ?? 0) - (a.data.publishedAt?.valueOf() ?? 0) ||
-      a.data.articleId.localeCompare(b.data.articleId)
+export async function createRssResponse(locale: Locale): Promise<Response> {
+  const site = localizedSite(locale);
+  const absolute = (path: string) => new URL(path, site.url).toString();
+  const eligible = (await getCollection("analyses"))
+    .filter((entry) =>
+      entry.data.locale === locale &&
+      entry.data.status === "publishable" &&
+      entry.data.indexable
     );
-  const lastBuildDate = new Date(
-    Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
-  );
+  const analyses = INDEXING_ENABLED
+    ? (Object.keys(ARTICLE_ROUTES) as ArticleId[]).map((articleId) => {
+        const matches = eligible.filter((entry) => entry.data.articleId === articleId);
+        if (matches.length !== 1) {
+          throw new Error(
+            `Expected one indexable ${locale} RSS entry for ${articleId}, found ${matches.length}.`,
+          );
+        }
+        return matches[0];
+      }).sort((a, b) =>
+        b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf() ||
+        a.data.articleId.localeCompare(b.data.articleId)
+      )
+    : [];
+  const lastBuildDate = analyses.length > 0
+    ? new Date(Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())))
+    : new Date(`${SITE_SURFACE_UPDATED_AT}T00:00:00Z`);
   const items = analyses.map((entry) => {
-    if (!entry.data.publishedAt) {
-      throw new Error(`Date de publication absente pour ${entry.data.articleId}`);
-    }
-    const url = new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString();
-    const author = SITE.authors[entry.data.author];
+    const articleId = entry.data.articleId as ArticleId;
+    const url = absolute(articleRoute(articleId, locale));
+    const author = site.authors[entry.data.author];
     return [
       "    <item>",
       `      <title>${escapeXml(entry.data.title)}</title>`,
@@ -42,12 +65,13 @@ export const GET: APIRoute = async () => {
   }).join("\n");
   const body = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">',
     "  <channel>",
-    `    <title>${escapeXml(SITE.name)}</title>`,
-    `    <link>${escapeXml(`${SITE.url}/`)}</link>`,
-    `    <description>${escapeXml(SITE.description)}</description>`,
-    `    <language>${SITE.language}</language>`,
+    `    <title>${escapeXml(site.name)}</title>`,
+    `    <link>${escapeXml(absolute(staticRoute("home", locale)))}</link>`,
+    `    <description>${escapeXml(site.description)}</description>`,
+    `    <language>${LOCALE_INFO[locale].htmlLanguage}</language>`,
+    `    <atom:link href="${escapeXml(absolute(feedPath(locale)))}" rel="self" type="application/rss+xml"/>`,
     `    <lastBuildDate>${lastBuildDate.toUTCString()}</lastBuildDate>`,
     items,
     "  </channel>",
@@ -58,4 +82,6 @@ export const GET: APIRoute = async () => {
   return new Response(body, {
     headers: { "Content-Type": "application/rss+xml; charset=utf-8" },
   });
-};
+}
+
+export const GET: APIRoute = () => createRssResponse("fr");

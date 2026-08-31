@@ -1,23 +1,14 @@
 ---
+import { localeFromPath, type Locale } from "@/i18n/config";
+import { PROOF_COPY } from "@/i18n/common";
+
 interface Props {
   code: "FAB" | "T-MES" | "T-OBS" | "FAN-SYN" | "FAN-INF";
+  locale?: Locale;
 }
 
-const { code } = Astro.props;
-const names = {
-  FAB: "Donnée fabricant",
-  "T-MES": "Mesure tierce",
-  "T-OBS": "Observation tierce",
-  "FAN-SYN": "Synthèse Four à Nu",
-  "FAN-INF": "Inférence éditoriale Four à Nu",
-} as const;
-const labels = {
-  FAB: "Annonce",
-  "T-MES": "Mesure publiée",
-  "T-OBS": "Observation publiée",
-  "FAN-SYN": "Synthèse",
-  "FAN-INF": "Conclusion",
-} as const;
+const { code, locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const { names, labels } = PROOF_COPY[locale];
 ---
 
 <span

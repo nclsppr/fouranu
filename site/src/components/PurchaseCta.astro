@@ -5,13 +5,59 @@ import {
   isAmazonLink,
   toAmazonAffiliateUrl,
 } from "@/lib/amazon-affiliate.mjs";
+import type { Locale } from "@/i18n/config";
 
 interface Props {
+  locale?: Locale;
   links: PurchaseLink[];
   variant: "primary" | "closing";
 }
 
-const { links, variant } = Astro.props;
+const { locale = "fr", links, variant } = Astro.props;
+const copy = {
+  fr: {
+    aria: "Liens d’achat", eyebrow: "Où l’acheter",
+    compareAmazon: "Comparer les modèles sur Amazon.fr", seeAmazon: "Voir le modèle sur Amazon.fr",
+    choice: "Votre choix est fait ?", compareMixed: "Comparer la boutique officielle et Amazon.fr",
+    compareOfficial: "Comparer les offres officielles", seeOfficial: "Voir l’offre officielle",
+    compareTwo: "Prêt à comparer les deux ?", fits: "Ce modèle vous convient ?",
+    amazonCopy: "Vous partez vers Amazon.fr. Vérifiez le vendeur, le prix, le modèle exact, les accessoires inclus et le stock avant de commander.",
+    mixedSeveralCopy: "Les boutiques officielles et Amazon.fr sont proposées pour les objets de ce dossier. Vérifiez le vendeur, le modèle exact, la variante, les accessoires inclus et les conditions de livraison avant de commander.",
+    mixedOneCopy: "La boutique du fabricant et Amazon.fr sont proposées pour cet objet. Vérifiez le vendeur, la variante, les accessoires inclus et les conditions de livraison avant de commander.",
+    officialCopy: "Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur, les accessoires inclus et les conditions de livraison avant de commander.",
+    amazonDisclosure: "Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.",
+    manufacturerUnpaid: " Les liens fabricant ne sont pas rémunérés.",
+    directDisclosure: "Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui.",
+  },
+  en: {
+    aria: "Purchase links", eyebrow: "Where to buy",
+    compareAmazon: "Compare the models on Amazon.fr", seeAmazon: "View the model on Amazon.fr",
+    choice: "Made your choice?", compareMixed: "Compare the official store and Amazon.fr",
+    compareOfficial: "Compare official offers", seeOfficial: "View the official offer",
+    compareTwo: "Ready to compare both?", fits: "Is this the right model for you?",
+    amazonCopy: "You are leaving for Amazon.fr, the French marketplace. Check the seller, price, exact model, included accessories and stock before ordering.",
+    mixedSeveralCopy: "Official stores and Amazon.fr are listed for the products in this guide. Check the seller, exact model, variant, included accessories and delivery terms before ordering.",
+    mixedOneCopy: "The manufacturer’s store and Amazon.fr are listed for this product. Check the seller, variant, included accessories and delivery terms before ordering.",
+    officialCopy: "You are leaving for the manufacturer’s French store. Check the price, colour, included accessories and delivery terms before ordering.",
+    amazonDisclosure: "Amazon affiliate links. As an Amazon Associate, I earn from qualifying purchases.",
+    manufacturerUnpaid: " Manufacturer links are not paid.",
+    directDisclosure: "Direct, unpaid manufacturer links: Four à Nu currently receives no commission.",
+  },
+  de: {
+    aria: "Kauflinks", eyebrow: "Wo kaufen",
+    compareAmazon: "Modelle auf Amazon.fr vergleichen", seeAmazon: "Modell auf Amazon.fr ansehen",
+    choice: "Steht Ihre Wahl fest?", compareMixed: "Offiziellen Shop und Amazon.fr vergleichen",
+    compareOfficial: "Offizielle Angebote vergleichen", seeOfficial: "Offizielles Angebot ansehen",
+    compareTwo: "Beide Angebote vergleichen?", fits: "Passt dieses Modell zu Ihnen?",
+    amazonCopy: "Sie wechseln zu Amazon.fr, dem französischen Marktplatz. Prüfen Sie vor der Bestellung Verkäufer, Preis, genaues Modell, enthaltenes Zubehör und Bestand.",
+    mixedSeveralCopy: "Für die Produkte dieses Ratgebers sind offizielle Shops und Amazon.fr verlinkt. Prüfen Sie Verkäufer, genaues Modell, Variante, enthaltenes Zubehör und Lieferbedingungen.",
+    mixedOneCopy: "Für dieses Produkt sind der Herstellershop und Amazon.fr verlinkt. Prüfen Sie Verkäufer, Variante, enthaltenes Zubehör und Lieferbedingungen.",
+    officialCopy: "Sie wechseln zum französischen Shop des Herstellers. Prüfen Sie Preis, Farbe, enthaltenes Zubehör und Lieferbedingungen.",
+    amazonDisclosure: "Amazon-Partnerlinks. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.",
+    manufacturerUnpaid: " Herstellerlinks werden nicht vergütet.",
+    directDisclosure: "Direkte, unbezahlte Herstellerlinks: Four à Nu erhält derzeit keine Provision.",
+  },
+}[locale];
 const multiple = links.length > 1;
 const amazonOnly = links.every((link) => isAmazonLink(link.url));
 const hasAmazon = links.some((link) => isAmazonLink(link.url));
@@ -20,36 +66,88 @@ const objectCount = new Set(links.flatMap((link) => link.objectId ? [link.object
 const comparesSeveralObjects = objectCount > 1;
 const titles = amazonOnly
   ? {
-      primary: multiple ? "Comparer les modèles sur Amazon.fr" : "Voir le modèle sur Amazon.fr",
-      closing: "Votre choix est fait ?",
+      primary: multiple ? copy.compareAmazon : copy.seeAmazon,
+      closing: copy.choice,
     }
   : mixed
     ? {
-        primary: "Comparer la boutique officielle et Amazon.fr",
-        closing: "Votre choix est fait ?",
+        primary: copy.compareMixed,
+        closing: copy.choice,
       }
     : {
-      primary: multiple ? "Comparer les offres officielles" : "Voir l’offre officielle",
-      closing: multiple ? "Prêt à comparer les deux ?" : "Ce modèle vous convient ?",
-    };
+        primary: multiple ? copy.compareOfficial : copy.seeOfficial,
+        closing: multiple ? copy.compareTwo : copy.fits,
+      };
+
+const localizedObjectNames: Record<Exclude<Locale, "fr">, Record<string, string>> = {
+  en: {
+    "ooni-peel-perforated-30": "Ooni 30 cm perforated pizza peel",
+    "ooni-peel-classic-30": "Ooni 30 cm classic pizza peel",
+    "ooni-peel-bamboo-30": "Ooni 30 cm bamboo pizza peel",
+    "weber-peel-6691": "Weber 6691 pizza peel",
+    "dreamfarm-scizza": "Dreamfarm Scizza pizza scissors",
+    "triangle-50491": "Triangle 50491 pizza scissors",
+    "gefu-pezzo-12641": "GEFU Pezzo 12641 pizza scissors",
+    "fackelmann-pizza-scissors-25": "Fackelmann 25 cm pizza scissors",
+    "ooni-infrared-thermometer": "Ooni digital infrared thermometer",
+    "bosch-universaltemp": "Bosch UniversalTemp thermometer",
+    "thermopro-tp30": "ThermoPro TP30 infrared thermometer",
+    "tilswall-w301": "Tilswall W301 infrared thermometer",
+    "ziipa-minola": "ZiiPa Minola dough box",
+    "gilac-dough-box-9l": "Gilac compact 9-litre dough box",
+    "hendi-880975": "HENDI 880975 GN 1/1 dough box",
+    "gilac-dough-box-15l": "Gilac professional 15-litre dough box",
+  },
+  de: {
+    "ooni-peel-perforated-30": "perforierten Ooni-Pizzaschieber 30 cm",
+    "ooni-peel-classic-30": "klassischen Ooni-Pizzaschieber 30 cm",
+    "ooni-peel-bamboo-30": "Ooni-Bambus-Pizzaschieber 30 cm",
+    "weber-peel-6691": "Weber-Pizzaschieber 6691",
+    "dreamfarm-scizza": "Dreamfarm-Scizza-Pizzaschere",
+    "triangle-50491": "Triangle-Pizzaschere 50491",
+    "gefu-pezzo-12641": "GEFU-Pezzo-Pizzaschere 12641",
+    "fackelmann-pizza-scissors-25": "Fackelmann-Pizzaschere 25 cm",
+    "ooni-infrared-thermometer": "digitales Ooni-Infrarotthermometer",
+    "bosch-universaltemp": "Bosch-UniversalTemp-Thermometer",
+    "thermopro-tp30": "ThermoPro-TP30-Infrarotthermometer",
+    "tilswall-w301": "Tilswall-W301-Infrarotthermometer",
+    "ziipa-minola": "ZiiPa-Minola-Teigbox",
+    "gilac-dough-box-9l": "kompakte Gilac-Teigbox mit 9 Litern",
+    "hendi-880975": "HENDI-Teigbox 880975 GN 1/1",
+    "gilac-dough-box-15l": "professionelle Gilac-Teigbox mit 15 Litern",
+  },
+};
+
+function localizedLinkLabel(link: PurchaseLink): string {
+  if (locale === "fr") return link.label;
+  if ("scope" in link && link.scope === "collection") {
+    return locale === "en" ? `View all ovens at ${link.merchant}` : `Alle Öfen bei ${link.merchant} ansehen`;
+  }
+  const objectId = "objectId" in link ? link.objectId : undefined;
+  const product = (objectId ? localizedObjectNames[locale][objectId] : undefined) ?? link.label
+    .replace(/^Voir\s+(?:l[’']|le |la |les )?/, "")
+    .replace(/\s+(?:chez|sur)\s+(?:Amazon\.fr|Gozney|Ooni)$/, "");
+  if (locale === "en") return `View ${product} ${link.merchant === "Amazon.fr" ? "on" : "at"} ${link.merchant}`;
+  return `${product} ${link.merchant === "Amazon.fr" ? "auf" : "bei"} ${link.merchant} ansehen`;
+}
 ---
 
-<section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label="Liens d’achat">
-  <p class="purchase-cta__eyebrow">Où l’acheter</p>
+<section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label={copy.aria}>
+  <p class="purchase-cta__eyebrow">{copy.eyebrow}</p>
   <p class="purchase-cta__title">{titles[variant]}</p>
   <p class="purchase-cta__copy">
     {amazonOnly
-      ? "Vous partez vers Amazon.fr. Vérifiez le vendeur, le prix, le modèle exact, les accessoires inclus et le stock avant de commander."
+      ? copy.amazonCopy
       : mixed
         ? comparesSeveralObjects
-          ? "Les boutiques officielles et Amazon.fr sont proposées pour les objets de ce dossier. Vérifiez le vendeur, le modèle exact, la variante, les accessoires inclus et les conditions de livraison avant de commander."
-          : "La boutique du fabricant et Amazon.fr sont proposées pour cet objet. Vérifiez le vendeur, la variante, les accessoires inclus et les conditions de livraison avant de commander."
-        : "Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur, les accessoires inclus et les conditions de livraison avant de commander."}
+          ? copy.mixedSeveralCopy
+          : copy.mixedOneCopy
+        : copy.officialCopy}
   </p>
   <p class="purchase-cta__disclosure">
     {hasAmazon
-      ? `Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.${mixed ? " Les liens fabricant ne sont pas rémunérés." : ""}`
-      : "Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui."}
+      ? `${copy.amazonDisclosure}${mixed ? copy.manufacturerUnpaid : ""}`
+      : copy.directDisclosure}
   </p>
   <div class="purchase-cta__actions">
     {links.map((link) => (
@@ -60,7 +158,7 @@ const titles = amazonOnly
         data-commercial-object={link.objectId}
         data-commercial-scope={link.scope}
       >
-        {link.label}
+        {localizedLinkLabel(link)}
         <span aria-hidden="true">→</span>
       </a>
     ))}

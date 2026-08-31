@@ -1,0 +1,36 @@
+---
+import LocalizedStaticPage from "@/components/LocalizedStaticPage.astro";
+import {
+  STATIC_ROUTES,
+  type Locale,
+  type StaticRouteId,
+} from "@/i18n/config";
+
+type LocalizedLocale = Exclude<Locale, "fr">;
+type LocalizedRouteId = Exclude<StaticRouteId, "notFound">;
+
+export function getStaticPaths() {
+  const locales: LocalizedLocale[] = ["en", "de"];
+  const routeIds = (Object.keys(STATIC_ROUTES) as StaticRouteId[])
+    .filter((routeId): routeId is LocalizedRouteId => routeId !== "notFound");
+
+  return locales.flatMap((locale) => routeIds.map((routeId) => {
+    const localizedPath = STATIC_ROUTES[routeId][locale]
+      .replace(new RegExp(`^/${locale}/?`), "")
+      .replace(/\/$/, "");
+    return {
+      params: { locale, path: localizedPath || undefined },
+      props: { locale, routeId },
+    };
+  }));
+}
+
+interface Props {
+  locale: LocalizedLocale;
+  routeId: LocalizedRouteId;
+}
+
+const { locale, routeId } = Astro.props;
+---
+
+<LocalizedStaticPage locale={locale} routeId={routeId} />

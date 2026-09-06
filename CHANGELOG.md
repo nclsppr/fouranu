@@ -6,6 +6,17 @@ importantes.
 
 ## Non publié
 
+### Simplification des contrôles et de la taxonomie
+
+- La vérification Nimbus ne régénère sa collection documentaire qu'une fois
+  avant le typage, le build et le lint. Les commandes individuelles gardent
+  leur synchronisation préalable ; tous les contrôles existants sont conservés.
+- La configuration pnpm inutilisée est supprimée : npm reste le seul
+  gestionnaire du projet.
+- La taxonomie des articles perd ses champs et exports sans consommateur.
+  Le filtre de publication ne revérifie plus les dates et images déjà requises
+  par le schéma de contenu ; il vérifie uniquement le statut publiable.
+
 ## 2026-08-31 - Cinq dossiers multimarques issus de l'étude Amazon.fr
 
 - Une étude Amazon.fr datée sélectionne cinq modèles dont l'identité, la

@@ -16,7 +16,7 @@
     "lint:docs:fix": "npm run sync && nimbus-docs lint --fix",
     "test": "node --test scripts/*.test.mjs",
     "outdated": "nimbus-docs outdated",
-    "check": "npm run test && npm run typecheck && npm run build && npm run lint:docs"
+    "check": "npm run test && npm run sync && astro check && astro build && nimbus-docs lint"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",

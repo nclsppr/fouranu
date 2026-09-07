@@ -35,6 +35,22 @@ limitations:
 
 ## Unsere Einschätzung in Kürze
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-halo-core-ou-halo-pro-comparison-1600.webp"
+    srcset="/images/articles/ooni-halo-core-ou-halo-pro-comparison-960.webp 960w, /images/articles/ooni-halo-core-ou-halo-pro-comparison-1600.webp 1600w"
+    sizes="(max-width: 760px) calc(100vw - 2rem), 760px"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Ooni Halo Pro links und Halo Core rechts, nebeneinander beleuchtet"
+  />
+  <figcaption>
+    Der Halo Pro und der Halo Core nebeneinander. Offizielles Ooni-Videostandbild, Stelle 00:02.
+  </figcaption>
+</figure>
+
 Für zwei bis zehn Pizzen mit je 250 g würden wir den Halo Core nehmen. Sein
 angegebener Bereich von 500 g bis 2,5 kg deckt ein Abendessen zu zweit ebenso wie
 eine große Runde ab, ohne das Mindestkilogramm des Halo Pro aufzuzwingen.

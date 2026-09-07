@@ -42,6 +42,20 @@ Die angegebene Kapazität für eine 40-cm-Pizza bleibt interessant. Die beiden u
 
 Vergleichen Sie vor dem Kauf [Koda 2 Pro und Arc XL](/de/pizzaoefen/koda-2-pro-oder-arc-xl/) anhand datierter offizieller Preise, Gasanschluss und Gehäuserechteck. Ihre Terrasse entscheidet ebenfalls mit.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/gozney-arc-xl-in-situ-1600.webp"
+    srcset="/images/articles/gozney-arc-xl-in-situ-960.webp 960w, /images/articles/gozney-arc-xl-in-situ-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Pizzaofen Gozney Arc XL auf seinem Gestell in einem Garten"
+  />
+  <figcaption>Frontalansicht des Gozney Arc XL auf seinem Gestell. Videostandbild von The Barbecue Lab, Stelle 03:00.</figcaption>
+</figure>
+
 ## Sehen Sie vor dem Durchmesser auf den verfügbaren Platz
 
 Das Chassis ist 53 cm breit und 62,9 cm tief. Im Inneren nennt Gozney

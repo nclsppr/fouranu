@@ -6,7 +6,8 @@
 | Date | 2026-08-31 |
 | Propriétaire | nclsppr |
 | Portée | Locales publiques, routes, changement de langue, SEO, preuves, médias et publication |
-| Remplace | [La décision monolingue de l'ADR-0001](0001-promotion-produit-et-site-astro.md#construire-un-site-astro-statique-séparé) |
+| Remplace | [La décision monolingue de l’ADR-0001](0001-promotion-produit-et-site-astro.md#construire-un-site-astro-statique-séparé) |
+| Complétée le 2026-09-08 | [ADR-0011](0011-parite-structurelle-fr-en-de.md) : gabarits partagés, traductions traçables et portée média par surface |
 
 ## Publication constatée dans l'état du 2026-08-31
 
@@ -123,13 +124,14 @@ unités, dates, URLs, timecodes, attributions, types de preuve, limites et
 relations commerciales. Elles ne créent pas un test, une mesure, une expérience
 ou une notation qui n'existe pas dans le corpus français.
 
-La voix éditoriale, le titre, le résumé et les explications peuvent être
-traduits naturellement. En revanche, les champs canoniques `observation` et
-`conditions` d'une preuve ne sont pas traduits silencieusement. Lorsqu'ils sont
-affichés sur une page anglaise ou allemande, ils restent dans leur langue
-canonique et une note visible explique que le relevé source est conservé en
-français. Toute future traduction attestée de ces champs devra être enregistrée
-comme telle par une décision et un mécanisme de traçabilité distincts.
+La voix éditoriale, le titre, le résumé et les explications sont traduits
+naturellement. Depuis l’[ADR-0011](0011-parite-structurelle-fr-en-de.md), les
+champs `observation` et `conditions` affichés en anglais et en allemand viennent
+de tables de traduction distinctes, reliées au registre par `evidence_id`.
+Le registre canonique reste inchangé ; les corrections entraînent la revue des
+traductions. Cette décision remplace la règle initiale qui conservait ces
+champs en français avec une note visible. Elle ne permet ni résumé implicite
+des conditions ni réinterprétation des faits.
 
 ### Respecter la portée linguistique des médias
 
@@ -151,18 +153,22 @@ présents.
 Le candidat trilingue ne peut être proposé à la publication que si :
 
 1. chaque identifiant attendu possède une entrée et une route uniques dans les
-   trois langues, avec les champs protégés et les preuves en parité ;
+   trois langues, avec les champs protégés et les preuves en parité ; les
+   structures, images autorisées et liens ordonnés des pages fixes sont aussi
+   comparés selon l’ADR-0011 ;
 2. chaque lien interne reste dans la langue courante et chaque sélecteur cible la
    contrepartie exacte, sans redirection automatique ni dépendance JavaScript ;
 3. les canonical, hreflang, Open Graph, données structurées, sitemap, RSS,
    `llms.txt` et robots concordent dans l'artefact construit en mode preview et
    indexable ;
-4. aucun média ne dépasse sa portée de droits et toute observation ou condition
-   canonique non traduite reçoit la note transparente attendue ;
+4. aucun média ne dépasse sa portée de droits par langue et par surface ; les
+   observations et conditions affichées correspondent aux traductions tracées
+   de l’ADR-0011 ;
 5. les URLs de preuve, timecodes, objets commerciaux, liens Amazon.fr et portée
    France restent identiques à la source française ;
-6. les textes anglais et allemands ont une relecture humaine de langue et une
-   revue éditoriale contre les ajouts d'expérience, de test ou de notation ;
+6. les textes anglais et allemands ont une relecture linguistique et
+   éditoriale tracée contre les pertes de sens et les ajouts d’expérience, de
+   test ou de notation ; le mode humain ou agent est distingué selon l’ADR-0011 ;
 7. les pages représentatives et les chemins complets sont contrôlés sur mobile,
    tablette et bureau, au clavier, avec focus visible, zoom, contenu allemand
    long, 404 localisées, console et réseau propres ;
@@ -186,9 +192,9 @@ seulement après la vérification de la production réellement servie.
   de la grappe indexable jusqu'à leur disponibilité.
 - Les registres de preuves et d'objets commerciaux restent uniques ; la parité
   est vérifiée plutôt que maintenue par trois copies indépendantes.
-- Certaines pages anglaises et allemandes peuvent avoir moins d'images que leur
-  contrepartie française. Cette différence est correcte lorsqu'elle matérialise
-  la portée réelle des droits.
+- Un média hors portée reste interdit. L’ADR-0011 impose de signaler cette
+  limite au lieu de déclarer une parité complète ; le paquet de correction
+  s’appuie sur des permissions web FR/EN/DE enregistrées par surface.
 - Les métriques et l'affiliation continuent d'être évaluées sur le marché
   français ; les langues peuvent être segmentées comme dimension de lecture,
   pas comme preuve d'un nouveau territoire.
@@ -213,8 +219,8 @@ version a donc son canonical auto-référent et ses alternates réciproques.
 ### Traduire ou dupliquer tout le registre de preuves
 
 Des copies linguistiques non traçables pourraient changer le sens d'une
-observation ou de ses conditions. Le registre unique reste canonique ; la page
-localisée explique honnêtement ce qui demeure en français.
+observation ou de ses conditions. Le registre unique reste canonique ; seules
+les tables de traduction reliées par identifiant sont admises par l’ADR-0011.
 
 ### Réutiliser tous les médias français
 
@@ -225,5 +231,6 @@ multilingue. L'omission est préférée à une extension de permission supposée
 
 Cette décision doit être réexaminée avant l'ajout d'une quatrième langue, d'un
 territoire commercial autre que la France, d'une redirection linguistique
-automatique, d'un registre de preuves traduit ou d'un changement des URL
-françaises historiques.
+automatique, d’un registre factuel indépendant par langue ou d’un changement
+des URL françaises historiques. Les traductions liées par identifiant sont
+régies par l’ADR-0011.

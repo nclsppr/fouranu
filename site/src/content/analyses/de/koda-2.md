@@ -39,6 +39,20 @@ limitations:
 
 Diese Präferenz betrifft Format, Gewicht und Brennstoff. Die folgenden Backvorgänge und Messwerte bleiben denen der genannten Autoren mit deren Wetterbedingungen und Einstellungen zugeordnet. Der Ratgeber [Welchen Ooni-Ofen wählen?](/de/ooni/welcher-ooni-ofen/) ordnet die Entscheidung ins Sortiment ein.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-2-documentary-960.webp 960w, /images/articles/ooni-koda-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Gasbrenner und Steinsohle im Ooni Koda 2 sichtbar"
+  />
+  <figcaption>Videostandbild von Brenner und Sohle des Ooni Koda 2 — Quelle: Pala Pizza, Stelle 00:39.</figcaption>
+</figure>
+
 ## Der Tisch zählt ebenso wie die angegebenen 35 cm
 
 Der Koda 2 läuft mit Propan und ist für draußen bestimmt. Er nimmt Pizzen bis

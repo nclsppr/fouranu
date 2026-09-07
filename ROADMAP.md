@@ -34,11 +34,12 @@ renforcent le choix, les comparatifs, la découverte et leur mesure.
 | Ordre | ID | Phase | Résultat observable | État | Critère de sortie |
 | --- | --- | --- | --- | --- | --- |
 | 1 | F01 | Socle produit local | Le site se construit et se lance par Compose | `done` | Gate complète verte sur le diff final, service sain et contrôles navigateur acquis |
-| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et vingt-huit guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
+| 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et trente et un guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus est public dans trois langues | `done` | Autorisation, CI, déploiement et contrôles publics consignés dans `STATUS.md` |
 | 4 ter | F04-CHOIX | Recommandations et comparatifs documentaires | Le parcours réduit la liste et les pages répondent à une décision précise, dans trois langues | `done` | Promesse alignée, parcours et comparatifs sourcés, gates et QA sur le paquet exact |
+| 4 quater | F04-PARITE | Parité de structure et de lecture FR/EN/DE | Les trois langues partagent les pages fixes, sélections, médias autorisés et sources traduites | `in_progress` | Contrats ADR-0011, tests de structure, revue navigateur, CI et preuve publique sur le SHA exact |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 | 6 | F06 | Couverture documentaire ciblée | Les lacunes de décision observées reçoivent des données originales et des comparaisons utiles | `planned` | Questions prioritaires étayées, sources attribuées et décision de poursuite fondée sur F05 |
 
@@ -49,7 +50,11 @@ F04-I18N est publiée depuis la livraison applicative du 2026-08-31 décrite dan
 `STATUS.md`. La tranche F04-CHOIX est publiée le 2026-09-07, au SHA applicatif
 `c365fbde90d4304d94afa3acc99111ac3665fe1f`, avec CI et contrôles publics acquis
 dans `STATUS.md`. Cette livraison ne constitue pas une preuve de gain SEO.
-F06 remplace l'ancien banc d'essai de l'ADR-0006 par une couverture documentaire
+F04-PARITE corrige les différences des gabarits fixes constatées après la
+publication des routes trilingues. Son état de vérification et de publication
+reste consigné dans `STATUS.md` ; l’existence des traductions ne prouve pas
+l’équivalence de leurs interfaces.
+F06 remplace l’ancien banc d’essai de l'ADR-0006 par une couverture documentaire
 ciblée. Aucun résultat économique ou SEO n'est déduit d'un déploiement.
 
 ## Phase F01 : socle produit local
@@ -422,11 +427,11 @@ contrôles ci-dessous restent applicables à chaque évolution du corpus.
   persistée ou redirection automatique ;
 - traduction naturelle de la voix éditoriale et conservation des chiffres,
   URLs, timecodes, limites, preuves et états canoniques ;
-- note transparente lorsque les champs `observation` ou `conditions` restent en
-  français afin de ne pas modifier silencieusement la preuve ;
+- traductions des champs `observation` et `conditions` dans des tables reliées
+  par identifiant au registre inchangé, selon l’ADR-0011 ;
 - marché et marchands France dans les trois langues, notamment Amazon.fr ;
-- omission en anglais et en allemand de tout média dont la permission
-  enregistrée ne couvre que le français ;
+- contrôle des permissions par langue et par surface, sans étendre un droit
+  web à Open Graph ou Twitter ;
 - `lang`, canonical auto-référents, hreflang réciproques et `x-default`
   français, Open Graph, données structurées, sitemap, flux RSS et `llms.txt`
   localisés, robots cohérents ;
@@ -450,8 +455,9 @@ Les gates prouvent une correspondance FR/EN/DE strictement un pour un entre les
 identifiants, routes, champs protégés, liens internes, preuves, objets
 commerciaux et états. L'artefact construit prouve les canonical, hreflang, Open
 Graph, schémas, sitemap, RSS, `llms.txt` et robots attendus dans les deux modes
-d'indexation. Une relecture humaine couvre l'anglais, l'allemand, les notes de
-preuve, les omissions média et la portée France.
+d’indexation. Une relecture linguistique et éditoriale tracée couvre l’anglais,
+l’allemand, les traductions des preuves, les droits média et la portée France.
+Le mode humain ou agent est précisé selon l’ADR-0011.
 
 La publication initiale FR/EN/DE a satisfait cette séparation des étapes. Une
 future évolution reste candidate jusqu'à l'autorisation explicite du SHA, des
@@ -464,6 +470,47 @@ vérification du déploiement et de l'indexabilité.
 publication est défectueuse, revenir au précédent SHA vérifié et retirer les
 alternates fautifs plutôt que rediriger une traduction vers l'accueil ou vers
 le français.
+
+## Tranche F04-PARITE : structure et lecture équivalentes
+
+### Objectif
+
+Corriger les divergences d’accueil, de rayons et de pages de confiance en
+utilisant les mêmes composants pour les seize routes fixes FR/EN/DE et les
+404. Le changement de langue conserve les sections, leur ordre, les sélections
+de dossiers et les actions, avec les médias autorisés et leur texte localisé.
+
+### Inclus
+
+- ADR-0011 et mise en cohérence du contrat produit, du protocole et du design ;
+- remplacement du gabarit générique anglais/allemand par les pages partagées ;
+- ordre éditorial fondé sur les identifiants stables, indépendant des slugs ;
+- mêmes 28 en-têtes et 18 figures d’article par langue ; les trois comparatifs
+  textuels restent sans image et le registre conserve 117 actifs ;
+- application de l’attestation privée du propriétaire du 3 septembre 2026 aux
+  82 médias et usages web FR/EN/DE identifiés, sans autorisation sociale ajoutée ;
+- repli des aperçus Open Graph et Twitter sur la carte originale v2 lorsque la
+  portée sociale du média éditorial manque ;
+- observations et conditions traduites dans des tables liées par `evidence_id`,
+  avec contrôle de couverture et revue conjointe lors d’une correction ;
+- conservation des comparatifs, du sélecteur, du budget, des signatures et du
+  marché France avec ses liens Amazon.fr et déclarations commerciales.
+
+### Critère de sortie
+
+La gate compare les structures, images et liens internes ordonnés des pages
+fixes, les médias des articles et les traductions de preuves. Les contrôles SEO
+restent complets. La revue navigateur confronte les trois langues aux mêmes
+largeurs et couvre les longs textes allemands, les actions, le clavier, le
+focus, le mouvement réduit, la console et le réseau. Son mode et ses limites
+sont explicitement consignés. La CI et la version effectivement servie sont
+vérifiées séparément dans `STATUS.md` ; aucun gain de classement n’en est déduit.
+
+### Retour arrière
+
+Revenir au précédent SHA vérifié en conservant les URL et identifiants du
+corpus. Ne pas remplacer une contrepartie par l’accueil ni réutiliser un média
+hors de ses droits pour masquer une différence de rendu.
 
 ## Tranche F04-CHOIX : décisions d'achat et comparatifs
 

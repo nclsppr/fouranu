@@ -32,6 +32,20 @@ limitations:
 
 ## Das Urteil in dreißig Sekunden
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-12-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-12-documentary-960.webp 960w, /images/articles/ooni-koda-12-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Frontalansicht des Gasofens Ooni Koda 12 der ersten Generation"
+  />
+  <figcaption>Frontales Videostandbild des Ooni Koda 12 der ersten Generation — Quelle: Ooni, Stelle 00:53.</figcaption>
+</figure>
+
 Der Koda 12 ist der kleine Gasofen von Ooni, der direkt zur Sache kommt. Er
 nimmt eine Pizza von 30 cm auf, wiegt 9,2 kg und verlangt kein Holzfeuer. Für
 zwei Personen, eine kleine Familie oder einige Pizzen von Zeit zu Zeit kann

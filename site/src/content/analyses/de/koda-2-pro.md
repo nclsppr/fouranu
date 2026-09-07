@@ -30,6 +30,20 @@ limitations:
 
 ## Viel Platz, aber nicht für alle
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-2-pro-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-2-pro-documentary-960.webp 960w, /images/articles/ooni-koda-2-pro-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Geöffneter Ooni Koda 2 Pro mit sichtbarer Steinsohle und Digitalthermometer"
+  />
+  <figcaption>Videostandbild des Ooni Koda 2 Pro und seiner Öffnung — Quelle: Got2EatPizza, Stelle 01:08.</figcaption>
+</figure>
+
 Der Koda 2 Pro zielt auf Pizzen von 45 cm und wiegt 30 kg. Sein U-förmiger
 Brenner umgibt den Stein auf drei Seiten, doch ein einziger Regler steuert die
 gesamte Flamme. Für eine große Gasinstallation finden wir ihn stimmig. Für

@@ -55,6 +55,24 @@ unbedingt für den saubersten Handgriff.
 
 ## Diese vier Modelle würden wir im Vergleich behalten
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-pelle-pizza-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-pelle-pizza-comparatif-960.webp 960w, /images/articles/accessoires-pelle-pizza-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Vier generische Pizzaschieber nebeneinander: perforiert, geschlossen, aus Bambus und kompakt aus Edelstahl"
+  />
+  <figcaption>
+    <strong>Vier Formate, vier Einschränkungen.</strong>
+    Originale redaktionelle Illustration von Four à Nu; die Formen stehen für
+    die verglichenen Typen, nicht für die Handelsmodelle.
+  </figcaption>
+</figure>
+
 | Modell | Nutzung, die ihm Sinn gibt | Zu beachtender Punkt |
 | --- | --- | --- |
 | [Ooni perforiert 30 cm](https://www.amazon.fr/dp/B0G8KQW3ZW) | Einschießen und dabei einen Teil des Mehls abfallen lassen | Nur Handwäsche und eine auf Pizzen um 30 cm begrenzte Breite |

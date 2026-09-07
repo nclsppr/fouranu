@@ -55,6 +55,24 @@ the one that makes the movement cleanest.
 
 ## The four models we would keep in the comparison
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-pelle-pizza-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-pelle-pizza-comparatif-960.webp 960w, /images/articles/accessoires-pelle-pizza-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Four generic pizza peels lined up: perforated, solid, bamboo and compact stainless steel"
+  />
+  <figcaption>
+    <strong>Four formats, four constraints.</strong>
+    Original Four à Nu editorial illustration; the shapes represent the types
+    compared, not the commercial models.
+  </figcaption>
+</figure>
+
 | Model | The use that gives it a purpose | What to watch |
 | --- | --- | --- |
 | [Ooni perforated 30 cm](https://www.amazon.fr/dp/B0G8KQW3ZW) | Launching while letting some flour fall away | Hand-wash only and a width limited to pizzas close to 30 cm |

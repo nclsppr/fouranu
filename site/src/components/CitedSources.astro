@@ -1,5 +1,7 @@
 ---
 import evidenceCsv from "@/data/evidence.csv?raw";
+import evidenceTranslationsDeCsv from "@/data/evidence-translations.de.csv?raw";
+import evidenceTranslationsEnCsv from "@/data/evidence-translations.en.csv?raw";
 import {
   affiliateRel,
   isAmazonLink,
@@ -35,6 +37,7 @@ const headers = [
 
 type Header = (typeof headers)[number];
 type Evidence = Record<Header, string>;
+type EvidenceTranslation = Pick<Evidence, "evidence_id" | "observation" | "conditions">;
 
 function parseCsv(input: string): string[][] {
   const rows: string[][] = [];
@@ -105,6 +108,61 @@ for (const [index, values] of rows.entries()) {
   evidenceById.set(record.evidence_id, record);
 }
 
+const translationHeaders = ["evidence_id", "observation", "conditions"] as const;
+
+function translationsFromCsv(input: string, locale: "en" | "de") {
+  const translationRows = parseCsv(input);
+  const csvTranslationHeaders = translationRows.shift();
+  if (!csvTranslationHeaders || csvTranslationHeaders.join(",") !== translationHeaders.join(",")) {
+    throw new Error(`Schéma inattendu pour evidence-translations.${locale}.csv.`);
+  }
+
+  const translations = new Map<string, EvidenceTranslation>();
+  for (const [index, values] of translationRows.entries()) {
+    if (values.length !== translationHeaders.length) {
+      throw new Error(
+        `Ligne ${index + 2} invalide dans evidence-translations.${locale}.csv : ${values.length} colonnes.`,
+      );
+    }
+    const translation = Object.fromEntries(
+      translationHeaders.map((header, column) => [header, values[column]]),
+    ) as EvidenceTranslation;
+    const canonical = evidenceById.get(translation.evidence_id);
+    if (!canonical) {
+      throw new Error(
+        `Traduction ${locale} sans preuve canonique : ${translation.evidence_id}.`,
+      );
+    }
+    if (translations.has(translation.evidence_id)) {
+      throw new Error(
+        `Traduction ${locale} dupliquée : ${translation.evidence_id}.`,
+      );
+    }
+    if (!translation.observation) {
+      throw new Error(
+        `Observation ${locale} vide : ${translation.evidence_id}.`,
+      );
+    }
+    if (Boolean(translation.conditions) !== Boolean(canonical.conditions)) {
+      throw new Error(
+        `Présence des conditions différente en ${locale} : ${translation.evidence_id}.`,
+      );
+    }
+    translations.set(translation.evidence_id, translation);
+  }
+  for (const evidenceId of evidenceById.keys()) {
+    if (!translations.has(evidenceId)) {
+      throw new Error(`Traduction ${locale} manquante : ${evidenceId}.`);
+    }
+  }
+  return translations;
+}
+
+const translationsByLocale = {
+  en: translationsFromCsv(evidenceTranslationsEnCsv, "en"),
+  de: translationsFromCsv(evidenceTranslationsDeCsv, "de"),
+};
+
 const { locale = "fr", evidenceIds } = Astro.props;
 const copy = {
   fr: {
@@ -115,35 +173,26 @@ const copy = {
     checked: "Vérifié le", passage: "Passage", conditions: "Conditions :", relationships: "Relations signalées :",
     source: "Ouvrir la source", amazonSource: "Ouvrir sur Amazon.fr — lien affilié",
     amazonObservation: "Référence et fiche exacte contrôlées à la date indiquée. Relisez l’offre Amazon.fr avant toute commande : vendeur, variante, contenu et disponibilité peuvent évoluer.",
-    registryObservation: "",
-    originalObservation: "Observation :",
-    originalConditions: "Conditions :",
     conclusion: (product: string) => `Conclusion sur ${product}`,
   },
   en: {
     eyebrow: "References", title: "Sources for this article", references: "references",
     show: "Show list", hide: "Hide list",
-    intro: "Open a reference to find its link, verification date, source class, confidence level and any recorded commercial relationship.",
+    intro: "Open a reference to find its link, verification date and, depending on the nature of the source, the publishable observation or its conditions.",
     amazonIntro: "Amazon.fr references open through an affiliate link: an eligible purchase may support Four à Nu without changing the recorded source or our interpretation.",
     checked: "Checked", passage: "Passage", conditions: "Conditions:", relationships: "Disclosed relationships:",
     source: "Open source", amazonSource: "Open on Amazon.fr — affiliate link",
     amazonObservation: "The exact reference and listing were checked on the stated date. Recheck the Amazon.fr offer before ordering: seller, variant, contents and availability may change.",
-    registryObservation: "The source record and its original French observation remain preserved in the canonical evidence register. We do not silently translate that evidence note; this page translates the editorial analysis and links back to the source.",
-    originalObservation: "Original French observation:",
-    originalConditions: "Original French conditions:",
     conclusion: (product: string) => `Conclusion about ${product}`,
   },
   de: {
     eyebrow: "Referenzen", title: "Quellen dieses Artikels", references: "Referenzen",
     show: "Liste anzeigen", hide: "Liste ausblenden",
-    intro: "Öffnen Sie eine Referenz, um Link, Prüfdatum, Quellenklasse, Vertrauensniveau und dokumentierte Geschäftsbeziehungen nachzuvollziehen.",
+    intro: "Öffnen Sie eine Referenz, um ihren Link, das Prüfdatum und, je nach Art der Quelle, die veröffentlichbare Beobachtung oder ihre Bedingungen nachzuvollziehen.",
     amazonIntro: "Referenzen zu Amazon.fr werden über einen Partnerlink geöffnet: Ein qualifizierter Kauf kann Four à Nu unterstützen, ohne die gespeicherte Quelle oder unsere Einordnung zu verändern.",
     checked: "Geprüft am", passage: "Stelle", conditions: "Bedingungen:", relationships: "Offengelegte Beziehungen:",
     source: "Quelle öffnen", amazonSource: "Auf Amazon.fr öffnen — Partnerlink",
     amazonObservation: "Die genaue Referenz und das Angebot wurden am genannten Datum geprüft. Prüfen Sie vor einer Bestellung bei Amazon.fr erneut Verkäufer, Variante, Inhalt und Verfügbarkeit.",
-    registryObservation: "Der Quelldatensatz und seine ursprüngliche französische Beobachtung bleiben im kanonischen Evidenzregister erhalten. Diese Evidenznotiz wird nicht stillschweigend übersetzt; diese Seite übersetzt die redaktionelle Analyse und verlinkt die Quelle.",
-    originalObservation: "Französische Originalbeobachtung:",
-    originalConditions: "Französische Originalbedingungen:",
     conclusion: (product: string) => `Schlussfolgerung zu ${product}`,
   },
 }[locale];
@@ -157,7 +206,10 @@ for (const evidenceId of uniqueIds) {
 const citedEvidence = uniqueIds.map((evidenceId) => {
   const record = evidenceById.get(evidenceId);
   if (!record) throw new Error(`Preuve citée mais absente du registre : ${evidenceId}.`);
-  return record;
+  if (locale === "fr") return record;
+  const translation = translationsByLocale[locale].get(evidenceId);
+  if (!translation) throw new Error(`Traduction ${locale} absente : ${evidenceId}.`);
+  return { ...record, ...translation };
 });
 const hasAmazonSource = citedEvidence.some((record) => isAmazonLink(record.source_url));
 
@@ -167,32 +219,88 @@ const confidenceLabels: Record<string, Record<string, string>> = {
   en: { high: "high confidence", medium: "medium confidence", low: "low confidence" },
   de: { high: "hohe Sicherheit", medium: "mittlere Sicherheit", low: "geringe Sicherheit" },
 };
-const relationshipLabels: Record<string, string> = {
-  affiliate: "liens affiliés",
-  "affiliate-links": "liens affiliés",
-  "arc-lite-origin-not-disclosed": "origine de l’Arc Lite non précisée",
-  "arc-lite-supplied-by-gozney": "Arc Lite fourni par Gozney",
-  "collaboration-with-ooni": "collaboration avec Ooni",
-  "core-supplied-by-ooni": "Halo Core fourni par Ooni",
-  "launch-exclusivity": "exclusivité commerciale au lancement",
-  "loaned-by-ooni": "unité prêtée par Ooni",
-  "loan-or-sponsorship-not-detected": "aucun prêt ou sponsoring repéré",
-  "loan-or-sponsorship-not-disclosed": "prêt ou sponsoring non précisé",
-  "merchant-links": "liens marchands",
-  merchant: "activité marchande",
-  "no-loan-or-sponsorship-detected": "aucun prêt ou sponsoring repéré",
-  "ooni-ambassador": "ambassadeur Ooni",
-  "ooni-collaboration": "collaboration Ooni",
-  "paid-partnership-with-ooni": "partenariat rémunéré avec Ooni",
-  "paid-promotion": "promotion rémunérée",
-  "product-sold-by-publisher": "produit vendu par la source",
-  "promo-code": "code promotionnel",
-  "review-unit-free": "unité fournie gratuitement",
-  "review-unit-supplied-by-ooni": "appareil fourni par Ooni",
-  "self-purchased": "unité achetée par la source",
-  "tracked-merchant-link": "lien marchand suivi",
-  "tread-purchased-by-publisher": "Tread acheté par la source",
-  "unit-origin-not-disclosed": "origine de l'unité non précisée",
+const relationshipLabels: Record<Locale, Record<string, string>> = {
+  fr: {
+    affiliate: "liens affiliés",
+    "affiliate-links": "liens affiliés",
+    "arc-lite-origin-not-disclosed": "origine de l’Arc Lite non précisée",
+    "arc-lite-supplied-by-gozney": "Arc Lite fourni par Gozney",
+    "collaboration-with-ooni": "collaboration avec Ooni",
+    "core-supplied-by-ooni": "Halo Core fourni par Ooni",
+    "launch-exclusivity": "exclusivité commerciale au lancement",
+    "loan-or-sponsorship-not-detected": "aucun prêt ou sponsoring repéré",
+    "loan-or-sponsorship-not-disclosed": "prêt ou sponsoring non précisé",
+    "loaned-by-ooni": "unité prêtée par Ooni",
+    "merchant-links": "liens marchands",
+    merchant: "activité marchande",
+    "no-loan-or-sponsorship-detected": "aucun prêt ou sponsoring repéré",
+    "ooni-ambassador": "ambassadeur Ooni",
+    "ooni-collaboration": "collaboration Ooni",
+    "paid-partnership-with-ooni": "partenariat rémunéré avec Ooni",
+    "paid-promotion": "promotion rémunérée",
+    "product-sold-by-publisher": "produit vendu par la source",
+    "promo-code": "code promotionnel",
+    "review-unit-free": "unité fournie gratuitement",
+    "review-unit-supplied-by-ooni": "appareil fourni par Ooni",
+    "self-purchased": "unité achetée par la source",
+    "tracked-merchant-link": "lien marchand suivi",
+    "tread-purchased-by-publisher": "Tread acheté par la source",
+    "unit-origin-not-disclosed": "origine de l’unité non précisée",
+  },
+  en: {
+    affiliate: "affiliate links",
+    "affiliate-links": "affiliate links",
+    "arc-lite-origin-not-disclosed": "Arc Lite source not disclosed",
+    "arc-lite-supplied-by-gozney": "Arc Lite supplied by Gozney",
+    "collaboration-with-ooni": "collaboration with Ooni",
+    "core-supplied-by-ooni": "Halo Core supplied by Ooni",
+    "launch-exclusivity": "commercial launch exclusivity",
+    "loan-or-sponsorship-not-detected": "no loan or sponsorship detected",
+    "loan-or-sponsorship-not-disclosed": "loan or sponsorship not disclosed",
+    "loaned-by-ooni": "unit loaned by Ooni",
+    "merchant-links": "merchant links",
+    merchant: "merchant activity",
+    "no-loan-or-sponsorship-detected": "no loan or sponsorship detected",
+    "ooni-ambassador": "Ooni ambassador",
+    "ooni-collaboration": "Ooni collaboration",
+    "paid-partnership-with-ooni": "paid partnership with Ooni",
+    "paid-promotion": "paid promotion",
+    "product-sold-by-publisher": "product sold by the source",
+    "promo-code": "promotional code",
+    "review-unit-free": "review unit supplied free of charge",
+    "review-unit-supplied-by-ooni": "review unit supplied by Ooni",
+    "self-purchased": "unit purchased by the source",
+    "tracked-merchant-link": "tracked merchant link",
+    "tread-purchased-by-publisher": "Tread purchased by the source",
+    "unit-origin-not-disclosed": "unit source not disclosed",
+  },
+  de: {
+    affiliate: "Affiliate-Links",
+    "affiliate-links": "Affiliate-Links",
+    "arc-lite-origin-not-disclosed": "Herkunft des Arc Lite nicht offengelegt",
+    "arc-lite-supplied-by-gozney": "Arc Lite von Gozney bereitgestellt",
+    "collaboration-with-ooni": "Zusammenarbeit mit Ooni",
+    "core-supplied-by-ooni": "Halo Core von Ooni bereitgestellt",
+    "launch-exclusivity": "kommerzielle Exklusivität zum Marktstart",
+    "loan-or-sponsorship-not-detected": "kein Leihgerät oder Sponsoring festgestellt",
+    "loan-or-sponsorship-not-disclosed": "Leihgerät oder Sponsoring nicht offengelegt",
+    "loaned-by-ooni": "Gerät von Ooni ausgeliehen",
+    "merchant-links": "Händlerlinks",
+    merchant: "Handelstätigkeit",
+    "no-loan-or-sponsorship-detected": "kein Leihgerät oder Sponsoring festgestellt",
+    "ooni-ambassador": "Ooni-Botschafter",
+    "ooni-collaboration": "Zusammenarbeit mit Ooni",
+    "paid-partnership-with-ooni": "bezahlte Partnerschaft mit Ooni",
+    "paid-promotion": "bezahlte Werbung",
+    "product-sold-by-publisher": "von der Quelle verkauftes Produkt",
+    "promo-code": "Aktionscode",
+    "review-unit-free": "kostenlos bereitgestelltes Testgerät",
+    "review-unit-supplied-by-ooni": "von Ooni bereitgestelltes Testgerät",
+    "self-purchased": "von der Quelle selbst gekauftes Gerät",
+    "tracked-merchant-link": "nachverfolgter Händlerlink",
+    "tread-purchased-by-publisher": "von der Quelle gekaufter Tread",
+    "unit-origin-not-disclosed": "Herkunft des Geräts nicht offengelegt",
+  },
 };
 const dateFormatter = new Intl.DateTimeFormat(LOCALE_INFO[locale].intlLocale, {
   day: "2-digit",
@@ -248,18 +356,7 @@ function relationships(record: Evidence) {
     .split(";")
     .filter(Boolean)
     .map((value) => {
-      if (locale === "en") return value.replaceAll("-", " ");
-      if (locale === "de") {
-        if (/self-purchased|purchased-by/.test(value)) return "von der Quelle gekauftes Gerät";
-        if (/not-disclosed/.test(value)) return "Bereitstellung oder Sponsoring nicht offengelegt";
-        if (/no-loan|not-detected/.test(value)) return "kein Darlehen oder Sponsoring festgestellt";
-        if (/paid|promotion/.test(value)) return "bezahlte Partnerschaft oder Werbung";
-        if (/supplied|loaned|review-unit/.test(value)) return "vom Hersteller bereitgestelltes oder geliehenes Gerät";
-        if (/ambassador|collaboration/.test(value)) return "Zusammenarbeit oder Markenbeziehung";
-        if (/affiliate|merchant|promo-code|tracked/.test(value)) return "kommerzielle Links oder Aktivität";
-        if (value === "launch-exclusivity") return "kommerzielle Exklusivität zum Marktstart";
-      }
-      const label = relationshipLabels[value];
+      const label = relationshipLabels[locale][value];
       if (!label) throw new Error(`Relation éditoriale sans libellé public : ${value}.`);
       return label;
     });
@@ -323,26 +420,12 @@ function relationships(record: Evidence) {
                     <p class="cited-source__observation">
                       {copy.amazonObservation}
                     </p>
-                  ) : locale !== "fr" ? (
-                    <>
-                      <p class="cited-source__registry-note">{copy.registryObservation}</p>
-                      {record.observation && (
-                        <p class="cited-source__observation" lang="fr">
-                          <strong>{copy.originalObservation}</strong> {record.observation}
-                        </p>
-                      )}
-                      {record.conditions && (
-                        <p class="cited-source__conditions" lang="fr">
-                          <strong>{copy.originalConditions}</strong> {record.conditions}
-                        </p>
-                      )}
-                    </>
                   ) : (
                     <p class="cited-source__observation">
                       {record.observation}
                     </p>
                   )}
-                  {locale === "fr" && !amazonSource && record.conditions && (
+                  {!amazonSource && record.conditions && (
                     <p class="cited-source__conditions"><strong>{copy.conditions}</strong> {record.conditions}</p>
                   )}
                   {relationshipNotes.length > 0 && (
@@ -542,7 +625,6 @@ function relationships(record: Evidence) {
   }
 
   .cited-source__observation,
-  .cited-source__registry-note,
   .cited-source__conditions,
   .cited-source__relationships {
     grid-column: 2;
@@ -554,14 +636,8 @@ function relationships(record: Evidence) {
   }
 
   .cited-source__conditions,
-  .cited-source__registry-note,
   .cited-source__relationships {
     font-size: 0.75rem;
-  }
-
-  .cited-source__registry-note {
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--color-probe);
   }
 
   .cited-source__conditions strong,

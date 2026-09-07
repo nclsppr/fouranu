@@ -1,6 +1,6 @@
 # Protocole éditorial, sources et visuels
 
-Cadre mis à jour le 2026-09-07. Ce protocole est une barrière
+Cadre mis à jour le 2026-09-08. Ce protocole est une barrière
 opérationnelle, pas un avis juridique. Une validation professionnelle sera
 nécessaire avant une exploitation répétée ou contractuellement complexe.
 
@@ -102,6 +102,31 @@ Les questions d'acheteurs vivent séparément dans
 regrouper les décisions ; elles ne prouvent ni une performance produit, ni un
 volume de recherche, ni la représentativité du marché. Chaque question publique
 est paraphrasée, datée et reliée à sa source sans conserver de pseudonyme.
+
+## Traductions traçables des preuves
+
+L’[ADR-0011](docs/decisions/0011-parite-structurelle-fr-en-de.md) complète
+l’ADR-0009 : les pages anglaises et allemandes affichent une traduction des
+champs `observation` et `conditions`. Le registre `research/evidence.csv` reste
+l’unique source factuelle canonique ; il n’est pas remplacé ni dupliqué comme
+registre indépendant.
+
+Les tables `site/src/data/evidence-translations.en.csv` et
+`site/src/data/evidence-translations.de.csv` contiennent uniquement
+`evidence_id`, `observation` et `conditions`. Chaque preuve possède exactement
+une traduction par langue. Les identifiants inconnus, doublons, observations
+vides et différences de présence des conditions font échouer la gate. Les
+attributions, classes, URLs, dates, timecodes, relations commerciales, niveaux
+de confiance et liens de corroboration proviennent du registre canonique.
+
+Une traduction conserve le sens, les valeurs, unités, négations, réserves et
+limites du relevé. Elle ne résume pas une condition ni ne transforme une mesure
+tierce en expérience Four à Nu. Une modification de la preuve exige la revue de
+ses deux traductions dans la même tranche ; l’historique Git relie leurs
+changements. La vérification structurelle ne remplace pas cette relecture :
+son périmètre et son mode, humain ou agent, sont consignés sans les confondre.
+Le parcours public affiche directement la traduction, sans ancienne note
+annonçant à tort un relevé français à cet endroit.
 
 ## Recommandations et comparatifs documentaires
 
@@ -219,6 +244,22 @@ pour un visuel intégralement créé par Four à Nu. Aucun statut générique
 points-virgules. Le registre conserve aussi le SHA-256 de l'accord, la présence
 éventuelle de personnes identifiables, leur statut d'autorisation et les
 éléments tiers connus. Ces métadonnées ne remplacent pas la preuve privée.
+
+`language_scope` énumère les langues couvertes ; `surface_language_scope`
+énumère les couples usage/langue, notamment `hub-list:en`, `article-hero:de`,
+`article-body:fr`, `schema-image:en`, `image-sitemap:de`, `open-graph:fr` et
+`twitter:fr`. Le contrôle porte aussi sur chaque variante responsive. Les
+permissions Open Graph et Twitter exigent leur portée sociale propre ; elles
+ne se déduisent ni d’un usage web ni d’une autorisation de transformation.
+
+L’attestation privée du propriétaire datée du 3 septembre 2026 couvre 82
+médias enregistrés pour leurs usages web FR/EN/DE exacts. Elle ne couvre pas
+Open Graph ou Twitter et n’est pas présentée comme une attestation des ayants
+droit. Le registre reste à 117 actifs : aucune nouvelle image n’est créée par
+la correction de parité. Les pages utilisent les mêmes 28 en-têtes et 18
+figures par langue, ainsi que la carte de marque originale v2 en repli social
+lorsque le média éditorial n’a pas de permission sociale. Les trois comparatifs
+textuels de l’ADR-0010 restent sans image d’en-tête.
 
 Avant accord ou attestation explicite du propriétaire au sens du paragraphe
 précédent, enregistrer uniquement l'URL, le timecode et le storyboard. Ne pas

@@ -55,6 +55,24 @@ aber weniger ausführlich dokumentiert.
 
 ## Vier Antworten, keine vier Stufen eines Podests
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-ciseaux-pizza-comparatif-960.webp 960w, /images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Vier generische Formen von Pizzascheren, mit Schuh, erhöhten Griffen, Servierheber und schwarzen Griffen"
+  />
+  <figcaption>
+    <strong>Die Geometrie verändert die Bewegung.</strong>
+    Originale redaktionelle Illustration von Four à Nu; die Formen stehen für
+    die verglichenen Typen, nicht für die Handelsmodelle.
+  </figcaption>
+</figure>
+
 | Modell | Wann wir es ansehen würden | Wichtigste Grenze |
 | --- | --- | --- |
 | [Dreamfarm Scizza DFSC2010](https://www.amazon.fr/dp/B00164DYPM) | Mit einem schützenden Schuh auf Stein oder Antihaftblech schneiden | Lang und sperrig; der Nylonschuh ist auf 205 °C begrenzt |

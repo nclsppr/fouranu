@@ -34,6 +34,20 @@ limitations:
 
 ## Wählen Sie zuerst den Standort, nicht das Modell
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-energies-volt-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-energies-volt-2-documentary-960.webp 960w, /images/articles/ooni-energies-volt-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Beleuchteter Innenraum und Touch-Bedienung des elektrischen Ooni Volt 2"
+  />
+  <figcaption>Videostandbild von Innenraum und Bedienung des Ooni Volt 2 — Quelle: Boulangerie Pas à pas, Stelle 02:23.</figcaption>
+</figure>
+
 Für das Backen in Innenräumen ist der Volt 2 im aktuellen Sortiment die
 dokumentierte Wahl. Draußen passt Koda zu Menschen, die Propan direkt regeln
 möchten. Karu nimmt Holz und Holzkohle auf; für die dokumentierten Modelle wird

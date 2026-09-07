@@ -1,51 +1,55 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { staticAlternates, staticRoute, type Locale } from "@/i18n/config";
+import { ABOUT_COPY } from "@/i18n/trust-pages";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = ABOUT_COPY[locale];
 ---
 
 <BaseLayout
-  title="À propos de Four à Nu"
-  description="Four à Nu vous aide à choisir un four à pizza et son équipement avec des comparatifs sourcés, des recommandations par usage et un budget complet."
+  title={copy.title}
+  description={copy.description}
+  canonical={staticRoute("about", locale)}
+  alternatePaths={staticAlternates("about")}
   indexable={true}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "À propos" }]} />
+    <Breadcrumbs locale={locale} items={[{ label: copy.home, href: staticRoute("home", locale) }, { label: copy.breadcrumb }]} />
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Le projet</p>
-        <h1>Un choix clair pour votre prochaine soirée pizza.</h1>
-        <p class="page-intro__lede">
-          Four à Nu documente les contraintes qui changent réellement l'achat
-          d'un four à pizza : lieu, énergie, format, cadence, équipement et
-          coût complet. Nous rapprochons les données des fabricants et les
-          observations publiées, puis expliquons ce que nous choisirions selon
-          votre situation.
-        </p>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">Nos recommandations reposent sur les sources citées dans chaque guide. Les mesures restent attribuées à leurs auteurs, avec les conditions qui permettent de les comprendre.</p>
+      <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
     <section class="about-copy">
-      <h2>Pourquoi ce site existe</h2>
+      <h2>{copy.whyHeading}</h2>
       <div>
-        <p>Les fiches techniques disent ce qu'un produit annonce. Les vidéos montrent des usages, mais leurs protocoles et leurs relations commerciales varient. Les comparatifs classiques mélangent souvent ces deux couches.</p>
-        <p>Four à Nu conserve la provenance de chaque affirmation. Le site rapproche les sources compatibles, signale les incohérences et dit clairement ce qu'elles ne permettent pas de conclure.</p>
-        <a href="/methode/">Comprendre les niveaux de preuve <span aria-hidden="true">→</span></a>
+        {copy.whyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <a href={staticRoute("method", locale)}>{copy.methodLink} <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
-    <section class="about-values" aria-label="Engagements éditoriaux">
-      <article><span>01</span><h2>Répondre avant de monétiser.</h2><p>La réponse courte et ses limites précèdent tout éventuel lien marchand. L'affiliation ne décide ni des sources ni de la conclusion.</p></article>
-      <article><span>02</span><h2>Attribuer plutôt que s'approprier.</h2><p>Une mesure publiée reste celle de son auteur, dans les conditions de sa session. Le timecode et les relations commerciales connues restent visibles.</p></article>
-      <article><span>03</span><h2>Corriger sans faire disparaître.</h2><p>Une modification qui change une décision d'achat est datée et expliquée. Les données de catalogue sont revérifiées à chaque mise à jour.</p></article>
+    <section class="about-values" aria-label={copy.valuesAria}>
+      {copy.values.map((value, index) => (
+        <article><span>{String(index + 1).padStart(2, "0")}</span><h2>{value.heading}</h2><p>{value.body}</p></article>
+      ))}
     </section>
 
     <section class="about-links">
-      <div><p class="eyebrow">Qui signe</p><h2>Une personne référente clairement indiquée.</h2></div>
+      <div><p class="eyebrow">{copy.whoEyebrow}</p><h2>{copy.whoHeading}</h2></div>
       <div>
-        <p>Nicolas, Florian et Magali ont chacun leur parcours et leurs pizzas de prédilection. La signature indique qui porte le dossier au sein de la rédaction ; les sources, les conclusions et les limites restent relues collectivement.</p>
-        <a href="/auteurs/redaction-four-a-nu/">Découvrir la rédaction</a>
-        <a href="/transparence/">Lire la politique de transparence</a>
+        <p>{copy.whoBody}</p>
+        <a href={staticRoute("authors", locale)}>{copy.authorsLink}</a>
+        <a href={staticRoute("transparency", locale)}>{copy.transparencyLink}</a>
       </div>
     </section>
   </div>

@@ -4,22 +4,36 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
+import { localizedSite } from "@/i18n/common";
+import { staticAlternates, staticRoute, type Locale } from "@/i18n/config";
+import { AUTHORS_COPY } from "@/i18n/trust-pages";
+import { assertMediaAllowedAtPath } from "@/lib/media-rights.mjs";
 
-const canonical = new URL(SITE.editorialAuthor.url, SITE.url).toString();
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = AUTHORS_COPY[locale];
+const localized = localizedSite(locale);
+const canonical = new URL(staticRoute("authors", locale), SITE.url).toString();
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.locale === "fr" && entry.data.status === "publishable" && entry.data.indexable);
-const authors = Object.entries(SITE.authors).map(([id, author]) => ({
+  .filter((entry) => entry.data.locale === locale && entry.data.status === "publishable" && entry.data.indexable);
+const authors = Object.entries(localized.authors).map(([id, author]) => ({
   id,
   ...author,
   articleCount: analyses.filter((entry) => entry.data.author === id).length,
 }));
+for (const author of authors) {
+  assertMediaAllowedAtPath(author.portrait.large, locale, "schema-image", canonical);
+}
 const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "@id": `${canonical}#collection`,
   url: canonical,
-  name: SITE.editorialAuthor.name,
-  inLanguage: SITE.language,
+  name: localized.editorialAuthor.name,
+  inLanguage: localized.language,
   isPartOf: { "@id": `${SITE.url}/#website` },
   mainEntity: {
     "@type": "ItemList",
@@ -39,31 +53,29 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Nicolas, Florian & Magali | Rédaction Four à Nu"
-  description="Les trois signatures éditoriales des dossiers Four à Nu : Nicolas, Florian et Magali."
+  title={copy.title}
+  description={copy.description}
+  canonical={canonical}
+  alternatePaths={staticAlternates("authors")}
   indexable={true}
   schema={schema}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "À propos", href: "/a-propos/" }, { label: "Rédaction" }]} />
+    <Breadcrumbs locale={locale} items={[{ label: copy.home, href: staticRoute("home", locale) }, { label: copy.about, href: staticRoute("about", locale) }, { label: copy.breadcrumb }]} />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">La rédaction</p>
-        <h1>Nicolas, Florian & Magali.</h1>
-        <p class="page-intro__lede">
-          Trois parcours différents, une même méthode : chaque dossier indique
-          sa personne référente, tandis que ses sources et ses limites restent
-          relues collectivement.
-        </p>
+        <p class="eyebrow">{copy.introEyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">Les signatures ne servent pas à décorer une page. Elles mènent à une personne, à son parcours et aux dossiers qu’elle suit au sein de la rédaction.</p>
+      <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
     <section class="author-scope" aria-labelledby="author-scope-title">
       <div>
-        <p class="eyebrow">Trois signatures</p>
-        <h2 id="author-scope-title">Trois façons de regarder la soirée.</h2>
+        <p class="eyebrow">{copy.scopeEyebrow}</p>
+        <h2 id="author-scope-title">{copy.scopeHeading}</h2>
       </div>
       <div class="author-names">
         {authors.map((author) => (
@@ -73,23 +85,23 @@ const schema = {
             <h3>{author.name}</h3>
             <p>{author.summary}</p>
             <a href={author.url}>
-              Découvrir {author.name} · {author.articleCount} dossiers
+              {copy.profileLink(author.name, author.articleCount)}
             </a>
           </article>
         ))}
       </div>
     </section>
 
-    <section class="author-controls" aria-label="Contrôles éditoriaux">
-      <article><span>01</span><h2>Avant publication</h2><p>Les sources, les chiffres, les liens et les limites sont vérifiés avant que le guide soit mis en ligne.</p></article>
-      <article><span>02</span><h2>À la mise à jour</h2><p>La gamme, la version du produit, les prix datés, les liens externes et la conclusion sont relus ensemble.</p></article>
-      <article><span>03</span><h2>Après un signalement</h2><p>La source et la portée de l'erreur sont vérifiées. Une correction de fond indique sa date, son motif et son effet.</p></article>
+    <section class="author-controls" aria-label={copy.controlsAria}>
+      {copy.controls.map((control, index) => (
+        <article><span>{String(index + 1).padStart(2, "0")}</span><h2>{control.heading}</h2><p>{control.body}</p></article>
+      ))}
     </section>
 
-    <nav class="author-links" aria-label="Politiques éditoriales associées">
-      <a href="/methode/">Méthode et niveaux de preuve</a>
-      <a href="/transparence/">Transparence commerciale</a>
-      <a href="/corrections/">Politique de correction</a>
+    <nav class="author-links" aria-label={copy.linksAria}>
+      <a href={staticRoute("method", locale)}>{copy.methodLink}</a>
+      <a href={staticRoute("transparency", locale)}>{copy.transparencyLink}</a>
+      <a href={staticRoute("corrections", locale)}>{copy.correctionsLink}</a>
     </nav>
   </div>
 </BaseLayout>

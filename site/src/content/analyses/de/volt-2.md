@@ -42,6 +42,20 @@ Ooni nennt 1.600 W und 17,6 kg. Ich würde ihm einen zugänglichen Standort gebe
 
 Die am 7. September 2026 geprüfte offizielle Liste nennt Stein und Rost, aber keinen Schieber. Planen Sie diesen ein, falls kein passendes Werkzeug vorhanden ist.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-volt-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-volt-2-documentary-960.webp 960w, /images/articles/ooni-volt-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Elektrischer Ooni Volt 2 eingeschaltet auf einer Küchenarbeitsplatte"
+  />
+  <figcaption>Videostandbild des in einer Küche aufgestellten Ooni Volt 2 — Quelle: Got2EatPizza, Stelle 03:33.</figcaption>
+</figure>
+
 ## Was Ooni klar angibt
 
 Die [französische Seite des Volt 2](https://eu.ooni.com/fr-fr/products/ooni-volt-2)

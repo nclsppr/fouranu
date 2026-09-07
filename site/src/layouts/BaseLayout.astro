@@ -42,6 +42,7 @@ interface Props {
   modifiedAt?: Date | string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
   alternatePaths?: Record<Locale, string> | false;
+  navigationAlternatePaths?: Record<Locale, string>;
 }
 
 const locale = localeFromPath(Astro.url.pathname);
@@ -66,6 +67,7 @@ const {
   modifiedAt: modifiedAtOverride,
   schema,
   alternatePaths: alternatePathsOverride,
+  navigationAlternatePaths: navigationAlternatePathsOverride,
 } = Astro.props;
 
 if (!title.trim()) throw new Error("BaseLayout exige un titre non vide.");
@@ -85,6 +87,11 @@ const alternateUrls = alternatePaths === false
         new URL(alternatePaths[alternateLocale], SITE.url).toString(),
       ]),
     ) as Record<Locale, string>;
+const navigationAlternatePaths = navigationAlternatePathsOverride ?? (
+  alternatePaths === false
+    ? alternatePathsForCurrentPath(Astro.url.pathname)
+    : alternatePaths
+);
 const socialImage = new URL(image, SITE.url).toString();
 const socialTitle = socialTitleOverride ?? title.replace(/\s+\|\s+Four à Nu$/, "");
 const socialImageType = image.endsWith(".webp")
@@ -206,11 +213,11 @@ const serializedPageSchema = pageSchema
   </head>
   <body>
     <a class="skip-link" href="#contenu">{shellCopy.skipLink}</a>
-    <SiteHeader locale={locale} alternatePaths={alternatePaths || alternatePathsForCurrentPath(Astro.url.pathname)} />
+    <SiteHeader locale={locale} alternatePaths={navigationAlternatePaths} />
     <main id="contenu">
       <slot />
       {canonical && <ShareActions locale={locale} title={socialTitle} description={description} url={canonical} />}
     </main>
-    <SiteFooter locale={locale} alternatePaths={alternatePaths || alternatePathsForCurrentPath(Astro.url.pathname)} />
+    <SiteFooter locale={locale} alternatePaths={navigationAlternatePaths} />
   </body>
 </html>

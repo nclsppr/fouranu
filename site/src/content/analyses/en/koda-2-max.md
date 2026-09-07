@@ -31,6 +31,20 @@ limitations:
 
 ## Two pizzas at once, if you genuinely need them
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-2-max-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-2-max-documentary-960.webp 960w, /images/articles/ooni-koda-2-max-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Wide opening of the Ooni Koda 2 Max with its two baking stones"
+  />
+  <figcaption>Video frame of the Ooni Koda 2 Max opening and double stone floor — Source: La French Pizza, 06:01.</figcaption>
+</figure>
+
 The Koda 2 Max takes one 50 cm pizza or two 30 cm pizzas at the same time. Its
 two gas zones are adjusted separately. On paper, it is the oven for large
 gatherings. Its 43 kg weight quickly recalls the trade-off. This model stays in

@@ -31,6 +31,20 @@ limitations:
 
 ## Zwei Pizzen gleichzeitig, wenn Sie das wirklich brauchen
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-2-max-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-2-max-documentary-960.webp 960w, /images/articles/ooni-koda-2-max-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Große Öffnung des Ooni Koda 2 Max mit seinen beiden Backsteinen"
+  />
+  <figcaption>Videostandbild von Öffnung und doppelter Steinsohle des Ooni Koda 2 Max — Quelle: La French Pizza, Stelle 06:01.</figcaption>
+</figure>
+
 Der Koda 2 Max nimmt eine Pizza von 50 cm oder zwei Pizzen von je 30 cm
 gleichzeitig auf. Seine beiden Gaszonen lassen sich getrennt regeln. Auf dem
 Papier ist er der Ofen für große Runden. Sein Gewicht von 43 kg erinnert schnell

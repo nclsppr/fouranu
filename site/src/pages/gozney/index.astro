@@ -3,22 +3,52 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
-import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
+import { isPublishedAnalysis } from "@/data/article-taxonomy";
+import {
+  articleRoute,
+  staticAlternates,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+} from "@/i18n/config";
+import { localizedSite } from "@/i18n/common";
+import { HUB_COPY } from "@/i18n/hubs";
+import {
+  assertResponsiveMediaAllowedAtPath,
+  mediaAllowedInLocale,
+} from "@/lib/media-rights.mjs";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = HUB_COPY.gozney[locale];
+const localized = localizedSite(locale);
 
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.locale === "fr")
+  .filter((entry) => entry.data.locale === locale)
   .filter(isPublishedAnalysis)
   .filter((entry) => entry.data.brand === "gozney")
   .sort((a, b) =>
-    Number(b.id === "quel-four-gozney-choisir") - Number(a.id === "quel-four-gozney-choisir") ||
+    Number(b.data.articleId === "GOZNEY-003") - Number(a.data.articleId === "GOZNEY-003") ||
     b.data.updatedAt.getTime() - a.data.updatedAt.getTime() ||
     b.data.articleId.localeCompare(a.data.articleId)
   );
-const canonical = new URL("/gozney/", SITE.url).toString();
-const rangeGuide = analyses.find((entry) => entry.id === "quel-four-gozney-choisir");
-if (!rangeGuide) {
-  throw new Error("Le guide de gamme Gozney est requis pour la page et son aperçu social.");
+if (analyses.length !== 7) {
+  throw new Error(`La page Gozney ${locale} exige sept lignes illustrées, ${analyses.length} trouvée(s).`);
 }
+const canonical = new URL(staticRoute("gozney", locale), SITE.url).toString();
+const rangeGuide = analyses.find((entry) => entry.data.articleId === "GOZNEY-003");
+if (!rangeGuide) {
+  throw new Error(`Le guide de gamme Gozney ${locale} est requis pour la page et son aperçu social.`);
+}
+for (const entry of analyses) {
+  assertResponsiveMediaAllowedAtPath(entry.data.image!.src, locale, "hub-list", staticRoute("gozney", locale));
+}
+const useRangeSocialImage =
+  mediaAllowedInLocale(rangeGuide.data.image!.assetId, locale, "open-graph")
+  && mediaAllowedInLocale(rangeGuide.data.image!.assetId, locale, "twitter");
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -26,10 +56,9 @@ const schema = {
       "@type": "CollectionPage",
       "@id": `${canonical}#collection`,
       url: canonical,
-      name: "Guides des fours Gozney",
-      description:
-        "Guides des fours Gozney pour choisir selon le format, la place disponible et les usages.",
-      inLanguage: SITE.language,
+      name: copy.schemaName,
+      description: copy.schemaDescription,
+      inLanguage: localized.language,
       isPartOf: { "@id": `${SITE.url}/#website` },
       mainEntity: { "@id": `${canonical}#articles` },
     },
@@ -40,7 +69,7 @@ const schema = {
       itemListElement: analyses.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
+        url: new URL(articleRoute(entry.data.articleId as ArticleId, locale), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -49,42 +78,46 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Fours Gozney : guides et conseils d’achat | Four à Nu"
-  description="Les fours Gozney étudiés par Four à Nu pour choisir selon le format, la place disponible, la chauffe et le budget complet."
-  image={rangeGuide.data.image!.src}
-  imageAlt={rangeGuide.data.image!.alt}
-  imageWidth={1600}
-  imageHeight={900}
+  title={copy.title}
+  description={copy.description}
+  image={useRangeSocialImage ? rangeGuide.data.image!.src : localized.socialImage}
+  imageAlt={useRangeSocialImage ? rangeGuide.data.image!.alt : undefined}
+  imageWidth={useRangeSocialImage ? 1600 : 1200}
+  imageHeight={useRangeSocialImage ? 900 : 630}
+  canonical={canonical}
+  alternatePaths={staticAlternates("gozney")}
   indexable={true}
   schema={schema}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Gozney" }]} />
+    <Breadcrumbs
+      locale={locale}
+      items={[
+        { label: copy.home, href: staticRoute("home", locale) },
+        { label: "Gozney" },
+      ]}
+    />
 
     <header class="gozney-intro">
       <div>
-        <p class="eyebrow">Gozney · guides d’achat</p>
-        <h1>Tous nos dossiers sur les fours Gozney.</h1>
+        <p class="eyebrow">{copy.introEyebrow}</p>
+        <h1>{copy.heading}</h1>
       </div>
       <div class="gozney-intro__copy">
-        <p>
-          Du Roccbox au Dome XL, les sept fours du catalogue français sont
-          couverts sans transformer les variantes de couleur ou les packs en
-          faux modèles. Chaque dossier part de la décision qui change l’achat.
-        </p>
-        <p>{analyses.length} dossier{analyses.length > 1 ? "s" : ""} disponible{analyses.length > 1 ? "s" : ""} aujourd’hui.</p>
+        <p>{copy.lead}</p>
+        <p>{copy.count(analyses.length)}</p>
       </div>
     </header>
 
     <section class="gozney-list" aria-labelledby="gozney-list-title">
       <div class="gozney-list__head">
-        <p class="eyebrow">Nos guides Gozney</p>
-        <h2 id="gozney-list-title">Commencez par la décision qui vous ressemble</h2>
+        <p class="eyebrow">{copy.listEyebrow}</p>
+        <h2 id="gozney-list-title">{copy.listHeading}</h2>
       </div>
 
       <div class="gozney-list__entries">
         {analyses.map((entry) => (
-          <a class="gozney-entry" href={`/gozney/${entry.id}/`}>
+          <a class="gozney-entry" href={articleRoute(entry.data.articleId as ArticleId, locale)}>
             <span class="gozney-entry__image">
               <img
                 src={entry.data.image!.src}
@@ -96,10 +129,10 @@ const schema = {
               />
             </span>
             <span class="gozney-entry__copy">
-              <span class="eyebrow">Gozney · {entry.data.type === "guide" ? "Guide d’achat" : "Four à pizza"}</span>
+              <span class="eyebrow">Gozney · {entry.data.type === "guide" ? copy.guideType : copy.ovenType}</span>
               <strong>{entry.data.title}</strong>
               <span>{entry.data.summary}</span>
-              <span class="gozney-entry__link">Lire le dossier <span aria-hidden="true">↗</span></span>
+              <span class="gozney-entry__link">{copy.read} <span aria-hidden="true">↗</span></span>
             </span>
           </a>
         ))}
@@ -107,12 +140,9 @@ const schema = {
     </section>
 
     <aside class="gozney-method">
-      <p class="eyebrow">Ce que nous vérifions</p>
-      <p>
-        Les annonces Gozney restent attribuées. Les mesures publiées gardent
-        leurs conditions et nos conclusions indiquent ce qui manque encore.
-      </p>
-      <a href="/methode/">Voir comment nous travaillons</a>
+      <p class="eyebrow">{copy.methodEyebrow}</p>
+      <p>{copy.methodBody}</p>
+      <a href={staticRoute("method", locale)}>{copy.methodLink}</a>
     </aside>
   </div>
 </BaseLayout>

@@ -75,9 +75,9 @@ export const SITE = {
 export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
-export const SITE_SURFACE_UPDATED_AT = "2026-08-31";
-export const SITE_HOME_UPDATED_AT = "2026-09-07";
-export const SITE_ABOUT_UPDATED_AT = "2026-09-07";
+export const SITE_SURFACE_UPDATED_AT = "2026-09-08";
+export const SITE_HOME_UPDATED_AT = "2026-09-08";
+export const SITE_ABOUT_UPDATED_AT = "2026-09-08";
 export const SITE_AUTHORS_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
 export const SITE_ACCESSORIES_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
 export const SITE_COMMERCE_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
@@ -93,7 +93,7 @@ export const FIXED_INDEXABLE_ROUTES = [
   { path: "/contact/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/corrections/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/confidentialite/", modified: SITE_COMMERCE_UPDATED_AT },
-  { path: "/fours-a-pizza/", modified: "2026-09-07" },
+  { path: "/fours-a-pizza/", modified: SITE_SURFACE_UPDATED_AT },
   {
     path: "/gozney/",
     modified: SITE_SURFACE_UPDATED_AT,

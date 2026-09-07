@@ -80,6 +80,8 @@ ASSET_FIELDS = (
     "permission_proof_sha256",
     "publication_url",
     "checked_on",
+    "language_scope",
+    "surface_language_scope",
 )
 QUESTION_FIELDS = (
     "question_id",
@@ -138,6 +140,20 @@ IDENTIFIABLE_PEOPLE_VALUES = {"yes", "no", "unknown", "not-applicable"}
 PEOPLE_CLEARANCE_VALUES = {"granted", "missing", "unknown", "not-applicable"}
 SOURCE_REUSE_POLICY_VALUES = {"disabled", "explicitly-authorized"}
 HUMAN_VALIDATION_VALUES = {"pending", "approved", "rejected", "not-applicable"}
+LANGUAGE_SCOPE_VALUES = {"fr", "en", "de"}
+SOCIAL_SCOPE_VALUES = {"open-graph", "twitter"}
+PUBLICATION_SURFACE_VALUES = {
+    "web",
+    "article-hero",
+    "article-body",
+    "article-author",
+    "hub-list",
+    "author-profile",
+    "shell-brand",
+    "schema-image",
+    "image-sitemap",
+    *SOCIAL_SCOPE_VALUES,
+}
 QUESTION_SOURCE_TYPES = {
     "forum",
     "youtube",
@@ -476,6 +492,43 @@ def check_assets(
             errors.append(f"{prefix} : people_clearance inconnu")
         if row["human_validation"] and row["human_validation"] not in HUMAN_VALIDATION_VALUES:
             errors.append(f"{prefix} : human_validation inconnu")
+        languages = [value for value in row["language_scope"].split(";") if value]
+        if not languages:
+            errors.append(f"{prefix} : language_scope est requis")
+        if len(languages) != len(set(languages)):
+            errors.append(f"{prefix} : language_scope contient un doublon")
+        for language in languages:
+            if language not in LANGUAGE_SCOPE_VALUES:
+                errors.append(f"{prefix} : langue inconnue dans language_scope : {language}")
+        social_surfaces = [value for value in row["social_scope"].split(";") if value]
+        if len(social_surfaces) != len(set(social_surfaces)):
+            errors.append(f"{prefix} : social_scope contient un doublon")
+        for surface in social_surfaces:
+            if surface not in SOCIAL_SCOPE_VALUES:
+                errors.append(f"{prefix} : surface inconnue dans social_scope : {surface}")
+        surface_language_entries = [
+            value for value in row["surface_language_scope"].split(";") if value
+        ]
+        if len(surface_language_entries) != len(set(surface_language_entries)):
+            errors.append(f"{prefix} : surface_language_scope contient un doublon")
+        surface_language_pairs: set[tuple[str, str]] = set()
+        for entry in surface_language_entries:
+            parts = entry.split(":")
+            if len(parts) != 2 or not all(parts):
+                errors.append(
+                    f"{prefix} : portée langue-surface invalide dans surface_language_scope : {entry}"
+                )
+                continue
+            surface, language = parts
+            if surface not in PUBLICATION_SURFACE_VALUES:
+                errors.append(
+                    f"{prefix} : surface inconnue dans surface_language_scope : {surface}"
+                )
+            if language not in LANGUAGE_SCOPE_VALUES:
+                errors.append(
+                    f"{prefix} : langue inconnue dans surface_language_scope : {language}"
+                )
+            surface_language_pairs.add((surface, language))
         for linked in split_ids(row["evidence_ids"]):
             if linked not in evidence_ids:
                 errors.append(f"{prefix} : evidence_id inconnu : {linked}")
@@ -484,6 +537,35 @@ def check_assets(
                 errors.append(f"{prefix} : {field} doit être un SHA-256 minuscule")
 
         public = bool(row["publication_url"])
+        if public and not surface_language_pairs:
+            errors.append(f"{prefix} : un média public exige surface_language_scope")
+        if row["web_scope"] and not any(
+            surface == "web" for surface, _ in surface_language_pairs
+        ):
+            errors.append(f"{prefix} : web_scope exige une portée web dans surface_language_scope")
+        if not row["web_scope"] and any(
+            surface == "web" for surface, _ in surface_language_pairs
+        ):
+            errors.append(f"{prefix} : portée web sans web_scope")
+        for surface in SOCIAL_SCOPE_VALUES:
+            has_surface_pair = any(
+                candidate == surface for candidate, _ in surface_language_pairs
+            )
+            if surface in social_surfaces and not has_surface_pair:
+                errors.append(
+                    f"{prefix} : {surface} exige une portée dans surface_language_scope"
+                )
+            if surface not in social_surfaces and has_surface_pair:
+                errors.append(
+                    f"{prefix} : portée {surface} absente de social_scope"
+                )
+        pair_languages = {language for _, language in surface_language_pairs}
+        if public and pair_languages != set(languages):
+            errors.append(
+                f"{prefix} : language_scope doit correspondre aux langues de surface_language_scope"
+            )
+        if social_surfaces and not public:
+            errors.append(f"{prefix} : social_scope exige une publication_url")
         if public and not valid_url(row["publication_url"]):
             errors.append(f"{prefix} : publication_url doit être une URL HTTPS")
         if public and row["asset_type"] == "quarantine":
@@ -539,6 +621,10 @@ def check_assets(
                     errors.append(f"{prefix} : {field} requis pour un droit accordé")
             if row["commercial_use"] != "yes":
                 errors.append(f"{prefix} : l'usage public Four à Nu exige commercial_use=yes")
+            if ({"en", "de"} & set(languages)) and not row["permission_proof"]:
+                errors.append(
+                    f"{prefix} : une diffusion multilingue accordée exige une preuve privée"
+                )
             if row["permission_proof"]:
                 if not row["permission_proof_sha256"]:
                     errors.append(

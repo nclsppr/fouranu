@@ -1,35 +1,45 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { staticAlternates, staticRoute, type Locale } from "@/i18n/config";
+import { TRANSPARENCY_COPY } from "@/i18n/trust-pages";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = TRANSPARENCY_COPY[locale];
 ---
 
 <BaseLayout
-  title="Transparence commerciale et affiliation | Four à Nu"
-  description="Comment Four à Nu sépare ses choix éditoriaux, les relations commerciales des sources et ses liens affiliés Amazon."
+  title={copy.title}
+  description={copy.description}
+  canonical={staticRoute("transparency", locale)}
+  alternatePaths={staticAlternates("transparency")}
   indexable={true}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Transparence" }]} />
+    <Breadcrumbs locale={locale} items={[{ label: copy.home, href: staticRoute("home", locale) }, { label: copy.breadcrumb }]} />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Indépendance éditoriale</p>
-        <h1>Le commerce ne réécrit pas la preuve.</h1>
-        <p class="page-intro__lede">Four à Nu peut être rémunéré lorsqu’un lecteur effectue un achat éligible après avoir suivi un lien Amazon.fr. Cette rémunération ne change ni la sélection des sources, ni l’ordre des conclusions.</p>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">Au 30 août 2026, les liens Amazon.fr utilisent l’identifiant partenaire <strong>fouranu-21</strong>. Les liens vers les boutiques des fabricants restent directs et non rémunérés. Aucun emplacement publicitaire n’est vendu.</p>
+      <p class="page-intro__aside">{copy.asideBeforePartner}<strong>{copy.partnerId}</strong>{copy.asideAfterPartner}</p>
     </header>
 
-    <section class="transparency-rules" aria-label="Règles de transparence commerciale">
-      <article><span>01</span><h2>Déclarer avant le clic.</h2><p>Chaque zone contenant un lien Amazon rémunéré le signale clairement à proximité. Dans la liste des sources, sa destination affiliée est aussi annoncée sans modifier l’URL de preuve enregistrée.</p></article>
-      <article><span>02</span><h2>Répondre avant l'offre.</h2><p>La réponse courte précède le premier bloc marchand. Les limites et critères restent visibles dans le dossier et une promotion ne devient jamais un motif de recommandation.</p></article>
-      <article><span>03</span><h2>Garder les conflits visibles.</h2><p>Prêt, don, collaboration, code promotionnel et affiliation signalés par une source restent attachés à l'observation concernée.</p></article>
-      <article><span>04</span><h2>Ne pas vendre le classement.</h2><p>Aucune marque ne peut acheter une note, une place, une conclusion ou la disparition d'une limite dans un dossier.</p></article>
+    <section class="transparency-rules" aria-label={copy.rulesAria}>
+      {copy.rules.map((rule, index) => (
+        <article><span>{String(index + 1).padStart(2, "0")}</span><h2>{rule.heading}</h2><p>{rule.body}</p></article>
+      ))}
     </section>
 
     <section class="transparency-status">
-      <div><p class="eyebrow">État actuel</p><h2>Une affiliation déclarée, sans publicité ni prix automatisés.</h2></div>
-      <div><p><strong>En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.</strong> Le site statique ne charge ni régie publicitaire, ni comparateur de prix, ni script marchand : le suivi repose sur le lien lui-même. Les prix, vendeurs et stocks restent ceux d’Amazon.fr au moment du clic.</p><a href="/methode/">Voir comment les relations des sources sont enregistrées</a></div>
+      <div><p class="eyebrow">{copy.statusEyebrow}</p><h2>{copy.statusHeading}</h2></div>
+      <div><p><strong>{copy.disclosure}</strong>{copy.statusBody}</p><a href={staticRoute("method", locale)}>{copy.methodLink}</a></div>
     </section>
   </div>
 </BaseLayout>

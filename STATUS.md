@@ -7,7 +7,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-09-07 pour la livraison documentaire ; preuves historiques conservées à leur date |
+| Vérifié le | 2026-09-08 pour le candidat de parité ; preuves historiques conservées à leur date |
 | Par | Gate locale, CI du SHA applicatif, sondes HTTP et navigateur sur le domaine public |
 | Branche | `main` pour la production |
 | Aide à l'achat documentaire | SHA applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` ; [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760) vert, `verify` et `deploy-cloudflare`, contrôles publics acquis |
@@ -30,6 +30,56 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Cinq dossiers multimarques Amazon publiés | SHA applicatif `1092e63da3cd84a88148e3360ce1082622371c07` ; [run GitHub Actions `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Correction de parité préparée le 2026-09-08
+
+Le candidat `codex/parite-publiee-20260908`, basé sur la production
+`53eb9169be1a06a8638f748cbb7d199402e7b480`, corrige une divergence réelle :
+l’accueil français utilisait sa composition illustrée tandis que les accueils
+anglais et allemand présentaient huit dossiers textuels dans un autre gabarit.
+Les anciennes gates prouvaient les routes et métadonnées, pas la même structure.
+La correction partagée suit l’[ADR-0011](docs/decisions/0011-parite-structurelle-fr-en-de.md).
+
+Les seize pages fixes par langue et les trois 404 partagent leurs composants.
+Les accueils ont chacun 18 images, les articles 28 en-têtes et 18 figures par
+langue. Les trois nouveaux comparatifs restent textuels. Les 278 observations
+et conditions sont traduites dans deux tables liées au registre canonique,
+resté inchangé. Les destinations et contrats Amazon.fr, les derniers articles,
+le sélecteur et le budget sont conservés. Le sitemap compte désormais 90
+entrées image pour les mêmes 141 URL indexables ; chaque RSS garde 31 entrées.
+
+Contrôles acquis sur le candidat :
+
+- `./scripts/verify.sh` passe intégralement : 39 tests des registres, 34 tests du
+  site, typage sans erreur ni avertissement, builds preview et indexable,
+  contrôle Cloudflare et Nimbus ;
+- les nouveaux tests comparent les blocs, médias et destinations ordonnées des
+  16 grappes de pages fixes ; ils rejettent effectivement les anciens accueils
+  anglais et allemand, dépourvus des 18 images françaises ;
+- les preuves privées des 117 actifs sont contrôlées localement ; les 82 médias
+  attestés pour les surfaces web FR/EN/DE ne sont pas étendus aux aperçus
+  sociaux, qui utilisent la carte de marque originale v2 ;
+- le service Compose isolé est sain sur le port `4339` ; les sept sondes
+  vérifient accueil et rubriques localisées, healthcheck et vraie 404 allemande ;
+- la revue navigateur compare les trois accueils à 360 et 1 280 px ; les 48
+  pages fixes sont contrôlées à 320 et 1 280 px, avec reprise des seize pages
+  allemandes après correction des mots longs : aucun débordement final ;
+- quinze routes de rubriques, articles, profil et méthode sont aussi contrôlées
+  à 360 px, sans image chargée cassée ; aucune erreur ou alerte console observée ;
+- le sélecteur allemand au clavier affiche Volt 2 et Sage pour intérieur et
+  électricité, puis aucun choix pour intérieur et gaz ; le panier de 639,90 €
+  laisse 60,10 € sur un plafond de 700 € ; les changements de focus restent
+  visibles et le changement anglais vers allemand ouvre le même dossier ;
+- une source du Koda 2 est ouverte au clavier et affiche son observation et
+  ses conditions en allemand ; les 278 traductions sont également contrôlées
+  dans le HTML construit ;
+- le contraste orange/blanc de la palette conservée vaut 5,28:1 ; les règles
+  existantes de mouvement réduit sont contrôlées dans le CSS. Leur activation
+  par réglage système et un lecteur d’écran réel ne sont pas vérifiés.
+
+Les relectures linguistiques et éditoriales de cette correction sont effectuées
+par des agents ; aucune relecture humaine nouvelle n’est revendiquée. La CI,
+la fusion et la preuve du domaine public restent à acquérir pour ce candidat.
 
 ## Aide à l'achat documentaire publiée le 2026-09-07
 

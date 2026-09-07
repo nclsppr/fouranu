@@ -1,5 +1,18 @@
 ---
-import LocalizedStaticPage from "@/components/LocalizedStaticPage.astro";
+import HomePage from "@/pages/index.astro";
+import AccessoriesPage from "@/pages/accessoires-pizza/index.astro";
+import OvensPage from "@/pages/fours-a-pizza/index.astro";
+import OoniPage from "@/pages/ooni/index.astro";
+import GozneyPage from "@/pages/gozney/index.astro";
+import MethodPage from "@/pages/methode/index.astro";
+import AboutPage from "@/pages/a-propos/index.astro";
+import AuthorsPage from "@/pages/auteurs/redaction-four-a-nu/index.astro";
+import AuthorProfilePage from "@/pages/auteurs/[slug]/index.astro";
+import ContactPage from "@/pages/contact/index.astro";
+import CorrectionsPage from "@/pages/corrections/index.astro";
+import PrivacyPage from "@/pages/confidentialite/index.astro";
+import LegalPage from "@/pages/mentions-legales/index.astro";
+import TransparencyPage from "@/pages/transparence/index.astro";
 import {
   STATIC_ROUTES,
   type Locale,
@@ -30,7 +43,35 @@ interface Props {
   routeId: LocalizedRouteId;
 }
 
-const { locale, routeId } = Astro.props;
+const { locale, routeId } = Astro.props as Props;
+const authorIds = {
+  authorNicolas: "nicolas",
+  authorFlorian: "florian",
+  authorMagali: "magali",
+} as const;
+const pageComponents = {
+  home: HomePage,
+  accessories: AccessoriesPage,
+  ovens: OvensPage,
+  ooni: OoniPage,
+  gozney: GozneyPage,
+  method: MethodPage,
+  about: AboutPage,
+  authors: AuthorsPage,
+  contact: ContactPage,
+  corrections: CorrectionsPage,
+  privacy: PrivacyPage,
+  legal: LegalPage,
+  transparency: TransparencyPage,
+} as const;
+const authorId = authorIds[routeId as keyof typeof authorIds];
+const Page = pageComponents[routeId as keyof typeof pageComponents];
+
+if (!authorId && !Page) {
+  throw new Error(`Route statique localisée sans composant : ${routeId}`);
+}
 ---
 
-<LocalizedStaticPage locale={locale} routeId={routeId} />
+{authorId
+  ? <AuthorProfilePage locale={locale} authorId={authorId} />
+  : Page && <Page locale={locale} />}

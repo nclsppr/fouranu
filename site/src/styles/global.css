@@ -473,6 +473,12 @@ li {
 
 .page-intro__copy {
   grid-column: 1 / span 8;
+  min-width: 0;
+}
+
+html:lang(de) main {
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .page-intro__aside {

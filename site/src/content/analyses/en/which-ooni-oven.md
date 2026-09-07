@@ -34,6 +34,20 @@ limitations:
 
 ## Three questions are enough to begin
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-gamme-documentee-documentary-1600.webp"
+    srcset="/images/articles/ooni-gamme-documentee-documentary-960.webp 960w, /images/articles/ooni-gamme-documentee-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Five Ooni pizza ovens lined up on their outdoor tables"
+  />
+  <figcaption>Video frame of the Ooni range arranged in a line — Source: Julien Serri, 10:47.</figcaption>
+</figure>
+
 Where will you bake? With which energy source? What size pizza do you genuinely
 want to launch? Those three answers already rule out much of the nine-oven Ooni
 range sold in France when we checked.

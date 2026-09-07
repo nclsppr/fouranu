@@ -32,6 +32,20 @@ limitations:
 
 ## The verdict in thirty seconds
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-12-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-12-documentary-960.webp 960w, /images/articles/ooni-koda-12-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Front view of the first-generation Ooni Koda 12 gas oven"
+  />
+  <figcaption>Front video frame of the first-generation Ooni Koda 12 — Source: Ooni, 00:53.</figcaption>
+</figure>
+
 The Koda 12 is the small, straightforward gas Ooni. It takes a 30 cm pizza,
 weighs 9.2 kg and does not require you to manage a wood fire. For two people, a
 small family or a few pizzas from time to time, that simplicity may be enough.

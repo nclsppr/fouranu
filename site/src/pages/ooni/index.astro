@@ -3,50 +3,71 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import { SITE } from "@/config/site";
-import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
+import { isPublishedAnalysis } from "@/data/article-taxonomy";
+import {
+  LOCALE_INFO,
+  articleRoute,
+  staticAlternates,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+} from "@/i18n/config";
+import { localizedSite } from "@/i18n/common";
+import { HUB_COPY } from "@/i18n/hubs";
+import {
+  assertResponsiveMediaAllowedAtPath,
+  mediaAllowedInLocale,
+} from "@/lib/media-rights.mjs";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = HUB_COPY.ooni[locale];
+const localized = localizedSite(locale);
 
 const analyses = (await getCollection("analyses"))
-  .filter((entry) => entry.data.locale === "fr")
+  .filter((entry) => entry.data.locale === locale)
   .filter(isPublishedAnalysis)
   .filter((entry) => entry.data.brand === "ooni");
 const modelEntries = analyses.filter(
   (entry) => entry.data.category === "oven" && entry.data.type === "model",
 );
 const equipmentEntries = analyses.filter((entry) => entry.data.category === "mixer");
-const haloComparison = equipmentEntries.find((entry) => entry.id === "halo-core-ou-halo-pro");
-const rangeGuide = analyses.find((entry) => entry.id === "quel-four-ooni-choisir");
-const entriesById = new Map(modelEntries.map((entry) => [entry.id, entry]));
-const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
+const haloComparison = equipmentEntries.find((entry) => entry.data.articleId === "OONI-040");
+const rangeGuide = analyses.find((entry) => entry.data.articleId === "OONI-001");
+const entriesByArticleId = new Map(modelEntries.map((entry) => [entry.data.articleId, entry]));
+const dateFormatter = new Intl.DateTimeFormat(LOCALE_INFO[locale].intlLocale, {
   day: "2-digit",
   month: "short",
   year: "numeric",
   timeZone: "UTC",
 });
 
-const ranges = [
+const rangeDefinitions = [
   {
     id: "koda",
     name: "Koda",
-    energy: "Gaz",
-    articleIds: ["koda-2", "koda-2-pro", "koda-2-max", "koda-12", "koda-16"],
+    articleIds: ["OONI-010", "OONI-011", "OONI-012", "OONI-013", "OONI-014"],
   },
   {
     id: "karu",
     name: "Karu",
-    energy: "Multi-combustible",
-    articleIds: ["karu-2", "karu-2-pro", "karu-12"],
+    articleIds: ["OONI-015", "OONI-016", "OONI-017"],
   },
   {
     id: "volt",
     name: "Volt",
-    energy: "Électrique",
-    articleIds: ["volt-2"],
+    articleIds: ["OONI-018"],
   },
-].map((range) => ({
+] as const;
+const ranges = rangeDefinitions.map((range) => ({
   ...range,
+  energy: copy.energies[range.id],
   models: range.articleIds.map((articleId) => {
-    const entry = entriesById.get(articleId);
-    if (!entry) throw new Error(`Dossier Ooni absent : ${articleId}`);
+    const entry = entriesByArticleId.get(articleId);
+    if (!entry) throw new Error(`Dossier Ooni ${locale} absent : ${articleId}`);
     return entry;
   }),
 }));
@@ -62,8 +83,14 @@ if (equipmentEntries.length !== 1 || !haloComparison) {
 if (!rangeGuide) {
   throw new Error("Le guide de gamme Ooni est requis pour la page et son aperçu social.");
 }
+for (const entry of analyses) {
+  assertResponsiveMediaAllowedAtPath(entry.data.image!.src, locale, "hub-list", staticRoute("ooni", locale));
+}
+const useRangeSocialImage =
+  mediaAllowedInLocale(rangeGuide.data.image!.assetId, locale, "open-graph")
+  && mediaAllowedInLocale(rangeGuide.data.image!.assetId, locale, "twitter");
 
-const canonical = new URL("/ooni/", SITE.url).toString();
+const canonical = new URL(staticRoute("ooni", locale), SITE.url).toString();
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -71,10 +98,9 @@ const schema = {
       "@type": "CollectionPage",
       "@id": `${canonical}#collection`,
       url: canonical,
-      name: "Fours et pétrins Ooni documentés en France",
-      description:
-        "Dossiers documentaires sur les fours Ooni Koda, Karu et Volt ainsi que les pétrins Halo vendus en France.",
-      inLanguage: SITE.language,
+      name: copy.schemaName,
+      description: copy.schemaDescription,
+      inLanguage: localized.language,
       isPartOf: { "@id": `${SITE.url}/#website` },
       mainEntity: { "@id": `${canonical}#models` },
       hasPart: { "@id": `${canonical}#equipment` },
@@ -86,7 +112,7 @@ const schema = {
       itemListElement: equipmentEntries.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
+        url: new URL(articleRoute(entry.data.articleId as ArticleId, locale), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -97,7 +123,7 @@ const schema = {
       itemListElement: ranges.flatMap((range) => range.models).map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
+        url: new URL(articleRoute(entry.data.articleId as ArticleId, locale), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -106,48 +132,47 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Fours et pétrins Ooni 2026 : dossiers sourcés | Four à Nu"
-  description="Les neuf fours Ooni vendus en France et les pétrins Halo, avec des dossiers sourcés pour comparer énergie, format et capacité."
-  image={rangeGuide.data.image!.src}
-  imageAlt={rangeGuide.data.image!.alt}
-  imageWidth={1600}
-  imageHeight={900}
+  title={copy.title}
+  description={copy.description}
+  image={useRangeSocialImage ? rangeGuide.data.image!.src : localized.socialImage}
+  imageAlt={useRangeSocialImage ? rangeGuide.data.image!.alt : undefined}
+  imageWidth={useRangeSocialImage ? 1600 : 1200}
+  imageHeight={useRangeSocialImage ? 900 : 630}
+  canonical={canonical}
+  alternatePaths={staticAlternates("ooni")}
   indexable={true}
   schema={schema}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Ooni" }]} />
+    <Breadcrumbs
+      locale={locale}
+      items={[
+        { label: copy.home, href: staticRoute("home", locale) },
+        { label: "Ooni" },
+      ]}
+    />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Catalogue France · vérifié le 24.08.2026</p>
-        <h1>Tous nos dossiers sur les fours et pétrins Ooni.</h1>
-        <p class="page-intro__lede">
-          Retrouvez les neuf fours autonomes vendus en France, rangés par
-          énergie et par format. Les deux pétrins Halo sont comparés selon la
-          quantité de pâte à préparer. Chaque guide sépare les annonces Ooni des
-          mesures et retours publiés.
-        </p>
+        <p class="eyebrow">{copy.introEyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">
-        9 fiches de four, 2 guides de choix et 1 comparaison de pétrins. Pas de
-        classement général ni de note. Partez de votre lieu, de vos fournées et
-        de la place disponible.
-      </p>
+      <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
     <section class="lead-analysis" aria-labelledby="lead-analysis-title">
-      <p class="eyebrow">Commencez ici</p>
-      <h2 id="lead-analysis-title">Choisissez d'abord votre lieu et votre énergie.</h2>
+      <p class="eyebrow">{copy.leadEyebrow}</p>
+      <h2 id="lead-analysis-title">{copy.leadHeading}</h2>
       <div>
-        <a class="link-row" href="/ooni/quel-four-ooni-choisir/">
-          <span class="link-row__title">Quel four Ooni choisir en 2026&nbsp;?</span>
-          <span class="link-row__meta">Guide de gamme</span>
+        <a class="link-row" href={articleRoute("OONI-001", locale)}>
+          <span class="link-row__title">{copy.rangeGuideTitle}</span>
+          <span class="link-row__meta">{copy.rangeGuideMeta}</span>
           <span class="link-row__arrow" aria-hidden="true">↗</span>
         </a>
-        <a class="link-row" href="/ooni/gaz-electrique-ou-multicombustible/">
-          <span class="link-row__title">Gaz, électrique ou multi-combustible&nbsp;?</span>
-          <span class="link-row__meta">Guide des énergies</span>
+        <a class="link-row" href={articleRoute("OONI-004", locale)}>
+          <span class="link-row__title">{copy.energyGuideTitle}</span>
+          <span class="link-row__meta">{copy.energyGuideMeta}</span>
           <span class="link-row__arrow" aria-hidden="true">↗</span>
         </a>
       </div>
@@ -155,14 +180,14 @@ const schema = {
 
     <section class="equipment" aria-labelledby="equipment-title">
       <header>
-        <p class="eyebrow">Préparer la pâte</p>
-        <h2 id="equipment-title">Le bon pétrin dépend surtout de la quantité de pâte.</h2>
-        <p>Le grand modèle n'a de sens que si vos fournées, votre plan de travail et ses fonctions supplémentaires le justifient.</p>
+        <p class="eyebrow">{copy.equipmentEyebrow}</p>
+        <h2 id="equipment-title">{copy.equipmentHeading}</h2>
+        <p>{copy.equipmentBody}</p>
       </header>
 
       <div class="equipment__list">
         {equipmentEntries.map((entry) => (
-          <a href={articlePath(entry.data.brand, entry.id)}>
+          <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>
             <span class="equipment__image">
               <img
                 src={entry.data.image!.src}
@@ -177,7 +202,7 @@ const schema = {
             <span class="equipment__copy">
               <strong>{entry.data.title}</strong>
               <small>{entry.data.summary}</small>
-              <b>Lire la comparaison <span aria-hidden="true">↗</span></b>
+              <b>{copy.equipmentRead} <span aria-hidden="true">↗</span></b>
             </span>
           </a>
         ))}
@@ -186,9 +211,9 @@ const schema = {
 
     <section class="ranges" aria-labelledby="ranges-title">
       <div class="ranges__head">
-        <p class="eyebrow">Catalogue actuel</p>
-        <h2 id="ranges-title">Trois familles de fours</h2>
-        <p>Ouvrez le modèle qui correspond à votre usage. Chaque dossier reste sourcé et daté, sans classement artificiel.</p>
+        <p class="eyebrow">{copy.rangesEyebrow}</p>
+        <h2 id="ranges-title">{copy.rangesHeading}</h2>
+        <p>{copy.rangesBody}</p>
       </div>
 
       {ranges.map((range) => (
@@ -200,7 +225,7 @@ const schema = {
           </header>
           <div class="range__models">
             {range.models.map((entry) => (
-              <a href={articlePath(entry.data.brand, entry.id)}>
+              <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>
                 <span class="range__model-image">
                   <img
                     src={entry.data.image!.src}
@@ -217,7 +242,7 @@ const schema = {
                   <small>{entry.data.summary}</small>
                 </span>
                 <time datetime={entry.data.updatedAt.toISOString()}>
-                  Mis à jour {dateFormatter.format(entry.data.updatedAt)}
+                  {copy.updated} {dateFormatter.format(entry.data.updatedAt)}
                 </time>
                 <span class="range__arrow" aria-hidden="true">↗</span>
               </a>

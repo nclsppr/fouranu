@@ -7,9 +7,10 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-09-08 pour le candidat de parité ; preuves historiques conservées à leur date |
+| Vérifié le | 2026-09-08 pour la parité publiée ; preuves historiques conservées à leur date |
 | Par | Gate locale, CI du SHA applicatif, sondes HTTP et navigateur sur le domaine public |
 | Branche | `main` pour la production |
+| Parité de structure FR/EN/DE | SHA applicatif `680e7ccea54765e978f227fdf3b5225360d25172` ; [run `34171586758`](https://github.com/nclsppr/fouranu/actions/runs/34171586758) vert, `verify` et `deploy-cloudflare`, 141 URL publiques contrôlées |
 | Aide à l'achat documentaire | SHA applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` ; [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760) vert, `verify` et `deploy-cloudflare`, contrôles publics acquis |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
@@ -31,10 +32,14 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Correction de parité préparée le 2026-09-08
+## Parité FR/EN/DE publiée le 2026-09-08
 
-Le candidat `codex/parite-publiee-20260908`, basé sur la production
-`53eb9169be1a06a8638f748cbb7d199402e7b480`, corrige une divergence réelle :
+La [PR #4](https://github.com/nclsppr/fouranu/pull/4) est fusionnée. Le SHA
+applicatif `680e7ccea54765e978f227fdf3b5225360d25172` a passé `verify` et
+`deploy-cloudflare` dans le [run `34171586758`](https://github.com/nclsppr/fouranu/actions/runs/34171586758).
+
+La correction, basée sur la production
+`53eb9169be1a06a8638f748cbb7d199402e7b480`, traite une divergence réelle :
 l’accueil français utilisait sa composition illustrée tandis que les accueils
 anglais et allemand présentaient huit dossiers textuels dans un autre gabarit.
 Les anciennes gates prouvaient les routes et métadonnées, pas la même structure.
@@ -78,8 +83,22 @@ Contrôles acquis sur le candidat :
   par réglage système et un lecteur d’écran réel ne sont pas vérifiés.
 
 Les relectures linguistiques et éditoriales de cette correction sont effectuées
-par des agents ; aucune relecture humaine nouvelle n’est revendiquée. La CI,
-la fusion et la preuve du domaine public restent à acquérir pour ce candidat.
+par des agents ; aucune relecture humaine nouvelle n’est revendiquée.
+
+Les sondes publiques du 8 septembre retrouvent le SHA applicatif ci-dessus dans
+`/release.json`. Les 141 URL sont en `200` avec leur canonical et quatre
+alternates attendus ; leurs structures principales et images correspondent au
+build contrôlé. Les trois accueils comptent chacun 18 images et partagent la
+même structure. Les sept fichiers CSS/JavaScript référencés sont identiques
+octet pour octet ; le sitemap contient 90 entrées image et les trois RSS
+contiennent 31 dossiers chacun. Aucun CSV ni chemin de preuve privée n’est
+présent dans l’artefact public.
+
+La revue du domaine public confirme les accueils anglais et allemand à 1 280 px,
+les trois accueils et les pages allemandes Ooni/Méthode à 320 px : aucun
+débordement, aucune image chargée cassée, aucune erreur ou alerte console
+observée. La CI des branches et de la PR est également verte sur le candidat
+`591c0c8992c0d05c2e27430b60bc5f8223e48fb2`.
 
 ## Aide à l'achat documentaire publiée le 2026-09-07
 

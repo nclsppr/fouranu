@@ -39,7 +39,7 @@ renforcent le choix, les comparatifs, la découverte et leur mesure.
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus est public dans trois langues | `done` | Autorisation, CI, déploiement et contrôles publics consignés dans `STATUS.md` |
 | 4 ter | F04-CHOIX | Recommandations et comparatifs documentaires | Le parcours réduit la liste et les pages répondent à une décision précise, dans trois langues | `done` | Promesse alignée, parcours et comparatifs sourcés, gates et QA sur le paquet exact |
-| 4 quater | F04-PARITE | Parité de structure et de lecture FR/EN/DE | Les trois langues partagent les pages fixes, sélections, médias autorisés et sources traduites | `in_progress` | Contrats ADR-0011, tests de structure, revue navigateur, CI et preuve publique sur le SHA exact |
+| 4 quater | F04-PARITE | Parité de structure et de lecture FR/EN/DE | Les trois langues partagent les pages fixes, sélections, médias autorisés et sources traduites | `done` | Contrats ADR-0011, tests de structure, revue navigateur, CI et preuve publique sur le SHA exact dans `STATUS.md` |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 | 6 | F06 | Couverture documentaire ciblée | Les lacunes de décision observées reçoivent des données originales et des comparaisons utiles | `planned` | Questions prioritaires étayées, sources attribuées et décision de poursuite fondée sur F05 |
 

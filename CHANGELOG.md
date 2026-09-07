@@ -6,6 +6,8 @@ importantes.
 
 ## Non publié
 
+## 2026-09-08 - Parité de structure et de lecture FR/EN/DE
+
 - Correction de la parité FR/EN/DE : les accueils, rubriques, pages de confiance,
   profils et 404 utilisent les mêmes gabarits. Les 18 visuels d’accueil et
   l’ordre des dossiers sont conservés dans chaque langue.
@@ -18,7 +20,13 @@ importantes.
 - Les nouveaux contrôles comparent les blocs, images et liens des pages et
   rejettent l’ancien défaut. Les mots allemands longs reviennent à la ligne
   sur petit écran. Gate complète, Compose et revue navigateur acquis dans
-  `STATUS.md` ; publication encore à vérifier.
+  `STATUS.md`.
+- La [PR #4](https://github.com/nclsppr/fouranu/pull/4) est fusionnée ; le SHA
+  applicatif `680e7ccea54765e978f227fdf3b5225360d25172` a passé `verify` et
+  `deploy-cloudflare` dans le [run `34171586758`](https://github.com/nclsppr/fouranu/actions/runs/34171586758).
+  Les sondes publiques confirment 141 URL, les 18 images de chaque accueil,
+  90 entrées image dans le sitemap, 31 dossiers par RSS et les sept fichiers
+  CSS/JavaScript exacts. La revue mobile publique confirme les retours à la ligne.
 
 ## 2026-09-07 - Aide à l'achat documentaire permanente
 

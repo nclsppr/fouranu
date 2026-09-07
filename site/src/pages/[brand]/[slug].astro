@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import CitedSources from "@/components/CitedSources.astro";
 import PurchaseCta from "@/components/PurchaseCta.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
+import RelatedDecisions from "@/components/RelatedDecisions.astro";
 import { SITE } from "@/config/site";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
 import { commercialObject } from "@/data/commercial-objects.mjs";
@@ -71,9 +72,9 @@ const words = (entry.body ?? "")
   .split(/\s+/)
   .filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(words / 220));
-const useEditorialImage = locale === "fr";
+const useEditorialImage = locale === "fr" && Boolean(entry.data.image);
 const articleImage = new URL(
-  useEditorialImage ? entry.data.image.src : localized.socialImage,
+  useEditorialImage ? entry.data.image!.src : localized.socialImage,
   SITE.url,
 ).toString();
 const articleMetaTitle = entry.data.seoTitle ?? `${entry.data.title} | Four à Nu`;
@@ -99,7 +100,7 @@ const schema = {
         contentUrl: articleImage,
         width: 1600,
         height: 900,
-        caption: entry.data.image.caption,
+        caption: entry.data.image!.caption,
       }
     : articleImage,
   wordCount: words,
@@ -137,8 +138,8 @@ const schema = {
   title={articleMetaTitle}
   socialTitle={entry.data.title}
   description={entry.data.description}
-  image={useEditorialImage ? entry.data.image.src : localized.socialImage}
-  imageAlt={useEditorialImage ? entry.data.image.alt : undefined}
+  image={useEditorialImage ? entry.data.image!.src : localized.socialImage}
+  imageAlt={useEditorialImage ? entry.data.image!.alt : undefined}
   imageWidth={useEditorialImage ? 1600 : 1200}
   imageHeight={useEditorialImage ? 900 : 630}
   canonical={canonical}
@@ -188,16 +189,16 @@ const schema = {
       {useEditorialImage && <figure class="article-lead-media">
         <div class="article-lead-media__image">
           <img
-            src={entry.data.image.src}
-            srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+            src={entry.data.image!.src}
+            srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
             sizes="(max-width: 48rem) 100vw, 42vw"
-            alt={entry.data.image.alt}
+            alt={entry.data.image!.alt}
             width="1600"
             height="900"
             fetchpriority="high"
           />
         </div>
-        <figcaption>{entry.data.image.caption}</figcaption>
+        <figcaption>{entry.data.image!.caption}</figcaption>
       </figure>}
 
       <aside class="article-facts" aria-label={localeCopy.factsAria}>
@@ -240,6 +241,8 @@ const schema = {
       </div>
 
       <CitedSources locale={locale} evidenceIds={evidenceIds} />
+
+      <RelatedDecisions locale={locale} currentId={articleId} category={entry.data.category} />
 
       <footer class="article-author">
         <div>

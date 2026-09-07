@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import { articleRoute, staticRoute, type ArticleId, type Locale } from "@/i18n/config";
+
+interface Props { locale: Locale; currentId?: string; category?: string }
+const { locale, currentId, category } = Astro.props;
+const copy = {
+  fr: { title: "Les décisions qui restent à prendre", choose: "Trouver deux fours adaptés à mon usage", budget: "Calculer mon équipement complet", follow: "Suivre les nouveaux guides", rss: "Flux RSS" },
+  en: { title: "Make the rest of your choice", choose: "Find two ovens for the way I cook", budget: "Plan my complete setup", follow: "Follow new guides", rss: "RSS feed" },
+  de: { title: "Die nächsten Schritte zur passenden Ausstattung", choose: "Zwei passende Pizzaöfen finden", budget: "Meine gesamte Ausstattung planen", follow: "Neue Ratgeber verfolgen", rss: "RSS-Feed" },
+}[locale];
+const entries = (await getCollection("analyses")).filter((entry) => entry.data.locale === locale && entry.data.status === "publishable");
+const ids = category === "mixer" || category === "accessoires" ? ["FOUR-008"] : ["FOUR-006", "FOUR-007", "FOUR-008"];
+const decisions = ids.filter((id) => id !== currentId).map((id) => entries.find((entry) => entry.data.articleId === id)).filter((entry) => entry !== undefined);
+---
+<aside class="related-decisions" aria-label={copy.title}>
+  <h2>{copy.title}</h2>
+  <ul>
+    {decisions.map((entry) => <li><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{entry.data.title}<span aria-hidden="true">→</span></a></li>)}
+    <li><a href={`${staticRoute("ovens", locale)}#trouver-mon-four`}>{copy.choose}<span aria-hidden="true">→</span></a></li>
+    <li><a href={`${staticRoute("ovens", locale)}#budget-complet`}>{copy.budget}<span aria-hidden="true">→</span></a></li>
+  </ul>
+  <p>{copy.follow} · <a href={`${locale === "fr" ? "" : `/${locale}`}/rss.xml`}>{copy.rss}</a></p>
+</aside>
+<style>
+  .related-decisions { grid-column: 1 / -1; border-top: 1px solid var(--color-carbon); padding-block: 2rem; }
+  h2 { max-width: 36ch; font-size: clamp(1.8rem, 3vw, 2.5rem); }
+  ul { list-style: none; margin: 1.5rem 0; padding: 0; }
+  li { border-bottom: 1px solid var(--color-line); }
+  li a { display: flex; justify-content: space-between; gap: 1.5rem; align-items: center; min-height: 3.5rem; padding-block: .85rem; color: var(--color-carbon); font-weight: 600; text-decoration: none; }
+  li a:hover { color: var(--color-probe); }
+  span { flex-shrink: 0; color: var(--color-probe); }
+  p { color: var(--color-graphite); }
+  p a { color: var(--color-probe); text-underline-offset: .2em; }
+</style>

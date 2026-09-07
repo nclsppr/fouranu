@@ -253,3 +253,19 @@ export const PURCHASE_LINKS_BY_ARTICLE: Record<string, PurchaseLink[]> = {
     amazonLink("ooni-halo-pro", "Voir le Halo Pro sur Amazon.fr"),
   ],
 };
+
+// Comparisons keep the exact, previously validated merchant destinations.
+PURCHASE_LINKS_BY_ARTICLE["FOUR-006"] = [
+  ...PURCHASE_LINKS_BY_ARTICLE["OONI-011"],
+  ...PURCHASE_LINKS_BY_ARTICLE["GOZNEY-001"],
+];
+PURCHASE_LINKS_BY_ARTICLE["FOUR-007"] = [
+  ...PURCHASE_LINKS_BY_ARTICLE["OONI-018"],
+  ...PURCHASE_LINKS_BY_ARTICLE["FOUR-001"],
+  ...PURCHASE_LINKS_BY_ARTICLE["FOUR-002"],
+];
+PURCHASE_LINKS_BY_ARTICLE["FOUR-008"] = [
+  ...PURCHASE_LINKS_BY_ARTICLE["OONI-018"],
+  ...PURCHASE_LINKS_BY_ARTICLE["OONI-011"],
+  ...PURCHASE_LINKS_BY_ARTICLE["FOUR-002"],
+];

@@ -2,23 +2,31 @@
 
 ## Contrat
 
+Actualisé le 2026-09-07 pour le modèle documentaire permanent de
+l'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md). Four à
+Nu ne réalisera pas d'essais physiques. Les hypothèses de demande, d'utilité et
+de revenu restent à confronter aux données ; l'existence du site ne les valide
+pas. Les dates et seuils du plan initial restent identifiés ci-dessous.
+
 | Champ | Valeur |
 | --- | --- |
-| Hypothèse | Un parcours fondé sur une synthèse documentaire traçable convertit une audience francophone à forte intention mieux qu'un guide générique |
+| Hypothèse | Un parcours fondé sur une synthèse documentaire traçable aide une audience FR/EN/DE en intention d'achat sur le marché français mieux qu'un guide générique, avec un intérêt commercial à mesurer |
 | Propriétaire | nclsppr |
-| Début | 2026-08-18 |
+| Début du plan initial | 2026-08-18 |
 | Réévaluation | 2026-11-16 |
 | Temps maximum | 60 heures suivies |
 | Dépense autorisée | 0 euro actuellement |
 | Plafond proposé | 500 euros après validation explicite |
-| Données | Publiques, synthétiques ou retours anonymisés ; aucune donnée de production |
-| Surface actuelle | Dépôt, CI et preview locale en `noindex` |
-| Cible technique | Artefact statique préparé pour Atlas, sans admission, publication ni activation |
+| Données | Sources publiques et retours anonymisés ; relevés Search Console et partenaires autorisés en lecture seule, exports de comptes privés hors Git |
+| Surface actuelle | Corpus FR/EN/DE public, CI et preview locale en `noindex` pour les évolutions ; preuves dans `STATUS.md` |
+| Cible technique | Artefact statique publié sur Cloudflare Workers Static Assets selon l'ADR-0004 |
 
 Une visite qualifiée désigne une visite humaine sur le parcours de choix ou une
 analyse, issue d'une question, d'une requête ou d'une campagne qui exprime un
 achat de four. Le trafic interne, les robots, les visites de recette et les
-impressions sans intention d'achat sont exclus.
+impressions sans intention d'achat sont exclus. Sans méthode d'observation
+permettant cette distinction, le dénominateur reste indisponible. Les clics
+Search Console ne sont pas utilisés comme substitut aux visites qualifiées.
 
 Le revenu par visite qualifiée additionne les commissions confirmées et les
 prospects acceptés, puis les divise par ces visites. La marge contributive
@@ -31,6 +39,40 @@ médias et la barrière de publication sont définis dans
 [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md). Four à Nu ne publie ni note,
 ni étoile, ni classement pseudo-scientifique, ni donnée `Review` ou
 `AggregateRating`.
+
+## Mesure actuelle : visibilité, aide au choix et revenu
+
+La procédure de relevé est
+[`docs/GROWTH-MEASUREMENT.md`](docs/GROWTH-MEASUREMENT.md). Elle s'applique aux
+sources existantes autorisées et sépare :
+
+- visibilité Google par requête, page, pays et appareil, avec impressions,
+  clics, CTR, position moyenne, période et complétude ;
+- clics marchands, lorsqu'un rapport ou un dispositif autorisé les observe ;
+- commandes et commissions en attente, annulées ou confirmées, selon les
+  états et délais du partenaire ;
+- compréhension du choix et de la provenance lors des sessions d'usage prévues.
+
+Hypothèses de la tranche du 2026-09-07 : une réponse plus directe peut augmenter
+l'utilité des articles ; un parcours par contraintes peut réduire l'hésitation ;
+un comparatif centré sur une décision précise peut recevoir des recherches
+pertinentes. Aucun gain n'est présumé. Définir le périmètre, la période et le
+dénominateur avant d'annoncer un taux ; conserver les changements concomitants
+et la saisonnalité dans une comparaison avant/après.
+
+Le relevé initial peut constater des données absentes ou insuffisantes. Ce
+constat n'est ni un résultat nul ni la preuve que le produit n'est pas demandé.
+Un compteur de clics sans cookie reste une option non activée, à décider et
+vérifier séparément. Aucune création de compte, activation analytics, prise de
+contact, lettre d'abonnés ou envoi à un partenaire n'est implicite.
+
+## Plan initial et échéances de recherche
+
+Les portes suivantes conservent les objectifs exploratoires définis avant la
+V1. Les dates de prépublication ne décrivent pas l'état présent : des paquets
+ont été autorisés et publiés séparément, comme le montre `STATUS.md`. La dette
+d'observation utilisateur et les seuils économiques ne sont pas effacés par ces
+livraisons. Une collecte autorisée n'exige pas de retirer le site public.
 
 ## Porte 1 : demande et corpus traçable
 
@@ -109,7 +151,9 @@ seul contenu possible consiste à reformuler des fiches marchandes.
   transparence commerciale avec des informations exactes.
 - Cinq sessions d'utilisation observées avec des personnes ayant un projet
   d'achat.
-- Aucun lien affilié, prix copié, compte marchand requis ou indexation publique.
+- Pour le prototype initial, aucun lien affilié, prix copié, compte marchand
+  requis ou indexation publique ; ces limites de prépublication ne retirent pas
+  les autorisations commerciales déjà accordées aux paquets publiés.
 
 ### Passage
 
@@ -123,8 +167,10 @@ avant arrêt ou reformulation de la niche.
 
 ## Porte 3 : pilote public
 
-Période maximale : du 2026-09-23 au 2026-11-16, uniquement si les deux premières
-portes passent et si le propriétaire autorise le paquet exact.
+Période prévue par le plan initial : du 2026-09-23 au 2026-11-16, après les deux
+portes et l'autorisation du paquet. La V1 a été autorisée et publiée plus tôt ;
+les dates réelles de publication restent celles de `STATUS.md`. Cette fenêtre
+est conservée comme repère d'évaluation, sans antidater un résultat.
 
 ### Surface minimale
 
@@ -134,8 +180,9 @@ portes passent et si le propriétaire autorise le paquet exact.
 - un guide de décision fondé sur les questions de la porte 1 ;
 - les pages de confiance validées à la porte 2 ;
 - Search Console et une mesure d'audience minimisée après autorisation ;
-- des événements distincts pour sélection terminée, clic marchand, vente
-  confirmée et prospect accepté.
+- des observations distinctes pour sélection terminée, clic marchand, vente
+  confirmée et prospect accepté, seulement lorsqu'elles sont effectivement
+  disponibles dans un dispositif autorisé.
 
 La preview reste en `noindex`. Le candidat Workers Static Assets, son premier
 déploiement, le domaine personnalisé, le DNS de `fouranu.com` et l'ouverture
@@ -157,10 +204,15 @@ cas de refus doit être approuvée par le réseau concerné avant publication.
 - Aucun message direct non sollicité, aucune réponse automatique issue d'une
   recherche, aucun faux compte et aucun achat de lien.
 - X reste un canal expérimental strictement manuel.
+- Toute réponse, demande de droits, lettre d'abonnés ou prise de contact avec un
+  partenaire exige une autorisation explicite d'envoi ; le plan ne vaut pas
+  autorisation de contacter des tiers.
 
 ### Mesures de succès
 
-À la date de conclusion :
+Ces seuils sont des objectifs exploratoires du plan initial, pas des résultats
+ni des seuils statistiques validés. Ils ne peuvent être évalués qu'avec les
+dénominateurs et sources effectivement disponibles. À la date de conclusion :
 
 - au moins 500 visites qualifiées ;
 - au moins 30 % de complétion du parcours de choix ;

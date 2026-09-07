@@ -92,3 +92,7 @@ lightweight gas oven. Without third-party measurements, we do not state a
 realistic heating time, consumption figure or pace over a series of pizzas.
 This recommendation is based on its format and weight, not on hands-on use by
 Four à Nu.
+
+## Check that this small format fits your needs
+
+Diameter alone does not decide. The [oven selector](/en/pizza-ovens/#trouver-mon-four) brings together location, fuel, format and constraints to check whether the Koda 12 remains a suitable candidate. Then measure the installation with the manual’s clearances, not just the chassis dimensions.

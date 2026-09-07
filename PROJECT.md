@@ -12,7 +12,7 @@ reste consignée dans [`BRIEF.md`](BRIEF.md).
 | Nom de code du dépôt | Jupiter |
 | Propriétaire | nclsppr |
 | Classe | Produit |
-| Langues publiques cibles | Français sans préfixe, anglais sous `/en/` et allemand sous `/de/` ; extension trilingue au stade de candidat local non publié |
+| Langues publiques | Français sans préfixe, anglais sous `/en/` et allemand sous `/de/` ; corpus trilingue publié, preuve de livraison dans `STATUS.md` |
 | Domaine | `fouranu.com`, acquisition confirmée par le propriétaire le 2026-08-23 |
 | Surface de production | Cloudflare Workers Static Assets via GitHub Actions après la gate `Verify` ; l'état d'activation vérifié vit dans `STATUS.md` |
 | Socle adopté | [`FOUNDATION.md`](FOUNDATION.md) |
@@ -38,28 +38,29 @@ promesse du premier produit.
 
 Four à Nu doit permettre à cet acheteur de réduire sa liste de choix, de
 comprendre les compromis restants et de vérifier les sources utilisées. Le
-produit public est aujourd'hui un média documentaire : il confronte les données
+produit public est un média documentaire permanent : il confronte les données
 fabricant, les mesures et observations publiées par des tiers, puis produit des
 synthèses et inférences Four à Nu dont les prémisses et les limites restent
 visibles.
 
-À terme, Four à Nu vise à inventorier puis tester progressivement les fours à
-pizza domestiques commercialisés en France, en commençant par les modèles des
-marques de référence, puis les accessoires utiles et différents pétrins. Cette
-ambition ne décrit pas l'état actuel : aucun essai physique Four à Nu n'est
-publié avant l'adoption et l'exécution d'un protocole de première main traçable.
+Four à Nu recommande des fours à pizza, accessoires et pétrins commercialisés
+en France selon les usages et le budget d'installation. Il ne réalisera pas
+d'essais physiques. L'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md)
+remplace le programme antérieur : le produit progresse par ses analyses, ses comparatifs et son aide au choix,
+sans transformer une donnée fabricant ou une source tierce en expérience propre.
 
 ### Preuves de succès
 
 | Preuve | Situation de départ | Cible | Source |
 | --- | --- | --- | --- |
 | Compréhension de la provenance | Aucune session sur le produit web | Au moins quatre participants sur cinq distinguent fabricant, tiers et Four à Nu | [`EXPERIMENT.md`](EXPERIMENT.md) |
-| Utilité du parcours de décision | Aucun sélecteur utilisable | Au moins trois participants sur cinq identifient une incertitude résolue | [`EXPERIMENT.md`](EXPERIMENT.md) |
-| Intérêt commercial | Aucun trafic ni revenu observé | Mesures de la porte 3 atteintes sans violation éditoriale ou de plateforme | [`EXPERIMENT.md`](EXPERIMENT.md) |
-| Reproductibilité | Aucun site applicatif vérifié | Installation propre, build statique, service Compose sain et gate complète verte | `site/`, `compose.yaml` et `scripts/verify.sh` |
+| Utilité du parcours de décision | Guide par contraintes publié ; utilité non validée auprès de cinq participants | Au moins trois participants sur cinq identifient une incertitude résolue | [`EXPERIMENT.md`](EXPERIMENT.md) |
+| Intérêt commercial | Mesure à établir avec périmètre et dates ; absence de relevé ne vaut pas zéro | Mesures de la porte 3 atteintes sans violation éditoriale ou de plateforme | [`EXPERIMENT.md`](EXPERIMENT.md) |
+| Reproductibilité | Site statique et livraison trilingue vérifiés dans `STATUS.md` | Installation propre, build statique, service Compose sain et gate complète verte | `site/`, `compose.yaml` et `scripts/verify.sh` |
 
-Ces cibles ne sont pas des résultats acquis. [`STATUS.md`](STATUS.md) indique ce
-qui est réellement vérifié.
+Les cibles d'utilité et d'intérêt commercial ne sont pas des résultats acquis.
+[`STATUS.md`](STATUS.md) distingue les capacités techniques vérifiées de ces
+hypothèses produit.
 
 ## Périmètre
 
@@ -76,9 +77,10 @@ qui est réellement vérifié.
 - des dossiers sur les fours, pétrins et matériels écrits comme des guides
   d'achat accessibles, avec un en-tête issu d'une photo officielle du fabricant
   stylisée dans la direction du site ;
-- un programme futur d'essais de première main sur les fours, accessoires et
-  pétrins, activé seulement après un inventaire daté du marché, un protocole
-  accepté et des sessions enregistrées ;
+- des recommandations documentaires nettes par situation, des comparatifs
+  intermarques et un parcours qui réduit la liste avec des raisons explicites ;
+- des calculs d'installation explicables, dont les données, dates et hypothèses
+  respectent les contrats éditoriaux et commerciaux ;
 - une preview en `noindex` par défaut et des pages indexables uniquement après
   passage de leur barrière éditoriale et autorisation de publication ;
 - un futur parcours de mesure des clics et conversions, soumis aux règles de consentement et des partenaires ;
@@ -91,8 +93,9 @@ qui est réellement vérifié.
 - créer une ferme de sites ou des pages satellites ;
 - répondre automatiquement sur X à partir de recherches de mots-clés ;
 - présenter une source tierce comme une expérience de Four à Nu ;
-- affirmer que tous les fours ont été testés ou classer les « meilleures
-  marques » sans inventaire daté, critères explicites et essais comparables ;
+- réaliser ou promettre des essais physiques Four à Nu ;
+- affirmer une couverture exhaustive non démontrée ou un vainqueur universel
+  sans préciser les critères, le périmètre et les limites documentaires ;
 - publier une note, des étoiles, un classement pseudo-scientifique ou un
   balisage `Review` ou `AggregateRating` ;
 - ouvrir une offre professionnelle avant validation de l'utilité domestique ;
@@ -116,18 +119,19 @@ explicite avant son lancement.
 | Historique de l'exploration | [`BRIEF.md`](BRIEF.md) | Historique |
 | Faisabilité et modèle | [`FEASIBILITY.md`](FEASIBILITY.md) | Référence |
 | Expérience et métriques | [`EXPERIMENT.md`](EXPERIMENT.md) | Expérimental |
+| Relevé SEO et commercial | [`docs/GROWTH-MEASUREMENT.md`](docs/GROWTH-MEASUREMENT.md) | Procédure interne ; instrumentation non activée |
 | Contenus prioritaires | [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) | Actuel |
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
-| Locales, routes, SEO et frontières de traduction | [`docs/decisions/0009-site-trilingue-fr-en-de.md`](docs/decisions/0009-site-trilingue-fr-en-de.md) | Décision acceptée ; candidat local non publié |
+| Locales, routes, SEO et frontières de traduction | [`docs/decisions/0009-site-trilingue-fr-en-de.md`](docs/decisions/0009-site-trilingue-fr-en-de.md) | Décision acceptée ; corpus trilingue publié selon `STATUS.md` |
 | Modèle documentaire | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
-| Programme d'essais et couverture du marché | [`docs/decisions/0006-programme-essais-et-couverture-du-marche.md`](docs/decisions/0006-programme-essais-et-couverture-du-marche.md) | Décision acceptée ; non activée |
+| Aide à l'achat documentaire permanente | [`docs/decisions/0010-aide-achat-documentaire-permanente.md`](docs/decisions/0010-aide-achat-documentaire-permanente.md) | Décision acceptée ; remplace le programme physique ADR-0006 |
 | En-tête produit et voix éditoriale | [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) | Décision acceptée |
 | En-tête original des guides multi-produits | [`docs/decisions/0008-en-tete-original-guides-multi-produits.md`](docs/decisions/0008-en-tete-original-guides-multi-produits.md) | Décision acceptée ; validation humaine obligatoire avant publication |
 | Cible d'hébergement et chemin de déploiement | [`docs/decisions/0004-cloudflare-workers-static-assets.md`](docs/decisions/0004-cloudflare-workers-static-assets.md) | Décision acceptée |
 | Marque et découvrabilité | [`BRAND-SEO.md`](BRAND-SEO.md) | Normatif |
 | Design system | [`DESIGN.md`](DESIGN.md) | Actuel |
-| Code du site | `site/` | V1 française publique ; extension anglaise et allemande au stade de candidat local non publié |
+| Code du site | `site/` | Corpus FR/EN/DE public ; les évolutions gardent leur propre vérification |
 | Registres éditoriaux | `research/evidence.csv`, `research/questions.csv`, `research/assets.csv` | Actuel |
 | Configuration locale intégrée | `compose.yaml` | Actuelle, service `site` et healthcheck vérifiés localement |
 | Documentation interne | `documentation.json`, `docs-nimbus/` et [`DOCUMENTATION-CATALOG.md`](DOCUMENTATION-CATALOG.md) | Actuel |
@@ -139,7 +143,7 @@ explicite avant son lancement.
 
 | Composant | Rôle | État | Exécution | Source et preuve |
 | --- | --- | --- | --- | --- |
-| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique dans trois langues | Production française publique ; candidat anglais et allemand local non publié | Build, service local et production | `site/` ; la production française exacte vit dans `STATUS.md`, la parité FR/EN/DE et ses sorties de découverte restent des gates du candidat local |
+| Site Four à Nu | Générer l'accueil, le parcours de choix, les contenus et leur partage progressif en HTML statique dans trois langues | Production trilingue publique | Build, service local et production | `site/` ; la production exacte vit dans `STATUS.md`, la parité FR/EN/DE et ses sorties de découverte restent des gates de chaque évolution |
 | Registres éditoriaux | Porter les affirmations, questions et médias avec leur provenance | Actuel | Vérification | `research/`, validé par les scripts éditoriaux |
 | Gate de contenu public | Rapprocher pages, identifiants de preuve, droits, bandeaux et directives d'indexation | Actuel | Vérification | `scripts/verify.sh`, tests du site et [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) |
 | Nimbus | Rendre les Markdown internes navigables et recherchables | Actuel | Build local et CI | `docs-nimbus/` |
@@ -150,7 +154,7 @@ explicite avant son lancement.
 
 1. L'auteur part d'une question d'achat et des registres versionnés.
 2. Il formule d'abord la réponse et les compromis en langage courant, sans
-   revendiquer d'essai propre absent du registre.
+   revendiquer d'essai physique Four à Nu.
 3. Pour une fiche produit, il compose l'en-tête à partir d'une photo officielle
    publiée par le fabricant. Un guide multi-produits peut utiliser une
    illustration générique originale selon l'ADR-0008 ; les vues documentaires
@@ -188,7 +192,7 @@ explicite avant son lancement.
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
 | Marchands et programmes partenaires | Liens fabricants directs ; registre exhaustif des produits commerciaux éditoriaux ; liens Amazon.fr exacts attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | Le marché et les marchands restent la France dans les trois langues ; l’affiliation Amazon.fr est autorisée, publique et déclarée ; chaque objet est contrôlé, `not_found` ne signifie pas indisponible, les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
 | Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
-| Moteurs de recherche | Découverte des pages publiques | Pages, sitemap et métadonnées publiques | Aucune soumission active ; l'indexation n'est jamais garantie |
+| Moteurs de recherche | Découverte des pages publiques et relevés Search Console | Pages, sitemap et métadonnées publiques | Les relevés et soumissions effectivement vérifiés sont consignés dans `STATUS.md` ; l'indexation et le classement ne sont pas garantis |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |
 | DNS | Relier `fouranu.com` au Worker autorisé | Noms et routage publics | Zone, domaine personnalisé et routage HTTPS actifs |
 
@@ -198,8 +202,8 @@ explicite avant son lancement.
 | --- | --- | --- | --- |
 | Développement | `compose.yaml` | `http://127.0.0.1:4321` | Build et healthcheck vérifiés localement |
 | CI | `.github/workflows/verify.yml` | [GitHub Actions](https://github.com/nclsppr/fouranu/actions) | Workflow `Verify` exécuté avec succès sur `main` |
-| Preview | Artefact statique local avec `noindex` ; éventuel accès Cloudflare à autoriser séparément | Aucun | Extension FR/EN/DE au stade de candidat local non publié ; aucune preview distante activée par défaut |
-| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | [`https://fouranu.com`](https://fouranu.com) | V1 française active, indexable et servie en HTTPS avec TLS 1.2 ou plus récent ; routes EN/DE non publiées |
+| Preview | Artefact statique local avec `noindex` ; éventuel accès Cloudflare à autoriser séparément | Aucun | Chaque évolution reste un candidat jusqu'à vérification ; aucune preview distante activée par défaut |
+| Production | Artefact du SHA vérifié, déployé par GitHub Actions vers Workers Static Assets après autorisation | [`https://fouranu.com`](https://fouranu.com) | Corpus trilingue actif, indexable et servi en HTTPS avec TLS 1.2 ou plus récent ; SHA et preuves dans `STATUS.md` |
 
 ## Commandes canoniques
 
@@ -209,7 +213,7 @@ explicite avant son lancement.
 | Vérifier Compose | `python3 scripts/check_compose.py` | Disponible ; valide le service applicatif, son healthcheck et les contraintes du pack `full` |
 | Construire la documentation interne | `npm run build --prefix docs-nimbus` | Disponible ; génère Nimbus depuis les Markdown classés |
 | Développer le site | `docker compose up --build --wait` | Disponible ; construit et lance le service local avec healthcheck |
-| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit le site statique et exécute les tests de contrat, dont la parité linguistique du candidat |
+| Vérifier le site | `npm run check --prefix site` | Disponible ; typecheck, construit le site statique et exécute les tests de contrat, dont la parité linguistique FR/EN/DE |
 | Construire le site | `npm run build --prefix site` | Disponible ; génère l'artefact statique sous `site/dist/` |
 | Arrêter le parcours local | `docker compose down` | Disponible dès qu'un service a été lancé ; préserve les volumes |
 | Préparer le candidat Cloudflare | `npm run build --prefix site` | Produit l'artefact statique attendu par Workers Static Assets ; ne déploie et n'active rien |
@@ -263,8 +267,8 @@ explicite avant son lancement.
 - Vérification finale d'une publication : checks CI, contrôle HTTP, rendu
   mobile et bureau, console, routes, contreparties exactes, canonical, hreflang,
   Open Graph, schémas, robots, sitemap, RSS, `llms.txt` et empreinte de
-  l'artefact. Le candidat trilingue reste non publié jusqu'au feu vert explicite
-  sur ce paquet et ce SHA exacts.
+  l'artefact. Chaque nouvelle tranche reste non publiée jusqu'au feu vert
+  explicite sur son paquet et son SHA exacts.
 
 ## Responsabilités
 

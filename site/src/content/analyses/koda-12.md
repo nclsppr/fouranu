@@ -107,3 +107,7 @@ Le Koda 12 paraît cohérent si vous cherchez d'abord un four à gaz simple et
 léger. Faute de mesures tierces, nous ne fixons ni temps de chauffe réaliste,
 ni consommation, ni rythme sur une série de pizzas. Cette recommandation repose
 sur son format et son poids, pas sur une prise en main par Four à Nu.
+
+## Vérifier que ce petit format vous convient
+
+Le diamètre ne suffit pas à décider. Le [sélecteur de fours](/fours-a-pizza/#trouver-mon-four) rapproche lieu, énergie, format et contraintes pour voir si le Koda 12 reste un candidat adapté. Mesurez ensuite l’installation avec les dégagements du manuel, pas seulement les dimensions du châssis.

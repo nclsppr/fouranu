@@ -7,9 +7,10 @@ réel de la phase active.
 
 Servir sur un domaine unique un média en français, anglais et allemand qui aide
 à choisir un four à pizza sur le marché domestique français, sépare clairement
-les types de preuve, puis construit un programme progressif d'essais sur les
-fours, accessoires et pétrins sans contenu de masse, note, balisage d'avis ou
-expérience tierce racontée à la première personne.
+les types de preuve et formule des recommandations documentaires sur les fours,
+accessoires et pétrins. L'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md)
+retire définitivement le programme d'essais physiques. Les prochaines tranches
+renforcent le choix, les comparatifs, la découverte et leur mesure.
 
 ## Principes de séquencement
 
@@ -24,8 +25,8 @@ expérience tierce racontée à la première personne.
 - Un déploiement ne peut suivre qu'une gate `Verify` verte sur le même SHA.
 - Préparation, premier déploiement, domaine personnalisé, DNS et indexation
   restent des autorisations distinctes.
-- Une ambition d'essai n'est jamais présentée comme une prise en main acquise ;
-  protocole, session et limites précèdent toute formulation de première main.
+- Une recommandation peut être tranchée ; ses critères et ses sources restent
+  explicites. Aucun essai physique Four à Nu n'est prévu ou promis.
 - Chaque phase se ferme par une preuve observable.
 
 ## Vue d'ensemble
@@ -36,17 +37,19 @@ expérience tierce racontée à la première personne.
 | 2 | F02 | Corpus documentaire publiable | Un acheteur peut parcourir le parcours de choix et vingt-huit guides sourcés | `in_progress` | Identité légale exacte, cinq sessions, provenance comprise et aucune erreur critique |
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
-| 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus possède un candidat local dans trois langues, sans nouvelle surface publique | `in_progress` | Parité, QA éditoriale, droits, sorties SEO et artefact exact vérifiés, puis feu vert explicite distinct |
+| 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus est public dans trois langues | `done` | Autorisation, CI, déploiement et contrôles publics consignés dans `STATUS.md` |
+| 4 ter | F04-CHOIX | Recommandations et comparatifs documentaires | Le parcours réduit la liste et les pages répondent à une décision précise, dans trois langues | `in_progress` | Promesse alignée, parcours et comparatifs sourcés, gates et QA sur le paquet exact |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
-| 6 | F06 | Banc d'essai et premiers pilotes | Four à Nu peut publier des essais de première main reproductibles sans les confondre avec son corpus documentaire | `planned` | Protocole accepté, inventaire daté et trois pilotes vérifiés : un four, un accessoire et un pétrin |
+| 6 | F06 | Couverture documentaire ciblée | Les lacunes de décision observées reçoivent des données originales et des comparaisons utiles | `planned` | Questions prioritaires étayées, sources attribuées et décision de poursuite fondée sur F05 |
 
 La V1 a franchi F03 et F04 le 2026-08-24. F02 reste ouverte jusqu'aux cinq
 sessions prévues. La tranche éditoriale post-V1 a été vérifiée, poussée et
 publiée le même jour sans changer cette dette d'observation.
-F06 porte la nouvelle ambition de couverture du marché. Aucun essai Four à Nu
-n'est encore inclus dans le produit public. F04-I18N est un candidat local non
-publié : les routes anglaises et allemandes ne sont ni déployées, ni indexées,
-ni soumises aux moteurs.
+F04-I18N est publiée depuis la livraison applicative du 2026-08-31 décrite dans
+`STATUS.md`. La tranche F04-CHOIX prépare les améliorations approuvées le
+2026-09-07 ; elle ne constitue pas encore une preuve de livraison ou de gain.
+F06 remplace l'ancien banc d'essai de l'ADR-0006 par une couverture documentaire
+ciblée. Aucun résultat économique ou SEO n'est déduit d'un déploiement.
 
 ## Phase F01 : socle produit local
 
@@ -393,13 +396,14 @@ Revenir au précédent déploiement correspondant à un SHA vérifié, restaurer
 détacher séparément le domaine et le DNS selon l'incident, retirer des moteurs
 les URL fautives et ne jamais rediriger vers une surface non contrôlée.
 
-## Tranche F04-I18N : candidat trilingue FR/EN/DE
+## Tranche F04-I18N : site trilingue FR/EN/DE publié
 
 ### Objectif
 
 Décliner le produit documentaire existant en anglais et en allemand sans casser
-les URL françaises, dupliquer les preuves, changer de marché ou publier avant
-validation du paquet exact.
+les URL françaises, dupliquer les preuves ou changer de marché. La tranche a été
+publiée avec ses autorisations ; `STATUS.md` en conserve les preuves. Les
+contrôles ci-dessous restent applicables à chaque évolution du corpus.
 
 ### Dépendances
 
@@ -434,8 +438,8 @@ validation du paquet exact.
   d'Amazon.fr par Amazon UK ou Amazon.de ;
 - traduction silencieuse ou duplication indépendante du registre de preuves ;
 - extension supposée d'une permission média ;
-- déploiement, indexation, soumission aux moteurs ou redirection linguistique
-  automatique ;
+- nouvelle publication ou soumission aux moteurs sans autorisation du paquet ;
+- redirection linguistique automatique ;
 - contenu produit en masse, test, expérience ou notation absent du corpus
   canonique.
 
@@ -448,28 +452,70 @@ Graph, schémas, sitemap, RSS, `llms.txt` et robots attendus dans les deux modes
 d'indexation. Une relecture humaine couvre l'anglais, l'allemand, les notes de
 preuve, les omissions média et la portée France.
 
-Même après ces contrôles, le résultat reste un candidat local non publié. Le
-propriétaire doit autoriser explicitement le SHA, les URL, les textes, les
-médias, les liens marchands et les métadonnées exacts avant déploiement et avant
-tout changement d'indexation.
+La publication initiale FR/EN/DE a satisfait cette séparation des étapes. Une
+future évolution reste candidate jusqu'à l'autorisation explicite du SHA, des
+URL, des textes, médias, liens marchands et métadonnées concernés, puis à la
+vérification du déploiement et de l'indexabilité.
 
 ### Retour arrière
 
-Écarter le candidat local sans toucher à la production française. Si une
-publication ultérieure est autorisée puis défectueuse, revenir au précédent SHA
-vérifié et retirer les alternates fautifs plutôt que rediriger une traduction
-vers l'accueil ou vers le français.
+Écarter une évolution locale sans toucher au corpus trilingue publié. Si une
+publication est défectueuse, revenir au précédent SHA vérifié et retirer les
+alternates fautifs plutôt que rediriger une traduction vers l'accueil ou vers
+le français.
+
+## Tranche F04-CHOIX : décisions d'achat et comparatifs
+
+### Objectif
+
+Transformer les guides existants en réponses plus directes : recommandation
+par usage, alternative et raisons qui permettent de trancher. La nature
+permanente du modèle documentaire reste claire, sans promesse d'essais.
+
+### Inclus
+
+- alignement de l'accueil, des métadonnées et des pages de confiance ;
+- parcours de choix par contraintes avec résultat expliqué et liens utiles ;
+- comparatifs intermarques répondant à des arbitrages distincts, réutilisant les
+  sources et objets commerciaux canoniques ;
+- ouverture d'article qui recommande, explique le compromis et oriente vers
+  une alternative sans réécrire les observations tierces ;
+- coût d'installation explicable lorsque les données utilisables le permettent ;
+- accès au marchand exact et portée de rémunération conservés ;
+- même périmètre éditorial dans les trois langues ;
+- procédure de relevé SEO et commercial sans nouveau service activé.
+
+### Critère de sortie
+
+La gate complète, la provenance, les droits, les liens commerciaux et la QA
+mobile, bureau, clavier et sans JavaScript passent sur le candidat exact. Les
+contreparties FR/EN/DE, routes, canonical et sorties de découverte correspondent.
+La publication et les résultats de mesure sont prouvés séparément ; un parcours
+utilisable ne prouve pas une hausse de conversion.
+
+### Retour arrière
+
+Revenir au dernier artefact trilingue vérifié en conservant le contrat
+permanent de l'ADR-0010. Corriger une recommandation insuffisamment étayée ou
+retirer son renvoi marchand sans réintroduire une promesse d'essai physique.
 
 ## Phase F05 : mesure et décision
 
 ### Objectif
 
-Mesurer l'utilité, la conversion et le coût réel avant d'augmenter le nombre de
-contenus ou d'ouvrir une autre niche.
+Mesurer l'utilité, la découverte, les clics marchands et le coût réel avant
+d'augmenter le nombre de contenus. La procédure
+[`docs/GROWTH-MEASUREMENT.md`](docs/GROWTH-MEASUREMENT.md) sépare les relevés
+Search Console des rapports partenaires ; les événements sur le site restent
+non activés jusqu'à leur propre décision.
 
 ### Inclus
 
-- événements minimisés pour sélection terminée et clic marchand ;
+- relevés Search Console par requête, page, pays et appareil, avec dates et
+  limites de complétude ;
+- rapports partenaires distinguant clics, commandes et commissions confirmées ;
+- évaluation d'événements minimisés pour sélection terminée et clic marchand,
+  sans présumer de leur activation ni de leur dénominateur ;
 - ventes confirmées ou prospects acceptés lorsque les partenaires les rendent disponibles ;
 - heures et coûts directs ;
 - corrections éditoriales et techniques issues des observations ;
@@ -498,63 +544,58 @@ Désactiver les liens et traceurs concernés, retirer le pilote si nécessaire e
 conserver une conclusion anonymisée. Une nouvelle niche repart dans une
 expérience séparée.
 
-## Phase F06 : banc d'essai et premiers pilotes
+## Phase F06 : couverture documentaire ciblée
 
 ### Objectif
 
-Rendre possible un programme crédible d'essais de première main avant d'étendre
-progressivement la couverture aux fours à pizza domestiques commercialisés en
-France, à leurs accessoires utiles et à différents pétrins.
+Combler les questions d'achat que le corpus existant ne résout pas suffisamment,
+en fonction des observations de F05. Le 2026-09-07, l'ADR-0010 remplace l'ancien
+programme physique F06 de l'ADR-0006 ; cette étape ne contient aucun banc
+d'essai, achat de matériel ou pilote physique.
 
 ### Dépendances
 
 - conclusion explicite de F05 autorisant la poursuite ;
-- budget, lieu, sécurité et stockage décidés séparément ;
-- ADR-0006 acceptée ;
-- protocole de première main et extension de taxonomie acceptés dans une
-  décision dédiée.
+- questions et lacunes documentées, avec une source et une date ;
+- corpus, objets commerciaux et droits suffisants pour la page proposée.
 
 ### Inclus
 
-- inventaire fabricant daté du marché français, avec modèles, énergies,
-  disponibilités, accessoires et pétrins concernés ;
-- protocoles reproductibles par catégorie, instruments étalonnés, scénarios,
-  durées, incertitudes et règles de répétition ;
-- registre des sessions, prêts, achats, sponsoring, conflits et médias originaux ;
-- trois pilotes publiables : un four, un accessoire et un pétrin ;
-- enrichissement des URL stables en conservant les preuves documentaires et
-  leurs limites.
+- inventaire daté des modèles documentés et des évolutions utiles du marché ;
+- enrichissement des URL stables lorsqu'une source, une alternative ou une
+  correction change la décision ;
+- comparaison explicite des dimensions, des coûts documentés et des conditions
+  d'usage ;
+- calculs et outils originaux avec données attribuées, formule et limites ;
+- nouvelle page seulement si elle répond à une intention distincte et conserve
+  la parité FR/EN/DE.
 
 ### Exclu
 
-- affirmer une couverture exhaustive avant l'inventaire et toutes les sessions ;
-- désigner les « meilleures marques » sans critères et essais comparables ;
-- notes, étoiles, classement global, `Review` ou `AggregateRating` ;
-- achat massif de matériel, prêt fabricant ou publication sans autorisation
-  distincte.
+- programme d'essais physiques et taxonomie de première main Four à Nu ;
+- classement universel, note, étoiles, `Review` ou `AggregateRating` ;
+- publication en masse, nouveau compte, acquisition payante ou envoi non autorisé.
 
 ### Risques
 
-- comparer des sessions dont les conditions ne sont pas compatibles ;
-- laisser un prêt ou une commission orienter la sélection ou la conclusion ;
-- confondre prise en main courte, mesure isolée et essai complet ;
-- annoncer « tous les fours » alors que l'inventaire évolue ou reste incomplet ;
-- sous-estimer la sécurité, le stockage, l'énergie et le coût des consommables.
+- confondre manque de données, absence de performance et mauvais produit ;
+- normaliser des protocoles incompatibles ;
+- ouvrir trop de pages semblables et diluer la réponse ;
+- déduire une demande ou une vente d'une simple impression de recherche.
 
 ### Critère de sortie
 
-La décision dédiée, les registres et la gate acceptent les preuves de première
-main. Un four, un accessoire et un pétrin possèdent chacun une session
-reproductible, des conditions visibles, des médias originaux publiables et une
-page contrôlée sans fausse extrapolation. Le reste de l'inventaire reste
-explicitement non testé.
+Chaque ajout résout une question nommée avec des sources vérifiables, un choix
+motivé et des limites visibles. Les données de F05, lorsqu'elles sont
+exploitables, éclairent la priorité sans déterminer le verdict commercial. La
+gate, les droits et les trois versions linguistiques passent avant publication.
 
 ### Retour arrière
 
-Retirer les affirmations de première main et revenir au dernier état
-documentaire vérifié des URL concernées. Conserver les registres minimaux, les
-incidents de sécurité et les conflits ; ne pas transformer un pilote abandonné
-en recommandation.
+Retirer les affirmations insuffisamment étayées, corriger l'outil ou revenir au
+précédent état documentaire vérifié. Conserver l'historique minimal des
+corrections et ne jamais remplacer une source manquante par une expérience
+inventée.
 
 ## Règle de mise à jour
 

@@ -1,10 +1,17 @@
 # ADR-0006 : programme d'essais et couverture progressive du marché
 
-- Statut : accepté
+- Statut : remplacé pour le programme physique par l’ADR-0010 le 2026-09-07
 - Date : 2026-08-26
 - Décideur : propriétaire de Four à Nu
 - Remplace : le refus d'une capacité future de test propre au média dans
   l'ADR-0002
+
+## Remplacement du 2026-09-07
+
+L'[ADR-0010](0010-aide-achat-documentaire-permanente.md) retire le programme
+d'essais physiques et la promesse de couverture par essais. Four à Nu reste
+définitivement une aide à l'achat documentaire. Le texte du 2026-08-26 est
+conservé ci-dessous comme historique ; son programme n'est plus actif.
 
 ## Contexte
 

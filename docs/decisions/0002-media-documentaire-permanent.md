@@ -9,6 +9,15 @@
 | Remplace | Les sections de l'ADR-0001 relatives à la Saison 0, à `J-TEST` et à une transition vers des essais physiques |
 | Remplacée partiellement par | [ADR-0006](0006-programme-essais-et-couverture-du-marche.md), uniquement pour le refus d'un programme futur d'essais de première main |
 
+## État de la décision au 2026-09-07
+
+L'[ADR-0010](0010-aide-achat-documentaire-permanente.md) retire le programme
+physique ajouté par l'ADR-0006 et rétablit le modèle documentaire permanent.
+Elle précise les recommandations et sélections par usage autorisées, sans note
+ni expérience de première main. Les références à l'ADR-0006 dans le texte
+historique ci-dessous décrivent l'état antérieur. La cible Atlas reste
+remplacée par l'[ADR-0004](0004-cloudflare-workers-static-assets.md).
+
 ## Contexte
 
 L'ADR-0001 a promu Jupiter en produit Four à Nu, séparé le site public de Nimbus

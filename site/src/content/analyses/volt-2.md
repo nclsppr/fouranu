@@ -3,23 +3,24 @@ articleId: OONI-018
 brand: ooni
 category: oven
 heroTreatment: official-stylized
-title: "Ooni Volt 2 : four électrique intérieur"
-description: Le Volt 2 est le four Ooni intérieur de 1 600 W. Ses commandes et mesures tierces sont documentées, pas sa fiabilité ni sa consommation.
-summary: Le Volt 2 est le four intérieur de la gamme actuelle. Ses commandes sont documentées, mais pas son uniformité, sa fiabilité ni son coût d'usage.
+title: "Ooni Volt 2 : quand le choisir plutôt que Sage ou Cuisinart ?"
+seoTitle: "Ooni Volt 2 : face à Sage et Cuisinart | Four à Nu"
+description: "Le Volt 2 convient à la cuisine intérieure et à plusieurs modes de cuisson. Place, accessoires à ajouter et alternatives Sage ou Cuisinart avant l’achat."
+summary: "Je choisirais le Volt 2 pour cuisiner dedans et utiliser ses modes au-delà de la pizza. Pour un kit de départ complet ou un réglage séparé de la chaleur, je le comparerais d’abord à Cuisinart et Sage."
 status: publishable
 type: model
 author: florian
 model: Ooni Volt 2
 commercialObjects: [ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp
   alt: "Four électrique Ooni Volt 2 gris sur une table en acier"
   caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2320
-evidenceIds: [EV-0090, EV-0091, EV-0092, EV-0103, EV-0260, EV-0261, EV-0262, EV-0340, EV-0341, EV-0342, EV-0343, EV-0408]
+evidenceIds: [EV-0090, EV-0091, EV-0092, EV-0103, EV-0260, EV-0261, EV-0262, EV-0340, EV-0341, EV-0342, EV-0343, EV-0408, EV-0309, EV-0315, EV-0316, EV-0317]
 evidenceTypes:
   - FAB
   - T-MES
@@ -32,7 +33,13 @@ limitations:
   - La fiabilité, la réparabilité et la consommation ne sont pas mesurées.
 ---
 
-## Le bon choix si l'intérieur est non négociable
+## Mon choix si ses différents modes vont vraiment servir
+
+**Je choisirais le Volt 2 pour cuisiner à l’intérieur et alterner pizza, four, gril et fermentation.** Son intérêt dépasse le seul nombre de degrés. Si vous voulez uniquement un kit prêt à démarrer ou régler séparément le haut et le bas, le [comparatif Volt 2, Sage et Cuisinart](/fours-a-pizza/volt-2-sage-ou-cuisinart/) permet d’examiner deux alternatives avant l’achat.
+
+Ooni annonce 1 600 W et 17,6 kg. Je lui réserverais un emplacement accessible plutôt qu’un rangement à déplacer à chaque soirée. Les commandes et cuissons décrites plus bas viennent des auteurs cités ; leurs préférences de réglage restent liées à leurs pâtes.
+
+Dans la liste officielle vérifiée le 7 septembre 2026, la pierre et la grille sont mentionnées, pas la pelle. C’est un ajout à prévoir si vous n’avez pas déjà un outil compatible.
 
 <figure class="article-media">
   <img
@@ -47,32 +54,6 @@ limitations:
   />
   <figcaption>Photogramme du Ooni Volt 2 installé dans une cuisine — Source : Got2EatPizza, passage 03:33.</figcaption>
 </figure>
-
-Le Volt 2 est le seul four de la gamme actuelle présenté par Ooni pour un usage
-intérieur. C'est sa vraie raison d'être. Il fonctionne sur une alimentation de
-220 à 240 V, avec une puissance annoncée de 1 600 W et une plage de réglage de
-20 à 450 °C.
-
-Nous le garderions en tête de liste si cuisiner dedans est indispensable. Nous
-ne le choisirions pas sur sa seule promesse de rapidité. Les sources montrent
-ses commandes et plusieurs cuissons, mais elles ne mesurent ni sa consommation,
-ni sa fiabilité, ni son uniformité sur des sessions répétées. Elles montrent aussi
-que le bon réglage dépend de la pâte et du résultat recherché.
-
-Pour revenir à toute la gamme, consultez
-[quel four Ooni choisir](/ooni/quel-four-ooni-choisir/). La comparaison
-[Ooni gaz, électrique ou multi-combustible](/ooni/gaz-electrique-ou-multicombustible/)
-isole le choix du lieu et de l'énergie. [La méthode Four à Nu](/methode/)
-explique comment les sources sont rapprochées.
-
-Les acheteurs sans jardin demandent logiquement
-[si le Volt 2 vaut le coup](https://www.reddit.com/r/ooni/comments/1uc15og/is_volt_2_good_or_nah/).
-D'autres s'interrogent sur
-[son intérêt face au gaz](https://www.reddit.com/r/ooni/comments/1padk76/switch_to_volt2_from_gas/),
-[la fiabilité et la réparation](https://www.reddit.com/r/ooni/comments/1ol9won/),
-ou [le choix entre Volt 12 et Volt 2](https://www.reddit.com/r/ooni/comments/1rdl25w/volt_12_or_volt_2/).
-Ces discussions font remonter des inquiétudes utiles. Elles ne mesurent pas la
-satisfaction des propriétaires.
 
 ## Ce qu'Ooni annonce, en clair
 
@@ -126,26 +107,10 @@ créateur retient finalement des préférences propres à ses pâtes
 ([à 23 min 15](https://www.youtube.com/watch?v=pwtuBDX-xI8&t=1395s)). La
 vidéo est réalisée en collaboration avec Ooni et comporte des liens marchands.
 
-## Les questions à trancher avant d'acheter
+## La décision avant de lui réserver une place
 
-- la place utile pour une pizza de 30 cm et la signification de la surface de
-  33 cm ;
-- la répartition réelle de la chaleur entre le haut et le bas du four ;
-- la régularité sur plusieurs pizzas préparées de la même façon ;
-- la consommation électrique par session et en veille ;
-- la compatibilité d'une prise et de son circuit avec une puissance de 1 600 W ;
-- la fiabilité, la réparabilité et la disponibilité des pièces ;
-- une comparaison gaz et électrique avec même pâte, même cible et dégustation
-  aveugle.
+Gardez le Volt 2 dans votre sélection si ses modes variés répondent à vos recettes et si l’installation convient à la prise, à la porte et aux dégagements du manuel. Je ne paierais pas ces fonctions pour n’en utiliser qu’une sans comparer les alternatives.
 
-## Pour qui, et avec quelles réserves ?
+Le [Cuisinart CPZ120E](/fours-a-pizza/cuisinart-cpz120e/) inclut les outils de départ ; le [Sage Pizzaiolo](/fours-a-pizza/sage-pizzaiolo-bpz820/) permet de régler séparément la chaleur de sole et de voûte. Notre [comparatif intérieur](/fours-a-pizza/volt-2-sage-ou-cuisinart/) rassemble les différences et les prix officiels datés.
 
-Les sources montrent l'interface et plusieurs cuissons, mais elles ne suivent
-pas une même méthode. Les réglages préférés par leurs auteurs ne deviennent pas
-des recommandations générales.
-
-Le Volt 2 a du sens si l'intérieur est votre contrainte principale et si une
-prise conforme peut accueillir ses 1 600 W. Mettez votre achat en attente si
-la consommation, la réparabilité ou la fiabilité à long terme doivent être
-connues avant de décider. Les sources disponibles ne répondent pas encore à ces
-questions.
+Terminez par le [budget complet](/fours-a-pizza/budget-complet-four-pizza/) : retirez les accessoires déjà présents, ajoutez seulement ceux qui manquent et ne confondez pas puissance nominale et consommation d’une soirée.

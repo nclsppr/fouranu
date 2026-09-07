@@ -214,3 +214,7 @@ Endtemperatur und mehreren Wiederholungen.
 Die hier versammelten Quellen unterscheiden weder Geräusch, Verbrauch noch
 Verschleiß. Unsere Präferenz für den Core beruht auf seinem für zu Hause
 praktischeren Teigbereich.
+
+## Budget für die übrige Ausrüstung lassen
+
+Die Knetmaschine ist ein eigener Posten neben dem Ofen. Stellen Sie ihren tatsächlichen Preis vor dem Kauf neben Ihr [gesamtes Ausrüstungsbudget](/de/pizzaoefen/pizzaofen-gesamtkosten/): Ofen, Installation und fehlende Werkzeuge. Core oder Pro sollten sich nach Ihrer Teigmenge richten; keines der Geräte verlangt automatisch einen größeren Ofen oder ein größeres Paket.

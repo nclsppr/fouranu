@@ -3,23 +3,24 @@ articleId: OONI-010
 brand: ooni
 category: oven
 heroTreatment: official-stylized
-title: "Ooni Koda 2 : dimensions et chauffe"
-description: Le Koda 2 est un four à gaz de 35 cm et 16 kg. Notre analyse confronte ses dimensions aux mesures de chauffe publiées et aux gestes observés.
-summary: Le Koda 2 est notre format Ooni au gaz le plus facile à recommander à un foyer. Il reste assez compact, mais ses chiffres de chauffe varient trop pour promettre un chrono.
+title: "Ooni Koda 2 : le bon format gaz pour votre terrasse ?"
+seoTitle: "Ooni Koda 2 : quel usage sur une terrasse ? | Four à Nu"
+description: "Le Koda 2 offre 35 cm annoncés pour 16 kg. Notre choix pour une terrasse, ses limites de chauffe et les alternatives à regarder avant l’achat."
+summary: "Je choisirais le Koda 2 pour cuisiner au gaz sur une terrasse, avec davantage de marge qu’un format de 30 cm. Je regarderais un autre appareil si le rangement quotidien, l’intérieur ou deux pizzas simultanées sont prioritaires."
 status: publishable
 type: model
 author: magali
 model: Ooni Koda 2
 commercialObjects: [ooni-koda-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
   alt: "Four à gaz Ooni Koda 2 noir sur une table en acier"
   caption: "Illustration éditoriale d’après une photographie officielle Ooni."
   assetId: AS-2304
-evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407]
+evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407, EV-0308]
 evidenceTypes:
   - FAB
   - T-MES
@@ -31,7 +32,11 @@ limitations:
   - La consommation ne repose que sur une pesée tierce peu précise.
 ---
 
-## Le format gaz le plus facile à conseiller
+## Mon choix pour une terrasse et des pizzas de 30 cm
+
+**Je choisirais le Koda 2 pour cuisiner dehors au gaz, sans passer au poids des grands fours.** Ses 35 cm annoncés donnent de la marge autour d’une pizza de 30 cm ; ses 16 kg demandent déjà un emplacement pensé pour lui. Je l’écarterais si le four doit rentrer après chaque repas ou cuire à l’intérieur.
+
+Cette préférence porte sur le rapport entre format, poids et combustible. Les cuissons et relevés présentés plus bas restent ceux des auteurs cités, avec leur météo et leurs réglages. Pour replacer ce choix dans la gamme, consultez [quel four Ooni choisir](/ooni/quel-four-ooni-choisir/).
 
 <figure class="article-media">
   <img
@@ -46,20 +51,6 @@ limitations:
   />
   <figcaption>Photogramme du brûleur et de la sole du Ooni Koda 2 — Source : Pala Pizza, passage 00:39.</figcaption>
 </figure>
-
-Le Koda 2 occupe un milieu intéressant dans la gamme Ooni. Son espace annoncé
-de 35 cm laisse plus de marge qu'un four de 30 cm, sans passer aux 30 ou 43 kg
-des grands modèles. À 16 kg, il reste déplaçable, mais le rentrer après chaque
-soirée deviendra vite une corvée.
-
-Nous le conseillerions pour apprendre les gestes de la pizza napolitaine sans
-ajouter la gestion d'un feu de bois. En revanche, personne ne peut garantir une
-chauffe en quinze minutes ni une pizza parfaite en soixante secondes. Les
-sessions publiées changent trop par leur météo, leurs mesures et leur façon de
-cuire.
-
-Le guide [Quel four Ooni choisir en 2026 ?](/ooni/quel-four-ooni-choisir/)
-replace ce modèle face aux autres formats.
 
 ## La table compte autant que les 35 cm annoncés
 
@@ -123,11 +114,10 @@ une autre envie.
   [pelle](/accessoires-pizza/accessoires-pelle-pizza/) et à une pizza de 35 cm en rotation.
 - Décidez où ranger un appareil de 16 kg entre deux usages.
 
-## Notre conclusion
+## Les alternatives que je comparerais avant de payer
 
-Le Koda 2 présente le compromis gaz le plus équilibré parmi les modèles étudiés pour un
-foyer. Cette préférence vient de la place offerte et du poids. Les observations
-portent sur quelques exemplaires et des séances très différentes. Elles ne
-disent rien de fiable sur le rythme d'une longue série, la consommation ou la
-durée de vie, et ne
-constituent pas une expérience propre à Four à Nu.
+Pour une installation fixe et de plus grandes pizzas, le [duel Koda 2 Pro / Gozney Arc XL](/fours-a-pizza/koda-2-pro-ou-arc-xl/) permet de comparer un autre gabarit et une autre marque. Il ne faut pas monter en taille simplement parce que la table le permet : demandez-vous quel diamètre vous préparerez réellement.
+
+Si la contrainte est de cuisiner dedans, le [comparatif Volt 2, Sage et Cuisinart](/fours-a-pizza/volt-2-sage-ou-cuisinart/) devient le bon point de départ. Le Koda 2 reste un four extérieur ; changer de combustible change d’abord l’installation.
+
+Pour le garder dans votre sélection, vérifiez sa profondeur exacte, les dégagements, le raccordement France et une pelle adaptée. Le [budget complet](/fours-a-pizza/budget-complet-four-pizza/) aide ensuite à comparer un équipement prêt à servir, plutôt que le prix du four seul.

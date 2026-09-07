@@ -233,3 +233,7 @@ et plusieurs répétitions.
 Les sources réunies ici ne départagent ni le bruit, ni la consommation, ni
 l'usure. Notre préférence pour le Core vient de sa plage de pâte plus pratique
 à la maison.
+
+## Garder de la place dans le budget pour le reste
+
+Le pétrin est un poste distinct du four. Avant de l’ajouter, mettez son prix réel à côté de votre [budget complet d’équipement](/fours-a-pizza/budget-complet-four-pizza/) : four, installation et outils manquants. Le choix Core ou Pro doit répondre à vos quantités de pâte ; il ne rend pas automatiquement nécessaire un four ou un pack plus grand.

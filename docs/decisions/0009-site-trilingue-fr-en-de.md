@@ -8,6 +8,14 @@
 | Portée | Locales publiques, routes, changement de langue, SEO, preuves, médias et publication |
 | Remplace | [La décision monolingue de l'ADR-0001](0001-promotion-produit-et-site-astro.md#construire-un-site-astro-statique-séparé) |
 
+## Publication constatée dans l'état du 2026-08-31
+
+Le corpus FR/EN/DE a été autorisé puis publié ;
+[`STATUS.md`](../../STATUS.md#site-trilingue-publié) conserve la CI, le SHA et
+les contrôles publics. Les mentions de candidat ci-dessous décrivent le chemin
+de validation initial et restent applicables aux évolutions futures. Elles ne
+signifient pas que les routes anglaises et allemandes sont encore locales.
+
 ## Contexte
 
 La V1 française de Four à Nu est publique. Elle aide à choisir des fours et des

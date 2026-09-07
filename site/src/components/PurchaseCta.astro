@@ -157,6 +157,7 @@ function localizedLinkLabel(link: PurchaseLink): string {
         data-affiliate={isAmazonLink(link.url) ? "amazon" : undefined}
         data-commercial-object={link.objectId}
         data-commercial-scope={link.scope}
+        data-purchase-placement={variant}
       >
         {localizedLinkLabel(link)}
         <span aria-hidden="true">→</span>

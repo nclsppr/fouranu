@@ -6,7 +6,7 @@ export const SITE = {
   language: "fr",
   title: "Four à Nu | Fours à pizza, accessoires et pétrins",
   description:
-    "Four à Nu veut tester tous les fours à pizza vendus en France, en commençant par les marques de référence, puis les accessoires utiles et différents pétrins.",
+    "Choisissez votre four à pizza, comparez les modèles et préparez votre budget complet avec les guides sourcés de Four à Nu pour acheter en France.",
   shortDescription: "Fours à pizza, accessoires et pétrins, sources à l'appui",
   socialImage: "/og/four-a-nu-default-v2.jpg",
   editorialAuthor: {
@@ -76,8 +76,8 @@ export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
 export const SITE_SURFACE_UPDATED_AT = "2026-08-31";
-export const SITE_HOME_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
-export const SITE_ABOUT_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
+export const SITE_HOME_UPDATED_AT = "2026-09-07";
+export const SITE_ABOUT_UPDATED_AT = "2026-09-07";
 export const SITE_AUTHORS_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
 export const SITE_ACCESSORIES_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
 export const SITE_COMMERCE_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
@@ -93,7 +93,7 @@ export const FIXED_INDEXABLE_ROUTES = [
   { path: "/contact/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/corrections/", modified: SITE_SURFACE_UPDATED_AT },
   { path: "/confidentialite/", modified: SITE_COMMERCE_UPDATED_AT },
-  { path: "/fours-a-pizza/", modified: SITE_SURFACE_UPDATED_AT },
+  { path: "/fours-a-pizza/", modified: "2026-09-07" },
   {
     path: "/gozney/",
     modified: SITE_SURFACE_UPDATED_AT,

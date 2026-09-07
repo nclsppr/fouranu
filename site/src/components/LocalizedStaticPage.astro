@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
+import DecisionFinder from "@/components/DecisionFinder.astro";
+import RelatedDecisions from "@/components/RelatedDecisions.astro";
 import { SITE } from "@/config/site";
 import {
   articleRoute,
@@ -142,9 +144,12 @@ const actionLinks: Partial<Record<typeof routeId, { href: string; label: string;
         <p class="eyebrow">{copy.eyebrow}</p>
         <h1>{copy.heading}</h1>
         <p class="localized-page__lead">{copy.lead}</p>
+        {routeId === "home" && <a class="button-link" href={`${staticRoute("ovens", locale)}#trouver-mon-four`}>{locale === "en" ? "Find my pizza oven" : "Meinen Pizzaofen finden"}</a>}
       </div>
       {copy.aside && <p class="localized-page__aside">{copy.aside}</p>}
     </header>
+
+    {routeId === "ovens" && <DecisionFinder locale={locale} />}
 
     {authorId && (
       <section class="localized-page__author" aria-label={copy.heading}>
@@ -213,6 +218,8 @@ const actionLinks: Partial<Record<typeof routeId, { href: string; label: string;
         </div>
       </section>
     )}
+
+    {routeId === "home" && <RelatedDecisions locale={locale} />}
 
     {actionLinks[routeId] && (
       <nav class="localized-page__actions" aria-label={locale === "en" ? "Related links" : "Weiterführende Links"}>

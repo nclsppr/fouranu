@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import RelatedDecisions from "@/components/RelatedDecisions.astro";
 import { SITE } from "@/config/site";
 import {
   ARTICLE_BRANDS,
@@ -111,7 +112,7 @@ const schema = {
       alternateName: SITE.alternateName,
       url: `${SITE.url}/`,
       description:
-        "Média francophone indépendant qui publie des guides sourcés et vise à tester progressivement les fours à pizza vendus en France, les accessoires utiles et différents pétrins.",
+        "Média indépendant d’aide à l’achat : comparatifs de fours à pizza, choix des accessoires et budget complet à partir de sources attribuées.",
       publishingPrinciples: `${SITE.url}/methode/`,
       logo: {
         "@type": "ImageObject",
@@ -126,20 +127,18 @@ const schema = {
 ---
 
 <BaseLayout
-  socialTitle="Notre ambition : tester tous les fours à pizza vendus en France"
+  socialTitle="Le bon four à pizza pour votre espace et votre budget"
   indexable={true}
   schema={schema}
 >
   <section class="editorial-hero page-shell" aria-labelledby="home-title">
     <article class="lead-feature">
       <div class="lead-feature__copy">
-        <p class="feature-kicker">Notre ambition</p>
-        <h1 id="home-title">Four à Nu veut tester tous les fours à pizza vendus en France.</h1>
+        <h1 id="home-title">Le bon four à pizza pour votre espace et votre budget.</h1>
         <p class="lead-feature__mission">
-          Nous voulons couvrir les modèles des marques de référence, les
-          accessoires qui comptent vraiment et différents pétrins. Aujourd’hui,
-          nos guides sont des analyses documentaires sourcées&nbsp;; chaque futur
-          essai mené par Four à Nu sera clairement signalé.
+          Deux choix adaptés à vos envies, les compromis à connaître et le
+          matériel à prévoir. Nos comparatifs rapprochent les données fabricant
+          et les observations publiées pour vous aider à décider.
         </p>
         <h2 class="lead-feature__story-title">{lead.data.title}</h2>
         <p class="lead-feature__summary">{lead.data.summary}</p>
@@ -149,8 +148,8 @@ const schema = {
           <span>Format</span>
           <span>Poids</span>
         </div>
-        <a class="feature-action" href={articlePath(lead.data.brand, lead.id)}>
-          Lire le guide
+        <a class="feature-action" href="/fours-a-pizza/#trouver-mon-four">
+          Trouver mon four
           <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -158,16 +157,16 @@ const schema = {
       <figure class="lead-feature__visual lead-feature__visual--documentary">
         <div class="lead-feature__visual-frame">
           <img
-            src={lead.data.image.src}
-            srcset={`${lead.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image.src} 1600w`}
+            src={lead.data.image!.src}
+            srcset={`${lead.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image!.src} 1600w`}
             sizes="(max-width: 40rem) 100vw, 42vw"
-            alt={lead.data.image.alt}
+            alt={lead.data.image!.alt}
             width="1600"
             height="900"
             fetchpriority="high"
           />
         </div>
-        <figcaption>{lead.data.image.caption}</figcaption>
+        <figcaption>{lead.data.image!.caption}</figcaption>
       </figure>
     </article>
 
@@ -187,6 +186,8 @@ const schema = {
       </a>
     </div>
   </section>
+
+  <div class="page-shell"><RelatedDecisions locale="fr" /></div>
 
   <section class="corpus-strip page-shell" aria-label="Repères Four à Nu">
     <div>
@@ -228,8 +229,8 @@ const schema = {
           <a href={articlePath(entry.data.brand, entry.id)}>
             <span class="accessories-doorway__media">
               <img
-                src={entry.data.image.src}
-                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                src={entry.data.image!.src}
+                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
                 sizes="(max-width: 40rem) 7rem, (max-width: 56rem) 9rem, 10rem"
                 alt=""
                 width="960"
@@ -266,10 +267,10 @@ const schema = {
           <a href={articlePath(entry.data.brand, entry.id)}>
             <span class="new-dossiers__media">
               <img
-                src={entry.data.image.src}
-                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                src={entry.data.image!.src}
+                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
                 sizes="(max-width: 48rem) 100vw, 11rem"
-                alt={entry.data.image.alt}
+                alt={entry.data.image!.alt}
                 width="960"
                 height="540"
                 loading="lazy"
@@ -298,10 +299,10 @@ const schema = {
         <a class="dossier-card" href={articlePath(entry.data.brand, entry.id)}>
           <span class="dossier-card__media">
             <img
-              src={entry.data.image.src}
-              srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+              src={entry.data.image!.src}
+              srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
               sizes="(max-width: 32rem) 100vw, (max-width: 56rem) 50vw, 25vw"
-              alt={entry.data.image.alt}
+              alt={entry.data.image!.alt}
               width="960"
               height="540"
               loading="lazy"
@@ -376,8 +377,8 @@ const schema = {
           <a href={articlePath(entry.data.brand, entry.id)}>
             <span class="compact-list__media">
               <img
-                src={entry.data.image.src}
-                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                src={entry.data.image!.src}
+                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
                 sizes="7.5rem"
                 alt=""
                 width="320"

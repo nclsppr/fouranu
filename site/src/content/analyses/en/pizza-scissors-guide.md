@@ -55,6 +55,24 @@ budget, with less detailed documentation.
 
 ## Four answers, not four steps on a podium
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-ciseaux-pizza-comparatif-960.webp 960w, /images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Four generic pizza-scissor shapes, with a shoe, raised handles, a serving paddle and black handles"
+  />
+  <figcaption>
+    <strong>The geometry changes the movement.</strong>
+    Original Four à Nu editorial illustration; the shapes represent the types
+    compared, not the commercial models.
+  </figcaption>
+</figure>
+
 | Model | When we would consider it | Main limitation |
 | --- | --- | --- |
 | [Dreamfarm Scizza DFSC2010](https://www.amazon.fr/dp/B00164DYPM) | Cutting on a stone or non-stick dish with a protective shoe | Long and bulky; the nylon shoe is limited to 205°C |

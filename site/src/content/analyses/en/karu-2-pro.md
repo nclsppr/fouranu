@@ -34,6 +34,20 @@ limitations:
 
 ## An oven to install, not take out of a cupboard
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-karu-2-pro-documentary-1600.webp"
+    srcset="/images/articles/ooni-karu-2-pro-documentary-960.webp 960w, /images/articles/ooni-karu-2-pro-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Wide stone floor and digital display visible inside the Ooni Karu 2 Pro"
+  />
+  <figcaption>Video frame of the Ooni Karu 2 Pro stone floor and display — Source: Pala Pizza, 01:51.</figcaption>
+</figure>
+
 The Karu 2 Pro is not simply a widened Karu 2. At 28.4 kg, with a 40 cm pizza
 opening, glass door and display, it needs a lasting position. It makes sense if
 you want to cook with wood often while retaining the option to switch to gas.

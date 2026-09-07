@@ -30,6 +30,20 @@ limitations:
 
 ## Plenty of room, but not for everyone
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-2-pro-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-2-pro-documentary-960.webp 960w, /images/articles/ooni-koda-2-pro-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Open Ooni Koda 2 Pro with its stone floor and digital thermometer visible"
+  />
+  <figcaption>Video frame of the Ooni Koda 2 Pro and its opening — Source: Got2EatPizza, 01:08.</figcaption>
+</figure>
+
 The Koda 2 Pro targets 45 cm pizzas and weighs 30 kg. Its U-shaped burner wraps
 around the stone on three sides, but a single dial controls the entire flame.
 We find it coherent for a large gas setup. For 30 cm pizzas, it looks frankly

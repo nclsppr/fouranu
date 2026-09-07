@@ -9,6 +9,7 @@ import RelatedDecisions from "@/components/RelatedDecisions.astro";
 import { SITE } from "@/config/site";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
 import { commercialObject } from "@/data/commercial-objects.mjs";
+import { assertMediaAllowedAtPath, assertMediaAllowedInLocale, assertResponsiveMediaAllowedAtPath, mediaAllowedInLocale } from "@/lib/media-rights.mjs";
 import { ARTICLE_BRANDS } from "@/data/article-taxonomy";
 import {
   articleAlternates,
@@ -72,13 +73,25 @@ const words = (entry.body ?? "")
   .split(/\s+/)
   .filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(words / 220));
-const useEditorialImage = locale === "fr" && Boolean(entry.data.image);
+const useEditorialImage = Boolean(entry.data.image);
+const articlePath = articleRoute(articleId, locale);
+if (entry.data.image) {
+  assertResponsiveMediaAllowedAtPath(entry.data.image.src, locale, "article-hero", articlePath);
+  assertMediaAllowedInLocale(entry.data.image.assetId, locale, "schema-image", articlePath);
+}
+for (const pathname of new Set([...(entry.body ?? "").matchAll(/\/images\/articles\/[A-Za-z0-9._/-]+/g)].map((match) => match[0]))) {
+  assertMediaAllowedAtPath(pathname, locale, "article-body", articlePath);
+}
+const useEditorialSocialImage = Boolean(entry.data.image
+  && mediaAllowedInLocale(entry.data.image.assetId, locale, "open-graph")
+  && mediaAllowedInLocale(entry.data.image.assetId, locale, "twitter"));
 const articleImage = new URL(
   useEditorialImage ? entry.data.image!.src : localized.socialImage,
   SITE.url,
 ).toString();
 const articleMetaTitle = entry.data.seoTitle ?? `${entry.data.title} | Four à Nu`;
 const author = localized.authors[entry.data.author];
+assertMediaAllowedAtPath(author.portrait.large, locale, "schema-image", articlePath);
 const canonicalAuthor = new URL(author.url, SITE.url).toString();
 const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
 if (!purchaseLinks?.length) {
@@ -138,10 +151,10 @@ const schema = {
   title={articleMetaTitle}
   socialTitle={entry.data.title}
   description={entry.data.description}
-  image={useEditorialImage ? entry.data.image!.src : localized.socialImage}
-  imageAlt={useEditorialImage ? entry.data.image!.alt : undefined}
-  imageWidth={useEditorialImage ? 1600 : 1200}
-  imageHeight={useEditorialImage ? 900 : 630}
+  image={useEditorialSocialImage ? entry.data.image!.src : localized.socialImage}
+  imageAlt={useEditorialSocialImage ? entry.data.image!.alt : undefined}
+  imageWidth={useEditorialSocialImage ? 1600 : 1200}
+  imageHeight={useEditorialSocialImage ? 900 : 630}
   canonical={canonical}
   alternatePaths={articleAlternates(articleId)}
   indexable={entry.data.indexable}

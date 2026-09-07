@@ -4,7 +4,18 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
-import { ARTICLE_BRANDS, articlePath } from "@/data/article-taxonomy";
+import { localizedSite } from "@/i18n/common";
+import {
+  LOCALE_INFO,
+  articleRoute,
+  staticAlternates,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+  type StaticRouteId,
+} from "@/i18n/config";
+import { AUTHOR_PROFILE_COPY } from "@/i18n/trust-pages";
+import { assertMediaAllowedAtPath } from "@/lib/media-rights.mjs";
 
 type AuthorId = keyof typeof SITE.authors;
 type Author = (typeof SITE.authors)[AuthorId];
@@ -17,21 +28,30 @@ export function getStaticPaths() {
 
     return {
       params: { slug },
-      props: { authorId, author },
+      props: { authorId, locale: "fr" },
     };
   });
 }
 
 interface Props {
   authorId: AuthorId;
-  author: Author;
+  locale?: Locale;
 }
 
-const { authorId, author } = Astro.props;
+const { authorId, locale = "fr" } = Astro.props as Props;
+const copy = AUTHOR_PROFILE_COPY[locale];
+const localized = localizedSite(locale);
+const author = localized.authors[authorId];
+const authorRouteIds = {
+  nicolas: "authorNicolas",
+  florian: "authorFlorian",
+  magali: "authorMagali",
+} as const satisfies Record<AuthorId, StaticRouteId>;
+const authorRouteId = authorRouteIds[authorId];
 const articles = (await getCollection("analyses"))
   .filter(
     (entry) =>
-      entry.data.locale === "fr" &&
+      entry.data.locale === locale &&
       entry.data.author === authorId &&
       entry.data.status === "publishable" &&
       entry.data.indexable,
@@ -42,12 +62,8 @@ const articles = (await getCollection("analyses"))
   );
 const canonical = new URL(author.url, SITE.url).toString();
 const portraitUrl = new URL(author.portrait.large, SITE.url).toString();
-const typeLabels = {
-  guide: "Guide d’achat",
-  decision: "Comparatif par usage",
-  model: "Analyse de modèle",
-};
-const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
+assertMediaAllowedAtPath(author.portrait.large, locale, "schema-image", author.url);
+const dateFormatter = new Intl.DateTimeFormat(LOCALE_INFO[locale].intlLocale, {
   day: "numeric",
   month: "long",
   year: "numeric",
@@ -60,7 +76,7 @@ const schema = {
   url: canonical,
   name: author.name,
   description: author.description,
-  inLanguage: SITE.language,
+  inLanguage: localized.language,
   isPartOf: { "@id": `${SITE.url}/#website` },
   mainEntity: {
     "@type": "Person",
@@ -81,16 +97,19 @@ const schema = {
 ---
 
 <BaseLayout
-  title={`${author.name} | Rédaction Four à Nu`}
+  title={`${author.name} | ${copy.titleSuffix}`}
   description={author.description}
+  canonical={canonical}
+  alternatePaths={staticAlternates(authorRouteId)}
   indexable={true}
   schema={schema}
 >
   <div class="page-shell">
     <Breadcrumbs
+      locale={locale}
       items={[
-        { label: "Accueil", href: "/" },
-        { label: "Rédaction", href: SITE.editorialAuthor.url },
+        { label: copy.home, href: staticRoute("home", locale) },
+        { label: copy.authors, href: staticRoute("authors", locale) },
         { label: author.name },
       ]}
     />
@@ -108,8 +127,8 @@ const schema = {
 
     <section class="author-story" aria-labelledby="author-story-title">
       <div>
-        <p class="eyebrow">Autour du four</p>
-        <h2 id="author-story-title">Son parcours.</h2>
+        <p class="eyebrow">{copy.storyEyebrow}</p>
+        <h2 id="author-story-title">{copy.storyHeading}</h2>
       </div>
       <div class="author-story__copy">
         {author.biography.map((paragraph) => <p>{paragraph}</p>)}
@@ -118,45 +137,40 @@ const schema = {
 
     <aside class="author-responsibility" aria-labelledby="author-responsibility-title">
       <div>
-        <p class="eyebrow">Ce que la signature engage</p>
-        <h2 id="author-responsibility-title">Une personne référente par dossier.</h2>
+        <p class="eyebrow">{copy.responsibilityEyebrow}</p>
+        <h2 id="author-responsibility-title">{copy.responsibilityHeading}</h2>
       </div>
       <div>
-        <p>
-          La signature indique qui porte le dossier au sein de la rédaction.
-          Les sources, les faits, les conclusions et les limites sont relus
-          ensemble : elle ne signifie pas que cette personne a essayé le four.
-          Chaque recommandation reste reliée aux sources citées dans le guide.
-        </p>
-        <a href="/corrections/">Lire la politique de correction</a>
+        <p>{copy.responsibilityBody}</p>
+        <a href={staticRoute("corrections", locale)}>{copy.correctionLink}</a>
       </div>
     </aside>
 
     <section class="author-articles" aria-labelledby="author-articles-title">
       <header>
-        <p class="eyebrow">{articles.length} dossiers</p>
-        <h2 id="author-articles-title">Les dossiers signés par {author.name}.</h2>
+        <p class="eyebrow">{copy.dossierCount(articles.length)}</p>
+        <h2 id="author-articles-title">{copy.articlesHeading(author.name)}</h2>
       </header>
       <div class="author-articles__list">
         {articles.map((entry) => (
           <article>
-            <p>{typeLabels[entry.data.type]} · {ARTICLE_BRANDS[entry.data.brand].label}</p>
+            <p>{copy.typeLabels[entry.data.type]} · {copy.brandLabels[entry.data.brand]}</p>
             <h3>
-              <a href={articlePath(entry.data.brand, entry.id)}>{entry.data.title}</a>
+              <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{entry.data.title}</a>
             </h3>
             <p>{entry.data.summary}</p>
             <time datetime={entry.data.updatedAt.toISOString()}>
-              Mis à jour le {dateFormatter.format(entry.data.updatedAt)}
+              {copy.updatedPrefix} {dateFormatter.format(entry.data.updatedAt)}
             </time>
           </article>
         ))}
       </div>
     </section>
 
-    <nav class="author-links" aria-label="Liens de la rédaction">
-      <a href={SITE.editorialAuthor.url}>Voir toute la rédaction</a>
-      <a href="/methode/">Comprendre notre méthode</a>
-      <a href="/transparence/">Lire notre transparence commerciale</a>
+    <nav class="author-links" aria-label={copy.linksAria}>
+      <a href={staticRoute("authors", locale)}>{copy.authorsLink}</a>
+      <a href={staticRoute("method", locale)}>{copy.methodLink}</a>
+      <a href={staticRoute("transparency", locale)}>{copy.transparencyLink}</a>
     </nav>
   </div>
 </BaseLayout>

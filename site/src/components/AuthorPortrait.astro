@@ -1,4 +1,7 @@
 ---
+import { localeFromPath } from "@/i18n/config";
+import { assertMediaAllowedAtPath } from "@/lib/media-rights.mjs";
+
 interface Portrait {
   small: string;
   large: string;
@@ -13,6 +16,12 @@ interface Props {
 const { portrait, variant = "hub" } = Astro.props;
 const isProfile = variant === "profile";
 const isBubble = variant === "bubble";
+const locale = localeFromPath(Astro.url.pathname);
+const surface = isProfile ? "author-profile" : isBubble ? "article-author" : "hub-list";
+assertMediaAllowedAtPath(portrait.small, locale, surface, Astro.url.pathname);
+if (isProfile) {
+  assertMediaAllowedAtPath(portrait.large, locale, "author-profile", Astro.url.pathname);
+}
 ---
 
 {isBubble ? (

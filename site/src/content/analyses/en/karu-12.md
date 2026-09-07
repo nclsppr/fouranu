@@ -33,6 +33,20 @@ limitations:
 
 ## Choose it for the fire, not the specification sheet
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-karu-12-documentary-1600.webp"
+    srcset="/images/articles/ooni-karu-12-documentary-960.webp 960w, /images/articles/ooni-karu-12-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="First-generation Ooni Karu 12 with a pizza and the flame visible"
+  />
+  <figcaption>Video frame of the first-generation Ooni Karu 12 during a bake — Source: Ooni, 00:30.</figcaption>
+</figure>
+
 Choose the Karu 12 if you genuinely want to learn how to feed a fire. That is
 what makes it interesting. It takes wood and charcoal, while a separately sold
 burner lets you switch to propane. This fallback is practical, but it does not

@@ -42,6 +42,20 @@ Ooni states 1,600 W and 17.6 kg. I would give it an accessible location instead 
 
 The official list checked on 7 September 2026 mentions a stone and rack, not a peel. Allow for one if you do not already have a compatible tool.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-volt-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-volt-2-documentary-960.webp 960w, /images/articles/ooni-volt-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Electric Ooni Volt 2 switched on atop a kitchen worktop"
+  />
+  <figcaption>Video frame of the Ooni Volt 2 installed in a kitchen — Source: Got2EatPizza, 03:33.</figcaption>
+</figure>
+
 ## What Ooni claims, in plain terms
 
 The [French Volt 2 page](https://eu.ooni.com/fr-fr/products/ooni-volt-2)

@@ -32,6 +32,20 @@ limitations:
 
 ## Die erste Frage, die Sie klären sollten
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-16-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-16-documentary-960.webp 960w, /images/articles/ooni-koda-16-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Geöffneter Ooni Koda 16 während einer Temperaturmessung der Steinsohle"
+  />
+  <figcaption>Videostandbild des Ooni Koda 16 während einer Messung der Steinsohle — Quelle: Barbecue Way Of Life, Stelle 04:19.</figcaption>
+</figure>
+
 Der Koda 16 überzeugt vor allem durch den Platz um die Pizza. In seiner
 40-cm-Öffnung lässt sich eine Scheibe von 30 bis 35 cm leichter drehen, ohne die
 gesamte Breite zu nutzen. Auch eine kompatible Pfanne passt eher hinein.

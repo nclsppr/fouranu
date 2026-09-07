@@ -32,6 +32,20 @@ limitations:
 
 ## The first question to settle
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-16-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-16-documentary-960.webp 960w, /images/articles/ooni-koda-16-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Open Ooni Koda 16 while the stone floor temperature is being measured"
+  />
+  <figcaption>Video frame of the Ooni Koda 16 during a stone-floor measurement — Source: Barbecue Way Of Life, 04:19.</figcaption>
+</figure>
+
 The Koda 16 is mainly valuable for the room around the pizza. Its 40 cm opening
 makes it easier to turn a 30 to 35 cm disc without using the full width. A
 compatible pan also has a better chance of fitting.

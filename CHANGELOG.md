@@ -6,6 +6,20 @@ importantes.
 
 ## Non publié
 
+- Correction de la parité FR/EN/DE : les accueils, rubriques, pages de confiance,
+  profils et 404 utilisent les mêmes gabarits. Les 18 visuels d’accueil et
+  l’ordre des dossiers sont conservés dans chaque langue.
+- Les images autorisées et leurs légendes rejoignent les articles anglais et
+  allemands ; les 278 observations et conditions sont traduites par identifiant
+  sans modifier les preuves canoniques ni les destinations affiliées.
+- Les droits sont contrôlés par couple langue-surface ; la carte originale v2
+  sert d’aperçu social en l’absence de droit spécifique. Les trois comparatifs
+  textuels, le sélecteur et le budget restent disponibles.
+- Les nouveaux contrôles comparent les blocs, images et liens des pages et
+  rejettent l’ancien défaut. Les mots allemands longs reviennent à la ligne
+  sur petit écran. Gate complète, Compose et revue navigateur acquis dans
+  `STATUS.md` ; publication encore à vérifier.
+
 ## 2026-09-07 - Aide à l'achat documentaire permanente
 
 - L'ADR-0010 fixe une aide à l'achat documentaire permanente et remplace le

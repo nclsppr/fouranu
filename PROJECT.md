@@ -124,6 +124,7 @@ explicite avant son lancement.
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
 | Locales, routes, SEO et frontières de traduction | [`docs/decisions/0009-site-trilingue-fr-en-de.md`](docs/decisions/0009-site-trilingue-fr-en-de.md) | Décision acceptée ; corpus trilingue publié selon `STATUS.md` |
+| Parité de structure et traduction traçable des preuves | [`docs/decisions/0011-parite-structurelle-fr-en-de.md`](docs/decisions/0011-parite-structurelle-fr-en-de.md) | Décision acceptée ; état des vérifications et de la publication dans `STATUS.md` |
 | Modèle documentaire | [`docs/decisions/0002-media-documentaire-permanent.md`](docs/decisions/0002-media-documentaire-permanent.md) | Décision acceptée |
 | Aide à l'achat documentaire permanente | [`docs/decisions/0010-aide-achat-documentaire-permanente.md`](docs/decisions/0010-aide-achat-documentaire-permanente.md) | Décision acceptée ; remplace le programme physique ADR-0006 |
 | En-tête produit et voix éditoriale | [`docs/decisions/0005-en-tete-officiel-et-voix-accessible.md`](docs/decisions/0005-en-tete-officiel-et-voix-accessible.md) | Décision acceptée |
@@ -163,11 +164,15 @@ explicite avant son lancement.
    signature reprend le portrait enregistré de la personne référente.
 5. Les versions française, anglaise et allemande gardent le même identifiant,
    les mêmes preuves canoniques, dates, objets commerciaux et liens destinés au
-   marché français. La voix éditoriale est traduite ; une observation ou une
-   condition du registre conservée en français reçoit une note transparente.
-6. Un média dont la permission enregistrée ne couvre que le français est omis
-   des pages anglaises et allemandes, sans cadre vide ni réemploi comme aperçu
-   social.
+   marché français. Les observations et conditions sont traduites dans des
+   tables distinctes, reliées par `evidence_id`, sans modifier le registre
+   canonique, selon l’ADR-0011. Toute correction du relevé entraîne leur revue.
+6. Les seize routes fixes et les 404 utilisent des gabarits partagés : mêmes
+   sections, sélections, ordre, images autorisées et actions dans les trois
+   langues. Le droit de chaque média est contrôlé par langue et par surface ;
+   une autorisation web ne vaut pas autorisation Open Graph ou Twitter. En
+   l’absence de cette dernière, l’aperçu utilise la carte originale v2. Une
+   absence de droit ne se contourne jamais pour obtenir la parité.
 7. La gate refuse une provenance absente, un média non publiable dans la langue
    concernée, une expérience tierce racontée à la première personne, une note,
    un balisage d'avis ou un lien rémunéré mal déclaré.
@@ -227,9 +232,11 @@ explicite avant son lancement.
   ni fichiers médias tiers.
 - Les preuves d'autorisation et coordonnées restent sous `research/private/`,
   hors Git. La CI ne peut pas les lire.
-- La portée linguistique enregistrée avec une permission média est contraignante :
-  un droit limité au français entraîne l'omission du média en anglais et en
-  allemand.
+- Les champs média `language_scope` et `surface_language_scope` rendent les
+  permissions vérifiables par langue et par usage. Un droit limité au français
+  ne couvre pas les autres langues ; un média hors portée reste interdit et
+  bloque la déclaration de parité de la surface concernée. Les pièces et
+  attestations restent privées, seules leurs métadonnées entrent dans Git.
 - Aucun secret, compte marchand, identifiant analytics, SDK social ou clé d'API
   n'est requis pour la vérification locale. Le déploiement Cloudflare utilise un
   jeton minimal conservé dans l'environnement GitHub protégé, jamais dans le
@@ -245,7 +252,7 @@ explicite avant son lancement.
 | Contenu sans provenance | Registres, références croisées et tests de contrat | Lecture des sources et limites avec la barrière SEO par article |
 | Confusion entre source et conclusion | Refus de la première personne pour une expérience tierce, des notes et des schémas d'avis | Vérification du bandeau documentaire et des attributions avant la première recommandation |
 | Régression SEO | Build, liens, canonical, sitemap, robots et données structurées | Inspection de l'HTML et des aperçus sociaux |
-| Rupture de parité linguistique | Identifiants et routes uniques, liens de langue exacts, champs protégés, canonical, hreflang, Open Graph, schémas, sitemap, RSS et `llms.txt` contrôlés pour FR/EN/DE | Relecture EN/DE, portée France et Amazon.fr, note sur les preuves canoniques, droits médias, contenu allemand long, mobile, bureau et clavier |
+| Rupture de parité linguistique | Identifiants, routes et champs protégés ; comparaison des structures, images et liens ordonnés des pages fixes ; correspondance des traductions de preuve ; canonical, hreflang, Open Graph, schémas, sitemap, RSS et `llms.txt` FR/EN/DE | Comparaison navigateur des trois langues, relecture tracée EN/DE, portée France et Amazon.fr, droits par surface, contenu allemand long, mobile, bureau et clavier ; mode humain ou agent distingué dans la preuve |
 | Interface inaccessible | Typecheck, tests et contrôles statiques applicables | Mobile, bureau, clavier, focus, contraste et mouvement réduit |
 | Publication interne accidentelle | Séparation entre `site/` et `docs-nimbus/` | Inspection de l'artefact public |
 

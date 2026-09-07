@@ -1,53 +1,64 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { staticAlternates, staticRoute, type Locale } from "@/i18n/config";
+import { LEGAL_COPY } from "@/i18n/trust-pages";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = LEGAL_COPY[locale];
 ---
 
 <BaseLayout
-  title="Mentions légales | Four à Nu"
-  description="Mentions légales de Four à Nu : statut de l’éditeur, hébergement Cloudflare, contact et attribution des contenus et marques cités."
+  title={copy.title}
+  description={copy.description}
+  canonical={staticRoute("legal", locale)}
+  alternatePaths={staticAlternates("legal")}
   indexable={true}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Mentions légales" }]} />
+    <Breadcrumbs locale={locale} items={[{ label: copy.home, href: staticRoute("home", locale) }, { label: copy.breadcrumb }]} />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Informations légales</p>
-        <h1>Édition et hébergement.</h1>
-        <p class="page-intro__lede">Four à Nu est édité à titre non professionnel. L'éditeur a choisi de préserver son anonymat public dans le cadre prévu par l'article 1-1, II de la loi pour la confiance dans l'économie numérique.</p>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">Page mise à jour le 24 août 2026.</p>
+      <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
-    <section class="legal-grid" aria-label="Mentions légales de Four à Nu">
+    <section class="legal-grid" aria-label={copy.gridAria}>
       <article>
-        <p class="eyebrow">Édition</p>
+        <p class="eyebrow">{copy.publisherEyebrow}</p>
         <h2>Four à Nu</h2>
-        <p>Service de communication au public en ligne édité à titre non professionnel.</p>
-        <p>Les demandes de correction et de droit de réponse suivent les canaux indiqués sur la page de contact.</p>
-        <a href="/contact/">Contacter Four à Nu</a>
+        <p>{copy.publisherBody}</p>
+        <p>{copy.publisherContact}</p>
+        <a href={staticRoute("contact", locale)}>{copy.contactLink}</a>
         <br />
-        <a href="https://www.legifrance.gouv.fr/codes/section_lc/JORFTEXT000000801164/LEGISCTA000006117684/" rel="external">Consulter le texte applicable</a>
+        <a href="https://www.legifrance.gouv.fr/codes/section_lc/JORFTEXT000000801164/LEGISCTA000006117684/" rel="external">{copy.lawLink}</a>
       </article>
 
       <article>
-        <p class="eyebrow">Hébergement</p>
+        <p class="eyebrow">{copy.hostingEyebrow}</p>
         <h2>Cloudflare, Inc.</h2>
         <address>
           101 Townsend Street<br />
           San Francisco, CA 94107<br />
-          États-Unis<br />
+          {copy.country}<br />
           <a href="tel:+16503198930">+1 (650) 319-8930</a><br />
           <a href="mailto:support@cloudflare.com">support@cloudflare.com</a>
         </address>
-        <a href="https://www.cloudflare.com/policies/terms/" rel="external">Informations légales de Cloudflare</a>
+        <a href="https://www.cloudflare.com/policies/terms/" rel="external">{copy.cloudflareLink}</a>
       </article>
 
       <article>
-        <p class="eyebrow">Contenus et marques</p>
-        <h2>Attribution</h2>
-        <p>Les textes Four à Nu restent soumis au droit d'auteur. Les marques, noms de produits et contenus tiers cités appartiennent à leurs titulaires respectifs. Une citation ou un lien ne vaut ni partenariat ni approbation.</p>
+        <p class="eyebrow">{copy.contentEyebrow}</p>
+        <h2>{copy.contentHeading}</h2>
+        <p>{copy.contentBody}</p>
       </article>
     </section>
   </div>

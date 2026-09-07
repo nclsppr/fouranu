@@ -1,35 +1,46 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { staticAlternates, staticRoute, type Locale } from "@/i18n/config";
+import { PRIVACY_COPY } from "@/i18n/trust-pages";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = PRIVACY_COPY[locale];
 ---
 
 <BaseLayout
-  title="Confidentialité et données techniques | Four à Nu"
-  description="Données reçues lors de la consultation de Four à Nu, absence de traceurs publicitaires et journalisation technique de l'hébergement."
+  title={copy.title}
+  description={copy.description}
+  canonical={staticRoute("privacy", locale)}
+  alternatePaths={staticAlternates("privacy")}
   indexable={true}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Confidentialité" }]} />
+    <Breadcrumbs locale={locale} items={[{ label: copy.home, href: staticRoute("home", locale) }, { label: copy.breadcrumb }]} />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Confidentialité</p>
-        <h1>Lire sans être suivi par une régie.</h1>
-        <p class="page-intro__lede">Four à Nu est un site statique. Il n'installe aucun cookie, ne charge aucun outil d'analytics et n'exécute aucun script publicitaire dans votre navigateur.</p>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">Politique vérifiée le 30 août 2026. Toute activation ultérieure d'un outil de mesure imposera une mise à jour préalable de cette page.</p>
+      <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
-    <section class="privacy-grid" aria-label="Traitements de données">
-      <article><span>01</span><h2>Ce que la page ne collecte pas</h2><p>Aucun compte, formulaire, commentaire, profil publicitaire, cookie ou identifiant local. Les vidéos tierces ne se chargent pas automatiquement.</p></article>
-      <article><span>02</span><h2>Ce que le serveur reçoit</h2><p>Comme tout serveur web, l'hébergement reçoit l'adresse IP, la date, le chemin demandé, le navigateur déclaré et le statut HTTP nécessaires à la transmission de la page et à la sécurité.</p></article>
-      <article><span>03</span><h2>Hébergement et sécurité</h2><p>Cloudflare sert les fichiers du site et traite les données techniques nécessaires à leur transmission et à la sécurité de son réseau. Four à Nu n'active ni outil d'audience ni journal applicatif.</p></article>
-      <article><span>04</span><h2>Liens externes</h2><p>Un clic vers YouTube, un fabricant, GitHub ou un marchand ouvre leur service, soumis à sa propre politique. Le domaine de destination reste visible avant le clic. Les liens Amazon.fr portent l’identifiant partenaire public <strong>fouranu-21</strong> dans leur URL ; aucun appel à Amazon n’est effectué avant ce clic.</p></article>
+    <section class="privacy-grid" aria-label={copy.gridAria}>
+      <article><span>01</span><h2>{copy.items[0].heading}</h2><p>{copy.items[0].body}</p></article>
+      <article><span>02</span><h2>{copy.items[1].heading}</h2><p>{copy.items[1].body}</p></article>
+      <article><span>03</span><h2>{copy.items[2].heading}</h2><p>{copy.items[2].body}</p></article>
+      <article><span>04</span><h2>{copy.items[3].heading}</h2><p>{copy.items[3].bodyBeforePartner}<strong>{copy.items[3].partnerId}</strong>{copy.items[3].bodyAfterPartner}</p></article>
     </section>
 
     <section class="privacy-contact">
-      <div><p class="eyebrow">Question ou demande</p><h2>Le canal public passe par le dépôt du site.</h2></div>
-      <div><p>Vous pouvez ouvrir un signalement sans inclure de donnée personnelle. La politique de Cloudflare décrit séparément les traitements réalisés pour fournir et sécuriser son service.</p><a href="https://github.com/nclsppr/fouranu/issues/new" rel="external">Ouvrir un signalement sur GitHub</a><br /><a href="https://www.cloudflare.com/policies/privacy/" rel="external">Lire la politique de Cloudflare</a></div>
+      <div><p class="eyebrow">{copy.contactEyebrow}</p><h2>{copy.contactHeading}</h2></div>
+      <div><p>{copy.contactBody}</p><a href="https://github.com/nclsppr/fouranu/issues/new" rel="external">{copy.githubLink}</a><br /><a href="https://www.cloudflare.com/policies/privacy/" rel="external">{copy.cloudflareLink}</a></div>
     </section>
   </div>
 </BaseLayout>

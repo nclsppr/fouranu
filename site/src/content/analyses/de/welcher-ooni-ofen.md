@@ -34,6 +34,20 @@ limitations:
 
 ## Drei Fragen reichen für den Anfang
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-gamme-documentee-documentary-1600.webp"
+    srcset="/images/articles/ooni-gamme-documentee-documentary-960.webp 960w, /images/articles/ooni-gamme-documentee-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Fünf Ooni-Pizzaöfen auf ihren Außentischen in einer Reihe"
+  />
+  <figcaption>Videostandbild des in einer Reihe angeordneten Ooni-Sortiments — Quelle: Julien Serri, Stelle 10:47.</figcaption>
+</figure>
+
 Wo werden Sie backen? Mit welcher Energie? Welche Pizzagröße möchten Sie wirklich
 einschießen? Diese drei Antworten schließen bereits einen großen Teil der neun
 Ooni-Öfen aus, die zum Zeitpunkt unserer Prüfung in Frankreich verkauft wurden.

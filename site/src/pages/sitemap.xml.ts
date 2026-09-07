@@ -17,6 +17,10 @@ import {
   type Locale,
   type StaticRouteId,
 } from "@/i18n/config";
+import {
+  mediaAllowedAtPath,
+  mediaAllowedInLocale,
+} from "@/lib/media-rights.mjs";
 
 export const prerender = true;
 
@@ -64,7 +68,7 @@ function fixedRoutes(): SitemapRoute[] {
       path: staticRoute(routeId, locale),
       modified: metadata.modified,
       alternates,
-      image: locale === "fr" ? image : undefined,
+      image: image && mediaAllowedAtPath(image, locale, "image-sitemap") ? image : undefined,
     }));
   });
 }
@@ -91,7 +95,9 @@ async function articleRoutes(): Promise<SitemapRoute[]> {
         path: articleRoute(articleId, locale),
         modified: entry.data.updatedAt.toISOString().slice(0, 10),
         alternates,
-        image: locale === "fr" ? entry.data.image?.src : undefined,
+        image: entry.data.image && mediaAllowedInLocale(entry.data.image.assetId, locale, "image-sitemap")
+          ? entry.data.image.src
+          : undefined,
       };
     });
   });

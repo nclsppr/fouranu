@@ -34,6 +34,20 @@ limitations:
 
 ## Choose the location before the model
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-energies-volt-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-energies-volt-2-documentary-960.webp 960w, /images/articles/ooni-energies-volt-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Illuminated interior and touch controls of the Ooni Volt 2 electric oven"
+  />
+  <figcaption>Video frame of the Ooni Volt 2 interior and controls — Source: Boulangerie Pas à pas, 02:23.</figcaption>
+</figure>
+
 For indoor baking, the Volt 2 is the documented choice in the current range.
 Outdoors, Koda suits someone who wants direct propane control. Karu accepts wood
 and charcoal, with a propane burner sold separately for the documented models.

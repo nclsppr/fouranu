@@ -67,8 +67,9 @@ class EditorialLedgerTests(unittest.TestCase):
                 "rights_status": "service-permitted",
                 "commercial_use": "not-applicable",
                 "editorial_transform": "not-applicable",
-                "publication_url": "https://example.test/article",
+                "publication_url": "",
                 "checked_on": date.today().isoformat(),
+                "language_scope": "fr",
             }
         )
         return row
@@ -98,6 +99,7 @@ class EditorialLedgerTests(unittest.TestCase):
                 "publication_url": "https://example.test/article",
                 "permission_proof": "",
                 "permission_proof_sha256": "",
+                "surface_language_scope": "web:fr",
             }
         )
         if acquisition_mode in {
@@ -154,6 +156,8 @@ class EditorialLedgerTests(unittest.TestCase):
                 "human_validation": "approved",
                 "publication_url": "https://example.test/images/authors/camille-portrait-192.webp",
                 "checked_on": date.today().isoformat(),
+                "language_scope": "fr",
+                "surface_language_scope": "web:fr",
             }
         )
         return row
@@ -168,6 +172,7 @@ class EditorialLedgerTests(unittest.TestCase):
                 "rights_status": "original",
                 "commercial_use": "yes",
                 "editorial_transform": "not-applicable",
+                "web_scope": "https://example.test",
                 "production_method": "Example production",
                 "source_reuse_policy": "disabled",
                 "production_notes": "zero days",
@@ -175,6 +180,8 @@ class EditorialLedgerTests(unittest.TestCase):
                 "human_validation": "approved",
                 "publication_url": "https://example.test/article",
                 "checked_on": date.today().isoformat(),
+                "language_scope": "fr",
+                "surface_language_scope": "web:fr",
             }
         )
         return row
@@ -183,6 +190,88 @@ class EditorialLedgerTests(unittest.TestCase):
         errors: list[str] = []
         identifiers = ledger.check_evidence([self.external_evidence()], errors)
         ledger.check_assets([self.embed_asset()], identifiers, errors)
+        self.assertEqual([], errors)
+
+    def test_language_scope_rejects_unknown_and_duplicate_languages(self) -> None:
+        row = self.embed_asset()
+        row["language_scope"] = "fr;en;en;it"
+        errors: list[str] = []
+
+        ledger.check_assets([row], {"EV-0001"}, errors)
+
+        joined = "\n".join(errors)
+        self.assertIn("language_scope contient un doublon", joined)
+        self.assertIn("langue inconnue dans language_scope : it", joined)
+
+    def test_social_scope_rejects_unknown_and_duplicate_surfaces(self) -> None:
+        row = self.original_ai_asset()
+        row["social_scope"] = "open-graph;open-graph;facebook"
+        row["surface_language_scope"] = "web:fr;open-graph:fr"
+        errors: list[str] = []
+
+        ledger.check_assets([row], set(), errors)
+
+        joined = "\n".join(errors)
+        self.assertIn("social_scope contient un doublon", joined)
+        self.assertIn("surface inconnue dans social_scope : facebook", joined)
+
+    def test_social_scope_requires_a_publication_url(self) -> None:
+        row = self.original_ai_asset()
+        row["publication_url"] = ""
+        row["social_scope"] = "open-graph;twitter"
+        row["surface_language_scope"] = "web:fr;open-graph:fr;twitter:fr"
+        errors: list[str] = []
+
+        ledger.check_assets([row], set(), errors)
+
+        self.assertIn("social_scope exige une publication_url", "\n".join(errors))
+
+    def test_surface_language_scope_rejects_invalid_duplicate_pairs(self) -> None:
+        row = self.original_ai_asset()
+        row["surface_language_scope"] = "web:fr;web:fr;facebook:de;twitter:it;invalid"
+        errors: list[str] = []
+
+        ledger.check_assets([row], set(), errors)
+
+        joined = "\n".join(errors)
+        self.assertIn("surface_language_scope contient un doublon", joined)
+        self.assertIn("surface inconnue dans surface_language_scope : facebook", joined)
+        self.assertIn("langue inconnue dans surface_language_scope : it", joined)
+        self.assertIn("portée langue-surface invalide", joined)
+
+    def test_surface_language_scope_can_limit_social_to_french(self) -> None:
+        row = self.original_ai_asset()
+        row["language_scope"] = "fr;en;de"
+        row["social_scope"] = "open-graph;twitter"
+        row["surface_language_scope"] = (
+            "web:fr;web:en;web:de;open-graph:fr;twitter:fr"
+        )
+        errors: list[str] = []
+
+        ledger.check_assets([row], set(), errors)
+
+        self.assertEqual([], errors)
+
+    def test_granted_multilingual_media_requires_private_proof(self) -> None:
+        row = self.granted_frame_asset()
+        row["language_scope"] = "fr;en;de"
+        row["surface_language_scope"] = "web:fr;web:en;web:de"
+        errors: list[str] = []
+
+        ledger.check_assets([row], {"EV-0001"}, errors)
+
+        self.assertTrue(
+            any("diffusion multilingue accordée exige une preuve privée" in item for item in errors)
+        )
+
+    def test_original_multilingual_media_does_not_require_third_party_proof(self) -> None:
+        row = self.original_ai_asset()
+        row["language_scope"] = "fr;en;de"
+        row["surface_language_scope"] = "web:fr;web:en;web:de"
+        errors: list[str] = []
+
+        ledger.check_assets([row], set(), errors)
+
         self.assertEqual([], errors)
 
     def test_valid_buyer_question(self) -> None:
@@ -499,6 +588,8 @@ class EditorialLedgerTests(unittest.TestCase):
                 "editorial_transform": "yes",
                 "rights_holder_label": "Example Studio",
                 "web_scope": "no",
+                "publication_url": "https://example.test/article",
+                "surface_language_scope": "web:fr",
                 "territory": "world",
                 "valid_from": (date.today() + timedelta(days=1)).isoformat(),
                 "valid_until": (date.today() + timedelta(days=365)).isoformat(),
@@ -541,6 +632,8 @@ class EditorialLedgerTests(unittest.TestCase):
                 "editorial_transform": "no",
                 "rights_holder_label": "Example Studio",
                 "web_scope": "https://example.test",
+                "publication_url": "https://example.test/article",
+                "surface_language_scope": "web:fr",
                 "territory": "world",
                 "valid_from": date.today().isoformat(),
                 "valid_until": (date.today() + timedelta(days=365)).isoformat(),

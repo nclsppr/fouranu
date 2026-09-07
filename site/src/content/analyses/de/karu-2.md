@@ -35,6 +35,20 @@ limitations:
 
 ## Ein guter Einstieg ins Backen mit Feuer
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-karu-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-karu-2-documentary-960.webp 960w, /images/articles/ooni-karu-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Frontalansicht des Ooni Karu 2 mit abgesenkter Tür und Schornstein"
+  />
+  <figcaption>Videostandbild des Ooni Karu 2 mit abgesenkter Tür — Quelle: Pala Pizza, Stelle 00:25.</figcaption>
+</figure>
+
 Der Karu 2 lohnt einen Blick, wenn Sie den Umgang mit Holz oder Holzkohle lernen
 möchten, ohne gleich zu einem riesigen Ofen zu greifen. Er nimmt eine etwa 30 cm
 große Pizza auf, wiegt 15,3 kg und kann mit einem separat erhältlichen

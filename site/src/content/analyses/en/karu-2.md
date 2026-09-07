@@ -35,6 +35,20 @@ limitations:
 
 ## A good first step towards cooking with fire
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-karu-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-karu-2-documentary-960.webp 960w, /images/articles/ooni-karu-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Front view of the Ooni Karu 2 with its door lowered and chimney fitted"
+  />
+  <figcaption>Video frame of the Ooni Karu 2 with its door lowered — Source: Pala Pizza, 00:25.</figcaption>
+</figure>
+
 The Karu 2 deserves consideration if you want to learn to manage wood or
 charcoal without moving to a huge oven. It accepts a pizza of around 30 cm,
 weighs 15.3 kg and can take a propane burner sold separately. You will still

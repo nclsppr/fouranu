@@ -35,6 +35,22 @@ limitations:
 
 ## Our view in brief
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-halo-core-ou-halo-pro-comparison-1600.webp"
+    srcset="/images/articles/ooni-halo-core-ou-halo-pro-comparison-960.webp 960w, /images/articles/ooni-halo-core-ou-halo-pro-comparison-1600.webp 1600w"
+    sizes="(max-width: 760px) calc(100vw - 2rem), 760px"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Ooni Halo Pro on the left and Halo Core on the right, lit side by side"
+  />
+  <figcaption>
+    The Halo Pro and Halo Core side by side. Official Ooni video frame, 00:02.
+  </figcaption>
+</figure>
+
 For two to ten 250 g pizzas, we would take the Halo Core. Its stated range from
 500 g to 2.5 kg covers dinner for two as well as a large table, without imposing
 the Halo Pro's one-kilogram minimum.

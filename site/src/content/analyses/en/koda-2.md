@@ -39,6 +39,20 @@ limitations:
 
 That preference concerns size, weight and fuel. The bakes and readings below remain those of the cited authors, in their weather and settings. To place the choice within the range, see [which Ooni oven to choose](/en/ooni/which-ooni-oven/).
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-koda-2-documentary-1600.webp"
+    srcset="/images/articles/ooni-koda-2-documentary-960.webp 960w, /images/articles/ooni-koda-2-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Gas burner and stone floor visible inside the Ooni Koda 2"
+  />
+  <figcaption>Video frame of the Ooni Koda 2 burner and stone floor — Source: Pala Pizza, 00:39.</figcaption>
+</figure>
+
 ## The table matters as much as the stated 35 cm
 
 The Koda 2 runs on propane and is intended for outdoor use. It accepts pizzas

@@ -42,6 +42,20 @@ The claimed capacity for a 40 cm pizza remains appealing. However, the two third
 
 Before buying the larger format, compare [Koda 2 Pro and Arc XL](/en/pizza-ovens/koda-2-pro-or-arc-xl/) on dated official prices, gas connection and chassis rectangle. Your terrace is part of the decision too.
 
+<figure class="article-media">
+  <img
+    src="/images/articles/gozney-arc-xl-in-situ-1600.webp"
+    srcset="/images/articles/gozney-arc-xl-in-situ-960.webp 960w, /images/articles/gozney-arc-xl-in-situ-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Gozney Arc XL pizza oven installed on its stand in a garden"
+  />
+  <figcaption>Front view of the Gozney Arc XL on its stand. Video frame from The Barbecue Lab, 03:00.</figcaption>
+</figure>
+
 ## Before diameter, look at the available space
 
 The chassis is 53 cm wide and 62.9 cm deep. Inside, Gozney states dimensions of

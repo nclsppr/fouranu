@@ -59,6 +59,24 @@ into the routine between two pizzas.
 
 ## Four devices, four ways to retain a reference point
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-thermometre-infrarouge-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-thermometre-infrarouge-comparatif-960.webp 960w, /images/articles/accessoires-thermometre-infrarouge-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Four generic infrared thermometers lined up, including one with settings and one accompanied by a probe"
+  />
+  <figcaption>
+    <strong>The functions are visible before the figures.</strong>
+    Original Four à Nu editorial illustration; the shapes represent the types
+    compared, not the commercial models.
+  </figcaption>
+</figure>
+
 The values below are those published by the manufacturers. They compare
 functions; without a shared measurement, they do not establish that one device
 is more accurate than another.

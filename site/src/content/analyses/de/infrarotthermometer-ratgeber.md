@@ -60,6 +60,24 @@ Einbindung in den Ablauf zwischen zwei Pizzen betrachten.
 
 ## Vier Geräte, vier Wege zu einem wiederholbaren Wert
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-thermometre-infrarouge-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-thermometre-infrarouge-comparatif-960.webp 960w, /images/articles/accessoires-thermometre-infrarouge-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Vier generische Infrarotthermometer nebeneinander, darunter eines mit Einstellungen und eines mit separater Sonde"
+  />
+  <figcaption>
+    <strong>Die Funktionen sind vor den Zahlen sichtbar.</strong>
+    Originale redaktionelle Illustration von Four à Nu; die Formen stehen für
+    die verglichenen Typen, nicht für die Handelsmodelle.
+  </figcaption>
+</figure>
+
 Die folgenden Werte stammen von den Herstellern. Sie vergleichen Funktionen;
 ohne gemeinsame Messung erklären sie kein Gerät für genauer als ein anderes.
 

@@ -58,6 +58,24 @@ dough balls and working method justify them.
 
 ## Four sizes that do not ask for the same fridge
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-bacs-patons-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-bacs-patons-comparatif-960.webp 960w, /images/articles/accessoires-bacs-patons-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Four generic dough-box formats arranged from the most compact to the widest"
+  />
+  <figcaption>
+    <strong>The right format starts with the space available.</strong>
+    Original Four à Nu editorial illustration; the shapes represent the types
+    compared, not the commercial models.
+  </figcaption>
+</figure>
+
 The dimensions are those stated by the manufacturers. The number of dough
 balls is never an absolute gauge: different recipes, weights and proofing times
 do not occupy the same space.

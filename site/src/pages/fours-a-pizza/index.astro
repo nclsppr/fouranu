@@ -4,13 +4,31 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import DecisionFinder from "@/components/DecisionFinder.astro";
 import { SITE } from "@/config/site";
-import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
+import { isPublishedAnalysis } from "@/data/article-taxonomy";
+import {
+  articleRoute,
+  staticAlternates,
+  staticRoute,
+  type ArticleId,
+  type Locale,
+} from "@/i18n/config";
+import { localizedSite } from "@/i18n/common";
+import { HUB_COPY } from "@/i18n/hubs";
+import { assertResponsiveMediaAllowedAtPath } from "@/lib/media-rights.mjs";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "fr" } = Astro.props;
+const copy = HUB_COPY.ovens[locale];
+const localized = localizedSite(locale);
 
 const modelDossiers = (await getCollection("analyses"))
   .filter(isPublishedAnalysis)
   .filter(
     (entry) =>
-      entry.data.locale === "fr" &&
+      entry.data.locale === locale &&
       entry.data.brand === "fours" &&
       entry.data.category === "oven",
   )
@@ -18,11 +36,16 @@ const modelDossiers = (await getCollection("analyses"))
 
 if (modelDossiers.length === 0) {
   throw new Error(
-    "Le guide Fours à pizza exige des dossiers publiés.",
+    `Le guide Fours à pizza ${locale} exige des dossiers publiés.`,
   );
 }
+for (const entry of modelDossiers) {
+  if (entry.data.image) {
+    assertResponsiveMediaAllowedAtPath(entry.data.image.src, locale, "hub-list", staticRoute("ovens", locale));
+  }
+}
 
-const canonical = new URL("/fours-a-pizza/", SITE.url).toString();
+const canonical = new URL(staticRoute("ovens", locale), SITE.url).toString();
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -30,10 +53,9 @@ const schema = {
       "@type": "CollectionPage",
       "@id": `${canonical}#collection`,
       url: canonical,
-      name: "Choisir un four à pizza selon son usage",
-      description:
-        "Guide de choix et dossiers multimarques sur les fours à pizza intérieurs et extérieurs.",
-      inLanguage: SITE.language,
+      name: copy.schemaName,
+      description: copy.schemaDescription,
+      inLanguage: localized.language,
       isPartOf: { "@id": `${SITE.url}/#website` },
       mainEntity: { "@id": `${canonical}#dossiers` },
     },
@@ -44,7 +66,7 @@ const schema = {
       itemListElement: modelDossiers.map((entry, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: new URL(articlePath(entry.data.brand, entry.id), SITE.url).toString(),
+        url: new URL(articleRoute(entry.data.articleId as ArticleId, locale), SITE.url).toString(),
         name: entry.data.title,
       })),
     },
@@ -53,102 +75,60 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Choisir un four à pizza selon son usage | Four à Nu"
-  description="Commencez par le lieu, l'énergie, le rythme des fournées et le budget total avant de comparer les marques de fours à pizza."
+  title={copy.title}
+  description={copy.description}
+  canonical={canonical}
+  alternatePaths={staticAlternates("ovens")}
   indexable={true}
   schema={schema}
 >
   <div class="page-shell">
-    <Breadcrumbs items={[{ label: "Accueil", href: "/" }, { label: "Fours à pizza" }]} />
+    <Breadcrumbs
+      locale={locale}
+      items={[
+        { label: copy.home, href: staticRoute("home", locale) },
+        { label: copy.breadcrumb },
+      ]}
+    />
 
     <header class="page-intro">
       <div class="page-intro__copy">
-        <p class="eyebrow">Guide de choix</p>
-        <h1>Comment choisir un four à pizza selon son usage&nbsp;?</h1>
-        <p class="page-intro__lede">
-          Quatre contraintes éliminent plus de mauvais choix qu'un classement
-          général. Elles permettent de réduire la gamme avant de comparer les
-          caractéristiques et les observations publiées.
-        </p>
+        <p class="eyebrow">{copy.introEyebrow}</p>
+        <h1>{copy.heading}</h1>
+        <p class="page-intro__lede">{copy.lead}</p>
       </div>
-      <p class="page-intro__aside">
-        Ce guide ne remplace pas les consignes du fabricant, du logement ou du
-        raccordement. La sécurité locale passe avant toute préférence d'énergie.
-      </p>
+      <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
-    <DecisionFinder locale="fr" />
+    <DecisionFinder locale={locale} />
 
     <div class="constraint-list">
-      <section id="lieu">
-        <span>01 · Lieu</span>
-        <div>
-          <h2>Où le four peut-il fonctionner&nbsp;?</h2>
-          <p>
-            L'intérieur, le balcon, la terrasse et le jardin n'ouvrent pas les
-            mêmes options. Les règles du logement et les consignes du fabricant
-            passent avant le goût pour un combustible.
-          </p>
-        </div>
-        <p class="constraint-list__check">À relever : intérieur ou extérieur, ventilation, prise, gaz autorisé, stockage.</p>
-      </section>
-
-      <section id="energie">
-        <span>02 · Énergie</span>
-        <div>
-          <h2>Combien d'attention voulez-vous donner au feu&nbsp;?</h2>
-          <p>
-            Le gaz simplifie le réglage. L'électrique répond à certains usages
-            intérieurs. Le multi-combustible ajoute des choix, mais aussi des
-            gestes et de l'entretien. Ce sont des différences d'usage, pas un
-            classement de goût.
-          </p>
-        </div>
-        <a href="/ooni/gaz-electrique-ou-multicombustible/">Voir l'analyse Ooni <span aria-hidden="true">↗</span></a>
-      </section>
-
-      <section id="debit">
-        <span>03 · Rythme</span>
-        <div>
-          <h2>Une grande ouverture ne raconte pas toute la cadence.</h2>
-          <p>
-            Le diamètre de la pizza, la marge pour la tourner et la récupération
-            de la sole entre deux cuissons doivent être séparés. Les sources
-            disponibles ne permettent pas encore de comparer la cadence dans
-            les mêmes conditions.
-          </p>
-        </div>
-        <p class="constraint-list__check">À relever : diamètre habituel, nombre de convives, séries fréquentes ou occasionnelles.</p>
-      </section>
-
-      <section id="cout">
-        <span>04 · Coût</span>
-        <div>
-          <h2>Le prix du four n'est pas le prix de l'installation.</h2>
-          <p>
-            Une pelle, une table stable, une housse, un détendeur ou un brûleur
-            additionnel peuvent changer l'écart entre deux modèles. Les prix et
-            promotions seront datés au lieu d'être figés dans une fausse bonne affaire.
-          </p>
-        </div>
-        <p class="constraint-list__check">À relever : équipement déjà possédé, rangement, combustible et pièces nécessaires.</p>
-      </section>
+      {copy.constraints.map((constraint) => (
+        <section id={constraint.id}>
+          <span>{constraint.label}</span>
+          <div>
+            <h2>{constraint.heading}</h2>
+            <p>{constraint.body}</p>
+          </div>
+          {"link" in constraint ? (
+            <a href={articleRoute("OONI-004", locale)}>{constraint.link} <span aria-hidden="true">↗</span></a>
+          ) : (
+            <p class="constraint-list__check">{constraint.check}</p>
+          )}
+        </section>
+      ))}
     </div>
 
     <section class="model-dossiers" aria-labelledby="model-dossiers-title">
       <header class="model-dossiers__head">
-        <p class="eyebrow">Dossiers multimarques · intérieur et extérieur</p>
-        <h2 id="model-dossiers-title">Ouvrez le dossier qui correspond à votre contrainte.</h2>
-        <p>
-          Chaque page sépare les annonces du fabricant, les mesures tierces et
-          notre conclusion. Aucun classement général&nbsp;: le lieu, l'énergie et
-          les gestes à accepter restent le point de départ.
-        </p>
+        <p class="eyebrow">{copy.dossiersEyebrow}</p>
+        <h2 id="model-dossiers-title">{copy.dossiersHeading}</h2>
+        <p>{copy.dossiersBody}</p>
       </header>
 
       <div class="model-dossiers__list">
         {modelDossiers.map((entry) => (
-          <a class:list={["model-dossier", !entry.data.image && "model-dossier--text"]} href={articlePath(entry.data.brand, entry.id)}>
+          <a class:list={["model-dossier", !entry.data.image && "model-dossier--text"]} href={articleRoute(entry.data.articleId as ArticleId, locale)}>
             {entry.data.image && <span class="model-dossier__image">
               <img
                 src={entry.data.image.src}
@@ -165,8 +145,8 @@ const schema = {
               <strong>{entry.data.title}</strong>
               <span>{entry.data.summary}</span>
               <span class="model-dossier__meta">
-                Par {SITE.authors[entry.data.author].name}
-                <b>Lire le dossier <span aria-hidden="true">↗</span></b>
+                {copy.by} {localized.authors[entry.data.author].name}
+                <b>{copy.read} <span aria-hidden="true">↗</span></b>
               </span>
             </span>
           </a>
@@ -175,12 +155,12 @@ const schema = {
     </section>
 
     <aside class="next-step">
-      <p class="eyebrow">Marques documentées</p>
-      <h2>Continuez avec les gammes complètes.</h2>
-      <p>Ces dossiers multimarques complètent les neuf fours Ooni et les sept fours Gozney déjà couverts. Les comparatifs restent regroupés lorsqu’une page commune répond mieux à la décision, comme pour l’Arc Lite et le Tread.</p>
+      <p class="eyebrow">{copy.nextEyebrow}</p>
+      <h2>{copy.nextHeading}</h2>
+      <p>{copy.nextBody}</p>
       <div class="next-step__links">
-        <a class="button-link" href="/ooni/">Explorer Ooni</a>
-        <a class="button-link button-link--quiet" href="/gozney/">Découvrir Gozney</a>
+        <a class="button-link" href={staticRoute("ooni", locale)}>{copy.ooniLink}</a>
+        <a class="button-link button-link--quiet" href={staticRoute("gozney", locale)}>{copy.gozneyLink}</a>
       </div>
     </aside>
   </div>

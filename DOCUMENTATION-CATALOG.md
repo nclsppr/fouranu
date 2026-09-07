@@ -9,7 +9,7 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 9 |
+| Décisions | `internal` | 10 |
 | Barrières de publication | `internal` | 2 |
 | Notes de recherche | `internal` | 1 |
 | Brouillons éditoriaux du site | `internal` | 93 |
@@ -47,6 +47,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0008-en-tete-original-guides-multi-produits.md](docs/decisions/0008-en-tete-original-guides-multi-produits.md)
 - [docs/decisions/0009-site-trilingue-fr-en-de.md](docs/decisions/0009-site-trilingue-fr-en-de.md)
 - [docs/decisions/0010-aide-achat-documentaire-permanente.md](docs/decisions/0010-aide-achat-documentaire-permanente.md)
+- [docs/decisions/0011-parite-structurelle-fr-en-de.md](docs/decisions/0011-parite-structurelle-fr-en-de.md)
 
 ## Barrières de publication
 

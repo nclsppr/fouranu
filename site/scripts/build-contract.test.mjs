@@ -184,6 +184,73 @@ function pairedElements(html, name) {
   return [...html.matchAll(new RegExp(`<${name}\\b([^>]*)>([\\s\\S]*?)<\\/${name}>`, "gi"))];
 }
 
+function mainContent(html) {
+  const main = pairedElements(html, "main");
+  assert.equal(main.length, 1, "un contenu principal unique est attendu");
+  return main[0][2]
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, "");
+}
+
+function mainStructuralSignature(html) {
+  return [...mainContent(html).matchAll(/<(\/)?([a-z][a-z0-9-]*)\b([^>]*)>/gi)].map((match) => {
+    const [, closing, tagName, attributes] = match;
+    const name = tagName.toLowerCase();
+    if (closing) return `/${name}`;
+    const opening = `<${name}${attributes}>`;
+    const classes = (attribute(opening, "class") ?? "").split(/\s+/).filter(Boolean).sort();
+    const controls = ["type", "name", "role", "colspan", "rowspan", "data-decision-model", ...(name === "option" ? ["value"] : [])]
+      .map((key) => [key, attribute(opening, key)])
+      .filter(([, value]) => value !== undefined);
+    const attributeNames = [...attributes.matchAll(/([^\s=]+)(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s]+))?/g)]
+      .map((candidate) => candidate[1].toLowerCase());
+    const states = ["hidden", "required", "disabled", "checked", "selected", "open"]
+      .filter((key) => attributeNames.includes(key));
+    return { tag: name, classes, controls, states };
+  });
+}
+
+function mainImageSignature(html) {
+  return tags(mainContent(html), "img").map((image) =>
+    Object.fromEntries(["src", "srcset", "sizes", "width", "height", "loading", "fetchpriority"]
+      .map((key) => [key, attribute(image, key)?.replace(/\s+/g, " ").trim() ?? null])),
+  );
+}
+
+const routeIdentities = new Map([
+  ...Object.entries(STATIC_ROUTES).flatMap(([id, routes]) =>
+    Object.values(routes).map((route) => [route, `page:${id}`])),
+  ...Object.entries(ARTICLE_ROUTES).flatMap(([id]) =>
+    LOCALES.map((locale) => [articleRoute(id, locale), `article:${id}`])),
+  ...LOCALES.map((locale) => [locale === "fr" ? "/rss.xml" : `/${locale}/rss.xml`, "feed:rss"]),
+]);
+
+function mainInternalLinkSignature(html, route) {
+  return tags(mainContent(html), "a").flatMap((anchor) => {
+    const href = attribute(anchor, "href");
+    if (!href) return [];
+    const url = new URL(decodeHtml(href), new URL(route, canonicalOrigin));
+    if (url.origin !== canonicalOrigin) return [];
+    return [`${routeIdentities.get(url.pathname) ?? url.pathname}${url.search}${url.hash}`];
+  });
+}
+
+async function publishedAssetsByPath() {
+  const rows = parseCsv(await readFile(join(repositoryRoot, "research/assets.csv"), "utf8"));
+  const headers = rows.shift();
+  return new Map(rows.flatMap((values) => {
+    const asset = Object.fromEntries(headers.map((header, index) => [header, values[index]]));
+    return asset.publication_url ? [[new URL(asset.publication_url).pathname, asset]] : [];
+  }));
+}
+
+function allowsMediaSurface(asset, locale, surface) {
+  if (!asset?.surface_language_scope.split(";").includes(`${surface}:${locale}`)) return false;
+  return ["open-graph", "twitter"].includes(surface)
+    ? asset.social_scope.split(";").includes(surface)
+    : Boolean(asset.web_scope);
+}
+
 function metaContent(html, key) {
   const tag = tags(html, "meta").find(
     (candidate) => attribute(candidate, "name") === key || attribute(candidate, "property") === key,
@@ -326,6 +393,7 @@ function parseCsv(input) {
 
 test("chaque page expose des métadonnées uniques, cohérentes et sémantiques", async () => {
   const pages = await htmlPages();
+  const assets = await publishedAssetsByPath();
   assert.equal(pages.length, fixedIndexableRoutes.length + articleCount + 1);
   const titles = new Set();
   const descriptions = new Set();
@@ -450,17 +518,15 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     assert.equal(metaContent(page.html, "og:site_name"), "Four à Nu", label);
     assert.equal(metaContent(page.html, "og:locale"), "fr_FR", label);
     const socialImage = metaContent(page.html, "og:image");
-    if (articleRoutePattern.test(page.route ?? "") && !textDecisionRoutes.has(page.route)) {
-      assert.match(
-        socialImage ?? "",
-        /^https:\/\/fouranu\.com\/images\/articles\/[a-z0-9-]+-1600\.webp$/,
-        label,
-      );
-      assert.equal(metaContent(page.html, "og:image:type"), "image/webp", label);
-      assert.equal(metaContent(page.html, "og:image:width"), "1600", label);
-      assert.equal(metaContent(page.html, "og:image:height"), "900", label);
-    } else if (rangeSocialImages.has(page.route)) {
-      assert.equal(socialImage, rangeSocialImages.get(page.route), label);
+    const leadFigure = pairedElements(page.html, "figure")
+      .find((figure) => hasClass(`<figure${figure[1]}>`, "article-lead-media"));
+    const leadSource = leadFigure ? attribute(tags(leadFigure[2], "img")[0], "src") : undefined;
+    const candidateImage = leadSource ? new URL(leadSource, canonicalOrigin).toString() : rangeSocialImages.get(page.route);
+    const candidateAsset = candidateImage ? assets.get(new URL(candidateImage).pathname) : undefined;
+    const expectedSocialImage = allowsMediaSurface(candidateAsset, "fr", "open-graph")
+      && allowsMediaSurface(candidateAsset, "fr", "twitter") ? candidateImage : defaultSocialImage;
+    assert.equal(socialImage, expectedSocialImage, `${label}: aperçu incompatible avec les droits sociaux`);
+    if (expectedSocialImage !== defaultSocialImage) {
       assert.equal(metaContent(page.html, "og:image:type"), "image/webp", label);
       assert.equal(metaContent(page.html, "og:image:width"), "1600", label);
       assert.equal(metaContent(page.html, "og:image:height"), "900", label);
@@ -488,6 +554,37 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     );
     assert.ok(Buffer.byteLength(page.html) < 80_000, `${label}: HTML supérieur à 80 Ko`);
 
+  }
+});
+
+test("les pages fixes conservent les mêmes blocs, images et destinations dans les trois langues", async () => {
+  const pageByRoute = new Map((await allHtmlPages()).map((page) => [page.route, page]));
+  for (const [routeId, routes] of Object.entries(STATIC_ROUTES)) {
+    if (routeId === "notFound") continue;
+    const french = pageByRoute.get(routes.fr);
+    assert.ok(french, `${routes.fr}: référence française absente`);
+    const structure = mainStructuralSignature(french.html);
+    const images = mainImageSignature(french.html);
+    const links = mainInternalLinkSignature(french.html, routes.fr);
+    if (routeId === "home") {
+      assert.equal(images.length, 18, "l'accueil de référence doit conserver ses 18 images éditoriales");
+    }
+    for (const locale of ["en", "de"]) {
+      const page = pageByRoute.get(routes[locale]);
+      assert.ok(page, `${routes[locale]}: contrepartie absente`);
+      assert.deepEqual(
+        mainImageSignature(page.html), images,
+        `${routes[locale]}: nombre, ordre, URLs ou variantes des images différents du français`,
+      );
+      assert.deepEqual(
+        mainStructuralSignature(page.html), structure,
+        `${routes[locale]}: blocs, composants, tableaux ou contrôles différents du français`,
+      );
+      assert.deepEqual(
+        mainInternalLinkSignature(page.html, routes[locale]), links,
+        `${routes[locale]}: ordre ou identité des dossiers, pages et actions différents du français`,
+      );
+    }
   }
 });
 
@@ -637,10 +734,11 @@ test("les trois langues gardent une parité de routes, de métadonnées et de na
       const route = articleRoute(articleId, locale);
       const page = pageByRoute.get(route);
       assert.ok(page, route);
-      assert.doesNotMatch(page.html, /class="article-lead-media"/, `${route}: média éditorial non autorisé`);
-      assert.equal(metaContent(page.html, "og:image"), defaultSocialImage, route);
-      assert.match(page.html, /class="cited-source__registry-note"/, `${route}: note sur la preuve canonique absente`);
-      assert.match(page.html, /class="cited-source__observation" lang="fr"/, `${route}: observation canonique française masquée`);
+      const french = pageByRoute.get(articleRoute(articleId, "fr"));
+      assert.deepEqual(mainImageSignature(page.html), mainImageSignature(french.html), `${route}: médias d'article différents du français`);
+      const leadFigures = pairedElements(page.html, "figure")
+        .filter((figure) => hasClass(`<figure${figure[1]}>`, "article-lead-media"));
+      assert.equal(leadFigures.length, textDecisionRoutes.has(french.route) ? 0 : 1, `${route}: en-tête visuel incohérent`);
     }
     assert.equal(await routeExists(`/${locale}/404.html`), true, `/${locale}/404.html: repli Cloudflare absent`);
     const notFound = pageByRoute.get(`/${locale}/404/`);
@@ -725,7 +823,12 @@ test("les traductions conservent les identifiants, preuves et frontières édito
       assert.equal(listBlock(yaml, "evidenceTypes"), listBlock(french.yaml, "evidenceTypes"), `${locale}/${file}: classes de preuve modifiées`);
 
       const body = markdown.replace(/^---\r?\n[\s\S]*?\r?\n---/, "");
-      assert.doesNotMatch(body, /<(?:figure|figcaption|img)\b/i, `${locale}/${file}: média tiers republié`);
+      const frenchBody = french.markdown.replace(/^---\r?\n[\s\S]*?\r?\n---/, "");
+      assert.deepEqual(
+        mainImageSignature(`<main>${body}</main>`),
+        mainImageSignature(`<main>${frenchBody}</main>`),
+        `${locale}/${file}: médias documentaires différents du français`,
+      );
       for (const match of body.matchAll(/\]\((\/[^)\s#]+)(?:#[^)]+)?\)/g)) {
         assert.ok(
           match[1] === `/${locale}/` || match[1].startsWith(`/${locale}/`),
@@ -734,6 +837,170 @@ test("les traductions conservent les identifiants, preuves et frontières édito
       }
     }
     assert.deepEqual(seenArticleIds, new Set(frenchByArticleId.keys()), `${locale}: parité articleId incomplète`);
+  }
+});
+
+test("les vues de preuve anglaise et allemande couvrent exactement le registre canonique", async () => {
+  const evidenceRows = parseCsv(
+    await readFile(join(siteRoot, "src/data/evidence.csv"), "utf8"),
+  );
+  const evidenceHeaders = evidenceRows.shift();
+  const evidenceIdIndex = evidenceHeaders.indexOf("evidence_id");
+  const observationIndex = evidenceHeaders.indexOf("observation");
+  const conditionsIndex = evidenceHeaders.indexOf("conditions");
+  const sourceUrlIndex = evidenceHeaders.indexOf("source_url");
+  const canonicalIds = evidenceRows.map((row) => row[evidenceIdIndex]);
+  assert.equal(canonicalIds.length, 278, "278 preuves canoniques attendues");
+  const canonicalById = new Map(evidenceRows.map((row) => [row[evidenceIdIndex], {
+    observation: row[observationIndex],
+    conditions: row[conditionsIndex],
+    sourceUrl: row[sourceUrlIndex],
+  }]));
+  const pages = await allHtmlPages();
+
+  for (const locale of ["en", "de"]) {
+    const translationRows = parseCsv(
+      await readFile(join(siteRoot, `src/data/evidence-translations.${locale}.csv`), "utf8"),
+    );
+    assert.deepEqual(
+      translationRows.shift(),
+      ["evidence_id", "observation", "conditions"],
+      `${locale}: schéma de traduction inattendu`,
+    );
+    const translatedIds = translationRows.map((row) => row[0]);
+    assert.deepEqual(translatedIds, canonicalIds, `${locale}: ordre ou couverture des preuves différent`);
+    assert.equal(new Set(translatedIds).size, canonicalIds.length, `${locale}: traduction dupliquée`);
+    const translations = new Map(translationRows.map((row) => [row[0], {
+      observation: row[1],
+      conditions: row[2],
+    }]));
+
+    for (const evidenceId of canonicalIds) {
+      const canonical = canonicalById.get(evidenceId);
+      const translation = translations.get(evidenceId);
+      assert.ok(translation?.observation, `${locale}: observation absente pour ${evidenceId}`);
+      assert.equal(
+        Boolean(translation.conditions),
+        Boolean(canonical.conditions),
+        `${locale}: présence des conditions modifiée pour ${evidenceId}`,
+      );
+    }
+
+    for (const articleId of Object.keys(ARTICLE_ROUTES)) {
+      const route = articleRoute(articleId, locale);
+      const page = pages.find((candidate) => candidate.route === route);
+      assert.ok(page, `${route}: page absente`);
+      assert.doesNotMatch(page.html, /cited-source__registry-note|cited-source__observation" lang="fr"/);
+      const text = visibleText(page.html);
+      const renderedIds = [...page.html.matchAll(/data-evidence-id="(EV-\d{4})"/g)]
+        .map((match) => match[1]);
+      for (const evidenceId of renderedIds) {
+        const canonical = canonicalById.get(evidenceId);
+        const translation = translations.get(evidenceId);
+        const host = canonical.sourceUrl ? new URL(canonical.sourceUrl).hostname : "";
+        if (/amazon\.|amzn\./i.test(host)) continue;
+        assert.ok(
+          text.includes(translation.observation.replace(/\s+/g, " ").trim()),
+          `${route}: observation ${locale} non rendue pour ${evidenceId}`,
+        );
+        if (translation.conditions) {
+          assert.ok(
+            text.includes(translation.conditions.replace(/\s+/g, " ").trim()),
+            `${route}: conditions ${locale} non rendues pour ${evidenceId}`,
+          );
+        }
+      }
+    }
+  }
+});
+
+test("chaque média éditorial rendu est autorisé pour sa langue et sa surface exacte", async () => {
+  const assetRows = parseCsv(await readFile(join(repositoryRoot, "research/assets.csv"), "utf8"));
+  const headers = assetRows.shift();
+  const assetsByPath = new Map(assetRows.flatMap((values) => {
+    const asset = Object.fromEntries(headers.map((header, index) => [header, values[index]]));
+    return asset.publication_url
+      ? [[new URL(asset.publication_url).pathname, asset]]
+      : [];
+  }));
+
+  for (const page of await allHtmlPages()) {
+    const locale = page.route?.startsWith("/en/")
+      ? "en"
+      : page.route?.startsWith("/de/")
+        ? "de"
+        : "fr";
+    const socialUrl = metaContent(page.html, "og:image");
+    assert.equal(metaContent(page.html, "twitter:image"), socialUrl, `${page.route}: cartes sociales divergentes`);
+    if (socialUrl !== defaultSocialImage) {
+      const asset = assetsByPath.get(new URL(socialUrl).pathname);
+      assert.ok(asset, `${page.route}: aperçu éditorial non enregistré ${socialUrl}`);
+      for (const surface of ["open-graph", "twitter"]) {
+        assert.ok(allowsMediaSurface(asset, locale, surface), `${page.route}: ${socialUrl} non autorisé sur ${surface}:${locale}`);
+      }
+    }
+    const expectedSurfacesByPath = new Map();
+    const registerImage = (image, surface) => {
+      const paths = [];
+      const source = attribute(image, "src");
+      if (source) paths.push(new URL(source, canonicalOrigin).pathname);
+      for (const candidate of (attribute(image, "srcset") ?? "").split(",")) {
+        const candidateSource = candidate.trim().split(/\s+/)[0];
+        if (candidateSource) paths.push(new URL(candidateSource, canonicalOrigin).pathname);
+      }
+      for (const pathname of paths) {
+        if (!/^\/images\/(?:articles|authors)\//.test(pathname)) continue;
+        if (!expectedSurfacesByPath.has(pathname)) expectedSurfacesByPath.set(pathname, new Set());
+        expectedSurfacesByPath.get(pathname).add(surface);
+      }
+    };
+
+    for (const figure of pairedElements(page.html, "figure")) {
+      const opening = `<figure${figure[1]}>`;
+      if (hasClass(opening, "article-lead-media")) {
+        for (const image of tags(figure[2], "img")) registerImage(image, "article-hero");
+      }
+      if (hasClass(opening, "article-media")) {
+        for (const image of tags(figure[2], "img")) registerImage(image, "article-body");
+      }
+    }
+    for (const image of tags(page.html, "img")) {
+      if (hasClass(image, "author-portrait--profile")) registerImage(image, "author-profile");
+      if (hasClass(image, "author-portrait--bubble")) registerImage(image, "article-author");
+      if (hasClass(image, "author-portrait--hub")) registerImage(image, "hub-list");
+    }
+    for (const image of tags(page.html, "img")) {
+      const pathname = attribute(image, "src")
+        ? new URL(attribute(image, "src"), canonicalOrigin).pathname
+        : undefined;
+      if (
+        pathname &&
+        /^\/images\/articles\//.test(pathname) &&
+        !expectedSurfacesByPath.has(pathname)
+      ) {
+        registerImage(image, "hub-list");
+      }
+    }
+    for (const node of schemaNodes(jsonLdDocuments(page.html))) {
+      const schemaImage = node["@type"] === "Article" ? node.image : node.primaryImageOfPage;
+      const schemaImageUrl = typeof schemaImage === "string" ? schemaImage : schemaImage?.contentUrl ?? schemaImage?.url;
+      if (!schemaImageUrl || schemaImageUrl === defaultSocialImage) continue;
+      const pathname = new URL(schemaImageUrl, canonicalOrigin).pathname;
+      if (!expectedSurfacesByPath.has(pathname)) expectedSurfacesByPath.set(pathname, new Set());
+      expectedSurfacesByPath.get(pathname).add("schema-image");
+    }
+
+    for (const [pathname, expectedSurfaces] of expectedSurfacesByPath) {
+      const asset = assetsByPath.get(pathname);
+      assert.ok(asset, `${page.route ?? "/404.html"}: média non enregistré ${pathname}`);
+      const allowed = asset.surface_language_scope.split(";").filter(Boolean);
+      for (const surface of expectedSurfaces) {
+        assert.ok(
+          allowed.includes(`${surface}:${locale}`),
+          `${page.route ?? "/404.html"}: ${pathname} n'est pas autorisé en ${locale} sur ${surface}`,
+        );
+      }
+    }
   }
 });
 
@@ -1084,7 +1351,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       if (fixedIndexableRoutes.includes(page.route)) {
         assert.equal(
           webPage.dateModified,
-          `${["/", "/a-propos/", "/fours-a-pizza/"].includes(page.route) ? "2026-09-07" : "2026-08-31"}T00:00:00.000Z`,
+          "2026-09-08T00:00:00.000Z",
           `${page.route}: dateModified de surface incohérente`,
         );
       }
@@ -1146,8 +1413,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
         article.image,
         {
           "@type": "ImageObject",
-          url: metaContent(page.html, "og:image"),
-          contentUrl: metaContent(page.html, "og:image"),
+          url: new URL(attribute(tags(leadFigure[2], "img")[0], "src"), canonicalOrigin).toString(),
+          contentUrl: new URL(attribute(tags(leadFigure[2], "img")[0], "src"), canonicalOrigin).toString(),
           width: 1600,
           height: 900,
           caption: imageCaption,
@@ -1267,10 +1534,14 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
   );
   assert.equal(records.size, 278);
 
-  const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
+  const canonicalAssetBytes = await readFile(join(repositoryRoot, "research/assets.csv"));
+  const componentAssetBytes = await readFile(join(siteRoot, "src/data/assets.csv"));
+  assert.deepEqual(componentAssetBytes, canonicalAssetBytes, "la copie de build du registre média a dérivé de research/assets.csv");
+  const assetCsv = canonicalAssetBytes.toString("utf8");
   const assetRows = parseCsv(assetCsv);
   const assetHeaders = assetRows.shift();
-  assert.equal(assetHeaders.length, 29);
+  assert.equal(assetHeaders.length, 31);
+  assert.deepEqual(assetHeaders.slice(-2), ["language_scope", "surface_language_scope"]);
   const assets = new Map(
     assetRows.map((values) => [
       values[0],
@@ -2287,7 +2558,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       }),
     );
     for (const route of fixedIndexableRoutes) {
-      const updated = ["/", "/a-propos/", "/fours-a-pizza/"].includes(route) ? "2026-09-07" : "2026-08-31";
+      const updated = "2026-09-08";
       assert.match(
         sitemapEntriesByRoute.get(route) ?? "",
         new RegExp(`<lastmod>${updated}<\\/lastmod>`),
@@ -2336,14 +2607,30 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
 
     const sitemapImages = [...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
       .map((match) => match[1]);
-    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 30);
-    assert.equal(sitemapImages.length, 30);
-    const expectedArticleImages = pages
-      .filter((page) => articleRoutes.includes(page.route) && !textDecisionRoutes.has(page.route))
-      .map((page) => metaContent(page.html, "og:image"))
-      .concat([...rangeSocialImages.values()])
-      .sort();
-    assert.deepEqual(sitemapImages.sort(), expectedArticleImages);
+    const assets = await publishedAssetsByPath();
+    const expectedImagesByRoute = new Map();
+    for (const locale of LOCALES) {
+      for (const articleId of Object.keys(ARTICLE_ROUTES)) {
+        const route = articleRoute(articleId, locale);
+        const page = pages.find((candidate) => candidate.route === route);
+        const figure = pairedElements(page.html, "figure")
+          .find((candidate) => hasClass(`<figure${candidate[1]}>`, "article-lead-media"));
+        if (!figure) continue;
+        const pathname = attribute(tags(figure[2], "img")[0], "src");
+        if (allowsMediaSurface(assets.get(pathname), locale, "image-sitemap")) {
+          expectedImagesByRoute.set(route, new URL(pathname, canonicalOrigin).toString());
+        }
+      }
+      for (const [frenchRoute, image] of rangeSocialImages) {
+        const routes = Object.values(STATIC_ROUTES).find((candidate) => candidate.fr === frenchRoute);
+        if (allowsMediaSurface(assets.get(new URL(image).pathname), locale, "image-sitemap")) {
+          expectedImagesByRoute.set(routes[locale], image);
+        }
+      }
+    }
+    assert.equal(expectedImagesByRoute.size, 90, "28 articles illustrés et deux gammes par langue attendus dans le sitemap");
+    assert.equal((sitemap.match(/<image:image>/g) ?? []).length, expectedImagesByRoute.size);
+    assert.deepEqual(sitemapImages.sort(), [...expectedImagesByRoute.values()].sort());
 
     for (const entry of urlEntries) {
       const location = entry.match(/<loc>([^<]+)<\/loc>/)?.[1];
@@ -2351,8 +2638,8 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       const imageLocations = [...entry.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
         .map((match) => match[1]);
       const route = new URL(location).pathname;
-      if ((articleRoutePattern.test(route) && !textDecisionRoutes.has(route)) || rangeSocialImages.has(route)) {
-        assert.equal(imageLocations.length, 1, `${location}: une image sitemap attendue`);
+      if (expectedImagesByRoute.has(route)) {
+        assert.deepEqual(imageLocations, [expectedImagesByRoute.get(route)], `${location}: image sitemap incohérente`);
         assert.equal(await routeExists(imageLocations[0], temporaryOutput), true, `${location}: image absente`);
       } else {
         assert.deepEqual(imageLocations, [], `${location}: image sitemap inattendue`);

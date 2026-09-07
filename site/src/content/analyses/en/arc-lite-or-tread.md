@@ -36,6 +36,22 @@ limitations:
 
 ## Our view in brief
 
+<figure class="article-media">
+  <img
+    src="/images/articles/gozney-arc-lite-tread-1600.webp"
+    srcset="/images/articles/gozney-arc-lite-tread-960.webp 960w, /images/articles/gozney-arc-lite-tread-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Black Gozney Tread pizza oven with its upper handle visible"
+  />
+  <figcaption>
+    Editorial illustration based on an official Gozney photograph.
+  </figcaption>
+</figure>
+
 Keep the €100 and take the Arc Lite if the oven will mainly stay on a garden
 table. It is lighter, its opening is slightly wider, and an eight-pizza session
 shows it keeping pace with a relaxed evening without any particular wait.

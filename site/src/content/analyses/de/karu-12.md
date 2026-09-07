@@ -33,6 +33,20 @@ limitations:
 
 ## Wegen des Feuers wählen, nicht wegen des Datenblatts
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-karu-12-documentary-1600.webp"
+    srcset="/images/articles/ooni-karu-12-documentary-960.webp 960w, /images/articles/ooni-karu-12-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Ooni Karu 12 der ersten Generation mit Pizza und sichtbarer Flamme"
+  />
+  <figcaption>Videostandbild des Ooni Karu 12 der ersten Generation beim Backen — Quelle: Ooni, Stelle 00:30.</figcaption>
+</figure>
+
 Wählen Sie den Karu 12, wenn Sie wirklich lernen möchten, ein Feuer zu nähren.
 Genau dann wird er interessant. Er nimmt Holz und Holzkohle auf; mit einem
 separat erhältlichen Brenner lässt er sich außerdem mit Propan betreiben. Diese

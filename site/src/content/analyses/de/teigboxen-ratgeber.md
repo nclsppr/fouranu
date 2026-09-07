@@ -58,6 +58,24 @@ Platz, Zahl der Teiglinge und Arbeitsweise sie rechtfertigen.
 
 ## Vier Formate für vier unterschiedliche Kühlschränke
 
+<figure class="article-media">
+  <img
+    src="/images/articles/accessoires-bacs-patons-comparatif-1600.webp"
+    srcset="/images/articles/accessoires-bacs-patons-comparatif-960.webp 960w, /images/articles/accessoires-bacs-patons-comparatif-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Vier generische Teigbox-Formate, vom kompaktesten bis zum breitesten angeordnet"
+  />
+  <figcaption>
+    <strong>Das richtige Format beginnt beim verfügbaren Platz.</strong>
+    Originale redaktionelle Illustration von Four à Nu; die Formen stehen für
+    die verglichenen Typen, nicht für die Handelsmodelle.
+  </figcaption>
+</figure>
+
 Die Maße stammen von den Herstellern. Die Zahl der Teiglinge ist niemals eine
 absolute Skala: Zwei Rezepte, zwei Gewichte oder zwei Gärzeiten beanspruchen
 nicht denselben Platz.

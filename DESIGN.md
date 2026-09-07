@@ -116,6 +116,22 @@ existante ; les autres articles conservent leurs médias enregistrés. Une liste
 de décisions connexes relie les duels, le budget et le sélecteur dans chaque
 langue, avec des liens HTML ordinaires et des intitulés explicites.
 
+## Parité des parcours FR/EN/DE
+
+Selon l’[ADR-0011](docs/decisions/0011-parite-structurelle-fr-en-de.md), les seize
+routes fixes utilisent les mêmes composants de page, alimentés par leur copie
+localisée. Les trois 404 partagent également un gabarit. Une page générique
+réduite en anglais ou en allemand ne remplace plus l’accueil, un rayon, une
+page de confiance ou un profil auteur.
+
+Le changement de langue conserve les sections et leur ordre, les images
+autorisées, les dossiers sélectionnés par identifiant et les actions utiles.
+La traduction peut changer les retours à la ligne et la hauteur des blocs ;
+elle ne retire pas de section pour raccourcir la page. Le sélecteur et le budget
+restent identiques dans les trois langues. Les tests comparent la structure,
+les images et les liens internes ordonnés de chaque route fixe. La revue
+navigateur compare aussi les trois versions aux mêmes largeurs.
+
 ## Colors
 
 L'interface utilise un thème clair principal, avec des bandes carbone réservées
@@ -355,11 +371,12 @@ Le rail affiche la nature de la preuve, la source, la date de vérification, les
 conditions connues, le niveau de confiance et les conflits déclarés. Il ne
 réduit jamais ces données à une note, une étoile ou un badge coloré.
 
-Sur une page anglaise ou allemande, une `observation` ou des `conditions`
-conservées en français sont précédées d'une note courte et visible indiquant que
-le relevé canonique reste en français. Le style distingue cette note d'une
-alerte et d'une conclusion ; il ne masque, ne résume ni ne traduit
-silencieusement la preuve.
+Sur une page anglaise ou allemande, les `observation` et `conditions` affichées
+viennent des tables de traduction reliées au registre par `evidence_id`, selon
+l’ADR-0011. Les mêmes informations occupent les mêmes blocs dans les trois
+langues. Les attributions, dates, unités, limites et relations restent fidèles
+au relevé canonique ; aucune ancienne note ne prétend que le texte affiché est
+encore en français.
 
 La bibliographie de fin d'article reste fermée au premier chargement derrière
 une ligne « Sources de cet article ». Son ouverture révèle une liste compacte,
@@ -427,12 +444,14 @@ originale sans image tierce en entrée, outils génériques non marqués et gest
 de catégorie seulement. Elle ne ressemble pas à un catalogue, ne privilégie
 aucun candidat et ne sert jamais de preuve factuelle.
 
-La présence d'un média dans la page française ne l'autorise pas dans une autre
-langue. Si la permission enregistrée couvre seulement le français, le média est
-omis des versions anglaise et allemande, qu'il serve d'en-tête, de figure ou
-d'aperçu social. Le flux se referme sans cadre, légende ou texte alternatif
-orphelin. Une carte de marque originale générique peut prendre le relais pour
-l'aperçu social ; le média tiers n'est jamais réutilisé comme repli.
+La présence d’un média dans la page française ne l’autorise pas dans une autre
+langue ou sur une autre surface. Chaque usage est vérifié contre la portée
+exacte enregistrée. La parité des images repose sur les permissions FR/EN/DE,
+sans extension supposée. Si un droit manque, le média ne peut pas être rendu et
+la surface ne peut pas être déclarée en parité. Les usages Open Graph et Twitter
+restent distincts : la carte originale v2 prend le relais lorsque le média
+éditorial n’est autorisé que sur le web. Aucun cadre, légende ou texte alternatif
+orphelin n’est conservé.
 
 Les photographies en situation arrivent seulement après cet en-tête, dans le
 corps de l'article. Elles peuvent rester documentaires ou recevoir un traitement
@@ -574,9 +593,10 @@ propriétaire du projet avant implémentation :
     dépendance du contenu à JavaScript ;
 14. un sélecteur FR/EN/DE textuel vers la contrepartie exacte, sans drapeau,
     JavaScript ni redirection automatique ;
-15. l'omission en anglais et en allemand de tout média dont la permission ne
-    couvre que le français, et la note transparente devant une observation ou
-    des conditions canoniques conservées en français.
+15. les mêmes structures, sections, médias autorisés et liens ordonnés dans les
+    trois langues, avec une portée de droit vérifiée par surface ;
+16. les traductions traçables des observations et conditions, reliées par
+    identifiant au registre canonique inchangé.
 
 Le choix des premières photographies originales et le cadrage exact de chaque
 gabarit restent ouverts. Leur validation ne peut pas contredire une zone gelée
@@ -591,11 +611,11 @@ ni altérer le lockup ou sa dérivation compacte adoptés.
 | Typographie | Vérifier les fichiers WOFF2, les graisses chargées, les replis et les chiffres tabulaires | Aucun appel de police tiers, aucun texte important rasterisé |
 | Logo et icônes | Rendre le lockup au ratio d'origine, puis inspecter séparément la marque compacte et les sorties 16, 32, 180, 192 et 512 px sur fonds clair et sombre | Aucun recadrage du lockup ; four compact reconnaissable, sans ancien signe, détail coupé ni nouveau motif d'interface |
 | Responsive | Capturer et parcourir au clavier à 360, 768, 1280 et 1440 px dans les trois langues, avec les chaînes allemandes les plus longues | Aucun débordement de page, libellé tronqué ou réduction illisible ; rail replacé, tableaux accessibles |
-| Structure | Inspecter H1, ordre des titres, landmarks, lien d'évitement et ordre DOM | Lecture cohérente sans CSS et au zoom 200 % |
+| Structure | Inspecter H1, ordre des titres, landmarks, lien d’évitement et ordre DOM ; comparer chaque route fixe et sa sélection de dossiers FR/EN/DE | Lecture cohérente sans CSS et au zoom 200 % ; mêmes sections, images et liens ordonnés entre contreparties |
 | Focus | Parcourir toutes les actions au clavier sur fond clair et carbone | Focus visible, cible de 44 px, aucun piège clavier |
 | Partage | Tester avec et sans Web Share et Clipboard, au clavier, puis vérifier WhatsApp, e-mail, URL canonique et annonces de statut | Aucun bouton inerte, aucune erreur sur annulation, aucun SDK ou paramètre de suivi ; repli HTML utilisable sans JavaScript |
 | Langues et routes | Contrôler chaque identifiant et ses trois routes, les liens du sélecteur avec JavaScript désactivé, la langue active et les 404 localisées | Contrepartie exacte FR/EN/DE, aucune redirection automatique ou chute vers l'accueil, liens et ordre clavier cohérents |
-| Preuves | Rapprocher chaque valeur, graphique et plaque de son registre dans les trois langues | Aucun chiffre public sans source et identifiant autorisés ; observation et conditions canoniques inchangées, avec note transparente hors français |
+| Preuves | Rapprocher chaque valeur, graphique et plaque de son registre dans les trois langues | Aucun chiffre public sans source et identifiant autorisés ; registre canonique inchangé, observations et conditions traduites sans perte de valeurs ni de réserves et reliées par identifiant |
 | Médias | Vérifier type, droit et langues couvertes, fidélité du produit ou neutralité du guide multi-produits, ordre, légende, texte alternatif, source et statut éditorial visible | En-tête officiel stylisé ou original neutre autorisé avant les vues en situation ; aucun média `quarantine` ou hors portée linguistique, aucune illustration utilisée comme preuve, aucun outil de production cité dans la copie publique |
 | SEO localisé | Inspecter `lang`, canonical, hreflang et `x-default`, Open Graph, schémas, sitemap, RSS, `llms.txt` et robots dans l'artefact preview puis indexable | Signaux auto-référents et réciproques, URLs et langues concordantes, aucune grappe incomplète dans le sitemap |
 | Voix | Relire accroche, intertitres, jargon, tableaux et conclusion comme un parcours d'achat | Réponse et compromis compris avant la méthode ; aucun ton de notice ni fausse expérience personnelle |

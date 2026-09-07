@@ -36,6 +36,22 @@ limitations:
 
 ## Unsere Einschätzung in Kürze
 
+<figure class="article-media">
+  <img
+    src="/images/articles/gozney-arc-lite-tread-1600.webp"
+    srcset="/images/articles/gozney-arc-lite-tread-960.webp 960w, /images/articles/gozney-arc-lite-tread-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Schwarzer Pizzaofen Gozney Tread mit sichtbarem oberen Griff"
+  />
+  <figcaption>
+    Redaktionelle Illustration nach einer offiziellen Fotografie von Gozney.
+  </figcaption>
+</figure>
+
 Behalten Sie die 100 € und wählen Sie den Arc Lite, wenn der Ofen überwiegend
 auf einem Gartentisch stehen wird. Er ist leichter, seine Öffnung etwas breiter,
 und ein Test mit acht Pizzen zeigt, dass er einen ruhigen Abend ohne

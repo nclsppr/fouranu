@@ -34,6 +34,20 @@ limitations:
 
 ## Ein Ofen zum Aufstellen, nicht zum Hervorholen aus dem Schrank
 
+<figure class="article-media">
+  <img
+    src="/images/articles/ooni-karu-2-pro-documentary-1600.webp"
+    srcset="/images/articles/ooni-karu-2-pro-documentary-960.webp 960w, /images/articles/ooni-karu-2-pro-documentary-1600.webp 1600w"
+    sizes="(max-width: 48rem) 100vw, 48rem"
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    alt="Breite Steinsohle und Digitalanzeige im Ooni Karu 2 Pro sichtbar"
+  />
+  <figcaption>Videostandbild von Steinsohle und Anzeige des Ooni Karu 2 Pro — Quelle: Pala Pizza, Stelle 01:51.</figcaption>
+</figure>
+
 Der Karu 2 Pro ist nicht einfach ein verbreiterter Karu 2. Mit 28,4 kg, einer
 Öffnung für 40-cm-Pizzen, Glastür und Anzeige braucht er einen dauerhaften Platz.
 Er ergibt Sinn, wenn Sie häufig mit Holz backen und sich die Möglichkeit zum

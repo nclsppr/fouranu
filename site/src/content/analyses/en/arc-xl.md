@@ -2,9 +2,10 @@
 articleId: GOZNEY-001
 locale: en
 brand: gozney
-title: "Gozney Arc XL: 40 cm and 26.5 kg"
-description: The Gozney Arc XL is a 26.5 kg gas oven for 40 cm pizzas. This article compares its dimensions, heating and the room needed to turn.
-summary: The Arc XL offers genuine working room for 30 to 35 cm pizzas. Its 40 cm format becomes trickier near the flame, and its 26.5 kg demand a fixed position.
+title: "Gozney Arc XL: do you need the larger format?"
+seoTitle: "Gozney Arc XL: is the large format useful? | Four à Nu"
+description: "The Arc XL makes sense for room around 30–35 cm pizzas at a fixed location. Footprint, limitations and comparison with the Koda 2 Pro."
+summary: "I would choose the Arc XL for a lasting outdoor location and 30–35 cm pizzas. Regularly targeting 40 cm or storing the oven after every meal changes the decision."
 status: publishable
 type: model
 category: oven
@@ -13,14 +14,14 @@ author: florian
 model: Gozney Arc XL
 commercialObjects: [gozney-arc-xl]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/gozney-arc-xl-1600.webp
   alt: "Cream Gozney Arc XL pizza oven on a steel worktop"
   caption: "Editorial illustration based on an official Gozney photograph."
   assetId: AS-2102
-evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512]
+evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0305, EV-0306, EV-0307, EV-0308]
 evidenceTypes:
   - FAB
   - T-MES
@@ -33,20 +34,13 @@ limitations:
   - The available sources measure neither actual consumption in France nor component durability over several years.
 ---
 
-## Our view in brief
+## What the XL format should give you
 
-If you mainly make 30 to 35 cm pizzas and the oven can remain outside, the Arc
-XL has a genuine benefit. Its large floor leaves room to turn without working
-to the millimetre against the flame.
+**I would choose the Arc XL for more room around 30–35 cm pizzas at a fixed location.** I would not choose it for moving after every meal: its 26.5 kg and depth require a proper home.
 
-A 40 cm pizza also fits. That is the attractive promise, but it is not the
-easiest size to bake. The two available accounts show that, at this diameter,
-the dough gets close to the burner and needs to be turned early.
+The claimed capacity for a 40 cm pizza remains appealing. However, the two third-party accounts detailed below show that this diameter brings dough close to the flame and complicates turns. Preferring a smaller diameter is our conclusion from those observations, not a new manufacturer limit.
 
-The price displayed in France was €899.99 on 24 August 2026. Add a solid and
-sufficiently deep table, peels and a cover. The oven's 26.5 kg also call for a
-stable location. The purchase makes more sense for a lasting pizza station
-than for an oven brought out of the garage on Sundays.
+Before buying the larger format, compare [Koda 2 Pro and Arc XL](/en/pizza-ovens/koda-2-pro-or-arc-xl/) on dated official prices, gas connection and chassis rectangle. Your terrace is part of the decision too.
 
 ## Before diameter, look at the available space
 
@@ -150,14 +144,8 @@ stone, check the price and availability of that kit before purchase.
 - An infrared thermometer to check several points on the floor.
 - The full budget with stand, cover, launching peel and turning peel.
 
-## What the sources do not yet tell us
+## The final choice before ordering
 
-Our reading brings together the current French product page, the European
-manual and two accounts of use. These sources do not support a clean comparison
-with the entire Gozney range or the large Ooni ovens. They also cover few units
-and measure neither repeated consumption, ageing nor after-sales service in
-France.
+If going beyond 35 cm is the main aim, compare this guide with the [Koda 2 Pro](/en/ooni/koda-2-pro/) and our [comparison of both installations](/en/pizza-ovens/koda-2-pro-or-arc-xl/). A larger maximum diameter and a narrower body answer different needs; neither alone establishes better baking.
 
-The preference stated here for 30 to 35 cm pizzas is an editorial inference
-based on the observed room for turning. Gozney does not publish this limit, and
-Four à Nu has not measured it.
+I would keep the Arc XL if its working room and format fit at home with the required clearances. I would add the necessary support, tools and storage to the [full budget](/en/pizza-ovens/pizza-oven-full-budget/) before comparing offers. Consumption and long-term durability remain the questions identified in the guide’s limitations.

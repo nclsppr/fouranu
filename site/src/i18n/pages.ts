@@ -26,7 +26,7 @@ export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRout
       description: "Independent, source-backed guidance to pizza ovens, useful accessories and dough mixers sold in France.",
       eyebrow: "Independent editorial publication",
       heading: "Choose the oven that fits the way you actually cook.",
-      lead: "Four à Nu separates manufacturer claims, published third-party measurements and our editorial conclusions. The current guides document products sold in France; first-hand Four à Nu testing will always be labelled when it begins.",
+      lead: "Find two suitable options, understand their compromises and plan your equipment. Our comparisons bring together manufacturer data and published observations to help you choose.",
       aside: "English makes the research easier to read. It does not change the French market, merchant destinations or the limits of the evidence.",
       sections: [
         { heading: "Start with use, not a ranking", paragraphs: ["Location, energy, baking pace, format and total budget eliminate more unsuitable choices than a universal score."], items: ["Indoor or outdoor use", "Gas, electric or multi-fuel", "One pizza or a full table", "Oven, cover, stand, peel and fuel"] },
@@ -90,7 +90,7 @@ export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRout
       eyebrow: "Editorial method",
       heading: "A source is not a test, and a conclusion is not a measurement.",
       lead: "We attribute each measurement to the person who made it, preserve useful conditions and state what the available material cannot establish.",
-      aside: "We have not yet published a first-hand Four à Nu product test. When that changes, the protocol, measurements and limits will be explicit.",
+      aside: "Our recommendations draw on the sources cited in each guide. Measurements remain attributed to their authors, with the conditions needed to interpret them.",
       sections: [
         { heading: "Five evidence labels", paragraphs: ["FAB is manufacturer data; T-MES is a published third-party measurement; T-OBS is a published third-party observation; FAN-SYN combines compatible sources; FAN-INF is our reasoned editorial conclusion."], items: ["Claims stay attributed", "Timecodes and conditions stay attached", "Incompatible methods are not merged", "Uncertainty remains visible"] },
         { heading: "Independent comparison", paragraphs: ["A solid general comparison needs at least two independent, compatible sources. With only one source, we describe an example rather than a universal rule."] },
@@ -100,11 +100,11 @@ export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRout
     },
     about: {
       title: "About Four à Nu",
-      description: "Why Four à Nu documents pizza ovens today and intends to add clearly labelled first-hand tests over time.",
+      description: "How Four à Nu helps you choose a pizza oven, compare alternatives and plan a complete setup using attributed sources.",
       eyebrow: "The project",
       heading: "A publication for making choices, not manufacturing rankings.",
       lead: "Four à Nu documents the constraints that genuinely change an oven purchase: location, energy, format, pace, equipment and complete cost.",
-      aside: "No first-hand Four à Nu test has been published yet. Future tests will state their protocol, measurements and limits.",
+      aside: "Manufacturer data, published observations and our recommendations remain distinct. Each guide explains the reasons behind the choice.",
       sections: [
         { heading: "Why it exists", paragraphs: ["Specification sheets describe claims. Videos show use under varying protocols and commercial relationships. We keep those layers separate, compare compatible sources and say what they cannot prove."] },
         { heading: "Three commitments", paragraphs: ["Answer before monetising; attribute instead of appropriating; correct important changes without erasing their history."], items: ["The short answer comes before purchase links", "Published measurements remain attributed", "Buying-impacting corrections are dated"] },
@@ -225,7 +225,7 @@ export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRout
       description: "Unabhängige, quellenbasierte Orientierung zu Pizzaöfen, sinnvollem Zubehör und Teigknetmaschinen für den französischen Markt.",
       eyebrow: "Unabhängiges redaktionelles Medium",
       heading: "Wählen Sie den Ofen, der zu Ihrem tatsächlichen Alltag passt.",
-      lead: "Four à Nu trennt Herstellerangaben, veröffentlichte Messungen Dritter und redaktionelle Schlussfolgerungen. Die heutigen Ratgeber dokumentieren in Frankreich verkaufte Produkte; eigene Tests von Four à Nu werden später immer eindeutig gekennzeichnet.",
+      lead: "Zwei passende Modelle finden, ihre Kompromisse verstehen und die Ausstattung planen. Unsere Vergleiche verbinden Herstellerangaben mit veröffentlichten Beobachtungen und helfen Ihnen bei der Entscheidung.",
       aside: "Die deutsche Fassung macht die Recherche leichter zugänglich. Markt, Händlerziele und Grenzen der Quellen bleiben französisch.",
       sections: [
         { heading: "Mit der Nutzung beginnen, nicht mit einer Rangliste", paragraphs: ["Ort, Energie, Backrhythmus, Format und Gesamtbudget schließen mehr Fehlkäufe aus als eine universelle Punktzahl."], items: ["Innen- oder Außenbereich", "Gas, Strom oder mehrere Brennstoffe", "Eine Pizza oder eine ganze Runde", "Ofen, Abdeckung, Untergestell, Schieber und Brennstoff"] },
@@ -289,7 +289,7 @@ export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRout
       eyebrow: "Redaktionelle Methode",
       heading: "Eine Quelle ist kein Test, eine Schlussfolgerung keine Messung.",
       lead: "Wir ordnen jede Messung der Person zu, die sie durchgeführt hat, bewahren nützliche Bedingungen und nennen klar, was das Material nicht belegen kann.",
-      aside: "Noch gibt es keinen eigenen Produkttest von Four à Nu. Wenn sich das ändert, werden Protokoll, Messungen und Grenzen eindeutig sein.",
+      aside: "Unsere Empfehlungen beruhen auf den Quellen des jeweiligen Ratgebers. Messungen bleiben ihren Urhebern zugeordnet, einschließlich der relevanten Bedingungen.",
       sections: [
         { heading: "Fünf Evidenzstufen", paragraphs: ["FAB ist eine Herstellerangabe, T-MES eine veröffentlichte Messung Dritter, T-OBS eine veröffentlichte Beobachtung Dritter, FAN-SYN verbindet kompatible Quellen und FAN-INF ist unsere begründete redaktionelle Schlussfolgerung."], items: ["Aussagen bleiben zugeordnet", "Timecodes und Bedingungen bleiben verbunden", "Unvereinbare Methoden werden nicht vermischt", "Unsicherheit bleibt sichtbar"] },
         { heading: "Unabhängiger Vergleich", paragraphs: ["Ein belastbarer allgemeiner Vergleich braucht mindestens zwei unabhängige, kompatible Quellen. Bei nur einer Quelle beschreiben wir ein Beispiel, keine allgemeine Regel."] },
@@ -299,11 +299,11 @@ export const STATIC_PAGE_COPY: Record<LocalizedContentLocale, Record<ContentRout
     },
     about: {
       title: "Über Four à Nu",
-      description: "Warum Four à Nu Pizzaöfen dokumentiert und später klar gekennzeichnete eigene Tests ergänzen will.",
+      description: "Wie Four à Nu bei der Wahl eines Pizzaofens, dem Vergleich von Alternativen und der Planung der gesamten Ausstattung hilft.",
       eyebrow: "Das Projekt",
       heading: "Ein Medium für Entscheidungen, keine Ranglistenmaschine.",
       lead: "Four à Nu dokumentiert Grenzen, die einen Ofenkauf wirklich verändern: Ort, Energie, Format, Rhythmus, Ausstattung und Gesamtkosten.",
-      aside: "Noch wurde kein eigener Test von Four à Nu veröffentlicht. Künftige Tests nennen Protokoll, Messungen und Grenzen.",
+      aside: "Herstellerangaben, veröffentlichte Beobachtungen und unsere Empfehlungen bleiben unterscheidbar. Jeder Ratgeber erklärt die Gründe für die Auswahl.",
       sections: [
         { heading: "Warum es die Seite gibt", paragraphs: ["Datenblätter nennen Versprechen. Videos zeigen Nutzungen mit unterschiedlichen Protokollen und Geschäftsbeziehungen. Wir trennen diese Ebenen, vergleichen kompatible Quellen und sagen, was sie nicht belegen."] },
         { heading: "Drei Verpflichtungen", paragraphs: ["Antwort vor Monetarisierung; Zuordnung statt Aneignung; wichtige Änderungen korrigieren, ohne ihre Geschichte zu löschen."], items: ["Die kurze Antwort steht vor Kauflinks", "Messungen bleiben ihren Urhebern zugeordnet", "Kaufrelevante Korrekturen werden datiert"] },

@@ -209,3 +209,7 @@ with the same flour, hydration, final temperature and several repetitions.
 
 The sources assembled here do not distinguish noise, consumption or wear. Our
 preference for the Core comes from its more practical dough range at home.
+
+## Leave room in the budget for the rest
+
+The mixer is a separate expense from the oven. Before adding it, put its actual price beside your [complete equipment budget](/en/pizza-ovens/pizza-oven-full-budget/): oven, installation and missing tools. Core or Pro should follow your dough quantities; neither automatically requires a larger oven or bundle.

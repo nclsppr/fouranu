@@ -6,6 +6,37 @@ importantes.
 
 ## Non publié
 
+### 2026-09-07 - Aide à l'achat documentaire permanente, candidat local
+
+- L'ADR-0010 fixe une aide à l'achat documentaire permanente et remplace le
+  programme d'essais physiques de l'ADR-0006. Le contrat produit, le protocole
+  éditorial, la marque et la feuille de route sont alignés : recommandations
+  motivées, sources attribuées et limites visibles, sans promesse d'essais.
+- Un sélecteur en français, anglais et allemand réduit dix modèles à deux
+  choix au maximum selon le lieu, l'énergie et l'usage. Un panier à six postes
+  calcule ensuite le coût des offres saisies et l'écart avec le plafond du
+  lecteur. Les pages gardent des réponses accessibles sans JavaScript.
+- Trois dossiers de décision sont ajoutés dans les trois langues : Koda 2 Pro
+  ou Arc XL, Volt 2/Sage/Cuisinart et budget complet. Neuf articles existants
+  sont réécrits et six autres reçoivent des liens contextuels vers ces réponses.
+- Le candidat contient 31 dossiers par langue, soit 93 articles, 144 pages HTML,
+  141 URL indexables, 31 entrées par RSS et 30 images de sitemap. Les registres
+  comptent 278 preuves, 117 médias, 66 questions et 39 objets commerciaux :
+  31 offres exactes et huit `not_found`. Aucun média nouveau n'est ajouté.
+- Un protocole interne sépare les mesures Search Console, les clics marchands
+  et les commissions. L'accès Search Console et un premier relevé privé sont
+  confirmés le 2026-09-07 ; l'historique est court et les données du compte
+  restent hors Git. Aucun collecteur analytics n'est activé.
+- La gate canonique `./scripts/verify.sh` passe avec 32 tests de registres et
+  31 tests du site, dont sept tests de l'outil. Le typage, le build et une
+  simulation DOM dans les trois langues passent. Compose isolé est sain sur
+  le port `4329`, avec huit routes contrôlées et la 404 allemande attendue. La
+  revue navigateur à 360 et 1 280 px couvre les trois langues, la sélection,
+  le panier et la navigation au clavier sans débordement ni erreur ou
+  avertissement console observés. Le contenu sans JavaScript est contrôlé en
+  source et par simulation DOM. Les preuves du SHA final, de CI et de
+  publication restent à ajouter dans `STATUS.md`.
+
 ## 2026-08-31 - Cinq dossiers multimarques issus de l'étude Amazon.fr
 
 - Une étude Amazon.fr datée sélectionne cinq modèles dont l'identité, la

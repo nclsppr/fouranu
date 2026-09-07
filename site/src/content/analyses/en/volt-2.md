@@ -4,23 +4,24 @@ locale: en
 brand: ooni
 category: oven
 heroTreatment: official-stylized
-title: "Ooni Volt 2: an indoor electric oven"
-description: The Volt 2 is Ooni's 1,600 W indoor oven. Its controls and third-party measurements are documented; its reliability and consumption are not.
-summary: The Volt 2 is the indoor oven in the current range. Its controls are documented, but not its uniformity, reliability or running cost.
+title: "Ooni Volt 2: when to choose it over Sage or Cuisinart"
+seoTitle: "Ooni Volt 2: compared with Sage and Cuisinart | Four à Nu"
+description: "The Volt 2 suits indoor cooking with several modes. Counter space, missing accessories and Sage or Cuisinart alternatives before buying."
+summary: "I would choose Volt 2 for indoor cooking and modes beyond pizza. For a complete starter kit or separate heat adjustment, I would first compare Cuisinart and Sage."
 status: publishable
 type: model
 author: florian
 model: Ooni Volt 2
 commercialObjects: [ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp
   alt: "Grey Ooni Volt 2 electric oven on a steel table"
   caption: "Editorial illustration based on an official Ooni photograph."
   assetId: AS-2320
-evidenceIds: [EV-0090, EV-0091, EV-0092, EV-0103, EV-0260, EV-0261, EV-0262, EV-0340, EV-0341, EV-0342, EV-0343, EV-0408]
+evidenceIds: [EV-0090, EV-0091, EV-0092, EV-0103, EV-0260, EV-0261, EV-0262, EV-0340, EV-0341, EV-0342, EV-0343, EV-0408, EV-0309, EV-0315, EV-0316, EV-0317]
 evidenceTypes:
   - FAB
   - T-MES
@@ -33,30 +34,13 @@ limitations:
   - Reliability, repairability and consumption are not measured.
 ---
 
-## The right choice if indoor use is non-negotiable
+## My choice if the different modes will actually be used
 
-The Volt 2 is the only oven in the current range presented by Ooni for indoor
-use. That is its real reason to exist. It runs on a 220 to 240 V supply, with a
-stated power of 1,600 W and a setting range from 20 to 450°C.
+**I would choose the Volt 2 for indoor cooking across pizza, oven, grill and proofing modes.** Its value goes beyond a temperature number. If you mainly want an equipped starter kit or separate top and bottom adjustment, the [Volt 2, Sage and Cuisinart comparison](/en/pizza-ovens/volt-2-sage-or-cuisinart/) gives you two alternatives to examine first.
 
-We would keep it at the top of the list if cooking indoors is essential. We
-would not choose it on its speed claim alone. The sources show its controls and
-several bakes, but measure neither consumption, reliability nor uniformity over
-repeated sessions. They also show that the right setting depends on the dough
-and desired result.
+Ooni states 1,600 W and 17.6 kg. I would give it an accessible location instead of storage that requires lifting before every evening. The controls and bakes described below come from the cited authors; their preferred settings remain tied to their doughs.
 
-For the full range, see [which Ooni oven to choose](/en/ooni/which-ooni-oven/).
-The [Ooni gas, electric or multi-fuel comparison](/en/ooni/gas-electric-or-multi-fuel/)
-isolates the choice of location and energy. [The Four à Nu method](/en/method/)
-explains how sources are brought together.
-
-Buyers without a garden logically ask
-[whether the Volt 2 is worthwhile](https://www.reddit.com/r/ooni/comments/1uc15og/is_volt_2_good_or_nah/).
-Others question [its value against gas](https://www.reddit.com/r/ooni/comments/1padk76/switch_to_volt2_from_gas/),
-[reliability and repair](https://www.reddit.com/r/ooni/comments/1ol9won/), or
-[the choice between Volt 12 and Volt 2](https://www.reddit.com/r/ooni/comments/1rdl25w/volt_12_or_volt_2/).
-These discussions surface useful concerns. They do not measure owner
-satisfaction.
+The official list checked on 7 September 2026 mentions a stone and rack, not a peel. Allow for one if you do not already have a compatible tool.
 
 ## What Ooni claims, in plain terms
 
@@ -106,23 +90,10 @@ creator ultimately retains preferences specific to his doughs
 ([at 23 min 15 sec](https://www.youtube.com/watch?v=pwtuBDX-xI8&t=1395s)). The
 video was made in collaboration with Ooni and includes merchant links.
 
-## Questions to settle before buying
+## The decision before giving it counter space
 
-- the usable space for a 30 cm pizza and the meaning of the 33 cm surface;
-- the actual distribution of heat between the top and bottom of the oven;
-- consistency over several pizzas prepared in the same way;
-- electricity consumption per session and on standby;
-- compatibility of a socket and its circuit with 1,600 W;
-- reliability, repairability and availability of parts;
-- a gas-versus-electric comparison with the same dough, target and blind
-  tasting.
+Keep the Volt 2 on your list if its varied modes match your recipes and the installation meets the socket, door and clearance requirements in the manual. I would not pay for those functions to use only one without comparing alternatives.
 
-## For whom, and with what reservations?
+The [Cuisinart CPZ120E](/en/pizza-ovens/cuisinart-cpz120e/) includes starting tools; the [Sage Pizzaiolo](/en/pizza-ovens/sage-pizzaiolo-bpz820/) provides separate control of stone and upper heat. Our [indoor comparison](/en/pizza-ovens/volt-2-sage-or-cuisinart/) brings together those differences and dated official prices.
 
-The sources show the interface and several bakes, but do not follow one method.
-The settings preferred by their authors do not become general recommendations.
-
-The Volt 2 makes sense if indoor use is your main constraint and a suitable
-socket can accept its 1,600 W. Put the purchase on hold if consumption,
-repairability or long-term reliability must be known before deciding. The
-available sources do not yet answer those questions.
+Finish with the [full budget](/en/pizza-ovens/pizza-oven-full-budget/): remove equipment you already have, add only what is missing and distinguish rated power from an evening’s electricity consumption.

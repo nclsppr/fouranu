@@ -29,7 +29,7 @@ const analyses = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     indexable: z.boolean().default(false),
-    image: articleImage,
+    image: articleImage.optional(),
     evidenceIds: z.array(z.string().regex(/^EV-\d{4}$/)).min(1),
     evidenceTypes: z.array(z.enum(["FAB", "T-MES", "T-OBS", "FAN-SYN", "FAN-INF"])),
     limitations: z.array(z.string()),
@@ -69,7 +69,11 @@ const analyses = defineCollection({
         path: ["category"],
       });
     }
-    const expectedHero = entry.brand === "accessoires"
+    const textDecision = entry.brand === "fours" && entry.type === "decision" && !entry.image;
+    if (!entry.image && !textDecision) {
+      context.addIssue({ code: "custom", message: "Une image enregistrée est requise hors comparatif multimarque textuel.", path: ["image"] });
+    }
+    const expectedHero = entry.brand === "accessoires" || textDecision
       ? "editorial-original"
       : "official-stylized";
     if (entry.heroTreatment !== expectedHero) {

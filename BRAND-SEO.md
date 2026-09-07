@@ -1,8 +1,10 @@
 # Nom, identité et découvrabilité
 
-Exploration datée du 2026-08-23. Le propriétaire a retenu `Four à Nu` comme
-marque éditoriale, confirmé l'acquisition de `fouranu.com` et promu le dépôt en
-produit le même jour. `Jupiter` reste uniquement le nom de code historique.
+L'exploration de marque et ses relevés restent datés du 2026-08-23. Le
+propriétaire a retenu `Four à Nu`, confirmé l'acquisition de `fouranu.com` et
+promu le dépôt en produit le même jour. `Jupiter` reste le nom de code
+historique. Le contrat de promesse et de visibilité ci-dessous est actualisé
+le 2026-09-07 selon l'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md).
 
 ## Décision de travail
 
@@ -16,15 +18,18 @@ toujours l'accompagner d'un descripteur explicite sur sa page d'accueil :
 
 - nom de site : `Four à Nu` ;
 - titre d'accueil : `Four à Nu | Fours à pizza, accessoires et pétrins` ;
-- H1 d'accueil : `Tester tous les fours à pizza vendus en France` ;
+- H1 d'accueil : une promesse de choix, telle que `Choisissez le four à pizza
+  qui vous convient` ;
 - descripteur éditorial : `Fours à pizza, accessoires et pétrins, sources à l'appui` ;
 - nom alternatif sans accent : `Four a Nu` ;
-- meta description : `Four à Nu veut tester tous les fours à pizza vendus en
-  France, en commençant par les marques de référence, puis les accessoires utiles
-  et différents pétrins.`
+- meta description : exprimer le choix selon l'espace, l'énergie et le budget,
+  les comparatifs et la provenance documentaire, sans promettre une expérience
+  physique ou un vainqueur universel.
 
-Cette promesse décrit un cap. Aucun essai physique Four à Nu n'est publié au
-2026-08-26 ; le H1 est immédiatement suivi de cette limite sur l'accueil.
+Le bénéfice public est l'aide à l'achat : recommandation par usage, compromis et
+alternative. Four à Nu est durablement documentaire et ne promet aucun essai
+physique. L'accueil et ses métadonnées présentent le même produit dans les trois
+langues, sans exposer l'organisation interne à la place de ce bénéfice.
 
 Cette décision ne prétend pas qu'un mot dans le domaine produit un classement.
 Google recommande un nom de site unique et non générique. Son système de domaine
@@ -271,14 +276,17 @@ permanente entre donnée fabricant, mesure ou observation tierce, synthèse
 - utiliser un balisage éditorial de type `Article`, sans note, étoiles, verdict
   de prise en main, `Review` ou `AggregateRating` ;
 - exprimer chaque manque comme une limite du corpus ou de la comparabilité ;
-- présenter le programme d'essais comme une ambition datée, jamais comme une
-  expérience acquise, puis enrichir l'URL stable seulement après une session
-  enregistrée et un protocole accepté.
+- prendre position avec des critères explicites, un périmètre et une alternative ;
+- cibler une sélection des meilleurs choix pour un usage seulement si le corpus
+  permet la comparaison annoncée, sans note ou palmarès universel ;
+- enrichir l'URL stable lorsque de nouvelles sources changent la décision ;
+- conserver une valeur originale sans promettre d'essais physiques.
 
 Google demande du contenu original, utile, attribué et transparent sur sa
 méthode. Ses recommandations d'avis produit demandent notamment des preuves de
 l'expérience propre lorsqu'un contenu revendique une évaluation. Four à Nu ne
-présente donc pas ses analyses documentaires comme des avis produits.
+présente donc pas ses analyses documentaires comme des essais de première main.
+Un avis documentaire reste une conclusion éditoriale motivée et attribuée.
 
 Sources : [contenu utile Google](https://developers.google.com/search/docs/fundamentals/creating-helpful-content),
 [avis produit de qualité](https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews).
@@ -335,11 +343,10 @@ Clipboard. Elle vérifie aussi le clavier, le focus, l'annonce polie des succès
 échecs, l'absence d'erreur après annulation du menu natif et le maintien des
 liens WhatsApp et e-mail lorsque le script ne s'exécute pas.
 
-L'artefact statique a désormais pour cible préparée Cloudflare Workers Static
-Assets. Cette orientation ne prouve ni l'existence d'un Worker de production,
-ni le rattachement de `fouranu.com`, ni une activation DNS. La validation du
-candidat, l'autorisation du déploiement, la publication, le domaine personnalisé,
-l'indexabilité et la soumission aux moteurs restent des étapes distinctes.
+L'artefact statique est publié sur Cloudflare Workers Static Assets ; le corpus
+FR/EN/DE et son domaine disposent des preuves dans `STATUS.md`. Pour une nouvelle
+tranche, la validation du candidat, son autorisation, son déploiement, son
+indexabilité et la soumission aux moteurs restent des étapes distinctes.
 
 ## Direction visuelle
 
@@ -387,16 +394,21 @@ aucun dérivé actif ne doit réintroduire leur ancien signe.
 
 ## Prochaine porte
 
-Le nom, le domaine et la V1 publique sont acquis. La suite SEO et produit reste
-ordonnée :
+La marque, le domaine et le corpus trilingue public sont acquis. La tranche
+approuvée le 2026-09-07 suit cet ordre :
 
-1. vérifier le paquet exact qui aligne titre, description, H1, texte visible et
-   données structurées sur la nouvelle ambition ;
-2. autoriser séparément sa publication sur `fouranu.com` ;
-3. contrôler l'artefact public avant toute demande de réindexation, elle-même
-   autorisée séparément ;
-4. inventorier et dater le marché français des fours, accessoires et pétrins ;
-5. accepter le protocole et la taxonomie de première main avant tout achat,
-   prêt, mesure ou affirmation de test ;
-6. publier les pilotes uniquement après leur barrière éditoriale, technique et
-   juridique propre.
+1. aligner promesse, titres, descriptions et pages de confiance sur l'aide à
+   l'achat documentaire permanente ;
+2. rendre le parcours de choix et quelques comparatifs précis plus utiles,
+   avec une réponse immédiate, des raisons et une alternative ;
+3. vérifier les sources, droits, destinations commerciales et contreparties
+   FR/EN/DE sur le paquet exact ;
+4. vérifier le candidat et sa publication selon les autorisations applicables ;
+5. relever les requêtes et pages observées dans Search Console, puis les clics
+   marchands et commissions dans leurs sources respectives, selon
+   [`docs/GROWTH-MEASUREMENT.md`](docs/GROWTH-MEASUREMENT.md) ;
+6. étendre le corpus selon les questions mal résolues et les données disponibles,
+   sans transformer une hypothèse SEO en résultat acquis.
+
+La feuille de route demeure `ROADMAP.md`. Aucun compte, lettre d'abonnés,
+partenariat, envoi ou dispositif de collecte n'est activé par ce plan.

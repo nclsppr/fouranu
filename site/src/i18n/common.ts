@@ -22,14 +22,14 @@ export const SITE_COPY = {
   en: {
     title: "Four à Nu | Pizza ovens, accessories and dough mixers",
     description:
-      "Four à Nu aims to test every pizza oven sold in France, starting with leading brands, then useful accessories and dough mixers.",
+      "Choose your pizza oven, compare models and plan the complete setup with source-backed Four à Nu guides for buying in France.",
     shortDescription: "Pizza ovens, accessories and dough mixers, backed by sources",
     editorialAuthorName: "Nicolas, Florian & Magali",
   },
   de: {
     title: "Four à Nu | Pizzaöfen, Zubehör und Teigknetmaschinen",
     description:
-      "Four à Nu will nach und nach alle in Frankreich verkauften Pizzaöfen testen, beginnend mit etablierten Marken, sinnvollem Zubehör und Teigknetmaschinen.",
+      "Pizzaöfen vergleichen, passende Modelle finden und die gesamte Ausstattung planen: quellenbasierte Kaufratgeber von Four à Nu für Frankreich.",
     shortDescription: "Pizzaöfen, Zubehör und Teigknetmaschinen, mit nachvollziehbaren Quellen",
     editorialAuthorName: "Nicolas, Florian & Magali",
   },
@@ -344,7 +344,7 @@ export const ARTICLE_COPY = {
     method: "Comment nous travaillons",
     noticeTitle: "Comment lire ce guide",
     notice:
-      "L’image d’en-tête illustre le sujet sans prouver les performances des produits. Les promesses du fabricant, les mesures publiées et notre lecture restent séparées ; les conditions et relations commerciales utiles sont précisées dans les sources.",
+      "Nos conseils reposent sur les données fabricant et les observations publiées, attribuées dans les sources. Les illustrations ne constituent pas des mesures de performance.",
     sourcesLink: "Voir les sources",
     limitations: "Ce qu’on ne sait pas encore",
     referencePerson: "Personne référente",
@@ -368,7 +368,7 @@ export const ARTICLE_COPY = {
     method: "How we work",
     noticeTitle: "How to read this guide",
     notice:
-      "Manufacturer claims, published measurements and our interpretation remain separate. The French edition contains the authorised editorial imagery; this translation is deliberately text-first where the recorded permission does not cover English publication.",
+      "Our advice draws on manufacturer data and published observations, attributed in the sources. Illustrations are not performance measurements.",
     sourcesLink: "View sources",
     limitations: "What we do not know yet",
     referencePerson: "Responsible editor",
@@ -392,7 +392,7 @@ export const ARTICLE_COPY = {
     method: "So arbeiten wir",
     noticeTitle: "So lesen Sie diesen Ratgeber",
     notice:
-      "Herstellerangaben, veröffentlichte Messungen und unsere Einordnung bleiben getrennt. Die französische Fassung enthält die freigegebenen redaktionellen Bilder; diese Übersetzung bleibt bewusst textbasiert, wenn die dokumentierte Freigabe keine deutschsprachige Veröffentlichung abdeckt.",
+      "Unsere Empfehlungen beruhen auf Herstellerangaben und veröffentlichten Beobachtungen mit Quellenangabe. Illustrationen sind keine Leistungsmessungen.",
     sourcesLink: "Quellen ansehen",
     limitations: "Was wir noch nicht wissen",
     referencePerson: "Verantwortliche Person",

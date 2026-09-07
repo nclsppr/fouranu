@@ -101,6 +101,21 @@ Ce document fixe les valeurs et les règles. Leur traduction exécutable vit dan
 Aucun composant, module ou style local ne doit ouvrir un second système de
 tokens.
 
+## Décision d’achat et comparatifs du 7 septembre 2026
+
+Le parcours de choix prolonge le système IBM Plex, carbone et orange existant.
+Ses contrôles natifs conduisent à deux modèles au maximum ; aucun résultat
+n’est rendu lorsque les contraintes ne correspondent pas aux données connues.
+Un parcours HTML reste lisible sans JavaScript. Le panier distingue les
+montants inconnus, les postes déjà possédés et le total effectivement saisi.
+
+Un comparatif multimarque `decision` peut être entièrement textuel : verdict,
+tableau de critères et calcul explicable. Il ne requiert aucune photographie
+factice pour meubler son en-tête. Son aperçu social reprend la carte de marque
+existante ; les autres articles conservent leurs médias enregistrés. Une liste
+de décisions connexes relie les duels, le budget et le sélecteur dans chaque
+langue, avec des liens HTML ordinaires et des intitulés explicites.
+
 ## Colors
 
 L'interface utilise un thème clair principal, avec des bandes carbone réservées

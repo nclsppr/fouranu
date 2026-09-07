@@ -4,23 +4,24 @@ brand: ooni
 locale: de
 category: oven
 heroTreatment: official-stylized
-title: "Ooni Koda 2: Abmessungen und Aufheizen"
-description: Der Koda 2 ist ein 35-cm-Gasofen mit 16 kg. Unsere Analyse vergleicht seine Abmessungen mit veröffentlichten Aufheizmessungen und beobachteten Handgriffen.
-summary: Der Koda 2 ist das Ooni-Gasformat, das wir einem Haushalt am ehesten empfehlen würden. Er bleibt recht kompakt, doch seine Aufheizwerte schwanken zu stark für ein Zeitversprechen.
+title: "Ooni Koda 2: das passende Gasformat für Ihre Terrasse?"
+seoTitle: "Ooni Koda 2: für welche Terrasse? | Four à Nu"
+description: "Der Koda 2 bietet angegebene 35 cm bei 16 kg. Unsere Wahl für die Terrasse, Grenzen beim Aufheizen und Alternativen vor dem Kauf."
+summary: "Ich würde den Koda 2 für Gasbetrieb auf der Terrasse mit mehr Spielraum als bei 30 cm wählen. Für tägliches Verstauen, Innenräume oder zwei gleichzeitige Pizzen würde ich andere Geräte prüfen."
 status: publishable
 type: model
 author: magali
 model: Ooni Koda 2
 commercialObjects: [ooni-koda-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
   alt: "Schwarzer Ooni Koda 2 Gasofen auf einem Stahltisch"
   caption: "Redaktionelle Illustration nach einem offiziellen Foto von Ooni."
   assetId: AS-2304
-evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407]
+evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407, EV-0308]
 evidenceTypes:
   - FAB
   - T-MES
@@ -32,21 +33,11 @@ limitations:
   - Die Verbrauchsangabe beruht nur auf einer ungenauen Wägung durch Dritte.
 ---
 
-## Das Gasformat, das sich am leichtesten empfehlen lässt
+## Meine Wahl für eine Terrasse und 30-cm-Pizzen
 
-Der Koda 2 besetzt einen interessanten Platz im Ooni-Sortiment. Die angegebenen
-35 cm bieten mehr Spielraum als ein 30-cm-Ofen, ohne auf die 30 oder 43 kg der
-großen Modelle zu springen. Mit 16 kg lässt er sich noch bewegen, doch ihn nach
-jedem Abend hereinzutragen, wird schnell lästig.
+**Ich würde den Koda 2 zum Backen draußen mit Gas wählen, ohne das Gewicht der großen Öfen.** Seine angegebenen 35 cm lassen Platz um eine 30-cm-Pizza; die 16 kg verlangen bereits einen durchdachten Standort. Muss der Ofen nach jedem Essen hinein oder in Innenräumen backen, würde ich ihn ausschließen.
 
-Wir würden ihn empfehlen, um die Handgriffe neapolitanischer Pizza zu lernen,
-ohne zusätzlich ein Holzfeuer führen zu müssen. Eine Aufheizzeit von 15 Minuten
-oder eine perfekte Pizza in 60 Sekunden kann dagegen niemand garantieren. Die
-veröffentlichten Tests unterscheiden sich zu stark bei Wetter, Messungen und
-Backweise.
-
-Der Ratgeber [Welchen Ooni-Ofen 2026 wählen?](/de/ooni/welcher-ooni-ofen/) ordnet
-dieses Modell gegenüber den anderen Formaten ein.
+Diese Präferenz betrifft Format, Gewicht und Brennstoff. Die folgenden Backvorgänge und Messwerte bleiben denen der genannten Autoren mit deren Wetterbedingungen und Einstellungen zugeordnet. Der Ratgeber [Welchen Ooni-Ofen wählen?](/de/ooni/welcher-ooni-ofen/) ordnet die Entscheidung ins Sortiment ein.
 
 ## Der Tisch zählt ebenso wie die angegebenen 35 cm
 
@@ -110,10 +101,10 @@ Projekt, erfüllt der [Karu 2](/de/ooni/karu-2/) einen anderen Wunsch.
   [Pizzaschieber](/de/pizzazubehoer/pizzaschieber-ratgeber/) und eine sich drehende 35-cm-Pizza.
 - Legen Sie fest, wo ein 16 kg schweres Gerät zwischen zwei Nutzungen steht.
 
-## Unsere Schlussfolgerung
+## Diese Alternativen würde ich vor dem Kauf vergleichen
 
-Unter den untersuchten Modellen bietet der Koda 2 für einen Haushalt den
-ausgewogensten Gaskompromiss. Diese Präferenz beruht auf Platzangebot und
-Gewicht. Die Beobachtungen betreffen wenige Exemplare und sehr unterschiedliche
-Tests. Sie liefern keine belastbare Aussage zum Tempo einer langen Serie,
-zum Verbrauch oder zur Lebensdauer und sind keine eigene Erfahrung von Four à Nu.
+Für einen festen Standort und größere Pizzen führt der [Vergleich Koda 2 Pro / Gozney Arc XL](/de/pizzaoefen/koda-2-pro-oder-arc-xl/) zu einem anderen Format und einer anderen Marke. Wählen Sie nicht allein deshalb größer, weil der Tisch es zulässt: Entscheidend ist der tatsächlich vorbereitete Durchmesser.
+
+Ist Backen in Innenräumen erforderlich, wird der [Vergleich Volt 2, Sage und Cuisinart](/de/pizzaoefen/volt-2-sage-oder-cuisinart/) zum passenden Ausgangspunkt. Der Koda 2 bleibt ein Außenofen; eine andere Energieart verändert zuerst die Installation.
+
+Prüfen Sie genaue Tiefe, Abstände, Gasanschluss für Frankreich und passenden Schieber, bevor er auf der Auswahlliste bleibt. Die [Gesamtkosten](/de/pizzaoefen/pizzaofen-gesamtkosten/) helfen anschließend, einsatzbereite Ausrüstung statt bloßer Ofenpreise zu vergleichen.

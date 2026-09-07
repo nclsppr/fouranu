@@ -96,3 +96,7 @@ Der Koda 12 wirkt stimmig, wenn Sie vor allem einen einfachen, leichten Gasofen
 suchen. Ohne Messungen durch Dritte legen wir weder eine realistische
 Aufheizzeit noch Verbrauch oder Tempo über eine Pizzaserie fest. Diese Empfehlung
 stützt sich auf Format und Gewicht, nicht auf eine Handhabung durch Four à Nu.
+
+## Prüfen, ob das kleine Format zu Ihnen passt
+
+Der Durchmesser entscheidet nicht allein. Die [Ofenauswahl](/de/pizzaoefen/#trouver-mon-four) verbindet Standort, Energieart, Format und Einschränkungen, damit Sie den Koda 12 einordnen können. Messen Sie anschließend die Installation einschließlich der Abstände aus der Anleitung, nicht nur das Gehäuse.

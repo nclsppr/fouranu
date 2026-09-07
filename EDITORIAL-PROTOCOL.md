@@ -1,20 +1,20 @@
 # Protocole éditorial, sources et visuels
 
-Cadre mis à jour le 2026-08-26. Ce protocole est une barrière
+Cadre mis à jour le 2026-09-07. Ce protocole est une barrière
 opérationnelle, pas un avis juridique. Une validation professionnelle sera
 nécessaire avant une exploitation répétée ou contractuellement complexe.
 
 ## Décision
 
-Four à Nu publie aujourd'hui un corpus documentaire. Il produit des analyses,
+Four à Nu publie un corpus documentaire permanent. Il produit des analyses,
 un jeu de données et un parcours de décision à partir de sources attribuées. Une
 analyse peut rapprocher, normaliser ou contredire ces sources, mais elle ne
 transforme jamais une expérience tierce en expérience de Four à Nu.
 
-L'ADR-0006 fixe une ambition future d'essais de première main sur les fours,
-accessoires et pétrins. Elle n'active aucun test : tant qu'un protocole et sa
-taxonomie n'ont pas été acceptés séparément, toutes les pages restent soumises
-au présent modèle documentaire.
+L'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md) retire
+le programme de l'ADR-0006 : Four à Nu ne réalisera pas d'essais physiques de
+fours, d'accessoires ou de pétrins. Toutes les pages relèvent durablement du
+présent modèle documentaire.
 
 Le produit ne publie ni note, ni étoile, ni classement pseudo-scientifique, ni
 donnée structurée `Review` ou `AggregateRating`. Une vidéo tierce peut être une
@@ -23,8 +23,8 @@ jamais une preuve.
 
 ## Voix éditoriale
 
-Four à Nu écrit comme un bon testeur qui aide un ami à choisir, pas comme une
-notice technique. Le lecteur doit comprendre dès l'ouverture à qui le produit
+Four à Nu écrit comme une rédaction qui aide à choisir avec des raisons claires.
+Le lecteur doit comprendre dès l'ouverture à qui le produit
 convient, ce qui peut coincer et quelle question trancher. La rédaction emploie
 des mots courants, des paragraphes courts, des intertitres utiles et des
 exemples concrets. Une caractéristique technique n'apparaît que lorsqu'elle
@@ -34,17 +34,21 @@ au premier emploi.
 La voix peut être personnelle, directe et tranchée : la rédaction peut
 expliquer ce qu'elle choisirait, écarterait ou vérifierait dans une situation
 donnée. Une telle prise de position relève de `FAN-INF`, cite ses prémisses et
-conserve son niveau de confiance. Elle ne permet jamais d'écrire qu'un produit
-a été testé, mesuré, utilisé ou goûté par Four à Nu lorsque l'expérience
-appartient à un tiers. Les formules « notre test », « nous avons mesuré » ou
-« après plusieurs semaines d'utilisation » sont interdites sans expérience
-propre enregistrée.
+conserve son niveau de confiance. « Nous recommandons », « notre choix » et
+« notre avis documentaire » sont permis lorsque le lecteur comprend le
+périmètre de la conclusion. La rédaction ne dit jamais avoir testé, mesuré,
+utilisé ou goûté un produit. Les formules « notre test », « nous avons mesuré »
+ou « après plusieurs semaines d'utilisation » sont exclues des dossiers Four
+à Nu. Une expérience tierce reste formulée et attribuée comme telle.
 
 Chaque création ou révision d'article comprend une passe de simplification :
 réponse avant méthode, bénéfice avant fiche technique, verdict nuancé avant
 bibliographie. Les tableaux détaillés et les protocoles restent accessibles
 après une synthèse en langage courant. Le site ne termine pas ses dossiers par
-une note chiffrée, des étoiles ou un classement.
+une note chiffrée, des étoiles ou un classement pseudo-scientifique. Une
+sélection des meilleurs choix pour un usage précis est possible si les modèles
+comparés, les critères, la date et les limites du corpus sont explicites. Elle
+ne devient jamais un palmarès universel ni un résultat de test.
 
 ## Signatures et biographies
 
@@ -61,9 +65,9 @@ publication par le propriétaire éditorial ou validés par la personne concern�
 Elle n'est pas présentée comme personnellement validée sans preuve de cet accord.
 Une pratique personnelle, une formation ou la prise en main de plusieurs fours
 peut expliquer un parcours ; elle ne devient ni une preuve du dossier, ni un
-essai Four à Nu. Une expérience de première main ne soutient une conclusion
-éditoriale que lorsqu'elle entre dans le protocole, la taxonomie et les registres
-autorisés pour le programme d'essais.
+essai Four à Nu. Les conclusions du dossier reposent sur les cinq classes de
+preuve documentaires ; les biographies ne leur ajoutent aucune mesure ni
+observation de première main.
 
 Une photographie d'auteur n'est publiée que lorsqu'elle est fournie pour cet
 usage, que l'usage commercial et l'accord à l'image sont enregistrés et que sa
@@ -99,26 +103,28 @@ regrouper les décisions ; elles ne prouvent ni une performance produit, ni un
 volume de recherche, ni la représentativité du marché. Chaque question publique
 est paraphrasée, datée et reliée à sa source sans conserver de pseudonyme.
 
-## Programme d'essais de première main non activé
+## Recommandations et comparatifs documentaires
 
-La cible décrite par l'ADR-0006 est un programme progressif, pas une preuve
-actuelle. Aucun essai physique Four à Nu n'est publié au 2026-08-26 et la
-taxonomie active reste limitée aux cinq classes ci-dessus.
+Chaque conclusion d'achat indique le besoin couvert, les raisons du choix,
+la principale concession et l'alternative qui devient pertinente si le besoin
+change. Les preuves détaillées restent accessibles ; elles ne repoussent pas
+la réponse après une longue introduction méthodologique.
 
-Avant tout achat dédié, prêt, mesure ou session du programme, une décision
-dédiée doit définir au minimum le type de session, le produit exact, la date, le
-lieu, l'opérateur, les instruments et leur étalonnage, le scénario, le nombre de
-répétitions, les mesures brutes, les observations, les incidents, les limites,
-les prêts, le sponsoring et les conflits d'intérêts. Elle doit aussi définir les
-formulations permises et la chaîne de droits des médias originaux. Chaque paquet
-d'essai garde ensuite sa propre autorisation de publication.
+Une comparaison oppose des modèles et des situations nommés. Elle sépare les
+caractéristiques fabricant, les observations tierces comparables et les points
+sur lesquels les protocoles ne permettent pas de départager les produits.
+L'absence de données ne devient ni une mauvaise note ni un avantage concurrent.
+Une préférence de format, d'énergie ou d'installation peut suffire à recommander
+un modèle sans prétendre qu'il cuit mieux.
 
-Un futur essai enrichit l'URL documentaire stable. Il ne permet pas de convertir
-une observation tierce en expérience propre, de masquer un protocole
-incompatible ou de généraliser une session à toute une marque. La formule
-« tous les fours du marché » reste une ambition jusqu'à l'existence d'un
-inventaire français daté et d'une session enregistrée pour chaque modèle du
-périmètre.
+Un calcul original relève de `FAN-SYN` : sources utilisables, date, unités,
+formule, hypothèses et éléments exclus restent visibles. Les données volatiles
+respectent aussi les contrats commerciaux. Un prix de four ne devient pas un
+coût complet lorsque des accessoires nécessaires manquent au calcul.
+
+Les inventaires de marché restent datés et limités au périmètre documenté.
+Aucune formulation ne promet une couverture par essais. Les titres et
+métadonnées conservent la même nature documentaire que le corps de page.
 
 ## Types de visuels
 
@@ -320,6 +326,13 @@ utiliser à la place une illustration `editorial-original` conforme à
 l'ADR-0008. Cette exception ne s'applique pas à une fiche de modèle ni à un
 face-à-face dont les produits identifiés forment le sujet visuel.
 
+L'ADR-0010 autorise aussi un dossier de décision transversal (`brand: fours`,
+`type: decision`) sans image d'en-tête. Le tableau et le raisonnement portent
+alors la comparaison ; `heroTreatment: editorial-original` désigne ce
+traitement éditorial sans média. La carte de partage originale du site est
+utilisée, aucune image produit n'est déclarée dans le sitemap et aucun registre
+média fictif n'est créé. Les fiches de modèle conservent leurs obligations.
+
 La transformation peut changer le fond, la lumière, le cadrage et la matière
 environnante. Elle préserve sans invention la silhouette, les proportions, les
 commandes, les couleurs, les accessoires, les marquages et les éléments
@@ -361,8 +374,9 @@ sont vraies :
   divergences, cas d'usage, limites ou outil de décision ;
 - les désaccords et protocoles incompatibles restent visibles ;
 - aucun titre ou texte ne raconte une expérience tierce à la première personne
-  ou n'emploie « notre test », « nous avons mesuré », « notre avis » ou
-  « meilleur four » ;
+  ni ne revendique ou promet un essai physique Four à Nu ;
+- un avis documentaire ou une sélection des meilleurs choix garde un usage et
+  un périmètre définis, des critères motivés, des sources et des limites ;
 - aucun balisage `Review`, note, étoile ou classement pseudo-scientifique n'est
   publié ;
 - chaque média de l'arbre public a un statut de droit `service-permitted`,
@@ -464,10 +478,14 @@ python3 scripts/check_editorial_ledgers.py --require-private-proofs
 Cette commande vérifie l'existence et le SHA-256 des preuves privées ; la gate
 CI ordinaire ne peut pas lire ces fichiers ignorés.
 
-## Offensive de 30 jours
+## Offensive initiale de 30 jours — référence historique
 
-Le sprint consomme au maximum 40 des 60 heures autorisées et 0 euro. Les 20
-heures restantes sont réparties entre le pilote manuel et sa mesure (6 heures),
+Ce plan décrit l'expérience initiale. Il ne constitue ni un nouveau budget,
+ni l'état courant des livraisons. L'ordre actif relève de `ROADMAP.md` et les
+relevés de `docs/GROWTH-MEASUREMENT.md`.
+
+Le sprint initial consommait au maximum 40 des 60 heures autorisées et 0 euro.
+Les 20 heures restantes étaient réparties entre le pilote manuel et sa mesure (6 heures),
 la relecture documentaire et les pages de confiance (8 heures), puis l'analyse
 et la conclusion (6 heures).
 

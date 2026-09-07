@@ -7,9 +7,10 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-08-31 |
-| Par | checkout de livraison, CI du SHA exact, sondes HTTP et navigateur sur le domaine public |
+| Vérifié le | 2026-09-07 pour le candidat local décrit ci-dessous ; preuves de publication conservées à leur date |
+| Par | Contrôles locaux et navigateur pour le candidat ; checkout de livraison, CI du SHA exact et sondes publiques pour les tranches publiées |
 | Branche | `main` pour la production |
+| Aide à l'achat documentaire | Candidat local du 2026-09-07 ; vérification canonique et QA trilingue vertes, sans nouveau SHA publié attesté ici |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche post-V1 publiée | SHA applicatif `eb12619007191c82d963017f598b462ca54bdc51` ; [run GitHub Actions `32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541) vert pour `Verify` et `deploy-cloudflare` |
@@ -29,6 +30,71 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Cinq dossiers multimarques Amazon publiés | SHA applicatif `1092e63da3cd84a88148e3360ce1082622371c07` ; [run GitHub Actions `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Aide à l'achat documentaire : candidat du 2026-09-07
+
+Cette tranche reste un candidat local. Les preuves de publication des sections
+suivantes décrivent les livraisons historiques ; elles ne prouvent pas la
+publication de ce nouveau paquet. La gate canonique et la revue navigateur
+trilingue passent ; les preuves du SHA final, de CI et de publication restent
+à compléter.
+
+L'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md) rend
+permanente l'aide à l'achat documentaire et remplace le programme physique de
+l'ADR-0006. Les recommandations reposent sur les données fabricant, les travaux
+tiers attribués et la synthèse Four à Nu. Le candidat retire les promesses
+d'essais physiques et conserve les limites des sources. Il n'ajoute aucun
+média ni collecteur analytics.
+
+Le parcours français, anglais et allemand propose un sélecteur de dix modèles,
+avec au plus deux résultats selon le lieu, l'énergie et l'usage. Le budget se
+vérifie ensuite dans un panier à six postes à partir des montants saisis par le
+lecteur. Une incompatibilité intérieur/gaz ne produit aucun choix. Les pages
+gardent une aide à la décision lisible sans JavaScript.
+
+Trois nouveaux dossiers de décision — Koda 2 Pro ou Arc XL, Volt 2/Sage/Cuisinart
+et budget complet — existent dans les trois langues. Neuf articles existants
+sont réécrits et six autres reçoivent un maillage contextuel. Le candidat
+compte 31 dossiers par langue, soit 93 articles et 144 pages HTML : 141 URL
+indexables et trois 404 localisées. Chaque RSS contient 31 entrées ; le sitemap
+d'images conserve 30 images. Les registres comptent 278 preuves, 117 médias,
+66 questions et 39 objets commerciaux, dont 31 offres exactes et huit
+`not_found`.
+
+Les contrôles déjà acquis le 2026-09-07 sont les suivants :
+
+- `./scripts/verify.sh` passe intégralement, avec 32 tests de registres et
+  31 tests du site, dont les sept tests de l'outil ; le typage, le build et la
+  simulation DOM dans les trois langues passent également ;
+- le service Compose isolé est sain sur le port `4329` ; huit routes sont
+  contrôlées avec les statuts attendus, `200` pour les pages et `404` pour
+  la route allemande inconnue ;
+- la revue dans le navigateur intégré couvre l'accueil français, le hub français
+  et le duel français à 360 et 1 280 px sans débordement observé ;
+- le sélecteur rend zéro résultat pour intérieur/gaz et deux choix, Volt 2 et
+  Sage Pizzaiolo, pour intérieur/électrique ; le scénario de panier à 639,90 €
+  laisse 60,10 € sous un plafond de 700 € ;
+- la validation au clavier par Entrée fonctionne ; depuis le duel français,
+  le passage au clavier vers l'allemand ouvre la contrepartie exacte ;
+- le dossier de budget anglais conserve un tableau lisible ; le hub allemand
+  renvoie Koda 2 Pro et Arc XL pour extérieur/gaz/40 cm ; le panier mobile du
+  hub anglais a été revu après la correction de son libellé accessible ;
+- la revue finale à 360 et 1 280 px ne relève pas de débordement ni d'erreur ou
+  d'avertissement console sur ces parcours.
+
+Le maintien du contenu sans JavaScript est contrôlé dans la source et la
+simulation DOM ; aucun parcours dans un navigateur avec JavaScript désactivé
+n'est attesté ici. Ces preuves locales ne constituent ni une preuve de
+déploiement, ni un résultat SEO.
+
+L'accès Google Search Console est confirmé et un premier relevé privé, en
+lecture seule, est daté du 2026-09-07 sur le périmètre Web de Four à Nu. Son
+historique est court ; les exports et chiffres du compte restent hors Git.
+Le [protocole de mesure](docs/GROWTH-MEASUREMENT.md) distingue visibilité,
+clics marchands et commissions. Aucun collecteur de clics ni service de mesure
+supplémentaire n'est activé par cette tranche. F04-CHOIX reste `in_progress` ;
+la conclusion de F05 et la couverture documentaire F06 restent à établir selon
+la [feuille de route actuelle](ROADMAP.md).
 
 ## Site trilingue publié
 
@@ -463,6 +529,10 @@ quatre médias nouveaux, les 25 URL du sitemap et les treize entrées RSS.
 
 ## Résumé
 
+Ce résumé conserve l'instantané de la livraison accessoires du 2026-08-31.
+Les tranches publiées qui le suivent dans le temps sont documentées plus haut,
+ainsi que le candidat local du 2026-09-07.
+
 Four à Nu sert publiquement un média statique de 40 pages HTML. Sa V1 et ses
 tranches éditoriales et techniques sont publiques sur `fouranu.com`. Le site
 propose vingt-trois guides : onze guides de fours ou d'énergie Ooni, une
@@ -523,6 +593,11 @@ exact est validé, autorisé, déployé et vérifié publiquement.
 
 ## Phases actives
 
+Ce tableau est l'état historique associé au résumé ci-dessus. L'état courant
+des phases figure dans [`ROADMAP.md`](ROADMAP.md) ; l'ADR-0010 remplace depuis
+le 2026-09-07 le programme physique F06 ci-dessous par une couverture
+documentaire ciblée.
+
 | Phase | État observé | Preuve acquise | Preuve restante | Responsable |
 | --- | --- | --- | --- | --- |
 | F01, socle produit local | `done` | Build, Compose, tests, CI et parcours navigateur | Aucune dans son périmètre historique | nclsppr |
@@ -534,7 +609,9 @@ exact est validé, autorisé, déployé et vérifié publiquement.
 
 ## Livré et vérifié en production
 
-Le tableau suivant décrit uniquement la production.
+Le tableau suivant conserve la production de l'instantané accessoires du
+2026-08-31. Les livraisons ultérieures et le candidat local sont décrits dans
+leurs sections respectives plus haut.
 
 | Capacité | Périmètre réel | Preuve | Limite connue |
 | --- | --- | --- | --- |

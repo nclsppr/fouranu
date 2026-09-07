@@ -2,9 +2,10 @@
 articleId: GOZNEY-001
 brand: gozney
 locale: de
-title: "Gozney Arc XL: 40 cm und 26,5 kg"
-description: Der Gozney Arc XL ist ein 26,5 kg schwerer Gasofen für 40-cm-Pizzen. Dieses Dossier vergleicht Abmessungen, Aufheizen und den Platzbedarf zum Drehen.
-summary: Der Arc XL bietet echten Arbeitsraum für 30 bis 35 cm große Pizzen. Das 40-cm-Format wird am Flammenrand anspruchsvoller, und seine 26,5 kg verlangen einen festen Platz.
+title: "Gozney Arc XL: Brauchen Sie das große Format?"
+seoTitle: "Gozney Arc XL: lohnt das große Format? | Four à Nu"
+description: "Der Arc XL schafft Platz um Pizzen von 30 bis 35 cm an einem festen Standort. Platzbedarf, Grenzen und Vergleich mit dem Koda 2 Pro."
+summary: "Ich würde den Arc XL für einen dauerhaften Außenstandort und Pizzen von 30 bis 35 cm wählen. Regelmäßig 40 cm zu backen oder den Ofen nach jedem Essen wegzuräumen verändert die Entscheidung."
 status: publishable
 type: model
 category: oven
@@ -13,14 +14,14 @@ author: florian
 model: Gozney Arc XL
 commercialObjects: [gozney-arc-xl]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/gozney-arc-xl-1600.webp
   alt: "Cremefarbener Gozney Arc XL Pizzaofen auf einer Arbeitsfläche aus Stahl"
   caption: "Redaktionelle Illustration nach einem offiziellen Foto von Gozney."
   assetId: AS-2102
-evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512]
+evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0305, EV-0306, EV-0307, EV-0308]
 evidenceTypes:
   - FAB
   - T-MES
@@ -33,21 +34,13 @@ limitations:
   - Die verfügbaren Quellen messen weder den tatsächlichen Verbrauch in Frankreich noch die Haltbarkeit der Komponenten über mehrere Jahre.
 ---
 
-## Unsere Einschätzung in Kürze
+## Das sollte Ihnen das XL-Format bringen
 
-Wenn Sie vor allem 30 bis 35 cm große Pizzen zubereiten und der Ofen draußen
-stehen bleiben kann, hat der Arc XL einen echten Nutzen. Seine große Sohle lässt
-Platz zum Drehen, ohne millimetergenau an der Flamme arbeiten zu müssen.
+**Ich würde den Arc XL für mehr Platz um Pizzen von 30 bis 35 cm an einem festen Standort wählen.** Zum Wegräumen nach jeder Mahlzeit würde ich ihn nicht wählen: Seine 26,5 kg und die Tiefe brauchen einen richtigen Platz.
 
-Auch eine 40-cm-Pizza passt hinein. Dieses Versprechen zieht an, doch es ist nicht
-das am leichtesten zu backende Format. Beide verfügbaren Erfahrungsberichte
-zeigen, dass der Teig bei diesem Durchmesser nah an den Brenner kommt und früh
-gedreht werden muss.
+Die angegebene Kapazität für eine 40-cm-Pizza bleibt interessant. Die beiden unten erläuterten Berichte Dritter zeigen jedoch, dass dieser Durchmesser den Teig nahe an die Flamme bringt und das Drehen erschwert. Ein kleinerer bevorzugter Durchmesser ist unsere Schlussfolgerung aus diesen Beobachtungen, keine neue Herstellergrenze.
 
-Am 24. August 2026 betrug der in Frankreich angezeigte Preis 899,99 €. Dazu kommen
-ein stabiler, ausreichend tiefer Tisch, Schieber und Abdeckung. Auch die 26,5 kg
-des Ofens verlangen einen festen Platz. Der Kauf ist für eine dauerhafte
-Pizzaecke schlüssiger als für einen Ofen, der sonntags aus der Garage kommt.
+Vergleichen Sie vor dem Kauf [Koda 2 Pro und Arc XL](/de/pizzaoefen/koda-2-pro-oder-arc-xl/) anhand datierter offizieller Preise, Gasanschluss und Gehäuserechteck. Ihre Terrasse entscheidet ebenfalls mit.
 
 ## Sehen Sie vor dem Durchmesser auf den verfügbaren Platz
 
@@ -153,14 +146,8 @@ Sets vor dem Kauf.
 - Ein Infrarotthermometer zur Kontrolle mehrerer Punkte auf der Sohle.
 - Das vollständige Budget mit Gestell, Abdeckung, Einschieß- und Drehschieber.
 
-## Was die Quellen noch nicht sagen
+## Die letzte Abwägung vor der Bestellung
 
-Unsere Einschätzung führt die aktuelle Frankreich-Produktseite, das europäische
-Handbuch und zwei Erfahrungsberichte zusammen. Diese Quellen erlauben keinen
-sauberen Vergleich mit dem gesamten Gozney-Sortiment oder großen Ooni-Öfen. Sie
-beruhen zudem auf wenigen Exemplaren und messen weder wiederholten Verbrauch,
-Alterung noch Kundendienst in Frankreich.
+Wenn Sie vor allem größer als 35 cm backen möchten, vergleichen Sie diesen Bericht mit dem [Koda 2 Pro](/de/ooni/koda-2-pro/) und unserem [Vergleich beider Installationen](/de/pizzaoefen/koda-2-pro-oder-arc-xl/). Ein größerer Maximaldurchmesser und ein schmaleres Gehäuse erfüllen unterschiedliche Bedürfnisse; keines beweist allein ein besseres Backergebnis.
 
-Die hier gegebene Präferenz für 30 bis 35 cm große Pizzen ist eine redaktionelle
-Schlussfolgerung aus dem beobachteten Bewegungsraum. Gozney veröffentlicht diese
-Grenze nicht, und Four à Nu hat sie nicht gemessen.
+Ich würde den Arc XL behalten, wenn Arbeitsraum und Format mit den vorgeschriebenen Abständen zu Hause passen. Vor dem Angebotsvergleich würde ich Unterbau, Werkzeuge und Lagerung in die [Gesamtkosten](/de/pizzaoefen/pizzaofen-gesamtkosten/) aufnehmen. Verbrauch und langfristige Haltbarkeit bleiben die Fragen aus den Grenzen dieses Berichts.

@@ -85,7 +85,8 @@ const fixedIndexableRoutes = [
 ];
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
-const articleCount = 28;
+const articleCount = Object.keys(ARTICLE_ROUTES).length;
+const textDecisionRoutes = new Set(["FOUR-006", "FOUR-007", "FOUR-008"].map((id) => articleRoute(id, "fr")));
 const articleRoutePattern = /^\/(?:ooni|gozney|accessoires-pizza|fours-a-pizza)\/[^/]+\/$/;
 const accessoryArticleRoutePattern = /^\/accessoires-pizza\/[^/]+\/$/;
 const routeSegmentForBrand = (brand) =>
@@ -449,7 +450,7 @@ test("chaque page expose des métadonnées uniques, cohérentes et sémantiques"
     assert.equal(metaContent(page.html, "og:site_name"), "Four à Nu", label);
     assert.equal(metaContent(page.html, "og:locale"), "fr_FR", label);
     const socialImage = metaContent(page.html, "og:image");
-    if (articleRoutePattern.test(page.route ?? "")) {
+    if (articleRoutePattern.test(page.route ?? "") && !textDecisionRoutes.has(page.route)) {
       assert.match(
         socialImage ?? "",
         /^https:\/\/fouranu\.com\/images\/articles\/[a-z0-9-]+-1600\.webp$/,
@@ -736,7 +737,7 @@ test("les traductions conservent les identifiants, preuves et frontières édito
   }
 });
 
-test("les surfaces de promesse distinguent l'ambition du corpus documentaire actuel", async () => {
+test("les surfaces de promesse présentent une aide au choix documentaire", async () => {
   const pages = await htmlPages();
   const home = pages.find((page) => page.route === "/");
   const about = pages.find((page) => page.route === "/a-propos/");
@@ -748,29 +749,29 @@ test("les surfaces de promesse distinguent l'ambition du corpus documentaire act
   );
   assert.equal(
     decodeHtml(metaContent(home.html, "description")),
-    "Four à Nu veut tester tous les fours à pizza vendus en France, en commençant par les marques de référence, puis les accessoires utiles et différents pétrins.",
+    "Choisissez votre four à pizza, comparez les modèles et préparez votre budget complet avec les guides sourcés de Four à Nu pour acheter en France.",
   );
   assert.equal(
     visibleText(metaContent(home.html, "og:title")),
-    "Notre ambition : tester tous les fours à pizza vendus en France",
+    "Le bon four à pizza pour votre espace et votre budget",
   );
   assert.equal(
     visibleText(pairedElements(home.html, "h1")[0][2]),
-    "Four à Nu veut tester tous les fours à pizza vendus en France.",
+    "Le bon four à pizza pour votre espace et votre budget.",
   );
   assert.match(
     visibleText(home.html),
-    /Aujourd’hui, nos guides sont des analyses documentaires sourcées ; chaque futur essai mené par Four à Nu sera clairement signalé\./,
+    /Nos comparatifs rapprochent les données fabricant et les observations publiées pour vous aider à décider\./,
   );
   assert.match(
     visibleText(about.html),
-    /Nous n'avons encore publié aucun essai mené par Four à Nu\. Chaque futur essai sera clairement signalé, avec ses conditions, ses mesures et ses limites\./,
+    /Nos recommandations reposent sur les sources citées dans chaque guide\./,
   );
   const organization = schemaNodes(jsonLdDocuments(home.html))
     .find((node) => node["@type"] === "Organization");
   assert.equal(
     organization?.description,
-    "Média francophone indépendant qui publie des guides sourcés et vise à tester progressivement les fours à pizza vendus en France, les accessoires utiles et différents pétrins.",
+    "Média indépendant d’aide à l’achat : comparatifs de fours à pizza, choix des accessoires et budget complet à partir de sources attribuées.",
   );
 
   const falseFirstPartyClaim = /(?:nous avons testé|nous testons|nos tests|notre test|notre mesure|après notre essai|testé par Four à Nu)/i;
@@ -810,8 +811,11 @@ test("le partage reste local sur les pages canoniques et absent de la 404", asyn
     );
 
     assert.ok(
-      scripts.every((script) => attribute(`<script${script[1]}>`, "src") === undefined),
-      `${label}: aucun script tiers ou fichier client n'est permis`,
+      scripts.every((script) => {
+        const src = attribute(`<script${script[1]}>`, "src");
+        return src === undefined || /^\/_astro\/[a-zA-Z0-9_.-]+\.js$/.test(src);
+      }),
+      `${label}: les scripts doivent être locaux et construits avec le site`,
     );
     assert.ok(
       scripts.every((script) =>
@@ -827,9 +831,10 @@ test("le partage reste local sur les pages canoniques et absent de la 404", asyn
     }
 
     assert.equal(shareSections.length, 1, `${label}: un seul composant de partage attendu`);
-    assert.equal(moduleScripts.length, 1, `${label}: un seul module inline attendu`);
+    const inlineModules = moduleScripts.filter((script) => attribute(`<script${script[1]}>`, "src") === undefined);
+    assert.equal(inlineModules.length, 1, `${label}: un seul module inline de partage attendu`);
     shareRootCount += shareSections.length;
-    moduleBodies.add(moduleScripts[0][2]);
+    moduleBodies.add(inlineModules[0][2]);
 
     const share = shareSections[0];
     const opening = `<section${share[1]}>`;
@@ -888,7 +893,7 @@ test("le partage reste local sur les pages canoniques et absent de la 404", asyn
       `${label}: retour d'état accessible absent`,
     );
 
-    const moduleBody = moduleScripts[0][2];
+    const moduleBody = inlineModules[0][2];
     assert.match(moduleBody, /navigator\.share/, label);
     assert.match(moduleBody, /navigator\.clipboard/, label);
     assert.doesNotMatch(
@@ -957,10 +962,10 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   assert.deepEqual(ovensCollection.mainEntity, {
     "@id": `${canonicalOrigin}/fours-a-pizza/#dossiers`,
   });
-  assert.equal(ovensList.numberOfItems, 5);
+  assert.equal(ovensList.numberOfItems, 8);
   assert.deepEqual(
     ovensList.itemListElement.map((item) => item.position),
-    [1, 2, 3, 4, 5],
+    [1, 2, 3, 4, 5, 6, 7, 8],
   );
   assert.deepEqual(
     ovensList.itemListElement.map((item) => item.url),
@@ -970,6 +975,9 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       `${canonicalOrigin}/fours-a-pizza/g3-ferrari-delizia-g10006/`,
       `${canonicalOrigin}/fours-a-pizza/ninja-woodfire-oo101eu/`,
       `${canonicalOrigin}/fours-a-pizza/witt-etna-rotante/`,
+      `${canonicalOrigin}/fours-a-pizza/koda-2-pro-ou-arc-xl/`,
+      `${canonicalOrigin}/fours-a-pizza/volt-2-sage-ou-cuisinart/`,
+      `${canonicalOrigin}/fours-a-pizza/budget-complet-four-pizza/`,
     ],
   );
 
@@ -1076,7 +1084,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       if (fixedIndexableRoutes.includes(page.route)) {
         assert.equal(
           webPage.dateModified,
-          "2026-08-31T00:00:00.000Z",
+          `${["/", "/a-propos/", "/fours-a-pizza/"].includes(page.route) ? "2026-09-07" : "2026-08-31"}T00:00:00.000Z`,
           `${page.route}: dateModified de surface incohérente`,
         );
       }
@@ -1123,6 +1131,10 @@ test("les données structurées restent vérifiables et sans faux avis", async (
           ? "gozney"
           : "ooni";
       assert.ok(article, `${page.route}: Article JSON-LD absent`);
+      if (textDecisionRoutes.has(page.route)) {
+        assert.equal(leadFigure, undefined, `${page.route}: faux visuel de comparaison`);
+        assert.equal(article.image, defaultSocialImage, page.route);
+      } else {
       assert.match(
         imageCaption,
         editorialCaptionPatternForArticle(imageBrand),
@@ -1142,6 +1154,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
         },
         `${page.route}: ImageObject de l'article incohérent`,
       );
+      }
       assert.equal(article.url, `${canonicalOrigin}${page.route}`);
       assert.equal(visibleText(article.headline), h1);
       assert.equal(visibleText(metaContent(page.html, "og:title")), h1);
@@ -1190,8 +1203,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
   assert.deepEqual(
     [...authorAssignments.values()].sort((left, right) => left - right),
-    [7, 10, 11],
-    "les vingt-huit dossiers doivent rester répartis entre les trois signatures",
+    [7, 10, 14],
+    "les trente et un dossiers doivent rester répartis entre les trois signatures",
   );
   for (const [name, profilePage] of authorProfilePages) {
     const renderedArticleRoutes = tags(profilePage.html, "a")
@@ -1252,7 +1265,7 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
       Object.fromEntries(headers.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(records.size, 268);
+  assert.equal(records.size, 278);
 
   const assetCsv = await readFile(join(repositoryRoot, "research/assets.csv"), "utf8");
   const assetRows = parseCsv(assetCsv);
@@ -1313,6 +1326,13 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
     assert.match(markdown, /^status:\s*publishable$/m, `${slug}: dossier non publiable`);
     assert.match(markdown, /^indexable:\s*true$/m, `${slug}: dossier non indexable`);
     assert.match(markdown, /^publishedAt:\s*2026-\d{2}-\d{2}$/m, `${slug}: date de publication absente`);
+    const textDecision = textDecisionRoutes.has(articleRoute(articleId, "fr"));
+    if (textDecision) {
+      assert.equal(brand, "fours", slug);
+      assert.equal(heroTreatment, "editorial-original", slug);
+      assert.match(markdown, /^type:\s*decision$/m, slug);
+      assert.doesNotMatch(markdown, /^image:|^\s{2}assetId:/m, `${slug}: média absent du contrat textuel`);
+    } else {
     assert.ok(heroAssetId, `${slug}: identifiant du hero absent ou invalide`);
     const heroAsset = assets.get(heroAssetId);
     assert.ok(heroAsset, `${slug}: hero absent du registre média`);
@@ -1352,6 +1372,7 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
       editorialCaptionFromAsset(heroAsset),
       `${slug}: crédit du hero trop long ou incohérent`,
     );
+    }
     const expectedIds = [...new Set(markdown.match(/\bEV-\d{4}\b/g) ?? [])];
     assert.ok(expectedIds.length >= 1, `${slug}: aucune preuve citée`);
     for (const evidenceId of expectedIds) {
@@ -1452,7 +1473,7 @@ test("la photo documentaire de une est responsive, attribuée et légère", asyn
   assert.ok(largeVisual.size < 200_000, "le visuel 1600 px dépasse 200 Ko");
 });
 
-test("chaque dossier publiable possède une photo documentaire et ses deux rendus", async () => {
+test("chaque dossier respecte son traitement visuel et les décisions textuelles restent sans faux média", async () => {
   const markdownDirectory = join(siteRoot, "src/content/analyses");
   const markdownFiles = (await readdir(markdownDirectory))
     .filter((file) => file.endsWith(".md"))
@@ -1496,6 +1517,16 @@ test("chaque dossier publiable possède une photo documentaire et ses deux rendu
     if (brand === "gozney" && category === "oven") categoryCounts.gozneyOvens += 1;
     if (brand === "fours" && category === "oven") categoryCounts.foursOvens += 1;
     if (brand === "accessoires" && category === "accessoires") categoryCounts.accessories += 1;
+    if (textDecisionRoutes.has(`/${routeSegmentForBrand(brand)}/${slug}/`)) {
+      assert.match(markdown, /^type: decision$/m);
+      assert.match(markdown, /^heroTreatment: editorial-original$/m);
+      assert.equal(imagePath, undefined, `${slug}: illustration produit inattendue`);
+      assert.equal(assetId, undefined, `${slug}: preuve de média inattendue`);
+      const page = publishedArticlePages.find((candidate) => candidate.route === `/fours-a-pizza/${slug}/`);
+      assert.ok(page, `${slug}: page de décision absente`);
+      assert.doesNotMatch(page.html, /class="article-lead-media"/);
+      continue;
+    }
     assert.ok(imagePath, `${slug}: image 1600 px absente du frontmatter`);
     assert.ok(assetId, `${slug}: assetId absent du frontmatter`);
     assert.equal(imagePaths.has(imagePath), false, `${slug}: photo dupliquée ${imagePath}`);
@@ -1541,7 +1572,7 @@ test("chaque dossier publiable possède une photo documentaire et ses deux rendu
     ooniOvens: 11,
     ooniMixers: 1,
     gozneyOvens: 7,
-    foursOvens: 5,
+    foursOvens: 8,
     accessories: 4,
   });
 
@@ -1667,7 +1698,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   assert.match(homeSource, /class="lead-feature__visual-frame"/);
   assert.match(
     `${articleSource}\n${i18nCommonSource}`,
-    /L’image d’en-tête illustre le sujet sans prouver les performances des produits\./,
+    /Les illustrations ne constituent pas des mesures de performance\./,
   );
   for (const page of publicPages) {
     assert.doesNotMatch(
@@ -1678,7 +1709,7 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   }
   for (const page of articlePages) {
     assert.equal(
-      (visibleText(page.html).match(/L’image d’en-tête illustre le sujet sans prouver les performances des produits\./g) ?? []).length,
+      (visibleText(page.html).match(/Les illustrations ne constituent pas des mesures de performance\./g) ?? []).length,
       1,
       `${page.route}: la réserve sur la valeur de preuve doit apparaître une seule fois`,
     );
@@ -1861,8 +1892,10 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
   );
   assert.equal(
     amazonObjectLinks.length,
-    availableObjects.length * 2,
-    "chaque offre exacte doit apparaître dans les deux appels d’achat de son dossier canonique",
+    (availableObjects.length + [...articleRecords.values()]
+      .filter((article) => textDecisionRoutes.has(article.route))
+      .reduce((count, article) => count + article.objectIds.filter((id) => COMMERCIAL_OBJECTS[id].amazon.status === "available").length, 0)) * 2,
+    "chaque offre exacte doit apparaître dans les deux appels d’achat de son dossier canonique et des nouvelles décisions",
   );
 
   const articleByRoute = new Map(
@@ -1917,10 +1950,16 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
     if (object.amazon.status === "available") {
       assert.match(object.amazon.asin ?? "", /^[A-Z0-9]{10}$/, `${object.id}: ASIN invalide`);
       assert.equal(evidenceUrl.pathname, `/dp/${object.amazon.asin}`, `${object.id}: preuve ASIN incohérente`);
-      assert.equal(matches.length, 2, `${object.id}: lien Amazon dédié absent ou dupliqué`);
+      const allowedRoutes = [article.route, ...[...articleRecords.values()]
+        .filter((entry) => textDecisionRoutes.has(entry.route) && entry.objectIds.includes(object.id))
+        .map((entry) => entry.route)];
+      assert.equal(matches.length, allowedRoutes.length * 2, `${object.id}: lien Amazon dédié absent ou dupliqué`);
+      for (const route of allowedRoutes) {
+        assert.equal(matches.filter(({ page }) => page.route === route).length, 2, `${object.id}: deux emplacements attendus sur ${route}`);
+      }
       for (const { page, link } of matches) {
         const opening = `<a${link[1]}>`;
-        assert.equal(page.route, article.route, `${object.id}: lien rendu hors du dossier canonique`);
+        assert.ok(allowedRoutes.includes(page.route), `${object.id}: lien rendu hors des dossiers autorisés`);
         assert.equal(decodeHtml(attribute(opening, "href")), amazonAffiliateUrlForObject(object.id));
         assert.equal(attribute(opening, "rel"), "sponsored external noopener");
         assert.equal(attribute(opening, "data-affiliate"), "amazon");
@@ -2248,9 +2287,10 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       }),
     );
     for (const route of fixedIndexableRoutes) {
+      const updated = ["/", "/a-propos/", "/fours-a-pizza/"].includes(route) ? "2026-09-07" : "2026-08-31";
       assert.match(
         sitemapEntriesByRoute.get(route) ?? "",
-        /<lastmod>2026-08-31<\/lastmod>/,
+        new RegExp(`<lastmod>${updated}<\\/lastmod>`),
         `${route}: date sitemap inattendue`,
       );
     }
@@ -2299,7 +2339,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
     assert.equal((sitemap.match(/<image:image>/g) ?? []).length, 30);
     assert.equal(sitemapImages.length, 30);
     const expectedArticleImages = pages
-      .filter((page) => articleRoutes.includes(page.route))
+      .filter((page) => articleRoutes.includes(page.route) && !textDecisionRoutes.has(page.route))
       .map((page) => metaContent(page.html, "og:image"))
       .concat([...rangeSocialImages.values()])
       .sort();
@@ -2311,7 +2351,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       const imageLocations = [...entry.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)]
         .map((match) => match[1]);
       const route = new URL(location).pathname;
-      if (articleRoutePattern.test(route) || rangeSocialImages.has(route)) {
+      if ((articleRoutePattern.test(route) && !textDecisionRoutes.has(route)) || rangeSocialImages.has(route)) {
         assert.equal(imageLocations.length, 1, `${location}: une image sitemap attendue`);
         assert.equal(await routeExists(imageLocations[0], temporaryOutput), true, `${location}: image absente`);
       } else {
@@ -2332,7 +2372,10 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
 
 test("le rendu statique reste léger et précharge seulement les deux fontes critiques", async () => {
   const files = await filesRecursively(dist);
-  assert.deepEqual(files.filter((file) => file.endsWith(".js")), []);
+  const scriptFiles = files.filter((file) => file.endsWith(".js"));
+  assert.equal(scriptFiles.length, 1, "un seul module pour les outils de décision est attendu");
+  assert.match(scriptFiles[0], /DecisionFinder\.[^/]+\.js$/);
+  assert.ok((await stat(scriptFiles[0])).size < 30_000, "le module des outils dépasse 30 Ko");
 
   const cssFiles = files.filter((file) => file.endsWith(".css"));
   const css = (await Promise.all(cssFiles.map((file) => readFile(file, "utf8")))).join("\n");

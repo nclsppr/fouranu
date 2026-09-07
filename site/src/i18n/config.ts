@@ -173,6 +173,18 @@ export const ARTICLE_ROUTES = {
     brand: "fours",
     slug: { fr: "witt-etna-rotante", en: "witt-etna-rotante", de: "witt-etna-rotante" },
   },
+  "FOUR-006": {
+    brand: "fours",
+    slug: { fr: "koda-2-pro-ou-arc-xl", en: "koda-2-pro-or-arc-xl", de: "koda-2-pro-oder-arc-xl" },
+  },
+  "FOUR-007": {
+    brand: "fours",
+    slug: { fr: "volt-2-sage-ou-cuisinart", en: "volt-2-sage-or-cuisinart", de: "volt-2-sage-oder-cuisinart" },
+  },
+  "FOUR-008": {
+    brand: "fours",
+    slug: { fr: "budget-complet-four-pizza", en: "pizza-oven-full-budget", de: "pizzaofen-gesamtkosten" },
+  },
   "GOZNEY-001": {
     brand: "gozney",
     slug: { fr: "arc-xl", en: "arc-xl", de: "arc-xl" },

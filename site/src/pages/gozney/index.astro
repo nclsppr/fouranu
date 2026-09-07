@@ -51,8 +51,8 @@ const schema = {
 <BaseLayout
   title="Fours Gozney : guides et conseils d’achat | Four à Nu"
   description="Les fours Gozney étudiés par Four à Nu pour choisir selon le format, la place disponible, la chauffe et le budget complet."
-  image={rangeGuide.data.image.src}
-  imageAlt={rangeGuide.data.image.alt}
+  image={rangeGuide.data.image!.src}
+  imageAlt={rangeGuide.data.image!.alt}
   imageWidth={1600}
   imageHeight={900}
   indexable={true}
@@ -87,10 +87,10 @@ const schema = {
           <a class="gozney-entry" href={`/gozney/${entry.id}/`}>
             <span class="gozney-entry__image">
               <img
-                src={entry.data.image.src}
-                srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
+                src={entry.data.image!.src}
+                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
                 sizes="(max-width: 48rem) 100vw, 40vw"
-                alt={entry.data.image.alt}
+                alt={entry.data.image!.alt}
                 width="1600"
                 height="900"
               />

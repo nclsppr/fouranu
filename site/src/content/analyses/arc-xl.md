@@ -1,9 +1,10 @@
 ---
 articleId: GOZNEY-001
 brand: gozney
-title: "Gozney Arc XL : 40 cm et 26,5 kg"
-description: Le Gozney Arc XL est un four à gaz de 26,5 kg pour pizzas de 40 cm. Ce dossier confronte ses dimensions, sa chauffe et la place nécessaire pour tourner.
-summary: L’Arc XL offre un vrai espace de travail pour les pizzas de 30 à 35 cm. Son format de 40 cm devient plus délicat au bord de la flamme et ses 26,5 kg réclament une place fixe.
+title: "Gozney Arc XL : avez-vous besoin du grand format ?"
+seoTitle: "Gozney Arc XL : le grand format utile ? | Four à Nu"
+description: "L’Arc XL se justifie par la marge autour de pizzas de 30 à 35 cm sur une installation fixe. Encombrement, limites et comparaison avec le Koda 2 Pro."
+summary: "Je choisirais l’Arc XL pour une place extérieure durable et des pizzas de 30 à 35 cm. Pour viser systématiquement 40 cm ou ranger le four après chaque repas, ses contraintes changent le choix."
 status: publishable
 type: model
 category: oven
@@ -12,14 +13,14 @@ author: florian
 model: Gozney Arc XL
 commercialObjects: [gozney-arc-xl]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-30
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/gozney-arc-xl-1600.webp
   alt: "Four à pizza Gozney Arc XL couleur crème sur un plan de travail en acier"
   caption: "Illustration éditoriale d’après une photographie officielle Gozney."
   assetId: AS-2102
-evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512]
+evidenceIds: [EV-0270, EV-0271, EV-0272, EV-0273, EV-0274, EV-0500, EV-0501, EV-0502, EV-0503, EV-0504, EV-0505, EV-0506, EV-0507, EV-0508, EV-0509, EV-0510, EV-0511, EV-0512, EV-0305, EV-0306, EV-0307, EV-0308]
 evidenceTypes:
   - FAB
   - T-MES
@@ -32,7 +33,13 @@ limitations:
   - Les sources disponibles ne mesurent ni la consommation réelle en France, ni la tenue des composants sur plusieurs années.
 ---
 
-## Notre lecture en bref
+## Ce que le format XL doit vous apporter
+
+**Je choisirais l’Arc XL pour gagner de la marge autour de pizzas de 30 à 35 cm sur une installation fixe.** Je ne le choisirais pas pour être déplacé après chaque repas : ses 26,5 kg et sa profondeur imposent un vrai emplacement.
+
+La possibilité annoncée de cuire une pizza de 40 cm reste intéressante. Les deux retours tiers détaillés plus bas montrent cependant que ce diamètre rapproche la pâte de la flamme et complique les rotations. Notre préférence pour un diamètre inférieur est une conclusion de ces observations, pas une nouvelle limite fabricant.
+
+Avant d’acheter le grand format, comparez le [Koda 2 Pro et l’Arc XL](/fours-a-pizza/koda-2-pro-ou-arc-xl/) sur les prix officiels datés, le raccordement et le rectangle de châssis. La différence se joue aussi sur votre terrasse.
 
 <figure class="article-media">
   <img
@@ -47,19 +54,6 @@ limitations:
   />
   <figcaption>Gozney Arc XL vu de face sur son support. Photogramme de The Barbecue Lab, passage 03:00.</figcaption>
 </figure>
-
-Si vous préparez surtout des pizzas de 30 à 35 cm et que le four peut rester
-dehors, l’Arc XL a un vrai intérêt. Sa grande sole laisse de la place pour
-tourner sans travailler au millimètre près contre la flamme.
-
-Une pizza de 40 cm rentre aussi. C’est la promesse qui attire, mais ce n’est pas
-le format le plus facile à cuire. Les deux retours d’usage disponibles montrent
-qu’à ce diamètre la pâte se rapproche du brûleur et qu’il faut la tourner tôt.
-
-Le prix affiché en France était de 899,99 € le 24 août 2026. À ce prix s'ajoutent
-une table solide et assez profonde, les pelles et la housse. Les 26,5 kg du four
-réclament aussi un emplacement stable. L’achat se justifie mieux pour un coin pizza durable que pour un four à
-sortir du garage le dimanche.
 
 ## Avant le diamètre, regardez la place disponible
 
@@ -170,14 +164,8 @@ prix et la disponibilité de ce kit avant l’achat.
 - Un thermomètre infrarouge pour contrôler plusieurs points de la sole.
 - Le budget complet avec support, housse, pelle de lancement et pelle à tourner.
 
-## Ce que les sources ne disent pas encore
+## Le dernier arbitrage avant de commander
 
-Notre lecture rassemble la fiche France actuelle, le manuel européen et deux
-retours d’usage. Ces sources ne permettent pas une comparaison propre avec
-toute la gamme Gozney ou les grands fours Ooni. Elles reposent aussi sur peu
-d’exemplaires et ne mesurent ni la consommation répétée, ni le vieillissement,
-ni le service après-vente en France.
+Si vous voulez surtout dépasser 35 cm, confrontez ce dossier au [Koda 2 Pro](/ooni/koda-2-pro/) et à notre [comparaison des deux installations](/fours-a-pizza/koda-2-pro-ou-arc-xl/). Un diamètre maximal plus grand et un châssis plus étroit répondent à deux besoins différents ; aucun ne prouve à lui seul une meilleure cuisson.
 
-La préférence donnée ici aux pizzas de 30 à 35 cm est une inférence éditoriale
-fondée sur l’espace de rotation observé. Gozney ne publie pas cette limite et
-Four à Nu ne l’a pas mesurée.
+Je garderais l’Arc XL si sa marge de travail et son format passent chez vous avec les dégagements requis. J’ajouterais au [budget complet](/fours-a-pizza/budget-complet-four-pizza/) le support, les outils et le rangement nécessaires avant de comparer les offres. Les questions de consommation et de tenue dans le temps restent celles indiquées dans les limites du dossier.

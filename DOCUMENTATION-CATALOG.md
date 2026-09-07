@@ -9,10 +9,10 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 8 |
-| Barrières de publication | `internal` | 1 |
+| Décisions | `internal` | 9 |
+| Barrières de publication | `internal` | 2 |
 | Notes de recherche | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 84 |
+| Brouillons éditoriaux du site | `internal` | 93 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -46,9 +46,11 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0006-programme-essais-et-couverture-du-marche.md](docs/decisions/0006-programme-essais-et-couverture-du-marche.md)
 - [docs/decisions/0008-en-tete-original-guides-multi-produits.md](docs/decisions/0008-en-tete-original-guides-multi-produits.md)
 - [docs/decisions/0009-site-trilingue-fr-en-de.md](docs/decisions/0009-site-trilingue-fr-en-de.md)
+- [docs/decisions/0010-aide-achat-documentaire-permanente.md](docs/decisions/0010-aide-achat-documentaire-permanente.md)
 
 ## Barrières de publication
 
+- [docs/GROWTH-MEASUREMENT.md](docs/GROWTH-MEASUREMENT.md)
 - [docs/SEO-PUBLICATION-GATE.md](docs/SEO-PUBLICATION-GATE.md)
 
 ## Notes de recherche
@@ -64,6 +66,7 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/arc-lite-ou-tread.md](site/src/content/analyses/arc-lite-ou-tread.md)
 - [site/src/content/analyses/arc-xl.md](site/src/content/analyses/arc-xl.md)
 - [site/src/content/analyses/arc.md](site/src/content/analyses/arc.md)
+- [site/src/content/analyses/budget-complet-four-pizza.md](site/src/content/analyses/budget-complet-four-pizza.md)
 - [site/src/content/analyses/cuisinart-cpz120e.md](site/src/content/analyses/cuisinart-cpz120e.md)
 - [site/src/content/analyses/de/arc-lite-oder-tread.md](site/src/content/analyses/de/arc-lite-oder-tread.md)
 - [site/src/content/analyses/de/arc-xl.md](site/src/content/analyses/de/arc-xl.md)
@@ -81,14 +84,17 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/de/koda-12.md](site/src/content/analyses/de/koda-12.md)
 - [site/src/content/analyses/de/koda-16.md](site/src/content/analyses/de/koda-16.md)
 - [site/src/content/analyses/de/koda-2-max.md](site/src/content/analyses/de/koda-2-max.md)
+- [site/src/content/analyses/de/koda-2-pro-oder-arc-xl.md](site/src/content/analyses/de/koda-2-pro-oder-arc-xl.md)
 - [site/src/content/analyses/de/koda-2-pro.md](site/src/content/analyses/de/koda-2-pro.md)
 - [site/src/content/analyses/de/koda-2.md](site/src/content/analyses/de/koda-2.md)
 - [site/src/content/analyses/de/ninja-woodfire-oo101eu.md](site/src/content/analyses/de/ninja-woodfire-oo101eu.md)
+- [site/src/content/analyses/de/pizzaofen-gesamtkosten.md](site/src/content/analyses/de/pizzaofen-gesamtkosten.md)
 - [site/src/content/analyses/de/pizzascheren-ratgeber.md](site/src/content/analyses/de/pizzascheren-ratgeber.md)
 - [site/src/content/analyses/de/pizzaschieber-ratgeber.md](site/src/content/analyses/de/pizzaschieber-ratgeber.md)
 - [site/src/content/analyses/de/roccbox.md](site/src/content/analyses/de/roccbox.md)
 - [site/src/content/analyses/de/sage-pizzaiolo-bpz820.md](site/src/content/analyses/de/sage-pizzaiolo-bpz820.md)
 - [site/src/content/analyses/de/teigboxen-ratgeber.md](site/src/content/analyses/de/teigboxen-ratgeber.md)
+- [site/src/content/analyses/de/volt-2-sage-oder-cuisinart.md](site/src/content/analyses/de/volt-2-sage-oder-cuisinart.md)
 - [site/src/content/analyses/de/volt-2.md](site/src/content/analyses/de/volt-2.md)
 - [site/src/content/analyses/de/welcher-gozney-ofen.md](site/src/content/analyses/de/welcher-gozney-ofen.md)
 - [site/src/content/analyses/de/welcher-ooni-ofen.md](site/src/content/analyses/de/welcher-ooni-ofen.md)
@@ -112,13 +118,16 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/en/koda-12.md](site/src/content/analyses/en/koda-12.md)
 - [site/src/content/analyses/en/koda-16.md](site/src/content/analyses/en/koda-16.md)
 - [site/src/content/analyses/en/koda-2-max.md](site/src/content/analyses/en/koda-2-max.md)
+- [site/src/content/analyses/en/koda-2-pro-or-arc-xl.md](site/src/content/analyses/en/koda-2-pro-or-arc-xl.md)
 - [site/src/content/analyses/en/koda-2-pro.md](site/src/content/analyses/en/koda-2-pro.md)
 - [site/src/content/analyses/en/koda-2.md](site/src/content/analyses/en/koda-2.md)
 - [site/src/content/analyses/en/ninja-woodfire-oo101eu.md](site/src/content/analyses/en/ninja-woodfire-oo101eu.md)
+- [site/src/content/analyses/en/pizza-oven-full-budget.md](site/src/content/analyses/en/pizza-oven-full-budget.md)
 - [site/src/content/analyses/en/pizza-peel-guide.md](site/src/content/analyses/en/pizza-peel-guide.md)
 - [site/src/content/analyses/en/pizza-scissors-guide.md](site/src/content/analyses/en/pizza-scissors-guide.md)
 - [site/src/content/analyses/en/roccbox.md](site/src/content/analyses/en/roccbox.md)
 - [site/src/content/analyses/en/sage-pizzaiolo-bpz820.md](site/src/content/analyses/en/sage-pizzaiolo-bpz820.md)
+- [site/src/content/analyses/en/volt-2-sage-or-cuisinart.md](site/src/content/analyses/en/volt-2-sage-or-cuisinart.md)
 - [site/src/content/analyses/en/volt-2.md](site/src/content/analyses/en/volt-2.md)
 - [site/src/content/analyses/en/which-gozney-oven.md](site/src/content/analyses/en/which-gozney-oven.md)
 - [site/src/content/analyses/en/which-ooni-oven.md](site/src/content/analyses/en/which-ooni-oven.md)
@@ -132,6 +141,7 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/koda-12.md](site/src/content/analyses/koda-12.md)
 - [site/src/content/analyses/koda-16.md](site/src/content/analyses/koda-16.md)
 - [site/src/content/analyses/koda-2-max.md](site/src/content/analyses/koda-2-max.md)
+- [site/src/content/analyses/koda-2-pro-ou-arc-xl.md](site/src/content/analyses/koda-2-pro-ou-arc-xl.md)
 - [site/src/content/analyses/koda-2-pro.md](site/src/content/analyses/koda-2-pro.md)
 - [site/src/content/analyses/koda-2.md](site/src/content/analyses/koda-2.md)
 - [site/src/content/analyses/ninja-woodfire-oo101eu.md](site/src/content/analyses/ninja-woodfire-oo101eu.md)
@@ -139,6 +149,7 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/quel-four-ooni-choisir.md](site/src/content/analyses/quel-four-ooni-choisir.md)
 - [site/src/content/analyses/roccbox.md](site/src/content/analyses/roccbox.md)
 - [site/src/content/analyses/sage-pizzaiolo-bpz820.md](site/src/content/analyses/sage-pizzaiolo-bpz820.md)
+- [site/src/content/analyses/volt-2-sage-ou-cuisinart.md](site/src/content/analyses/volt-2-sage-ou-cuisinart.md)
 - [site/src/content/analyses/volt-2.md](site/src/content/analyses/volt-2.md)
 - [site/src/content/analyses/witt-etna-rotante.md](site/src/content/analyses/witt-etna-rotante.md)
 

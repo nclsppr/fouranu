@@ -4,23 +4,24 @@ locale: en
 brand: ooni
 category: oven
 heroTreatment: official-stylized
-title: "Ooni Koda 2: dimensions and heating"
-description: The Koda 2 is a 35 cm, 16 kg gas oven. Our analysis compares its dimensions with published heating measurements and observed techniques.
-summary: The Koda 2 is the Ooni gas format we find easiest to recommend to a household. It remains fairly compact, but its heating figures vary too much to promise a time.
+title: "Ooni Koda 2: the right gas format for your terrace?"
+seoTitle: "Ooni Koda 2: which terrace setup? | Four à Nu"
+description: "The Koda 2 offers a claimed 35 cm format at 16 kg. Our choice for a terrace, heating limits and alternatives to check before buying."
+summary: "I would choose the Koda 2 for gas cooking on a terrace with more room than a 30 cm format. I would look elsewhere for daily storage, indoor use or two simultaneous pizzas."
 status: publishable
 type: model
 author: magali
 model: Ooni Koda 2
 commercialObjects: [ooni-koda-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-09-07
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
   alt: "Black Ooni Koda 2 gas oven on a steel table"
   caption: "Editorial illustration based on an official Ooni photograph."
   assetId: AS-2304
-evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407]
+evidenceIds: [EV-0010, EV-0011, EV-0012, EV-0100, EV-0201, EV-0202, EV-0203, EV-0210, EV-0211, EV-0311, EV-0312, EV-0313, EV-0407, EV-0308]
 evidenceTypes:
   - FAB
   - T-MES
@@ -32,20 +33,11 @@ limitations:
   - Consumption is based on only one imprecise third-party weighing.
 ---
 
-## The easiest gas format to recommend
+## My choice for a terrace and 30 cm pizzas
 
-The Koda 2 occupies an interesting middle ground in the Ooni range. Its stated
-35 cm space leaves more margin than a 30 cm oven without moving up to the 30 or
-43 kg of the larger models. At 16 kg it remains movable, but bringing it inside
-after every evening will soon become a chore.
+**I would choose the Koda 2 for outdoor gas cooking without the weight of the large ovens.** Its claimed 35 cm gives room around a 30 cm pizza; its 16 kg already deserves a planned location. I would rule it out if the oven must come inside after every meal or cook indoors.
 
-We would recommend it for learning the movements of Neapolitan pizza without
-adding the management of a wood fire. However, nobody can guarantee a
-fifteen-minute heat-up or a perfect pizza in sixty seconds. The published
-sessions vary too much in weather, measurement and baking method.
-
-The [Which Ooni oven should you choose in 2026?](/en/ooni/which-ooni-oven/) guide places
-this model alongside the other formats.
+That preference concerns size, weight and fuel. The bakes and readings below remain those of the cited authors, in their weather and settings. To place the choice within the range, see [which Ooni oven to choose](/en/ooni/which-ooni-oven/).
 
 ## The table matters as much as the stated 35 cm
 
@@ -106,10 +98,10 @@ of the project, the [Karu 2](/en/ooni/karu-2/) answers a different desire.
   for turning a 35 cm pizza.
 - Decide where a 16 kg appliance will be stored between uses.
 
-## Our conclusion
+## Alternatives I would compare before paying
 
-The Koda 2 offers the most balanced gas compromise among the models studied
-for a household. This preference comes from its available space and weight.
-The observations concern a few units and very different sessions. They say
-nothing reliable about the pace of a long run, consumption or lifespan, and do
-not constitute first-hand Four à Nu experience.
+For a fixed installation and larger pizzas, the [Koda 2 Pro / Gozney Arc XL comparison](/en/pizza-ovens/koda-2-pro-or-arc-xl/) introduces another size and another brand. Do not go larger simply because the table allows it: ask what diameter you will actually prepare.
+
+If cooking indoors is the constraint, the [Volt 2, Sage and Cuisinart comparison](/en/pizza-ovens/volt-2-sage-or-cuisinart/) becomes the right starting point. The Koda 2 remains an outdoor oven; changing fuel first changes the installation.
+
+To keep it on your shortlist, verify the exact depth, clearances, French gas connection and suitable peel. The [complete budget](/en/pizza-ovens/pizza-oven-full-budget/) then helps compare ready-to-use equipment instead of the oven price alone.

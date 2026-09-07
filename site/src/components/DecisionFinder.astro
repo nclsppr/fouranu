@@ -1,0 +1,329 @@
+---
+import { articleRoute, staticRoute, type ArticleId, type Locale } from '@/i18n/config';
+import { DECISION_MODELS } from '@/data/decision-models.mjs';
+import { DECISION_COPY } from '@/data/decision-copy';
+
+interface Props { locale?: Locale }
+const { locale = 'fr' } = Astro.props;
+const copy = DECISION_COPY[locale];
+const groups = [
+  ['ooni-volt-2', 'sage-smart-oven-pizzaiolo-bpz820'],
+  ['ooni-koda-2', 'gozney-arc-lite'],
+  ['ooni-koda-2-pro', 'gozney-arc-xl'],
+  ['ooni-karu-2', 'ooni-karu-2-pro'],
+  ['ninja-woodfire-oo101eu'],
+  ['gozney-tread'],
+];
+const modelPath = (articleId: string) => articleRoute(articleId as ArticleId, locale);
+const messages = Object.fromEntries(Object.entries(copy).filter(([, value]) => typeof value === 'string'));
+const constraints = DECISION_MODELS.map(({ id, brand, place, energy, diameterCm, portable }) => ({ id, brand, place, energy, diameterCm, portable }));
+---
+
+<section class="decision-finder" id="trouver-mon-four" data-decision-finder data-locale={locale} data-models={JSON.stringify(constraints)} data-messages={JSON.stringify(messages)} aria-labelledby="decision-title">
+  <header class="decision-finder__intro">
+    <h2 id="decision-title">{copy.title}</h2>
+    <p>{copy.lead}</p>
+  </header>
+  <p class="decision-finder__safety" id="decision-safety">{copy.safety}</p>
+  <p class="decision-finder__source">{copy.source} <a href={staticRoute('method', locale)}>{copy.method}</a></p>
+
+  <form class="decision-finder__form" data-decision-form hidden novalidate autocomplete="off">
+    <div class="decision-finder__questions">
+      <div class="decision-field">
+        <label for="decision-place">{copy.place}</label>
+        <select id="decision-place" name="place" required aria-describedby="decision-safety decision-error">
+          <option value="">{copy.choose}</option>
+          <option value="indoor">{copy.indoor}</option>
+          <option value="outdoor">{copy.outdoor}</option>
+        </select>
+      </div>
+      <div class="decision-field">
+        <label for="decision-energy">{copy.energy}</label>
+        <select id="decision-energy" name="energy" required aria-describedby="decision-safety decision-error">
+          <option value="">{copy.choose}</option>
+          <option value="any">{copy.any}</option>
+          <option value="electric">{copy.electric}</option>
+          <option value="gas">{copy.gas}</option>
+          <option value="fire">{copy.fire}</option>
+        </select>
+      </div>
+      <div class="decision-field">
+        <label for="decision-format">{copy.format}</label>
+        <select id="decision-format" name="format" required aria-describedby="decision-error">
+          <option value="">{copy.choose}</option>
+          <option value="everyday">{copy.everyday}</option>
+          <option value="35">{copy.medium}</option>
+          <option value="40">{copy.large}</option>
+          <option value="portable">{copy.portable}</option>
+        </select>
+      </div>
+      <div class="decision-field">
+        <label for="decision-budget">{copy.budget}</label>
+        <input id="decision-budget" type="text" inputmode="decimal" maxlength="10" aria-describedby="decision-budget-help decision-budget-error" />
+        <p id="decision-budget-help" class="decision-field__help">{copy.budgetHelp}</p>
+        <p id="decision-budget-error" class="decision-field__error" hidden>{copy.invalidAmount}</p>
+      </div>
+    </div>
+    <p id="decision-error" role="alert" hidden>{copy.invalid}</p>
+    <div class="decision-actions">
+      <button class="button-link" type="submit">{copy.submit}</button>
+      <button class="decision-reset" type="reset">{copy.reset}</button>
+    </div>
+  </form>
+
+  <section class="decision-results" data-decision-results hidden aria-labelledby="decision-results-title">
+    <h3 id="decision-results-title" tabindex="-1">{copy.result}</h3>
+    <p data-decision-summary role="status" aria-live="polite" aria-atomic="true"></p>
+    <div class="decision-results__models">
+      {DECISION_MODELS.map((model) => (
+        <article data-decision-model={model.id} data-evidence-ids={model.evidenceIds.join(' ')} hidden>
+          <h4>{model.name}</h4>
+          <p>{model.why[locale]}</p>
+          <p><strong>{copy.reserve}.</strong> {model.tradeoff[locale]}</p>
+          <a href={modelPath(model.articleId)}>{copy.guide}<span class="sr-only"> — {model.name}</span></a>
+        </article>
+      ))}
+    </div>
+    <p class="decision-field__help" data-decision-budget-note hidden>{copy.resultBudget} <a href="#budget-complet">{copy.basketTitle}</a></p>
+  </section>
+
+  <details class="decision-static" data-decision-static open>
+    <summary>{copy.staticTitle}</summary>
+    <p>{copy.staticLead}</p>
+    <div class="decision-static__routes">
+      {groups.map((ids, index) => (
+        <section>
+          <h3>{copy.groups[index]}</h3>
+          <ul>
+            {ids.map((id) => {
+              const model = DECISION_MODELS.find((entry) => entry.id === id)!;
+              return <li><a href={modelPath(model.articleId)}>{model.name}</a><p>{model.why[locale]}</p><p class="decision-static__limit">{model.tradeoff[locale]}</p></li>;
+            })}
+          </ul>
+          {index === 0 && <p><a href={articleRoute('FOUR-002', locale)}>{copy.indoorAlternative}</a></p>}
+        </section>
+      ))}
+    </div>
+  </details>
+
+  <section class="decision-basket" id="budget-complet" aria-labelledby="decision-basket-title">
+    <header class="decision-finder__intro">
+      <h2 id="decision-basket-title">{copy.basketTitle}</h2>
+      <p>{copy.basketLead}</p>
+    </header>
+    <noscript>
+      <p>{copy.noJs}</p>
+      <ul>{copy.items.map((item) => <li>{item}</li>)}</ul>
+    </noscript>
+    <form data-decision-basket hidden novalidate autocomplete="off">
+      <div class="decision-basket__rows">
+        {copy.items.map((item, index) => (
+          <div class="decision-basket__row" data-basket-row>
+            <label for={`basket-amount-${index}`}>{item}<span class="decision-field__help">{copy.amount}</span></label>
+            <input id={`basket-amount-${index}`} data-basket-amount type="text" inputmode="decimal" maxlength="10" aria-describedby={`basket-amount-error-${index}${index === 5 ? ' basket-energy-help' : ''}`} />
+            <label class="decision-basket__owned"><input type="checkbox" data-basket-excluded />{copy.owned}<span class="sr-only"> — {item}</span></label>
+            <p id={`basket-amount-error-${index}`} class="decision-field__error" data-basket-error hidden>{copy.invalidAmount}</p>
+          </div>
+        ))}
+      </div>
+      <p id="basket-energy-help" class="decision-field__help">{copy.energyHelp}</p>
+      <p class="decision-field__help">{copy.extraHelp}</p>
+      <div class="decision-actions">
+        <button class="button-link" type="submit">{copy.calculate}</button>
+        <button class="decision-reset" type="reset">{copy.clearBasket}</button>
+      </div>
+      <div class="decision-basket__result" data-basket-result hidden tabindex="-1" role="status" aria-live="polite" aria-atomic="true">
+        <p data-basket-label></p>
+        <p class="decision-basket__total" data-basket-total></p>
+        <p data-basket-missing></p>
+        <p data-basket-ceiling></p>
+      </div>
+      <p class="decision-field__help">{copy.privacy}</p>
+    </form>
+    <nav class="decision-equipment" aria-label={copy.basketGuides}>
+      <a href={articleRoute('ACC-001', locale)}>{copy.peel}</a>
+      <a href={articleRoute('ACC-003', locale)}>{copy.thermometer}</a>
+    </nav>
+  </section>
+</section>
+
+<script>
+  import { selectDecisionModels, parseDecisionAmount, calculateDecisionBasket } from '@/data/decision-engine.mjs';
+
+  document.querySelectorAll<HTMLElement>('[data-decision-finder]').forEach((root) => {
+    const models = JSON.parse(root.dataset.models ?? '[]');
+    const copy: Record<string, string> = JSON.parse(root.dataset.messages ?? '{}');
+    const locale = root.dataset.locale ?? 'fr';
+    const money = new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' });
+    const form = root.querySelector<HTMLFormElement>('[data-decision-form]')!;
+    const basket = root.querySelector<HTMLFormElement>('[data-decision-basket]')!;
+    const budget = root.querySelector<HTMLInputElement>('#decision-budget')!;
+    const results = root.querySelector<HTMLElement>('[data-decision-results]')!;
+    const summary = root.querySelector<HTMLElement>('[data-decision-summary]')!;
+    const budgetNote = root.querySelector<HTMLElement>('[data-decision-budget-note]')!;
+    const error = root.querySelector<HTMLElement>('#decision-error')!;
+    const budgetError = root.querySelector<HTMLElement>('#decision-budget-error')!;
+    const result = root.querySelector<HTMLElement>('[data-basket-result]')!;
+    const rows = Array.from(root.querySelectorAll<HTMLElement>('[data-basket-row]'));
+    const selects = Array.from(form.querySelectorAll<HTMLSelectElement>('select'));
+    let basketWasCalculated = false;
+
+    const validateBudget = () => {
+      const invalid = parseDecisionAmount(budget.value).state === 'invalid';
+      budgetError.hidden = !invalid;
+      budget.setAttribute('aria-invalid', String(invalid));
+      return !invalid;
+    };
+    const updateBasket = (announceEvent = false) => {
+      const items = rows.map((row) => {
+        const input = row.querySelector<HTMLInputElement>('[data-basket-amount]')!;
+        const excluded = row.querySelector<HTMLInputElement>('[data-basket-excluded]')!.checked;
+        input.disabled = excluded;
+        const invalid = !excluded && parseDecisionAmount(input.value).state === 'invalid';
+        input.setAttribute('aria-invalid', String(invalid));
+        row.querySelector<HTMLElement>('[data-basket-error]')!.hidden = !invalid;
+        return { amount: input.value, excluded };
+      });
+      const total = calculateDecisionBasket(items, budget.value);
+      const budgetValid = validateBudget();
+      result.hidden = !basketWasCalculated;
+      if (!basketWasCalculated) return total;
+      const label = result.querySelector<HTMLElement>('[data-basket-label]')!;
+      const amount = result.querySelector<HTMLElement>('[data-basket-total]')!;
+      const missing = result.querySelector<HTMLElement>('[data-basket-missing]')!;
+      const ceiling = result.querySelector<HTMLElement>('[data-basket-ceiling]')!;
+      label.textContent = total.state === 'invalid' ? copy.invalidAmount : total.priced === 0 && total.missing > 0 ? copy.empty : total.state === 'complete' ? copy.total : copy.subtotal;
+      amount.textContent = total.state === 'invalid' || (total.priced === 0 && total.missing > 0) ? '' : money.format(total.totalCents / 100);
+      missing.textContent = total.state === 'invalid' ? '' : total.missing ? `${total.missing} ${copy.missing}` : '';
+      ceiling.textContent = total.state === 'invalid' || total.remainingCents === null ? ''
+        : `${total.remainingCents < 0 ? copy.over : copy.within} ${money.format(Math.abs(total.remainingCents) / 100)}${total.state === 'partial' ? ` ${copy.partialBudget}` : ''}`;
+      if (announceEvent && budgetValid && total.state !== 'invalid') {
+        root.dispatchEvent(new CustomEvent('fouranu:budget', { bubbles: true, detail: { locale, state: total.state, itemCount: total.priced } }));
+      }
+      return total;
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let missing = false;
+      for (const select of selects) {
+        select.setAttribute('aria-invalid', String(!select.value));
+        if (!select.value) missing = true;
+      }
+      error.hidden = !missing;
+      const budgetValid = validateBudget();
+      if (missing || !budgetValid) {
+        results.hidden = true;
+        (selects.find((select) => !select.value) ?? budget).focus();
+        return;
+      }
+      const answers = Object.fromEntries(new FormData(form).entries());
+      const selection = selectDecisionModels(models, answers);
+      const ids = selection.models.map((model: { id: string }) => model.id);
+      root.querySelectorAll<HTMLElement>('[data-decision-model]').forEach((article) => { article.hidden = !ids.includes(article.dataset.decisionModel!); });
+      summary.textContent = selection.reason === 'indoor_combustion' ? copy.indoorCombustion
+        : selection.reason === 'invalid' ? copy.invalid
+        : ids.length === 0 ? copy.noMatch : ids.length === 1 ? copy.one : copy.two;
+      results.hidden = false;
+      budgetNote.hidden = ids.length === 0;
+      root.querySelector<HTMLElement>('#decision-results-title')!.focus();
+      root.dispatchEvent(new CustomEvent('fouranu:decision', { bubbles: true, detail: { locale, outcome: ids.length ? 'matched' : 'no_match', modelIds: ids } }));
+    });
+    form.addEventListener('change', () => {
+      // Hide obsolete answers as soon as a constraint changes.
+      results.hidden = true;
+      for (const select of selects) if (select.value) select.removeAttribute('aria-invalid');
+      error.hidden = true;
+    });
+    budget.addEventListener('input', () => { if (basketWasCalculated) updateBasket(); });
+    form.addEventListener('reset', () => {
+      results.hidden = true;
+      error.hidden = true;
+      budgetError.hidden = true;
+      form.querySelectorAll('[aria-invalid]').forEach((field) => field.removeAttribute('aria-invalid'));
+      queueMicrotask(() => { if (basketWasCalculated) updateBasket(); });
+    });
+    basket.addEventListener('submit', (event) => {
+      event.preventDefault();
+      basketWasCalculated = true;
+      const total = updateBasket(true);
+      if (total.state === 'invalid') {
+        (budget.getAttribute('aria-invalid') === 'true' ? budget : basket.querySelector<HTMLElement>('[aria-invalid="true"]'))?.focus();
+      } else result.focus();
+    });
+    basket.addEventListener('input', () => updateBasket());
+    basket.addEventListener('reset', () => {
+      basketWasCalculated = false;
+      result.hidden = true;
+      queueMicrotask(() => updateBasket());
+    });
+    // Reveal working controls only after every handler is installed. Static routes
+    // remain available in the disclosure; initialization failure leaves them open.
+    form.hidden = false;
+    basket.hidden = false;
+    root.querySelector<HTMLDetailsElement>('[data-decision-static]')!.open = false;
+  });
+</script>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .decision-finder { padding-block: 2.5rem; border-top: 1px solid var(--color-carbon); }
+  .decision-finder [hidden] { display: none !important; }
+  .decision-finder__intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  .decision-finder__intro h2 { margin: 0; max-width: 22ch; font-size: clamp(2rem, 3.4vw, 3rem); line-height: 1.08; text-wrap: balance; }
+  .decision-finder__intro p { max-width: 66ch; margin-top: 0; }
+  .decision-finder p { line-height: 1.6; }
+  .decision-finder a { text-decoration: underline; text-underline-offset: .2em; }
+  .decision-finder__safety { padding: 1rem 1.25rem; background: var(--color-steel-soft); border: 1px solid var(--color-line); }
+  .decision-finder__source { max-width: 85ch; color: var(--color-graphite); }
+  .decision-finder__questions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; margin-block: 2rem 1rem; }
+  .decision-field { min-width: 0; }
+  .decision-field > label { display: block; margin-bottom: .5rem; font-weight: 600; }
+  .decision-finder input:not([type="checkbox"]), .decision-finder select { display: block; min-height: 3rem; width: 100%; max-width: 100%; border: 1px solid var(--color-graphite); border-radius: 2px; padding: .65rem .75rem; background: var(--color-white); color: var(--color-carbon); font: inherit; font-size: 1rem; caret-color: var(--color-probe); }
+  .decision-finder select { padding-right: 1.75rem; }
+  .decision-finder input:disabled { background: var(--color-steel-soft); border-style: dashed; }
+  .decision-finder [aria-invalid="true"] { outline: 2px solid var(--color-probe); outline-offset: 2px; }
+  .decision-field__help { display: block; font-size: .875rem; color: var(--color-graphite); }
+  .decision-field__error { color: var(--color-probe); font-weight: 500; font-size: .9375rem; }
+  .decision-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-top: 1rem; }
+  .decision-actions button { min-height: 2.75rem; cursor: pointer; font: inherit; white-space: normal; text-align: left; }
+  .decision-actions .button-link { border: 1px solid var(--color-probe); }
+  .decision-reset { border: 0; background: transparent; color: var(--color-graphite); text-decoration: underline; text-underline-offset: .2em; padding: .65rem .25rem; }
+  .decision-reset:hover { color: var(--color-probe); }
+  .decision-results { margin-top: 2rem; padding: 1.5rem; background: var(--color-steel-soft); border: 1px solid var(--color-line); }
+  .decision-results > h3 { margin-top: 0; font-size: 1.75rem; }
+  .decision-results__models { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .decision-results__models article { border-top: 1px solid var(--color-carbon); padding-top: 1rem; min-width: 0; }
+  .decision-results__models h4 { font: 600 1.6rem/1.2 var(--font-display); margin: 0 0 .75rem; }
+  .decision-results__models a { display: inline-block; min-height: 2.75rem; padding-block: .5rem; font-weight: 600; }
+  .decision-static { margin-top: 2rem; padding-block: 1rem; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
+  .decision-static summary { min-height: 2.75rem; padding-block: .5rem; cursor: pointer; color: var(--color-probe); font-weight: 600; }
+  .decision-static__routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2.5rem; }
+  .decision-static__routes h3 { font-size: 1.5rem; }
+  .decision-static__routes ul { list-style: none; padding: 0; }
+  .decision-static__routes li { padding-block: 1rem; border-top: 1px solid var(--color-line); }
+  .decision-static__routes a { font-weight: 600; }
+  .decision-static__routes p { margin-block: .5rem; }
+  .decision-static__limit { color: var(--color-graphite); font-size: .9375rem; }
+  .decision-basket { padding-top: 3rem; scroll-margin-top: 1.5rem; }
+  .decision-basket__rows { margin-block: 1.5rem; }
+  .decision-basket__row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(7rem, 1fr) minmax(0, 2fr); gap: .5rem 1.5rem; align-items: center; border-top: 1px solid var(--color-line); padding-block: 1rem; }
+  .decision-basket__row > label:first-child { font-weight: 600; }
+  .decision-basket__row > label .decision-field__help { font-weight: 400; }
+  .decision-basket__owned { display: flex; align-items: center; gap: .65rem; min-height: 2.75rem; cursor: pointer; line-height: 1.4; }
+  .decision-basket__owned input { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; accent-color: var(--color-probe); }
+  .decision-basket__row > .decision-field__error { grid-column: 1 / -1; margin: 0; }
+  .decision-basket__result { padding: 1.25rem 1.5rem; margin-block: 1.5rem; background: var(--color-steel-soft); border: 1px solid var(--color-line); }
+  .decision-basket__result p { margin-block: .25rem; }
+  .decision-basket__result .decision-basket__total { font-family: var(--font-data); font-size: clamp(1.75rem, 4vw, 2.75rem); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .decision-equipment { display: flex; flex-wrap: wrap; gap: .75rem 2rem; margin-top: 1.5rem; }
+  .decision-equipment a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+  @media (max-width: 48rem) {
+    .decision-finder__intro, .decision-finder__questions, .decision-results__models, .decision-static__routes { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+    .decision-finder__intro h2 { max-width: none; }
+    .decision-results { padding: 1rem; }
+    .decision-basket__row { grid-template-columns: minmax(0, 1fr) minmax(6rem, .7fr); gap: .5rem 1rem; }
+    .decision-basket__owned { grid-column: 1 / -1; }
+    .decision-actions { align-items: stretch; }
+  }
+</style>

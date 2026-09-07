@@ -122,13 +122,14 @@ restent soumises à l'autorisation du paquet et du SHA exacts.
   silencieusement. Hors français, elles restent dans leur langue enregistrée et
   une note visible explique que le relevé canonique est conservé en français.
 
-## 5. Frontière documentaire actuelle et ambition future
+## 5. Recommandation documentaire et attribution des preuves
 
 - [ ] Chaque dossier sans session de première main se présente comme une analyse
   documentaire et précise les catégories de sources utilisées.
-- [ ] Le contenu ne dit jamais « nous avons testé », « notre mesure », « notre
-  avis », « le meilleur » ou une formulation équivalente sans protocole et
-  session propres enregistrés.
+- [ ] Une mesure ou une observation tierce reste attribuée. « Nous avons testé »
+  et toute expérience physique Four à Nu inventée sont interdites. Un avis
+  documentaire et une recommandation par usage sont permis avec leurs raisons,
+  leur périmètre et les limites qui peuvent changer le choix.
 - [ ] Aucune note, étoile, recommandation globale, donnée `Review`, donnée
   `AggregateRating` ou apparence de verdict issu d'une prise en main n'est
   utilisée.
@@ -137,9 +138,13 @@ restent soumises à l'autorisation du paquet et du SHA exacts.
 - [ ] Une limite d'article est formulée comme une limite du corpus, du protocole
   publié ou de la comparabilité. Elle ne sert pas à promettre une vérification
   future de ce produit.
-- [ ] Une page structurelle peut présenter le programme d'essais comme une
-  ambition future seulement si le même bloc visible indique que le corpus
-  actuel reste documentaire et qu'aucun essai Four à Nu n'est encore publié.
+- [ ] Les pages structurelles présentent l’aide à l’achat documentaire. Elles ne
+  promettent aucun programme d’essais physiques et ne publient pas les projets
+  personnels du propriétaire. L’origine des mesures reste explicite.
+- [ ] Un comparatif multimarque peut ouvrir directement sur sa décision et un
+  tableau original, sans image de produit. Ce format `decision` sans `image`
+  utilise la carte sociale de marque et n’ajoute pas d’image au sitemap ; les
+  autres dossiers conservent leur contrat média et leurs droits.
 - [ ] Les photos, captures et illustrations disposent d'une autorisation ou
   d'une licence vérifiable avant toute publication. Une transformation ne
   remplace pas cette autorisation.
@@ -314,7 +319,7 @@ restent soumises à l'autorisation du paquet et du SHA exacts.
 | --- | --- |
 | Une affirmation importante n'a ni preuve enregistrée ni attribution | Bloqué |
 | Une page existante répond déjà à la même intention avec les mêmes preuves | Fusion ou justification avant rédaction |
-| Le titre affirme ou laisse croire qu'un test Four à Nu, un avis, une note ou un classement existe déjà sans preuve propre enregistrée | Bloqué |
+| Le titre affirme ou laisse croire à une expérience Four à Nu inventée, à une note ou à un classement de performance sans preuves comparables | Bloqué |
 | Une expérience tierce est racontée à la première personne | Bloqué |
 | Une mesure incompatible est moyennée avec une autre | Bloqué |
 | Une page contient une note, `Review` ou `AggregateRating` | Bloqué |

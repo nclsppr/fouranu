@@ -91,7 +91,7 @@ async function articleRoutes(): Promise<SitemapRoute[]> {
         path: articleRoute(articleId, locale),
         modified: entry.data.updatedAt.toISOString().slice(0, 10),
         alternates,
-        image: locale === "fr" ? entry.data.image.src : undefined,
+        image: locale === "fr" ? entry.data.image?.src : undefined,
       };
     });
   });

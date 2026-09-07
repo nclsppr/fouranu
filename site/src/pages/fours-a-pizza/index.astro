@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import DecisionFinder from "@/components/DecisionFinder.astro";
 import { SITE } from "@/config/site";
 import { articlePath, isPublishedAnalysis } from "@/data/article-taxonomy";
 
@@ -15,9 +16,9 @@ const modelDossiers = (await getCollection("analyses"))
   )
   .sort((a, b) => a.data.articleId.localeCompare(b.data.articleId));
 
-if (modelDossiers.length !== 5) {
+if (modelDossiers.length === 0) {
   throw new Error(
-    `Le guide Fours à pizza exige cinq dossiers multimarques, ${modelDossiers.length} trouvé(s).`,
+    "Le guide Fours à pizza exige des dossiers publiés.",
   );
 }
 
@@ -75,6 +76,8 @@ const schema = {
         raccordement. La sécurité locale passe avant toute préférence d'énergie.
       </p>
     </header>
+
+    <DecisionFinder locale="fr" />
 
     <div class="constraint-list">
       <section id="lieu">
@@ -134,7 +137,7 @@ const schema = {
 
     <section class="model-dossiers" aria-labelledby="model-dossiers-title">
       <header class="model-dossiers__head">
-        <p class="eyebrow">Cinq modèles · intérieur et extérieur</p>
+        <p class="eyebrow">Dossiers multimarques · intérieur et extérieur</p>
         <h2 id="model-dossiers-title">Ouvrez le dossier qui correspond à votre contrainte.</h2>
         <p>
           Chaque page sépare les annonces du fabricant, les mesures tierces et
@@ -145,8 +148,8 @@ const schema = {
 
       <div class="model-dossiers__list">
         {modelDossiers.map((entry) => (
-          <a class="model-dossier" href={articlePath(entry.data.brand, entry.id)}>
-            <span class="model-dossier__image">
+          <a class:list={["model-dossier", !entry.data.image && "model-dossier--text"]} href={articlePath(entry.data.brand, entry.id)}>
+            {entry.data.image && <span class="model-dossier__image">
               <img
                 src={entry.data.image.src}
                 srcset={`${entry.data.image.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image.src} 1600w`}
@@ -156,7 +159,7 @@ const schema = {
                 height="900"
                 loading="lazy"
               />
-            </span>
+            </span>}
             <span class="model-dossier__copy">
               <span class="eyebrow">{entry.data.model}</span>
               <strong>{entry.data.title}</strong>
@@ -174,7 +177,7 @@ const schema = {
     <aside class="next-step">
       <p class="eyebrow">Marques documentées</p>
       <h2>Continuez avec les gammes complètes.</h2>
-      <p>Ces cinq dossiers multimarques complètent les neuf fours Ooni et les sept fours Gozney déjà couverts. Les comparatifs restent regroupés lorsqu’une page commune répond mieux à la décision, comme pour l’Arc Lite et le Tread.</p>
+      <p>Ces dossiers multimarques complètent les neuf fours Ooni et les sept fours Gozney déjà couverts. Les comparatifs restent regroupés lorsqu’une page commune répond mieux à la décision, comme pour l’Arc Lite et le Tread.</p>
       <div class="next-step__links">
         <a class="button-link" href="/ooni/">Explorer Ooni</a>
         <a class="button-link button-link--quiet" href="/gozney/">Découvrir Gozney</a>
@@ -275,6 +278,9 @@ const schema = {
     border-bottom: 1px solid var(--color-line);
     text-decoration: none;
   }
+
+  .model-dossier--text { grid-template-columns: minmax(0, 1fr); }
+  .model-dossier--text .model-dossier__copy strong { max-width: 30ch; }
 
   .model-dossier:focus-visible {
     outline: 2px solid var(--color-probe);

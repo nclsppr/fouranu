@@ -9,43 +9,58 @@
       "id": "project",
       "title": "Documentation du projet",
       "visibility": "internal",
-      "include": ["*.md"]
+      "include": [
+        "*.md"
+      ]
     },
     {
       "id": "decisions",
       "title": "Décisions",
       "visibility": "internal",
-      "include": ["docs/decisions/**/*.md"]
+      "include": [
+        "docs/decisions/**/*.md"
+      ]
     },
     {
       "id": "publication-gates",
       "title": "Barrières de publication",
       "visibility": "internal",
-      "include": ["docs/SEO-PUBLICATION-GATE.md"]
+      "include": [
+        "docs/SEO-PUBLICATION-GATE.md",
+        "docs/GROWTH-MEASUREMENT.md"
+      ]
     },
     {
       "id": "research-notes",
       "title": "Notes de recherche",
       "visibility": "internal",
-      "include": ["research/**/*.md"]
+      "include": [
+        "research/**/*.md"
+      ]
     },
     {
       "id": "site-content",
       "title": "Brouillons éditoriaux du site",
       "visibility": "internal",
-      "include": ["site/src/content/**/*.md"]
+      "include": [
+        "site/src/content/**/*.md"
+      ]
     },
     {
       "id": "foundation",
       "title": "Socle vendorisé",
       "visibility": "reference",
-      "include": ["docs/foundation/**/*.md"]
+      "include": [
+        "docs/foundation/**/*.md"
+      ]
     },
     {
       "id": "nimbus-maintenance",
       "title": "Maintenance Nimbus",
       "visibility": "reference",
-      "include": ["docs-nimbus/MAINTENANCE.md"]
+      "include": [
+        "docs-nimbus/MAINTENANCE.md"
+      ]
     }
   ],
   "ignored": [

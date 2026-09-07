@@ -38,7 +38,7 @@ renforcent le choix, les comparatifs, la découverte et leur mesure.
 | 3 | F03 | Candidat Cloudflare et paquet publiable | Le propriétaire peut examiner l'artefact exact et le chemin GitHub Actions vers Workers Static Assets sans les activer | `done` | Barrières de publication, identité légale, audit média par actif et contrat Cloudflare vérifié hors déploiement |
 | 4 | F04 | Lancement public | Les URL autorisées répondent sur `fouranu.com` et sont explorables | `done` | Feu vert explicite, déploiement vérifié, sitemap et moteurs contrôlés |
 | 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus est public dans trois langues | `done` | Autorisation, CI, déploiement et contrôles publics consignés dans `STATUS.md` |
-| 4 ter | F04-CHOIX | Recommandations et comparatifs documentaires | Le parcours réduit la liste et les pages répondent à une décision précise, dans trois langues | `in_progress` | Promesse alignée, parcours et comparatifs sourcés, gates et QA sur le paquet exact |
+| 4 ter | F04-CHOIX | Recommandations et comparatifs documentaires | Le parcours réduit la liste et les pages répondent à une décision précise, dans trois langues | `done` | Promesse alignée, parcours et comparatifs sourcés, gates et QA sur le paquet exact |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 | 6 | F06 | Couverture documentaire ciblée | Les lacunes de décision observées reçoivent des données originales et des comparaisons utiles | `planned` | Questions prioritaires étayées, sources attribuées et décision de poursuite fondée sur F05 |
 
@@ -46,8 +46,9 @@ La V1 a franchi F03 et F04 le 2026-08-24. F02 reste ouverte jusqu'aux cinq
 sessions prévues. La tranche éditoriale post-V1 a été vérifiée, poussée et
 publiée le même jour sans changer cette dette d'observation.
 F04-I18N est publiée depuis la livraison applicative du 2026-08-31 décrite dans
-`STATUS.md`. La tranche F04-CHOIX prépare les améliorations approuvées le
-2026-09-07 ; elle ne constitue pas encore une preuve de livraison ou de gain.
+`STATUS.md`. La tranche F04-CHOIX est publiée le 2026-09-07, au SHA applicatif
+`c365fbde90d4304d94afa3acc99111ac3665fe1f`, avec CI et contrôles publics acquis
+dans `STATUS.md`. Cette livraison ne constitue pas une preuve de gain SEO.
 F06 remplace l'ancien banc d'essai de l'ADR-0006 par une couverture documentaire
 ciblée. Aucun résultat économique ou SEO n'est déduit d'un déploiement.
 

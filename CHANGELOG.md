@@ -6,7 +6,7 @@ importantes.
 
 ## Non publié
 
-### 2026-09-07 - Aide à l'achat documentaire permanente, candidat local
+## 2026-09-07 - Aide à l'achat documentaire permanente
 
 - L'ADR-0010 fixe une aide à l'achat documentaire permanente et remplace le
   programme d'essais physiques de l'ADR-0006. Le contrat produit, le protocole
@@ -19,7 +19,7 @@ importantes.
 - Trois dossiers de décision sont ajoutés dans les trois langues : Koda 2 Pro
   ou Arc XL, Volt 2/Sage/Cuisinart et budget complet. Neuf articles existants
   sont réécrits et six autres reçoivent des liens contextuels vers ces réponses.
-- Le candidat contient 31 dossiers par langue, soit 93 articles, 144 pages HTML,
+- Le corpus publié contient 31 dossiers par langue, soit 93 articles, 144 pages HTML,
   141 URL indexables, 31 entrées par RSS et 30 images de sitemap. Les registres
   comptent 278 preuves, 117 médias, 66 questions et 39 objets commerciaux :
   31 offres exactes et huit `not_found`. Aucun média nouveau n'est ajouté.
@@ -34,8 +34,12 @@ importantes.
   revue navigateur à 360 et 1 280 px couvre les trois langues, la sélection,
   le panier et la navigation au clavier sans débordement ni erreur ou
   avertissement console observés. Le contenu sans JavaScript est contrôlé en
-  source et par simulation DOM. Les preuves du SHA final, de CI et de
-  publication restent à ajouter dans `STATUS.md`.
+  source et par simulation DOM.
+- La [PR #3](https://github.com/nclsppr/fouranu/pull/3) est fusionnée ; le SHA
+  applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` a passé `verify` et
+  `deploy-cloudflare` dans le [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760).
+  Le domaine public sert ce SHA, les 141 URL, les trois RSS à 31 entrées et les
+  neuf ressources CSS/JavaScript exactes. Le sélecteur public est fonctionnel.
 
 ## 2026-08-31 - Cinq dossiers multimarques issus de l'étude Amazon.fr
 

@@ -7,10 +7,10 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-09-07 pour le candidat local décrit ci-dessous ; preuves de publication conservées à leur date |
-| Par | Contrôles locaux et navigateur pour le candidat ; checkout de livraison, CI du SHA exact et sondes publiques pour les tranches publiées |
+| Vérifié le | 2026-09-07 pour la livraison documentaire ; preuves historiques conservées à leur date |
+| Par | Gate locale, CI du SHA applicatif, sondes HTTP et navigateur sur le domaine public |
 | Branche | `main` pour la production |
-| Aide à l'achat documentaire | Candidat local du 2026-09-07 ; vérification canonique et QA trilingue vertes, sans nouveau SHA publié attesté ici |
+| Aide à l'achat documentaire | SHA applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` ; [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760) vert, `verify` et `deploy-cloudflare`, contrôles publics acquis |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
 | Livraison V1 | Poussée sur `origin/main` ; [run GitHub Actions `32716795972`](https://github.com/nclsppr/fouranu/actions/runs/32716795972) vert pour `Verify` et `deploy-cloudflare` |
 | Tranche post-V1 publiée | SHA applicatif `eb12619007191c82d963017f598b462ca54bdc51` ; [run GitHub Actions `32722048541`](https://github.com/nclsppr/fouranu/actions/runs/32722048541) vert pour `Verify` et `deploy-cloudflare` |
@@ -31,18 +31,22 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Aide à l'achat documentaire : candidat du 2026-09-07
+## Aide à l'achat documentaire publiée le 2026-09-07
 
-Cette tranche reste un candidat local. Les preuves de publication des sections
-suivantes décrivent les livraisons historiques ; elles ne prouvent pas la
-publication de ce nouveau paquet. La gate canonique et la revue navigateur
-trilingue passent ; les preuves du SHA final, de CI et de publication restent
-à compléter.
+La [PR #3](https://github.com/nclsppr/fouranu/pull/3) est fusionnée. Le SHA
+applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` a passé `verify` et
+`deploy-cloudflare` dans le [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760).
+Les sondes publiques du 2026-09-07 retrouvent ce SHA dans `/release.json`,
+141 URL en `200` avec canonical et quatre alternates attendus, ainsi que
+31 entrées dans chacun des trois RSS. Les neuf ressources CSS et JavaScript
+référencées correspondent octet pour octet au build contrôlé. Le navigateur
+public exécute le sélecteur et rend Volt 2/Sage pour intérieur/électrique, sans
+erreur ni avertissement console observés.
 
 L'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-permanente.md) rend
 permanente l'aide à l'achat documentaire et remplace le programme physique de
 l'ADR-0006. Les recommandations reposent sur les données fabricant, les travaux
-tiers attribués et la synthèse Four à Nu. Le candidat retire les promesses
+tiers attribués et la synthèse Four à Nu. La livraison retire les promesses
 d'essais physiques et conserve les limites des sources. Il n'ajoute aucun
 média ni collecteur analytics.
 
@@ -54,7 +58,7 @@ gardent une aide à la décision lisible sans JavaScript.
 
 Trois nouveaux dossiers de décision — Koda 2 Pro ou Arc XL, Volt 2/Sage/Cuisinart
 et budget complet — existent dans les trois langues. Neuf articles existants
-sont réécrits et six autres reçoivent un maillage contextuel. Le candidat
+sont réécrits et six autres reçoivent un maillage contextuel. Le corpus publié
 compte 31 dossiers par langue, soit 93 articles et 144 pages HTML : 141 URL
 indexables et trois 404 localisées. Chaque RSS contient 31 entrées ; le sitemap
 d'images conserve 30 images. Les registres comptent 278 preuves, 117 médias,
@@ -84,15 +88,15 @@ Les contrôles déjà acquis le 2026-09-07 sont les suivants :
 
 Le maintien du contenu sans JavaScript est contrôlé dans la source et la
 simulation DOM ; aucun parcours dans un navigateur avec JavaScript désactivé
-n'est attesté ici. Ces preuves locales ne constituent ni une preuve de
-déploiement, ni un résultat SEO.
+n'est attesté ici. Les contrôles publics ci-dessus établissent le déploiement ; aucun résultat
+SEO ne se déduit de ces vérifications.
 
 L'accès Google Search Console est confirmé et un premier relevé privé, en
 lecture seule, est daté du 2026-09-07 sur le périmètre Web de Four à Nu. Son
 historique est court ; les exports et chiffres du compte restent hors Git.
 Le [protocole de mesure](docs/GROWTH-MEASUREMENT.md) distingue visibilité,
 clics marchands et commissions. Aucun collecteur de clics ni service de mesure
-supplémentaire n'est activé par cette tranche. F04-CHOIX reste `in_progress` ;
+supplémentaire n'est activé par cette tranche. F04-CHOIX est livrée ;
 la conclusion de F05 et la couverture documentaire F06 restent à établir selon
 la [feuille de route actuelle](ROADMAP.md).
 

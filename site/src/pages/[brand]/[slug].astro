@@ -97,6 +97,11 @@ const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
 if (!purchaseLinks) {
   throw new Error(`Politique d’achat absente pour ${entry.data.articleId}`);
 }
+const purchaseJump = {
+  fr: purchaseLinks.length === 1 ? "Où acheter ce modèle" : "Où acheter ces modèles",
+  en: purchaseLinks.length === 1 ? "Where to buy this model" : "Where to buy these models",
+  de: purchaseLinks.length === 1 ? "Wo dieses Modell kaufen" : "Wo diese Modelle kaufen",
+}[locale];
 for (const objectId of entry.data.commercialObjects) commercialObject(objectId);
 const schema = {
   "@context": "https://schema.org",
@@ -181,6 +186,7 @@ const schema = {
         <p class="eyebrow">{localeCopy.type[entry.data.type]}</p>
         <h1>{entry.data.title}</h1>
         <p class="article-header__summary">{entry.data.summary}</p>
+        {purchaseLinks.length > 0 && <a class="article-purchase-jump" href="#acheter">{purchaseJump} <span aria-hidden="true">↓</span></a>}
 
         <div class="article-byline">
           <a class="article-byline__author" rel="author" href={author.url}>
@@ -273,6 +279,16 @@ const schema = {
 </BaseLayout>
 
 <style>
+  .article-purchase-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: .75rem;
+    min-height: 2.75rem;
+    margin-top: .75rem;
+    color: var(--color-probe);
+    font-weight: 600;
+  }
+
   .article-shell {
     display: grid;
     grid-template-columns: repeat(12, 1fr);

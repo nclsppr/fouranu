@@ -130,3 +130,40 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npm run cloudflare:deploy -- --message "$GITHUB_SHA"
+
+  verify-production:
+    needs: deploy-cloudflare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout deployed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+
+      - name: Install browser checks
+        run: |
+          npm install --prefix "$RUNNER_TEMP/fouranu-browser" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.61.1
+          node "$RUNNER_TEMP/fouranu-browser/node_modules/playwright/cli.js" install --with-deps chromium
+
+      - name: Verify published release and browser journeys
+        env:
+          FOURANU_BROWSER_BASE_URL: https://fouranu.com
+          FOURANU_BROWSER_EXPECTED_RELEASE_SHA: ${{ github.sha }}
+          FOURANU_PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/fouranu-browser/package.json
+          FOURANU_BROWSER_OUTPUT: ${{ runner.temp }}/fouranu-production-results
+        run: node site/scripts/browser-smoke.mjs
+
+      - name: Upload production browser evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: four-a-nu-production-browser-${{ github.sha }}
+          path: ${{ runner.temp }}/fouranu-production-results
+          if-no-files-found: warn
+          retention-days: 7

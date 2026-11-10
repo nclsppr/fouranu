@@ -6,7 +6,18 @@ importantes.
 
 ## Non publié
 
-### 2026-11-10 - Blog personnel et priorité aux achats affiliés
+### 2026-11-10 - Appels à l'achat plus directs et contrôle public
+
+- Six accès Amazon affiliés par accueil, après les critères et réserves du
+  modèle, avec lien vers le dossier conservé. Les accessoires proposent une
+  action précise et les fours des intitulés plus faciles à parcourir.
+- Les offres des articles séparent nom, usage et compromis, puis un bouton
+  « Voir le prix sur Amazon.fr ». Le résumé donne un raccourci vers ce bloc.
+- Les parcours navigateur couvrent 21 routes à cinq largeurs, contrôlent les
+  boutons réels et se répètent sur le domaine public après déploiement, avec
+  vérification du SHA servi. Résultats et limites dans `STATUS.md`.
+
+## 2026-11-10 - Blog personnel et priorité aux achats affiliés
 
 - La une présente Nicolas, Florian et Magali, donne priorité aux quatre guides
   accessoires et aux cinq fours avec offres Amazon référencées, et relie les
@@ -27,7 +38,9 @@ importantes.
   [run `42883319803`](https://github.com/nclsppr/fouranu/actions/runs/42883319803).
   Clavier, focus, mouvement réduit, images, réseau et liens sont contrôlés ;
   les captures et limites de validation sont référencées dans `STATUS.md`.
-  La nouvelle version n'est pas encore publiée.
+  Après autorisation du propriétaire, la PR #5 est fusionnée et déployée au SHA
+  `59706b2c09a0101e8ef379fedcce06d4ae6732b4` par le
+  [run `42903554199`](https://github.com/nclsppr/fouranu/actions/runs/42903554199).
 
 
 ## 2026-09-08 - Parité de structure et de lecture FR/EN/DE

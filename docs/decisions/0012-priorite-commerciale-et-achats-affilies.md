@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Statut | Acceptée pour la préparation du candidat |
+| Statut | Acceptée ; publication et amélioration des CTA autorisées le 2026-11-10 |
 | Date | 2026-11-10 |
 | Propriétaire | nclsppr |
 | Portée | Accueil, guides d'achat, appels marchands et objectif économique |
@@ -56,11 +56,12 @@ avec leurs dates et limites. L'absence de données reste inconnue, jamais zéro
 ni un succès présumé. Le protocole de relevé vit dans
 [`GROWTH-MEASUREMENT.md`](../GROWTH-MEASUREMENT.md).
 
-Cette décision n'ajoute aucun traceur, compte, achat, secret ou budget. La
-préparation et les tests du candidat n'autorisent pas sa publication publique.
-Le workflow sur `main` déployant automatiquement après `Verify`, le candidat
-reste sur une branche de revue jusqu'au feu vert sur le paquet exact, puis
-rejoint `main` avec vérification de sa CI et de la version servie.
+Cette décision n'ajoute aucun traceur, compte, achat, secret ou budget. Le
+propriétaire a autorisé le 2026-11-10 le déploiement du candidat de la PR #5,
+puis la vérification publique et l'amélioration des appels à l'achat. La
+publication de cette tranche suit donc les gates puis `main`, avec vérification
+de la CI et du SHA servi. Cette autorisation ne vaut pas pour une nouvelle
+activation externe hors de ce périmètre.
 
 ## Vérification
 

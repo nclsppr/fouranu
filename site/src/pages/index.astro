@@ -4,6 +4,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
 import { isPublishedAnalysis } from "@/data/article-taxonomy";
+import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
+import { amazonAffiliateUrlForObject } from "@/data/commercial-objects.mjs";
+import { affiliateRel } from "@/lib/amazon-affiliate.mjs";
 import { localizedSite } from "@/i18n/common";
 import { articleRoute, feedPath, staticAlternates, staticRoute, type ArticleId, type Locale } from "@/i18n/config";
 import { HOME_COPY, HOME_FEATURED_ARTICLE_IDS } from "@/i18n/home";
@@ -21,9 +24,18 @@ function featured(articleId: ArticleId): CollectionEntry<"analyses"> {
   assertResponsiveMediaAllowedAtPath(entry.data.image.src, locale, "hub-list", homePath);
   return entry;
 }
+function purchaseLink(articleId: ArticleId) {
+  const links = PURCHASE_LINKS_BY_ARTICLE[articleId];
+  if (links?.length !== 1 || links[0].merchant !== "Amazon.fr"
+    || links[0].url !== amazonAffiliateUrlForObject(links[0].objectId)) {
+    throw new Error(`One exact affiliate offer is required for home feature ${articleId}`);
+  }
+  return links[0];
+}
 const lead = featured(HOME_FEATURED_ARTICLE_IDS.lead);
+const leadPurchaseLink = purchaseLink(HOME_FEATURED_ARTICLE_IDS.lead);
 const accessories = HOME_FEATURED_ARTICLE_IDS.accessories.map((id) => ({ entry: featured(id), label: copy.accessories.labels[id] }));
-const ovens = HOME_FEATURED_ARTICLE_IDS.ovens.map((id) => ({ entry: featured(id), label: copy.ovens.labels[id] }));
+const ovens = HOME_FEATURED_ARTICLE_IDS.ovens.map((id) => ({ entry: featured(id), label: copy.ovens.labels[id], purchase: purchaseLink(id) }));
 const authors = Object.values(localized.authors);
 assertMediaAllowedAtPath("/brand/logo-fouranu.png", locale, "schema-image", homePath);
 const schema = {
@@ -72,6 +84,12 @@ const schema = {
         <p class="eyebrow">{copy.hero.featured}</p>
         <h2><a href={articleRoute(lead.data.articleId as ArticleId, locale)}>{lead.data.title}</a></h2>
         <p>{lead.data.summary}</p>
+        <div class="home-purchase">
+          <p class="home-purchase__disclosure"><a href={staticRoute("transparency", locale)}>{copy.purchase.disclosure}</a></p>
+          <a class="button-link" href={leadPurchaseLink.url} rel={affiliateRel(leadPurchaseLink.url)} data-affiliate="amazon" data-commercial-object={leadPurchaseLink.objectId} data-purchase-placement="home-hero" aria-label={`${copy.purchase.action} : ${lead.data.model}`}>
+            {copy.purchase.action} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
         <a class="text-action" href={articleRoute(lead.data.articleId as ArticleId, locale)}>{copy.hero.read} <span aria-hidden="true">→</span></a>
       </div>
     </article>
@@ -98,7 +116,7 @@ const schema = {
             <p class="byline">{copy.common.by} {localized.authors[entry.data.author].name}</p>
             <h3><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{label.title}</a></h3>
             <p>{label.summary}</p>
-            <a class="text-action" href={articleRoute(entry.data.articleId as ArticleId, locale)}>{copy.common.read} <span aria-hidden="true">→</span></a>
+            <a class="text-action" href={articleRoute(entry.data.articleId as ArticleId, locale)}>{label.action} <span aria-hidden="true">→</span></a>
           </div>
         </article>
       ))}
@@ -116,16 +134,22 @@ const schema = {
         <div><p>{copy.ovens.summary}</p><a class="text-action" href={staticRoute("ovens", locale)}>{copy.ovens.action} <span aria-hidden="true">→</span></a></div>
       </header>
       <div class="oven-grid">
-        {ovens.map(({ entry, label }, index) => (
+        {ovens.map(({ entry, label, purchase }, index) => (
           <article class:list={["oven-card", index === 0 && "oven-card--lead"]}>
             <a class="oven-card__image" href={articleRoute(entry.data.articleId as ArticleId, locale)} aria-label={entry.data.title}>
               <img src={entry.data.image!.src} srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`} sizes={index === 0 ? "(max-width: 48rem) 100vw, 50vw" : "(max-width: 48rem) 100vw, (max-width: 64rem) 50vw, 25vw"} alt={entry.data.image!.alt} width="960" height="540" loading="lazy" />
             </a>
             <div class="oven-card__copy">
               <p class="eyebrow">{label}</p>
-              <h3><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{entry.data.title}</a></h3>
+              <h3><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{entry.data.model}</a></h3>
               <p>{entry.data.summary}</p>
               <p class="byline">{copy.common.by} {localized.authors[entry.data.author].name}</p>
+              <div class="home-purchase">
+                <p class="home-purchase__disclosure"><a href={staticRoute("transparency", locale)}>{copy.purchase.disclosure}</a></p>
+                <a class="button-link" href={purchase.url} rel={affiliateRel(purchase.url)} data-affiliate="amazon" data-commercial-object={purchase.objectId} data-purchase-placement="home-oven" aria-label={`${copy.purchase.action} : ${entry.data.model}`}>
+                  {copy.purchase.action} <span aria-hidden="true">↗</span>
+                </a>
+              </div>
               <a class="text-action" href={articleRoute(entry.data.articleId as ArticleId, locale)}>{copy.ovens.read} <span aria-hidden="true">→</span></a>
             </div>
           </article>
@@ -210,15 +234,21 @@ const schema = {
   .starter-kit p:not(.eyebrow) { max-width: 55rem; margin: 0; color: var(--color-graphite); line-height: 1.6; }
   .starter-kit .button-link { flex-shrink: 0; }
   .oven-section { padding-block: clamp(3rem, 6vw, 5.5rem); background: var(--color-steel-soft); scroll-margin-top: 1.5rem; }
-  .oven-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 2rem 1.5rem; }
+  .oven-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; gap: 2rem 1.5rem; }
   .oven-card { display: flex; flex-direction: column; min-width: 0; background: var(--color-white); }
   .oven-card--lead { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; }
   .oven-card__image { display: block; overflow: hidden; aspect-ratio: 16 / 9; }
-  .oven-card__copy { display: flex; flex-direction: column; align-items: flex-start; padding: 1.3rem 1.5rem 1rem; }
+  .oven-card__copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.3rem 1.5rem 1rem; }
   .oven-card .eyebrow { font-size: .65rem; }
   .oven-card h3 { margin: .85rem 0; font-size: clamp(1.8rem, 2.4vw, 2.45rem); line-height: 1.04; }
   .oven-card__copy > p:not(.eyebrow, .byline) { margin: 0 0 1rem; color: var(--color-graphite); font-size: .89rem; line-height: 1.6; }
   .oven-card .text-action { padding-block: .3rem; font-size: .86rem; }
+  .home-purchase { width: 100%; margin-top: auto; padding-top: .45rem; }
+  .home-purchase__disclosure { margin: 0 0 .4rem; font-size: .72rem; line-height: 1.5; }
+  .home-purchase__disclosure a { color: var(--color-graphite); text-underline-offset: .2em; }
+  .home-purchase .button-link { width: 100%; min-height: 3rem; font-size: .86rem; line-height: 1.35; text-align: left; }
+  .home-purchase .button-link > span { flex-shrink: 0; }
+  .lead-feature__copy > .text-action { margin-top: .3rem; font-size: .86rem; }
   .affiliate-note { max-width: 65rem; margin: 1.7rem 0 0; color: var(--color-graphite); font-size: .76rem; line-height: 1.65; }
   .affiliate-note a { color: var(--color-probe); }
   .decision-section { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.5rem; }
@@ -243,6 +273,12 @@ const schema = {
   .transparency-note h2 { max-width: 21ch; margin: 0; font-size: 1.6rem; line-height: 1.1; }
   .transparency-note p { margin: 0; color: var(--color-graphite); font-size: .85rem; line-height: 1.7; }
   .transparency-note .text-action { font-size: .85rem; }
+  @media (min-width: 48.01rem) {
+    .home-purchase .button-link { white-space: nowrap; overflow-wrap: normal; }
+  }
+  @media (min-width: 64.01rem) and (max-width: 79.99rem) {
+    .oven-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (max-width: 64rem) {
     .editorial-hero { gap: 2rem; }
     .hero-copy h1 { font-size: clamp(3rem, 6.7vw, 5rem); }

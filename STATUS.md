@@ -7,9 +7,10 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-11-10 pour le candidat commercial ; preuves publiques historiques conservées à leur date |
+| Vérifié le | 2026-11-10 pour la refonte commerciale ; preuves publiques historiques conservées à leur date |
 | Par | Gate locale, CI du SHA applicatif, sondes HTTP et navigateur sur le domaine public |
 | Branche | `main` pour la production |
+| Refonte commerciale déployée | PR #5 fusionnée après le feu vert du propriétaire ; SHA `59706b2c09a0101e8ef379fedcce06d4ae6732b4`, [run `42903554199`](https://github.com/nclsppr/fouranu/actions/runs/42903554199) vert pour `verify` et `deploy-cloudflare` |
 | Parité de structure FR/EN/DE | SHA applicatif `680e7ccea54765e978f227fdf3b5225360d25172` ; [run `34171586758`](https://github.com/nclsppr/fouranu/actions/runs/34171586758) vert, `verify` et `deploy-cloudflare`, 141 URL publiques contrôlées |
 | Aide à l'achat documentaire | SHA applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` ; [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760) vert, `verify` et `deploy-cloudflare`, contrôles publics acquis |
 | Candidat V1 publié | `c5da961ceabcd021c5501d1cbda3ddb00c57c2ee` |
@@ -32,7 +33,26 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Candidat commercial du 2026-11-10, vérifié et non publié
+## Publication commerciale du 2026-11-10 et amélioration des achats
+
+Le propriétaire a donné le feu vert à la publication de la PR #5 et à une
+revue suivie d'améliorations des appels à l'achat. La fusion `59706b2` est
+déployée par le run `42903554199`, avec gate complète et 45 parcours navigateur
+avant publication. Le contrôle de la version effectivement servie est suivi
+séparément du succès du déploiement.
+
+La passe suivante raccourcit le chemin d'achat : six liens exacts sur chaque
+accueil, des actions par accessoire, un raccourci vers les prix dans les articles
+et des lignes d'offres qui relient chaque modèle à son usage et à son compromis.
+Les sources, limites et déclarations restent accessibles avant le clic.
+
+Le contrôle navigateur est étendu à 21 routes, cinq largeurs de 320 à 1 440 px
+et aux boutons réels : cibles, focus, débordement et contraste normal/survol.
+Un job après déploiement vérifie le SHA de `/release.json` avant et après les
+105 parcours sur `https://fouranu.com`. Il ne visite pas Amazon. Ces nouveaux
+contrôles sont préparés ; leurs résultats seront consignés après exécution.
+
+## Préparation et validation du candidat commercial, avant publication
 
 Le candidat `codex/refonte-commerciale-20261110` part du `main` distant
 `15a2fdc97a47c324d24c70267b70c45a1930beff`, confirmé via GitHub pendant la
@@ -97,10 +117,9 @@ L'artefact contient 147 pages canoniques et les trois 404, avec deux alias HTML
 supplémentaires des 404 localisées. Les 264 liens des blocs d'achat sont Amazon
 affiliés, sans CTA fabricant de secours. Les sources directes sont conservées.
 
-Le push sur `main` déclencherait la publication automatique. Le candidat doit
-donc être revu sur sa branche avant le feu vert du propriétaire sur le paquet
-exact. Aucun déploiement, nouveau traceur, compte ou revenu n'est déclaré par
-cette préparation.
+La préparation est restée sur sa branche jusqu'au feu vert du propriétaire.
+L'autorisation et la publication qui l'ont suivie figurent ci-dessus. Aucun
+nouveau traceur, compte ou revenu n'est déclaré par cette préparation.
 
 ## Parité FR/EN/DE publiée le 2026-09-08
 

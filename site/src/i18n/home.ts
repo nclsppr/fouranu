@@ -8,13 +8,14 @@ type HomeCopy = {
   shortcuts: { aria: string; indoor: string; outdoor: string; budget: string };
   accessories: {
     kicker: string; title: string; summary: string; action: string;
-    labels: Record<"ACC-001" | "ACC-002" | "ACC-003" | "ACC-004", { title: string; summary: string }>;
+    labels: Record<"ACC-001" | "ACC-002" | "ACC-003" | "ACC-004", { title: string; summary: string; action: string }>;
     kitKicker: string; kitTitle: string; kitSummary: string; kitAction: string;
   };
   ovens: { kicker: string; title: string; summary: string; action: string; read: string; labels: Record<"FOUR-001" | "FOUR-002" | "FOUR-003" | "FOUR-004" | "FOUR-005", string> };
   comparison: { kicker: string; title: string; summary: string; action: string; finderTitle: string; finderSummary: string; finderAction: string };
   journal: { kicker: string; title: string; summary: string; action: string; rss: string };
   transparency: { title: string; body: string; commerce: string; method: string; disclosure: string };
+  purchase: { action: string; disclosure: string };
   common: { by: string; read: string; guides: string };
 };
 
@@ -34,16 +35,16 @@ export const HOME_COPY = {
       kicker: "On commence par les bons outils", title: "Des accessoires utiles. Pas un tiroir de gadgets.",
       summary: "Pour enfourner, mesurer, faire pousser et servir : quatre guides pour choisir selon votre four et vos habitudes. Avec les points à vérifier avant de passer commande sur Amazon.fr.", action: "Tous les accessoires",
       labels: {
-        "ACC-001": { title: "La bonne pelle", summary: "Perforée, pleine ou en bambou : commencez par la largeur du four et le geste à faire." },
-        "ACC-002": { title: "Des parts bien découpées", summary: "Quatre paires de ciseaux à départager par la prise en main, le nettoyage et le service." },
-        "ACC-003": { title: "La pierre à bonne température", summary: "Ooni, Bosch, ThermoPro ou Tilswall : ce que leur mesure infrarouge permet de savoir." },
-        "ACC-004": { title: "Des pâtons bien rangés", summary: "Le bac qui entre dans votre frigo compte plus qu’une capacité que vous n’utiliserez pas." },
+        "ACC-001": { title: "La bonne pelle", action: "Choisir ma pelle", summary: "Perforée, pleine ou en bambou : commencez par la largeur du four et le geste à faire." },
+        "ACC-002": { title: "Des parts bien découpées", action: "Choisir mes ciseaux", summary: "Quatre paires de ciseaux à départager par la prise en main, le nettoyage et le service." },
+        "ACC-003": { title: "La pierre à bonne température", action: "Choisir mon thermomètre", summary: "Ooni, Bosch, ThermoPro ou Tilswall : ce que leur mesure infrarouge permet de savoir." },
+        "ACC-004": { title: "Des pâtons bien rangés", action: "Choisir mon bac", summary: "Le bac qui entre dans votre frigo compte plus qu’une capacité que vous n’utiliserez pas." },
       },
       kitKicker: "Notre nouveau guide", kitTitle: "Premier four ? Préparez le kit sans acheter deux fois.",
       kitSummary: "Une pelle, un thermomètre, un bac : on fait le tri entre l’utile, le déjà fourni et ce qui peut attendre.", kitAction: "Composer mon kit",
     },
     ovens: {
-      kicker: "Cinq fours à regarder de près", title: "Lequel a sa place chez vous ?", summary: "Un petit four de cuisine, un modèle réglable ou un poste fixe dehors : chacun a une bonne raison d’exister. Voici nos avis et les offres Amazon.fr référencées dans les guides.", action: "Comparer tous les fours", read: "Lire l’avis et voir l’offre",
+      kicker: "Cinq fours à regarder de près", title: "Lequel a sa place chez vous ?", summary: "Un petit four de cuisine, un modèle réglable ou un poste fixe dehors : chacun a une bonne raison d’exister. Voici nos avis et les offres Amazon.fr référencées dans les guides.", action: "Comparer tous les fours", read: "Pourquoi ce choix",
       labels: { "FOUR-001": "Pour régler finement", "FOUR-002": "Pour débuter en cuisine", "FOUR-003": "Pour un format compact", "FOUR-004": "Pour cuisiner dehors à l’électricité", "FOUR-005": "Pour de grandes pizzas dehors" },
     },
     comparison: {
@@ -51,6 +52,7 @@ export const HOME_COPY = {
     },
     journal: { kicker: "Les personnes derrière les guides", title: "Trois regards, une même envie de bien choisir.", summary: "La pâte, les tablées, la place sur la terrasse : on ne regarde pas tous un four de la même façon. Nos profils vous disent d’où viennent nos intérêts. Les sources de chaque article expliquent nos conclusions.", action: "Rencontrer la rédaction", rss: "Suivre les prochains guides par RSS" },
     transparency: { title: "Un avis utile, c’est aussi dire ce qui coince.", body: "Nos guides confrontent les caractéristiques fabricant et les essais publiés par des tiers. Ils donnent notre analyse, avec les limites et les sources, sans être présentés comme des essais physiques Four à Nu.", commerce: "Comment le site est financé", method: "Comment nous choisissons", disclosure: "Nos guides comportent des liens rémunérés vers Amazon.fr. En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises." },
+    purchase: { action: "Voir le prix Amazon.fr", disclosure: "Lien affilié Amazon.fr" },
     common: { by: "Par", read: "Découvrir", guides: "guides pour choisir" },
   },
   en: {
@@ -65,15 +67,15 @@ export const HOME_COPY = {
     accessories: {
       kicker: "Start with the right tools", title: "Useful accessories. Not a drawer full of gadgets.", summary: "For launching, measuring, proofing and serving: four guides to choose for your oven and your habits. Including what to check before ordering on Amazon.fr.", action: "All accessories",
       labels: {
-        "ACC-001": { title: "The right peel", summary: "Perforated, solid or bamboo: start with the oven opening and the task at hand." },
-        "ACC-002": { title: "Neatly cut slices", summary: "Four pairs of scissors to compare for handling, cleaning and serving." },
-        "ACC-003": { title: "A stone ready to bake", summary: "Ooni, Bosch, ThermoPro or Tilswall: what their infrared readings can tell you." },
-        "ACC-004": { title: "Dough balls in order", summary: "A box that fits your fridge matters more than capacity you will never use." },
+        "ACC-001": { title: "The right peel", action: "Choose my peel", summary: "Perforated, solid or bamboo: start with the oven opening and the task at hand." },
+        "ACC-002": { title: "Neatly cut slices", action: "Choose my scissors", summary: "Four pairs of scissors to compare for handling, cleaning and serving." },
+        "ACC-003": { title: "A stone ready to bake", action: "Choose my thermometer", summary: "Ooni, Bosch, ThermoPro or Tilswall: what their infrared readings can tell you." },
+        "ACC-004": { title: "Dough balls in order", action: "Choose my dough box", summary: "A box that fits your fridge matters more than capacity you will never use." },
       },
       kitKicker: "Our new guide", kitTitle: "First oven? Build a kit without buying things twice.", kitSummary: "A peel, a thermometer, a box: we sort what is useful, what is already included and what can wait.", kitAction: "Build my kit",
     },
     ovens: {
-      kicker: "Five ovens worth a closer look", title: "Which one belongs in your home?", summary: "A small kitchen oven, an adjustable model or a permanent outdoor station: each serves a different purpose. Read our views and find the Amazon.fr offers referenced in the guides.", action: "Compare all ovens", read: "Read our view and see the offer",
+      kicker: "Five ovens worth a closer look", title: "Which one belongs in your home?", summary: "A small kitchen oven, an adjustable model or a permanent outdoor station: each serves a different purpose. Read our views and find the Amazon.fr offers referenced in the guides.", action: "Compare all ovens", read: "Why this choice",
       labels: { "FOUR-001": "For fine adjustment", "FOUR-002": "For starting in the kitchen", "FOUR-003": "For a compact setup", "FOUR-004": "For electric cooking outdoors", "FOUR-005": "For large pizzas outdoors" },
     },
     comparison: {
@@ -81,6 +83,7 @@ export const HOME_COPY = {
     },
     journal: { kicker: "The people behind the guides", title: "Three perspectives, one aim: choosing well.", summary: "Dough, shared meals, terrace space: we do not all look at an oven in the same way. Our profiles explain our interests. Each article’s sources explain our conclusions.", action: "Meet the editorial team", rss: "Follow new guides via RSS" },
     transparency: { title: "Useful advice also says what gets in the way.", body: "Our guides compare manufacturer specifications and tests published by others. They offer our analysis, with limitations and sources, without being presented as Four à Nu hands-on tests.", commerce: "How the site is funded", method: "How we choose", disclosure: "Our guides contain paid links to Amazon.fr. As an Amazon Associate, we earn from qualifying purchases." },
+    purchase: { action: "See price on Amazon.fr", disclosure: "Amazon.fr affiliate link" },
     common: { by: "By", read: "Discover", guides: "guides to help you choose" },
   },
   de: {
@@ -95,15 +98,15 @@ export const HOME_COPY = {
     accessories: {
       kicker: "Mit dem richtigen Werkzeug beginnen", title: "Nützliches Zubehör. Keine Schublade voller Spielereien.", summary: "Einschießen, messen, gehen lassen und servieren: vier Ratgeber für Ihren Ofen und Ihre Gewohnheiten. Mit den Punkten, die Sie vor einer Bestellung bei Amazon.fr prüfen sollten.", action: "Alles zum Zubehör",
       labels: {
-        "ACC-001": { title: "Der passende Schieber", summary: "Gelocht, ungelocht oder aus Bambus: entscheidend sind Ofenöffnung und Handgriff." },
-        "ACC-002": { title: "Sauber geschnittene Stücke", summary: "Vier Scheren im Vergleich nach Handhabung, Reinigung und Servieren." },
-        "ACC-003": { title: "Der Stein ist bereit", summary: "Ooni, Bosch, ThermoPro oder Tilswall: was ihre Infrarotmessung aussagt." },
-        "ACC-004": { title: "Teiglinge gut verstaut", summary: "Eine Box, die in den Kühlschrank passt, zählt mehr als ungenutztes Fassungsvermögen." },
+        "ACC-001": { title: "Der passende Schieber", action: "Meinen Schieber wählen", summary: "Gelocht, ungelocht oder aus Bambus: entscheidend sind Ofenöffnung und Handgriff." },
+        "ACC-002": { title: "Sauber geschnittene Stücke", action: "Meine Schere wählen", summary: "Vier Scheren im Vergleich nach Handhabung, Reinigung und Servieren." },
+        "ACC-003": { title: "Der Stein ist bereit", action: "Mein Thermometer wählen", summary: "Ooni, Bosch, ThermoPro oder Tilswall: was ihre Infrarotmessung aussagt." },
+        "ACC-004": { title: "Teiglinge gut verstaut", action: "Meine Teigbox wählen", summary: "Eine Box, die in den Kühlschrank passt, zählt mehr als ungenutztes Fassungsvermögen." },
       },
       kitKicker: "Unser neuer Ratgeber", kitTitle: "Der erste Ofen? Das Zubehör ohne doppelte Käufe planen.", kitSummary: "Schieber, Thermometer, Box: Wir sortieren, was nützlich ist, was schon beiliegt und was warten kann.", kitAction: "Mein Zubehör zusammenstellen",
     },
     ovens: {
-      kicker: "Fünf Öfen näher betrachtet", title: "Welcher passt zu Ihnen?", summary: "Kleiner Küchenofen, einstellbares Modell oder fester Platz im Freien: jeder erfüllt einen anderen Zweck. Unsere Ratgeber erklären die Unterschiede und verlinken die erfassten Angebote bei Amazon.fr.", action: "Alle Öfen vergleichen", read: "Einschätzung und Angebot ansehen",
+      kicker: "Fünf Öfen näher betrachtet", title: "Welcher passt zu Ihnen?", summary: "Kleiner Küchenofen, einstellbares Modell oder fester Platz im Freien: jeder erfüllt einen anderen Zweck. Unsere Ratgeber erklären die Unterschiede und verlinken die erfassten Angebote bei Amazon.fr.", action: "Alle Öfen vergleichen", read: "Warum diese Wahl",
       labels: { "FOUR-001": "Für feine Einstellungen", "FOUR-002": "Für den Einstieg in der Küche", "FOUR-003": "Für wenig Platz", "FOUR-004": "Für elektrisches Kochen draußen", "FOUR-005": "Für große Pizzen im Freien" },
     },
     comparison: {
@@ -111,6 +114,7 @@ export const HOME_COPY = {
     },
     journal: { kicker: "Die Menschen hinter den Ratgebern", title: "Drei Perspektiven, ein Ziel: gut auswählen.", summary: "Teig, gemeinsame Essen, Platz auf der Terrasse: Wir betrachten Öfen aus unterschiedlichen Blickwinkeln. Unsere Profile erklären unsere Interessen. Die Quellen jedes Artikels erklären unsere Schlussfolgerungen.", action: "Die Redaktion kennenlernen", rss: "Neue Ratgeber per RSS verfolgen" },
     transparency: { title: "Gute Beratung nennt auch die Nachteile.", body: "Unsere Ratgeber vergleichen Herstellerangaben und veröffentlichte Tests Dritter. Sie enthalten unsere Analyse samt Grenzen und Quellen und werden nicht als eigene Praxistests von Four à Nu dargestellt.", commerce: "So finanziert sich die Website", method: "So wählen wir aus", disclosure: "Unsere Ratgeber enthalten vergütete Links zu Amazon.fr. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen." },
+    purchase: { action: "Preis auf Amazon.fr", disclosure: "Amazon.fr-Partnerlink" },
     common: { by: "Von", read: "Entdecken", guides: "Ratgeber zur Auswahl" },
   },
 } as const satisfies Record<Locale, HomeCopy>;

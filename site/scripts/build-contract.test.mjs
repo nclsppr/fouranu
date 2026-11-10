@@ -2018,6 +2018,9 @@ test("les appels d’achat sont exclusivement affiliés et disparaissent sans of
       assert.equal(tags(page.html, "a").filter((tag) => attribute(tag, "data-purchase-placement")).length, 0,
         `${page.route}: un lien marchand de secours a été ajouté`);
     }
+    const purchaseJump = pairedElements(page.html, "a").find((link) => attribute(`<a${link[1]}>`, "href") === "#acheter");
+    assert.equal(Boolean(purchaseJump), expectedCount > 0, `${page.route}: raccourci d'achat incohérent`);
+    if (purchaseJump) assert.ok(visibleText(purchaseJump[2]).length > 10, `${page.route}: raccourci sans libellé`);
     for (const callout of callouts) {
       const merchantLinks = pairedElements(callout[2], "a");
       assert.ok(merchantLinks.length >= 1, `${page.route}: lien marchand absent`);
@@ -2044,6 +2047,10 @@ test("les appels d’achat sont exclusivement affiliés et disparaissent sans of
         assert.equal(attribute(opening, "data-affiliate"), "amazon");
         assert.equal(attribute(opening, "data-commercial-scope"), undefined, `${page.route}: lien de collection non autorisé`);
         assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: destination absente du bouton`);
+        const accessibleLabel = attribute(opening, "aria-label") ?? "";
+        const action = visibleText(link[2]).replace(/[→↗]/g, "").trim();
+        assert.ok(accessibleLabel.includes(action), `${page.route}: le nom accessible doit conserver l'action visible`);
+        assert.ok(accessibleLabel.length > action.length, `${page.route}: produit absent du nom accessible`);
         assert.equal(merchantUrl.hash, "");
         if (merchantUrl.hostname === "www.amazon.fr") {
           assert.match(merchantUrl.pathname, /^\/dp\/[A-Z0-9]{10}$/);
@@ -2068,6 +2075,36 @@ test("les appels d’achat sont exclusivement affiliés et disparaissent sans of
       assert.doesNotMatch(attribute(link, "rel") ?? "", /sponsored/, `${locale}: source non rémunérée marquée sponsorisée`);
       assert.equal(attribute(link, "data-affiliate"), undefined);
       assert.equal(attribute(link, "data-purchase-placement"), undefined);
+    }
+  }
+});
+
+test("la une propose six achats affiliés explicites après leurs réserves et garde les dossiers accessibles", async () => {
+  const expectedObjects = [
+    "cuisinart-cpz120e", "cuisinart-cpz120e", "g3-ferrari-delizia-g10006-black",
+    "sage-smart-oven-pizzaiolo-bpz820", "ninja-woodfire-oo101eu", "witt-etna-rotante-16",
+  ];
+  for (const locale of LOCALES) {
+    const page = (await allHtmlPages()).find((entry) => entry.route === STATIC_ROUTES.home[locale]);
+    const links = pairedElements(page.html, "a").filter((link) => attribute(`<a${link[1]}>`, "data-purchase-placement"));
+    assert.deepEqual(links.map((link) => attribute(`<a${link[1]}>`, "data-commercial-object")), expectedObjects);
+    for (const [index, link] of links.entries()) {
+      const opening = `<a${link[1]}>`;
+      assert.equal(decodeHtml(attribute(opening, "href")), amazonAffiliateUrlForObject(expectedObjects[index]));
+      assert.equal(attribute(opening, "rel"), "sponsored external noopener");
+      assert.equal(attribute(opening, "data-purchase-placement"), index === 0 ? "home-hero" : "home-oven");
+      assert.match(visibleText(link[2]), /Amazon\.fr/);
+      assert.ok(attribute(opening, "aria-label")?.includes(visibleText(link[2]).replace(/[→↗]/g, "").trim()));
+    }
+    const articleCards = pairedElements(page.html, "article").filter((match) => /data-purchase-placement/.test(match[2]));
+    assert.equal(articleCards.length, 6);
+    for (const card of articleCards) {
+      const html = card[2];
+      assert.ok(html.indexOf("home-purchase__disclosure") < html.indexOf('data-affiliate="amazon"'));
+      assert.ok(pairedElements(html, "a").some((link) => {
+        const href = attribute(`<a${link[1]}>`, "href");
+        return href?.startsWith("/") && href !== STATIC_ROUTES.transparency[locale];
+      }), `${locale}: le dossier éditorial doit rester accessible avant l'achat`);
     }
   }
 });
@@ -2148,12 +2185,16 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
   const amazonObjectLinks = allObjectLinks.filter(({ link }) =>
     attribute(`<a${link[1]}>`, "data-affiliate") === "amazon"
   );
+  const homeObjectCounts = new Map([
+    ["cuisinart-cpz120e", 2], ["g3-ferrari-delizia-g10006-black", 1],
+    ["sage-smart-oven-pizzaiolo-bpz820", 1], ["ninja-woodfire-oo101eu", 1], ["witt-etna-rotante-16", 1],
+  ]);
   assert.equal(
     amazonObjectLinks.length,
     (availableObjects.length + [...articleRecords.values()]
       .filter((article) => textDecisionRoutes.has(article.route))
-      .reduce((count, article) => count + article.objectIds.filter((id) => COMMERCIAL_OBJECTS[id].amazon.status === "available").length, 0)) * 2,
-    "chaque offre exacte doit apparaître dans les deux appels d’achat de son dossier canonique et des nouvelles décisions",
+      .reduce((count, article) => count + article.objectIds.filter((id) => COMMERCIAL_OBJECTS[id].amazon.status === "available").length, 0)) * 2 + 6,
+    "chaque offre exacte couvre ses deux appels d’achat et les six sélections de la une",
   );
 
   const articleByRoute = new Map(
@@ -2163,8 +2204,12 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
     const objectId = attribute(`<a${link[1]}>`, "data-commercial-object");
     const object = COMMERCIAL_OBJECTS[objectId];
     const article = articleByRoute.get(page.route);
-    assert.ok(article, `${page.route}: lien d’objet hors dossier`);
     assert.ok(object, `${page.route}: objet rendu inconnu ${objectId}`);
+    if (page.route === "/") {
+      assert.ok(homeObjectCounts.has(objectId), `${objectId}: offre non sélectionnée sur la une`);
+      continue;
+    }
+    assert.ok(article, `${page.route}: lien d’objet hors dossier`);
     assert.ok(
       object.articleIds.includes(article.articleId),
       `${page.route}: ${objectId} n’est pas déclaré dans la couverture de l’article`,
@@ -2211,13 +2256,13 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
       const allowedRoutes = [article.route, ...[...articleRecords.values()]
         .filter((entry) => textDecisionRoutes.has(entry.route) && entry.objectIds.includes(object.id))
         .map((entry) => entry.route)];
-      assert.equal(matches.length, allowedRoutes.length * 2, `${object.id}: lien Amazon dédié absent ou dupliqué`);
+      assert.equal(matches.length, allowedRoutes.length * 2 + (homeObjectCounts.get(object.id) ?? 0), `${object.id}: lien Amazon dédié absent ou dupliqué`);
       for (const route of allowedRoutes) {
         assert.equal(matches.filter(({ page }) => page.route === route).length, 2, `${object.id}: deux emplacements attendus sur ${route}`);
       }
       for (const { page, link } of matches) {
         const opening = `<a${link[1]}>`;
-        assert.ok(allowedRoutes.includes(page.route), `${object.id}: lien rendu hors des dossiers autorisés`);
+        assert.ok(allowedRoutes.includes(page.route) || (page.route === "/" && homeObjectCounts.has(object.id)), `${object.id}: lien rendu hors des emplacements autorisés`);
         assert.equal(decodeHtml(attribute(opening, "href")), amazonAffiliateUrlForObject(object.id));
         assert.equal(attribute(opening, "rel"), "sponsored external noopener");
         assert.equal(attribute(opening, "data-affiliate"), "amazon");

@@ -1,12 +1,9 @@
 ---
 import type { PurchaseLink } from "@/data/purchase-links";
 import { amazonAffiliateUrlForObject } from "@/data/commercial-objects.mjs";
-import {
-  affiliateRel,
-  isAmazonLink,
-  toAmazonAffiliateUrl,
-} from "@/lib/amazon-affiliate.mjs";
+import { affiliateRel, isAmazonLink, toAmazonAffiliateUrl } from "@/lib/amazon-affiliate.mjs";
 import type { Locale } from "@/i18n/config";
+import { PURCHASE_COPY, purchaseProductCopy } from "@/i18n/purchase";
 
 interface Props {
   locale?: Locale;
@@ -15,119 +12,54 @@ interface Props {
 }
 
 const { locale = "fr", links, variant } = Astro.props;
-const copy = {
-  fr: {
-    aria: "Liens d’achat", eyebrow: "Où l’acheter",
-    compareAmazon: "Comparer les modèles sur Amazon.fr", seeAmazon: "Voir le modèle sur Amazon.fr",
-    choice: "Votre choix est fait ?",
-    amazonCopy: "Vous partez vers Amazon.fr. Vérifiez le vendeur, le prix, le modèle exact, les accessoires inclus et le stock avant de commander.",
-    amazonDisclosure: "Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.",
-  },
-  en: {
-    aria: "Purchase links", eyebrow: "Where to buy",
-    compareAmazon: "Compare the models on Amazon.fr", seeAmazon: "View the model on Amazon.fr",
-    choice: "Made your choice?",
-    amazonCopy: "You are leaving for Amazon.fr, the French marketplace. Check the seller, price, exact model, included accessories and stock before ordering.",
-    amazonDisclosure: "Amazon affiliate links. As an Amazon Associate, I earn from qualifying purchases.",
-  },
-  de: {
-    aria: "Kauflinks", eyebrow: "Wo kaufen",
-    compareAmazon: "Modelle auf Amazon.fr vergleichen", seeAmazon: "Modell auf Amazon.fr ansehen",
-    choice: "Steht Ihre Wahl fest?",
-    amazonCopy: "Sie wechseln zu Amazon.fr, dem französischen Marktplatz. Prüfen Sie vor der Bestellung Verkäufer, Preis, genaues Modell, enthaltenes Zubehör und Bestand.",
-    amazonDisclosure: "Amazon-Partnerlinks. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.",
-  },
-}[locale];
-for (const link of links) {
+const copy = PURCHASE_COPY[locale];
+const products = links.map((link) => {
   if (link.merchant !== "Amazon.fr" || !isAmazonLink(link.url)
     || link.url !== amazonAffiliateUrlForObject(link.objectId)) {
     throw new Error(`Destination affiliée non vérifiée : ${link.objectId}`);
   }
-}
-const titles = {
-  primary: links.length > 1 ? copy.compareAmazon : copy.seeAmazon,
-  closing: copy.choice,
-};
-
-const localizedObjectNames: Record<Exclude<Locale, "fr">, Record<string, string>> = {
-  en: {
-    "ooni-peel-perforated-30": "Ooni 30 cm perforated pizza peel",
-    "ooni-peel-classic-30": "Ooni 30 cm classic pizza peel",
-    "ooni-peel-bamboo-30": "Ooni 30 cm bamboo pizza peel",
-    "weber-peel-6691": "Weber 6691 pizza peel",
-    "dreamfarm-scizza": "Dreamfarm Scizza pizza scissors",
-    "triangle-50491": "Triangle 50491 pizza scissors",
-    "gefu-pezzo-12641": "GEFU Pezzo 12641 pizza scissors",
-    "fackelmann-pizza-scissors-25": "Fackelmann 25 cm pizza scissors",
-    "ooni-infrared-thermometer": "Ooni digital infrared thermometer",
-    "bosch-universaltemp": "Bosch UniversalTemp thermometer",
-    "thermopro-tp30": "ThermoPro TP30 infrared thermometer",
-    "tilswall-w301": "Tilswall W301 infrared thermometer",
-    "ziipa-minola": "ZiiPa Minola dough box",
-    "gilac-dough-box-9l": "Gilac compact 9-litre dough box",
-    "hendi-880975": "HENDI 880975 GN 1/1 dough box",
-    "gilac-dough-box-15l": "Gilac professional 15-litre dough box",
-  },
-  de: {
-    "ooni-peel-perforated-30": "perforierten Ooni-Pizzaschieber 30 cm",
-    "ooni-peel-classic-30": "klassischen Ooni-Pizzaschieber 30 cm",
-    "ooni-peel-bamboo-30": "Ooni-Bambus-Pizzaschieber 30 cm",
-    "weber-peel-6691": "Weber-Pizzaschieber 6691",
-    "dreamfarm-scizza": "Dreamfarm-Scizza-Pizzaschere",
-    "triangle-50491": "Triangle-Pizzaschere 50491",
-    "gefu-pezzo-12641": "GEFU-Pezzo-Pizzaschere 12641",
-    "fackelmann-pizza-scissors-25": "Fackelmann-Pizzaschere 25 cm",
-    "ooni-infrared-thermometer": "digitales Ooni-Infrarotthermometer",
-    "bosch-universaltemp": "Bosch-UniversalTemp-Thermometer",
-    "thermopro-tp30": "ThermoPro-TP30-Infrarotthermometer",
-    "tilswall-w301": "Tilswall-W301-Infrarotthermometer",
-    "ziipa-minola": "ZiiPa-Minola-Teigbox",
-    "gilac-dough-box-9l": "kompakte Gilac-Teigbox mit 9 Litern",
-    "hendi-880975": "HENDI-Teigbox 880975 GN 1/1",
-    "gilac-dough-box-15l": "professionelle Gilac-Teigbox mit 15 Litern",
-  },
-};
-
-function localizedLinkLabel(link: PurchaseLink): string {
-  if (locale === "fr") return link.label;
-  const product = localizedObjectNames[locale][link.objectId] ?? link.label
-    .replace(/^Voir\s+(?:l[’']|le |la |les )?/, "")
-    .replace(/\s+(?:chez|sur)\s+(?:Amazon\.fr|Gozney|Ooni)$/, "");
-  if (locale === "en") return `View ${product} on Amazon.fr`;
-  return `${product} auf Amazon.fr ansehen`;
-}
+  return { link, ...purchaseProductCopy(link.objectId, locale) };
+});
+const title = variant === "closing" ? copy.closing : links.length > 1 ? copy.multiple : copy.single;
 ---
 
-{links.length > 0 && <section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label={copy.aria}>
+{products.length > 0 && <section id={variant === "primary" ? "acheter" : "acheter-fin"} class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label={copy.aria}>
   <p class="purchase-cta__eyebrow">{copy.eyebrow}</p>
-  <p class="purchase-cta__title">{titles[variant]}</p>
-  <p class="purchase-cta__copy">
-    {copy.amazonCopy}
-  </p>
-  <p class="purchase-cta__disclosure">{copy.amazonDisclosure}</p>
-  <div class="purchase-cta__actions">
-    {links.map((link) => (
-      <a
-        href={toAmazonAffiliateUrl(link.url)}
-        rel={affiliateRel(link.url)}
-        data-affiliate="amazon"
-        data-commercial-object={link.objectId}
-        data-purchase-placement={variant}
-      >
-        {localizedLinkLabel(link)}
-        <span aria-hidden="true">→</span>
-      </a>
+  <p class="purchase-cta__title">{title}</p>
+  <p class="purchase-cta__copy">{copy.guidance}</p>
+  <p class="purchase-cta__disclosure">{copy.disclosure}</p>
+  <ul class="purchase-cta__actions" role="list">
+    {products.map(({ link, name, benefit }) => (
+      <li class="purchase-cta__product">
+        <div class="purchase-cta__context">
+          <p class="purchase-cta__product-name">{name}</p>
+          <p class="purchase-cta__benefit">{benefit}</p>
+        </div>
+        <a
+          href={toAmazonAffiliateUrl(link.url)}
+          rel={affiliateRel(link.url)}
+          aria-label={`${copy.action} : ${name}`}
+          data-affiliate="amazon"
+          data-commercial-object={link.objectId}
+          data-purchase-placement={variant}
+        >
+          {copy.action}
+          <span aria-hidden="true">→</span>
+        </a>
+      </li>
     ))}
-  </div>
+  </ul>
 </section>}
 
 <style>
   .purchase-cta {
     display: grid;
-    gap: 0.85rem;
+    gap: 0.75rem;
     max-width: var(--reading-width);
+    min-width: 0;
     padding: clamp(1rem, 2.2vw, 1.5rem);
     border: 2px solid var(--color-carbon);
+    scroll-margin-top: 1.5rem;
   }
 
   .purchase-cta--primary {
@@ -141,12 +73,7 @@ function localizedLinkLabel(link: PurchaseLink): string {
     background: var(--color-steel-soft);
   }
 
-  .purchase-cta__eyebrow,
-  .purchase-cta__title,
-  .purchase-cta__copy,
-  .purchase-cta__disclosure {
-    margin: 0;
-  }
+  .purchase-cta p { margin: 0; }
 
   .purchase-cta__eyebrow {
     color: var(--color-probe);
@@ -157,73 +84,91 @@ function localizedLinkLabel(link: PurchaseLink): string {
     text-transform: uppercase;
   }
 
-  .purchase-cta--primary .purchase-cta__eyebrow {
-    color: var(--color-reading);
-  }
+  .purchase-cta--primary .purchase-cta__eyebrow { color: var(--color-reading); }
 
   .purchase-cta__title {
     font-family: var(--font-display);
-    font-size: clamp(1.65rem, 3vw, 2.5rem);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.08;
   }
 
-  .purchase-cta__copy {
-    max-width: 56ch;
+  .purchase-cta__copy,
+  .purchase-cta__benefit {
     color: var(--color-graphite);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     line-height: 1.55;
   }
 
-  .purchase-cta--primary .purchase-cta__copy {
+  .purchase-cta__disclosure {
+    color: var(--color-graphite);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .purchase-cta--primary :is(.purchase-cta__copy, .purchase-cta__benefit, .purchase-cta__disclosure) {
     color: var(--color-carbon-muted);
   }
 
-  .purchase-cta__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
+  .purchase-cta .purchase-cta__actions {
+    display: grid;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
   }
+
+  .purchase-cta .purchase-cta__product {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 1rem;
+    align-items: center;
+    margin: 0;
+    padding-block: 1rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .purchase-cta__product:last-child { padding-bottom: 0; }
+  .purchase-cta--primary .purchase-cta__product { border-color: var(--color-carbon-line); }
+  .purchase-cta__context { min-width: 0; }
+
+  .purchase-cta .purchase-cta__product-name {
+    margin-bottom: 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .purchase-cta__title,
+  .purchase-cta__product-name,
+  .purchase-cta__benefit,
+  .purchase-cta__actions a { overflow-wrap: anywhere; }
 
   .purchase-cta__actions a {
     display: inline-flex;
     min-height: 3rem;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 0.72rem 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem;
     color: var(--color-white);
     background: var(--color-probe);
-    font-size: 0.88rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.4;
     text-decoration: none;
   }
 
-  .purchase-cta__actions a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-  }
+  .purchase-cta__actions a > span { flex-shrink: 0; }
+  .purchase-cta__actions a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+  .purchase-cta--primary a:focus-visible { outline-color: var(--color-reading); }
 
-  .purchase-cta__disclosure {
-    color: var(--color-graphite);
-    font-family: var(--font-data);
-    font-size: 0.66rem;
-    line-height: 1.5;
-    text-transform: uppercase;
-  }
-
-  .purchase-cta--primary .purchase-cta__disclosure {
-    color: var(--color-carbon-muted);
+  @media (min-width: 48.01rem) {
+    .purchase-cta__actions a { white-space: nowrap; }
   }
 
   @media (max-width: 48rem) {
-    .purchase-cta__actions {
-      display: grid;
-    }
-
-    .purchase-cta__actions a {
-      width: 100%;
-    }
+    .purchase-cta .purchase-cta__product { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+    .purchase-cta__actions a { width: 100%; }
   }
 </style>

@@ -129,7 +129,7 @@ explicite avant son lancement.
 | Faisabilité et modèle | [`FEASIBILITY.md`](FEASIBILITY.md) | Référence |
 | Expérience et métriques | [`EXPERIMENT.md`](EXPERIMENT.md) | Expérimental |
 | Relevé SEO et commercial | [`docs/GROWTH-MEASUREMENT.md`](docs/GROWTH-MEASUREMENT.md) | Procédure interne ; instrumentation non activée |
-| Priorité commerciale et appels d'achat | [`docs/decisions/0012-priorite-commerciale-et-achats-affilies.md`](docs/decisions/0012-priorite-commerciale-et-achats-affilies.md) | Décision du candidat du 2026-11-10 ; publication distincte |
+| Priorité commerciale et appels d'achat | [`docs/decisions/0012-priorite-commerciale-et-achats-affilies.md`](docs/decisions/0012-priorite-commerciale-et-achats-affilies.md) | Décision acceptée ; publication et amélioration des CTA autorisées le 2026-11-10 |
 | Contenus prioritaires | [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) | Actuel |
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |

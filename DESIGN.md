@@ -346,18 +346,24 @@ et un rendu responsive sans décalage de mise en page.
 
 ### Actions et liens marchands
 
-Une page d'article répète une action remplie en `--color-probe` à deux moments
-distincts : après le résumé d'ouverture, puis avant les
-limites et sources. Deux actions marchandes ne se suivent jamais dans le même
-écran et chacune garde un libellé explicite avec le produit et le marchand.
-Les liens de texte sont soulignés au repos dans le corps des articles.
+Une page d'article présente les offres après l'introduction et avant les
+limites et sources. Le résumé propose un raccourci HTML vers le premier bloc.
+Un comparatif donne à chaque modèle une ligne distincte : nom exact, usage et
+compromis utiles, puis action « Voir le prix sur Amazon.fr ». Le nom accessible
+du bouton conserve cette action et précise le produit. Les modèles d'un
+comparatif peuvent partager un bloc ; aucun ordre ne prétend constituer un
+classement universel.
 
-Tant que les liens sont directs et non rémunérés, le composant le dit
-explicitement et n'utilise pas `rel="sponsored"`. Un futur lien affilié restera
-visuellement séparé du verdict, des limites et des sources. Sa taille, sa couleur
-ou sa position ne devra jamais faire disparaître une réserve éditoriale. Le
-marquage `rel="sponsored"` et la déclaration d'affiliation deviendront alors
-obligatoires.
+La une propose une offre sur le sujet principal et sur chacun des cinq fours
+sélectionnés, après leur résumé et leurs réserves. Le dossier reste accessible
+par une action de lecture secondaire. Les boutons utilisent `--color-probe`,
+un focus `--color-reading` sur carbone et des cibles d'au moins 44 px. Ils ne
+masquent ni contenu, ni limite et ne flottent pas au-dessus de la lecture.
+
+Tous les appels d'achat suivent l'ADR-0012 : destination affiliée exacte,
+`rel="sponsored"` et déclaration visible avant le clic. Aucun prix ou stock
+Amazon n'est inscrit dans le HTML. Les sources restent directement consultables
+et les liens de texte sont soulignés au repos dans le corps des articles.
 
 ### Partage
 

@@ -22,9 +22,12 @@ importantes.
 - L'ADR-0012 inscrit l'objectif de rentabilité et distingue mise en avant
   commerciale, critères de recommandation et commissions réellement confirmées.
   Aucun prix, stock actuel ou résultat financier n'est inventé.
-- La CI prépare un contrôle Chromium sur 45 parcours à 320, 360 et 1 280 px,
-  avec clavier, focus, mouvement réduit, images, réseau et captures. Les
-  résultats effectivement acquis et les limites locales sont dans `STATUS.md`.
+- La [PR #5](https://github.com/nclsppr/fouranu/pull/5) passe la gate complète,
+  Compose et les 45 parcours Chromium à 320, 360 et 1 280 px dans le
+  [run `42883319803`](https://github.com/nclsppr/fouranu/actions/runs/42883319803).
+  Clavier, focus, mouvement réduit, images, réseau et liens sont contrôlés ;
+  les captures et limites de validation sont référencées dans `STATUS.md`.
+  La nouvelle version n'est pas encore publiée.
 
 
 ## 2026-09-08 - Parité de structure et de lecture FR/EN/DE

@@ -32,7 +32,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
 
-## Candidat commercial du 2026-11-10, non publié
+## Candidat commercial du 2026-11-10, vérifié et non publié
 
 Le candidat `codex/refonte-commerciale-20261110` part du `main` distant
 `15a2fdc97a47c324d24c70267b70c45a1930beff`, confirmé via GitHub pendant la
@@ -73,8 +73,29 @@ ne démarre pas car le daemon OrbStack est absent. Le serveur de preview et
 Chromium locaux sont également bloqués par les permissions de la session ;
 aucune revue visuelle locale n'est revendiquée. Le workflow conserve ses gates
 et ajoute un contrôle navigateur Chromium dans la CI sur le service Compose :
-quinze routes dans trois largeurs, avec captures et rapport JSON. Les résultats
-distants restent à acquérir avant de qualifier ce candidat de vérifié.
+quinze routes dans trois largeurs, avec captures et rapport JSON.
+
+La [PR #5](https://github.com/nclsppr/fouranu/pull/5) porte le SHA applicatif
+`4b5ba082013a6f62cc5e08e7f9d2a130e48fbe9d`. Son arbre Git
+`a36e97c6879fdc081cc248142f7e829543f16674` est identique au commit local
+`42de5212d958368270cb15d630ae0f1c65c36ba0`. Le
+[run `42883319803`](https://github.com/nclsppr/fouranu/actions/runs/42883319803)
+réussit la gate complète : 39 tests Python, 34 tests du site, quatre tests
+Nimbus, typage, builds preview et indexable, dry-run Cloudflare, démarrage
+Compose et healthcheck. Le job de publication est ignoré sur cette branche.
+
+Les 45 scénarios Chromium passent sur l'accueil, les deux rubriques et les deux
+nouveaux guides en FR/EN/DE, à 320, 360 et 1 280 px. Ils contrôlent les images
+après défilement, l'absence de débordement, les huit premières étapes de focus
+clavier, le mouvement réduit, la console, le réseau, les destinations affiliées
+et l'ouverture des sources au clavier. Les parcours ne visitent aucun marchand
+et ne prouvent pas son stock. Captures et rapport sont dans l'artefact du run.
+Ce contrôle automatisé ne remplace pas une session utilisateur ni un lecteur
+d'écran réel. Une revue statique indépendante ne relève aucun blocage.
+
+L'artefact contient 147 pages canoniques et les trois 404, avec deux alias HTML
+supplémentaires des 404 localisées. Les 264 liens des blocs d'achat sont Amazon
+affiliés, sans CTA fabricant de secours. Les sources directes sont conservées.
 
 Le push sur `main` déclencherait la publication automatique. Le candidat doit
 donc être revu sur sa branche avant le feu vert du propriétaire sur le paquet

@@ -88,6 +88,23 @@ restent utilisables indépendamment de ce compteur.
 
 ## Décider avec le relevé
 
+### Suivre le point mort de la refonte commerciale
+
+Pour l'ADR-0012, établir chaque mois le coût réellement imputé au projet
+(hébergement, domaine, outils et production), puis la somme des commissions
+confirmées après annulations. Un abonnement partagé est ventilé explicitement,
+sans supposer que son prix complet correspond au coût du site.
+
+- Contribution mensuelle = commissions confirmées moins coûts imputés.
+- Commandes nécessaires au point mort = coûts imputés divisés par commission
+  nette moyenne réellement observée, arrondis au supérieur.
+- Si aucune commission nette moyenne n'est connue, le point mort en commandes
+  reste une hypothèse à scénarios, pas une prévision.
+
+Comparer des périodes complètes et annoter le déploiement de la refonte. La
+réussite technique et le nombre de guides publiés ne prouvent pas le résultat
+financier. Aucun chiffre de compte privé ni export n'entre dans ce document.
+
 | Signal observé | Hypothèse à vérifier | Action limitée |
 | --- | --- | --- |
 | Impressions pertinentes, peu de clics | Le titre ou le résumé exprime mal la décision | Réviser une ouverture et comparer une période équivalente |

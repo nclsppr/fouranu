@@ -185,6 +185,14 @@ export const ARTICLE_ROUTES = {
     brand: "fours",
     slug: { fr: "budget-complet-four-pizza", en: "pizza-oven-full-budget", de: "pizzaofen-gesamtkosten" },
   },
+  "FOUR-009": {
+    brand: "fours",
+    slug: { fr: "kit-premier-four-pizza", en: "first-pizza-oven-kit", de: "erster-pizzaofen-zubehoer" },
+  },
+  "FOUR-010": {
+    brand: "fours",
+    slug: { fr: "g3-ferrari-delizia-ou-cuisinart", en: "g3-ferrari-delizia-or-cuisinart", de: "g3-ferrari-delizia-oder-cuisinart" },
+  },
   "GOZNEY-001": {
     brand: "gozney",
     slug: { fr: "arc-xl", en: "arc-xl", de: "arc-xl" },

@@ -1,15 +1,11 @@
 import { amazonAffiliateUrlForObject } from "@/data/commercial-objects.mjs";
 
-interface PurchaseLinkBase {
+export interface PurchaseLink {
   label: string;
-  merchant: "Amazon.fr" | "Gozney" | "Ooni";
+  merchant: "Amazon.fr";
   url: string;
+  objectId: string;
 }
-
-export type PurchaseLink = PurchaseLinkBase & (
-  | { objectId: string; scope?: never }
-  | { objectId?: never; scope: "collection" }
-);
 
 function amazonLink(objectId: string, label: string): PurchaseLink {
   return {
@@ -20,6 +16,8 @@ function amazonLink(objectId: string, label: string): PurchaseLink {
   };
 }
 
+// Empty entries deliberately have no purchase CTA: an unverified offer is never
+// replaced with a manufacturer link, a search result or another product.
 export const PURCHASE_LINKS_BY_ARTICLE: Record<string, PurchaseLink[]> = {
   "FOUR-001": [
     amazonLink(
@@ -72,189 +70,47 @@ export const PURCHASE_LINKS_BY_ARTICLE: Record<string, PurchaseLink[]> = {
     amazonLink("hendi-880975", "Voir le bac HENDI GN 1/1 sur Amazon.fr"),
     amazonLink("gilac-dough-box-15l", "Voir le bac Gilac 15 litres sur Amazon.fr"),
   ],
-  "GOZNEY-001": [
-    {
-      label: "Voir l’Arc XL chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr-fr/products/arc-xl",
-      objectId: "gozney-arc-xl",
-    },
-  ],
-  "GOZNEY-002": [
-    {
-      label: "Voir l’Arc Lite chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/products/arc-lite",
-      objectId: "gozney-arc-lite",
-    },
-    {
-      label: "Voir le Tread chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/products/tread",
-      objectId: "gozney-tread",
-    },
-  ],
-  "GOZNEY-003": [
-    {
-      label: "Voir tous les fours chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/collections/pizza-ovens",
-      scope: "collection",
-    },
-  ],
-  "GOZNEY-004": [
-    {
-      label: "Voir le Dome XL (Gen 2) chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/products/dome-xl-gen-2",
-      objectId: "gozney-dome-xl-gen-2",
-    },
-  ],
-  "GOZNEY-005": [
-    {
-      label: "Voir le Dome (Gen 2) chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/products/dome-gen-2",
-      objectId: "gozney-dome-gen-2",
-    },
-  ],
-  "GOZNEY-006": [
-    {
-      label: "Voir l’Arc chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/products/arc",
-      objectId: "gozney-arc",
-    },
-  ],
-  "GOZNEY-007": [
-    {
-      label: "Voir le Roccbox chez Gozney",
-      merchant: "Gozney",
-      url: "https://eu.gozney.com/fr/products/roccbox",
-      objectId: "gozney-roccbox",
-    },
-  ],
-  "OONI-001": [
-    {
-      label: "Voir tous les fours chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/collections/ovens",
-      scope: "collection",
-    },
-  ],
-  "OONI-004": [
-    {
-      label: "Voir le Koda 2 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-koda-2",
-      objectId: "ooni-koda-2",
-    },
-    {
-      label: "Voir le Karu 2 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-karu-2",
-      objectId: "ooni-karu-2",
-    },
-    {
-      label: "Voir le Volt 2 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-volt-2",
-      objectId: "ooni-volt-2",
-    },
-  ],
+  "GOZNEY-001": [],
+  "GOZNEY-002": [],
+  "GOZNEY-003": [],
+  "GOZNEY-004": [],
+  "GOZNEY-005": [],
+  "GOZNEY-006": [],
+  "GOZNEY-007": [],
+  "OONI-001": [],
+  "OONI-004": [],
   "OONI-010": [
-    {
-      label: "Voir le Koda 2 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-koda-2",
-      objectId: "ooni-koda-2",
-    },
     amazonLink("ooni-koda-2", "Voir le Koda 2 sur Amazon.fr"),
   ],
   "OONI-011": [
-    {
-      label: "Voir le Koda 2 Pro chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-koda-2-pro",
-      objectId: "ooni-koda-2-pro",
-    },
     amazonLink("ooni-koda-2-pro", "Voir le Koda 2 Pro sur Amazon.fr"),
   ],
-  "OONI-012": [
-    {
-      label: "Voir le Koda 2 Max chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-koda-2-max",
-      objectId: "ooni-koda-2-max",
-    },
-  ],
+  "OONI-012": [],
   "OONI-013": [
-    {
-      label: "Voir le Koda 12 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-koda",
-      objectId: "ooni-koda-12",
-    },
     amazonLink("ooni-koda-12", "Voir le Koda 12 sur Amazon.fr"),
   ],
   "OONI-014": [
-    {
-      label: "Voir le Koda 16 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-koda-16",
-      objectId: "ooni-koda-16",
-    },
     amazonLink("ooni-koda-16", "Voir le Koda 16 sur Amazon.fr"),
   ],
   "OONI-015": [
-    {
-      label: "Voir le Karu 2 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-karu-2",
-      objectId: "ooni-karu-2",
-    },
     amazonLink("ooni-karu-2", "Voir le Karu 2 sur Amazon.fr"),
   ],
   "OONI-016": [
-    {
-      label: "Voir le Karu 2 Pro chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-karu-2-pro",
-      objectId: "ooni-karu-2-pro",
-    },
     amazonLink("ooni-karu-2-pro", "Voir le Karu 2 Pro sur Amazon.fr"),
   ],
   "OONI-017": [
-    {
-      label: "Voir le Karu 12 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-karu",
-      objectId: "ooni-karu-12",
-    },
     amazonLink("ooni-karu-12", "Voir le Karu 12 sur Amazon.fr"),
   ],
   "OONI-018": [
-    {
-      label: "Voir le Volt 2 chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-volt-2",
-      objectId: "ooni-volt-2",
-    },
     amazonLink("ooni-volt-2", "Voir le Volt 2 sur Amazon.fr"),
   ],
   "OONI-040": [
-    {
-      label: "Voir le Halo Core chez Ooni",
-      merchant: "Ooni",
-      url: "https://eu.ooni.com/fr-fr/products/ooni-halo-core-spiral-mixer",
-      objectId: "ooni-halo-core",
-    },
     amazonLink("ooni-halo-core", "Voir le Halo Core sur Amazon.fr"),
     amazonLink("ooni-halo-pro", "Voir le Halo Pro sur Amazon.fr"),
   ],
 };
 
-// Comparisons keep the exact, previously validated merchant destinations.
+// Comparisons keep only the exact affiliate destinations of the models discussed.
 PURCHASE_LINKS_BY_ARTICLE["FOUR-006"] = [
   ...PURCHASE_LINKS_BY_ARTICLE["OONI-011"],
   ...PURCHASE_LINKS_BY_ARTICLE["GOZNEY-001"],
@@ -267,5 +123,16 @@ PURCHASE_LINKS_BY_ARTICLE["FOUR-007"] = [
 PURCHASE_LINKS_BY_ARTICLE["FOUR-008"] = [
   ...PURCHASE_LINKS_BY_ARTICLE["OONI-018"],
   ...PURCHASE_LINKS_BY_ARTICLE["OONI-011"],
+  ...PURCHASE_LINKS_BY_ARTICLE["FOUR-002"],
+];
+
+PURCHASE_LINKS_BY_ARTICLE["FOUR-009"] = [
+  amazonLink("ooni-peel-classic-30", "Voir la pelle Ooni classique sur Amazon.fr"),
+  amazonLink("ooni-infrared-thermometer", "Voir le thermomètre Ooni sur Amazon.fr"),
+  amazonLink("ziipa-minola", "Voir le bac ZiiPa Minola sur Amazon.fr"),
+  amazonLink("dreamfarm-scizza", "Voir les ciseaux Dreamfarm Scizza sur Amazon.fr"),
+];
+PURCHASE_LINKS_BY_ARTICLE["FOUR-010"] = [
+  ...PURCHASE_LINKS_BY_ARTICLE["FOUR-003"],
   ...PURCHASE_LINKS_BY_ARTICLE["FOUR-002"],
 ];

@@ -12,6 +12,12 @@ accessoires et pétrins. L'[ADR-0010](docs/decisions/0010-aide-achat-documentair
 retire définitivement le programme d'essais physiques. Les prochaines tranches
 renforcent le choix, les comparatifs, la découverte et leur mesure.
 
+La priorité du 2026-11-10 est le candidat commercial de l'ADR-0012 : accueil
+centré sur les décisions monétisables, voix personnelle, liens d'achat affiliés
+uniquement et deux nouveaux guides utiles. La contribution nette confirmée
+reste la mesure de rentabilité. Les sources et la pertinence des recommandations
+ne sont pas conditionnées par la commission.
+
 ## Principes de séquencement
 
 - Le socle local précède tout contenu destiné au public.
@@ -40,6 +46,7 @@ renforcent le choix, les comparatifs, la découverte et leur mesure.
 | 4 bis | F04-I18N | Extension trilingue FR/EN/DE | Le même corpus est public dans trois langues | `done` | Autorisation, CI, déploiement et contrôles publics consignés dans `STATUS.md` |
 | 4 ter | F04-CHOIX | Recommandations et comparatifs documentaires | Le parcours réduit la liste et les pages répondent à une décision précise, dans trois langues | `done` | Promesse alignée, parcours et comparatifs sourcés, gates et QA sur le paquet exact |
 | 4 quater | F04-PARITE | Parité de structure et de lecture FR/EN/DE | Les trois langues partagent les pages fixes, sélections, médias autorisés et sources traduites | `done` | Contrats ADR-0011, tests de structure, revue navigateur, CI et preuve publique sur le SHA exact dans `STATUS.md` |
+| 4 quinquies | F04-COMMERCE | Refonte commerciale | La une priorise les guides Amazon et chaque sortie d'achat est affiliée | `in_progress` | Deux décisions trilingues, gates, QA, revue du paquet puis publication autorisée ; aucune rentabilité supposée |
 | 5 | F05 | Mesure et décision | Les données observées permettent de poursuivre, corriger ou arrêter | `planned` | Conclusion de l'expérience avec trafic, clics, ventes, coûts et limites |
 | 6 | F06 | Couverture documentaire ciblée | Les lacunes de décision observées reçoivent des données originales et des comparaisons utiles | `planned` | Questions prioritaires étayées, sources attribuées et décision de poursuite fondée sur F05 |
 

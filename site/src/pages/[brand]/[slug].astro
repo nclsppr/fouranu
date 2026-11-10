@@ -94,8 +94,8 @@ const author = localized.authors[entry.data.author];
 assertMediaAllowedAtPath(author.portrait.large, locale, "schema-image", articlePath);
 const canonicalAuthor = new URL(author.url, SITE.url).toString();
 const purchaseLinks = PURCHASE_LINKS_BY_ARTICLE[entry.data.articleId];
-if (!purchaseLinks?.length) {
-  throw new Error(`Liens d’achat absents pour ${entry.data.articleId}`);
+if (!purchaseLinks) {
+  throw new Error(`Politique d’achat absente pour ${entry.data.articleId}`);
 }
 for (const objectId of entry.data.commercialObjects) commercialObject(objectId);
 const schema = {

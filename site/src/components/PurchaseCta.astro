@@ -1,5 +1,6 @@
 ---
 import type { PurchaseLink } from "@/data/purchase-links";
+import { amazonAffiliateUrlForObject } from "@/data/commercial-objects.mjs";
 import {
   affiliateRel,
   isAmazonLink,
@@ -18,66 +19,35 @@ const copy = {
   fr: {
     aria: "Liens d’achat", eyebrow: "Où l’acheter",
     compareAmazon: "Comparer les modèles sur Amazon.fr", seeAmazon: "Voir le modèle sur Amazon.fr",
-    choice: "Votre choix est fait ?", compareMixed: "Comparer la boutique officielle et Amazon.fr",
-    compareOfficial: "Comparer les offres officielles", seeOfficial: "Voir l’offre officielle",
-    compareTwo: "Prêt à comparer les deux ?", fits: "Ce modèle vous convient ?",
+    choice: "Votre choix est fait ?",
     amazonCopy: "Vous partez vers Amazon.fr. Vérifiez le vendeur, le prix, le modèle exact, les accessoires inclus et le stock avant de commander.",
-    mixedSeveralCopy: "Les boutiques officielles et Amazon.fr sont proposées pour les objets de ce dossier. Vérifiez le vendeur, le modèle exact, la variante, les accessoires inclus et les conditions de livraison avant de commander.",
-    mixedOneCopy: "La boutique du fabricant et Amazon.fr sont proposées pour cet objet. Vérifiez le vendeur, la variante, les accessoires inclus et les conditions de livraison avant de commander.",
-    officialCopy: "Vous partez vers la boutique du fabricant. Vérifiez le prix, la couleur, les accessoires inclus et les conditions de livraison avant de commander.",
     amazonDisclosure: "Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.",
-    manufacturerUnpaid: " Les liens fabricant ne sont pas rémunérés.",
-    directDisclosure: "Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui.",
   },
   en: {
     aria: "Purchase links", eyebrow: "Where to buy",
     compareAmazon: "Compare the models on Amazon.fr", seeAmazon: "View the model on Amazon.fr",
-    choice: "Made your choice?", compareMixed: "Compare the official store and Amazon.fr",
-    compareOfficial: "Compare official offers", seeOfficial: "View the official offer",
-    compareTwo: "Ready to compare both?", fits: "Is this the right model for you?",
+    choice: "Made your choice?",
     amazonCopy: "You are leaving for Amazon.fr, the French marketplace. Check the seller, price, exact model, included accessories and stock before ordering.",
-    mixedSeveralCopy: "Official stores and Amazon.fr are listed for the products in this guide. Check the seller, exact model, variant, included accessories and delivery terms before ordering.",
-    mixedOneCopy: "The manufacturer’s store and Amazon.fr are listed for this product. Check the seller, variant, included accessories and delivery terms before ordering.",
-    officialCopy: "You are leaving for the manufacturer’s French store. Check the price, colour, included accessories and delivery terms before ordering.",
     amazonDisclosure: "Amazon affiliate links. As an Amazon Associate, I earn from qualifying purchases.",
-    manufacturerUnpaid: " Manufacturer links are not paid.",
-    directDisclosure: "Direct, unpaid manufacturer links: Four à Nu currently receives no commission.",
   },
   de: {
     aria: "Kauflinks", eyebrow: "Wo kaufen",
     compareAmazon: "Modelle auf Amazon.fr vergleichen", seeAmazon: "Modell auf Amazon.fr ansehen",
-    choice: "Steht Ihre Wahl fest?", compareMixed: "Offiziellen Shop und Amazon.fr vergleichen",
-    compareOfficial: "Offizielle Angebote vergleichen", seeOfficial: "Offizielles Angebot ansehen",
-    compareTwo: "Beide Angebote vergleichen?", fits: "Passt dieses Modell zu Ihnen?",
+    choice: "Steht Ihre Wahl fest?",
     amazonCopy: "Sie wechseln zu Amazon.fr, dem französischen Marktplatz. Prüfen Sie vor der Bestellung Verkäufer, Preis, genaues Modell, enthaltenes Zubehör und Bestand.",
-    mixedSeveralCopy: "Für die Produkte dieses Ratgebers sind offizielle Shops und Amazon.fr verlinkt. Prüfen Sie Verkäufer, genaues Modell, Variante, enthaltenes Zubehör und Lieferbedingungen.",
-    mixedOneCopy: "Für dieses Produkt sind der Herstellershop und Amazon.fr verlinkt. Prüfen Sie Verkäufer, Variante, enthaltenes Zubehör und Lieferbedingungen.",
-    officialCopy: "Sie wechseln zum französischen Shop des Herstellers. Prüfen Sie Preis, Farbe, enthaltenes Zubehör und Lieferbedingungen.",
     amazonDisclosure: "Amazon-Partnerlinks. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.",
-    manufacturerUnpaid: " Herstellerlinks werden nicht vergütet.",
-    directDisclosure: "Direkte, unbezahlte Herstellerlinks: Four à Nu erhält derzeit keine Provision.",
   },
 }[locale];
-const multiple = links.length > 1;
-const amazonOnly = links.every((link) => isAmazonLink(link.url));
-const hasAmazon = links.some((link) => isAmazonLink(link.url));
-const mixed = hasAmazon && !amazonOnly;
-const objectCount = new Set(links.flatMap((link) => link.objectId ? [link.objectId] : [])).size;
-const comparesSeveralObjects = objectCount > 1;
-const titles = amazonOnly
-  ? {
-      primary: multiple ? copy.compareAmazon : copy.seeAmazon,
-      closing: copy.choice,
-    }
-  : mixed
-    ? {
-        primary: copy.compareMixed,
-        closing: copy.choice,
-      }
-    : {
-        primary: multiple ? copy.compareOfficial : copy.seeOfficial,
-        closing: multiple ? copy.compareTwo : copy.fits,
-      };
+for (const link of links) {
+  if (link.merchant !== "Amazon.fr" || !isAmazonLink(link.url)
+    || link.url !== amazonAffiliateUrlForObject(link.objectId)) {
+    throw new Error(`Destination affiliée non vérifiée : ${link.objectId}`);
+  }
+}
+const titles = {
+  primary: links.length > 1 ? copy.compareAmazon : copy.seeAmazon,
+  closing: copy.choice,
+};
 
 const localizedObjectNames: Record<Exclude<Locale, "fr">, Record<string, string>> = {
   en: {
@@ -120,43 +90,28 @@ const localizedObjectNames: Record<Exclude<Locale, "fr">, Record<string, string>
 
 function localizedLinkLabel(link: PurchaseLink): string {
   if (locale === "fr") return link.label;
-  if ("scope" in link && link.scope === "collection") {
-    return locale === "en" ? `View all ovens at ${link.merchant}` : `Alle Öfen bei ${link.merchant} ansehen`;
-  }
-  const objectId = "objectId" in link ? link.objectId : undefined;
-  const product = (objectId ? localizedObjectNames[locale][objectId] : undefined) ?? link.label
+  const product = localizedObjectNames[locale][link.objectId] ?? link.label
     .replace(/^Voir\s+(?:l[’']|le |la |les )?/, "")
     .replace(/\s+(?:chez|sur)\s+(?:Amazon\.fr|Gozney|Ooni)$/, "");
-  if (locale === "en") return `View ${product} ${link.merchant === "Amazon.fr" ? "on" : "at"} ${link.merchant}`;
-  return `${product} ${link.merchant === "Amazon.fr" ? "auf" : "bei"} ${link.merchant} ansehen`;
+  if (locale === "en") return `View ${product} on Amazon.fr`;
+  return `${product} auf Amazon.fr ansehen`;
 }
 ---
 
-<section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label={copy.aria}>
+{links.length > 0 && <section class:list={["purchase-cta", `purchase-cta--${variant}`]} aria-label={copy.aria}>
   <p class="purchase-cta__eyebrow">{copy.eyebrow}</p>
   <p class="purchase-cta__title">{titles[variant]}</p>
   <p class="purchase-cta__copy">
-    {amazonOnly
-      ? copy.amazonCopy
-      : mixed
-        ? comparesSeveralObjects
-          ? copy.mixedSeveralCopy
-          : copy.mixedOneCopy
-        : copy.officialCopy}
+    {copy.amazonCopy}
   </p>
-  <p class="purchase-cta__disclosure">
-    {hasAmazon
-      ? `${copy.amazonDisclosure}${mixed ? copy.manufacturerUnpaid : ""}`
-      : copy.directDisclosure}
-  </p>
+  <p class="purchase-cta__disclosure">{copy.amazonDisclosure}</p>
   <div class="purchase-cta__actions">
     {links.map((link) => (
       <a
-        href={isAmazonLink(link.url) ? toAmazonAffiliateUrl(link.url) : link.url}
+        href={toAmazonAffiliateUrl(link.url)}
         rel={affiliateRel(link.url)}
-        data-affiliate={isAmazonLink(link.url) ? "amazon" : undefined}
+        data-affiliate="amazon"
         data-commercial-object={link.objectId}
-        data-commercial-scope={link.scope}
         data-purchase-placement={variant}
       >
         {localizedLinkLabel(link)}
@@ -164,7 +119,7 @@ function localizedLinkLabel(link: PurchaseLink): string {
       </a>
     ))}
   </div>
-</section>
+</section>}
 
 <style>
   .purchase-cta {

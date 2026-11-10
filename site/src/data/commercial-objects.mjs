@@ -244,6 +244,11 @@ const objects = [
 ];
 
 const articleCoverage = {
+  "ooni-peel-classic-30": ["ACC-001", "FOUR-009"],
+  "ooni-infrared-thermometer": ["ACC-003", "FOUR-009"],
+  "ziipa-minola": ["ACC-004", "FOUR-009"],
+  "dreamfarm-scizza": ["ACC-002", "FOUR-009"],
+  "g3-ferrari-delizia-g10006-black": ["FOUR-003", "FOUR-010"],
   "ooni-koda-2": ["OONI-001", "OONI-004", "OONI-010"],
   "ooni-koda-2-pro": ["OONI-001", "OONI-011", "FOUR-006", "FOUR-008"],
   "ooni-koda-2-max": ["OONI-001", "OONI-012"],
@@ -255,7 +260,7 @@ const articleCoverage = {
   "ooni-volt-2": ["OONI-001", "OONI-004", "OONI-018", "FOUR-007", "FOUR-008"],
   "gozney-arc-xl": ["GOZNEY-001", "GOZNEY-003", "FOUR-006"],
   "sage-smart-oven-pizzaiolo-bpz820": ["FOUR-001", "FOUR-007"],
-  "cuisinart-cpz120e": ["FOUR-002", "FOUR-007", "FOUR-008"],
+  "cuisinart-cpz120e": ["FOUR-002", "FOUR-007", "FOUR-008", "FOUR-010"],
   "gozney-arc-lite": ["GOZNEY-002", "GOZNEY-003"],
   "gozney-tread": ["GOZNEY-002", "GOZNEY-003"],
   "gozney-dome-xl-gen-2": ["GOZNEY-003", "GOZNEY-004"],

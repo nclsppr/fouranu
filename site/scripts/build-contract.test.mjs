@@ -83,10 +83,13 @@ const fixedIndexableRoutes = [
   "/ooni/",
   "/transparence/",
 ];
+const revisedStaticRoutes = new Set([
+  "/", "/accessoires-pizza/", "/confidentialite/", "/fours-a-pizza/", "/transparence/",
+]);
 const indexableRobots =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 const articleCount = Object.keys(ARTICLE_ROUTES).length;
-const textDecisionRoutes = new Set(["FOUR-006", "FOUR-007", "FOUR-008"].map((id) => articleRoute(id, "fr")));
+const textDecisionRoutes = new Set(["FOUR-006", "FOUR-007", "FOUR-008", "FOUR-009", "FOUR-010"].map((id) => articleRoute(id, "fr")));
 const articleRoutePattern = /^\/(?:ooni|gozney|accessoires-pizza|fours-a-pizza)\/[^/]+\/$/;
 const accessoryArticleRoutePattern = /^\/accessoires-pizza\/[^/]+\/$/;
 const routeSegmentForBrand = (brand) =>
@@ -108,8 +111,6 @@ const primaryNavigation = [
   ["/methode/", "Méthode"],
   ["/a-propos/", "À propos"],
 ];
-const editorialCaptionForBrand = (brand) =>
-  `Illustration éditoriale d’après une photographie officielle ${brand}.`;
 const editorialCaptionPatternForBrand = (brand) =>
   new RegExp(
     `^Illustration éditoriale d’après (?:une photographie officielle|des photographies officielles) ${brand}\\.$`,
@@ -567,7 +568,7 @@ test("les pages fixes conservent les mêmes blocs, images et destinations dans l
     const images = mainImageSignature(french.html);
     const links = mainInternalLinkSignature(french.html, routes.fr);
     if (routeId === "home") {
-      assert.equal(images.length, 18, "l'accueil de référence doit conserver ses 18 images éditoriales");
+      assert.equal(images.length, 13, "l’accueil doit illustrer le four de une, quatre accessoires, cinq fours et trois auteurs");
     }
     for (const locale of ["en", "de"]) {
       const page = pageByRoute.get(routes[locale]);
@@ -1020,15 +1021,15 @@ test("les surfaces de promesse présentent une aide au choix documentaire", asyn
   );
   assert.equal(
     visibleText(metaContent(home.html, "og:title")),
-    "Le bon four à pizza pour votre espace et votre budget",
+    "Fours à pizza et accessoires : nos choix pour bien s’équiper",
   );
   assert.equal(
     visibleText(pairedElements(home.html, "h1")[0][2]),
-    "Le bon four à pizza pour votre espace et votre budget.",
+    "La pizza maison mérite le bon matériel.",
   );
   assert.match(
     visibleText(home.html),
-    /Nos comparatifs rapprochent les données fabricant et les observations publiées pour vous aider à décider\./,
+    /Nos guides confrontent les caractéristiques fabricant et les essais publiés par des tiers\./,
   );
   assert.match(
     visibleText(about.html),
@@ -1038,7 +1039,7 @@ test("les surfaces de promesse présentent une aide au choix documentaire", asyn
     .find((node) => node["@type"] === "Organization");
   assert.equal(
     organization?.description,
-    "Média indépendant d’aide à l’achat : comparatifs de fours à pizza, choix des accessoires et budget complet à partir de sources attribuées.",
+    "Four à Nu aide à choisir ses fours à pizza et accessoires grâce à des guides d’achat personnels, des comparatifs et des sources attribuées.",
   );
 
   const falseFirstPartyClaim = /(?:nous avons testé|nous testons|nos tests|notre test|notre mesure|après notre essai|testé par Four à Nu)/i;
@@ -1050,8 +1051,8 @@ test("les surfaces de promesse présentent une aide au choix documentaire", asyn
 test("les hubs nomment clairement leur sujet principal", async () => {
   const pages = await htmlPages();
   const expectations = new Map([
-    ["/accessoires-pizza/", /accessoires.*four à pizza/i],
-    ["/fours-a-pizza/", /choisir un four à pizza/i],
+    ["/accessoires-pizza/", /accessoires.*four/i],
+    ["/fours-a-pizza/", /four.*pizzas/i],
     ["/gozney/", /fours Gozney/i],
     ["/ooni/", /fours et pétrins Ooni/i],
   ]);
@@ -1229,10 +1230,10 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   assert.deepEqual(ovensCollection.mainEntity, {
     "@id": `${canonicalOrigin}/fours-a-pizza/#dossiers`,
   });
-  assert.equal(ovensList.numberOfItems, 8);
+  assert.equal(ovensList.numberOfItems, 10);
   assert.deepEqual(
     ovensList.itemListElement.map((item) => item.position),
-    [1, 2, 3, 4, 5, 6, 7, 8],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   );
   assert.deepEqual(
     ovensList.itemListElement.map((item) => item.url),
@@ -1245,6 +1246,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       `${canonicalOrigin}/fours-a-pizza/koda-2-pro-ou-arc-xl/`,
       `${canonicalOrigin}/fours-a-pizza/volt-2-sage-ou-cuisinart/`,
       `${canonicalOrigin}/fours-a-pizza/budget-complet-four-pizza/`,
+      `${canonicalOrigin}/fours-a-pizza/kit-premier-four-pizza/`,
+      `${canonicalOrigin}/fours-a-pizza/g3-ferrari-delizia-ou-cuisinart/`,
     ],
   );
 
@@ -1351,7 +1354,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       if (fixedIndexableRoutes.includes(page.route)) {
         assert.equal(
           webPage.dateModified,
-          "2026-09-08T00:00:00.000Z",
+          `${revisedStaticRoutes.has(page.route) ? "2026-11-10" : "2026-09-08"}T00:00:00.000Z`,
           `${page.route}: dateModified de surface incohérente`,
         );
       }
@@ -1470,8 +1473,8 @@ test("les données structurées restent vérifiables et sans faux avis", async (
   }
   assert.deepEqual(
     [...authorAssignments.values()].sort((left, right) => left - right),
-    [7, 10, 14],
-    "les trente et un dossiers doivent rester répartis entre les trois signatures",
+    [7, 11, 15],
+    "les trente-trois dossiers doivent rester répartis entre les trois signatures",
   );
   for (const [name, profilePage] of authorProfilePages) {
     const renderedArticleRoutes = tags(profilePage.html, "a")
@@ -1729,11 +1732,11 @@ test("la photo documentaire de une est responsive, attribuée et légère", asyn
   assert.equal(attribute(image, "loading"), undefined, "le visuel LCP ne doit pas être chargé paresseusement");
 
   const caption = visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? "");
-  assert.equal(caption, editorialCaptionForBrand("Ooni"));
+  assert.equal(caption, "Illustration éditoriale d’après une photographie officielle Cuisinart.");
   assert.ok(caption.length <= 90);
   assert.ok(
-    pairedElements(figure[2], "div").some((element) =>
-      attribute(`<div${element[1]}>`, "class") === "lead-feature__visual-frame"
+    pairedElements(figure[2], "a").some((element) =>
+      attribute(`<a${element[1]}>`, "class") === "lead-feature__visual-frame"
     ),
     "cadre de l’image de une absent",
   );
@@ -1843,7 +1846,7 @@ test("chaque dossier respecte son traitement visuel et les décisions textuelles
     ooniOvens: 11,
     ooniMixers: 1,
     gozneyOvens: 7,
-    foursOvens: 8,
+    foursOvens: 10,
     accessories: 4,
   });
 
@@ -1851,7 +1854,9 @@ test("chaque dossier respecte son traitement visuel et les décisions textuelles
   const homeArticleImages = tags(home.html, "img")
     .map((image) => attribute(image, "src"))
     .filter((src) => /^\/images\/articles\/.+-1600\.webp$/.test(src ?? ""));
-  assert.equal(homeArticleImages.length, 18, "la une doit illustrer le guide, les neuf fours, quatre dossiers Gozney et quatre guides accessoires");
+  assert.equal(homeArticleImages.length, 10, "la une doit illustrer le Cuisinart, quatre accessoires et cinq fours");
+  const homePortraits = tags(home.html, "img").filter((image) => (attribute(image, "src") ?? "").startsWith("/images/authors/"));
+  assert.equal(homePortraits.length, 3, "la une doit présenter les trois portraits auteurs autorisés");
 
   const ooni = pages.find((page) => page.route === "/ooni/");
   const ooniThumbnails = tags(ooni.html, "img")
@@ -1987,100 +1992,82 @@ test("les crédits des images de tête restent sous le visuel sans le masquer", 
   }
 });
 
-test("chaque dossier répète un appel d’achat dont la rémunération est explicite", async () => {
-  const articlePages = (await htmlPages()).filter((page) => articleRoutePattern.test(page.route ?? ""));
-  assert.equal(articlePages.length, articleCount);
-
+test("les appels d’achat sont exclusivement affiliés et disparaissent sans offre vérifiée dans les trois langues", async () => {
+  const routes = new Map(Object.keys(ARTICLE_ROUTES).flatMap((articleId) =>
+    LOCALES.map((locale) => [articleRoute(articleId, locale), { articleId, locale }]),
+  ));
+  const articlePages = (await allHtmlPages()).filter((page) => routes.has(page.route));
+  assert.equal(articlePages.length, articleCount * LOCALES.length);
+  const withoutPurchaseLinks = new Set([
+    "GOZNEY-001", "GOZNEY-002", "GOZNEY-003", "GOZNEY-004", "GOZNEY-005", "GOZNEY-006", "GOZNEY-007",
+    "OONI-001", "OONI-004", "OONI-012",
+  ]);
+  const disclosureByLocale = {
+    fr: "En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.",
+    en: "As an Amazon Associate, I earn from qualifying purchases.",
+    de: "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.",
+  };
   for (const page of articlePages) {
+    const { articleId, locale } = routes.get(page.route);
     const callouts = pairedElements(page.html, "section").filter((match) =>
-      attribute(`<section${match[1]}>`, "class")?.split(/\s+/).includes("purchase-cta")
+      hasClass(`<section${match[1]}>`, "purchase-cta"),
     );
-    assert.equal(callouts.length, 2, `${page.route}: deux emplacements d’achat attendus`);
-
+    const expectedCount = withoutPurchaseLinks.has(articleId) ? 0 : 2;
+    assert.equal(callouts.length, expectedCount, `${page.route}: nombre de blocs d’achat incorrect`);
+    if (expectedCount === 0) {
+      assert.equal(tags(page.html, "a").filter((tag) => attribute(tag, "data-purchase-placement")).length, 0,
+        `${page.route}: un lien marchand de secours a été ajouté`);
+    }
     for (const callout of callouts) {
       const merchantLinks = pairedElements(callout[2], "a");
       assert.ok(merchantLinks.length >= 1, `${page.route}: lien marchand absent`);
-      if (accessoryArticleRoutePattern.test(page.route)) {
+      if (articleId.startsWith("ACC-")) {
         assert.equal(merchantLinks.length, 4, `${page.route}: quatre références Amazon.fr attendues`);
-        assert.match(
-          visibleText(callout[2]),
-          /Vous partez vers Amazon\.fr\./,
-          `${page.route}: destination Amazon.fr non annoncée`,
-        );
       }
-      const amazonLinks = merchantLinks.filter((link) => {
-        const href = attribute(`<a${link[1]}>`, "href");
-        return href && [/^(?:.+\.)?amazon\.fr$/, /^amzn\.to$/].some((pattern) =>
-          pattern.test(new URL(href).hostname)
-        );
-      });
-      if (amazonLinks.length > 0) {
-        const disclosurePosition = callout[2].indexOf("purchase-cta__disclosure");
-        const firstLinkPosition = callout[2].indexOf("<a");
-        assert.ok(
-          disclosurePosition >= 0 && disclosurePosition < firstLinkPosition,
-          `${page.route}: déclaration Amazon attendue avant le premier clic`,
-        );
-        assert.match(
-          visibleText(callout[2]),
-          /En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises\./,
-          `${page.route}: déclaration Amazon Partenaire absente`,
-        );
-      } else {
-        assert.match(
-          visibleText(callout[2]),
-          /Liens fabricant directs et non rémunérés : Four à Nu ne reçoit aucune commission aujourd’hui\./,
-          `${page.route}: déclaration fabricant non rémunérée absente`,
-        );
-      }
-      assert.doesNotMatch(
-        visibleText(callout[2]),
-        /proposées pour le même objet/,
-        `${page.route}: plusieurs produits ne doivent pas être présentés comme un même objet`,
-      );
+      const disclosurePosition = callout[2].indexOf("purchase-cta__disclosure");
+      assert.ok(disclosurePosition >= 0 && disclosurePosition < callout[2].indexOf("<a"),
+        `${page.route}: déclaration Amazon attendue avant le premier clic`);
+      assert.ok(visibleText(callout[2]).includes(disclosureByLocale[locale]),
+        `${page.route}: déclaration Partenaire Amazon absente ou non traduite`);
       for (const link of merchantLinks) {
         const opening = `<a${link[1]}>`;
-        const href = attribute(opening, "href");
-        assert.ok(href, `${page.route}: destination marchande absente`);
-        const merchantUrl = new URL(href);
-        assert.ok(
-          ["eu.gozney.com", "eu.ooni.com", "www.amazon.fr", "amzn.to"].includes(merchantUrl.hostname),
-          `${page.route}: marchand direct inattendu`,
-        );
-        assert.equal(merchantUrl.hash, "", `${page.route}: fragment marchand inattendu`);
+        const href = decodeHtml(attribute(opening, "href"));
         const objectId = attribute(opening, "data-commercial-object");
-        const scope = attribute(opening, "data-commercial-scope");
-        assert.notEqual(Boolean(objectId), Boolean(scope), `${page.route}: portée marchande ambiguë`);
-        if (objectId) {
-          assert.ok(COMMERCIAL_OBJECTS[objectId], `${page.route}: objet marchand inconnu`);
-        } else {
-          assert.equal(scope, "collection", `${page.route}: collection marchande non qualifiée`);
-          assert.match(merchantUrl.pathname, /\/collections\//, `${page.route}: portée collection invalide`);
-        }
+        const object = COMMERCIAL_OBJECTS[objectId];
+        assert.ok(object, `${page.route}: objet marchand absent ou inconnu`);
+        assert.equal(object.amazon.status, "available", `${page.route}: offre non vérifiée rendue`);
+        assert.ok(object.articleIds.includes(articleId), `${page.route}: substitution d’un objet hors dossier`);
+        assert.equal(href, amazonAffiliateUrlForObject(objectId), `${page.route}: destination exacte modifiée`);
+        const merchantUrl = new URL(href);
+        assert.ok(["www.amazon.fr", "amzn.to"].includes(merchantUrl.hostname), `${page.route}: CTA non affilié`);
+        assert.equal(attribute(opening, "rel"), "sponsored external noopener");
+        assert.equal(attribute(opening, "data-affiliate"), "amazon");
+        assert.equal(attribute(opening, "data-commercial-scope"), undefined, `${page.route}: lien de collection non autorisé`);
+        assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: destination absente du bouton`);
+        assert.equal(merchantUrl.hash, "");
         if (merchantUrl.hostname === "www.amazon.fr") {
           assert.match(merchantUrl.pathname, /^\/dp\/[A-Z0-9]{10}$/);
           assert.equal(merchantUrl.searchParams.get("tag"), "fouranu-21");
           assert.deepEqual([...merchantUrl.searchParams.keys()], ["tag"]);
-          assert.equal(attribute(opening, "rel"), "sponsored external noopener");
-          assert.equal(attribute(opening, "data-affiliate"), "amazon");
-          assert.ok(objectId, `${page.route}: lien Amazon sans objet exact`);
-          assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
-        } else if (merchantUrl.hostname === "amzn.to") {
-          assert.equal(href, "https://amzn.to/4y8lFcC");
-          assert.equal(attribute(opening, "rel"), "sponsored external noopener");
-          assert.equal(attribute(opening, "data-affiliate"), "amazon");
-          assert.ok(objectId, `${page.route}: lien court Amazon sans objet exact`);
-          assert.match(visibleText(link[2]), /Amazon\.fr/, `${page.route}: Amazon.fr absent du bouton`);
         } else {
-          assert.equal(merchantUrl.search, "", `${page.route}: paramètre fabricant inattendu`);
-          assert.equal(attribute(opening, "rel"), "external noopener");
-          assert.equal(attribute(opening, "data-affiliate"), undefined);
-          if (merchantUrl.pathname.includes("/products/")) {
-            assert.ok(objectId, `${page.route}: fiche fabricant sans objet exact`);
-          }
-          assert.match(visibleText(link[2]), /Gozney|Ooni/, `${page.route}: marchand absent du bouton`);
+          assert.equal(href, "https://amzn.to/4y8lFcC");
         }
       }
+    }
+  }
+
+  // Documentary manufacturer sources remain usable without claiming sponsorship.
+  for (const locale of LOCALES) {
+    const page = articlePages.find((candidate) => candidate.route === articleRoute("GOZNEY-001", locale));
+    const sourceLinks = tags(page.html, "a").filter((tag) => {
+      const href = attribute(tag, "href");
+      return href?.startsWith("https://eu.gozney.com/");
+    });
+    assert.ok(sourceLinks.length > 0, `${locale}: les preuves fabricant ont été retirées avec les CTA`);
+    for (const link of sourceLinks) {
+      assert.doesNotMatch(attribute(link, "rel") ?? "", /sponsored/, `${locale}: source non rémunérée marquée sponsorisée`);
+      assert.equal(attribute(link, "data-affiliate"), undefined);
+      assert.equal(attribute(link, "data-purchase-placement"), undefined);
     }
   }
 });
@@ -2558,7 +2545,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       }),
     );
     for (const route of fixedIndexableRoutes) {
-      const updated = "2026-09-08";
+      const updated = revisedStaticRoutes.has(route) ? "2026-11-10" : "2026-09-08";
       assert.match(
         sitemapEntriesByRoute.get(route) ?? "",
         new RegExp(`<lastmod>${updated}<\\/lastmod>`),

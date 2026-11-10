@@ -1,458 +1,126 @@
-import type { ArticleCategory } from "@/data/article-taxonomy";
 import type { ArticleId, Locale } from "@/i18n/config";
-
-type ChoiceCriterion = {
-  hash: "lieu" | "energie" | "debit" | "cout";
-  title: string;
-  detail: string;
-};
 
 type HomeCopy = {
   socialTitle: string;
   organizationDescription: string;
   requiredError: string;
-  hero: {
-    title: string;
-    mission: string;
-    criteriaAria: string;
-    criteria: readonly [string, string, string, string];
-    action: string;
-  };
-  sideStories: {
-    energyMeta: string;
-    energyAction: string;
-    choiceMeta: string;
-    choiceTitle: string;
-    choiceSummary: string;
-    choiceAction: string;
-  };
-  corpus: {
-    aria: string;
-    guides: string;
-    evidence: string;
-    noRating: string;
-    usageFirst: string;
-    lastUpdate: string;
-  };
+  hero: { kicker: string; title: string; mission: string; action: string; accessoriesAction: string; byline: string; featured: string; read: string };
+  shortcuts: { aria: string; indoor: string; outdoor: string; budget: string };
   accessories: {
-    kicker: string;
-    title: string;
-    summary: string;
-    action: string;
-    navAria: string;
-    guideType: string;
-    labels: Record<"ACC-001" | "ACC-002" | "ACC-003" | "ACC-004", string>;
+    kicker: string; title: string; summary: string; action: string;
+    labels: Record<"ACC-001" | "ACC-002" | "ACC-003" | "ACC-004", { title: string; summary: string }>;
+    kitKicker: string; kitTitle: string; kitSummary: string; kitAction: string;
   };
-  newDossiers: {
-    kicker: string;
-    title: string;
-    summary: string;
-    read: string;
-  };
-  featured: {
-    title: string;
-    seeAll: string;
-    cardType: string;
-    read: string;
-  };
-  choice: {
-    kicker: string;
-    title: string;
-    summary: string;
-    action: string;
-    navAria: string;
-    criteria: readonly [ChoiceCriterion, ChoiceCriterion, ChoiceCriterion, ChoiceCriterion];
-  };
-  reading: {
-    title: string;
-    all: string;
-  };
-  rss: {
-    kicker: string;
-    title: string;
-    summary: string;
-    action: string;
-    note: string;
-  };
-  method: {
-    kicker: string;
-    title: string;
-    action: string;
-    steps: readonly [
-      { title: string; summary: string },
-      { title: string; summary: string },
-      { title: string; summary: string },
-    ];
-    trustAria: string;
-    editorialTeam: string;
-    method: string;
-    transparency: string;
-    corrections: string;
-  };
-  common: {
-    by: string;
-    read: string;
-  };
-  categoryLabels: Record<ArticleCategory, string>;
+  ovens: { kicker: string; title: string; summary: string; action: string; read: string; labels: Record<"FOUR-001" | "FOUR-002" | "FOUR-003" | "FOUR-004" | "FOUR-005", string> };
+  comparison: { kicker: string; title: string; summary: string; action: string; finderTitle: string; finderSummary: string; finderAction: string };
+  journal: { kicker: string; title: string; summary: string; action: string; rss: string };
+  transparency: { title: string; body: string; commerce: string; method: string; disclosure: string };
+  common: { by: string; read: string; guides: string };
 };
 
 export const HOME_COPY = {
   fr: {
-    socialTitle: "Le bon four à pizza pour votre espace et votre budget",
-    organizationDescription: "Média indépendant d’aide à l’achat : comparatifs de fours à pizza, choix des accessoires et budget complet à partir de sources attribuées.",
-    requiredError: "Les dossiers mis en avant sur l'accueil sont requis.",
+    socialTitle: "Fours à pizza et accessoires : nos choix pour bien s’équiper",
+    organizationDescription: "Four à Nu aide à choisir ses fours à pizza et accessoires grâce à des guides d’achat personnels, des comparatifs et des sources attribuées.",
+    requiredError: "Les guides mis en avant sur l’accueil sont requis.",
     hero: {
-      title: "Le bon four à pizza pour votre espace et votre budget.",
-      mission:
-        "Deux choix adaptés à vos envies, les compromis à connaître et le matériel à prévoir. Nos comparatifs rapprochent les données fabricant et les observations publiées pour vous aider à décider.",
-      criteriaAria: "Les premiers critères du guide",
-      criteria: ["Lieu", "Énergie", "Format", "Poids"],
-      action: "Trouver mon four",
+      kicker: "Le goût de la pizza. Le choix du matériel.",
+      title: "La pizza maison mérite le bon matériel.",
+      mission: "Nous, c’est Nicolas, Florian et Magali. On vous aide à choisir le four qui trouvera sa place chez vous, la pelle qui va avec et les accessoires qui méritent vraiment votre attention.",
+      action: "Choisir mon four", accessoriesAction: "Trouver mes accessoires", byline: "Faisons connaissance", featured: "À la une · Pizza dans la cuisine", read: "Notre avis sur le Cuisinart",
     },
-    sideStories: {
-      energyMeta: "Comparatif par usage · 01",
-      energyAction: "Comparer les énergies",
-      choiceMeta: "Guide de choix · 02",
-      choiceTitle: "Quel four selon votre espace et votre façon de cuire\u00a0?",
-      choiceSummary:
-        "Commencez par ce qui est possible chez vous. La marque et le chrono viennent après.",
-      choiceAction: "Partir de votre usage",
-    },
-    corpus: {
-      aria: "Repères Four à Nu",
-      guides: "guides disponibles",
-      evidence: "repères sourcés",
-      noRating: "Sans note",
-      usageFirst: "les usages comptent davantage",
-      lastUpdate: "dernière mise à jour",
-    },
+    shortcuts: { aria: "Votre prochaine soirée pizza", indoor: "Je cuisine à l’intérieur", outdoor: "J’équipe ma terrasse", budget: "Je prépare mon budget" },
     accessories: {
-      kicker: "Nouveau · Accessoires pizza",
-      title: "Les bons outils autour du four.",
-      summary:
-        "Une pelle à la bonne largeur, une pierre vraiment chaude et des pâtons qui ne collent pas changent davantage la soirée qu’un gadget de plus. Voici nos premiers guides pour choisir sans acheter au hasard.",
-      action: "Ouvrir le guide des accessoires",
-      navAria: "Guides des accessoires pizza",
-      guideType: "Guide pratique",
+      kicker: "On commence par les bons outils", title: "Des accessoires utiles. Pas un tiroir de gadgets.",
+      summary: "Pour enfourner, mesurer, faire pousser et servir : quatre guides pour choisir selon votre four et vos habitudes. Avec les points à vérifier avant de passer commande sur Amazon.fr.", action: "Tous les accessoires",
       labels: {
-        "ACC-001": "Choisir sa pelle",
-        "ACC-002": "Choisir ses ciseaux",
-        "ACC-003": "Mesurer la pierre",
-        "ACC-004": "Faire pousser les pâtons",
+        "ACC-001": { title: "La bonne pelle", summary: "Perforée, pleine ou en bambou : commencez par la largeur du four et le geste à faire." },
+        "ACC-002": { title: "Des parts bien découpées", summary: "Quatre paires de ciseaux à départager par la prise en main, le nettoyage et le service." },
+        "ACC-003": { title: "La pierre à bonne température", summary: "Ooni, Bosch, ThermoPro ou Tilswall : ce que leur mesure infrarouge permet de savoir." },
+        "ACC-004": { title: "Des pâtons bien rangés", summary: "Le bac qui entre dans votre frigo compte plus qu’une capacité que vous n’utiliserez pas." },
       },
+      kitKicker: "Notre nouveau guide", kitTitle: "Premier four ? Préparez le kit sans acheter deux fois.",
+      kitSummary: "Une pelle, un thermomètre, un bac : on fait le tri entre l’utile, le déjà fourni et ce qui peut attendre.", kitAction: "Composer mon kit",
     },
-    newDossiers: {
-      kicker: "Nouveaux guides",
-      title: "Toute la gamme Gozney, sans vous noyer dans le catalogue.",
-      summary:
-        "Commencez par le guide complet, puis ouvrez seulement le dossier du format qui correspond à votre place, vos pizzas et votre budget.",
-      read: "Lire",
+    ovens: {
+      kicker: "Cinq fours à regarder de près", title: "Lequel a sa place chez vous ?", summary: "Un petit four de cuisine, un modèle réglable ou un poste fixe dehors : chacun a une bonne raison d’exister. Voici nos avis et les offres Amazon.fr référencées dans les guides.", action: "Comparer tous les fours", read: "Lire l’avis et voir l’offre",
+      labels: { "FOUR-001": "Pour régler finement", "FOUR-002": "Pour débuter en cuisine", "FOUR-003": "Pour un format compact", "FOUR-004": "Pour cuisiner dehors à l’électricité", "FOUR-005": "Pour de grandes pizzas dehors" },
     },
-    featured: {
-      title: "Choisir un modèle",
-      seeAll: "Voir les neuf modèles Ooni",
-      cardType: "Guide d'achat",
-      read: "Lire",
+    comparison: {
+      kicker: "Avant de passer commande", title: "Delizia ou Cuisinart : deux façons de commencer.", summary: "Le petit appareil dédié ou le four de cuisine équipé ? On compare ce que chaque format implique, accessoires compris.", action: "Lire le face-à-face", finderTitle: "Encore deux ou trois modèles en tête ?", finderSummary: "Dites-nous où vous cuisinerez et ce qui compte pour vous. Notre sélecteur vous aide à réduire la liste, puis à prévoir le budget complet.", finderAction: "Trouver mon four",
     },
-    choice: {
-      kicker: "Guide d'achat",
-      title: "Quatre questions pour réduire la liste.",
-      summary:
-        "Où pouvez-vous cuire et avec quelle énergie ? Le nombre de pizzas et le budget total départagent ensuite les modèles qui restent.",
-      action: "Ouvrir le guide de choix",
-      navAria: "Choisir un four à pizza par contrainte",
-      criteria: [
-        { hash: "lieu", title: "Lieu", detail: "Intérieur, balcon, terrasse ou jardin" },
-        { hash: "energie", title: "Énergie", detail: "Électrique, gaz, bois ou charbon" },
-        { hash: "debit", title: "Rythme", detail: "Une pizza à la fois ou une série pour les invités" },
-        { hash: "cout", title: "Budget total", detail: "Four, table, pelle, énergie et entretien" },
-      ],
-    },
-    reading: {
-      title: "À parcourir ensuite",
-      all: "Tous les dossiers",
-    },
-    rss: {
-      kicker: "Suivre Four à Nu",
-      title: "Les nouveaux dossiers, sans boîte mail à remplir.",
-      summary:
-        "Le flux RSS publie les nouveaux guides dès qu’ils sont prêts. Aucun formulaire, aucune promesse de fréquence.",
-      action: "Ouvrir le flux RSS",
-      note: "Compatible avec votre lecteur RSS habituel.",
-    },
-    method: {
-      kicker: "La méthode Four à Nu",
-      title: "Ce qu'annonce une marque n'est pas une mesure.",
-      action: "Voir comment nous vérifions",
-      steps: [
-        {
-          title: "Nous attribuons chaque chiffre.",
-          summary: "Une dimension ou une fonction annoncée renvoie à la marque qui la publie.",
-        },
-        {
-          title: "Nous gardons le contexte.",
-          summary: "La durée, la météo et la façon de mesurer restent visibles lorsqu’elles comptent.",
-        },
-        {
-          title: "Une conclusion reste une conclusion.",
-          summary: "Nous expliquons notre choix et ce que les sources ne permettent pas d’affirmer.",
-        },
-      ],
-      trustAria: "Pages de confiance",
-      editorialTeam: "La rédaction",
-      method: "La méthode",
-      transparency: "La transparence commerciale",
-      corrections: "Les corrections",
-    },
-    common: { by: "Par", read: "Lire" },
-    categoryLabels: {
-      oven: "Fours à pizza",
-      mixer: "Pétrins",
-      accessoires: "Accessoires pizza",
-    },
+    journal: { kicker: "Les personnes derrière les guides", title: "Trois regards, une même envie de bien choisir.", summary: "La pâte, les tablées, la place sur la terrasse : on ne regarde pas tous un four de la même façon. Nos profils vous disent d’où viennent nos intérêts. Les sources de chaque article expliquent nos conclusions.", action: "Rencontrer la rédaction", rss: "Suivre les prochains guides par RSS" },
+    transparency: { title: "Un avis utile, c’est aussi dire ce qui coince.", body: "Nos guides confrontent les caractéristiques fabricant et les essais publiés par des tiers. Ils donnent notre analyse, avec les limites et les sources, sans être présentés comme des essais physiques Four à Nu.", commerce: "Comment le site est financé", method: "Comment nous choisissons", disclosure: "Nos guides comportent des liens rémunérés vers Amazon.fr. En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises." },
+    common: { by: "Par", read: "Découvrir", guides: "guides pour choisir" },
   },
   en: {
-    socialTitle: "The right pizza oven for your space and budget",
-    organizationDescription: "Independent buying advice: pizza oven comparisons, accessory choices and complete setup budgets based on attributed sources.",
-    requiredError: "The featured guides on the home page are required.",
+    socialTitle: "Pizza ovens and accessories: our choices for a useful setup",
+    organizationDescription: "Four à Nu helps readers choose pizza ovens and accessories through personal buying guides, comparisons and attributed sources.",
+    requiredError: "The guides featured on the home page are required.",
     hero: {
-      title: "The right pizza oven for your space and budget.",
-      mission:
-        "Two choices to suit your needs, the trade-offs to understand and the equipment to plan for. Our comparisons bring together manufacturer data and published observations to help you decide.",
-      criteriaAria: "The guide’s first criteria",
-      criteria: ["Location", "Energy", "Size", "Weight"],
-      action: "Find my oven",
+      kicker: "A love of pizza. A considered choice of equipment.", title: "Homemade pizza deserves the right equipment.",
+      mission: "We’re Nicolas, Florian and Magali. We help you choose the oven that fits your home, the peel to go with it and the accessories worth your attention.", action: "Choose my oven", accessoriesAction: "Find my accessories", byline: "Get to know us", featured: "In focus · Pizza in your kitchen", read: "Our view on the Cuisinart",
     },
-    sideStories: {
-      energyMeta: "Comparison by use · 01",
-      energyAction: "Compare energy sources",
-      choiceMeta: "Choosing guide · 02",
-      choiceTitle: "Which oven suits your space and the way you bake?",
-      choiceSummary:
-        "Start with what is possible where you live. The brand and the stopwatch come later.",
-      choiceAction: "Start with your use",
-    },
-    corpus: {
-      aria: "Four à Nu reference points",
-      guides: "guides available",
-      evidence: "source-backed reference points",
-      noRating: "No rating",
-      usageFirst: "how you use it matters more",
-      lastUpdate: "last updated",
-    },
+    shortcuts: { aria: "Your next pizza evening", indoor: "I cook indoors", outdoor: "I’m setting up my terrace", budget: "I’m planning my budget" },
     accessories: {
-      kicker: "New · Pizza accessories",
-      title: "The right tools around the oven.",
-      summary:
-        "A peel of the right width, a properly hot stone and dough balls that do not stick make more difference to the evening than one more gadget. Here are our first guides to help you choose without buying at random.",
-      action: "Open the accessories guide",
-      navAria: "Pizza accessory guides",
-      guideType: "Practical guide",
+      kicker: "Start with the right tools", title: "Useful accessories. Not a drawer full of gadgets.", summary: "For launching, measuring, proofing and serving: four guides to choose for your oven and your habits. Including what to check before ordering on Amazon.fr.", action: "All accessories",
       labels: {
-        "ACC-001": "Choose your peel",
-        "ACC-002": "Choose your scissors",
-        "ACC-003": "Measure the stone",
-        "ACC-004": "Proof your dough balls",
+        "ACC-001": { title: "The right peel", summary: "Perforated, solid or bamboo: start with the oven opening and the task at hand." },
+        "ACC-002": { title: "Neatly cut slices", summary: "Four pairs of scissors to compare for handling, cleaning and serving." },
+        "ACC-003": { title: "A stone ready to bake", summary: "Ooni, Bosch, ThermoPro or Tilswall: what their infrared readings can tell you." },
+        "ACC-004": { title: "Dough balls in order", summary: "A box that fits your fridge matters more than capacity you will never use." },
       },
+      kitKicker: "Our new guide", kitTitle: "First oven? Build a kit without buying things twice.", kitSummary: "A peel, a thermometer, a box: we sort what is useful, what is already included and what can wait.", kitAction: "Build my kit",
     },
-    newDossiers: {
-      kicker: "New guides",
-      title: "The entire Gozney range, without drowning in the catalogue.",
-      summary:
-        "Start with the complete guide, then open only the page for the size that fits your space, your pizzas and your budget.",
-      read: "Read",
+    ovens: {
+      kicker: "Five ovens worth a closer look", title: "Which one belongs in your home?", summary: "A small kitchen oven, an adjustable model or a permanent outdoor station: each serves a different purpose. Read our views and find the Amazon.fr offers referenced in the guides.", action: "Compare all ovens", read: "Read our view and see the offer",
+      labels: { "FOUR-001": "For fine adjustment", "FOUR-002": "For starting in the kitchen", "FOUR-003": "For a compact setup", "FOUR-004": "For electric cooking outdoors", "FOUR-005": "For large pizzas outdoors" },
     },
-    featured: {
-      title: "Choose a model",
-      seeAll: "See all nine Ooni models",
-      cardType: "Buying guide",
-      read: "Read",
+    comparison: {
+      kicker: "Before you order", title: "Delizia or Cuisinart: two ways to get started.", summary: "A small dedicated appliance or an equipped kitchen oven? We compare what each format involves, including accessories.", action: "Read the comparison", finderTitle: "Still deciding between a few models?", finderSummary: "Tell us where you will cook and what matters to you. Our selector helps narrow the list, then plan the complete budget.", finderAction: "Find my oven",
     },
-    choice: {
-      kicker: "Buying guide",
-      title: "Four questions to shorten the list.",
-      summary:
-        "Where can you bake, and with which energy source? The number of pizzas and the total budget then separate the models that remain.",
-      action: "Open the choosing guide",
-      navAria: "Choose a pizza oven by constraint",
-      criteria: [
-        { hash: "lieu", title: "Location", detail: "Indoors, balcony, terrace or garden" },
-        { hash: "energie", title: "Energy", detail: "Electricity, gas, wood or charcoal" },
-        { hash: "debit", title: "Pace", detail: "One pizza at a time or a run for guests" },
-        { hash: "cout", title: "Total budget", detail: "Oven, table, peel, energy and maintenance" },
-      ],
-    },
-    reading: {
-      title: "Read next",
-      all: "All guides",
-    },
-    rss: {
-      kicker: "Follow Four à Nu",
-      title: "New guides, without another email form.",
-      summary:
-        "The RSS feed publishes new guides as soon as they are ready. No form and no promise of a schedule.",
-      action: "Open the RSS feed",
-      note: "Compatible with your usual RSS reader.",
-    },
-    method: {
-      kicker: "The Four à Nu method",
-      title: "What a brand states is not a measurement.",
-      action: "See how we verify",
-      steps: [
-        {
-          title: "We attribute every figure.",
-          summary: "A stated dimension or feature points back to the brand that publishes it.",
-        },
-        {
-          title: "We keep the context.",
-          summary: "Duration, weather and the way something was measured remain visible when they matter.",
-        },
-        {
-          title: "A conclusion remains a conclusion.",
-          summary: "We explain our choice and what the sources do not allow us to claim.",
-        },
-      ],
-      trustAria: "Trust pages",
-      editorialTeam: "The editorial team",
-      method: "The method",
-      transparency: "Commercial transparency",
-      corrections: "Corrections",
-    },
-    common: { by: "By", read: "Read" },
-    categoryLabels: {
-      oven: "Pizza ovens",
-      mixer: "Dough mixers",
-      accessoires: "Pizza accessories",
-    },
+    journal: { kicker: "The people behind the guides", title: "Three perspectives, one aim: choosing well.", summary: "Dough, shared meals, terrace space: we do not all look at an oven in the same way. Our profiles explain our interests. Each article’s sources explain our conclusions.", action: "Meet the editorial team", rss: "Follow new guides via RSS" },
+    transparency: { title: "Useful advice also says what gets in the way.", body: "Our guides compare manufacturer specifications and tests published by others. They offer our analysis, with limitations and sources, without being presented as Four à Nu hands-on tests.", commerce: "How the site is funded", method: "How we choose", disclosure: "Our guides contain paid links to Amazon.fr. As an Amazon Associate, we earn from qualifying purchases." },
+    common: { by: "By", read: "Discover", guides: "guides to help you choose" },
   },
   de: {
-    socialTitle: "Der passende Pizzaofen für Ihren Platz und Ihr Budget",
-    organizationDescription: "Unabhängige Kaufberatung: Pizzaöfen vergleichen, Zubehör wählen und das Gesamtbudget anhand nachvollziehbarer Quellen planen.",
-    requiredError: "Die auf der Startseite hervorgehobenen Ratgeber sind erforderlich.",
+    socialTitle: "Pizzaöfen und Zubehör: unsere Auswahl für die passende Ausstattung",
+    organizationDescription: "Four à Nu hilft bei der Wahl von Pizzaöfen und Zubehör mit persönlichen Kaufratgebern, Vergleichen und nachvollziehbaren Quellen.",
+    requiredError: "Die auf der Startseite vorgestellten Ratgeber sind erforderlich.",
     hero: {
-      title: "Der passende Pizzaofen für Ihren Platz und Ihr Budget.",
-      mission:
-        "Zwei Optionen für Ihre Bedürfnisse, die wichtigsten Kompromisse und die nötige Ausstattung. Unsere Vergleiche verbinden Herstellerangaben mit veröffentlichten Beobachtungen, damit Sie sich entscheiden können.",
-      criteriaAria: "Die ersten Kriterien des Ratgebers",
-      criteria: ["Ort", "Energie", "Format", "Gewicht"],
-      action: "Meinen Ofen finden",
+      kicker: "Die Lust auf Pizza. Die Wahl der Ausstattung.", title: "Pizza zu Hause verdient die richtige Ausstattung.",
+      mission: "Wir sind Nicolas, Florian und Magali. Wir helfen Ihnen, den passenden Ofen für Ihr Zuhause, den richtigen Schieber und wirklich nützliches Zubehör zu finden.", action: "Meinen Ofen wählen", accessoriesAction: "Mein Zubehör finden", byline: "Lernen Sie uns kennen", featured: "Im Fokus · Pizza in der Küche", read: "Unsere Einschätzung zum Cuisinart",
     },
-    sideStories: {
-      energyMeta: "Vergleich nach Nutzung · 01",
-      energyAction: "Energiearten vergleichen",
-      choiceMeta: "Auswahlratgeber · 02",
-      choiceTitle: "Welcher Ofen passt zu Ihrem Platz und Ihrer Art zu backen?",
-      choiceSummary:
-        "Beginnen Sie mit dem, was bei Ihnen möglich ist. Marke und Stoppuhr kommen danach.",
-      choiceAction: "Von Ihrer Nutzung ausgehen",
-    },
-    corpus: {
-      aria: "Orientierungspunkte von Four à Nu",
-      guides: "verfügbare Ratgeber",
-      evidence: "belegte Anhaltspunkte",
-      noRating: "Ohne Note",
-      usageFirst: "die Nutzung zählt mehr",
-      lastUpdate: "zuletzt aktualisiert",
-    },
+    shortcuts: { aria: "Ihr nächster Pizzaabend", indoor: "Ich backe drinnen", outdoor: "Ich richte meine Terrasse ein", budget: "Ich plane mein Budget" },
     accessories: {
-      kicker: "Neu · Pizzazubehör",
-      title: "Die richtigen Werkzeuge rund um den Ofen.",
-      summary:
-        "Ein Schieber in der richtigen Breite, ein wirklich heißer Stein und Teiglinge, die nicht kleben, verändern den Abend stärker als ein weiteres Gerät. Hier sind unsere ersten Ratgeber, damit Sie gezielt statt auf gut Glück wählen.",
-      action: "Zubehör-Ratgeber öffnen",
-      navAria: "Ratgeber für Pizzazubehör",
-      guideType: "Praxisratgeber",
+      kicker: "Mit dem richtigen Werkzeug beginnen", title: "Nützliches Zubehör. Keine Schublade voller Spielereien.", summary: "Einschießen, messen, gehen lassen und servieren: vier Ratgeber für Ihren Ofen und Ihre Gewohnheiten. Mit den Punkten, die Sie vor einer Bestellung bei Amazon.fr prüfen sollten.", action: "Alles zum Zubehör",
       labels: {
-        "ACC-001": "Pizzaschieber wählen",
-        "ACC-002": "Pizzaschere wählen",
-        "ACC-003": "Steintemperatur messen",
-        "ACC-004": "Teiglinge gehen lassen",
+        "ACC-001": { title: "Der passende Schieber", summary: "Gelocht, ungelocht oder aus Bambus: entscheidend sind Ofenöffnung und Handgriff." },
+        "ACC-002": { title: "Sauber geschnittene Stücke", summary: "Vier Scheren im Vergleich nach Handhabung, Reinigung und Servieren." },
+        "ACC-003": { title: "Der Stein ist bereit", summary: "Ooni, Bosch, ThermoPro oder Tilswall: was ihre Infrarotmessung aussagt." },
+        "ACC-004": { title: "Teiglinge gut verstaut", summary: "Eine Box, die in den Kühlschrank passt, zählt mehr als ungenutztes Fassungsvermögen." },
       },
+      kitKicker: "Unser neuer Ratgeber", kitTitle: "Der erste Ofen? Das Zubehör ohne doppelte Käufe planen.", kitSummary: "Schieber, Thermometer, Box: Wir sortieren, was nützlich ist, was schon beiliegt und was warten kann.", kitAction: "Mein Zubehör zusammenstellen",
     },
-    newDossiers: {
-      kicker: "Neue Ratgeber",
-      title: "Das gesamte Gozney-Sortiment, ohne im Katalog unterzugehen.",
-      summary:
-        "Beginnen Sie mit dem vollständigen Ratgeber und öffnen Sie danach nur die Seite für das Format, das zu Ihrem Platz, Ihren Pizzen und Ihrem Budget passt.",
-      read: "Lesen",
+    ovens: {
+      kicker: "Fünf Öfen näher betrachtet", title: "Welcher passt zu Ihnen?", summary: "Kleiner Küchenofen, einstellbares Modell oder fester Platz im Freien: jeder erfüllt einen anderen Zweck. Unsere Ratgeber erklären die Unterschiede und verlinken die erfassten Angebote bei Amazon.fr.", action: "Alle Öfen vergleichen", read: "Einschätzung und Angebot ansehen",
+      labels: { "FOUR-001": "Für feine Einstellungen", "FOUR-002": "Für den Einstieg in der Küche", "FOUR-003": "Für wenig Platz", "FOUR-004": "Für elektrisches Kochen draußen", "FOUR-005": "Für große Pizzen im Freien" },
     },
-    featured: {
-      title: "Ein Modell wählen",
-      seeAll: "Alle neun Ooni-Modelle ansehen",
-      cardType: "Kaufratgeber",
-      read: "Lesen",
+    comparison: {
+      kicker: "Vor der Bestellung", title: "Delizia oder Cuisinart: zwei Wege zum Einstieg.", summary: "Kleines Spezialgerät oder ausgestatteter Küchenofen? Wir vergleichen, was die beiden Formate samt Zubehör bedeuten.", action: "Den Vergleich lesen", finderTitle: "Noch zwei oder drei Modelle im Kopf?", finderSummary: "Sagen Sie uns, wo Sie backen möchten und was Ihnen wichtig ist. Unsere Auswahlhilfe grenzt die Liste ein und hilft beim Gesamtbudget.", finderAction: "Meinen Ofen finden",
     },
-    choice: {
-      kicker: "Kaufratgeber",
-      title: "Vier Fragen, um die Liste zu verkürzen.",
-      summary:
-        "Wo können Sie backen und mit welcher Energie? Die Zahl der Pizzen und das Gesamtbudget entscheiden anschließend zwischen den übrigen Modellen.",
-      action: "Auswahlratgeber öffnen",
-      navAria: "Pizzaofen nach Einschränkung auswählen",
-      criteria: [
-        { hash: "lieu", title: "Ort", detail: "Innenraum, Balkon, Terrasse oder Garten" },
-        { hash: "energie", title: "Energie", detail: "Strom, Gas, Holz oder Holzkohle" },
-        { hash: "debit", title: "Tempo", detail: "Eine Pizza nach der anderen oder eine Serie für Gäste" },
-        { hash: "cout", title: "Gesamtbudget", detail: "Ofen, Tisch, Schieber, Energie und Pflege" },
-      ],
-    },
-    reading: {
-      title: "Danach weiterlesen",
-      all: "Alle Ratgeber",
-    },
-    rss: {
-      kicker: "Four à Nu folgen",
-      title: "Neue Ratgeber, ohne ein E-Mail-Formular auszufüllen.",
-      summary:
-        "Der RSS-Feed veröffentlicht neue Ratgeber, sobald sie fertig sind. Kein Formular und kein versprochener Rhythmus.",
-      action: "RSS-Feed öffnen",
-      note: "Mit Ihrem gewohnten RSS-Reader kompatibel.",
-    },
-    method: {
-      kicker: "Die Methode von Four à Nu",
-      title: "Eine Herstellerangabe ist keine Messung.",
-      action: "So prüfen wir",
-      steps: [
-        {
-          title: "Wir ordnen jede Zahl zu.",
-          summary: "Eine angegebene Abmessung oder Funktion verweist auf die Marke, die sie veröffentlicht.",
-        },
-        {
-          title: "Wir bewahren den Kontext.",
-          summary: "Dauer, Wetter und Messweise bleiben sichtbar, wenn sie eine Rolle spielen.",
-        },
-        {
-          title: "Eine Schlussfolgerung bleibt eine Schlussfolgerung.",
-          summary: "Wir erklären unsere Wahl und was die Quellen nicht zu behaupten erlauben.",
-        },
-      ],
-      trustAria: "Vertrauensseiten",
-      editorialTeam: "Die Redaktion",
-      method: "Die Methode",
-      transparency: "Kommerzielle Transparenz",
-      corrections: "Korrekturen",
-    },
-    common: { by: "Von", read: "Lesen" },
-    categoryLabels: {
-      oven: "Pizzaöfen",
-      mixer: "Teigknetmaschinen",
-      accessoires: "Pizzazubehör",
-    },
+    journal: { kicker: "Die Menschen hinter den Ratgebern", title: "Drei Perspektiven, ein Ziel: gut auswählen.", summary: "Teig, gemeinsame Essen, Platz auf der Terrasse: Wir betrachten Öfen aus unterschiedlichen Blickwinkeln. Unsere Profile erklären unsere Interessen. Die Quellen jedes Artikels erklären unsere Schlussfolgerungen.", action: "Die Redaktion kennenlernen", rss: "Neue Ratgeber per RSS verfolgen" },
+    transparency: { title: "Gute Beratung nennt auch die Nachteile.", body: "Unsere Ratgeber vergleichen Herstellerangaben und veröffentlichte Tests Dritter. Sie enthalten unsere Analyse samt Grenzen und Quellen und werden nicht als eigene Praxistests von Four à Nu dargestellt.", commerce: "So finanziert sich die Website", method: "So wählen wir aus", disclosure: "Unsere Ratgeber enthalten vergütete Links zu Amazon.fr. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen." },
+    common: { by: "Von", read: "Entdecken", guides: "Ratgeber zur Auswahl" },
   },
 } as const satisfies Record<Locale, HomeCopy>;
 
-export type HomeAccessoryArticleId = keyof HomeCopy["accessories"]["labels"];
-
 export const HOME_FEATURED_ARTICLE_IDS = {
-  lead: "OONI-001",
-  energy: "OONI-004",
-  newDossiers: ["GOZNEY-003", "GOZNEY-005", "GOZNEY-006", "GOZNEY-007"],
-  accessories: ["ACC-001", "ACC-002", "ACC-003", "ACC-004"],
-  models: ["OONI-010", "OONI-018", "OONI-015", "OONI-012"],
+  lead: "FOUR-002",
+  accessories: ["ACC-001", "ACC-003", "ACC-004", "ACC-002"],
+  ovens: ["FOUR-002", "FOUR-003", "FOUR-001", "FOUR-004", "FOUR-005"],
 } as const satisfies {
   lead: ArticleId;
-  energy: ArticleId;
-  newDossiers: readonly ArticleId[];
-  accessories: readonly HomeAccessoryArticleId[];
-  models: readonly ArticleId[];
+  accessories: readonly (keyof HomeCopy["accessories"]["labels"])[];
+  ovens: readonly (keyof HomeCopy["ovens"]["labels"])[];
 };

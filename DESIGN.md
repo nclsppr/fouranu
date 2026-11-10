@@ -118,6 +118,14 @@ langue, avec des liens HTML ordinaires et des intitulés explicites.
 
 ## Parité des parcours FR/EN/DE
 
+La refonte commerciale du 10 novembre 2026 garde les tokens, portraits et
+médias autorisés. Elle rapproche la une d'un blog de conseils : voix personnelle,
+choix par situation, guides accessoires et fours Amazon prioritaires, puis
+approfondissement des gammes. Les boutons d'achat affiliés sont identifiés
+avant le clic ; les sources restent dans leur niveau documentaire. Aucun prix,
+compteur de ventes, avis client ou résultat d'essai n'est créé pour stimuler
+l'achat. L'ADR-0012 fixe le périmètre de cette évolution.
+
 Selon l’[ADR-0011](docs/decisions/0011-parite-structurelle-fr-en-de.md), les seize
 routes fixes utilisent les mêmes composants de page, alimentés par leur copie
 localisée. Les trois 404 partagent également un gabarit. Une page générique

@@ -7,7 +7,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 
 | Champ | Valeur |
 | --- | --- |
-| Vérifié le | 2026-09-08 pour la parité publiée ; preuves historiques conservées à leur date |
+| Vérifié le | 2026-11-10 pour le candidat commercial ; preuves publiques historiques conservées à leur date |
 | Par | Gate locale, CI du SHA applicatif, sondes HTTP et navigateur sur le domaine public |
 | Branche | `main` pour la production |
 | Parité de structure FR/EN/DE | SHA applicatif `680e7ccea54765e978f227fdf3b5225360d25172` ; [run `34171586758`](https://github.com/nclsppr/fouranu/actions/runs/34171586758) vert, `verify` et `deploy-cloudflare`, 141 URL publiques contrôlées |
@@ -31,6 +31,76 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Cinq dossiers multimarques Amazon publiés | SHA applicatif `1092e63da3cd84a88148e3360ce1082622371c07` ; [run GitHub Actions `33351620936`](https://github.com/nclsppr/fouranu/actions/runs/33351620936) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Site trilingue français, anglais et allemand publié | SHA applicatif `41e060f8644c755b289b881ff6c91fff1583795d` ; [run GitHub Actions `33405895991`](https://github.com/nclsppr/fouranu/actions/runs/33405895991) vert pour `Verify` et `deploy-cloudflare` ; contrôles publics acquis |
 | Surface publique | [`https://fouranu.com`](https://fouranu.com), domaine personnalisé Cloudflare actif |
+
+## Candidat commercial du 2026-11-10, vérifié et non publié
+
+Le candidat `codex/refonte-commerciale-20261110` part du `main` distant
+`15a2fdc97a47c324d24c70267b70c45a1930beff`, confirmé via GitHub pendant la
+session. Le checkout initial, ancien et modifié, est préservé ; le travail est
+isolé. L'ADR-0012 fixe la priorité commerciale, la voix personnelle et les
+appels d'achat affiliés uniquement.
+
+L'accueil met en avant quatre guides accessoires et cinq fours Amazon. Les
+deux nouveaux dossiers, kit pour un premier four et Delizia ou Cuisinart,
+existent dans trois langues : 33 articles par langue, 150 pages HTML dont
+147 URL indexables dans le build de publication. Les 24 modifications du
+registre concernent uniquement les associations entre preuves existantes et
+nouveaux articles. Les 278 preuves, 117 médias et 66 questions sont conservés ;
+aucun fait, date de vérification ou média n'est ajouté artificiellement.
+
+Les boutons marchands fabricant disparaissent. Les offres Amazon déjà
+enregistrées gardent leur destination exacte et leur identifiant partenaire.
+Les références documentaires restent directes, sans publicité artificielle.
+Les huit tentatives de lecture de fiches Amazon pendant la session n'ont pas
+permis de confirmer leur stock actuel ; les dates historiques restent intactes
+et aucun prix ou stock actuel n'est annoncé. Les nouveaux textes ont reçu une
+revue par agents, sans revendication de validation personnelle des signatures.
+
+Contrôles locaux acquis : catalogue, Markdown, registre, 39 tests Python,
+typage Astro sans erreur ni avertissement, build de 150 pages et 33 tests du
+site ne nécessitant pas de serveur. Les quatre tests, le typage, le build et la
+commande de lint Nimbus passent ; ce lint signale toutefois que son contrôle
+interne des liens n'a pas de table de routes disponible. Le contrôle Markdown
+du dépôt passe. Le dry-run Cloudflare termine sans déployer, avec un échec
+d'écriture de son journal local hors du répertoire autorisé. La commande
+canonique `./scripts/verify.sh` a été exécutée ; sa progression est bloquée
+par le test du serveur local, l'environnement refusant `listen` sur loopback
+avec `EPERM`. L'assertion de date de surface révélée par ce premier passage a
+été corrigée et son test ciblé passe. Le test serveur demeure obligatoire.
+
+La configuration Compose est valide, mais `docker compose up --build --wait`
+ne démarre pas car le daemon OrbStack est absent. Le serveur de preview et
+Chromium locaux sont également bloqués par les permissions de la session ;
+aucune revue visuelle locale n'est revendiquée. Le workflow conserve ses gates
+et ajoute un contrôle navigateur Chromium dans la CI sur le service Compose :
+quinze routes dans trois largeurs, avec captures et rapport JSON.
+
+La [PR #5](https://github.com/nclsppr/fouranu/pull/5) porte le SHA applicatif
+`4b5ba082013a6f62cc5e08e7f9d2a130e48fbe9d`. Son arbre Git
+`a36e97c6879fdc081cc248142f7e829543f16674` est identique au commit local
+`42de5212d958368270cb15d630ae0f1c65c36ba0`. Le
+[run `42883319803`](https://github.com/nclsppr/fouranu/actions/runs/42883319803)
+réussit la gate complète : 39 tests Python, 34 tests du site, quatre tests
+Nimbus, typage, builds preview et indexable, dry-run Cloudflare, démarrage
+Compose et healthcheck. Le job de publication est ignoré sur cette branche.
+
+Les 45 scénarios Chromium passent sur l'accueil, les deux rubriques et les deux
+nouveaux guides en FR/EN/DE, à 320, 360 et 1 280 px. Ils contrôlent les images
+après défilement, l'absence de débordement, les huit premières étapes de focus
+clavier, le mouvement réduit, la console, le réseau, les destinations affiliées
+et l'ouverture des sources au clavier. Les parcours ne visitent aucun marchand
+et ne prouvent pas son stock. Captures et rapport sont dans l'artefact du run.
+Ce contrôle automatisé ne remplace pas une session utilisateur ni un lecteur
+d'écran réel. Une revue statique indépendante ne relève aucun blocage.
+
+L'artefact contient 147 pages canoniques et les trois 404, avec deux alias HTML
+supplémentaires des 404 localisées. Les 264 liens des blocs d'achat sont Amazon
+affiliés, sans CTA fabricant de secours. Les sources directes sont conservées.
+
+Le push sur `main` déclencherait la publication automatique. Le candidat doit
+donc être revu sur sa branche avant le feu vert du propriétaire sur le paquet
+exact. Aucun déploiement, nouveau traceur, compte ou revenu n'est déclaré par
+cette préparation.
 
 ## Parité FR/EN/DE publiée le 2026-09-08
 

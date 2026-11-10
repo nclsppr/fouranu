@@ -1,6 +1,6 @@
 # Protocole éditorial, sources et visuels
 
-Cadre mis à jour le 2026-09-08. Ce protocole est une barrière
+Cadre mis à jour le 2026-11-10. Ce protocole est une barrière
 opérationnelle, pas un avis juridique. Une validation professionnelle sera
 nécessaire avant une exploitation répétée ou contractuellement complexe.
 
@@ -451,6 +451,13 @@ comme une donnée durable, et aucune image Amazon n’est téléchargée, transf
 ou réutilisée hors des outils et licences prévus par le programme.
 
 ### Couverture Amazon des objets commerciaux
+
+Selon l'[ADR-0012](docs/decisions/0012-priorite-commerciale-et-achats-affilies.md),
+les sorties à intention d'achat sont exclusivement affiliées. En l'absence
+d'offre exacte vérifiée, aucun bouton fabricant direct ne sert de repli. Les
+bibliographies et notices restent des liens de preuve directs, sans statut
+publicitaire artificiel. La sélection commerciale de la une ne change ni les
+preuves ni les limites du verdict.
 
 Tout produit commercial identifiable présenté comme une option d’achat doit
 être déclaré par son identifiant dans `commercialObjects` et exister dans le

@@ -49,6 +49,15 @@ d'essais physiques. L'[ADR-0010](docs/decisions/0010-aide-achat-documentaire-per
 remplace le programme antérieur : le produit progresse par ses analyses, ses comparatifs et son aide au choix,
 sans transformer une donnée fabricant ou une source tierce en expérience propre.
 
+La rentabilité par affiliation est un objectif explicite. L'accueil privilégie
+les guides qui aident à acheter un four et ses accessoires auprès d'offres
+Amazon.fr exactes enregistrées. Tous les appels marchands sont affiliés ; les
+sources documentaires restent directes. La voix personnelle exprime un choix
+motivé sans inventer d'essai ni de témoignage. Le contrat est fixé par
+l'[ADR-0012](docs/decisions/0012-priorite-commerciale-et-achats-affilies.md).
+La réussite économique demande des commissions confirmées supérieures aux
+coûts imputés au projet ; elle ne se déduit pas d'une refonte ou de clics seuls.
+
 ### Preuves de succès
 
 | Preuve | Situation de départ | Cible | Source |
@@ -120,6 +129,7 @@ explicite avant son lancement.
 | Faisabilité et modèle | [`FEASIBILITY.md`](FEASIBILITY.md) | Référence |
 | Expérience et métriques | [`EXPERIMENT.md`](EXPERIMENT.md) | Expérimental |
 | Relevé SEO et commercial | [`docs/GROWTH-MEASUREMENT.md`](docs/GROWTH-MEASUREMENT.md) | Procédure interne ; instrumentation non activée |
+| Priorité commerciale et appels d'achat | [`docs/decisions/0012-priorite-commerciale-et-achats-affilies.md`](docs/decisions/0012-priorite-commerciale-et-achats-affilies.md) | Décision du candidat du 2026-11-10 ; publication distincte |
 | Contenus prioritaires | [`OONI-CONTENT-MAP.md`](OONI-CONTENT-MAP.md) | Actuel |
 | Preuves, droits et publication | [`EDITORIAL-PROTOCOL.md`](EDITORIAL-PROTOCOL.md) | Normatif |
 | Contrôle SEO par article | [`docs/SEO-PUBLICATION-GATE.md`](docs/SEO-PUBLICATION-GATE.md) | Normatif |
@@ -195,7 +205,7 @@ explicite avant son lancement.
 | Dépendance | Usage prévu | Données transmises | État et mode d'échec |
 | --- | --- | --- | --- |
 | YouTube | Lecteur officiel pour une source tierce autorisée | Requête du navigateur vers YouTube lors du chargement accepté | Aucun lecteur public actuellement ; la page reste compréhensible sans lui |
-| Marchands et programmes partenaires | Liens fabricants directs ; registre exhaustif des produits commerciaux éditoriaux ; liens Amazon.fr exacts attribués à `fouranu-21` après autorisation explicite | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | Le marché et les marchands restent la France dans les trois langues ; l’affiliation Amazon.fr est autorisée, publique et déclarée ; chaque objet est contrôlé, `not_found` ne signifie pas indisponible, les sources canoniques restent sans suivi et le contenu reste accessible sans cliquer |
+| Marchands et programmes partenaires | Registre des produits commerciaux ; appels d'achat Amazon.fr exacts attribués à `fouranu-21`, sans repli marchand non affilié | Navigation vers le marchand ; l’identifiant partenaire est porté par l’URL, sans script Amazon chargé sur Four à Nu | Le marché reste la France dans les trois langues ; l’affiliation Amazon.fr est autorisée et déclarée ; chaque objet est contrôlé, `not_found` ne signifie pas indisponible, les sources canoniques restent directes et le contenu reste accessible sans cliquer. L'état public exact reste dans `STATUS.md` |
 | Applications de partage | Feuille système native, WhatsApp ou client e-mail choisi par le lecteur | Titre, description et URL canonique seulement après une action explicite | Aucun SDK social ni requête tierce au chargement ; e-mail reste disponible sans JavaScript |
 | Moteurs de recherche | Découverte des pages publiques et relevés Search Console | Pages, sitemap et métadonnées publiques | Les relevés et soumissions effectivement vérifiés sont consignés dans `STATUS.md` ; l'indexation et le classement ne sont pas garantis |
 | GitHub Actions et Cloudflare Workers | Déployer l'artefact statique du SHA vérifié vers Workers Static Assets | Artefact public et données techniques minimales de déploiement | Actif sur `main` ; chaque déploiement dépend de `Verify`, preuves dans `STATUS.md` |

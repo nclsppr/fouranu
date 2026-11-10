@@ -1,1506 +1,288 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import RelatedDecisions from "@/components/RelatedDecisions.astro";
+import AuthorPortrait from "@/components/AuthorPortrait.astro";
 import { SITE } from "@/config/site";
-import {
-  ARTICLE_BRANDS,
-  isPublishedAnalysis,
-} from "@/data/article-taxonomy";
+import { isPublishedAnalysis } from "@/data/article-taxonomy";
 import { localizedSite } from "@/i18n/common";
-import {
-  articleRoute,
-  feedPath,
-  LOCALE_INFO,
-  staticAlternates,
-  staticRoute,
-  type ArticleId,
-  type Locale,
-} from "@/i18n/config";
+import { articleRoute, feedPath, staticAlternates, staticRoute, type ArticleId, type Locale } from "@/i18n/config";
 import { HOME_COPY, HOME_FEATURED_ARTICLE_IDS } from "@/i18n/home";
-import {
-  assertMediaAllowedAtPath,
-  assertResponsiveMediaAllowedAtPath,
-} from "@/lib/media-rights.mjs";
+import { assertMediaAllowedAtPath, assertResponsiveMediaAllowedAtPath } from "@/lib/media-rights.mjs";
 
-interface Props {
-  locale?: Locale;
-}
-
+interface Props { locale?: Locale; }
 const { locale = "fr" } = Astro.props;
 const copy = HOME_COPY[locale];
 const localized = localizedSite(locale);
 const homePath = staticRoute("home", locale);
-const allAnalyses = (await getCollection("analyses")).filter((entry) => entry.data.locale === locale);
-const analyses = allAnalyses
-  .filter(isPublishedAnalysis)
-  .sort((a, b) =>
-    b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf() ||
-    a.data.articleId.localeCompare(b.data.articleId)
-  );
-const lead = analyses.find((entry) => entry.data.articleId === HOME_FEATURED_ARTICLE_IDS.lead);
-const energyGuide = analyses.find((entry) => entry.data.articleId === HOME_FEATURED_ARTICLE_IDS.energy);
-const models = analyses.filter(
-  (entry) =>
-    entry.data.brand === "ooni" &&
-    entry.data.category === "oven" &&
-    entry.data.type === "model",
-);
-const newDossiers = HOME_FEATURED_ARTICLE_IDS.newDossiers
-  .map((articleId) => analyses.find((entry) => entry.data.articleId === articleId))
-  .filter((entry) => entry !== undefined);
-const accessoryGuides = HOME_FEATURED_ARTICLE_IDS.accessories
-  .map((articleId) => {
-    const entry = analyses.find((candidate) => candidate.data.articleId === articleId);
-    return entry ? { entry, label: copy.accessories.labels[articleId] } : undefined;
-  })
-  .filter((guide) => guide !== undefined);
-const featuredModels = HOME_FEATURED_ARTICLE_IDS.models
-  .map((articleId) => models.find((entry) => entry.data.articleId === articleId))
-  .filter((entry) => entry !== undefined);
-const remainingModels = models.filter(
-  (entry) => !HOME_FEATURED_ARTICLE_IDS.models.includes(entry.data.articleId as typeof HOME_FEATURED_ARTICLE_IDS.models[number]),
-);
-const citedEvidenceCount = new Set(
-  analyses.flatMap((entry) => entry.data.evidenceIds),
-).size;
-const latestUpdate = new Date(
-  Math.max(...analyses.map((entry) => entry.data.updatedAt.valueOf())),
-);
-const shortDateFormatter = new Intl.DateTimeFormat(LOCALE_INFO[locale].intlLocale, {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  timeZone: "UTC",
-});
-const longDateFormatter = new Intl.DateTimeFormat(LOCALE_INFO[locale].intlLocale, {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
-
-if (
-  !lead ||
-  !energyGuide ||
-  featuredModels.length !== HOME_FEATURED_ARTICLE_IDS.models.length ||
-  newDossiers.length !== HOME_FEATURED_ARTICLE_IDS.newDossiers.length ||
-  accessoryGuides.length !== HOME_FEATURED_ARTICLE_IDS.accessories.length
-) {
-  throw new Error(copy.requiredError);
-}
-const illustratedEntries = [lead, ...accessoryGuides.map(({ entry }) => entry), ...newDossiers, ...models];
-for (const entry of illustratedEntries) {
-  if (!entry.data.image) throw new Error(`${copy.requiredError} ${entry.data.articleId}: image`);
+const analyses = (await getCollection("analyses")).filter((entry) => entry.data.locale === locale && isPublishedAnalysis(entry));
+function featured(articleId: ArticleId): CollectionEntry<"analyses"> {
+  const entry = analyses.find((candidate) => candidate.data.articleId === articleId);
+  if (!entry?.data.image) throw new Error(`${copy.requiredError} ${articleId}`);
   assertResponsiveMediaAllowedAtPath(entry.data.image.src, locale, "hub-list", homePath);
+  return entry;
 }
+const lead = featured(HOME_FEATURED_ARTICLE_IDS.lead);
+const accessories = HOME_FEATURED_ARTICLE_IDS.accessories.map((id) => ({ entry: featured(id), label: copy.accessories.labels[id] }));
+const ovens = HOME_FEATURED_ARTICLE_IDS.ovens.map((id) => ({ entry: featured(id), label: copy.ovens.labels[id] }));
+const authors = Object.values(localized.authors);
 assertMediaAllowedAtPath("/brand/logo-fouranu.png", locale, "schema-image", homePath);
-
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "WebSite",
-      "@id": `${SITE.url}/#website`,
-      url: `${SITE.url}/`,
-      name: SITE.name,
-      alternateName: SITE.alternateName,
-      inLanguage: ["fr-FR", "en", "de-DE"],
-      description: localized.description,
-      publisher: { "@id": `${SITE.url}/#organization` },
+      "@type": "WebSite", "@id": `${SITE.url}/#website`, url: `${SITE.url}/`, name: SITE.name,
+      alternateName: SITE.alternateName, inLanguage: ["fr-FR", "en", "de-DE"],
+      description: localized.description, publisher: { "@id": `${SITE.url}/#organization` },
     },
     {
-      "@type": "Organization",
-      "@id": `${SITE.url}/#organization`,
-      name: SITE.name,
-      alternateName: SITE.alternateName,
-      url: `${SITE.url}/`,
-      description: copy.organizationDescription,
+      "@type": "Organization", "@id": `${SITE.url}/#organization`, name: SITE.name,
+      alternateName: SITE.alternateName, url: `${SITE.url}/`, description: copy.organizationDescription,
       publishingPrinciples: new URL(staticRoute("method", "fr"), SITE.url).toString(),
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE.url}/brand/logo-fouranu.png`,
-        contentUrl: `${SITE.url}/brand/logo-fouranu.png`,
-        width: 480,
-        height: 172,
-      },
+      logo: { "@type": "ImageObject", url: `${SITE.url}/brand/logo-fouranu.png`, contentUrl: `${SITE.url}/brand/logo-fouranu.png`, width: 480, height: 172 },
     },
   ],
 };
 ---
 
-<BaseLayout
-  title={localized.title}
-  socialTitle={copy.socialTitle}
-  description={localized.description}
-  canonical={homePath}
-  alternatePaths={staticAlternates("home")}
-  indexable={true}
-  schema={schema}
->
+<BaseLayout title={localized.title} socialTitle={copy.socialTitle} description={localized.description} canonical={homePath} alternatePaths={staticAlternates("home")} indexable={true} schema={schema}>
   <section class="editorial-hero page-shell" aria-labelledby="home-title">
-    <article class="lead-feature">
-      <div class="lead-feature__copy">
-        <h1 id="home-title">{copy.hero.title}</h1>
-        <p class="lead-feature__mission">
-          {copy.hero.mission}
-        </p>
-        <h2 class="lead-feature__story-title">{lead.data.title}</h2>
-        <p class="lead-feature__summary">{lead.data.summary}</p>
-        <div class="lead-feature__filters" aria-label={copy.hero.criteriaAria}>
-          {copy.hero.criteria.map((criterion) => <span>{criterion}</span>)}
-        </div>
-        <a class="feature-action" href={`${staticRoute("ovens", locale)}#trouver-mon-four`}>
-          {copy.hero.action}
-          <span aria-hidden="true">→</span>
-        </a>
+    <div class="hero-copy">
+      <p class="eyebrow">{copy.hero.kicker}</p>
+      <h1 id="home-title">{copy.hero.title}</h1>
+      <p class="hero-mission">{copy.hero.mission}</p>
+      <div class="hero-actions">
+        <a class="button-link" href="#nos-fours">{copy.hero.action} <span aria-hidden="true">→</span></a>
+        <a class="text-action" href="#nos-accessoires">{copy.hero.accessoriesAction} <span aria-hidden="true">↗</span></a>
       </div>
-
+      <a class="hero-team" href={staticRoute("authors", locale)}>
+        <span class="hero-team__portraits" aria-hidden="true">
+          {authors.map((author) => <AuthorPortrait portrait={author.portrait} variant="hub" />)}
+        </span>
+        <span><strong>Nicolas, Florian &amp; Magali</strong><span>{copy.hero.byline} <span aria-hidden="true">→</span></span></span>
+      </a>
+    </div>
+    <article class="lead-feature">
       <figure class="lead-feature__visual lead-feature__visual--documentary">
-        <div class="lead-feature__visual-frame">
-          <img
-            src={lead.data.image!.src}
-            srcset={`${lead.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image!.src} 1600w`}
-            sizes="(max-width: 40rem) 100vw, 42vw"
-            alt={lead.data.image!.alt}
-            width="1600"
-            height="900"
-            fetchpriority="high"
-          />
-        </div>
+        <a class="lead-feature__visual-frame" href={articleRoute(lead.data.articleId as ArticleId, locale)} aria-label={copy.hero.read}>
+          <img src={lead.data.image!.src} srcset={`${lead.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${lead.data.image!.src} 1600w`} sizes="(max-width: 48rem) 100vw, 44vw" alt={lead.data.image!.alt} width="1600" height="900" fetchpriority="high" />
+        </a>
         <figcaption>{lead.data.image!.caption}</figcaption>
       </figure>
-    </article>
-
-    <div class="hero-side">
-      <a class="side-story" href={articleRoute(energyGuide.data.articleId as ArticleId, locale)}>
-        <span class="side-story__meta">{copy.sideStories.energyMeta}</span>
-        <h2>{energyGuide.data.title}</h2>
-        <p>{energyGuide.data.summary}</p>
-        <span class="side-story__link">{copy.sideStories.energyAction} <span aria-hidden="true">→</span></span>
-      </a>
-
-      <a class="side-story side-story--dark" href={staticRoute("ovens", locale)}>
-        <span class="side-story__meta">{copy.sideStories.choiceMeta}</span>
-        <h2>{copy.sideStories.choiceTitle}</h2>
-        <p>{copy.sideStories.choiceSummary}</p>
-        <span class="side-story__link">{copy.sideStories.choiceAction} <span aria-hidden="true">→</span></span>
-      </a>
-    </div>
-  </section>
-
-  <div class="page-shell"><RelatedDecisions locale={locale} /></div>
-
-  <section class="corpus-strip page-shell" aria-label={copy.corpus.aria}>
-    <div>
-      <strong>{analyses.length}</strong>
-      <span>{copy.corpus.guides}</span>
-    </div>
-    <div>
-      <strong>{citedEvidenceCount}</strong>
-      <span>{copy.corpus.evidence}</span>
-    </div>
-    <div>
-      <strong>{copy.corpus.noRating}</strong>
-      <span>{copy.corpus.usageFirst}</span>
-    </div>
-    <div>
-      <strong>{longDateFormatter.format(latestUpdate)}</strong>
-      <span>{copy.corpus.lastUpdate}</span>
-    </div>
-  </section>
-
-  <section class="accessories-doorway" aria-labelledby="accessories-doorway-title">
-    <div class="accessories-doorway__grid page-shell">
-      <header class="accessories-doorway__intro">
-        <p class="feature-kicker">{copy.accessories.kicker}</p>
-        <h2 id="accessories-doorway-title">{copy.accessories.title}</h2>
-        <p>
-          {copy.accessories.summary}
-        </p>
-        <a class="feature-action" href={staticRoute("accessories", locale)}>
-          {copy.accessories.action}
-          <span aria-hidden="true">→</span>
-        </a>
-      </header>
-
-      <nav class="accessories-doorway__list" aria-label={copy.accessories.navAria}>
-        {accessoryGuides.map(({ entry, label }, index) => (
-          <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>
-            <span class="accessories-doorway__media">
-              <img
-                src={entry.data.image!.src}
-                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
-                sizes="(max-width: 40rem) 7rem, (max-width: 56rem) 9rem, 10rem"
-                alt=""
-                width="960"
-                height="540"
-                loading="lazy"
-              />
-            </span>
-            <span class="accessories-doorway__copy">
-              <small>{String(index + 1).padStart(2, "0")} · {copy.accessories.guideType}</small>
-              <strong>{label}</strong>
-              <span>{entry.data.summary}</span>
-              <b>{copy.common.by} {localized.authors[entry.data.author].name}</b>
-            </span>
-            <span class="accessories-doorway__arrow" aria-hidden="true">→</span>
-          </a>
-        ))}
-      </nav>
-    </div>
-  </section>
-
-  {newDossiers.length > 0 && (
-    <section class="new-dossiers page-shell" aria-labelledby="new-dossiers-title">
-      <header>
-        <p class="feature-kicker">{copy.newDossiers.kicker}</p>
-        <h2 id="new-dossiers-title">{copy.newDossiers.title}</h2>
-        <p>
-          {copy.newDossiers.summary}
-        </p>
-      </header>
-
-      <div class="new-dossiers__list">
-        {newDossiers.map((entry) => (
-          <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>
-            <span class="new-dossiers__media">
-              <img
-                src={entry.data.image!.src}
-                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
-                sizes="(max-width: 48rem) 100vw, 11rem"
-                alt={entry.data.image!.alt}
-                width="960"
-                height="540"
-                loading="lazy"
-              />
-            </span>
-            <span class="new-dossiers__copy">
-              <small>{ARTICLE_BRANDS[entry.data.brand].label} · {copy.categoryLabels[entry.data.category]}</small>
-              <strong>{entry.data.title}</strong>
-              <span>{entry.data.summary}</span>
-              <b>{copy.common.by} {localized.authors[entry.data.author].name} · {copy.newDossiers.read} →</b>
-            </span>
-          </a>
-        ))}
+      <div class="lead-feature__copy">
+        <p class="eyebrow">{copy.hero.featured}</p>
+        <h2><a href={articleRoute(lead.data.articleId as ArticleId, locale)}>{lead.data.title}</a></h2>
+        <p>{lead.data.summary}</p>
+        <a class="text-action" href={articleRoute(lead.data.articleId as ArticleId, locale)}>{copy.hero.read} <span aria-hidden="true">→</span></a>
       </div>
-    </section>
-  )}
+    </article>
+  </section>
 
-  <section class="featured-dossiers page-shell" aria-labelledby="featured-title">
-    <header class="section-bar">
-      <h2 id="featured-title">{copy.featured.title}</h2>
-      <a href={staticRoute("ooni", locale)}>{copy.featured.seeAll} <span aria-hidden="true">→</span></a>
+  <nav class="intent-nav page-shell" aria-label={copy.shortcuts.aria}>
+    <a href={articleRoute("FOUR-007", locale)}><span aria-hidden="true">01</span>{copy.shortcuts.indoor}<b aria-hidden="true">→</b></a>
+    <a href={articleRoute("FOUR-005", locale)}><span aria-hidden="true">02</span>{copy.shortcuts.outdoor}<b aria-hidden="true">→</b></a>
+    <a href={articleRoute("FOUR-008", locale)}><span aria-hidden="true">03</span>{copy.shortcuts.budget}<b aria-hidden="true">→</b></a>
+  </nav>
+
+  <section class="accessories-section page-shell" id="nos-accessoires" aria-labelledby="accessories-title">
+    <header class="section-heading">
+      <div><p class="eyebrow">{copy.accessories.kicker}</p><h2 id="accessories-title">{copy.accessories.title}</h2></div>
+      <div><p>{copy.accessories.summary}</p><a class="text-action" href={staticRoute("accessories", locale)}>{copy.accessories.action} <span aria-hidden="true">→</span></a></div>
     </header>
-
-    <div class="dossier-grid">
-      {featuredModels.map((entry, index) => (
-        <a class="dossier-card" href={articleRoute(entry.data.articleId as ArticleId, locale)}>
-          <span class="dossier-card__media">
-            <img
-              src={entry.data.image!.src}
-              srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
-              sizes="(max-width: 32rem) 100vw, (max-width: 56rem) 50vw, 25vw"
-              alt={entry.data.image!.alt}
-              width="960"
-              height="540"
-              loading="lazy"
-            />
-            <span class="dossier-card__index">{String(index + 1).padStart(2, "0")}</span>
-          </span>
-          <span class="dossier-card__content">
-            <span class="dossier-card__type">{copy.featured.cardType}</span>
-            <h3>{entry.data.title}</h3>
-            <span class="dossier-card__summary">{entry.data.summary}</span>
-            <span class="dossier-card__meta">
-              <span>{copy.common.by} {localized.authors[entry.data.author].name}</span>
-              <span>{shortDateFormatter.format(entry.data.updatedAt)}</span>
-            </span>
-            <span class="dossier-card__link">{copy.featured.read} <span aria-hidden="true">→</span></span>
-          </span>
-        </a>
+    <div class="accessories-grid">
+      {accessories.map(({ entry, label }) => (
+        <article class="accessory-card">
+          <a class="accessory-card__image" href={articleRoute(entry.data.articleId as ArticleId, locale)} aria-label={label.title}>
+            <img src={entry.data.image!.src} srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`} sizes="(max-width: 36rem) 100vw, (max-width: 64rem) 50vw, 25vw" alt={entry.data.image!.alt} width="960" height="540" loading="lazy" />
+          </a>
+          <div class="accessory-card__copy">
+            <p class="byline">{copy.common.by} {localized.authors[entry.data.author].name}</p>
+            <h3><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{label.title}</a></h3>
+            <p>{label.summary}</p>
+            <a class="text-action" href={articleRoute(entry.data.articleId as ArticleId, locale)}>{copy.common.read} <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
       ))}
     </div>
-  </section>
-
-  <section class="choice-guide">
-    <div class="page-shell choice-guide__grid">
-      <div class="choice-guide__intro">
-        <p class="feature-kicker">{copy.choice.kicker}</p>
-        <h2>{copy.choice.title}</h2>
-        <p>
-          {copy.choice.summary}
-        </p>
-        <a href={staticRoute("ovens", locale)}>{copy.choice.action} <span aria-hidden="true">→</span></a>
-      </div>
-
-      <nav aria-label={copy.choice.navAria}>
-        {copy.choice.criteria.map((criterion, index) => (
-          <a href={`${staticRoute("ovens", locale)}#${criterion.hash}`}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{criterion.title}</strong>
-            <small>{criterion.detail}</small>
-            <b aria-hidden="true">→</b>
-          </a>
-        ))}
-      </nav>
-    </div>
-  </section>
-
-  <section class="reading-desk page-shell" aria-labelledby="reading-title">
-    <div class="reading-desk__list">
-      <header class="section-bar">
-        <h2 id="reading-title">{copy.reading.title}</h2>
-        <a href={staticRoute("ooni", locale)}>{copy.reading.all} <span aria-hidden="true">→</span></a>
-      </header>
-
-      <div class="compact-list">
-        {remainingModels.map((entry) => (
-          <a href={articleRoute(entry.data.articleId as ArticleId, locale)}>
-            <span class="compact-list__media">
-              <img
-                src={entry.data.image!.src}
-                srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`}
-                sizes="7.5rem"
-                alt=""
-                width="320"
-                height="180"
-                loading="lazy"
-              />
-            </span>
-            <span class="compact-list__copy">
-              <strong>{entry.data.title}</strong>
-              <small>{entry.data.summary}</small>
-              <small class="compact-list__byline">
-                {copy.common.by} {localized.authors[entry.data.author].name} · {shortDateFormatter.format(entry.data.updatedAt)}
-              </small>
-            </span>
-            <span aria-hidden="true">→</span>
-          </a>
-        ))}
-      </div>
-    </div>
-
-    <aside class="rss-panel">
-      <p class="feature-kicker">{copy.rss.kicker}</p>
-      <h2>{copy.rss.title}</h2>
-      <p>
-        {copy.rss.summary}
-      </p>
-      <a class="feature-action" href={feedPath(locale)}>
-        {copy.rss.action}
-        <span aria-hidden="true">↗</span>
-      </a>
-      <small>{copy.rss.note}</small>
+    <aside class="starter-kit">
+      <div><p class="eyebrow">{copy.accessories.kitKicker}</p><h3>{copy.accessories.kitTitle}</h3><p>{copy.accessories.kitSummary}</p></div>
+      <a class="button-link" href={articleRoute("FOUR-009", locale)}>{copy.accessories.kitAction} <span aria-hidden="true">→</span></a>
     </aside>
   </section>
 
-  <section class="method-strip page-shell" aria-labelledby="method-title">
-    <header class="section-bar">
-      <div>
-        <p class="feature-kicker">{copy.method.kicker}</p>
-        <h2 id="method-title">{copy.method.title}</h2>
+  <section class="oven-section" id="nos-fours" aria-labelledby="ovens-title">
+    <div class="page-shell">
+      <header class="section-heading">
+        <div><p class="eyebrow">{copy.ovens.kicker}</p><h2 id="ovens-title">{copy.ovens.title}</h2></div>
+        <div><p>{copy.ovens.summary}</p><a class="text-action" href={staticRoute("ovens", locale)}>{copy.ovens.action} <span aria-hidden="true">→</span></a></div>
+      </header>
+      <div class="oven-grid">
+        {ovens.map(({ entry, label }, index) => (
+          <article class:list={["oven-card", index === 0 && "oven-card--lead"]}>
+            <a class="oven-card__image" href={articleRoute(entry.data.articleId as ArticleId, locale)} aria-label={entry.data.title}>
+              <img src={entry.data.image!.src} srcset={`${entry.data.image!.src.replace("-1600.webp", "-960.webp")} 960w, ${entry.data.image!.src} 1600w`} sizes={index === 0 ? "(max-width: 48rem) 100vw, 50vw" : "(max-width: 48rem) 100vw, (max-width: 64rem) 50vw, 25vw"} alt={entry.data.image!.alt} width="960" height="540" loading="lazy" />
+            </a>
+            <div class="oven-card__copy">
+              <p class="eyebrow">{label}</p>
+              <h3><a href={articleRoute(entry.data.articleId as ArticleId, locale)}>{entry.data.title}</a></h3>
+              <p>{entry.data.summary}</p>
+              <p class="byline">{copy.common.by} {localized.authors[entry.data.author].name}</p>
+              <a class="text-action" href={articleRoute(entry.data.articleId as ArticleId, locale)}>{copy.ovens.read} <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        ))}
       </div>
-      <a href={staticRoute("method", locale)}>{copy.method.action} <span aria-hidden="true">→</span></a>
-    </header>
-
-    <div class="method-grid">
-      {copy.method.steps.map((step, index) => (
-        <div>
-          <span class="method-step">{String(index + 1).padStart(2, "0")}</span>
-          <h3>{step.title}</h3>
-          <p>{step.summary}</p>
-        </div>
-      ))}
+      <p class="affiliate-note">{copy.transparency.disclosure} <a href={staticRoute("transparency", locale)}>{copy.transparency.commerce}</a>.</p>
     </div>
-
-    <nav class="trust-links" aria-label={copy.method.trustAria}>
-      <a href={staticRoute("authors", locale)}>{copy.method.editorialTeam}</a>
-      <a href={staticRoute("method", locale)}>{copy.method.method}</a>
-      <a href={staticRoute("transparency", locale)}>{copy.method.transparency}</a>
-      <a href={staticRoute("corrections", locale)}>{copy.method.corrections}</a>
-    </nav>
   </section>
+
+  <section class="decision-section page-shell" aria-labelledby="comparison-title">
+    <article class="decision-feature">
+      <p class="eyebrow">{copy.comparison.kicker}</p>
+      <h2 id="comparison-title">{copy.comparison.title}</h2>
+      <p>{copy.comparison.summary}</p>
+      <a class="button-link" href={articleRoute("FOUR-010", locale)}>{copy.comparison.action} <span aria-hidden="true">→</span></a>
+    </article>
+    <aside class="finder-feature">
+      <span class="finder-feature__mark" aria-hidden="true">?</span>
+      <h2>{copy.comparison.finderTitle}</h2>
+      <p>{copy.comparison.finderSummary}</p>
+      <a class="text-action" href={`${staticRoute("ovens", locale)}#trouver-mon-four`}>{copy.comparison.finderAction} <span aria-hidden="true">→</span></a>
+    </aside>
+  </section>
+
+  <section class="journal-section page-shell" aria-labelledby="journal-title">
+    <div><p class="eyebrow">{copy.journal.kicker}</p><h2 id="journal-title">{copy.journal.title}</h2><p>{copy.journal.summary}</p></div>
+    <div class="journal-links"><span class="guide-count"><strong>{analyses.length}</strong> {copy.common.guides}</span><a class="text-action" href={staticRoute("authors", locale)}>{copy.journal.action} <span aria-hidden="true">→</span></a><a href={feedPath(locale)}>{copy.journal.rss}</a></div>
+  </section>
+
+  <aside class="transparency-note page-shell">
+    <h2>{copy.transparency.title}</h2>
+    <p>{copy.transparency.body}</p>
+    <a class="text-action" href={staticRoute("method", locale)}>{copy.transparency.method} <span aria-hidden="true">→</span></a>
+  </aside>
 </BaseLayout>
 
 <style>
-  .feature-kicker,
-  .side-story__meta,
-  .dossier-card__type,
-  .dossier-card__date {
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  .editorial-hero { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: clamp(2rem, 5vw, 4.5rem); }
+  .hero-copy h1 { max-width: 13ch; margin: 1.5rem 0; font-size: clamp(3.5rem, 6.6vw, 6.3rem); line-height: .95; letter-spacing: -.045em; }
+  .hero-mission { max-width: 40rem; margin: 0; color: var(--color-graphite); font-size: clamp(1rem, 1.4vw, 1.17rem); line-height: 1.7; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-block: 1.8rem 2rem; }
+  .button-link { gap: 1rem; justify-content: space-between; max-width: 100%; }
+  h1, h2, h3, .button-link, .text-action { overflow-wrap: anywhere; }
+  .text-action { display: inline-flex; align-items: center; gap: .7rem; min-height: 2.75rem; color: var(--color-probe); font-weight: 600; text-underline-offset: .25em; }
+  .hero-team { display: flex; gap: .85rem; align-items: center; width: fit-content; text-decoration: none; }
+  .hero-team__portraits { display: flex; flex-shrink: 0; padding-right: .45rem; }
+  .hero-team__portraits :global(img) { width: 2.65rem; height: 2.65rem; border: 2px solid var(--color-white); border-radius: 50%; margin-right: -.45rem; }
+  .hero-team strong, .hero-team > span:last-child > span { display: block; font-size: .8rem; line-height: 1.5; }
+  .hero-team > span:last-child > span { color: var(--color-graphite); }
+  .lead-feature { min-width: 0; background: var(--color-steel-soft); border-bottom: 3px solid var(--color-probe); }
+  .lead-feature__visual { margin: 0; }
+  .lead-feature__visual-frame { display: block; overflow: hidden; aspect-ratio: 16 / 9; }
+  .lead-feature__visual-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .lead-feature__visual--documentary figcaption { padding: .65rem 1.25rem; color: var(--color-graphite); font-size: .73rem; line-height: 1.5; border-bottom: 1px solid var(--color-line); }
+  .lead-feature__copy { padding: 1.4rem clamp(1.3rem, 2.5vw, 2rem) 1.2rem; }
+  .lead-feature h2 { margin: .8rem 0; font-size: clamp(1.85rem, 2.7vw, 2.7rem); line-height: 1.03; }
+  .lead-feature h2 a, .accessory-card h3 a, .oven-card h3 a { text-decoration: none; }
+  .lead-feature h2 a:hover, .accessory-card h3 a:hover, .oven-card h3 a:hover { color: var(--color-probe); text-decoration: underline; text-underline-offset: .12em; }
+  .lead-feature__copy > p:not(.eyebrow) { color: var(--color-graphite); line-height: 1.6; font-size: .9rem; }
+  .intent-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--color-carbon); }
+  .intent-nav a { display: flex; gap: .8rem; align-items: center; min-height: 5rem; padding: 1rem 1.5rem; font-weight: 600; text-decoration: none; }
+  .intent-nav a + a { border-left: 1px solid var(--color-line); }
+  .intent-nav a > span { color: var(--color-probe); font-family: var(--font-data); font-size: .72rem; }
+  .intent-nav b { margin-left: auto; color: var(--color-probe); }
+  .intent-nav a:hover { background: var(--color-steel-soft); }
+  .accessories-section, .decision-section { padding-block: clamp(3rem, 6vw, 5.5rem); scroll-margin-top: 1.5rem; }
+  .section-heading { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: end; margin-bottom: 2.25rem; }
+  .section-heading h2 { max-width: 18ch; margin: 1rem 0 0; font-size: clamp(2.7rem, 4.4vw, 4.5rem); line-height: .98; letter-spacing: -.025em; }
+  .section-heading > div:last-child > p { max-width: 38rem; margin: 0 0 .5rem; color: var(--color-graphite); line-height: 1.7; }
+  .accessories-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+  .accessory-card { display: flex; flex-direction: column; min-width: 0; border-bottom: 1px solid var(--color-line); }
+  .accessory-card__image { display: block; overflow: hidden; aspect-ratio: 4 / 3; background: var(--color-steel-soft); }
+  .accessory-card__image img, .oven-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 180ms ease-out; }
+  .accessory-card__image:hover img, .oven-card__image:hover img { transform: scale(1.025); }
+  .accessory-card__copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.25rem 0 1rem; }
+  .byline { margin: 0 0 .65rem; color: var(--color-graphite); font-family: var(--font-data); font-size: .72rem; }
+  .accessory-card h3 { margin: 0; font-size: clamp(1.9rem, 2.6vw, 2.5rem); line-height: 1.03; }
+  .accessory-card__copy > p:not(.byline) { margin: .8rem 0; color: var(--color-graphite); font-size: .91rem; line-height: 1.6; }
+  .accessory-card .text-action { margin-top: auto; }
+  .starter-kit { display: flex; justify-content: space-between; align-items: center; gap: 2rem; margin-top: 2.5rem; padding: 1.6rem 2rem; border-left: 3px solid var(--color-probe); background: var(--color-steel-soft); }
+  .starter-kit h3 { max-width: 40ch; margin: .65rem 0; font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.08; }
+  .starter-kit p:not(.eyebrow) { max-width: 55rem; margin: 0; color: var(--color-graphite); line-height: 1.6; }
+  .starter-kit .button-link { flex-shrink: 0; }
+  .oven-section { padding-block: clamp(3rem, 6vw, 5.5rem); background: var(--color-steel-soft); scroll-margin-top: 1.5rem; }
+  .oven-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 2rem 1.5rem; }
+  .oven-card { display: flex; flex-direction: column; min-width: 0; background: var(--color-white); }
+  .oven-card--lead { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; }
+  .oven-card__image { display: block; overflow: hidden; aspect-ratio: 16 / 9; }
+  .oven-card__copy { display: flex; flex-direction: column; align-items: flex-start; padding: 1.3rem 1.5rem 1rem; }
+  .oven-card .eyebrow { font-size: .65rem; }
+  .oven-card h3 { margin: .85rem 0; font-size: clamp(1.8rem, 2.4vw, 2.45rem); line-height: 1.04; }
+  .oven-card__copy > p:not(.eyebrow, .byline) { margin: 0 0 1rem; color: var(--color-graphite); font-size: .89rem; line-height: 1.6; }
+  .oven-card .text-action { padding-block: .3rem; font-size: .86rem; }
+  .affiliate-note { max-width: 65rem; margin: 1.7rem 0 0; color: var(--color-graphite); font-size: .76rem; line-height: 1.65; }
+  .affiliate-note a { color: var(--color-probe); }
+  .decision-section { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.5rem; }
+  .decision-feature, .finder-feature { padding: clamp(1.75rem, 4vw, 3.25rem); }
+  .decision-feature { color: var(--color-white); background: var(--color-carbon); }
+  .decision-feature .eyebrow { color: var(--color-reading); }
+  .decision-feature h2, .finder-feature h2 { max-width: 18ch; margin: 1.25rem 0; font-size: clamp(2.5rem, 4vw, 4rem); line-height: .98; }
+  .decision-feature > p:not(.eyebrow) { color: var(--color-carbon-muted); line-height: 1.65; }
+  .decision-feature .button-link { margin-top: .75rem; }
+  .decision-feature :focus-visible { outline-color: var(--color-reading); }
+  .finder-feature { border: 1px solid var(--color-line); }
+  .finder-feature__mark { color: var(--color-probe); font-family: var(--font-display); font-size: 3.5rem; font-weight: 600; line-height: 1; }
+  .finder-feature > p { color: var(--color-graphite); line-height: 1.65; }
+  .journal-section { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; padding-block: 2.5rem; border-block: 1px solid var(--color-carbon); }
+  .journal-section h2 { max-width: 23ch; margin: 1rem 0; font-size: clamp(2.3rem, 3.7vw, 3.6rem); line-height: 1; }
+  .journal-section p:not(.eyebrow) { max-width: 48rem; color: var(--color-graphite); line-height: 1.7; }
+  .journal-links { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: .5rem; }
+  .guide-count { color: var(--color-graphite); }
+  .guide-count strong { color: var(--color-carbon); font-family: var(--font-display); font-size: 4rem; line-height: 1.2; }
+  .journal-links > a:last-child { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--color-graphite); font-size: .86rem; }
+  .transparency-note { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) auto; gap: 2rem; align-items: start; padding-block: 2.5rem 1rem; }
+  .transparency-note h2 { max-width: 21ch; margin: 0; font-size: 1.6rem; line-height: 1.1; }
+  .transparency-note p { margin: 0; color: var(--color-graphite); font-size: .85rem; line-height: 1.7; }
+  .transparency-note .text-action { font-size: .85rem; }
+  @media (max-width: 64rem) {
+    .editorial-hero { gap: 2rem; }
+    .hero-copy h1 { font-size: clamp(3rem, 6.7vw, 5rem); }
+    .accessories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.5rem; }
+    .oven-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .oven-card--lead { grid-row: auto; grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+    .intent-nav a { padding-inline: .8rem; font-size: .9rem; }
+    .starter-kit { align-items: flex-start; flex-direction: column; gap: 1rem; }
+    .transparency-note { grid-template-columns: 1fr 1.3fr; }
+    .transparency-note .text-action { grid-column: 2; }
+  }
+  @media (max-width: 48rem) {
+    .editorial-hero, .section-heading, .decision-section, .journal-section, .transparency-note { grid-template-columns: 1fr; }
+    .hero-copy h1 { max-width: 13ch; font-size: clamp(3.3rem, 12vw, 5.2rem); }
+    .hero-actions { margin-block: 1.5rem; }
+    .lead-feature__visual-frame { aspect-ratio: 16 / 9; }
+    .intent-nav { grid-template-columns: 1fr; }
+    .intent-nav a { min-height: 3.8rem; padding: .7rem .25rem; font-size: 1rem; }
+    .intent-nav a + a { border-left: 0; border-top: 1px solid var(--color-line); }
+    .section-heading { gap: 1.2rem; }
+    .section-heading h2 { max-width: 20ch; }
+    .oven-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .oven-card--lead { display: flex; grid-column: auto; }
+    .oven-card--lead .oven-card__image { aspect-ratio: 16 / 9; }
+    .oven-card__copy { padding: 1.25rem; }
+    .journal-section { gap: 1rem; }
+    .transparency-note { gap: 1rem; }
+    .transparency-note h2 { max-width: 100%; }
+    .transparency-note .text-action { grid-column: 1; }
+  }
+  @media (max-width: 36rem) {
+    .accessories-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .accessory-card__image { aspect-ratio: 16 / 9; }
+    .starter-kit { padding: 1.3rem; }
+    .starter-kit .button-link { width: 100%; }
+    .hero-team { align-items: flex-start; }
+    .hero-team__portraits :global(img) { width: 2.25rem; height: 2.25rem; }
   }
-
-  .editorial-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 8fr) minmax(18rem, 4fr);
-    gap: 0.75rem;
-    padding-block: 1.5rem 2rem;
-  }
-
-  .lead-feature {
-    display: grid;
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    min-height: 30rem;
-    overflow: hidden;
-    color: var(--color-white);
-    background: var(--color-carbon);
-  }
-
-  .lead-feature__copy {
-    display: flex;
-    position: relative;
-    z-index: 1;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: clamp(1.75rem, 3vw, 2.75rem);
-  }
-
-  .lead-feature .feature-kicker,
-  .choice-guide .feature-kicker,
-  .rss-panel .feature-kicker {
-    color: var(--color-reading);
-  }
-
-  .lead-feature h1 {
-    max-width: 10ch;
-    margin: auto 0 0.8rem;
-    font-size: clamp(3.15rem, 4.8vw, 4.9rem);
-    line-height: 0.91;
-    letter-spacing: -0.04em;
-  }
-
-  .lead-feature__story-title {
-    max-width: 28ch;
-    margin: 0 0 0.8rem;
-    color: var(--color-white);
-    font-size: clamp(1.35rem, 2.1vw, 1.8rem);
-    line-height: 1.05;
-  }
-
-  .lead-feature__mission {
-    max-width: 38rem;
-    margin: 0 0 1.25rem;
-    color: var(--color-carbon-muted);
-    font-size: 1rem;
-    line-height: 1.55;
-  }
-
-  .lead-feature__summary {
-    max-width: 38rem;
-    color: var(--color-carbon-muted);
-    font-size: 1rem;
-    line-height: 1.55;
-  }
-
-  .lead-feature__filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
-  }
-
-  .lead-feature__filters span {
-    min-height: 2rem;
-    padding: 0.42rem 0.58rem;
-    border: 1px solid var(--color-carbon-line);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-  }
-
-  .feature-action {
-    display: inline-flex;
-    min-height: 3rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    padding: 0.75rem 1rem;
-    color: var(--color-white);
-    background: var(--color-probe);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 160ms ease-out, background 160ms ease-out, transform 160ms ease-out;
-  }
-
-  .feature-action:hover {
-    color: var(--color-carbon);
-    background: var(--color-white);
-    transform: translateY(-2px);
-  }
-
-  .lead-feature__visual {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 1.5rem 1.5rem 1rem 0;
-  }
-
-  .lead-feature__visual img {
-    width: 100%;
-    height: auto;
-    filter: invert(1) grayscale(1) contrast(1.15);
-    mix-blend-mode: screen;
-  }
-
-  .lead-feature__visual--documentary {
-    padding: 0;
-  }
-
-  .lead-feature__visual-frame {
-    flex: 1;
-    min-height: 30rem;
-    overflow: hidden;
-  }
-
-  .lead-feature__visual-frame img {
-    width: 100%;
-    height: 100%;
-    min-height: 30rem;
-    object-fit: cover;
-    filter: none;
-    mix-blend-mode: normal;
-  }
-
-  .lead-feature__visual--documentary figcaption {
-    padding: 0.5rem 0.75rem;
-    border: 0;
-    background: var(--color-carbon);
-  }
-
-  .lead-feature__visual figcaption {
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-carbon-line);
-    color: var(--color-carbon-muted);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    line-height: 1.45;
-  }
-
-  .hero-side {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .side-story {
-    display: flex;
-    min-height: 0;
-    flex-direction: column;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-    border: 1px solid var(--color-line);
-    background: var(--color-steel-soft);
-    text-decoration: none;
-    transition: border-color 160ms ease-out, transform 160ms ease-out;
-  }
-
-  .side-story:hover {
-    border-color: var(--color-probe);
-    transform: translateY(-2px);
-  }
-
-  .side-story__meta {
-    color: var(--color-probe);
-  }
-
-  .side-story h2 {
-    max-width: 13ch;
-    margin: auto 0 0.75rem;
-    font-size: clamp(2rem, 3vw, 3rem);
-    line-height: 0.96;
-  }
-
-  .side-story p {
-    color: var(--color-graphite);
-    font-size: 0.88rem;
-    line-height: 1.55;
-  }
-
-  .side-story__link {
-    margin-top: auto;
-    color: var(--color-probe);
-    font-weight: 600;
-  }
-
-  .side-story--dark {
-    color: var(--color-white);
-    border-color: var(--color-carbon);
-    background: var(--color-carbon);
-  }
-
-  .side-story--dark .side-story__meta,
-  .side-story--dark .side-story__link {
-    color: var(--color-reading);
-  }
-
-  .side-story--dark p {
-    color: var(--color-carbon-muted);
-  }
-
-  .corpus-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding-block: 1.1rem;
-    border-block: 1px solid var(--color-line);
-  }
-
-  .corpus-strip > div {
-    padding-inline: 1.25rem;
-    border-right: 1px solid var(--color-line);
-  }
-
-  .corpus-strip > div:first-child {
-    padding-left: 0;
-  }
-
-  .corpus-strip > div:last-child {
-    padding-right: 0;
-    border-right: 0;
-  }
-
-  .corpus-strip strong,
-  .corpus-strip span {
-    display: block;
-  }
-
-  .corpus-strip strong {
-    margin-bottom: 0.3rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-    line-height: 1;
-  }
-
-  .corpus-strip span {
-    color: var(--color-graphite);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    line-height: 1.45;
-    text-transform: uppercase;
-  }
-
-  .featured-dossiers,
-  .new-dossiers,
-  .reading-desk,
-  .method-strip {
-    padding-block: clamp(2.5rem, 3.5vw, 3rem);
-  }
-
-  .accessories-doorway {
-    color: var(--color-white);
-    background: var(--color-carbon);
-  }
-
-  .accessories-doorway__grid {
-    display: grid;
-    grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
-    gap: clamp(2rem, 4vw, 4rem);
-    padding-block: clamp(2.5rem, 4vw, 4rem);
-  }
-
-  .accessories-doorway .feature-kicker {
-    color: var(--color-reading);
-  }
-
-  .accessories-doorway__intro {
-    align-self: center;
-  }
-
-  .accessories-doorway__intro h2 {
-    max-width: 10ch;
-    margin: 1.5rem 0 1rem;
-    font-size: clamp(3rem, 4.8vw, 4.8rem);
-    line-height: 0.91;
-  }
-
-  .accessories-doorway__intro > p:not(.feature-kicker) {
-    max-width: 34rem;
-    color: var(--color-carbon-muted);
-    line-height: 1.6;
-  }
-
-  .accessories-doorway__list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-content: center;
-    border-top: 1px solid var(--color-carbon-line);
-  }
-
-  .accessories-doorway__list > a {
-    display: grid;
-    grid-template-columns: minmax(6.5rem, 10rem) minmax(0, 1fr) auto;
-    gap: 1rem;
-    align-items: center;
-    min-height: 10rem;
-    padding-block: 1rem;
-    border-bottom: 1px solid var(--color-carbon-line);
-    text-decoration: none;
-  }
-
-  .accessories-doorway__list > a:nth-child(odd) {
-    padding-inline-end: 1.25rem;
-  }
-
-  .accessories-doorway__list > a:nth-child(even) {
-    padding-inline-start: 1.25rem;
-    border-inline-start: 1px solid var(--color-carbon-line);
-  }
-
-  .accessories-doorway__media {
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 16 / 10;
-    background: var(--color-steel-soft);
-  }
-
-  .accessories-doorway__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 220ms ease-out;
-  }
-
-  .accessories-doorway__copy {
-    display: grid;
-    gap: 0.35rem;
-    min-width: 0;
-  }
-
-  .accessories-doorway__copy small,
-  .accessories-doorway__copy b {
-    color: var(--color-reading);
-    font-family: var(--font-data);
-    font-size: 0.7rem;
-    font-weight: 500;
-    line-height: 1.4;
-    text-transform: uppercase;
-  }
-
-  .accessories-doorway__copy strong {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 2.1vw, 2.1rem);
-    line-height: 0.98;
-  }
-
-  .accessories-doorway__copy > span {
-    display: -webkit-box;
-    overflow: hidden;
-    color: var(--color-carbon-muted);
-    font-size: 0.78rem;
-    line-height: 1.45;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  .accessories-doorway__arrow {
-    color: var(--color-reading);
-    font-size: 1.25rem;
-  }
-
-  .accessories-doorway__list > a:hover strong {
-    color: var(--color-reading);
-  }
-
-  .accessories-doorway__list > a:hover img {
-    transform: scale(1.025);
-  }
-
-  .new-dossiers {
-    display: grid;
-    grid-template-columns: minmax(15rem, 4fr) minmax(0, 8fr);
-    gap: 1.5rem;
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .new-dossiers > header {
-    align-self: end;
-  }
-
-  .new-dossiers > header h2 {
-    max-width: 14ch;
-    margin-bottom: 0.75rem;
-    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
-    line-height: 0.98;
-  }
-
-  .new-dossiers > header > p:last-child {
-    max-width: 33rem;
-    margin-bottom: 0;
-    color: var(--color-graphite);
-    line-height: 1.55;
-  }
-
-  .new-dossiers__list {
-    border-top: 1px solid var(--color-carbon);
-  }
-
-  .new-dossiers__list > a {
-    display: grid;
-    grid-template-columns: 11rem minmax(0, 1fr);
-    gap: 1rem;
-    min-height: 10rem;
-    padding-block: 0.75rem;
-    border-bottom: 1px solid var(--color-line);
-    text-decoration: none;
-  }
-
-  .new-dossiers__media {
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 16 / 10;
-    background: var(--color-steel-soft);
-  }
-
-  .new-dossiers__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .new-dossiers__copy {
-    display: grid;
-    align-content: center;
-    gap: 0.35rem;
-    min-width: 0;
-  }
-
-  .new-dossiers__copy small,
-  .new-dossiers__copy b {
-    color: var(--color-probe);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .new-dossiers__copy strong {
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 2vw, 2rem);
-    line-height: 1;
-  }
-
-  .new-dossiers__copy > span {
-    color: var(--color-graphite);
-    font-size: 0.85rem;
-    line-height: 1.45;
-  }
-
-  .new-dossiers__copy b {
-    margin-top: 0.15rem;
-  }
-
-  .new-dossiers__list > a:hover strong {
-    color: var(--color-probe);
-  }
-
-  .section-bar {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 2rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--color-carbon);
-  }
-
-  .section-bar h2 {
-    max-width: 22ch;
-    margin: 0;
-    font-size: clamp(2.35rem, 3.8vw, 3.8rem);
-    line-height: 0.96;
-  }
-
-  .section-bar > a {
-    min-height: 2.75rem;
-    color: var(--color-probe);
-    font-weight: 600;
-  }
-
-  .dossier-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-left: 1px solid var(--color-line);
-  }
-
-  .dossier-card {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    min-width: 0;
-    border-block: 1px solid var(--color-line);
-    border-right: 1px solid var(--color-line);
-    background: var(--color-white);
-    text-decoration: none;
-    transition: color 160ms ease-out, background 160ms ease-out;
-  }
-
-  .dossier-card:first-child {
-    color: var(--color-white);
-    border-color: var(--color-carbon);
-    background: var(--color-carbon);
-  }
-
-  .dossier-card:hover {
-    color: var(--color-white);
-    background: var(--color-probe);
-  }
-
-  .dossier-card__media {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 16 / 10;
-    background: var(--color-steel-soft);
-  }
-
-  .dossier-card__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 220ms ease-out;
-  }
-
-  .dossier-card:hover .dossier-card__media img {
-    transform: scale(1.025);
-  }
-
-  .dossier-card__index {
-    position: absolute;
-    top: 0.65rem;
-    right: 0.65rem;
-    min-width: 2.5rem;
-    padding: 0.35rem 0.45rem;
-    color: var(--color-white);
-    background: color-mix(in srgb, var(--color-carbon) 88%, transparent);
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    line-height: 1;
-    text-align: center;
-  }
-
-  .dossier-card__content {
-    display: flex;
-    min-height: 14rem;
-    flex-direction: column;
-    padding: 1rem;
-  }
-
-  .dossier-card__type {
-    color: var(--color-probe);
-  }
-
-  .dossier-card:first-child .dossier-card__type,
-  .dossier-card:hover .dossier-card__type,
-  .dossier-card:hover .dossier-card__summary,
-  .dossier-card:hover .dossier-card__meta {
-    color: inherit;
-  }
-
-  .dossier-card h3 {
-    margin: 1rem 0 0.8rem;
-    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
-    line-height: 0.98;
-  }
-
-  .dossier-card__summary {
-    display: -webkit-box;
-    overflow: hidden;
-    color: var(--color-graphite);
-    font-size: 0.84rem;
-    line-height: 1.55;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
-
-  .dossier-card:first-child .dossier-card__summary,
-  .dossier-card:first-child .dossier-card__meta {
-    color: var(--color-carbon-muted);
-  }
-
-  .dossier-card__meta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.25rem 0.75rem;
-    margin-top: auto;
-    padding-top: 0.9rem;
-    color: var(--color-graphite);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    line-height: 1.4;
-    text-transform: uppercase;
-  }
-
-  .dossier-card__link {
-    margin-top: 0.65rem;
-    font-weight: 600;
-  }
-
-  .choice-guide {
-    color: var(--color-white);
-    background: var(--color-carbon);
-  }
-
-  .choice-guide__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: clamp(2rem, 4vw, 4rem);
-    padding-block: clamp(2.5rem, 3.5vw, 3rem);
-  }
-
-  .choice-guide__intro h2 {
-    max-width: 10ch;
-    margin-bottom: 1.5rem;
-    font-size: clamp(3rem, 4.8vw, 4.8rem);
-    line-height: 0.91;
-  }
-
-  .choice-guide__intro > p:not(.feature-kicker) {
-    max-width: 35rem;
-    color: var(--color-carbon-muted);
-    line-height: 1.6;
-  }
-
-  .choice-guide__intro > a {
-    display: inline-flex;
-    min-height: 2.75rem;
-    align-items: center;
-    margin-top: 1rem;
-    color: var(--color-reading);
-    font-weight: 600;
-  }
-
-  .choice-guide nav {
-    border-top: 1px solid var(--color-carbon-line);
-  }
-
-  .choice-guide nav a {
-    display: grid;
-    grid-template-columns: 2.5rem 8rem minmax(0, 1fr) auto;
-    gap: 1rem;
-    align-items: center;
-    min-height: 4.8rem;
-    padding-block: 0.75rem;
-    border-bottom: 1px solid var(--color-carbon-line);
-    text-decoration: none;
-  }
-
-  .choice-guide nav span,
-  .choice-guide nav small {
-    color: var(--color-carbon-muted);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    line-height: 1.45;
-    text-transform: uppercase;
-  }
-
-  .choice-guide nav strong {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-  }
-
-  .choice-guide nav b {
-    color: var(--color-reading);
-    font-weight: 500;
-  }
-
-  .choice-guide nav a:hover strong {
-    color: var(--color-reading);
-  }
-
-  .reading-desk {
-    display: grid;
-    grid-template-columns: minmax(0, 8fr) minmax(18rem, 4fr);
-    gap: 1.5rem;
-  }
-
-  .compact-list {
-    border-top: 1px solid var(--color-line);
-  }
-
-  .compact-list a {
-    display: grid;
-    grid-template-columns: 7.5rem minmax(0, 1fr) auto;
-    gap: 0.9rem;
-    align-items: center;
-    min-height: 5.75rem;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--color-line);
-    text-decoration: none;
-  }
-
-  .compact-list a:hover strong,
-  .compact-list a:hover > span:last-child {
-    color: var(--color-probe);
-  }
-
-  .compact-list strong,
-  .compact-list small {
-    display: block;
-  }
-
-  .compact-list strong {
-    margin-bottom: 0.35rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.35rem, 2vw, 1.85rem);
-    line-height: 1;
-  }
-
-  .compact-list small {
-    max-width: 52rem;
-    color: var(--color-graphite);
-    font-size: 0.75rem;
-    line-height: 1.4;
-  }
-
-  .compact-list__media {
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 16 / 10;
-    background: var(--color-steel-soft);
-  }
-
-  .compact-list__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .compact-list__byline {
-    margin-top: 0.35rem;
-    font-family: var(--font-data);
-    font-size: 0.75rem !important;
-    text-transform: uppercase;
-  }
-
-  .compact-list a > span:last-child {
-    color: var(--color-probe);
-    font-size: 1.25rem;
-  }
-
-  .rss-panel {
-    align-self: stretch;
-    padding: clamp(2rem, 4vw, 3rem);
-    color: var(--color-white);
-    background: var(--color-carbon);
-  }
-
-  .rss-panel h2 {
-    max-width: 12ch;
-    margin: clamp(1.5rem, 2.5vw, 2.25rem) 0 1rem;
-    font-size: clamp(2.25rem, 3.4vw, 3.4rem);
-    line-height: 0.96;
-  }
-
-  .rss-panel > p:not(.feature-kicker) {
-    color: var(--color-carbon-muted);
-    line-height: 1.6;
-  }
-
-  .rss-panel small {
-    display: block;
-    margin-top: 1rem;
-    color: var(--color-carbon-muted);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-    line-height: 1.45;
-    text-transform: uppercase;
-  }
-
-  .method-strip {
-    border-top: 1px solid var(--color-carbon);
-  }
-
-  .method-strip .feature-kicker {
-    margin-bottom: 0.75rem;
-    color: var(--color-probe);
-  }
-
-  .method-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-left: 1px solid var(--color-line);
-  }
-
-  .method-grid > div {
-    min-height: 11rem;
-    padding: 1rem;
-    border-block: 1px solid var(--color-line);
-    border-right: 1px solid var(--color-line);
-  }
-
-  .method-step {
-    color: var(--color-probe);
-    font-family: var(--font-data);
-    font-size: 0.75rem;
-  }
-
-  .method-grid h3 {
-    margin: 1.25rem 0 0.65rem;
-    font-size: 1.7rem;
-    line-height: 1;
-  }
-
-  .method-grid p {
-    margin: 0;
-    color: var(--color-graphite);
-    font-size: 0.84rem;
-    line-height: 1.55;
-  }
-
-  .trust-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 2rem;
-    margin-top: 1.5rem;
-  }
-
-  .trust-links a {
-    display: inline-flex;
-    min-height: 2.75rem;
-    align-items: center;
-    color: var(--color-probe);
-    font-weight: 600;
-  }
-
-  .lead-feature :focus-visible,
-  .side-story--dark:focus-visible,
-  .accessories-doorway :focus-visible,
-  .choice-guide :focus-visible,
-  .rss-panel :focus-visible,
-  .dossier-card:first-child:focus-visible {
-    outline-color: var(--color-reading);
-  }
-
-  @media (max-width: 56rem) {
-    .editorial-hero,
-    .accessories-doorway__grid,
-    .new-dossiers,
-    .reading-desk {
-      grid-template-columns: 1fr;
-    }
-
-    .new-dossiers > header h2,
-    .new-dossiers > header > p:last-child {
-      max-width: 35rem;
-    }
-
-    .accessories-doorway__intro h2,
-    .accessories-doorway__intro > p:not(.feature-kicker) {
-      max-width: 35rem;
-    }
-
-    .hero-side {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .side-story {
-      min-height: 18rem;
-    }
-
-    .corpus-strip,
-    .dossier-grid,
-    .method-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .corpus-strip > div:nth-child(2) {
-      border-right: 0;
-    }
-
-    .corpus-strip > div:nth-child(n + 3) {
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--color-line);
-    }
-
-    .method-grid > div:last-child {
-      grid-column: 1 / -1;
-      min-height: auto;
-    }
-
-    .dossier-card {
-      min-height: 0;
-    }
-
-    .choice-guide__grid {
-      gap: 2rem;
-    }
-
-    .rss-panel h2 {
-      margin-top: 1.5rem;
-    }
-  }
-
-  @media (max-width: 40rem) {
-    .editorial-hero {
-      gap: 0.75rem;
-      padding-top: 0.75rem;
-    }
-
-    .lead-feature {
-      grid-template-columns: 1fr;
-    }
-
-    .lead-feature h1 {
-      margin-top: 2rem;
-      font-size: clamp(3.5rem, 15vw, 4.8rem);
-    }
-
-    .lead-feature__visual--documentary {
-      aspect-ratio: auto;
-      padding: 0;
-    }
-
-    .lead-feature__visual-frame {
-      min-height: 0;
-      flex: none;
-    }
-
-    .lead-feature__visual-frame img {
-      height: auto;
-      min-height: 0;
-      aspect-ratio: 16 / 9;
-    }
-
-    .hero-side,
-    .choice-guide__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .side-story {
-      min-height: 16rem;
-    }
-
-    .corpus-strip {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .new-dossiers__list > a {
-      grid-template-columns: 8rem minmax(0, 1fr);
-      min-height: 8rem;
-    }
-
-    .accessories-doorway__list {
-      grid-template-columns: 1fr;
-    }
-
-    .accessories-doorway__list > a:nth-child(odd),
-    .accessories-doorway__list > a:nth-child(even) {
-      padding-inline: 0;
-      border-inline-start: 0;
-    }
-
-    .accessories-doorway__list > a {
-      grid-template-columns: 7rem minmax(0, 1fr) auto;
-      min-height: 8.5rem;
-    }
-
-    .new-dossiers__copy > span {
-      display: -webkit-box;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-    }
-
-    .section-bar {
-      display: grid;
-      align-items: start;
-      gap: 1rem;
-    }
-
-    .dossier-card {
-      min-height: 0;
-    }
-
-    .choice-guide__intro h2 {
-      font-size: clamp(3.2rem, 14vw, 4.6rem);
-    }
-
-    .accessories-doorway__intro h2 {
-      font-size: clamp(3.2rem, 14vw, 4.6rem);
-    }
-
-    .choice-guide nav a {
-      grid-template-columns: 2rem minmax(0, 1fr) auto;
-    }
-
-    .choice-guide nav small {
-      grid-column: 2;
-    }
-
-    .choice-guide nav b {
-      grid-column: 3;
-      grid-row: 1 / span 2;
-    }
-
-    .reading-desk {
-      gap: 2rem;
-    }
-  }
-
-  @media (max-width: 32rem) {
-    .corpus-strip,
-    .dossier-grid,
-    .method-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .corpus-strip > div {
-      padding: 1rem 0;
-      border-top: 1px solid var(--color-line);
-      border-right: 0;
-    }
-
-    .corpus-strip > div:first-child {
-      border-top: 0;
-    }
-
-    .corpus-strip > div:nth-child(n + 3) {
-      margin-top: 0;
-    }
-
-    .dossier-card,
-    .method-grid > div {
-      min-height: auto;
-    }
-
-    .method-grid > div:last-child {
-      grid-column: auto;
-    }
-
-    .method-grid h3 {
-      margin-top: 2.5rem;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .feature-action,
-    .side-story,
-    .dossier-card,
-    .dossier-card__media img {
-      transition: none;
-    }
-
-    .accessories-doorway__media img {
-      transition: none;
-    }
-
-    .feature-action:hover,
-    .side-story:hover {
-      transform: none;
-    }
-
-    .dossier-card:hover .dossier-card__media img {
-      transform: none;
-    }
-
-    .accessories-doorway__list > a:hover img {
-      transform: none;
-    }
+    .accessory-card__image img, .oven-card__image img { transition: none; }
+    .accessory-card__image:hover img, .oven-card__image:hover img { transform: none; }
   }
 </style>

@@ -46,6 +46,26 @@ jobs:
           curl --fail --silent --show-error http://127.0.0.1:4321/health
           curl --fail --silent --show-error http://127.0.0.1:4321/robots.txt
 
+      - name: Install browser checks
+        run: |
+          npm install --prefix "$RUNNER_TEMP/fouranu-browser" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.61.1
+          node "$RUNNER_TEMP/fouranu-browser/node_modules/playwright/cli.js" install --with-deps chromium
+
+      - name: Verify browser journeys
+        env:
+          FOURANU_PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/fouranu-browser/package.json
+          FOURANU_BROWSER_OUTPUT: ${{ runner.temp }}/fouranu-browser-results
+        run: node site/scripts/browser-smoke.mjs
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: four-a-nu-browser-${{ github.sha }}
+          path: ${{ runner.temp }}/fouranu-browser-results
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Stop integrated site
         if: always()
         run: docker compose down

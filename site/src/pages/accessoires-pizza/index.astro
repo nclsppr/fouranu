@@ -87,6 +87,14 @@ const schema = {
       <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
+    <nav class="accessory-shortcuts" aria-label={copy.jumpLabel}>
+      {articles.map((entry, index) => (
+        <a href={`#${entry.data.articleId.toLowerCase()}`}>
+          {copy.shortcuts[index]} <span aria-hidden="true">↓</span>
+        </a>
+      ))}
+    </nav>
+
     <section class="accessories-list" aria-labelledby="accessories-list-title">
       <header>
         <p class="eyebrow">{copy.listEyebrow}</p>
@@ -95,7 +103,7 @@ const schema = {
 
       <div>
         {articles.map((entry, index) => (
-          <article>
+          <article id={entry.data.articleId.toLowerCase()}>
             <a class="accessory-media" href={articleRoute(entry.data.articleId as ArticleId, locale)}>
               <img
                 src={entry.data.image!.src}
@@ -138,6 +146,43 @@ const schema = {
 <style>
   .accessories-intro h1 {
     max-width: 14ch;
+  }
+
+  .accessory-shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .accessory-shortcuts a {
+    display: inline-flex;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--color-line);
+    color: var(--color-probe);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .accessory-shortcuts a:hover {
+    border-color: var(--color-probe);
+    color: var(--color-white);
+    background: var(--color-probe);
+  }
+
+  .accessory-shortcuts a:focus-visible {
+    outline: 2px solid var(--color-probe);
+    outline-offset: 4px;
+  }
+
+  .accessories-list article {
+    scroll-margin-top: 2rem;
   }
 
   .accessories-list {

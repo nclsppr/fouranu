@@ -6,6 +6,27 @@ importantes.
 
 ## Non publié
 
+### 2026-11-10 - Blog personnel et priorité aux achats affiliés
+
+- La une présente Nicolas, Florian et Magali, donne priorité aux quatre guides
+  accessoires et aux cinq fours avec offres Amazon référencées, et relie les
+  décisions d'achat avant les gammes fabricant. Les rubriques gardent le même
+  parcours en français, anglais et allemand.
+- Tous les boutons d'achat sont désormais affiliés Amazon.fr avec destination
+  exacte, identifiant `fouranu-21` et déclaration avant le clic. Un dossier sans
+  offre affiliée n'affiche plus de bouton fabricant de secours. Les sources et
+  notices restent directes et consultables.
+- Deux nouveaux dossiers trilingues complètent le corpus : kit utile pour un
+  premier four et choix entre G3 Ferrari Delizia et Cuisinart. Ils portent le
+  total à 33 guides par langue, sans nouveau média ni faux essai physique.
+- L'ADR-0012 inscrit l'objectif de rentabilité et distingue mise en avant
+  commerciale, critères de recommandation et commissions réellement confirmées.
+  Aucun prix, stock actuel ou résultat financier n'est inventé.
+- La CI prépare un contrôle Chromium sur 45 parcours à 320, 360 et 1 280 px,
+  avec clavier, focus, mouvement réduit, images, réseau et captures. Les
+  résultats effectivement acquis et les limites locales sont dans `STATUS.md`.
+
+
 ## 2026-09-08 - Parité de structure et de lecture FR/EN/DE
 
 - Correction de la parité FR/EN/DE : les accueils, rubriques, pages de confiance,

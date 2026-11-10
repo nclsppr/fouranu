@@ -9,10 +9,10 @@ Moteur déclaré : `nimbus`.
 | Collection | Visibilité | Fichiers |
 | --- | --- | ---: |
 | Documentation du projet | `internal` | 17 |
-| Décisions | `internal` | 10 |
+| Décisions | `internal` | 11 |
 | Barrières de publication | `internal` | 2 |
 | Notes de recherche | `internal` | 1 |
-| Brouillons éditoriaux du site | `internal` | 93 |
+| Brouillons éditoriaux du site | `internal` | 99 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
 
@@ -48,6 +48,7 @@ Moteur déclaré : `nimbus`.
 - [docs/decisions/0009-site-trilingue-fr-en-de.md](docs/decisions/0009-site-trilingue-fr-en-de.md)
 - [docs/decisions/0010-aide-achat-documentaire-permanente.md](docs/decisions/0010-aide-achat-documentaire-permanente.md)
 - [docs/decisions/0011-parite-structurelle-fr-en-de.md](docs/decisions/0011-parite-structurelle-fr-en-de.md)
+- [docs/decisions/0012-priorite-commerciale-et-achats-affilies.md](docs/decisions/0012-priorite-commerciale-et-achats-affilies.md)
 
 ## Barrières de publication
 
@@ -75,7 +76,9 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/de/cuisinart-cpz120e.md](site/src/content/analyses/de/cuisinart-cpz120e.md)
 - [site/src/content/analyses/de/dome-gen-2.md](site/src/content/analyses/de/dome-gen-2.md)
 - [site/src/content/analyses/de/dome-xl-gen-2.md](site/src/content/analyses/de/dome-xl-gen-2.md)
+- [site/src/content/analyses/de/erster-pizzaofen-zubehoer.md](site/src/content/analyses/de/erster-pizzaofen-zubehoer.md)
 - [site/src/content/analyses/de/g3-ferrari-delizia-g10006.md](site/src/content/analyses/de/g3-ferrari-delizia-g10006.md)
+- [site/src/content/analyses/de/g3-ferrari-delizia-oder-cuisinart.md](site/src/content/analyses/de/g3-ferrari-delizia-oder-cuisinart.md)
 - [site/src/content/analyses/de/gas-elektro-oder-multibrennstoff.md](site/src/content/analyses/de/gas-elektro-oder-multibrennstoff.md)
 - [site/src/content/analyses/de/halo-core-oder-halo-pro.md](site/src/content/analyses/de/halo-core-oder-halo-pro.md)
 - [site/src/content/analyses/de/infrarotthermometer-ratgeber.md](site/src/content/analyses/de/infrarotthermometer-ratgeber.md)
@@ -109,7 +112,9 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/en/dome-gen-2.md](site/src/content/analyses/en/dome-gen-2.md)
 - [site/src/content/analyses/en/dome-xl-gen-2.md](site/src/content/analyses/en/dome-xl-gen-2.md)
 - [site/src/content/analyses/en/dough-boxes-guide.md](site/src/content/analyses/en/dough-boxes-guide.md)
+- [site/src/content/analyses/en/first-pizza-oven-kit.md](site/src/content/analyses/en/first-pizza-oven-kit.md)
 - [site/src/content/analyses/en/g3-ferrari-delizia-g10006.md](site/src/content/analyses/en/g3-ferrari-delizia-g10006.md)
+- [site/src/content/analyses/en/g3-ferrari-delizia-or-cuisinart.md](site/src/content/analyses/en/g3-ferrari-delizia-or-cuisinart.md)
 - [site/src/content/analyses/en/gas-electric-or-multi-fuel.md](site/src/content/analyses/en/gas-electric-or-multi-fuel.md)
 - [site/src/content/analyses/en/halo-core-or-halo-pro.md](site/src/content/analyses/en/halo-core-or-halo-pro.md)
 - [site/src/content/analyses/en/infrared-thermometer-guide.md](site/src/content/analyses/en/infrared-thermometer-guide.md)
@@ -134,11 +139,13 @@ Moteur déclaré : `nimbus`.
 - [site/src/content/analyses/en/which-ooni-oven.md](site/src/content/analyses/en/which-ooni-oven.md)
 - [site/src/content/analyses/en/witt-etna-rotante.md](site/src/content/analyses/en/witt-etna-rotante.md)
 - [site/src/content/analyses/g3-ferrari-delizia-g10006.md](site/src/content/analyses/g3-ferrari-delizia-g10006.md)
+- [site/src/content/analyses/g3-ferrari-delizia-ou-cuisinart.md](site/src/content/analyses/g3-ferrari-delizia-ou-cuisinart.md)
 - [site/src/content/analyses/gaz-electrique-ou-multicombustible.md](site/src/content/analyses/gaz-electrique-ou-multicombustible.md)
 - [site/src/content/analyses/halo-core-ou-halo-pro.md](site/src/content/analyses/halo-core-ou-halo-pro.md)
 - [site/src/content/analyses/karu-12.md](site/src/content/analyses/karu-12.md)
 - [site/src/content/analyses/karu-2-pro.md](site/src/content/analyses/karu-2-pro.md)
 - [site/src/content/analyses/karu-2.md](site/src/content/analyses/karu-2.md)
+- [site/src/content/analyses/kit-premier-four-pizza.md](site/src/content/analyses/kit-premier-four-pizza.md)
 - [site/src/content/analyses/koda-12.md](site/src/content/analyses/koda-12.md)
 - [site/src/content/analyses/koda-16.md](site/src/content/analyses/koda-16.md)
 - [site/src/content/analyses/koda-2-max.md](site/src/content/analyses/koda-2-max.md)

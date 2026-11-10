@@ -100,26 +100,13 @@ const schema = {
       <p class="page-intro__aside">{copy.aside}</p>
     </header>
 
-    <DecisionFinder locale={locale} />
+    <nav class="hub-shortcuts" aria-label={copy.jumpLabel}>
+      <a href="#selection">{copy.selectionLink} <span aria-hidden="true">↓</span></a>
+      <a href="#trouver-mon-four">{copy.finderLink} <span aria-hidden="true">↓</span></a>
+      <a href="#lieu">{copy.criteriaLink} <span aria-hidden="true">↓</span></a>
+    </nav>
 
-    <div class="constraint-list">
-      {copy.constraints.map((constraint) => (
-        <section id={constraint.id}>
-          <span>{constraint.label}</span>
-          <div>
-            <h2>{constraint.heading}</h2>
-            <p>{constraint.body}</p>
-          </div>
-          {"link" in constraint ? (
-            <a href={articleRoute("OONI-004", locale)}>{constraint.link} <span aria-hidden="true">↗</span></a>
-          ) : (
-            <p class="constraint-list__check">{constraint.check}</p>
-          )}
-        </section>
-      ))}
-    </div>
-
-    <section class="model-dossiers" aria-labelledby="model-dossiers-title">
+    <section id="selection" class="model-dossiers" aria-labelledby="model-dossiers-title">
       <header class="model-dossiers__head">
         <p class="eyebrow">{copy.dossiersEyebrow}</p>
         <h2 id="model-dossiers-title">{copy.dossiersHeading}</h2>
@@ -154,6 +141,26 @@ const schema = {
       </div>
     </section>
 
+    <DecisionFinder locale={locale} />
+
+    <div class="constraint-list">
+      {copy.constraints.map((constraint) => (
+        <section id={constraint.id}>
+          <span>{constraint.label}</span>
+          <div>
+            <h2>{constraint.heading}</h2>
+            <p>{constraint.body}</p>
+          </div>
+          {"link" in constraint ? (
+            <a href={articleRoute("OONI-004", locale)}>{constraint.link} <span aria-hidden="true">↗</span></a>
+          ) : (
+            <p class="constraint-list__check">{constraint.check}</p>
+          )}
+        </section>
+      ))}
+    </div>
+
+
     <aside class="next-step">
       <p class="eyebrow">{copy.nextEyebrow}</p>
       <h2>{copy.nextHeading}</h2>
@@ -167,6 +174,49 @@ const schema = {
 </BaseLayout>
 
 <style>
+  .hub-shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .hub-shortcuts a {
+    display: inline-flex;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--color-line);
+    color: var(--color-probe);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .hub-shortcuts a:first-child {
+    border-color: var(--color-probe);
+    color: var(--color-white);
+    background: var(--color-probe);
+  }
+
+  .hub-shortcuts a:hover {
+    border-color: var(--color-carbon);
+    color: var(--color-white);
+    background: var(--color-carbon);
+  }
+
+  .hub-shortcuts a:focus-visible {
+    outline: 2px solid var(--color-carbon);
+    outline-offset: 4px;
+  }
+
+  .model-dossiers {
+    scroll-margin-top: 2rem;
+  }
+
   .constraint-list {
     border-top: 1px solid var(--color-carbon);
   }

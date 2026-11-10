@@ -82,10 +82,10 @@ const schema = {
       </figure>
       <div class="lead-feature__copy">
         <p class="eyebrow">{copy.hero.featured}</p>
-        <h2><a href={articleRoute(lead.data.articleId as ArticleId, locale)}>{lead.data.title}</a></h2>
+        <h2><a href={articleRoute(lead.data.articleId as ArticleId, locale)}>{copy.hero.productTitle}</a></h2>
         <p>{lead.data.summary}</p>
         <div class="home-purchase">
-          <p class="home-purchase__disclosure"><a href={staticRoute("transparency", locale)}>{copy.purchase.disclosure}</a></p>
+          <p class="home-purchase__disclosure">{copy.purchase.disclosure}</p>
           <a class="button-link" href={leadPurchaseLink.url} rel={affiliateRel(leadPurchaseLink.url)} data-affiliate="amazon" data-commercial-object={leadPurchaseLink.objectId} data-purchase-placement="home-hero" aria-label={`${copy.purchase.action} : ${lead.data.model}`}>
             {copy.purchase.action} <span aria-hidden="true">↗</span>
           </a>
@@ -145,7 +145,7 @@ const schema = {
               <p>{entry.data.summary}</p>
               <p class="byline">{copy.common.by} {localized.authors[entry.data.author].name}</p>
               <div class="home-purchase">
-                <p class="home-purchase__disclosure"><a href={staticRoute("transparency", locale)}>{copy.purchase.disclosure}</a></p>
+                <p class="home-purchase__disclosure">{copy.purchase.disclosure}</p>
                 <a class="button-link" href={purchase.url} rel={affiliateRel(purchase.url)} data-affiliate="amazon" data-commercial-object={purchase.objectId} data-purchase-placement="home-oven" aria-label={`${copy.purchase.action} : ${entry.data.model}`}>
                   {copy.purchase.action} <span aria-hidden="true">↗</span>
                 </a>
@@ -245,7 +245,7 @@ const schema = {
   .oven-card .text-action { padding-block: .3rem; font-size: .86rem; }
   .home-purchase { width: 100%; margin-top: auto; padding-top: .45rem; }
   .home-purchase__disclosure { margin: 0 0 .4rem; font-size: .72rem; line-height: 1.5; }
-  .home-purchase__disclosure a { color: var(--color-graphite); text-underline-offset: .2em; }
+  .home-purchase__disclosure { color: var(--color-graphite); }
   .home-purchase .button-link { width: 100%; min-height: 3rem; font-size: .86rem; line-height: 1.35; text-align: left; }
   .home-purchase .button-link > span { flex-shrink: 0; }
   .lead-feature__copy > .text-action { margin-top: .3rem; font-size: .86rem; }

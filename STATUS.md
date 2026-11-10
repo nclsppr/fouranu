@@ -49,8 +49,27 @@ Les sources, limites et déclarations restent accessibles avant le clic.
 Le contrôle navigateur est étendu à 21 routes, cinq largeurs de 320 à 1 440 px
 et aux boutons réels : cibles, focus, débordement et contraste normal/survol.
 Un job après déploiement vérifie le SHA de `/release.json` avant et après les
-105 parcours sur `https://fouranu.com`. Il ne visite pas Amazon. Ces nouveaux
-contrôles sont préparés ; leurs résultats seront consignés après exécution.
+105 parcours sur `https://fouranu.com`. Il ne visite pas Amazon.
+
+Cette passe est déployée au SHA `dbc786da9f1f10ebbec1301baa1d3c4094db7a3a`,
+confirmé par `/release.json`. Le
+[run `42905566112`](https://github.com/nclsppr/fouranu/actions/runs/42905566112)
+réussit la gate complète, Compose, les 105 parcours avant publication et le
+déploiement. Le contrôle public échoue sur deux écarts d'environnement :
+le navigateur signale la directive `web-share` et Cloudflare injecte un script
+Web Analytics absent du paquet. Les assertions de liens, focus, contraste et
+mise en page précédentes passent ; la production n'est pas déclarée validée.
+
+La correction supprime la directive non reconnue et interdit la transformation
+des réponses via `no-transform`, tout en conservant les politiques de cache.
+Le garde-fou réseau reste strict : aucun tiers ajouté à une liste d'exceptions.
+Le skill `clean-copy`, récupéré depuis l'URL exacte fournie, est appliqué aux
+textes d'interface : titres et consignes redondants retirés, bénéfice d'usage
+mis en avant dans la une, limites et déclarations conservées. Les captures
+publiques allemandes à 320 et 1 280 px ont été inspectées ; elles révèlent
+également un libellé de catégorie trop étroit, corrigé par l'empilement des
+libellés et valeurs sur mobile. Ces dernières corrections attendent leur
+preuve après déploiement.
 
 ## Préparation et validation du candidat commercial, avant publication
 

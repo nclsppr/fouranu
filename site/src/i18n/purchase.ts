@@ -3,24 +3,18 @@ import type { Locale } from "@/i18n/config";
 
 export const PURCHASE_COPY = {
   fr: {
-    aria: "Liens d’achat", eyebrow: "Votre sélection",
-    multiple: "Quel modèle pour vous ?", single: "Le prix de ce modèle",
-    closing: "Votre choix est fait ?", action: "Voir le prix sur Amazon.fr",
-    guidance: "Retrouvez le prix et le contenu de l’offre sur Amazon.fr. Vérifiez le vendeur et la variante avant de commander.",
+    aria: "Liens d’achat", action: "Voir le prix sur Amazon.fr",
+    guidance: "Avant de commander, vérifiez la variante et les accessoires inclus.",
     disclosure: "Liens affiliés Amazon. En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.",
   },
   en: {
-    aria: "Purchase links", eyebrow: "Your shortlist",
-    multiple: "Which model fits your plans?", single: "Check this model’s price",
-    closing: "Made your choice?", action: "See price on Amazon.fr",
-    guidance: "Find the price and package contents on Amazon.fr, the French marketplace. Check the seller and exact variant before ordering.",
+    aria: "Purchase links", action: "See price on Amazon.fr",
+    guidance: "Offers are on the French marketplace. Check the variant and included accessories before ordering.",
     disclosure: "Amazon affiliate links. As an Amazon Associate, I earn from qualifying purchases.",
   },
   de: {
-    aria: "Kauflinks", eyebrow: "Ihre Auswahl",
-    multiple: "Welches Modell passt zu Ihnen?", single: "Der Preis dieses Modells",
-    closing: "Steht Ihre Wahl fest?", action: "Preis auf Amazon.fr ansehen",
-    guidance: "Preis und Lieferumfang finden Sie auf dem französischen Marktplatz Amazon.fr. Prüfen Sie vor der Bestellung Verkäufer und genaue Variante.",
+    aria: "Kauflinks", action: "Preis auf Amazon.fr ansehen",
+    guidance: "Angebote auf dem französischen Marktplatz. Prüfen Sie vor der Bestellung die Variante und das enthaltene Zubehör.",
     disclosure: "Amazon-Partnerlinks. Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.",
   },
 } satisfies Record<Locale, Record<string, string>>;

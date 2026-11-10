@@ -693,6 +693,34 @@ const schema = {
       padding-block: 0.5rem;
     }
 
+    .article-facts dl {
+      gap: 0.75rem 1rem;
+    }
+
+    .article-facts dl > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.35rem;
+      min-width: 0;
+      padding: 0.35rem 0;
+      border-right: 0;
+    }
+
+    .article-facts dl > div:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+
+    .article-facts dt {
+      hyphens: none;
+      overflow-wrap: normal;
+    }
+
+    .article-facts dd {
+      max-width: none;
+      text-align: left;
+      hyphens: none;
+      overflow-wrap: anywhere;
+    }
+
     .article-reading-grid {
       grid-row: 4;
     }

@@ -6,7 +6,18 @@ importantes.
 
 ## Non publié
 
-### 2026-11-10 - Appels à l'achat plus directs et contrôle public
+### 2026-11-10 - Dernière passe de lisibilité et réponses publiques
+
+- Les textes autour des achats sont raccourcis avec `clean-copy` : titres
+  redondants retirés, bénéfice du Cuisinart mis en avant, réserves conservées.
+  Les mentions d'affiliation de l'accueil ne sont plus de minuscules liens.
+- Sur mobile, les libellés des articles se placent au-dessus de leur valeur,
+  ce qui évite la césure excessive des intitulés allemands.
+- Les réponses interdisent les transformations Cloudflare et retirent une
+  directive navigateur non reconnue. Le contrôle public continue de refuser
+  toute requête tierce inattendue ; politiques de cache préservées.
+
+## 2026-11-10 - Appels à l'achat plus directs et contrôle public
 
 - Six accès Amazon affiliés par accueil, après les critères et réserves du
   modèle, avec lien vers le dossier conservé. Les accessoires proposent une

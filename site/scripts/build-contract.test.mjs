@@ -2100,7 +2100,8 @@ test("la une propose six achats affiliés explicites après leurs réserves et g
     assert.equal(articleCards.length, 6);
     for (const card of articleCards) {
       const html = card[2];
-      assert.ok(html.indexOf("home-purchase__disclosure") < html.indexOf('data-affiliate="amazon"'));
+      const disclosurePosition = html.indexOf("home-purchase__disclosure");
+      assert.ok(disclosurePosition >= 0 && disclosurePosition < html.indexOf('data-affiliate="amazon"'));
       assert.ok(pairedElements(html, "a").some((link) => {
         const href = attribute(`<a${link[1]}>`, "href");
         return href?.startsWith("/") && href !== STATIC_ROUTES.transparency[locale];
@@ -2447,13 +2448,17 @@ test("le four du logo équipe des favicons versionnées et la miniature sociale"
   const headers = await readFile(join(dist, "_headers"), "utf8");
   assert.match(
     headers,
-    /^  Permissions-Policy: camera=\(\), geolocation=\(\), microphone=\(\), web-share=\(self\)$/m,
-    "la politique de permissions doit autoriser le partage natif uniquement sur le site",
+    /^  Permissions-Policy: camera=\(\), geolocation=\(\), microphone=\(\)$/m,
+    "la politique doit conserver les restrictions reconnues sans directive web-share",
   );
+  assert.match(headers, /^  Cache-Control: public, max-age=0, must-revalidate, no-transform$/m,
+    "les réponses doivent rester revalidées et sans transformation tierce");
+  assert.match(headers, /\/_astro\/\*\n  ! Cache-Control\n  Cache-Control: public, max-age=31556952, immutable, no-transform/,
+    "les assets doivent remplacer le cache global par le cache immutable");
   for (const route of ["/health", "/release.json"]) {
     assert.match(
       headers,
-      new RegExp(`${escapeRegex(route)}\\n  Cache-Control: no-store\\n  X-Robots-Tag: noindex, nofollow`),
+      new RegExp(`${escapeRegex(route)}\\n  ! Cache-Control\\n  Cache-Control: no-store, no-transform\\n  X-Robots-Tag: noindex, nofollow`),
       `${route}: protection d’indexation absente`,
     );
   }

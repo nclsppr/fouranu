@@ -10,6 +10,7 @@ Ce fichier décrit la réalité observée. Les capacités futures restent dans
 | Vérifié le | 2026-11-10 pour la refonte commerciale ; preuves publiques historiques conservées à leur date |
 | Par | Gate locale, CI du SHA applicatif, sondes HTTP et navigateur sur le domaine public |
 | Branche | `main` pour la production |
+| Appels d’achat et copie simplifiée | SHA `9ee9da26044a409708ae22866ae7656207728f6f`, [run `42920814151`](https://github.com/nclsppr/fouranu/actions/runs/42920814151) ; `verify`, `deploy-cloudflare` et `verify-production` verts ; 105 parcours avant et après publication, 147 URL publiques vérifiées |
 | Refonte commerciale déployée | PR #5 fusionnée après le feu vert du propriétaire ; SHA `59706b2c09a0101e8ef379fedcce06d4ae6732b4`, [run `42903554199`](https://github.com/nclsppr/fouranu/actions/runs/42903554199) vert pour `verify` et `deploy-cloudflare` |
 | Parité de structure FR/EN/DE | SHA applicatif `680e7ccea54765e978f227fdf3b5225360d25172` ; [run `34171586758`](https://github.com/nclsppr/fouranu/actions/runs/34171586758) vert, `verify` et `deploy-cloudflare`, 141 URL publiques contrôlées |
 | Aide à l'achat documentaire | SHA applicatif `c365fbde90d4304d94afa3acc99111ac3665fe1f` ; [run `34071375760`](https://github.com/nclsppr/fouranu/actions/runs/34071375760) vert, `verify` et `deploy-cloudflare`, contrôles publics acquis |
@@ -68,8 +69,35 @@ textes d'interface : titres et consignes redondants retirés, bénéfice d'usage
 mis en avant dans la une, limites et déclarations conservées. Les captures
 publiques allemandes à 320 et 1 280 px ont été inspectées ; elles révèlent
 également un libellé de catégorie trop étroit, corrigé par l'empilement des
-libellés et valeurs sur mobile. Ces dernières corrections attendent leur
-preuve après déploiement.
+libellés et valeurs sur mobile.
+
+Le correctif `9ee9da26044a409708ae22866ae7656207728f6f` est déployé par le
+[run `42920814151`](https://github.com/nclsppr/fouranu/actions/runs/42920814151).
+La gate complète, Compose et les 105 parcours avant publication passent.
+Les sondes HTTP publiques confirment le SHA exact, les 147 URL canoniques en
+200, la vraie 404 et l'absence de beacon dans les trois accueils et la 404.
+Le cache HTML reste revalidé ; les quatre fichiers `_astro` référencés par
+l'accueil gardent leur cache immutable ; health et release restent `no-store`.
+Toutes ces réponses portent `no-transform`.
+
+Le job `verify-production` passe les 105 parcours sur le domaine public, avec
+le même SHA servi avant et après. Aucune erreur de console, ressource défaillante
+ou requête tierce inattendue n'est observée. Les 420 contrôles de boutons par
+passe vérifient le focus clavier, le texte sans débordement et une hauteur
+minimale de 48 px ; le contraste normal et au survol est d'au moins 5,27:1.
+Le rapport et les captures sont conservés sept jours comme artefacts du run.
+
+La revue visuelle des captures de la dernière version couvre notamment
+l'accueil français à 320 et 1 280 px, les cartes des cinq fours et l'article
+allemand à 768 px. Aucun problème bloquant n'est relevé. Les vérifications
+locales ont aussi passé les contrats statiques, les builds preview/indexable,
+le dry-run Cloudflare et Nimbus ; seul le démarrage loopback est empêché par
+le sandbox local, compensé par la gate complète et Compose en CI.
+
+F04-COMMERCE est livrée. Ces contrôles prouvent le fonctionnement et la
+présentation du parcours, pas une hausse des ventes. Les prix et stocks Amazon
+n'ont pas été reconfirmés en direct ; la rentabilité reste à mesurer selon
+`EXPERIMENT.md`.
 
 ## Préparation et validation du candidat commercial, avant publication
 

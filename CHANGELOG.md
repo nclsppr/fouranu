@@ -4,9 +4,7 @@ Ce fichier trace chaque changement livré avec son impact observable. Git reste
 la source du diff technique exhaustif et les ADR expliquent les décisions
 importantes.
 
-## Non publié
-
-### 2026-11-10 - Dernière passe de lisibilité et réponses publiques
+## 2026-11-10 - Dernière passe de lisibilité et réponses publiques
 
 - Les textes autour des achats sont raccourcis avec `clean-copy` : titres
   redondants retirés, bénéfice du Cuisinart mis en avant, réserves conservées.
@@ -16,6 +14,10 @@ importantes.
 - Les réponses interdisent les transformations Cloudflare et retirent une
   directive navigateur non reconnue. Le contrôle public continue de refuser
   toute requête tierce inattendue ; politiques de cache préservées.
+- Le SHA `9ee9da26044a409708ae22866ae7656207728f6f` est déployé et validé
+  par les trois jobs du [run `42920814151`](https://github.com/nclsppr/fouranu/actions/runs/42920814151).
+  Les 105 parcours passent avant et après publication ; les sondes HTTP
+  confirment les 147 URL publiques. La tranche F04-COMMERCE est livrée.
 
 ## 2026-11-10 - Appels à l'achat plus directs et contrôle public
 

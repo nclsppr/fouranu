@@ -26,8 +26,8 @@ const nextLinks = [articleRoute("OONI-040", locale), articleRoute("ACC-004", loc
       <div>
         <p class="eyebrow">{copy.kicker}</p>
         <h1>{copy.heading}</h1>
-        <p class="intro">{copy.intro}</p>
         <p class="basis">{copy.basis}</p>
+        <p class="intro">{copy.intro}</p>
         <a class="button-link" href={articleRoute("OONI-040", locale)}>{copy.read} <span aria-hidden="true">→</span></a>
       </div>
       <figure>
@@ -37,9 +37,9 @@ const nextLinks = [articleRoute("OONI-040", locale), articleRoute("ACC-004", loc
     </header>
     <div class="mixer-body">
       <PurchaseCta locale={locale} links={PURCHASE_LINKS_BY_ARTICLE["OONI-040"]} variant="primary" />
-      <section aria-labelledby="batch-title">
+      <section>
         <h2 id="batch-title">{copy.tableTitle}</h2><p>{copy.tableIntro}</p>
-        <div class="table-scroll" role="region" aria-label={copy.tableTitle} tabindex="0">
+        <div class="table-scroll" role="region" aria-labelledby="batch-title" tabindex="0">
           <table><thead><tr>{copy.tableHeaders.map(label => <th scope="col">{label}</th>)}</tr></thead>
             <tbody>{copy.rows.map(row => <tr><th scope="row">{row[0]}</th>{row.slice(1).map(cell => <td>{cell}</td>)}</tr>)}</tbody>
           </table>

@@ -11,9 +11,12 @@ importantes.
 - Volt 2, Koda 2 et Koda 2 Pro remontés dans les cinq fours sélectionnés ;
   leurs articles relient désormais le choix du four à la préparation de pâte.
 - Faux comparatif photographique de ciseaux retiré ; nouvel en-tête original
-  en attente de validation humaine, sans fausse déclaration d’approbation.
+  sans recadrage des ciseaux, en attente de validation humaine.
 - Comparatif Halo : retrait de l’affirmation d’unicité du face-à-face,
   exemple de dix pâtons de 250 ou 280 g et lien vers le nouveau guide.
+- Relevé daté des sept fiches Amazon.fr de l’accueil et de vidéos pétrins et
+  fours. Le guide place l’origine des recommandations avant le conseil et
+  permet de faire défiler son tableau au clavier.
 - Contrôles navigateur élargis aux pétrins, aux trois Ooni et aux ciseaux.
   Le candidat ne doit pas être confondu avec la version actuellement publiée.
 

@@ -9,7 +9,14 @@ Préparé depuis `d199e720cd9857c8421d6a9e8adf07907c1ffa04` dans un checkout
 isolé ; les modifications antérieures du checkout utilisateur sont préservées.
 Le candidat ajoute le guide pétrins et sa navigation FR/EN/DE, sept actions
 Amazon à la une, et la priorité aux fours Ooni documentés. Les images de
-ciseaux fictives sont remplacées dans le candidat par un original générique.
+ciseaux fictives sont remplacées dans le candidat par une illustration
+générique. L’en-tête garde l’image entière dans les trois langues.
+
+Le [relevé marketing](research/marketing-petrins-2026-11-11.md) couvre aussi
+les fours sur YouTube et documente les sept fiches Amazon.fr vérifiées le
+11 novembre. Les deux Halo et les deux Koda avaient une offre en stock vendue
+par Ooni GmbH lors de cette session. Le Volt 2 était proposé via les autres
+offres. Le relevé reste daté et aucun état de stock n’est rendu sur le site.
 
 Les nouveaux médias `AS-3114` / `AS-3115` restent `pending`, sans URL de
 publication. Une inspection par agent ne remplace pas l’approbation humaine
@@ -18,21 +25,20 @@ Contrôles exécutés le 11 novembre :
 
 - Catalogue (138 Markdown), Markdown, registres (278 preuves, 115 médias,
   66 questions) et 39 tests Python : réussis.
-- `./scripts/verify.sh` avec cache npm local : installation propre et
-  typage de 70 fichiers réussis, puis arrêt attendu du build sur le nouveau
-  média des ciseaux, sans URL de publication. La gate n’est pas contournée.
+- `./scripts/verify.sh` : installation propre et typage réussis, puis arrêt
+  du build sur le nouveau média des ciseaux, sans URL de publication.
 - Une copie temporaire de revue, avec les URL d’images nécessaires au rendu
-  mais la validation humaine toujours `pending`, génère 153 pages dont
-  150 URL canoniques. Les tests de cette projection donnent 33 succès sur 35 :
-  refus attendu de la validation humaine absente et serveur de test interdit
-  par l’environnement (`listen EPERM`). Cette projection n’est pas livrable.
+  et la validation humaine toujours `pending`, génère 153 pages dont
+  150 URL canoniques. Le seul échec des 35 contrats est l’absence de validation
+  humaine de l’image. Cette projection est réservée à la revue locale.
 - Nimbus : tests, typage, build et lint réussis ; le lint de liens internes
   signale que son fichier `.nimbus/routes.json` manque et saute ce sous-contrôle.
-- Configuration Compose valide. Démarrage intégré impossible : socket du
-  daemon Docker absent. Le serveur local est également interdit ; aucun
-  contrôle navigateur mobile/bureau n’est présenté comme exécuté.
-- Le script navigateur couvre maintenant 39 routes à cinq largeurs, soit
-  195 parcours à exécuter dans un environnement permettant le serveur.
+- Configuration Compose valide. Après démarrage d’OrbStack, Compose atteint
+  un état sain sur la copie de revue. Le build intégré du candidat exact
+  s’arrête sur le média des ciseaux.
+- Sur la copie de revue, Chromium valide 195 parcours à cinq largeurs. Les
+  30 parcours des guides pétrins et ciseaux sont rejoués après les corrections
+  de lecture clavier et de cadrage, avec revue du rendu sur mobile et bureau.
 
 Le diff ne peut rejoindre `main`, qui déclenche le déploiement, avant validation
 du visuel puis réussite des gates complètes et du contrôle navigateur. Les

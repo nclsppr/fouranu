@@ -14,11 +14,13 @@ accessible, sans afficher un prix actuel non vérifié. Relier les dossiers de
 fours à la préparation de la pâte et aux bacs utiles après le pétrissage.
 
 Le site possède déjà le comparatif Halo et les offres correspondantes. Leur
-faible visibilité dans l’accueil du 10 novembre constitue une occasion plus
-concrète que l’ajout immédiat de nouvelles références sans offre vérifiée.
-Le panier d’un pétrin peut être élevé ; cela ne démontre ni sa conversion ni
-sa rentabilité. La commission dépend aussi de la catégorie, du programme,
-des commandes réellement attribuées et des retours.
+faible visibilité dans l’accueil du 10 novembre laisse une décision d’achat
+bien documentée à plusieurs clics. Les vidéos comparatives, les deux offres
+exactes et les usages distincts justifient de rapprocher le choix Core / Pro
+de l’accueil. Le Core répond aux fournées familiales ; le Pro a un argument
+d’achat quand une seule fournée de plusieurs kilos fait gagner une étape.
+La commission dépend de la catégorie, du programme, des commandes
+réellement attribuées et des retours.
 
 ## Échantillon YouTube consulté
 
@@ -36,11 +38,22 @@ des performances montrées. Le corpus technique déjà enregistré dans
 | [Halo Core](https://www.youtube.com/watch?v=P--fSdO-X2s), Waldis Pizza Kanal | 15/07/2026 | 37 244 | Visibilité allemande au lancement ; créateur également marchand du produit |
 | [Ooni Halo Pro Spiral Mixer](https://www.youtube.com/watch?v=SI3CTZ74ETw), Pala Pizza | 16/08/2025 | 33 862 | Public spécialisé pizza ; machine fournie par Ooni et liens affiliés |
 | [Wilfa Probaker](https://www.youtube.com/watch?v=DY2fOmSkBAM), Marcel Paa | 01/09/2023 | 132 124 | Alternative crédible à étudier ; vidéo beaucoup plus ancienne, publicité et vente par l’éditeur |
+| [Famag Grilletta IM 5 10 V](https://www.youtube.com/watch?v=YPnGceKe18Y), La French Pizza | 19/06/2022 | 30 825 | Alternative à spirale ; le vidéaste dit avoir acheté le matériel et déclare une commission sur son lien |
+| [Famag Grilletta IM.5S 10V](https://www.youtube.com/watch?v=epVVDt60-JQ), Eyah Kalis | 02/06/2026 | 261 | Variante à tête relevable, exemple récent d’une audience plus petite |
+| [Koda 2](https://www.youtube.com/watch?v=wPschLywLbI), Pala Pizza | 10/04/2025 | Non obtenu | Question du premier four, cuisson et contraintes de manipulation. Passages documentés dans EV-0200 à EV-0204 |
+| [Koda 2 Pro](https://www.youtube.com/watch?v=pCMYecKqpDg), La French Pizza | 18/05/2025 | 30 577 | Enchaînement des pizzas et intérêt du grand format ; le vidéaste distribue Ooni |
+| [Volt 2](https://www.youtube.com/watch?v=Vco2coKn1m0), Grant Batty | 10/12/2025 | 4 464 | Présentation d’un four électrique d’intérieur à un public spécialisé |
+| [Volt 2 après trois mois](https://www.youtube.com/watch?v=IyRNCq67iTA), Got2EatPizza | 21/12/2025 | Non obtenu | Retour d’usage et préréglages, avec liens affiliés. Passages documentés dans EV-0260 à EV-0262 |
 
-Un compteur cumulatif n’est ni un volume de recherche, ni une vitesse de
-croissance, ni une vente. Les audiences, langues, dates et liens commerciaux
-diffèrent. Cet échantillon appuie le choix éditorial de traiter les Halo ; il
-ne permet pas de les déclarer « pétrins les plus populaires sur YouTube ».
+Le face-à-face Core / Pro dépasse 15 000 vues indexées en un peu plus de
+trois mois. La vidéo Wilfa dépasse 130 000 vues, cumulées sur plus de trois ans.
+La vidéo Famag en français confirme un public pour une alternative à spirale ;
+l’exemple plus récent et moins vu montre l’effet possible de la taille de la
+chaîne et de la variante. Ces signaux donnent la priorité au besoin exprimé
+par le face-à-face Halo, déjà relié à deux offres Amazon.fr. L’échantillon
+compare des vidéos ciblées issues de chaînes et de langues différentes.
+Un classement de popularité ou une tendance de croissance demanderait des
+relevés répétés sur un échantillon comparable.
 
 Le [face-à-face Halo Pro / Famag IM-8S de What’s Good Dough](https://www.whatsgooddough.com/videos/ooni-halo-pro-vs-famag-im-8s-which-spiral-mixer-should-you-get/)
 montre aussi un besoin de comparaison avec une spirale spécialisée. Sa page
@@ -50,25 +63,36 @@ pas une preuve indépendante d’intérêt du marché.
 
 ## Offre et pertinence Amazon
 
-Le registre marchand du site contient les correspondances suivantes,
-contrôlées historiquement au 31 août 2026. Cette recherche n’autorise pas à
-présenter ces offres comme actuellement en stock : une page inaccessible ou
-un extrait de moteur de recherche ne constitue pas une vérification du stock,
-du vendeur ou du prix. Aucun prix dynamique ni badge « disponible » n’est ajouté.
+Contrôle direct le 11 novembre 2026 vers 14 h 55 (heure de Paris), sans
+connexion à Amazon. Les sept fiches exactes de l’accueil ont répondu et
+affiché le produit attendu. Le tableau décrit les offres présentées à cette
+session. Le vendeur, le prix, l’état et la livraison peuvent varier selon
+l’adresse et le moment. Les pages publiques conservent leurs CTA existants
+sans prix dynamique ni badge de stock.
 
-| Produit | ASIN Amazon.fr enregistré | Place dans le parcours |
-| --- | --- | --- |
-| Halo Core | `B0H629MKNC` | Premier choix documentaire pour les fournées de 0,5 à 2,5 kg |
-| Halo Pro | `B0FPXDMSFZ` | Grandes fournées régulières de 1 à 5 kg et minuteur |
-| Koda 2 | `B0F544VFNG` | Cuisson au gaz dehors, usage domestique |
-| Koda 2 Pro | `B0F5443PMQ` | Grande pizza à partager et poste extérieur permanent |
-| Volt 2 | `B0GXZZNLCM` | Cuisson électrique en intérieur |
+| Produit | Fiche Amazon.fr | Preuve d’origine | Offre observée | Place dans le parcours |
+| --- | --- | --- | --- | --- |
+| Halo Core noir | [B0H629MKNC](https://www.amazon.fr/dp/B0H629MKNC) | `EV-0848` | Offre vedette en stock, vendue par Ooni GmbH | Choix pour les fournées de 0,5 à 2,5 kg |
+| Halo Pro anthracite | [B0FPXDMSFZ](https://www.amazon.fr/dp/B0FPXDMSFZ) | `EV-0849` | Offre vedette en stock, vendue par Ooni GmbH. Le lien court du site aboutit à cette fiche avec l’identifiant affilié attendu | Grandes fournées régulières de 1 à 5 kg et minuteur |
+| Koda 2 bleu ardoise, 37 mbar France | [B0F544VFNG](https://www.amazon.fr/dp/B0F544VFNG) | `EV-0840` | Offre vedette en stock, vendue par Ooni GmbH | Premier four au gaz pour l’extérieur |
+| Koda 2 Pro noir, 37 mbar France | [B0F5443PMQ](https://www.amazon.fr/dp/B0F5443PMQ) | `EV-0841` | Offre vedette en stock, vendue par Ooni GmbH | Grande pizza à partager et poste extérieur permanent |
+| Volt 2 blanc polaire | [B0GXZZNLCM](https://www.amazon.fr/dp/B0GXZZNLCM) | `EV-0847` | Bouton « Voir toutes les offres ». Une offre neuve vendue par Ooni GmbH, expédiée par Amazon, figure parmi les options d’achat observées | Cuisson électrique en intérieur |
+| Cuisinart CPZ120E | [B0D9C2J4LJ](https://www.amazon.fr/dp/B0D9C2J4LJ) | `EV-0870` | Bouton « Voir toutes les offres ». Des offres de vendeurs tiers sont apparues dans la session | Alternative électrique documentée, avec une étape supplémentaire pour comparer les vendeurs |
+| G3 Ferrari Delizia G10006 noir | [B07PZQ55PC](https://www.amazon.fr/dp/B07PZQ55PC) | `EV-0880` | Offre neuve Amazon en stock lors du contrôle | Four compact d’entrée de gamme |
 
-Les liens existants, leurs identifiants affiliés et leur date de contrôle sont
-conservés. La destination Amazon.fr est explicite dans les trois langues.
-Wilfa et Famag restent des pistes de prochain dossier : ne pas leur attribuer
-une offre précise, une commission ou un stock sans contrôler la variante,
-le vendeur, l’alimentation et les conditions de livraison de l’offre exacte.
+Pour les Halo, les litres affichés dans les titres Amazon diffèrent des
+fiches Ooni. Le guide retient les capacités de cuve annoncées par Ooni et
+raisonne sur la masse totale de pâte. Les deux Koda donnent accès à une offre
+vedette dans la session contrôlée. Le Volt 2 reste utile pour le besoin
+distinct de cuire à l’intérieur ; le passage par les options d’achat ajoute
+un clic. Pour le Cuisinart, la qualité du vendeur et la livraison sont à
+revérifier au moment de commander.
+
+Wilfa et Famag restent des pistes pour élargir le guide au-delà d’Ooni.
+Les vidéos identifient des produits précis, mais aucune offre Amazon.fr
+exacte et achetable n’a été confirmée pour les variantes documentées dans
+cet échantillon. Ajouter un CTA demandera de vérifier le modèle,
+l’alimentation et les conditions de livraison de l’offre exacte.
 
 ## Argument qui peut réellement aider l’achat
 

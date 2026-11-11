@@ -18,32 +18,15 @@ les fours sur YouTube et documente les sept fiches Amazon.fr vérifiées le
 par Ooni GmbH lors de cette session. Le Volt 2 était proposé via les autres
 offres. Le relevé reste daté et aucun état de stock n’est rendu sur le site.
 
-Les nouveaux médias `AS-3114` / `AS-3115` restent `pending`, sans URL de
-publication. Une inspection par agent ne remplace pas l’approbation humaine
-requise par l’ADR-0008 §6. Le build de livraison refuse donc encore ce candidat.
-Contrôles exécutés le 11 novembre :
+Le propriétaire a validé le visuel et le paquet de la [PR 6](https://github.com/nclsppr/fouranu/pull/6)
+au commit `c79239109408c1c3613187297d80ce9c476374f0` le 11 novembre. Les médias
+`AS-3114` et `AS-3115` portent cette décision et leurs URL de publication.
+Leurs empreintes et le contenu éditorial du paquet approuvé sont conservés.
 
-- Catalogue (138 Markdown), Markdown, registres (278 preuves, 115 médias,
-  66 questions) et 39 tests Python : réussis.
-- `./scripts/verify.sh` : installation propre et typage réussis, puis arrêt
-  du build sur le nouveau média des ciseaux, sans URL de publication.
-- Une copie temporaire de revue, avec les URL d’images nécessaires au rendu
-  et la validation humaine toujours `pending`, génère 153 pages dont
-  150 URL canoniques. Le seul échec des 35 contrats est l’absence de validation
-  humaine de l’image. Cette projection est réservée à la revue locale.
-- Nimbus : tests, typage, build et lint réussis ; le lint de liens internes
-  signale que son fichier `.nimbus/routes.json` manque et saute ce sous-contrôle.
-- Configuration Compose valide. Après démarrage d’OrbStack, Compose atteint
-  un état sain sur la copie de revue. Le build intégré du candidat exact
-  s’arrête sur le média des ciseaux.
-- Sur la copie de revue, Chromium valide 195 parcours à cinq largeurs. Les
-  30 parcours des guides pétrins et ciseaux sont rejoués après les corrections
-  de lecture clavier et de cadrage, avec revue du rendu sur mobile et bureau.
-
-Le diff ne peut rejoindre `main`, qui déclenche le déploiement, avant validation
-du visuel puis réussite des gates complètes et du contrôle navigateur. Les
-travaux sont conservés sur une branche de revue. Aucun déploiement de cette
-tranche n’est annoncé.
+La revue locale de l’interface a couvert 195 parcours Chromium à cinq
+largeurs, puis 30 parcours pétrins et ciseaux après les corrections de
+lecture clavier et de cadrage. Les contrôles du candidat après approbation
+et du commit servi sont suivis dans la CI de la PR et de `main`.
 
 ## Référence
 

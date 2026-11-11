@@ -3,7 +3,7 @@
 - Date : 11 novembre 2026.
 - Nature : analyse marketing et décisions de présentation, sans essai physique.
 - Périmètre : Four à Nu FR/EN/DE, offres Amazon.fr déjà identifiées.
-- État : candidat à relire ; aucune hausse de revenu observée ou promise.
+- État : candidat validé le 11 novembre 2026 ; aucune hausse de revenu observée.
 
 ## Décision
 
@@ -146,7 +146,7 @@ L’ancienne phrase affirmant l’unicité d’un face-à-face est retirée : d�
 comparaisons existent, sans que leur existence prouve une équivalence technique.
 
 Le nouveau visuel générique des ciseaux remplace les représentations
-incohérentes dans le candidat. Les médias `AS-3114` et `AS-3115` restent en
-attente de validation humaine ; l’ADR-0008 interdit leur publication avant
-cet accord. Le statut d’exécution et les contrôles sont consignés dans
+incohérentes dans le candidat. Le propriétaire a validé les médias `AS-3114`
+et `AS-3115` dans le paquet de la PR 6 le 11 novembre, selon l’ADR-0008.
+Le statut d’exécution et les contrôles sont consignés dans
 [`STATUS.md`](../STATUS.md).

@@ -140,6 +140,16 @@ restent identiques dans les trois langues. Les tests comparent la structure,
 les images et les liens internes ordonnés de chaque route fixe. La revue
 navigateur compare aussi les trois versions aux mêmes largeurs.
 
+## Mise en avant des pétrins du 11 novembre 2026
+
+L’accueil ouvre sur les Halo Core et Pro avec deux offres nommées, leur usage
+et leur limite avant le clic. La navigation « Pétrins » conduit au guide
+trilingue des quantités, avec tableau 250/280 g. La sélection de cinq fours
+privilégie Volt 2, Koda 2 et Koda 2 Pro puis conserve Cuisinart et Delizia pour
+les autres budgets. Les visuels, couleurs et principes de transparence restent
+ceux du système adopté. Le guide ciseaux retire son faux comparatif visuel ;
+le nouvel en-tête reste en revue jusqu’à validation humaine de ce rendu exact.
+
 ## Colors
 
 L'interface utilise un thème clair principal, avec des bandes carbone réservées

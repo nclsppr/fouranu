@@ -3,6 +3,42 @@
 Ce fichier décrit la réalité observée. Les capacités futures restent dans
 [`ROADMAP.md`](ROADMAP.md).
 
+## Candidat du 11 novembre 2026 : pétrins, Ooni et ciseaux
+
+Préparé depuis `d199e720cd9857c8421d6a9e8adf07907c1ffa04` dans un checkout
+isolé ; les modifications antérieures du checkout utilisateur sont préservées.
+Le candidat ajoute le guide pétrins et sa navigation FR/EN/DE, sept actions
+Amazon à la une, et la priorité aux fours Ooni documentés. Les images de
+ciseaux fictives sont remplacées dans le candidat par un original générique.
+
+Les nouveaux médias `AS-3114` / `AS-3115` restent `pending`, sans URL de
+publication. Une inspection par agent ne remplace pas l’approbation humaine
+requise par l’ADR-0008 §6. Le build de livraison refuse donc encore ce candidat.
+Contrôles exécutés le 11 novembre :
+
+- Catalogue (138 Markdown), Markdown, registres (278 preuves, 115 médias,
+  66 questions) et 39 tests Python : réussis.
+- `./scripts/verify.sh` avec cache npm local : installation propre et
+  typage de 70 fichiers réussis, puis arrêt attendu du build sur le nouveau
+  média des ciseaux, sans URL de publication. La gate n’est pas contournée.
+- Une copie temporaire de revue, avec les URL d’images nécessaires au rendu
+  mais la validation humaine toujours `pending`, génère 153 pages dont
+  150 URL canoniques. Les tests de cette projection donnent 33 succès sur 35 :
+  refus attendu de la validation humaine absente et serveur de test interdit
+  par l’environnement (`listen EPERM`). Cette projection n’est pas livrable.
+- Nimbus : tests, typage, build et lint réussis ; le lint de liens internes
+  signale que son fichier `.nimbus/routes.json` manque et saute ce sous-contrôle.
+- Configuration Compose valide. Démarrage intégré impossible : socket du
+  daemon Docker absent. Le serveur local est également interdit ; aucun
+  contrôle navigateur mobile/bureau n’est présenté comme exécuté.
+- Le script navigateur couvre maintenant 39 routes à cinq largeurs, soit
+  195 parcours à exécuter dans un environnement permettant le serveur.
+
+Le diff ne peut rejoindre `main`, qui déclenche le déploiement, avant validation
+du visuel puis réussite des gates complètes et du contrôle navigateur. Les
+travaux sont conservés sur une branche de revue. Aucun déploiement de cette
+tranche n’est annoncé.
+
 ## Référence
 
 | Champ | Valeur |

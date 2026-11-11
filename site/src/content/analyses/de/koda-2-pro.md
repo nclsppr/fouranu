@@ -13,7 +13,7 @@ author: florian
 model: Ooni Koda 2 Pro
 commercialObjects: [ooni-koda-2-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-pro-1600.webp
@@ -29,6 +29,8 @@ limitations:
 ---
 
 ## Viel Platz, aber nicht für alle
+
+**Eine große Pizza zum Teilen, Platz zum Drehen und ein fester Standort auf der Terrasse: Dafür lohnt sich der Blick auf den Koda 2 Pro.** Sein angegebenes 45-cm-Format und der U-Brenner liefern einen konkreten Grund für die größere Ausführung. Prüfen Sie vor der Bestellung Tisch und Sicherheitsabstände: Dieser 30 kg schwere Ofen braucht einen dauerhaften Platz im Freien.
 
 <figure class="article-media">
   <img
@@ -110,3 +112,7 @@ und Rhythmen. Sie zeigen nicht, wie viele Pizzen der Ofen regelmäßig
 nacheinander backen kann. Unsere Schlussfolgerung betrifft das Verhältnis von
 großem Format, U-förmiger Flamme und Platzbedarf, ohne eigene Erfahrung von
 Four à Nu zu beanspruchen.
+
+## Den Teig genauso planen wie den Ofen
+
+Für größere Runden zählen auch Teigmenge und Platz für die Gärboxen. Unser [Ratgeber für Pizzateig-Knetmaschinen](/de/pizzateig-knetmaschinen/) hilft bei der Wahl zwischen Halo Core und Halo Pro anhand des tatsächlichen Teiglingsgewichts. Eine Knetmaschine ist ein eigener Kauf, den Menge und Häufigkeit rechtfertigen sollten.

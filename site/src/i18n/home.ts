@@ -4,14 +4,14 @@ type HomeCopy = {
   socialTitle: string;
   organizationDescription: string;
   requiredError: string;
-  hero: { kicker: string; title: string; mission: string; action: string; accessoriesAction: string; byline: string; featured: string; productTitle: string; read: string };
+  hero: { kicker: string; title: string; mission: string; action: string; accessoriesAction: string; byline: string; featured: string; productTitle: string; read: string; mixerAction: string };
   shortcuts: { aria: string; indoor: string; outdoor: string; budget: string };
   accessories: {
     kicker: string; title: string; summary: string; action: string;
     labels: Record<"ACC-001" | "ACC-002" | "ACC-003" | "ACC-004", { title: string; summary: string; action: string }>;
     kitKicker: string; kitTitle: string; kitSummary: string; kitAction: string;
   };
-  ovens: { kicker: string; title: string; summary: string; action: string; read: string; labels: Record<"FOUR-001" | "FOUR-002" | "FOUR-003" | "FOUR-004" | "FOUR-005", string> };
+  ovens: { kicker: string; title: string; summary: string; action: string; read: string; labels: Record<"FOUR-001" | "FOUR-002" | "FOUR-003" | "FOUR-004" | "FOUR-005" | "OONI-010" | "OONI-011" | "OONI-018", string> };
   comparison: { kicker: string; title: string; summary: string; action: string; finderTitle: string; finderSummary: string; finderAction: string };
   journal: { kicker: string; title: string; summary: string; action: string; rss: string };
   transparency: { title: string; body: string; commerce: string; method: string; disclosure: string };
@@ -27,8 +27,8 @@ export const HOME_COPY = {
     hero: {
       kicker: "Le goût de la pizza. Le choix du matériel.",
       title: "La pizza maison mérite le bon matériel.",
-      mission: "Nous, c’est Nicolas, Florian et Magali. On vous aide à choisir le four qui trouvera sa place chez vous, la pelle qui va avec et les accessoires qui méritent vraiment votre attention.",
-      action: "Choisir mon four", accessoriesAction: "Trouver mes accessoires", byline: "Faisons connaissance", featured: "À la une", productTitle: "Cuisinart CPZ120E : la pizza, même sans terrasse", read: "Notre avis sur le Cuisinart",
+      mission: "Nous, c’est Nicolas, Florian et Magali. On vous aide à choisir le pétrin adapté à vos fournées, le four qui trouvera sa place chez vous et les accessoires qui méritent vraiment votre attention.",
+      action: "Choisir mon four", accessoriesAction: "Trouver mes accessoires", mixerAction: "Choisir mon pétrin", byline: "Faisons connaissance", featured: "À la une", productTitle: "Ooni Halo : la bonne pâte commence par la bonne fournée", read: "Comparer les deux pétrins",
     },
     shortcuts: { aria: "Votre prochaine soirée pizza", indoor: "Je cuisine à l’intérieur", outdoor: "J’équipe ma terrasse", budget: "Je prépare mon budget" },
     accessories: {
@@ -44,8 +44,8 @@ export const HOME_COPY = {
       kitSummary: "Une pelle, un thermomètre, un bac : on fait le tri entre l’utile, le déjà fourni et ce qui peut attendre.", kitAction: "Composer mon kit",
     },
     ovens: {
-      kicker: "Cinq fours à regarder de près", title: "Lequel a sa place chez vous ?", summary: "Un petit four de cuisine, un modèle réglable ou un poste fixe dehors : chacun a une bonne raison d’exister. Voici nos avis et les offres Amazon.fr référencées dans les guides.", action: "Comparer tous les fours", read: "Pourquoi ce choix",
-      labels: { "FOUR-001": "Pour régler finement", "FOUR-002": "Pour débuter en cuisine", "FOUR-003": "Pour un format compact", "FOUR-004": "Pour cuisiner dehors à l’électricité", "FOUR-005": "Pour de grandes pizzas dehors" },
+      kicker: "Ooni et deux portes d’entrée", title: "Lequel a sa place chez vous ?", summary: "Ooni Volt 2 pour l’intérieur, Koda 2 ou Koda 2 Pro pour la terrasse. Cuisinart et Delizia complètent la sélection pour débuter autrement. Chaque lien ouvre la référence Amazon.fr du guide.", action: "Comparer tous les fours", read: "Pourquoi ce choix",
+      labels: { "OONI-018": "Ooni électrique, pour la cuisine", "OONI-010": "Ooni au gaz, format 35 cm", "OONI-011": "Ooni au gaz, pour voir plus grand", "FOUR-001": "Pour régler finement", "FOUR-002": "Pour débuter en cuisine", "FOUR-003": "Pour un format compact", "FOUR-004": "Pour cuisiner dehors à l’électricité", "FOUR-005": "Pour de grandes pizzas dehors" },
     },
     comparison: {
       kicker: "Avant de passer commande", title: "Delizia ou Cuisinart : deux façons de commencer.", summary: "Le petit appareil dédié ou le four de cuisine équipé ? On compare ce que chaque format implique, accessoires compris.", action: "Lire le face-à-face", finderTitle: "Encore deux ou trois modèles en tête ?", finderSummary: "Dites-nous où vous cuisinerez et ce qui compte pour vous. Notre sélecteur vous aide à réduire la liste, puis à prévoir le budget complet.", finderAction: "Trouver mon four",
@@ -61,7 +61,7 @@ export const HOME_COPY = {
     requiredError: "The guides featured on the home page are required.",
     hero: {
       kicker: "A love of pizza. A considered choice of equipment.", title: "Homemade pizza deserves the right equipment.",
-      mission: "We’re Nicolas, Florian and Magali. We help you choose the oven that fits your home, the peel to go with it and the accessories worth your attention.", action: "Choose my oven", accessoriesAction: "Find my accessories", byline: "Get to know us", featured: "In focus", productTitle: "Cuisinart CPZ120E: pizza night, indoors", read: "Our view on the Cuisinart",
+      mission: "We’re Nicolas, Florian and Magali. We help you choose the mixer for your dough batches, the oven that fits your home and the accessories worth your attention.", action: "Choose my oven", accessoriesAction: "Find my accessories", mixerAction: "Choose my mixer", byline: "Get to know us", featured: "In focus", productTitle: "Ooni Halo: choose the mixer that fits your batch", read: "Compare both mixers",
     },
     shortcuts: { aria: "Your next pizza evening", indoor: "I cook indoors", outdoor: "I’m setting up my terrace", budget: "I’m planning my budget" },
     accessories: {
@@ -75,8 +75,8 @@ export const HOME_COPY = {
       kitKicker: "Our new guide", kitTitle: "First oven? Build a kit without buying things twice.", kitSummary: "A peel, a thermometer, a box: we sort what is useful, what is already included and what can wait.", kitAction: "Build my kit",
     },
     ovens: {
-      kicker: "Five ovens worth a closer look", title: "Which one belongs in your home?", summary: "A small kitchen oven, an adjustable model or a permanent outdoor station: each serves a different purpose. Read our views and find the Amazon.fr offers referenced in the guides.", action: "Compare all ovens", read: "Why this choice",
-      labels: { "FOUR-001": "For fine adjustment", "FOUR-002": "For starting in the kitchen", "FOUR-003": "For a compact setup", "FOUR-004": "For electric cooking outdoors", "FOUR-005": "For large pizzas outdoors" },
+      kicker: "Ooni and two ways to get started", title: "Which one belongs in your home?", summary: "Ooni Volt 2 for indoors, Koda 2 or Koda 2 Pro for the terrace. Cuisinart and Delizia offer two other ways to start. Each link opens the exact Amazon.fr listing from its guide.", action: "Compare all ovens", read: "Why this choice",
+      labels: { "OONI-018": "Electric Ooni for the kitchen", "OONI-010": "Gas Ooni, 35 cm format", "OONI-011": "Gas Ooni for larger pizzas", "FOUR-001": "For fine adjustment", "FOUR-002": "For starting in the kitchen", "FOUR-003": "For a compact setup", "FOUR-004": "For electric cooking outdoors", "FOUR-005": "For large pizzas outdoors" },
     },
     comparison: {
       kicker: "Before you order", title: "Delizia or Cuisinart: two ways to get started.", summary: "A small dedicated appliance or an equipped kitchen oven? We compare what each format involves, including accessories.", action: "Read the comparison", finderTitle: "Still deciding between a few models?", finderSummary: "Tell us where you will cook and what matters to you. Our selector helps narrow the list, then plan the complete budget.", finderAction: "Find my oven",
@@ -92,7 +92,7 @@ export const HOME_COPY = {
     requiredError: "Die auf der Startseite vorgestellten Ratgeber sind erforderlich.",
     hero: {
       kicker: "Die Lust auf Pizza. Die Wahl der Ausstattung.", title: "Pizza zu Hause verdient die richtige Ausstattung.",
-      mission: "Wir sind Nicolas, Florian und Magali. Wir helfen Ihnen, den passenden Ofen für Ihr Zuhause, den richtigen Schieber und wirklich nützliches Zubehör zu finden.", action: "Meinen Ofen wählen", accessoriesAction: "Mein Zubehör finden", byline: "Lernen Sie uns kennen", featured: "Im Fokus", productTitle: "Cuisinart CPZ120E: Pizza aus der eigenen Küche", read: "Unsere Einschätzung zum Cuisinart",
+      mission: "Wir sind Nicolas, Florian und Magali. Wir helfen Ihnen, die Knetmaschine für Ihre Teigmengen, den passenden Ofen für Ihr Zuhause und wirklich nützliches Zubehör zu finden.", action: "Meinen Ofen wählen", accessoriesAction: "Mein Zubehör finden", mixerAction: "Meine Knetmaschine wählen", byline: "Lernen Sie uns kennen", featured: "Im Fokus", productTitle: "Ooni Halo: die passende Maschine für Ihre Teigmenge", read: "Beide Knetmaschinen vergleichen",
     },
     shortcuts: { aria: "Ihr nächster Pizzaabend", indoor: "Ich backe drinnen", outdoor: "Ich richte meine Terrasse ein", budget: "Ich plane mein Budget" },
     accessories: {
@@ -106,8 +106,8 @@ export const HOME_COPY = {
       kitKicker: "Unser neuer Ratgeber", kitTitle: "Der erste Ofen? Das Zubehör ohne doppelte Käufe planen.", kitSummary: "Schieber, Thermometer, Box: Wir sortieren, was nützlich ist, was schon beiliegt und was warten kann.", kitAction: "Mein Zubehör zusammenstellen",
     },
     ovens: {
-      kicker: "Fünf Öfen näher betrachtet", title: "Welcher passt zu Ihnen?", summary: "Kleiner Küchenofen, einstellbares Modell oder fester Platz im Freien: jeder erfüllt einen anderen Zweck. Unsere Ratgeber erklären die Unterschiede und verlinken die erfassten Angebote bei Amazon.fr.", action: "Alle Öfen vergleichen", read: "Warum diese Wahl",
-      labels: { "FOUR-001": "Für feine Einstellungen", "FOUR-002": "Für den Einstieg in der Küche", "FOUR-003": "Für wenig Platz", "FOUR-004": "Für elektrisches Kochen draußen", "FOUR-005": "Für große Pizzen im Freien" },
+      kicker: "Ooni und zwei Einstiegsmodelle", title: "Welcher passt zu Ihnen?", summary: "Ooni Volt 2 für drinnen, Koda 2 oder Koda 2 Pro für die Terrasse. Cuisinart und Delizia bieten zwei weitere Einstiege. Jeder Link führt zum erfassten Amazon.fr-Angebot des Ratgebers.", action: "Alle Öfen vergleichen", read: "Warum diese Wahl",
+      labels: { "OONI-018": "Elektrischer Ooni für die Küche", "OONI-010": "Ooni mit Gas, 35-cm-Format", "OONI-011": "Ooni mit Gas für größere Pizzen", "FOUR-001": "Für feine Einstellungen", "FOUR-002": "Für den Einstieg in der Küche", "FOUR-003": "Für wenig Platz", "FOUR-004": "Für elektrisches Kochen draußen", "FOUR-005": "Für große Pizzen im Freien" },
     },
     comparison: {
       kicker: "Vor der Bestellung", title: "Delizia oder Cuisinart: zwei Wege zum Einstieg.", summary: "Kleines Spezialgerät oder ausgestatteter Küchenofen? Wir vergleichen, was die beiden Formate samt Zubehör bedeuten.", action: "Den Vergleich lesen", finderTitle: "Noch zwei oder drei Modelle im Kopf?", finderSummary: "Sagen Sie uns, wo Sie backen möchten und was Ihnen wichtig ist. Unsere Auswahlhilfe grenzt die Liste ein und hilft beim Gesamtbudget.", finderAction: "Meinen Ofen finden",
@@ -120,9 +120,9 @@ export const HOME_COPY = {
 } as const satisfies Record<Locale, HomeCopy>;
 
 export const HOME_FEATURED_ARTICLE_IDS = {
-  lead: "FOUR-002",
+  lead: "OONI-040",
   accessories: ["ACC-001", "ACC-003", "ACC-004", "ACC-002"],
-  ovens: ["FOUR-002", "FOUR-003", "FOUR-001", "FOUR-004", "FOUR-005"],
+  ovens: ["OONI-018", "OONI-010", "OONI-011", "FOUR-002", "FOUR-003"],
 } as const satisfies {
   lead: ArticleId;
   accessories: readonly (keyof HomeCopy["accessories"]["labels"])[];

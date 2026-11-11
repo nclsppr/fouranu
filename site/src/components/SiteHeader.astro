@@ -17,6 +17,7 @@ const copy = SHELL_COPY[locale];
 const currentPath = Astro.url.pathname;
 const homePath = staticRoute("home", locale);
 const navItems = [
+  { routeId: "mixers", label: copy.nav.mixers },
   { routeId: "accessories", label: copy.nav.accessories },
   { routeId: "ovens", label: copy.nav.ovens },
   { routeId: "ooni", label: copy.nav.ooni },

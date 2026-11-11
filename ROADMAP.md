@@ -18,6 +18,15 @@ uniquement et deux nouveaux guides utiles. La contribution nette confirmée
 reste la mesure de rentabilité. Les sources et la pertinence des recommandations
 ne sont pas conditionnées par la commission.
 
+## Tranche active : pétrins et Ooni
+
+- Mettre les Halo à la une et ouvrir le guide pétrins dans les trois langues.
+- Relier les usages au poids des pâtons et aux références Amazon exactes.
+- Donner davantage de place aux Volt 2, Koda 2 et Koda 2 Pro.
+- Corriger les visuels de ciseaux ; revue humaine du nouveau rendu requise.
+- Exécuter les contrôles du candidat, puis publier après validation du visuel et
+  réussite des gates et vérifier le SHA servi. Aucune hausse de revenu n’est présumée.
+
 ## Principes de séquencement
 
 - Le socle local précède tout contenu destiné au public.

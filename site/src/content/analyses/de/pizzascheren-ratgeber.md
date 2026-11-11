@@ -13,13 +13,13 @@ type: guide
 author: magali
 commercialObjects: [dreamfarm-scizza, triangle-50491, gefu-pezzo-12641, fackelmann-pizza-scissors-25]
 publishedAt: 2026-08-30
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
-  src: /images/articles/accessoires-ciseaux-pizza-1600.webp
-  alt: "Geöffnete Pizzaschere neben mehreren Stücken auf einem großen Servierbrett"
-  caption: "Originale redaktionelle Illustration von Four à Nu."
-  assetId: AS-3110
+  src: /images/articles/accessoires-ciseaux-pizza-service-v2-1600.webp
+  alt: "Geschlossene Küchenschere mit schwarzen Griffen neben einer geschnittenen Pizza auf einem Holzbrett"
+  caption: "Originale redaktionelle Illustration von Four à Nu. Generische Schere, generierte Szene."
+  assetId: AS-3114
 evidenceIds: [EV-0810, EV-0811, EV-0812, EV-0813, EV-0814, EV-0815, EV-0816, EV-0817, EV-0818]
 evidenceTypes:
   - FAB
@@ -54,24 +54,6 @@ aber weniger ausführlich dokumentiert.
 > vor der Bestellung stets Modell, Verkäufer und Angebotsinhalt.
 
 ## Vier Antworten, keine vier Stufen eines Podests
-
-<figure class="article-media">
-  <img
-    src="/images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp"
-    srcset="/images/articles/accessoires-ciseaux-pizza-comparatif-960.webp 960w, /images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp 1600w"
-    sizes="(max-width: 48rem) 100vw, 48rem"
-    width="1600"
-    height="900"
-    loading="lazy"
-    decoding="async"
-    alt="Vier generische Formen von Pizzascheren, mit Schuh, erhöhten Griffen, Servierheber und schwarzen Griffen"
-  />
-  <figcaption>
-    <strong>Die Geometrie verändert die Bewegung.</strong>
-    Originale redaktionelle Illustration von Four à Nu; die Formen stehen für
-    die verglichenen Typen, nicht für die Handelsmodelle.
-  </figcaption>
-</figure>
 
 | Modell | Wann wir es ansehen würden | Wichtigste Grenze |
 | --- | --- | --- |

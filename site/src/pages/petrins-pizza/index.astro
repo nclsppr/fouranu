@@ -1,0 +1,77 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import { SHELL_COPY } from "@/i18n/common";
+import PurchaseCta from "@/components/PurchaseCta.astro";
+import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
+import { MIXER_COPY } from "@/i18n/mixers";
+import { articleRoute, staticRoute, staticAlternates, type Locale } from "@/i18n/config";
+import { assertResponsiveMediaAllowedAtPath } from "@/lib/media-rights.mjs";
+interface Props { locale?: Locale; }
+const { locale = "fr" } = Astro.props;
+const copy = MIXER_COPY[locale];
+const guide = (await getCollection("analyses")).find(entry => entry.data.articleId === "OONI-040" && entry.data.locale === locale)!;
+const image = guide.data.image!;
+assertResponsiveMediaAllowedAtPath(image.src, locale, "hub-list", staticRoute("mixers", locale));
+const nextLinks = [articleRoute("OONI-040", locale), articleRoute("ACC-004", locale), articleRoute("OONI-001", locale)];
+---
+<BaseLayout title={copy.title} description={copy.description} canonical={staticRoute("mixers", locale)} alternatePaths={staticAlternates("mixers")} indexable={true}>
+  <div class="page-shell mixer-guide">
+    <Breadcrumbs locale={locale} items={[
+      { label: { fr: "Accueil", en: "Home", de: "Startseite" }[locale], href: staticRoute("home", locale) },
+      { label: SHELL_COPY[locale].nav.mixers },
+    ]} />
+    <header class="mixer-intro">
+      <div>
+        <p class="eyebrow">{copy.kicker}</p>
+        <h1>{copy.heading}</h1>
+        <p class="intro">{copy.intro}</p>
+        <p class="basis">{copy.basis}</p>
+        <a class="button-link" href={articleRoute("OONI-040", locale)}>{copy.read} <span aria-hidden="true">→</span></a>
+      </div>
+      <figure>
+        <img src={image.src} srcset={`${image.src.replace("-1600.webp", "-960.webp")} 960w, ${image.src} 1600w`} sizes="(max-width: 760px) 100vw, 45vw" width="1600" height="900" alt={image.alt} fetchpriority="high" />
+        <figcaption>{image.caption}</figcaption>
+      </figure>
+    </header>
+    <div class="mixer-body">
+      <PurchaseCta locale={locale} links={PURCHASE_LINKS_BY_ARTICLE["OONI-040"]} variant="primary" />
+      <section aria-labelledby="batch-title">
+        <h2 id="batch-title">{copy.tableTitle}</h2><p>{copy.tableIntro}</p>
+        <div class="table-scroll" role="region" aria-label={copy.tableTitle} tabindex="0">
+          <table><thead><tr>{copy.tableHeaders.map(label => <th scope="col">{label}</th>)}</tr></thead>
+            <tbody>{copy.rows.map(row => <tr><th scope="row">{row[0]}</th>{row.slice(1).map(cell => <td>{cell}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+        <p class="basis">{copy.tableNote}</p>
+      </section>
+      {copy.sections.map(section => <section><h2>{section.title}</h2><p>{section.text}</p></section>)}
+      <p class="basis">{copy.sourceLabel} <a href={articleRoute("OONI-040", locale) + "#cited-sources-title"}>{copy.read}</a>.</p>
+      <PurchaseCta locale={locale} links={PURCHASE_LINKS_BY_ARTICLE["OONI-040"]} variant="closing" />
+      <section><h2>{copy.nextTitle}</h2><ul>{nextLinks.map((href, index) => <li><a href={href}>{copy.next[index]}</a></li>)}</ul></section>
+      <p class="basis">{copy.updated}</p>
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .mixer-guide { padding-block: 3rem; }
+  .mixer-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: center; margin-bottom: 3rem; }
+  h1 { font-size: clamp(2.8rem, 5vw, 5rem); line-height: 1; margin-block: 1rem; overflow-wrap: anywhere; }
+  .intro { font-size: 1.15rem; line-height: 1.7; }
+  .basis, figcaption { color: var(--color-graphite); font-size: .85rem; line-height: 1.65; }
+  figure { margin: 0; }
+  img { width: 100%; height: auto; }
+  figcaption { margin-top: .7rem; }
+  .mixer-body { max-width: var(--reading-width); margin-inline: auto; }
+  .mixer-body section { margin-block: 2.5rem; }
+  .mixer-body h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.12; }
+  .mixer-body p, .mixer-body li { line-height: 1.8; }
+  .mixer-body li { margin-block: .75rem; }
+  .mixer-body li a { display: inline-flex; min-height: 2.75rem; align-items: center; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem; }
+  th, td { padding: .8rem; border-bottom: 1px solid var(--color-line); min-width: 5rem; }
+  thead { background: var(--color-steel-soft); }
+  @media (max-width: 48rem) { .mixer-intro { grid-template-columns: 1fr; gap: 1.5rem; } .mixer-guide { padding-block: 2rem; } }
+</style>

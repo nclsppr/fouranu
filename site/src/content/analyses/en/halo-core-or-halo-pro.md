@@ -13,7 +13,7 @@ type: decision
 author: nicolas
 commercialObjects: [ooni-halo-core, ooni-halo-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-halo-core-ou-halo-pro-1600.webp
@@ -27,10 +27,10 @@ evidenceTypes:
   - T-OBS
   - FAN-INF
 limitations:
-  - The only published head-to-head comparison of Halo Core and Halo Pro is a paid collaboration without a complete enough protocol to establish equivalence.
-  - The Halo Core had only a few weeks of history on 24 August 2026.
+  - The Sourdough Etc. comparison cited here is a paid collaboration without a complete enough protocol to establish equivalence.
+  - The cited observations are dated and do not constitute long-term durability tracking.
   - Prices and stock may change after the check date.
-  - The available sources do not compare the durability, noise or electricity consumption of the two appliances.
+  - The sources used here do not compare the durability, noise or electricity consumption of the two appliances.
 ---
 
 ## Our view in brief
@@ -219,9 +219,10 @@ overheated dough or badly planned fermentation.
 
 ## Limitations of this analysis
 
-We have not tried these mixers ourselves. The Halo Core had only a few weeks of
-history on 24 August 2026, and no independent source compares both Halo mixers
-with the same flour, hydration, final temperature and several repetitions.
+We have not tried these mixers ourselves. The sources documented here do not
+provide a repeated comparison of both Halo mixers with the same flour, hydration
+and final temperature. This describes the sources we used, not every video
+published about these machines.
 
 The sources assembled here do not distinguish noise, consumption or wear. Our
 preference for the Core comes from its more practical dough range at home.
@@ -229,3 +230,11 @@ preference for the Core comes from its more practical dough range at home.
 ## Leave room in the budget for the rest
 
 The mixer is a separate expense from the oven. Before adding it, put its actual price beside your [complete equipment budget](/en/pizza-ovens/pizza-oven-full-budget/): oven, installation and missing tools. Core or Pro should follow your dough quantities; neither automatically requires a larger oven or bundle.
+
+## 250 g or 280 g: ten pizzas can mean different batches
+
+Ten 250 g dough balls mean 2.5 kg of dough, the Core’s stated maximum. At 280 g
+per pizza, the same gathering needs 2.8 kg: split the batch or choose the Pro.
+Our [pizza dough mixer guide](/en/pizza-dough-mixers/) compares quantities from
+two to twenty pizzas. Count the total dough weight, including water and other
+ingredients, and follow the manual’s recipe limits.

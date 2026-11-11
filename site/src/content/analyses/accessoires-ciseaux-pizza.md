@@ -12,13 +12,13 @@ type: guide
 author: magali
 commercialObjects: [dreamfarm-scizza, triangle-50491, gefu-pezzo-12641, fackelmann-pizza-scissors-25]
 publishedAt: 2026-08-30
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
-  src: /images/articles/accessoires-ciseaux-pizza-1600.webp
-  alt: "Ciseaux à pizza ouverts près de plusieurs parts disposées sur une grande planche de service"
-  caption: "Illustration éditoriale originale Four à Nu."
-  assetId: AS-3110
+  src: /images/articles/accessoires-ciseaux-pizza-service-v2-1600.webp
+  alt: "Ciseaux de cuisine génériques fermés, à poignées noires, à côté d’une pizza découpée sur une planche en bois"
+  caption: "Illustration éditoriale originale Four à Nu. Ciseaux génériques, scène générée."
+  assetId: AS-3114
 evidenceIds: [EV-0810, EV-0811, EV-0812, EV-0813, EV-0814, EV-0815, EV-0816, EV-0817, EV-0818]
 evidenceTypes:
   - FAB
@@ -65,24 +65,6 @@ Une grande tablée change la question. Je ne cherche pas seulement une première
 coupe nette : je veux que la huitième part ressemble encore à une part, que la
 garniture reste dessus et que l’outil ne devienne pas une corvée à nettoyer une
 fois tout le monde assis.
-
-<figure class="article-media">
-  <img
-    src="/images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp"
-    srcset="/images/articles/accessoires-ciseaux-pizza-comparatif-960.webp 960w, /images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp 1600w"
-    sizes="(max-width: 48rem) 100vw, 48rem"
-    width="1600"
-    height="900"
-    loading="lazy"
-    decoding="async"
-    alt="Quatre formes génériques de ciseaux à pizza, avec sabot, poignées relevées, pelle de service et poignées noires"
-  />
-  <figcaption>
-    <strong>La géométrie change le geste.</strong>
-    Illustration éditoriale originale Four à Nu ; les formes représentent les
-    types comparés, pas les modèles commerciaux.
-  </figcaption>
-</figure>
 
 ## Dreamfarm Scizza : le sabot protecteur le plus clairement documenté
 

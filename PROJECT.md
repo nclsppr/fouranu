@@ -118,6 +118,16 @@ une application durable. Elle ne transforme pas les hypothèses de l'expérience
 en faits et ne suffit pas à autoriser une publication. La V1 a reçu son feu vert
 explicite avant son lancement.
 
+## Priorité pétrins et Ooni du 11 novembre 2026
+
+La demande du propriétaire ajoute les pétrins au premier niveau de navigation
+et à la une. La sélection commerciale met les Halo Core/Pro, Volt 2, Koda 2 et
+Koda 2 Pro en relation avec des usages concrets et leurs offres Amazon exactes.
+Les tendances YouTube servent à choisir les sujets à distribuer, sans devenir
+un palmarès de ventes ni une preuve de performance. L’étude datée vit dans
+[`research/marketing-petrins-2026-11-11.md`](research/marketing-petrins-2026-11-11.md).
+La validation du nouveau visuel original des ciseaux reste celle de l’ADR-0008.
+
 ## Sources de vérité
 
 | Concept | Source canonique | Statut |

@@ -14,7 +14,7 @@ author: florian
 model: Ooni Volt 2
 commercialObjects: [ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-09-07
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp
@@ -114,3 +114,7 @@ Behalten Sie den Volt 2 auf der Liste, wenn seine verschiedenen Modi zu Ihren Re
 Der [Cuisinart CPZ120E](/de/pizzaoefen/cuisinart-cpz120e/) enthält die ersten Werkzeuge; beim [Sage Pizzaiolo](/de/pizzaoefen/sage-pizzaiolo-bpz820/) lassen sich Stein und Oberhitze getrennt regeln. Unser [Innenofenvergleich](/de/pizzaoefen/volt-2-sage-oder-cuisinart/) bündelt Unterschiede und datierte offizielle Preise.
 
 Zum Abschluss folgen die [Gesamtkosten](/de/pizzaoefen/pizzaofen-gesamtkosten/): Streichen Sie vorhandene Ausrüstung, ergänzen Sie nur Fehlendes und unterscheiden Sie Nennleistung vom Stromverbrauch eines Abends.
+
+## Den Teig genauso planen wie den Ofen
+
+Für größere Runden zählen auch Teigmenge und Platz für die Gärboxen. Unser [Ratgeber für Pizzateig-Knetmaschinen](/de/pizzateig-knetmaschinen/) hilft bei der Wahl zwischen Halo Core und Halo Pro anhand des tatsächlichen Teiglingsgewichts. Eine Knetmaschine ist ein eigener Kauf, den Menge und Häufigkeit rechtfertigen sollten.

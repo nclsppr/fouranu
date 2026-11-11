@@ -14,7 +14,7 @@ author: magali
 model: Ooni Koda 2
 commercialObjects: [ooni-koda-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-09-07
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
@@ -122,3 +122,7 @@ Für einen festen Standort und größere Pizzen führt der [Vergleich Koda 2 Pro
 Ist Backen in Innenräumen erforderlich, wird der [Vergleich Volt 2, Sage und Cuisinart](/de/pizzaoefen/volt-2-sage-oder-cuisinart/) zum passenden Ausgangspunkt. Der Koda 2 bleibt ein Außenofen; eine andere Energieart verändert zuerst die Installation.
 
 Prüfen Sie genaue Tiefe, Abstände, Gasanschluss für Frankreich und passenden Schieber, bevor er auf der Auswahlliste bleibt. Die [Gesamtkosten](/de/pizzaoefen/pizzaofen-gesamtkosten/) helfen anschließend, einsatzbereite Ausrüstung statt bloßer Ofenpreise zu vergleichen.
+
+## Den Teig genauso planen wie den Ofen
+
+Für größere Runden zählen auch Teigmenge und Platz für die Gärboxen. Unser [Ratgeber für Pizzateig-Knetmaschinen](/de/pizzateig-knetmaschinen/) hilft bei der Wahl zwischen Halo Core und Halo Pro anhand des tatsächlichen Teiglingsgewichts. Eine Knetmaschine ist ein eigener Kauf, den Menge und Häufigkeit rechtfertigen sollten.

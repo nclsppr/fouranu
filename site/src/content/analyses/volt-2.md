@@ -13,7 +13,7 @@ author: florian
 model: Ooni Volt 2
 commercialObjects: [ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-09-07
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp
@@ -114,3 +114,7 @@ Gardez le Volt 2 dans votre sélection si ses modes variés répondent à vos re
 Le [Cuisinart CPZ120E](/fours-a-pizza/cuisinart-cpz120e/) inclut les outils de départ ; le [Sage Pizzaiolo](/fours-a-pizza/sage-pizzaiolo-bpz820/) permet de régler séparément la chaleur de sole et de voûte. Notre [comparatif intérieur](/fours-a-pizza/volt-2-sage-ou-cuisinart/) rassemble les différences et les prix officiels datés.
 
 Terminez par le [budget complet](/fours-a-pizza/budget-complet-four-pizza/) : retirez les accessoires déjà présents, ajoutez seulement ceux qui manquent et ne confondez pas puissance nominale et consommation d’une soirée.
+
+## Préparer la pâte pendant que le four attend
+
+Pour une soirée à plusieurs, prévoyez aussi la quantité de pâte et la place des bacs. Notre [guide des pétrins à pizza](/petrins-pizza/) aide à choisir entre Halo Core et Halo Pro à partir du poids réel des pâtons. Le pétrin reste un achat distinct : il sert si vos fournées et votre fréquence le justifient.

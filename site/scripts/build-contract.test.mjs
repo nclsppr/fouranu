@@ -77,6 +77,7 @@ const fixedIndexableRoutes = [
   "/corrections/",
   "/confidentialite/",
   "/fours-a-pizza/",
+  "/petrins-pizza/",
   "/gozney/",
   "/methode/",
   "/mentions-legales/",
@@ -104,6 +105,7 @@ const rangeSocialImages = new Map([
   ["/gozney/", `${canonicalOrigin}/images/articles/gozney-gamme-1600.webp`],
 ]);
 const primaryNavigation = [
+  ["/petrins-pizza/", "Pétrins"],
   ["/accessoires-pizza/", "Accessoires"],
   ["/fours-a-pizza/", "Fours"],
   ["/ooni/", "Ooni"],
@@ -122,7 +124,7 @@ const multiBrandOvenCaptionPattern =
   /^Illustration éditoriale d’après une photographie officielle (?:Sage|Cuisinart|G3 Ferrari|Ninja|Witt)\.$/;
 const editorialCaptionPatternForArticle = (brand) =>
   brand === "accessoires"
-    ? new RegExp(`^${escapeRegex(editorialOriginalCaption)}$`)
+    ? new RegExp(`^${escapeRegex(editorialOriginalCaption)}(?:\\s+[^<>]+)?$`)
     : brand === "fours"
       ? multiBrandOvenCaptionPattern
       : editorialCaptionPatternForBrand(brand === "gozney" ? "Gozney" : "Ooni");
@@ -568,7 +570,7 @@ test("les pages fixes conservent les mêmes blocs, images et destinations dans l
     const images = mainImageSignature(french.html);
     const links = mainInternalLinkSignature(french.html, routes.fr);
     if (routeId === "home") {
-      assert.equal(images.length, 13, "l’accueil doit illustrer le four de une, quatre accessoires, cinq fours et trois auteurs");
+      assert.equal(images.length, 13, "l’accueil doit illustrer les pétrins de une, quatre accessoires, cinq fours et trois auteurs");
     }
     for (const locale of ["en", "de"]) {
       const page = pageByRoute.get(routes[locale]);
@@ -1354,7 +1356,7 @@ test("les données structurées restent vérifiables et sans faux avis", async (
       if (fixedIndexableRoutes.includes(page.route)) {
         assert.equal(
           webPage.dateModified,
-          `${revisedStaticRoutes.has(page.route) ? "2026-11-10" : "2026-09-08"}T00:00:00.000Z`,
+          `${["/", "/petrins-pizza/"].includes(page.route) ? "2026-11-11" : revisedStaticRoutes.has(page.route) ? "2026-11-10" : "2026-09-08"}T00:00:00.000Z`,
           `${page.route}: dateModified de surface incohérente`,
         );
       }
@@ -1551,7 +1553,7 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
       Object.fromEntries(assetHeaders.map((header, index) => [header, values[index]])),
     ]),
   );
-  assert.equal(assets.size, 117);
+  assert.equal(assets.size, 115);
   const registeredPublicationUrls = new Set(
     [...assets.values()].map((asset) => asset.publication_url),
   );
@@ -1622,7 +1624,7 @@ test("les analyses publiables et candidates rendent toutes leurs preuves depuis 
       assert.equal(heroAsset.third_party_elements, "aucun", `${slug}: élément tiers dans le hero original`);
       assert.match(
         markdown,
-        /^\s{2}caption:\s*"Illustration éditoriale originale Four à Nu\."$/m,
+        /^\s{2}caption:\s*"Illustration éditoriale originale Four à Nu\.[^"\n]*"$/m,
         `${slug}: statut public du hero original absent`,
       );
     } else {
@@ -1732,7 +1734,7 @@ test("la photo documentaire de une est responsive, attribuée et légère", asyn
   assert.equal(attribute(image, "loading"), undefined, "le visuel LCP ne doit pas être chargé paresseusement");
 
   const caption = visibleText(pairedElements(figure[2], "figcaption")[0]?.[2] ?? "");
-  assert.equal(caption, "Illustration éditoriale d’après une photographie officielle Cuisinart.");
+  assert.equal(caption, "Illustration éditoriale d’après des photographies officielles Ooni.");
   assert.ok(caption.length <= 90);
   assert.ok(
     pairedElements(figure[2], "a").some((element) =>
@@ -1887,7 +1889,6 @@ test("chaque dossier respecte son traitement visuel et les décisions textuelles
 
   for (const slug of [
     "accessoires-pelle-pizza",
-    "accessoires-ciseaux-pizza",
     "accessoires-thermometre-infrarouge",
     "accessoires-bacs-patons",
   ]) {
@@ -2079,10 +2080,10 @@ test("les appels d’achat sont exclusivement affiliés et disparaissent sans of
   }
 });
 
-test("la une propose six achats affiliés explicites après leurs réserves et garde les dossiers accessibles", async () => {
+test("la une propose sept achats affiliés explicites après leurs réserves et garde les dossiers accessibles", async () => {
   const expectedObjects = [
-    "cuisinart-cpz120e", "cuisinart-cpz120e", "g3-ferrari-delizia-g10006-black",
-    "sage-smart-oven-pizzaiolo-bpz820", "ninja-woodfire-oo101eu", "witt-etna-rotante-16",
+    "ooni-halo-core", "ooni-halo-pro", "ooni-volt-2", "ooni-koda-2",
+    "ooni-koda-2-pro", "cuisinart-cpz120e", "g3-ferrari-delizia-g10006-black",
   ];
   for (const locale of LOCALES) {
     const page = (await allHtmlPages()).find((entry) => entry.route === STATIC_ROUTES.home[locale]);
@@ -2092,7 +2093,7 @@ test("la une propose six achats affiliés explicites après leurs réserves et g
       const opening = `<a${link[1]}>`;
       assert.equal(decodeHtml(attribute(opening, "href")), amazonAffiliateUrlForObject(expectedObjects[index]));
       assert.equal(attribute(opening, "rel"), "sponsored external noopener");
-      assert.equal(attribute(opening, "data-purchase-placement"), index === 0 ? "home-hero" : "home-oven");
+      assert.equal(attribute(opening, "data-purchase-placement"), index < 2 ? "home-hero" : "home-oven");
       assert.match(visibleText(link[2]), /Amazon\.fr/);
       assert.ok(attribute(opening, "aria-label")?.includes(visibleText(link[2]).replace(/[→↗]/g, "").trim()));
     }
@@ -2187,15 +2188,15 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
     attribute(`<a${link[1]}>`, "data-affiliate") === "amazon"
   );
   const homeObjectCounts = new Map([
-    ["cuisinart-cpz120e", 2], ["g3-ferrari-delizia-g10006-black", 1],
-    ["sage-smart-oven-pizzaiolo-bpz820", 1], ["ninja-woodfire-oo101eu", 1], ["witt-etna-rotante-16", 1],
+    ["ooni-halo-core", 1], ["ooni-halo-pro", 1], ["ooni-volt-2", 1],
+    ["ooni-koda-2", 1], ["ooni-koda-2-pro", 1], ["cuisinart-cpz120e", 1], ["g3-ferrari-delizia-g10006-black", 1],
   ]);
   assert.equal(
     amazonObjectLinks.length,
     (availableObjects.length + [...articleRecords.values()]
       .filter((article) => textDecisionRoutes.has(article.route))
-      .reduce((count, article) => count + article.objectIds.filter((id) => COMMERCIAL_OBJECTS[id].amazon.status === "available").length, 0)) * 2 + 6,
-    "chaque offre exacte couvre ses deux appels d’achat et les six sélections de la une",
+      .reduce((count, article) => count + article.objectIds.filter((id) => COMMERCIAL_OBJECTS[id].amazon.status === "available").length, 0)) * 2 + 7 + 4,
+    "chaque offre exacte couvre ses deux appels d’achat et les sept sélections de la une et les quatre actions du guide pétrins",
   );
 
   const articleByRoute = new Map(
@@ -2208,6 +2209,10 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
     assert.ok(object, `${page.route}: objet rendu inconnu ${objectId}`);
     if (page.route === "/") {
       assert.ok(homeObjectCounts.has(objectId), `${objectId}: offre non sélectionnée sur la une`);
+      continue;
+    }
+    if (page.route === "/petrins-pizza/") {
+      assert.ok(["ooni-halo-core", "ooni-halo-pro"].includes(objectId), "Le guide pétrins ne vend que les modèles documentés");
       continue;
     }
     assert.ok(article, `${page.route}: lien d’objet hors dossier`);
@@ -2256,7 +2261,7 @@ test("chaque produit commercial déclaré possède un contrôle Amazon et une co
       assert.equal(evidenceUrl.pathname, `/dp/${object.amazon.asin}`, `${object.id}: preuve ASIN incohérente`);
       const allowedRoutes = [article.route, ...[...articleRecords.values()]
         .filter((entry) => textDecisionRoutes.has(entry.route) && entry.objectIds.includes(object.id))
-        .map((entry) => entry.route)];
+        .map((entry) => entry.route), ...(["ooni-halo-core", "ooni-halo-pro"].includes(object.id) ? ["/petrins-pizza/"] : [])];
       assert.equal(matches.length, allowedRoutes.length * 2 + (homeObjectCounts.get(object.id) ?? 0), `${object.id}: lien Amazon dédié absent ou dupliqué`);
       for (const route of allowedRoutes) {
         assert.equal(matches.filter(({ page }) => page.route === route).length, 2, `${object.id}: deux emplacements attendus sur ${route}`);
@@ -2595,7 +2600,7 @@ test("le build opt-in n'indexe que les URL explicitement éligibles", async () =
       }),
     );
     for (const route of fixedIndexableRoutes) {
-      const updated = revisedStaticRoutes.has(route) ? "2026-11-10" : "2026-09-08";
+      const updated = ["/", "/petrins-pizza/"].includes(route) ? "2026-11-11" : revisedStaticRoutes.has(route) ? "2026-11-10" : "2026-09-08";
       assert.match(
         sitemapEntriesByRoute.get(route) ?? "",
         new RegExp(`<lastmod>${updated}<\\/lastmod>`),

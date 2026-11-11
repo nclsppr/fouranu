@@ -6,6 +6,7 @@ import { SITE } from "@/config/site";
 import { isPublishedAnalysis } from "@/data/article-taxonomy";
 import { PURCHASE_LINKS_BY_ARTICLE } from "@/data/purchase-links";
 import { amazonAffiliateUrlForObject } from "@/data/commercial-objects.mjs";
+import { purchaseProductCopy } from "@/i18n/purchase";
 import { affiliateRel } from "@/lib/amazon-affiliate.mjs";
 import { localizedSite } from "@/i18n/common";
 import { articleRoute, feedPath, staticAlternates, staticRoute, type ArticleId, type Locale } from "@/i18n/config";
@@ -24,18 +25,18 @@ function featured(articleId: ArticleId): CollectionEntry<"analyses"> {
   assertResponsiveMediaAllowedAtPath(entry.data.image.src, locale, "hub-list", homePath);
   return entry;
 }
-function purchaseLink(articleId: ArticleId) {
+function purchaseLinks(articleId: ArticleId) {
   const links = PURCHASE_LINKS_BY_ARTICLE[articleId];
-  if (links?.length !== 1 || links[0].merchant !== "Amazon.fr"
-    || links[0].url !== amazonAffiliateUrlForObject(links[0].objectId)) {
-    throw new Error(`One exact affiliate offer is required for home feature ${articleId}`);
+  if (!links?.length || links.some((link) => link.merchant !== "Amazon.fr"
+    || link.url !== amazonAffiliateUrlForObject(link.objectId))) {
+    throw new Error(`Exact affiliate offers are required for home feature ${articleId}`);
   }
-  return links[0];
+  return links;
 }
 const lead = featured(HOME_FEATURED_ARTICLE_IDS.lead);
-const leadPurchaseLink = purchaseLink(HOME_FEATURED_ARTICLE_IDS.lead);
+const leadPurchaseLinks = purchaseLinks(HOME_FEATURED_ARTICLE_IDS.lead);
 const accessories = HOME_FEATURED_ARTICLE_IDS.accessories.map((id) => ({ entry: featured(id), label: copy.accessories.labels[id] }));
-const ovens = HOME_FEATURED_ARTICLE_IDS.ovens.map((id) => ({ entry: featured(id), label: copy.ovens.labels[id], purchase: purchaseLink(id) }));
+const ovens = HOME_FEATURED_ARTICLE_IDS.ovens.map((id) => ({ entry: featured(id), label: copy.ovens.labels[id], purchase: purchaseLinks(id)[0] }));
 const authors = Object.values(localized.authors);
 assertMediaAllowedAtPath("/brand/logo-fouranu.png", locale, "schema-image", homePath);
 const schema = {
@@ -63,7 +64,8 @@ const schema = {
       <h1 id="home-title">{copy.hero.title}</h1>
       <p class="hero-mission">{copy.hero.mission}</p>
       <div class="hero-actions">
-        <a class="button-link" href="#nos-fours">{copy.hero.action} <span aria-hidden="true">→</span></a>
+        <a class="button-link" href={staticRoute("mixers", locale)}>{copy.hero.mixerAction} <span aria-hidden="true">→</span></a>
+        <a class="text-action" href="#nos-fours">{copy.hero.action} <span aria-hidden="true">→</span></a>
         <a class="text-action" href="#nos-accessoires">{copy.hero.accessoriesAction} <span aria-hidden="true">↗</span></a>
       </div>
       <a class="hero-team" href={staticRoute("authors", locale)}>
@@ -86,9 +88,14 @@ const schema = {
         <p>{lead.data.summary}</p>
         <div class="home-purchase">
           <p class="home-purchase__disclosure">{copy.purchase.disclosure}</p>
-          <a class="button-link" href={leadPurchaseLink.url} rel={affiliateRel(leadPurchaseLink.url)} data-affiliate="amazon" data-commercial-object={leadPurchaseLink.objectId} data-purchase-placement="home-hero" aria-label={`${copy.purchase.action} : ${lead.data.model}`}>
-            {copy.purchase.action} <span aria-hidden="true">↗</span>
-          </a>
+          {leadPurchaseLinks.map((link) => (
+            <div class="hero-offer">
+              <p><strong>{purchaseProductCopy(link.objectId, locale).name}</strong><br />{purchaseProductCopy(link.objectId, locale).benefit}</p>
+              <a class="button-link" href={link.url} rel={affiliateRel(link.url)} data-affiliate="amazon" data-commercial-object={link.objectId} data-purchase-placement="home-hero" aria-label={`${copy.purchase.action} : ${purchaseProductCopy(link.objectId, locale).name}`}>
+                {copy.purchase.action} <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          ))}
         </div>
         <a class="text-action" href={articleRoute(lead.data.articleId as ArticleId, locale)}>{copy.hero.read} <span aria-hidden="true">→</span></a>
       </div>
@@ -97,7 +104,7 @@ const schema = {
 
   <nav class="intent-nav page-shell" aria-label={copy.shortcuts.aria}>
     <a href={articleRoute("FOUR-007", locale)}><span aria-hidden="true">01</span>{copy.shortcuts.indoor}<b aria-hidden="true">→</b></a>
-    <a href={articleRoute("FOUR-005", locale)}><span aria-hidden="true">02</span>{copy.shortcuts.outdoor}<b aria-hidden="true">→</b></a>
+    <a href={articleRoute("OONI-010", locale)}><span aria-hidden="true">02</span>{copy.shortcuts.outdoor}<b aria-hidden="true">→</b></a>
     <a href={articleRoute("FOUR-008", locale)}><span aria-hidden="true">03</span>{copy.shortcuts.budget}<b aria-hidden="true">→</b></a>
   </nav>
 
@@ -188,6 +195,9 @@ const schema = {
 
 <style>
   .editorial-hero { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: clamp(2rem, 5vw, 4.5rem); }
+  .hero-offer { padding-block: .7rem; border-top: 1px solid var(--color-line); }
+  .hero-offer p { margin: 0 0 .6rem; color: var(--color-graphite); font-size: .88rem; line-height: 1.5; }
+  .hero-offer strong { color: var(--color-carbon); }
   .hero-copy h1 { max-width: 13ch; margin: 1.5rem 0; font-size: clamp(3.5rem, 6.6vw, 6.3rem); line-height: .95; letter-spacing: -.045em; }
   .hero-mission { max-width: 40rem; margin: 0; color: var(--color-graphite); font-size: clamp(1rem, 1.4vw, 1.17rem); line-height: 1.7; }
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-block: 1.8rem 2rem; }

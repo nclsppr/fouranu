@@ -4,6 +4,19 @@ Ce fichier trace chaque changement livré avec son impact observable. Git reste
 la source du diff technique exhaustif et les ADR expliquent les décisions
 importantes.
 
+## 2026-11-11 - Candidat pétrins et Ooni, non publié
+
+- Halo Core/Pro à la une avec deux achats distincts ; entrée « Pétrins » et
+  guide FR/EN/DE fondé sur des pâtons de 250 ou 280 g.
+- Volt 2, Koda 2 et Koda 2 Pro remontés dans les cinq fours sélectionnés ;
+  leurs articles relient désormais le choix du four à la préparation de pâte.
+- Faux comparatif photographique de ciseaux retiré ; nouvel en-tête original
+  en attente de validation humaine, sans fausse déclaration d’approbation.
+- Comparatif Halo : retrait de l’affirmation d’unicité du face-à-face,
+  exemple de dix pâtons de 250 ou 280 g et lien vers le nouveau guide.
+- Contrôles navigateur élargis aux pétrins, aux trois Ooni et aux ciseaux.
+  Le candidat ne doit pas être confondu avec la version actuellement publiée.
+
 ## 2026-11-10 - Dernière passe de lisibilité et réponses publiques
 
 - Les textes autour des achats sont raccourcis avec `clean-copy` : titres

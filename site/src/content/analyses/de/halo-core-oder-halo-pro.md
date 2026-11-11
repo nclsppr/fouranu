@@ -13,7 +13,7 @@ type: decision
 author: nicolas
 commercialObjects: [ooni-halo-core, ooni-halo-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-halo-core-ou-halo-pro-1600.webp
@@ -27,10 +27,10 @@ evidenceTypes:
   - T-OBS
   - FAN-INF
 limitations:
-  - Der einzige veröffentlichte Direktvergleich zwischen Halo Core und Halo Pro ist eine bezahlte Zusammenarbeit ohne ausreichend vollständiges Protokoll für eine Gleichwertigkeitsaussage.
-  - Am 24. August 2026 lagen zum Halo Core nur wenige Wochen Erfahrung vor.
+  - Der hier zitierte Vergleich von Sourdough Etc. ist eine bezahlte Zusammenarbeit ohne ausreichend vollständiges Protokoll für eine Gleichwertigkeitsaussage.
+  - Die zitierten Beobachtungen sind datiert und keine langfristige Untersuchung der Haltbarkeit.
   - Preise und Lagerbestände können sich nach dem Prüfdatum ändern.
-  - Die verfügbaren Quellen erlauben keinen Vergleich von Haltbarkeit, Geräusch oder Stromverbrauch der beiden Geräte.
+  - Die hier verwendeten Quellen erlauben keinen Vergleich von Haltbarkeit, Geräusch oder Stromverbrauch der beiden Geräte.
 ---
 
 ## Unsere Einschätzung in Kürze
@@ -222,10 +222,10 @@ Mehl noch zu warmen Teig oder eine schlecht geplante Gärung.
 
 ## Grenzen dieser Analyse
 
-Wir haben diese Knetmaschinen nicht selbst ausprobiert. Zum Halo Core lagen am
-24. August 2026 nur wenige Wochen Erfahrung vor, und keine unabhängige Quelle
-vergleicht beide Halo mit demselben Mehl, derselben Hydration, derselben
-Endtemperatur und mehreren Wiederholungen.
+Wir haben diese Knetmaschinen nicht selbst ausprobiert. Die hier dokumentierten
+Quellen liefern keinen wiederholten Vergleich beider Halo mit demselben Mehl,
+derselben Hydration und derselben Endtemperatur. Das beschreibt unsere
+Quellenauswahl, nicht sämtliche veröffentlichten Videos zu diesen Geräten.
 
 Die hier versammelten Quellen unterscheiden weder Geräusch, Verbrauch noch
 Verschleiß. Unsere Präferenz für den Core beruht auf seinem für zu Hause
@@ -234,3 +234,12 @@ praktischeren Teigbereich.
 ## Budget für die übrige Ausrüstung lassen
 
 Die Knetmaschine ist ein eigener Posten neben dem Ofen. Stellen Sie ihren tatsächlichen Preis vor dem Kauf neben Ihr [gesamtes Ausrüstungsbudget](/de/pizzaoefen/pizzaofen-gesamtkosten/): Ofen, Installation und fehlende Werkzeuge. Core oder Pro sollten sich nach Ihrer Teigmenge richten; keines der Geräte verlangt automatisch einen größeren Ofen oder ein größeres Paket.
+
+## 250 g oder 280 g: zehn Pizzen ergeben unterschiedliche Teigmengen
+
+Zehn Teiglinge à 250 g ergeben 2,5 kg Teig, die angegebene Höchstmenge des Core.
+Bei 280 g pro Pizza benötigt dieselbe Runde 2,8 kg: in Chargen aufteilen oder
+den Pro wählen. Unser [Ratgeber für Pizzateig-Knetmaschinen](/de/pizzateig-knetmaschinen/)
+vergleicht Mengen für zwei bis zwanzig Pizzen. Zählen Sie das Gesamtgewicht
+einschließlich Wasser und weiterer Zutaten und beachten Sie die Rezeptgrenzen
+der Bedienungsanleitung.

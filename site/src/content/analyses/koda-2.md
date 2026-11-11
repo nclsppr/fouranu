@@ -13,7 +13,7 @@ author: magali
 model: Ooni Koda 2
 commercialObjects: [ooni-koda-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-09-07
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
@@ -121,3 +121,7 @@ Pour une installation fixe et de plus grandes pizzas, le [duel Koda 2 Pro / Gozn
 Si la contrainte est de cuisiner dedans, le [comparatif Volt 2, Sage et Cuisinart](/fours-a-pizza/volt-2-sage-ou-cuisinart/) devient le bon point de départ. Le Koda 2 reste un four extérieur ; changer de combustible change d’abord l’installation.
 
 Pour le garder dans votre sélection, vérifiez sa profondeur exacte, les dégagements, le raccordement France et une pelle adaptée. Le [budget complet](/fours-a-pizza/budget-complet-four-pizza/) aide ensuite à comparer un équipement prêt à servir, plutôt que le prix du four seul.
+
+## Préparer la pâte pendant que le four attend
+
+Pour une soirée à plusieurs, prévoyez aussi la quantité de pâte et la place des bacs. Notre [guide des pétrins à pizza](/petrins-pizza/) aide à choisir entre Halo Core et Halo Pro à partir du poids réel des pâtons. Le pétrin reste un achat distinct : il sert si vos fournées et votre fréquence le justifient.

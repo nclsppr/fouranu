@@ -13,7 +13,7 @@ author: florian
 model: Ooni Koda 2 Pro
 commercialObjects: [ooni-koda-2-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-pro-1600.webp
@@ -29,6 +29,8 @@ limitations:
 ---
 
 ## Plenty of room, but not for everyone
+
+**A large pizza to share, room to turn it and a setup that stays on the terrace: those are the reasons to consider the Koda 2 Pro.** Its stated 45 cm cooking format and U-shaped burner give a concrete reason to move up the range. Before ordering, check the table and clearances: this 30 kg oven calls for a lasting outdoor cooking station.
 
 <figure class="article-media">
   <img
@@ -105,3 +107,7 @@ cited videos use different doughs, temperatures and rhythms. They do not show
 how many pizzas the oven can produce consistently in succession. Our
 conclusion concerns the relationship between the large format, U-shaped flame
 and footprint, without claiming first-hand Four à Nu experience.
+
+## Plan the dough as well as the oven
+
+When cooking for a group, plan the dough quantity and space for proofing boxes too. Our [pizza mixer guide](/en/pizza-dough-mixers/) helps choose between Halo Core and Halo Pro using the actual dough-ball weight. A mixer is a separate purchase, justified by your batch sizes and frequency.

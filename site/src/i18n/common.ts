@@ -180,6 +180,7 @@ export const SHELL_COPY = {
     languageNavAria: "Changer de langue",
     switchTo: (language: string) => `Afficher cette page en ${language}`,
     nav: {
+      mixers: "Pétrins",
       accessories: "Accessoires",
       ovens: "Fours",
       ooni: "Ooni",
@@ -210,6 +211,7 @@ export const SHELL_COPY = {
     languageNavAria: "Change language",
     switchTo: (language: string) => `View this page in ${language}`,
     nav: {
+      mixers: "Mixers",
       accessories: "Accessories",
       ovens: "Ovens",
       ooni: "Ooni",
@@ -240,6 +242,7 @@ export const SHELL_COPY = {
     languageNavAria: "Sprache wechseln",
     switchTo: (language: string) => `Diese Seite auf ${language} anzeigen`,
     nav: {
+      mixers: "Knetmaschinen",
       accessories: "Zubehör",
       ovens: "Öfen",
       ooni: "Ooni",

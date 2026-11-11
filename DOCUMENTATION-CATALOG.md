@@ -11,7 +11,7 @@ Moteur déclaré : `nimbus`.
 | Documentation du projet | `internal` | 17 |
 | Décisions | `internal` | 11 |
 | Barrières de publication | `internal` | 2 |
-| Notes de recherche | `internal` | 1 |
+| Notes de recherche | `internal` | 2 |
 | Brouillons éditoriaux du site | `internal` | 99 |
 | Socle vendorisé | `reference` | 6 |
 | Maintenance Nimbus | `reference` | 1 |
@@ -58,6 +58,7 @@ Moteur déclaré : `nimbus`.
 ## Notes de recherche
 
 - [research/amazon-pizza-ovens-2026-08-31.md](research/amazon-pizza-ovens-2026-08-31.md)
+- [research/marketing-petrins-2026-11-11.md](research/marketing-petrins-2026-11-11.md)
 
 ## Brouillons éditoriaux du site
 

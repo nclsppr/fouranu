@@ -12,7 +12,7 @@ type: decision
 author: nicolas
 commercialObjects: [ooni-halo-core, ooni-halo-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-halo-core-ou-halo-pro-1600.webp
@@ -26,10 +26,10 @@ evidenceTypes:
   - T-OBS
   - FAN-INF
 limitations:
-  - Le seul face-à-face publié entre Halo Core et Halo Pro est une collaboration rémunérée sans protocole assez complet pour conclure à une équivalence.
-  - Le Halo Core n'a que quelques semaines de recul au 24 août 2026.
+  - Le face-à-face Sourdough Etc. cité ici est une collaboration rémunérée sans protocole assez complet pour conclure à une équivalence.
+  - Les observations citées sont datées et ne constituent pas un suivi de durabilité.
   - Les prix et stocks peuvent changer après la date de vérification.
-  - Les sources disponibles ne permettent pas de comparer la durabilité, le bruit ou la consommation électrique des deux appareils.
+  - Les sources retenues ici ne permettent pas de comparer la durabilité, le bruit ou la consommation électrique des deux appareils.
 ---
 
 ## Notre lecture en bref
@@ -225,10 +225,10 @@ une farine mal choisie, une pâte trop chaude ou une fermentation mal planifiée
 
 ## Limites de cette analyse
 
-Nous n'avons pas essayé ces pétrins nous-mêmes. Le Halo Core n'a que quelques
-semaines de recul au 24 août 2026, et aucune source indépendante ne compare les
-deux Halo avec la même farine, la même hydratation, la même température finale
-et plusieurs répétitions.
+Nous n'avons pas essayé ces pétrins nous-mêmes. Le corpus documenté ici ne
+fournit pas de comparaison répétée des deux Halo avec la même farine, la même
+hydratation et la même température finale. Ce constat décrit les sources
+retenues, pas l'ensemble des vidéos publiées sur ces appareils.
 
 Les sources réunies ici ne départagent ni le bruit, ni la consommation, ni
 l'usure. Notre préférence pour le Core vient de sa plage de pâte plus pratique
@@ -237,3 +237,11 @@ l'usure. Notre préférence pour le Core vient de sa plage de pâte plus pratiqu
 ## Garder de la place dans le budget pour le reste
 
 Le pétrin est un poste distinct du four. Avant de l’ajouter, mettez son prix réel à côté de votre [budget complet d’équipement](/fours-a-pizza/budget-complet-four-pizza/) : four, installation et outils manquants. Le choix Core ou Pro doit répondre à vos quantités de pâte ; il ne rend pas automatiquement nécessaire un four ou un pack plus grand.
+
+## 250 g ou 280 g : dix pizzas ne font pas toujours la même fournée
+
+Dix pâtons de 250 g représentent 2,5 kg de pâte, le maximum annoncé du Core.
+À 280 g par pizza, la même tablée demande 2,8 kg : il faut fractionner le
+pétrissage ou passer au Pro. Notre [guide des pétrins à pizza](/petrins-pizza/)
+met les quantités face à face, de deux à vingt pizzas. Comptez le poids total
+de pâte, eau et autres ingrédients compris, et respectez la notice de votre recette.

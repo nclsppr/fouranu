@@ -1,5 +1,6 @@
 ---
 import HomePage from "@/pages/index.astro";
+import MixersPage from "@/pages/petrins-pizza/index.astro";
 import AccessoriesPage from "@/pages/accessoires-pizza/index.astro";
 import OvensPage from "@/pages/fours-a-pizza/index.astro";
 import OoniPage from "@/pages/ooni/index.astro";
@@ -50,6 +51,7 @@ const authorIds = {
   authorMagali: "magali",
 } as const;
 const pageComponents = {
+  mixers: MixersPage,
   home: HomePage,
   accessories: AccessoriesPage,
   ovens: OvensPage,

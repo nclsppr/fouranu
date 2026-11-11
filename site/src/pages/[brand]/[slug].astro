@@ -205,7 +205,7 @@ const schema = {
         </div>
       </header>
 
-      {useEditorialImage && <figure class="article-lead-media">
+      {useEditorialImage && <figure class="article-lead-media" data-uncropped={articleId === "ACC-002" ? "" : undefined}>
         <div class="article-lead-media__image">
           <img
             src={entry.data.image!.src}
@@ -386,6 +386,22 @@ const schema = {
     height: 100%;
     min-height: 22rem;
     object-fit: cover;
+  }
+
+  .article-lead-media[data-uncropped] {
+    align-self: center;
+    min-height: 0;
+  }
+
+  .article-lead-media[data-uncropped] .article-lead-media__image {
+    flex: none;
+    min-height: 0;
+  }
+
+  .article-lead-media[data-uncropped] img {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
 
   .article-lead-media figcaption {

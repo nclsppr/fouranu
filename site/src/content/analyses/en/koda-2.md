@@ -14,7 +14,7 @@ author: magali
 model: Ooni Koda 2
 commercialObjects: [ooni-koda-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-09-07
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-1600.webp
@@ -119,3 +119,7 @@ For a fixed installation and larger pizzas, the [Koda 2 Pro / Gozney Arc XL comp
 If cooking indoors is the constraint, the [Volt 2, Sage and Cuisinart comparison](/en/pizza-ovens/volt-2-sage-or-cuisinart/) becomes the right starting point. The Koda 2 remains an outdoor oven; changing fuel first changes the installation.
 
 To keep it on your shortlist, verify the exact depth, clearances, French gas connection and suitable peel. The [complete budget](/en/pizza-ovens/pizza-oven-full-budget/) then helps compare ready-to-use equipment instead of the oven price alone.
+
+## Plan the dough as well as the oven
+
+When cooking for a group, plan the dough quantity and space for proofing boxes too. Our [pizza mixer guide](/en/pizza-dough-mixers/) helps choose between Halo Core and Halo Pro using the actual dough-ball weight. A mixer is a separate purchase, justified by your batch sizes and frequency.

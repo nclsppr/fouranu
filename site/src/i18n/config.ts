@@ -31,6 +31,11 @@ export const LOCALE_INFO = {
 }>;
 
 export const STATIC_ROUTES = {
+  mixers: {
+    fr: "/petrins-pizza/",
+    en: "/en/pizza-dough-mixers/",
+    de: "/de/pizzateig-knetmaschinen/",
+  },
   home: {
     fr: "/",
     en: "/en/",

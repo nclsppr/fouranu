@@ -3,6 +3,35 @@
 Ce fichier décrit la réalité observée. Les capacités futures restent dans
 [`ROADMAP.md`](ROADMAP.md).
 
+## Candidat du 11 novembre 2026 : pétrins, Ooni et ciseaux
+
+Préparé depuis `d199e720cd9857c8421d6a9e8adf07907c1ffa04` dans un checkout
+isolé ; les modifications antérieures du checkout utilisateur sont préservées.
+Le candidat ajoute le guide pétrins et sa navigation FR/EN/DE, sept actions
+Amazon à la une, et la priorité aux fours Ooni documentés. Les images de
+ciseaux fictives sont remplacées dans le candidat par une illustration
+générique. L’en-tête garde l’image entière dans les trois langues.
+
+Le [relevé marketing](research/marketing-petrins-2026-11-11.md) couvre aussi
+les fours sur YouTube et documente les sept fiches Amazon.fr vérifiées le
+11 novembre. Les deux Halo et les deux Koda avaient une offre en stock vendue
+par Ooni GmbH lors de cette session. Le Volt 2 était proposé via les autres
+offres. Le relevé reste daté et aucun état de stock n’est rendu sur le site.
+
+Le propriétaire a validé le visuel et le paquet de la [PR 6](https://github.com/nclsppr/fouranu/pull/6)
+au commit `c79239109408c1c3613187297d80ce9c476374f0` le 11 novembre. Les médias
+`AS-3114` et `AS-3115` portent cette décision et leurs URL de publication.
+Leurs empreintes et le contenu éditorial du paquet approuvé sont conservés.
+
+La revue locale de l’interface a couvert 195 parcours Chromium à cinq
+largeurs, puis 30 parcours pétrins et ciseaux après les corrections de
+lecture clavier et de cadrage. Les contrôles du candidat après approbation
+et du commit servi sont suivis dans la CI de la PR et de `main`.
+Le runner GitHub a rencontré des échecs de résolution du miroir Ubuntu lors
+de l’installation de Chromium. La CI exécute les mêmes parcours avant et
+après déploiement dans l’image officielle Playwright épinglée, avec Chromium
+et ses dépendances déjà installés.
+
 ## Référence
 
 | Champ | Valeur |

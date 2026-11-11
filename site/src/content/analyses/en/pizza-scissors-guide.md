@@ -13,13 +13,13 @@ type: guide
 author: magali
 commercialObjects: [dreamfarm-scizza, triangle-50491, gefu-pezzo-12641, fackelmann-pizza-scissors-25]
 publishedAt: 2026-08-30
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
-  src: /images/articles/accessoires-ciseaux-pizza-1600.webp
-  alt: "Open pizza scissors beside several slices arranged on a large serving board"
-  caption: "Original Four à Nu editorial illustration."
-  assetId: AS-3110
+  src: /images/articles/accessoires-ciseaux-pizza-service-v2-1600.webp
+  alt: "Generic closed kitchen scissors with black handles beside a sliced pizza on a wooden board"
+  caption: "Original Four à Nu editorial illustration. Generic scissors, generated scene."
+  assetId: AS-3114
 evidenceIds: [EV-0810, EV-0811, EV-0812, EV-0813, EV-0814, EV-0815, EV-0816, EV-0817, EV-0818]
 evidenceTypes:
   - FAB
@@ -54,24 +54,6 @@ budget, with less detailed documentation.
 > before ordering.
 
 ## Four answers, not four steps on a podium
-
-<figure class="article-media">
-  <img
-    src="/images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp"
-    srcset="/images/articles/accessoires-ciseaux-pizza-comparatif-960.webp 960w, /images/articles/accessoires-ciseaux-pizza-comparatif-1600.webp 1600w"
-    sizes="(max-width: 48rem) 100vw, 48rem"
-    width="1600"
-    height="900"
-    loading="lazy"
-    decoding="async"
-    alt="Four generic pizza-scissor shapes, with a shoe, raised handles, a serving paddle and black handles"
-  />
-  <figcaption>
-    <strong>The geometry changes the movement.</strong>
-    Original Four à Nu editorial illustration; the shapes represent the types
-    compared, not the commercial models.
-  </figcaption>
-</figure>
 
 | Model | When we would consider it | Main limitation |
 | --- | --- | --- |

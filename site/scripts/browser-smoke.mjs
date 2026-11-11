@@ -41,6 +41,12 @@ const viewports = [
   { width: 1440, height: 900 },
 ];
 const routes = LOCALES.flatMap((locale) => [
+  { locale, key: "mixers", path: STATIC_ROUTES.mixers[locale] },
+  { locale, key: "OONI-040", path: articleRoute("OONI-040", locale), article: true },
+  { locale, key: "OONI-010", path: articleRoute("OONI-010", locale), article: true },
+  { locale, key: "OONI-011", path: articleRoute("OONI-011", locale), article: true },
+  { locale, key: "OONI-018", path: articleRoute("OONI-018", locale), article: true },
+  { locale, key: "ACC-002", path: articleRoute("ACC-002", locale), article: true },
   { locale, key: "home", path: STATIC_ROUTES.home[locale] },
   { locale, key: "accessories", path: STATIC_ROUTES.accessories[locale] },
   { locale, key: "ovens", path: STATIC_ROUTES.ovens[locale] },

@@ -76,13 +76,14 @@ export const INDEXING_ENABLED =
   import.meta.env.PUBLIC_SITE_INDEXABLE === "true";
 
 export const SITE_SURFACE_UPDATED_AT = "2026-09-08";
-export const SITE_HOME_UPDATED_AT = "2026-11-10";
+export const SITE_HOME_UPDATED_AT = "2026-11-11";
 export const SITE_ABOUT_UPDATED_AT = "2026-09-08";
 export const SITE_AUTHORS_UPDATED_AT = SITE_SURFACE_UPDATED_AT;
 export const SITE_ACCESSORIES_UPDATED_AT = "2026-11-10";
 export const SITE_COMMERCE_UPDATED_AT = "2026-11-10";
 
 export const FIXED_INDEXABLE_ROUTES = [
+  { path: "/petrins-pizza/", modified: "2026-11-11" },
   { path: "/", modified: SITE_HOME_UPDATED_AT },
   { path: "/accessoires-pizza/", modified: SITE_ACCESSORIES_UPDATED_AT },
   { path: "/a-propos/", modified: SITE_ABOUT_UPDATED_AT },

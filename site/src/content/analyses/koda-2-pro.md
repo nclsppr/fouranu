@@ -12,7 +12,7 @@ author: florian
 model: Ooni Koda 2 Pro
 commercialObjects: [ooni-koda-2-pro]
 publishedAt: 2026-08-24
-updatedAt: 2026-08-31
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-koda-2-pro-1600.webp
@@ -28,6 +28,8 @@ limitations:
 ---
 
 ## Beaucoup de place, mais pas pour tout le monde
+
+**Une grande pizza à partager, de la place pour la tourner et une installation qui reste sur la terrasse : voilà les raisons de regarder le Koda 2 Pro.** Sa surface annoncée de 45 cm et son brûleur en U donnent une raison concrète de monter en gamme. Avant de commander, vérifiez surtout la table et les dégagements : ce four de 30 kg se choisit comme un poste de cuisson durable.
 
 <figure class="article-media">
   <img
@@ -108,3 +110,7 @@ différents. Elles ne montrent pas combien de pizzas le four peut enchaîner de
 façon régulière. Notre conclusion porte
 sur le rapport entre le grand format, la flamme en U et l'encombrement, sans
 revendiquer une expérience propre à Four à Nu.
+
+## Préparer la pâte pendant que le four attend
+
+Pour une soirée à plusieurs, prévoyez aussi la quantité de pâte et la place des bacs. Notre [guide des pétrins à pizza](/petrins-pizza/) aide à choisir entre Halo Core et Halo Pro à partir du poids réel des pâtons. Le pétrin reste un achat distinct : il sert si vos fournées et votre fréquence le justifient.

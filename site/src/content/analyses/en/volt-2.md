@@ -14,7 +14,7 @@ author: florian
 model: Ooni Volt 2
 commercialObjects: [ooni-volt-2]
 publishedAt: 2026-08-24
-updatedAt: 2026-09-07
+updatedAt: 2026-11-11
 indexable: true
 image:
   src: /images/articles/ooni-volt-2-1600.webp
@@ -111,3 +111,7 @@ Keep the Volt 2 on your list if its varied modes match your recipes and the inst
 The [Cuisinart CPZ120E](/en/pizza-ovens/cuisinart-cpz120e/) includes starting tools; the [Sage Pizzaiolo](/en/pizza-ovens/sage-pizzaiolo-bpz820/) provides separate control of stone and upper heat. Our [indoor comparison](/en/pizza-ovens/volt-2-sage-or-cuisinart/) brings together those differences and dated official prices.
 
 Finish with the [full budget](/en/pizza-ovens/pizza-oven-full-budget/): remove equipment you already have, add only what is missing and distinguish rated power from an evening’s electricity consumption.
+
+## Plan the dough as well as the oven
+
+When cooking for a group, plan the dough quantity and space for proofing boxes too. Our [pizza mixer guide](/en/pizza-dough-mixers/) helps choose between Halo Core and Halo Pro using the actual dough-ball weight. A mixer is a separate purchase, justified by your batch sizes and frequency.

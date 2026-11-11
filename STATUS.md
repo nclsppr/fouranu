@@ -27,6 +27,10 @@ La revue locale de l’interface a couvert 195 parcours Chromium à cinq
 largeurs, puis 30 parcours pétrins et ciseaux après les corrections de
 lecture clavier et de cadrage. Les contrôles du candidat après approbation
 et du commit servi sont suivis dans la CI de la PR et de `main`.
+Le runner GitHub a rencontré des échecs de résolution du miroir Ubuntu lors
+de l’installation de Chromium. La CI exécute les mêmes parcours avant et
+après déploiement dans l’image officielle Playwright épinglée, avec Chromium
+et ses dépendances déjà installés.
 
 ## Référence
 

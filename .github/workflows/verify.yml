@@ -46,16 +46,10 @@ jobs:
           curl --fail --silent --show-error http://127.0.0.1:4321/health
           curl --fail --silent --show-error http://127.0.0.1:4321/robots.txt
 
-      - name: Install browser checks
-        run: |
-          npm install --prefix "$RUNNER_TEMP/fouranu-browser" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.61.1
-          node "$RUNNER_TEMP/fouranu-browser/node_modules/playwright/cli.js" install --with-deps chromium
-
       - name: Verify browser journeys
         env:
-          FOURANU_PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/fouranu-browser/package.json
           FOURANU_BROWSER_OUTPUT: ${{ runner.temp }}/fouranu-browser-results
-        run: node site/scripts/browser-smoke.mjs
+        run: bash scripts/verify-browser-ci.sh
 
       - name: Upload browser evidence
         if: always()
@@ -146,18 +140,12 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Install browser checks
-        run: |
-          npm install --prefix "$RUNNER_TEMP/fouranu-browser" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright@1.61.1
-          node "$RUNNER_TEMP/fouranu-browser/node_modules/playwright/cli.js" install --with-deps chromium
-
       - name: Verify published release and browser journeys
         env:
           FOURANU_BROWSER_BASE_URL: https://fouranu.com
           FOURANU_BROWSER_EXPECTED_RELEASE_SHA: ${{ github.sha }}
-          FOURANU_PLAYWRIGHT_PACKAGE: ${{ runner.temp }}/fouranu-browser/package.json
           FOURANU_BROWSER_OUTPUT: ${{ runner.temp }}/fouranu-production-results
-        run: node site/scripts/browser-smoke.mjs
+        run: bash scripts/verify-browser-ci.sh
 
       - name: Upload production browser evidence
         if: always()
